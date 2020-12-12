@@ -280,7 +280,7 @@ const getApplicationTableOptions = (data) => ({
 
 $('document').ready(async () => {
   // Fetch raw json so we can combine multiple keys/sets
-  const response = await fetch('/data.json')
+  const response = await fetch('/index/data.json')
   const json = await response.json()
 
   // ANIME SITES ------------------------------
