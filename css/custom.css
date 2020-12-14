@@ -642,3 +642,45 @@ input {
 .navbar-inverse .navbar-offcanvas .navmenu-nav > .active > a:focus {
   background-color: #404040 !important;
 }
+
+/* Fixes the fixed header turning white while scrolling */
+table.fixedHeader-locked {
+    position: absolute !important;
+    background-color: #101010;
+}
+
+/* Flexbox to put the nav-pills and the search on the same line */
+#tab-nav {
+    display: flex;
+}
+
+.nav .nav-pills .nav-fill {
+    display:flex
+}
+
+/* Pulls the search bar to the far right */
+#tab-nav div:last-child {
+    margin-left: auto;
+}
+
+/* Resizes the search to be a bit less chunky */
+#animeTableSearch {
+    height: 30px;
+    width: 200px;
+}
+
+/* Flex parent to center the WIP disclaimer */
+.flex-parent {
+  display: flex;
+  justify-content: center;
+}
+
+/* Stylizes the well warning for the WIP disclaimer */
+#wip-warning {
+  width: 1000px;
+  background-color: rgb(233 90 90 / 4%);
+  border: 1px solid #f7484847;
+  color: #bababa;
+  text-align: left;
+}
+
