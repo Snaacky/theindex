@@ -2716,6 +2716,7 @@
       "isAntiAdblock": "N",
       "siteLanguage": "",
       "hasSubs": "",
+      "isMobileFriendly": "",
       "otherLanguages": ""
     },
     {
@@ -2725,6 +2726,7 @@
       "isAntiAdblock": "N",
       "siteLanguage": "",
       "hasSubs": "",
+      "isMobileFriendly": "",
       "otherLanguages": ""
     }
   ],
