@@ -319,7 +319,7 @@ $('document').ready(async () => {
   // APPLICATIONS ------------------------------
   const iosApplicationsTable = $('#iosApplications').DataTable(getApplicationTableOptions(json.iOSApplications))
   const androidApplicationsTable = $('#androidApplications').DataTable(getApplicationTableOptions(json.androidApplications))
-  const mangaApplicationsTable = $('#mangaApplications').DataTable(getApplicationTableOptions(json.mangaApplications))
+  const windowsApplicationsTable = $('#windowsApplications').DataTable(getApplicationTableOptions(json.windowsApplications))
   const macOSXApplicationsTable = $('#macApplications').DataTable(getApplicationTableOptions(json.macOSApplications))
   const browserExtensionsTable = $('#browserExtensionsTable').DataTable(getApplicationTableOptions(json.browserExtensions))
 

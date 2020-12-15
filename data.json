@@ -2837,7 +2837,7 @@
       "siteFeatures": ""
     }
   ],
-  "mangaApplications": [
+  "windowsApplications": [
     {
       "siteName": "Anime Downloader",
       "siteAddresses": "https://github.com/vn-ki/anime-downloader",
