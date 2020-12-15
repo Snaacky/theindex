@@ -178,6 +178,7 @@ const getVisualNovelTableOptions = (data) => ({
     { data: 'isAntiAdblock' },
     { data: 'siteLanguage' },
     { data: 'hasSubs' },
+    { data: 'isMobileFriendly' },
     { data: 'otherLanguages' }
   ],
   columnDefs: [
