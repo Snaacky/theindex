@@ -646,7 +646,7 @@ input {
 /* Fixes the fixed header turning white while scrolling */
 table.fixedHeader-locked {
     position: absolute !important;
-    background-color: #101010;
+    background-color: #111111!important;
 }
 
 /* Flexbox to put the nav-pills and the search on the same line */
