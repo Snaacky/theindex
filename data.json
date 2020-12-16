@@ -673,27 +673,6 @@
       "editorNotes": ""
     },
     {
-      "siteName": "FastAni",
-      "siteAddresses": "https://fastani.net",
-      "hasAds": "N",
-      "isAntiAdblock": "N",
-      "hasDubs": "N",
-      "hasSubs": "Y",
-      "otherLanguages": "-",
-      "360p": "N",
-      "480p": "N",
-      "720p": "N",
-      "1080p": "Y",
-      "hasReleaseSchedule": "N",
-      "hasDirectDownloads": "N",
-      "hasBatchDownloads": "N",
-      "isMobileFriendly": "",
-      "malSyncSupport": "N",
-      "hasWatermarks": "N",
-      "hasDisqusSupport": "N",
-      "editorNotes": ""
-    },
-    {
       "siteName": "GoGoAnime",
       "siteAddresses": "https://gogoanime.io, https://gogoanime1.com",
       "hasAds": "Y",

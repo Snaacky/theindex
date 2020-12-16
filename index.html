@@ -8,6 +8,7 @@
     <title>/r/AnimePiracy Index</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="css/three-dots.css" />
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/fh-3.1.6/r-2.2.3/sl-1.3.1/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="css/table.css" />
@@ -290,17 +291,16 @@
         </div>
     </div>
     <script src="js/bootstrap.js"></script>
-    <script>
-    const hideAll = () => {
-        document.getElementById('animeTables').style.display = 'none'
-        document.getElementById('mangaTables').style.display = 'none'
-        document.getElementById('lightNovelTables').style.display = 'none'
-        document.getElementById('applicationsTables').style.display = 'none'
-    }
-    window.onload = () => {
-        hideAll()
-        document.getElementById('animeTables').style.display = 'block'
-    }
+     <script>
+      const hideAll = (duration = 500, hideAnime = true) => {
+        if (hideAnime) { $("#animeTables").hide(duration) }
+
+        $("#mangaTables").hide(duration)
+        $("#lightNovelTables").hide(duration)
+        $("#applicationsTables").hide(duration)
+
+      }
+      hideAll(0, false)
     </script>
     <script async defer data-domain="ranimepiracy.github.io/index" src="https://plausible.io/js/plausible.js"></script>
 </body>
