@@ -1,6 +1,6 @@
 const getAnimeTableOptions = (data) => ({
   ajax: {
-    url: 'index/data.json',
+    url: 'data.json',
     dataSrc: data,
     cache: false
   },
@@ -126,7 +126,7 @@ const getMangaTableOptions = (data) => ({
 
 const getLightNovelTableOptions = (data) => ({
   ajax: {
-    url: 'index/data.json',
+    url: 'data.json',
     dataSrc: data,
     cache: false
   },
@@ -175,7 +175,7 @@ const getLightNovelTableOptions = (data) => ({
 
 const getVisualNovelTableOptions = (data) => ({
   ajax: {
-    url: 'index/data.json',
+    url: 'data.json',
     dataSrc: data,
     cache: false
   },
@@ -233,7 +233,7 @@ const getVisualNovelTableOptions = (data) => ({
 
 const getApplicationTableOptions = (data) => ({
   ajax: {
-    url: 'index/data.json',
+    url: 'data.json',
     dataSrc: data,
     cache: false
   },
@@ -290,7 +290,7 @@ const getApplicationTableOptions = (data) => ({
 
 const loadTables = async () => {
   // Fetch raw json so we can combine multiple keys/sets
-  const response = await fetch('/index/data.json')
+  const response = await fetch('/data.json')
   const json = await response.json()
   // ANIME SITES ------------------------------
   const animeEnglishTable = $('#animeEnglishTable').DataTable(getAnimeTableOptions('englishAnimeSites'))
