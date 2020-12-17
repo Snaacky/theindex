@@ -2851,15 +2851,7 @@
             "hasSimKLSupport": "N",
             "siteFeatures": "Download Anime and Manga | For PC"
         },
-        {
-            "siteName": "HDoujin Downloader",
-            "siteAddresses": "https://doujindownloader.com/",
-            "hasMalSupport": "N",
-            "hasAnilistSupport": "N",
-            "hasKitsuSupport": "N",
-            "hasSimKLSupport": "N",
-            "siteFeatures": "Download Manga"
-        },
+        {},
         {
             "siteName": "MangaRipper",
             "siteAddresses": "https://github.com/NguyenDanPhuong/MangaRipper",
