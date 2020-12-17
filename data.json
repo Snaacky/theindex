@@ -2,10 +2,7 @@
     "englishAnimeSites": [
         {
             "siteName": "9Anime",
-            "siteAddresses": [
-                "https://9anime.to",
-                "https://9anime.ru"
-            ],
+            "siteAddresses": "https://9anime.to, ",
             "360p": "N",
             "480p": "N",
             "720p": "Y",
@@ -22,7 +19,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "Huge library. Can find older and rare shows.",
-            "otherLanguages": "-"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Anime8",
