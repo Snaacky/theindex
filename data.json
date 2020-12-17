@@ -9,7 +9,6 @@
             "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "otherLanguages": "-",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
@@ -19,7 +18,8 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "Huge library. Can find older and rare shows."
+            "editorNotes": "Huge library. Can find older and rare shows.",
+            "otherLanguages": "-"
         },
         {
             "siteName": "Anime8",
