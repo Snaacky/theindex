@@ -2836,11 +2836,11 @@
         {
             "siteName": "Free Manga Downloader",
             "siteAddresses": "https://github.com/riderkick/FMD",
-            "hasMalSupport": "N",
+            "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
-            "siteFeatures": "Download Manga | Convertible to PDF"
+            "siteFeatures": "undefined"
         },
         {
             "siteName": "HakuNeko",
