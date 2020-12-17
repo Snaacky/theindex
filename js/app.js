@@ -303,7 +303,7 @@ const loadTables = async () => {
     animeDownloadTable.tables().search($(this).val()).draw()
   })
   // MANGA SITES ------------------------------
-  const mangaTable = $('#mangaTable').DataTable(getMangaTableOptions([...json.englishMangaSites, ...json.foreignMangeSites]))
+  const mangaTable = $('#mangaTable').DataTable(getMangaTableOptions([...json.englishMangaSites, ...json.foreignMangaSites]))
   const scansTable = $('#scansTable').DataTable(getMangaTableOptions([...json.englishMangaScans, ...json.foreignMangaScans]))
   // Handles using a single search bar for multiple tables
   $('#mangaTableSearch').on('keyup click', function () {
