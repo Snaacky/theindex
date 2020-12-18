@@ -2,7 +2,9 @@
     "englishAnimeSites": [
         {
             "siteName": "4Anime",
-            "siteAddresses": "https://4anime.to",
+            "siteAddresses": [
+                "https://4anime.to"
+            ],
             "360p": "N",
             "480p": "Y",
             "720p": "Y",
@@ -23,14 +25,16 @@
         },
         {
             "siteName": "9Anime",
-            "siteAddresses": "https://9anime.to https://9anime.ru",
+            "siteAddresses": [
+                "https://9anime.to",
+                "https://9anime.ru"
+            ],
             "360p": "N",
             "480p": "N",
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "otherLanguages": "-",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
@@ -40,11 +44,13 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "Huge library. Can find older and rare shows."
+            "editorNotes": "Huge library. Can find older and rare shows.",
         },
         {
             "siteName": "Anime8",
-            "siteAddresses": "https://anime8.ru",
+            "siteAddresses": [
+                "https://anime8.ru"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -65,7 +71,9 @@
         },
         {
             "siteName": "Animebam",
-            "siteAddresses": "https://animebam.se",
+            "siteAddresses": [
+                "https://animebam.se"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -86,7 +94,9 @@
         },
         {
             "siteName": "AnimeDaisuki",
-            "siteAddresses": "https://animedaisuki.moe",
+            "siteAddresses": [
+                "https://animedaisuki.moe"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -107,7 +117,9 @@
         },
         {
             "siteName": "AnimeDao",
-            "siteAddresses": "https://animedao.to",
+            "siteAddresses": [
+                "https://animedao.to"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -128,7 +140,9 @@
         },
         {
             "siteName": "Animefever",
-            "siteAddresses": "https://animefever.tv",
+            "siteAddresses": [
+                "https://animefever.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "Y",
             "hasDubs": "N",
@@ -149,7 +163,9 @@
         },
         {
             "siteName": "Animeflix",
-            "siteAddresses": "http://animeflix.io",
+            "siteAddresses": [
+                "http://animeflix.io"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -170,7 +186,9 @@
         },
         {
             "siteName": "Animefreak",
-            "siteAddresses": "https://animefreak.tv",
+            "siteAddresses": [
+                "https://animefreak.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -191,7 +209,9 @@
         },
         {
             "siteName": "AnimeFrenzy",
-            "siteAddresses": "https://animefrenzy.net",
+            "siteAddresses": [
+                "https://animefrenzy.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -212,7 +232,9 @@
         },
         {
             "siteName": "AnimeHub",
-            "siteAddresses": "https://animehub.ac",
+            "siteAddresses": [
+                "https://animehub.ac"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -233,7 +255,9 @@
         },
         {
             "siteName": "AnimeKisa",
-            "siteAddresses": "https://animekisa.tv",
+            "siteAddresses": [
+                "https://animekisa.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -254,7 +278,9 @@
         },
         {
             "siteName": "Animelon",
-            "siteAddresses": "https://animelon.com",
+            "siteAddresses": [
+                "https://animelon.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "?",
@@ -275,7 +301,9 @@
         },
         {
             "siteName": "AnimeOwl",
-            "siteAddresses": "https://animeowl.net",
+            "siteAddresses": [
+                "https://animeowl.net"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -296,7 +324,9 @@
         },
         {
             "siteName": "Animepahe",
-            "siteAddresses": "https://animepahe.com",
+            "siteAddresses": [
+                "https://animepahe.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -317,7 +347,9 @@
         },
         {
             "siteName": "AnimePill",
-            "siteAddresses": "https://animepill.com",
+            "siteAddresses": [
+                "https://animepill.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -338,7 +370,9 @@
         },
         {
             "siteName": "Animereborn",
-            "siteAddresses": "https://animereborn.net",
+            "siteAddresses": [
+                "https://animereborn.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -359,7 +393,9 @@
         },
         {
             "siteName": "AnimeRush",
-            "siteAddresses": "https://animerush.tv",
+            "siteAddresses": [
+                "https://animerush.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -380,7 +416,9 @@
         },
         {
             "siteName": "Anime Saga",
-            "siteAddresses": "https://animesa.ga",
+            "siteAddresses": [
+                "https://animesa.ga"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "Y",
             "hasDubs": "Y",
@@ -401,7 +439,9 @@
         },
         {
             "siteName": "AnimeSeries",
-            "siteAddresses": "https://animeseries.io",
+            "siteAddresses": [
+                "https://animeseries.io"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -422,7 +462,9 @@
         },
         {
             "siteName": "AnimeShow",
-            "siteAddresses": "https://animeshow.tv",
+            "siteAddresses": [
+                "https://animeshow.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "Y",
             "hasDubs": "N",
@@ -443,7 +485,9 @@
         },
         {
             "siteName": "Anime Simple",
-            "siteAddresses": "https://animesimple.com",
+            "siteAddresses": [
+                "https://animesimple.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -464,7 +508,9 @@
         },
         {
             "siteName": "Animetake",
-            "siteAddresses": "https://animetake.tv",
+            "siteAddresses": [
+                "https://animetake.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -485,7 +531,9 @@
         },
         {
             "siteName": "Anime Twist",
-            "siteAddresses": "https://twist.moe",
+            "siteAddresses": [
+                "https://twist.moe"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -506,7 +554,9 @@
         },
         {
             "siteName": "AnimeUltima",
-            "siteAddresses": "https://animeultima.to",
+            "siteAddresses": [
+                "https://animeultima.to"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -527,7 +577,9 @@
         },
         {
             "siteName": "AnimeVibe",
-            "siteAddresses": "https://animevibe.tv",
+            "siteAddresses": [
+                "https://animevibe.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -548,7 +600,9 @@
         },
         {
             "siteName": "AniMixPlay",
-            "siteAddresses": "https://animixplay.to",
+            "siteAddresses": [
+                "https://animixplay.to"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -569,7 +623,9 @@
         },
         {
             "siteName": "Aniwatch",
-            "siteAddresses": "https://aniwatch.me",
+            "siteAddresses": [
+                "https://aniwatch.me"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -590,7 +646,9 @@
         },
         {
             "siteName": "Aniwatcher",
-            "siteAddresses": "https://aniwatcher.com",
+            "siteAddresses": [
+                "https://aniwatcher.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -611,7 +669,9 @@
         },
         {
             "siteName": "Chia-Anime",
-            "siteAddresses": "http://chia-anime.me",
+            "siteAddresses": [
+                "http://chia-anime.me"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -632,7 +692,9 @@
         },
         {
             "siteName": "Dark Anime",
-            "siteAddresses": "https://darkanime.stream",
+            "siteAddresses": [
+                "https://darkanime.stream"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -653,7 +715,9 @@
         },
         {
             "siteName": "Dubbed Anime",
-            "siteAddresses": "https://dubbedanime.net",
+            "siteAddresses": [
+                "https://dubbedanime.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -674,7 +738,10 @@
         },
         {
             "siteName": "GoGoAnime",
-            "siteAddresses": "https://gogoanime.io, https://gogoanime1.com",
+            "siteAddresses": [
+                "https://gogoanime.io,",
+                "https://gogoanime1.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -695,7 +762,9 @@
         },
         {
             "siteName": "Kawaiifu",
-            "siteAddresses": "https://kawaiifu.com",
+            "siteAddresses": [
+                "https://kawaiifu.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -716,7 +785,9 @@
         },
         {
             "siteName": "KimCartoon ",
-            "siteAddresses": "https://kimcartoon.to",
+            "siteAddresses": [
+                "https://kimcartoon.to"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -737,7 +808,9 @@
         },
         {
             "siteName": "Pantsubase TV",
-            "siteAddresses": "https://pantsubase.tv",
+            "siteAddresses": [
+                "https://pantsubase.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -758,7 +831,9 @@
         },
         {
             "siteName": "Proxer",
-            "siteAddresses": "https://proxer.me",
+            "siteAddresses": [
+                "https://proxer.me"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -779,7 +854,9 @@
         },
         {
             "siteName": "Ryuanime",
-            "siteAddresses": "https://ryuanime.com",
+            "siteAddresses": [
+                "https://ryuanime.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -800,7 +877,9 @@
         },
         {
             "siteName": "SGAnime",
-            "siteAddresses": "https://sganime.org",
+            "siteAddresses": [
+                "https://sganime.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -821,7 +900,9 @@
         },
         {
             "siteName": "Shiro",
-            "siteAddresses": "https://shiro.is",
+            "siteAddresses": [
+                "https://shiro.is"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -842,7 +923,9 @@
         },
         {
             "siteName": "SimplyAWeeb",
-            "siteAddresses": "https://simplyaweeb.com",
+            "siteAddresses": [
+                "https://simplyaweeb.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -863,7 +946,9 @@
         },
         {
             "siteName": "WatchCartoonOnline",
-            "siteAddresses": "https://watchcartoononline.io",
+            "siteAddresses": [
+                "https://watchcartoononline.io"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -886,7 +971,9 @@
     "foreignAnimeSites": [
         {
             "siteName": "AniCity TV",
-            "siteAddresses": "https://ani-city.tv",
+            "siteAddresses": [
+                "https://ani-city.tv"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -907,7 +994,9 @@
         },
         {
             "siteName": "AniFlix",
-            "siteAddresses": "https://aniflix.tv",
+            "siteAddresses": [
+                "https://aniflix.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -928,7 +1017,9 @@
         },
         {
             "siteName": "Anime4Up",
-            "siteAddresses": "https://anime4up.com",
+            "siteAddresses": [
+                "https://anime4up.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -949,7 +1040,9 @@
         },
         {
             "siteName": "Anime4You ",
-            "siteAddresses": "https://anime4you.one",
+            "siteAddresses": [
+                "https://anime4you.one"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -970,7 +1063,9 @@
         },
         {
             "siteName": "AnimeFLV ",
-            "siteAddresses": "https://animeflv.net",
+            "siteAddresses": [
+                "https://animeflv.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -991,7 +1086,9 @@
         },
         {
             "siteName": "AnimeKom",
-            "siteAddresses": "https://animekom.com",
+            "siteAddresses": [
+                "https://animekom.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1012,7 +1109,9 @@
         },
         {
             "siteName": "animeSilver",
-            "siteAddresses": "https://animesilver.com",
+            "siteAddresses": [
+                "https://animesilver.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1033,7 +1132,9 @@
         },
         {
             "siteName": "AnimeStream",
-            "siteAddresses": "https://animestream.in",
+            "siteAddresses": [
+                "https://animestream.in"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1054,7 +1155,9 @@
         },
         {
             "siteName": "AnimeWorld",
-            "siteAddresses": "https://animeworld.tv",
+            "siteAddresses": [
+                "https://animeworld.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1075,7 +1178,9 @@
         },
         {
             "siteName": "AnyAnime",
-            "siteAddresses": "https://ww8.anyanime.com",
+            "siteAddresses": [
+                "https://ww8.anyanime.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1096,7 +1201,9 @@
         },
         {
             "siteName": "AniSenpai",
-            "siteAddresses": "https://anisenpai.net",
+            "siteAddresses": [
+                "https://anisenpai.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1117,7 +1224,9 @@
         },
         {
             "siteName": "Branitube",
-            "siteAddresses": "https://branitube.net",
+            "siteAddresses": [
+                "https://branitube.net"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1138,7 +1247,9 @@
         },
         {
             "siteName": "Burning Series",
-            "siteAddresses": "https://bs.to",
+            "siteAddresses": [
+                "https://bs.to"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1159,7 +1270,9 @@
         },
         {
             "siteName": "EgyAnime",
-            "siteAddresses": "https://egyanime.com",
+            "siteAddresses": [
+                "https://egyanime.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1180,7 +1293,9 @@
         },
         {
             "siteName": "Mavanimes",
-            "siteAddresses": "http://mavanimes.co",
+            "siteAddresses": [
+                "http://mavanimes.co"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1201,7 +1316,9 @@
         },
         {
             "siteName": "OKanime",
-            "siteAddresses": "https://okanime.com",
+            "siteAddresses": [
+                "https://okanime.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1222,7 +1339,9 @@
         },
         {
             "siteName": "Serien",
-            "siteAddresses": "https://s.to",
+            "siteAddresses": [
+                "https://s.to"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1243,7 +1362,9 @@
         },
         {
             "siteName": "Shahiid Anime",
-            "siteAddresses": "https://shahiid-anime.net",
+            "siteAddresses": [
+                "https://shahiid-anime.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1264,7 +1385,9 @@
         },
         {
             "siteName": "Turk Anime",
-            "siteAddresses": "http://turkanime.tv",
+            "siteAddresses": [
+                "http://turkanime.tv"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1285,7 +1408,9 @@
         },
         {
             "siteName": "Univers-Anime",
-            "siteAddresses": "https://universanimeiz.com",
+            "siteAddresses": [
+                "https://universanimeiz.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1306,7 +1431,9 @@
         },
         {
             "siteName": "VoirAnime",
-            "siteAddresses": "http://voiranime.com",
+            "siteAddresses": [
+                "http://voiranime.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1327,7 +1454,9 @@
         },
         {
             "siteName": "XSanime",
-            "siteAddresses": "https://xsanime.com",
+            "siteAddresses": [
+                "https://xsanime.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1348,7 +1477,9 @@
         },
         {
             "siteName": "Zimabdko",
-            "siteAddresses": "https://zimabdko.com",
+            "siteAddresses": [
+                "https://zimabdko.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1371,7 +1502,9 @@
     "animeDownloadSites": [
         {
             "siteName": "AniChiraku",
-            "siteAddresses": "https://anichiraku.ru",
+            "siteAddresses": [
+                "https://anichiraku.ru"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1392,7 +1525,9 @@
         },
         {
             "siteName": "AniDex [Torrent Only]",
-            "siteAddresses": "https://anidex.info",
+            "siteAddresses": [
+                "https://anidex.info"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1413,7 +1548,9 @@
         },
         {
             "siteName": "AniDL",
-            "siteAddresses": "https://anidl.org",
+            "siteAddresses": [
+                "https://anidl.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1434,7 +1571,9 @@
         },
         {
             "siteName": "Anime Archive",
-            "siteAddresses": "https://anime-archive.com",
+            "siteAddresses": [
+                "https://anime-archive.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "",
@@ -1455,7 +1594,9 @@
         },
         {
             "siteName": "AnimeKaizoku",
-            "siteAddresses": "https://animekaizoku.com",
+            "siteAddresses": [
+                "https://animekaizoku.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1476,7 +1617,9 @@
         },
         {
             "siteName": "AnimEncodes",
-            "siteAddresses": "https://animencodes.com",
+            "siteAddresses": [
+                "https://animencodes.com"
+            ],
             "360p": "N",
             "480p": "Y",
             "720p": "Y",
@@ -1494,17 +1637,12 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "",
-            "isEnglish": "---",
-            "hasTachiyomiSupport": "---",
-            "hasMalSupport": "---",
-            "hasAnilistSupport": "---",
-            "hasKitsuSupport": "---",
-            "hasSimKLSupport": "---",
-            "siteFeatures": ""
         },
         {
             "siteName": "AnimeKayo",
-            "siteAddresses": "https://animekayo.com",
+            "siteAddresses": [
+                "https://animekayo.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1525,7 +1663,9 @@
         },
         {
             "siteName": "AnimeList ",
-            "siteAddresses": "http://animelist.pw",
+            "siteAddresses": [
+                "http://animelist.pw"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1546,7 +1686,9 @@
         },
         {
             "siteName": "AnimeOut",
-            "siteAddresses": "https://animeout.xyz",
+            "siteAddresses": [
+                "https://animeout.xyz"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1567,7 +1709,9 @@
         },
         {
             "siteName": "Anime Tosho [Torrent Only]",
-            "siteAddresses": "https://animetosho.org",
+            "siteAddresses": [
+                "https://animetosho.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1588,7 +1732,9 @@
         },
         {
             "siteName": "CoolsAnime",
-            "siteAddresses": "https://coolsanime.org",
+            "siteAddresses": [
+                "https://coolsanime.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1609,7 +1755,9 @@
         },
         {
             "siteName": "Dead Toons India",
-            "siteAddresses": "https://deadtoonsindia.net",
+            "siteAddresses": [
+                "https://deadtoonsindia.net"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "-",
@@ -1630,7 +1778,9 @@
         },
         {
             "siteName": "Erai-Raws",
-            "siteAddresses": "https://erai-raws.info",
+            "siteAddresses": [
+                "https://erai-raws.info"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1651,7 +1801,9 @@
         },
         {
             "siteName": "Hi10Anime",
-            "siteAddresses": "https://hi10anime.com",
+            "siteAddresses": [
+                "https://hi10anime.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1672,7 +1824,9 @@
         },
         {
             "siteName": "MegatronEncodes",
-            "siteAddresses": "https://megatronencodes.com",
+            "siteAddresses": [
+                "https://megatronencodes.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1693,7 +1847,9 @@
         },
         {
             "siteName": "nibl [IRC]",
-            "siteAddresses": "https://nibl.co.uk/bots.php",
+            "siteAddresses": [
+                "https://nibl.co.uk/bots.php"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "?",
@@ -1714,7 +1870,9 @@
         },
         {
             "siteName": "Nyaa [Torrent Only]",
-            "siteAddresses": "https://nyaa.si",
+            "siteAddresses": [
+                "https://nyaa.si"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1735,7 +1893,9 @@
         },
         {
             "siteName": "SubsPlease [Torrent Only]",
-            "siteAddresses": "https://subsplease.org",
+            "siteAddresses": [
+                "https://subsplease.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1756,7 +1916,9 @@
         },
         {
             "siteName": "TakAnimeList",
-            "siteAddresses": "http://takanimelist.live",
+            "siteAddresses": [
+                "http://takanimelist.live"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1777,7 +1939,9 @@
         },
         {
             "siteName": "The Hylia",
-            "siteAddresses": "https://anime.thehylia.com",
+            "siteAddresses": [
+                "https://anime.thehylia.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1798,7 +1962,9 @@
         },
         {
             "siteName": "Tokyo Toshokan [Torrent Only]",
-            "siteAddresses": "https://tokyotosho.info",
+            "siteAddresses": [
+                "https://tokyotosho.info"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "Y",
@@ -1819,7 +1985,9 @@
         },
         {
             "siteName": "YggTorrent [Torrent Only]",
-            "siteAddresses": "https://yggtorrent.me",
+            "siteAddresses": [
+                "https://yggtorrent.me"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "hasDubs": "N",
@@ -1842,7 +2010,9 @@
     "englishMangaSites": [
         {
             "siteName": "1st Kiss",
-            "siteAddresses": "https://1stkissmanga.com",
+            "siteAddresses": [
+                "https://1stkissmanga.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1853,7 +2023,9 @@
         },
         {
             "siteName": "Chibi Manga Reader",
-            "siteAddresses": "http://cmreader.info",
+            "siteAddresses": [
+                "http://cmreader.info"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1864,7 +2036,9 @@
         },
         {
             "siteName": "FanFox",
-            "siteAddresses": "https://fanfox.net",
+            "siteAddresses": [
+                "https://fanfox.net"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1875,7 +2049,9 @@
         },
         {
             "siteName": "MangaDex",
-            "siteAddresses": "https://mangadex.org",
+            "siteAddresses": [
+                "https://mangadex.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1886,7 +2062,9 @@
         },
         {
             "siteName": "MangaFreak",
-            "siteAddresses": "https://w11.mangafreak.net",
+            "siteAddresses": [
+                "https://w11.mangafreak.net"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1897,7 +2075,9 @@
         },
         {
             "siteName": "MangaKakalot",
-            "siteAddresses": "https://mangakakalot.com",
+            "siteAddresses": [
+                "https://mangakakalot.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1908,7 +2088,9 @@
         },
         {
             "siteName": "Manga Here",
-            "siteAddresses": "http://mangahere.cc",
+            "siteAddresses": [
+                "http://mangahere.cc"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1919,7 +2101,9 @@
         },
         {
             "siteName": "Mangakomi",
-            "siteAddresses": "https://mangakomi.com",
+            "siteAddresses": [
+                "https://mangakomi.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -1930,7 +2114,9 @@
         },
         {
             "siteName": "MangaLife",
-            "siteAddresses": "https://manga4life.com",
+            "siteAddresses": [
+                "https://manga4life.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -1941,7 +2127,9 @@
         },
         {
             "siteName": "MangaLinkz",
-            "siteAddresses": "https://mangalinkz.com",
+            "siteAddresses": [
+                "https://mangalinkz.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "",
@@ -1952,7 +2140,9 @@
         },
         {
             "siteName": "MangaNelo",
-            "siteAddresses": "https://manganelo.com",
+            "siteAddresses": [
+                "https://manganelo.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -1963,7 +2153,9 @@
         },
         {
             "siteName": "MangaPanda",
-            "siteAddresses": "https://mangapanda.com",
+            "siteAddresses": [
+                "https://mangapanda.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -1974,7 +2166,9 @@
         },
         {
             "siteName": "MangaPark",
-            "siteAddresses": "https://mangapark.net",
+            "siteAddresses": [
+                "https://mangapark.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -1985,7 +2179,9 @@
         },
         {
             "siteName": "MANGA Plus by SHUEISHA",
-            "siteAddresses": "https://mangaplus.shueisha.co.jp/updates",
+            "siteAddresses": [
+                "https://mangaplus.shueisha.co.jp/updates"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -1996,7 +2192,9 @@
         },
         {
             "siteName": "MangaReader",
-            "siteAddresses": "https://mangareader.net",
+            "siteAddresses": [
+                "https://mangareader.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2007,7 +2205,9 @@
         },
         {
             "siteName": "MangaSee",
-            "siteAddresses": "https://mangaseeonline.us",
+            "siteAddresses": [
+                "https://mangaseeonline.us"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2018,7 +2218,9 @@
         },
         {
             "siteName": "MangaZUKi",
-            "siteAddresses": "https://mangazuki.me",
+            "siteAddresses": [
+                "https://mangazuki.me"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2029,7 +2231,9 @@
         },
         {
             "siteName": "MyReadingManga",
-            "siteAddresses": "https://myreadingmanga.info",
+            "siteAddresses": [
+                "https://myreadingmanga.info"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2040,7 +2244,9 @@
         },
         {
             "siteName": "Nine Manga",
-            "siteAddresses": "http://ninemanga.com",
+            "siteAddresses": [
+                "http://ninemanga.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2051,7 +2257,9 @@
         },
         {
             "siteName": "ReadComicOnline",
-            "siteAddresses": "https://readcomiconline.to",
+            "siteAddresses": [
+                "https://readcomiconline.to"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2062,7 +2270,9 @@
         },
         {
             "siteName": "readm",
-            "siteAddresses": "https://readm.org",
+            "siteAddresses": [
+                "https://readm.org"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -2073,7 +2283,9 @@
         },
         {
             "siteName": "ReadManhwa",
-            "siteAddresses": "https://readmanhua.net",
+            "siteAddresses": [
+                "https://readmanhua.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2084,7 +2296,9 @@
         },
         {
             "siteName": "SimplyAWeeb",
-            "siteAddresses": "https://simplyaweeb.com/manga",
+            "siteAddresses": [
+                "https://simplyaweeb.com/manga"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -2095,7 +2309,9 @@
         },
         {
             "siteName": "WEBTOON",
-            "siteAddresses": "https://webtoons.com",
+            "siteAddresses": [
+                "https://webtoons.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2106,7 +2322,9 @@
         },
         {
             "siteName": "WuxiaWorld",
-            "siteAddresses": "https://wuxiaworld.site",
+            "siteAddresses": [
+                "https://wuxiaworld.site"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2117,7 +2335,9 @@
         },
         {
             "siteName": "KissManga",
-            "siteAddresses": "https://kissmanga.com",
+            "siteAddresses": [
+                "https://kissmanga.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "Y",
             "isEnglish": "Y",
@@ -2130,7 +2350,9 @@
     "foreignMangaSites": [
         {
             "siteName": "DLRaw [Download Only]",
-            "siteAddresses": "https://dlraw.net",
+            "siteAddresses": [
+                "https://dlraw.net"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "-",
@@ -2141,7 +2363,9 @@
         },
         {
             "siteName": "KomikGo",
-            "siteAddresses": "https://komikgo.com",
+            "siteAddresses": [
+                "https://komikgo.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2152,7 +2376,9 @@
         },
         {
             "siteName": "Komikid",
-            "siteAddresses": "http://komikid.com",
+            "siteAddresses": [
+                "http://komikid.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2163,7 +2389,9 @@
         },
         {
             "siteName": "Leomanga",
-            "siteAddresses": "https://leomanga.me",
+            "siteAddresses": [
+                "https://leomanga.me"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2174,7 +2402,9 @@
         },
         {
             "siteName": "Mangas Yuri",
-            "siteAddresses": "https://mangasyuri.net",
+            "siteAddresses": [
+                "https://mangasyuri.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2185,7 +2415,9 @@
         },
         {
             "siteName": "YokaJump",
-            "siteAddresses": "yokaijump.fr",
+            "siteAddresses": [
+                "yokaijump.fr"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2198,7 +2430,9 @@
     "englishMangaScans": [
         {
             "siteName": "Anata no Motokare",
-            "siteAddresses": "http://motokare.xyz/reader",
+            "siteAddresses": [
+                "http://motokare.xyz/reader"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2209,7 +2443,9 @@
         },
         {
             "siteName": "AOC Translations",
-            "siteAddresses": "https://aoc.moe",
+            "siteAddresses": [
+                "https://aoc.moe"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2220,7 +2456,9 @@
         },
         {
             "siteName": "Arc-Relight",
-            "siteAddresses": "https://arc-relight.com",
+            "siteAddresses": [
+                "https://arc-relight.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2231,7 +2469,9 @@
         },
         {
             "siteName": "Death Toll Scans",
-            "siteAddresses": "https://deathtollscans.net",
+            "siteAddresses": [
+                "https://deathtollscans.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2242,7 +2482,9 @@
         },
         {
             "siteName": "Doki Fansubs",
-            "siteAddresses": "https://doki.co",
+            "siteAddresses": [
+                "https://doki.co"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2253,7 +2495,9 @@
         },
         {
             "siteName": "Evil Flowers",
-            "siteAddresses": "http://reader.evilflowers.com",
+            "siteAddresses": [
+                "http://reader.evilflowers.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2264,7 +2508,9 @@
         },
         {
             "siteName": "Fallen Angels",
-            "siteAddresses": "https://manga.fascans.com",
+            "siteAddresses": [
+                "https://manga.fascans.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isEnglish": "Y",
@@ -2275,7 +2521,9 @@
         },
         {
             "siteName": "Helvetica Scans",
-            "siteAddresses": "https://helveticascans.com",
+            "siteAddresses": [
+                "https://helveticascans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2286,7 +2534,9 @@
         },
         {
             "siteName": "Hunlight Scans",
-            "siteAddresses": "https://hunlight-scans.info",
+            "siteAddresses": [
+                "https://hunlight-scans.info"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2297,7 +2547,9 @@
         },
         {
             "siteName": "IsekaiScan",
-            "siteAddresses": "https://isekaiscan.com",
+            "siteAddresses": [
+                "https://isekaiscan.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2308,7 +2560,9 @@
         },
         {
             "siteName": "Kirei Cake",
-            "siteAddresses": "https://reader.kireicake.com",
+            "siteAddresses": [
+                "https://reader.kireicake.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2319,7 +2573,9 @@
         },
         {
             "siteName": "LetItGo Scans",
-            "siteAddresses": "https://reader.letitgo.scans.today",
+            "siteAddresses": [
+                "https://reader.letitgo.scans.today"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2330,7 +2586,9 @@
         },
         {
             "siteName": "Leviatan Scans",
-            "siteAddresses": "https://leviatanscans.com",
+            "siteAddresses": [
+                "https://leviatanscans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2341,7 +2599,9 @@
         },
         {
             "siteName": "Mangatellers",
-            "siteAddresses": "http://mangatellers.gr",
+            "siteAddresses": [
+                "http://mangatellers.gr"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2352,7 +2612,9 @@
         },
         {
             "siteName": "Mangasushi",
-            "siteAddresses": "https://mangasushi.net",
+            "siteAddresses": [
+                "https://mangasushi.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2363,7 +2625,9 @@
         },
         {
             "siteName": "Manga SY",
-            "siteAddresses": "https://mangasy.com",
+            "siteAddresses": [
+                "https://mangasy.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2374,7 +2638,9 @@
         },
         {
             "siteName": "One Time Scans",
-            "siteAddresses": "https://otscans.com",
+            "siteAddresses": [
+                "https://otscans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2385,7 +2651,9 @@
         },
         {
             "siteName": "Sense-Scans",
-            "siteAddresses": "http://sensescans.com",
+            "siteAddresses": [
+                "http://sensescans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2396,7 +2664,9 @@
         },
         {
             "siteName": "Silent Sky",
-            "siteAddresses": "https://silentsky-scans.net",
+            "siteAddresses": [
+                "https://silentsky-scans.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2407,7 +2677,9 @@
         },
         {
             "siteName": "The Cat Scans",
-            "siteAddresses": "http://reader2.thecatscans.com",
+            "siteAddresses": [
+                "http://reader2.thecatscans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2418,7 +2690,9 @@
         },
         {
             "siteName": "WhimSubs",
-            "siteAddresses": "https://whimsubs.xyz",
+            "siteAddresses": [
+                "https://whimsubs.xyz"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2429,7 +2703,9 @@
         },
         {
             "siteName": "White Cloud Pavilion",
-            "siteAddresses": "https://whitecloudpavilion.com",
+            "siteAddresses": [
+                "https://whitecloudpavilion.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2440,7 +2716,9 @@
         },
         {
             "siteName": "Wowe Scans",
-            "siteAddresses": "https://wowescans.co",
+            "siteAddresses": [
+                "https://wowescans.co"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2451,7 +2729,9 @@
         },
         {
             "siteName": "Zero Scans",
-            "siteAddresses": "https://zeroscans.com",
+            "siteAddresses": [
+                "https://zeroscans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2462,7 +2742,9 @@
         },
         {
             "siteName": "Zin Translator ",
-            "siteAddresses": "https://zinmanga.com",
+            "siteAddresses": [
+                "https://zinmanga.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "Y",
@@ -2475,7 +2757,9 @@
     "foreignMangaScans": [
         {
             "siteName": "Fallen Angels Scans",
-            "siteAddresses": "https://truyen.fascans.com",
+            "siteAddresses": [
+                "https://truyen.fascans.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2486,7 +2770,9 @@
         },
         {
             "siteName": "Kanjiku",
-            "siteAddresses": "https://kanjiku.net",
+            "siteAddresses": [
+                "https://kanjiku.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2497,7 +2783,9 @@
         },
         {
             "siteName": "Lupi Team",
-            "siteAddresses": "https://lupiteam.net",
+            "siteAddresses": [
+                "https://lupiteam.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2508,7 +2796,9 @@
         },
         {
             "siteName": "Mangadoor",
-            "siteAddresses": "http://mangadoor.com",
+            "siteAddresses": [
+                "http://mangadoor.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2519,7 +2809,9 @@
         },
         {
             "siteName": "Russification / Русификация",
-            "siteAddresses": "http://rusmanga.ru",
+            "siteAddresses": [
+                "http://rusmanga.ru"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2530,7 +2822,9 @@
         },
         {
             "siteName": "Scan FR",
-            "siteAddresses": "https://scan-fr.co",
+            "siteAddresses": [
+                "https://scan-fr.co"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isEnglish": "-",
@@ -2541,7 +2835,9 @@
         },
         {
             "siteName": "ScanTrad",
-            "siteAddresses": "https://scantrad.fr",
+            "siteAddresses": [
+                "https://scantrad.fr"
+            ],
             "hasAds": "",
             "isAntiAdblock": "N",
             "isEnglish": "-",
@@ -2554,91 +2850,117 @@
     "lightNovels": [
         {
             "siteName": "Armaell's Library",
-            "siteAddresses": "https://armaell-library.net",
+            "siteAddresses": [
+                "https://armaell-library.net"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isMobileFriendly": ""
         },
         {
             "siteName": "Just Light Novels",
-            "siteAddresses": "https://justlightnovels.com",
+            "siteAddresses": [
+                "https://justlightnovels.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
         },
         {
             "siteName": "Light Novel World",
-            "siteAddresses": "https://lightnovelworld.com",
+            "siteAddresses": [
+                "https://lightnovelworld.com"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y"
         },
         {
             "siteName": "LNWNCentral",
-            "siteAddresses": "https://lnwncentral.wordpress.com",
+            "siteAddresses": [
+                "https://lnwncentral.wordpress.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y"
         },
         {
             "siteName": "Mp4Directs",
-            "siteAddresses": "https://mp4directs.com",
+            "siteAddresses": [
+                "https://mp4directs.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isMobileFriendly": ""
         },
         {
             "siteName": "MTL Novel",
-            "siteAddresses": "https://mtlnovel.com",
+            "siteAddresses": [
+                "https://mtlnovel.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
         },
         {
             "siteName": "NovelPortal",
-            "siteAddresses": "https://novelportal.com",
+            "siteAddresses": [
+                "https://novelportal.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
         },
         {
             "siteName": "Novel Updates",
-            "siteAddresses": "https://novelupdates.com",
+            "siteAddresses": [
+                "https://novelupdates.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isMobileFriendly": ""
         },
         {
             "siteName": "ReadLightNovel",
-            "siteAddresses": "https://readlightnovel.org",
+            "siteAddresses": [
+                "https://readlightnovel.org"
+            ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y"
         },
         {
             "siteName": "ReadNovelFull",
-            "siteAddresses": "https://readnovelfull.com",
+            "siteAddresses": [
+                "https://readnovelfull.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
         },
         {
             "siteName": "That Novel Corner",
-            "siteAddresses": "https://thatnovelcorner.com",
+            "siteAddresses": [
+                "https://thatnovelcorner.com"
+            ],
             "hasAds": "",
             "isAntiAdblock": "",
             "isMobileFriendly": ""
         },
         {
             "siteName": "WebNovel",
-            "siteAddresses": "https://webnovel.com/",
+            "siteAddresses": [
+                "https://webnovel.com/"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y"
         },
         {
             "siteName": "WuxiaWorld",
-            "siteAddresses": "https://wuxiaworld.com",
+            "siteAddresses": [
+                "https://wuxiaworld.com"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
@@ -2647,7 +2969,9 @@
     "visualNovels": [
         {
             "siteName": "Fuwanovel Torrents",
-            "siteAddresses": "https://catbox.moe/official.php",
+            "siteAddresses": [
+                "https://catbox.moe/official.php"
+            ],
             "hasAds": "N",
             "isAntiAdblock": "N",
             "siteLanguage": "",
@@ -2657,7 +2981,9 @@
         },
         {
             "siteName": "Nitro Blog",
-            "siteAddresses": "https://nblog.org/genre/visual-novel",
+            "siteAddresses": [
+                "https://nblog.org/genre/visual-novel"
+            ],
             "hasAds": "",
             "isAntiAdblock": "N",
             "siteLanguage": "",
@@ -2669,7 +2995,9 @@
     "iOSApplications": [
         {
             "siteName": "AnimeGlare",
-            "siteAddresses": "https://animeglare.xyz",
+            "siteAddresses": [
+                "https://animeglare.xyz"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2678,7 +3006,9 @@
         },
         {
             "siteName": "Manga Man",
-            "siteAddresses": "https://apps.apple.com/us/app/apple-store/id1489839722",
+            "siteAddresses": [
+                "https://apps.apple.com/us/app/apple-store/id1489839722"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2687,7 +3017,9 @@
         },
         {
             "siteName": "Manga Reader",
-            "siteAddresses": "https://apps.apple.com/us/app/manga-reader-manga-viewer/id647701066",
+            "siteAddresses": [
+                "https://apps.apple.com/us/app/manga-reader-manga-viewer/id647701066"
+            ],
             "hasMalSupport": "",
             "hasAnilistSupport": "",
             "hasKitsuSupport": "",
@@ -2696,7 +3028,9 @@
         },
         {
             "siteName": "Nine Animator",
-            "siteAddresses": "https://github.com/SuperMarcus/NineAnimator",
+            "siteAddresses": [
+                "https://github.com/SuperMarcus/NineAnimator"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "Y",
@@ -2705,7 +3039,9 @@
         },
         {
             "siteName": "NovelLoop",
-            "siteAddresses": "https://apps.apple.com/in/app/novelloop/id1170755867",
+            "siteAddresses": [
+                "https://apps.apple.com/in/app/novelloop/id1170755867"
+            ],
             "hasMalSupport": "",
             "hasAnilistSupport": "",
             "hasKitsuSupport": "",
@@ -2714,7 +3050,9 @@
         },
         {
             "siteName": "Paperback",
-            "siteAddresses": "https://apps.apple.com/app/paperback-manga-reader/id1519509781",
+            "siteAddresses": [
+                "https://apps.apple.com/app/paperback-manga-reader/id1519509781"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2723,7 +3061,9 @@
         },
         {
             "siteName": "Taiyaki",
-            "siteAddresses": "https://github.com/Michael24884/TaiYaKiAnime",
+            "siteAddresses": [
+                "https://github.com/Michael24884/TaiYaKiAnime"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2734,7 +3074,9 @@
     "androidApplications": [
         {
             "siteName": "AnimeBoya",
-            "siteAddresses": "https://github.com/Tu2l/Animeboya",
+            "siteAddresses": [
+                "https://github.com/Tu2l/Animeboya"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -2743,7 +3085,9 @@
         },
         {
             "siteName": "Anime DL",
-            "siteAddresses": "http://a.animedlweb.ga",
+            "siteAddresses": [
+                "http://a.animedlweb.ga"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2752,7 +3096,9 @@
         },
         {
             "siteName": "AnimeGlare",
-            "siteAddresses": "https://animeglare.xyz",
+            "siteAddresses": [
+                "https://animeglare.xyz"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2761,7 +3107,9 @@
         },
         {
             "siteName": "AniKo",
-            "siteAddresses": "https://aniko.app",
+            "siteAddresses": [
+                "https://aniko.app"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2770,7 +3118,9 @@
         },
         {
             "siteName": "AnimeZone",
-            "siteAddresses": "https://github.com/spyderbibek/Anime-Zone",
+            "siteAddresses": [
+                "https://github.com/spyderbibek/Anime-Zone"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -2779,7 +3129,9 @@
         },
         {
             "siteName": "AniMixPlay",
-            "siteAddresses": "https://animixplay.to/android/app",
+            "siteAddresses": [
+                "https://animixplay.to/android/app"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2788,7 +3140,9 @@
         },
         {
             "siteName": "AnYme X",
-            "siteAddresses": "https://zunjae.github.io/anymeapp.com",
+            "siteAddresses": [
+                "https://zunjae.github.io/anymeapp.com"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2797,7 +3151,9 @@
         },
         {
             "siteName": "FireAnime",
-            "siteAddresses": "https://github.com/XenTeckzX/FireAnime",
+            "siteAddresses": [
+                "https://github.com/XenTeckzX/FireAnime"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2806,7 +3162,9 @@
         },
         {
             "siteName": "Tachiyomi",
-            "siteAddresses": "https://github.com/inorichi/tachiyomi/releases",
+            "siteAddresses": [
+                "https://github.com/inorichi/tachiyomi/releases"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "Y",
@@ -2815,7 +3173,9 @@
         },
         {
             "siteName": "Taiyaki",
-            "siteAddresses": "https://github.com/Michael24884/TaiYaKiAnime",
+            "siteAddresses": [
+                "https://github.com/Michael24884/TaiYaKiAnime"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2826,7 +3186,9 @@
     "windowsApplications": [
         {
             "siteName": "Anime Downloader",
-            "siteAddresses": "https://github.com/vn-ki/anime-downloader",
+            "siteAddresses": [
+                "https://github.com/vn-ki/anime-downloader"
+            ],
             "hasMalSupport": "",
             "hasAnilistSupport": "",
             "hasKitsuSupport": "",
@@ -2835,16 +3197,20 @@
         },
         {
             "siteName": "Free Manga Downloader",
-            "siteAddresses": "https://github.com/riderkick/FMD",
-            "hasMalSupport": "Y",
+            "siteAddresses": [
+                "https://github.com/riderkick/FMD"
+            ],
+            "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
-            "siteFeatures": "undefined"
+            "siteFeatures": "Download Manga | Convertible to PDF"
         },
         {
             "siteName": "HakuNeko",
-            "siteAddresses": "https://github.com/manga-download/hakuneko",
+            "siteAddresses": [
+                "https://github.com/manga-download/hakuneko"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2852,8 +3218,21 @@
             "siteFeatures": "Download Anime and Manga | For PC"
         },
         {
+            "siteName": "HDoujin Downloader",
+            "siteAddresses": [
+                "https://doujindownloader.com"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "N",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Download Manga"
+        },
+        {
             "siteName": "MangaRipper",
-            "siteAddresses": "https://github.com/NguyenDanPhuong/MangaRipper",
+            "siteAddresses": [
+                "https://github.com/NguyenDanPhuong/MangaRipper"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2862,7 +3241,9 @@
         },
         {
             "siteName": "Monkey-DL",
-            "siteAddresses": "https://github.com/Oshan96/monkey-dl",
+            "siteAddresses": [
+                "https://github.com/Oshan96/monkey-dl"
+            ],
             "hasMalSupport": "",
             "hasAnilistSupport": "",
             "hasKitsuSupport": "",
@@ -2871,7 +3252,9 @@
         },
         {
             "siteName": "OpenComic",
-            "siteAddresses": "https://github.com/ollm/OpenComic",
+            "siteAddresses": [
+                "https://github.com/ollm/OpenComic"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -2880,7 +3263,9 @@
         },
         {
             "siteName": "Taiga",
-            "siteAddresses": "https://taiga.moe",
+            "siteAddresses": [
+                "https://taiga.moe"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "Y",
@@ -2891,7 +3276,9 @@
     "macOSApplications": [
         {
             "siteName": "HakuNeko",
-            "siteAddresses": "https://github.com/manga-download/hakuneko",
+            "siteAddresses": [
+                "https://github.com/manga-download/hakuneko"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
@@ -2900,7 +3287,9 @@
         },
         {
             "siteName": "OpenComic",
-            "siteAddresses": "https://github.com/ollm/OpenComic",
+            "siteAddresses": [
+                "https://github.com/ollm/OpenComic"
+            ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -2911,7 +3300,9 @@
     "browserExtensions": [
         {
             "siteName": "MAL-Sync",
-            "siteAddresses": "https://chrome.google.com/webstore/detail/mal-sync/kekjfbackdeiabghhcdklcdoekaanoel",
+            "siteAddresses": [
+                "https://chrome.google.com/webstore/detail/mal-sync/kekjfbackdeiabghhcdklcdoekaanoel"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "Y",
