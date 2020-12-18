@@ -1,9 +1,33 @@
 {
     "englishAnimeSites": [
         {
+            "siteName": "4Anime",
+            "siteAddresses": [
+                "https://4anime.to"
+            ],
+            "360p": "N",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "otherLanguages": "-",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": ""
+        },
+        {
             "siteName": "9Anime",
             "siteAddresses": [
-                "https://9anime.to"
+                "https://9anime.to",
+                "https://9anime.ru"
             ],
             "360p": "N",
             "480p": "N",
@@ -21,7 +45,6 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "Huge library. Can find older and rare shows.",
-            "otherLanguages": "---"
         },
         {
             "siteName": "Anime8",
@@ -1614,13 +1637,6 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "",
-            "isEnglish": "---",
-            "hasTachiyomiSupport": "---",
-            "hasMalSupport": "---",
-            "hasAnilistSupport": "---",
-            "hasKitsuSupport": "---",
-            "hasSimKLSupport": "---",
-            "siteFeatures": ""
         },
         {
             "siteName": "AnimeKayo",
@@ -3184,11 +3200,11 @@
             "siteAddresses": [
                 "https://github.com/riderkick/FMD"
             ],
-            "hasMalSupport": "Y",
+            "hasMalSupport": "N",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
-            "siteFeatures": "undefined"
+            "siteFeatures": "Download Manga | Convertible to PDF"
         },
         {
             "siteName": "HakuNeko",
@@ -3200,6 +3216,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Download Anime and Manga | For PC"
+        },
+        {
+            "siteName": "HDoujin Downloader",
+            "siteAddresses": [
+                "https://doujindownloader.com"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "N",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Download Manga"
         },
         {
             "siteName": "MangaRipper",
