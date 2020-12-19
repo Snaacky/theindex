@@ -2549,6 +2549,19 @@
             "hasTachiyomiSupport": "Y"
         },
         {
+            "siteName": "LetItGo Scans",
+            "siteAddresses": [
+                "https://reader.letitgo.scans.today"
+            ],
+            "hasAds": "",
+            "isAntiAdblock": "",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "",
+            "malSyncSupport": "",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
             "siteName": "Leviatan Scans",
             "siteAddresses": [
                 "https://leviatanscans.com"
@@ -2669,19 +2682,6 @@
             "siteName": "White Cloud Pavilion",
             "siteAddresses": [
                 "https://whitecloudpavilion.com"
-            ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "Y",
-            "otherLanguages": "-",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": ""
-        },
-        {
-            "siteName": "Wowe Scans",
-            "siteAddresses": [
-                "https://wowescans.co"
             ],
             "hasAds": "",
             "isAntiAdblock": "",
