@@ -876,29 +876,6 @@
             "editorNotes": ""
         },
         {
-            "siteName": "SGAnime",
-            "siteAddresses": [
-                "https://sganime.org"
-            ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
-            "360p": "?",
-            "480p": "?",
-            "720p": "?",
-            "1080p": "?",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
-            "malSyncSupport": "N",
-            "hasWatermarks": "N",
-            "hasDisqusSupport": "Y",
-            "editorNotes": ""
-        },
-        {
             "siteName": "Shiro",
             "siteAddresses": [
                 "https://shiro.is"
