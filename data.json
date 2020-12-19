@@ -1800,29 +1800,6 @@
             "editorNotes": ""
         },
         {
-            "siteName": "MegatronEncodes",
-            "siteAddresses": [
-                "https://megatronencodes.com"
-            ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
-            "360p": "N",
-            "480p": "N",
-            "720p": "Y",
-            "1080p": "N",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "Y",
-            "isMobileFriendly": "",
-            "malSyncSupport": "N",
-            "hasWatermarks": "-",
-            "hasDisqusSupport": "N",
-            "editorNotes": ""
-        },
-        {
             "siteName": "nibl [IRC]",
             "siteAddresses": [
                 "https://nibl.co.uk/bots.php"
