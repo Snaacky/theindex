@@ -2339,6 +2339,19 @@
             "hasTachiyomiSupport": ""
         },
         {
+            "siteName": "KomikGo",
+            "siteAddresses": [
+                "https://komikgo.com"
+            ],
+            "hasAds": "",
+            "isAntiAdblock": "",
+            "isEnglish": "-",
+            "otherLanguages": "ID",
+            "isMobileFriendly": "",
+            "malSyncSupport": "",
+            "hasTachiyomiSupport": ""
+        },
+        {
             "siteName": "Komikid",
             "siteAddresses": [
                 "http://komikid.com"
@@ -2526,19 +2539,6 @@
             "siteName": "Kirei Cake",
             "siteAddresses": [
                 "https://reader.kireicake.com"
-            ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "Y",
-            "otherLanguages": "-",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": "Y"
-        },
-        {
-            "siteName": "LetItGo Scans",
-            "siteAddresses": [
-                "https://reader.letitgo.scans.today"
             ],
             "hasAds": "",
             "isAntiAdblock": "",
