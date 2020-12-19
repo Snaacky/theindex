@@ -740,26 +740,25 @@
         {
             "siteName": "GoGoAnime",
             "siteAddresses": [
-                "https://gogoanime.io,",
-                "https://gogoanime1.com"
+                "https://gogoanime.io"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "N",
             "480p": "N",
             "720p": "Y",
             "1080p": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": "gogoanime.com is the oldest, gogoanime.io is newest. But both are operated by different people"
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "gogoanime.com is the oldest, gogoanime.io is newest. But both are operated by different people",
+            "otherLanguages": "---"
         },
         {
             "siteName": "Kawaiifu",
