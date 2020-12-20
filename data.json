@@ -2286,19 +2286,6 @@
             "isMobileFriendly": "",
             "malSyncSupport": "",
             "hasTachiyomiSupport": ""
-        },
-        {
-            "siteName": "KissManga",
-            "siteAddresses": [
-                "https://kissmanga.com"
-            ],
-            "hasAds": "Y",
-            "isAntiAdblock": "Y",
-            "isEnglish": "Y",
-            "otherLanguages": "-",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": "Y"
         }
     ],
     "foreignMangaSites": [
