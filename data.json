@@ -2303,19 +2303,6 @@
       "hasTachiyomiSupport": ""
     },
     {
-      "siteName": "KomikGo",
-      "siteAddresses": [
-        "https://komikgo.com"
-      ],
-      "hasAds": "",
-      "isAntiAdblock": "",
-      "isEnglish": "-",
-      "otherLanguages": "ID",
-      "isMobileFriendly": "",
-      "malSyncSupport": "",
-      "hasTachiyomiSupport": ""
-    },
-    {
       "siteName": "Komikid",
       "siteAddresses": [
         "http://komikid.com"
