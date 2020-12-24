@@ -558,23 +558,23 @@
       "siteAddresses": [
         "https://animeultima.to"
       ],
-      "hasAds": "Y",
-      "isAntiAdblock": "N",
-      "hasDubs": "Y",
-      "hasSubs": "Y",
-      "otherLanguages": "-",
       "360p": "Y",
       "480p": "Y",
       "720p": "Y",
       "1080p": "Y",
-      "hasReleaseSchedule": "Y",
-      "hasDirectDownloads": "N",
-      "hasBatchDownloads": "N",
-      "isMobileFriendly": "",
+      "hasDubs": "Y",
+      "hasSubs": "Y",
+      "hasAds": "Y",
+      "isAntiAdblock": "N",
+      "isMobileFriendly": "---",
       "malSyncSupport": "Y",
       "hasWatermarks": "Y",
       "hasDisqusSupport": "N",
-      "editorNotes": "Discord : https://discord.gg/UhEGHaK"
+      "hasReleaseSchedule": "Y",
+      "hasDirectDownloads": "N",
+      "hasBatchDownloads": "N",
+      "editorNotes": "Discord: https://discord.gg/UhEGHaK",
+      "otherLanguages": "---"
     },
     {
       "siteName": "AnimeVibe",
