@@ -1940,25 +1940,25 @@
     {
       "siteName": "YggTorrent [Torrent Only]",
       "siteAddresses": [
-        "https://yggtorrent.me"
+        "https://yggtorrent.si"
       ],
-      "hasAds": "N",
-      "isAntiAdblock": "N",
-      "hasDubs": "N",
-      "hasSubs": "Y",
-      "otherLanguages": "French",
       "360p": "Y",
       "480p": "Y",
       "720p": "Y",
       "1080p": "Y",
+      "hasDubs": "N",
+      "hasSubs": "Y",
+      "hasAds": "N",
+      "isAntiAdblock": "N",
+      "isMobileFriendly": "---",
+      "malSyncSupport": "N",
+      "hasWatermarks": "---",
+      "hasDisqusSupport": "N",
       "hasReleaseSchedule": "N",
       "hasDirectDownloads": "Y",
       "hasBatchDownloads": "Y",
-      "isMobileFriendly": "",
-      "malSyncSupport": "N",
-      "hasWatermarks": "-",
-      "hasDisqusSupport": "N",
-      "editorNotes": ""
+      "editorNotes": "---",
+      "otherLanguages": "French"
     }
   ],
   "englishMangaSites": [
