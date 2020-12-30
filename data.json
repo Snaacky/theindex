@@ -947,7 +947,7 @@
         {
             "siteName": "Picotube",
             "siteAddresses": [
-                "https://picotube.online/"
+                "https://picotube.online"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -965,7 +965,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "",
-            "otherLanguages": "-"
+            "otherLanguages": "---"
         }
     ],
     "foreignAnimeSites": [
