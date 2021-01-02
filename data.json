@@ -750,14 +750,14 @@
             "hasSubs": "Y",
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
+            "isMobileFriendly": "?",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
+            "editorNotes": "?",
             "otherLanguages": "---"
         },
         {
