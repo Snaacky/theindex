@@ -834,23 +834,23 @@
             "siteAddresses": [
                 "https://proxer.me"
             ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "German",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
-            "editorNotes": ""
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "German"
         },
         {
             "siteName": "Ryuanime",
