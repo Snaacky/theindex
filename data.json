@@ -290,7 +290,7 @@
             "hasSubs": "Y",
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
+            "isMobileFriendly": "Y",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
