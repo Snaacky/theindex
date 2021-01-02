@@ -236,23 +236,23 @@
             "siteAddresses": [
                 "https://animehub.ac"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "Y",
             "480p": "N",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "AnimeKisa",
