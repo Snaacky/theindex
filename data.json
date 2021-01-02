@@ -566,7 +566,7 @@
             "hasSubs": "Y",
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
+            "isMobileFriendly": "N",
             "malSyncSupport": "Y",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "N",
