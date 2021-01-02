@@ -696,23 +696,23 @@
             "siteAddresses": [
                 "https://darkanime.stream"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "?",
             "480p": "?",
             "720p": "?",
             "1080p": "?",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "Dubbed Anime",
