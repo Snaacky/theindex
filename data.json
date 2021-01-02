@@ -1982,6 +1982,29 @@
             "hasBatchDownloads": "Y",
             "editorNotes": "?",
             "otherLanguages": "?"
+        },
+        {
+            "siteName": "AnimeK [Torrent Only]",
+            "siteAddresses": [
+                "https://animek.fun/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "",
+            "otherLanguages": "Many"
         }
     ],
     "englishMangaSites": [
