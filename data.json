@@ -604,23 +604,23 @@
             "siteAddresses": [
                 "https://animixplay.to"
             ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "Aniwatch",
