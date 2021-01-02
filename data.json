@@ -650,23 +650,23 @@
             "siteAddresses": [
                 "https://aniwatcher.com"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "?",
             "480p": "?",
             "720p": "Y",
             "1080p": "?",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "Chia-Anime",
