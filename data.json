@@ -1080,6 +1080,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "JustAnime",
+            "siteAddresses": [
+                "https://justanime.app/"
+            ],
+            "360p": "?",
+            "480p": "?",
+            "720p": "?",
+            "1080p": "?",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Many"
         }
     ],
     "foreignAnimeSites": [
