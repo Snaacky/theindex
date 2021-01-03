@@ -2896,9 +2896,9 @@
             "siteAddresses": [
                 "https://mp4directs.com"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isMobileFriendly": ""
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?"
         },
         {
             "siteName": "MTL Novel",
