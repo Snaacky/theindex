@@ -965,6 +965,29 @@
             "hasBatchDownloads": "Y",
             "editorNotes": "",
             "otherLanguages": "---"
+        },
+        {
+            "siteName": "FastAni",
+            "siteAddresses": [
+                "https://fastani.net/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "?",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "-"
         }
     ],
     "foreignAnimeSites": [
