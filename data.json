@@ -1086,10 +1086,10 @@
             "siteAddresses": [
                 "https://justanime.app/"
             ],
-            "360p": "?",
-            "480p": "?",
-            "720p": "?",
-            "1080p": "?",
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
             "hasDubs": "N",
             "hasSubs": "Y",
             "hasAds": "N",
