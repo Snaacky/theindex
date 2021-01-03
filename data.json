@@ -1011,6 +1011,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "-"
+        },
+        {
+            "siteName": "AnimeParadise",
+            "siteAddresses": [
+                "https://animeparadise.cc/"
+            ],
+            "360p": "?",
+            "480p": "?",
+            "720p": "?",
+            "1080p": "?",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "?",
+            "editorNotes": "",
+            "otherLanguages": "-"
         }
     ],
     "foreignAnimeSites": [
