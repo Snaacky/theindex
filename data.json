@@ -26,8 +26,7 @@
         {
             "siteName": "9Anime",
             "siteAddresses": [
-                "https://9anime.to",
-                "https://9anime.ru"
+                "https://9anime.to"
             ],
             "360p": "N",
             "480p": "N",
@@ -35,17 +34,17 @@
             "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "otherLanguages": "-",
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "Y",
+            "isMobileFriendly": "N",
             "malSyncSupport": "Y",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "Huge library. Can find older and rare shows."
+            "editorNotes": "Huge library. Can find older and rare shows.",
+            "otherLanguages": "?"
         },
         {
             "siteName": "Anime8",
@@ -903,23 +902,23 @@
             "siteAddresses": [
                 "https://simplyaweeb.com"
             ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "N",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "?",
+            "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
-            "malSyncSupport": "Y",
-            "hasWatermarks": "",
-            "hasDisqusSupport": "N",
-            "editorNotes": ""
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "WatchCartoonOnline",
