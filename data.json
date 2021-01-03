@@ -2945,7 +2945,7 @@
             "siteAddresses": [
                 "https://animeglare.xyz"
             ],
-            "hasMalSupport": "N",
+            "hasMalSupport": "Y",
             "hasAnilistSupport": "N",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "Y",
@@ -3124,10 +3124,10 @@
                 "https://github.com/Michael24884/TaiYaKiAnime"
             ],
             "hasMalSupport": "Y",
-            "hasAnilistSupport": "N",
+            "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "Y",
-            "siteFeatures": ""
+            "siteFeatures": "Stream Anime"
         }
     ],
     "windowsApplications": [
