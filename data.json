@@ -983,11 +983,11 @@
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "?",
+            "hasReleaseSchedule": "N",
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "-"
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "YugenAnime",
