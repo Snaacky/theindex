@@ -2444,6 +2444,20 @@
             "isMobileFriendly": "",
             "malSyncSupport": "",
             "hasTachiyomiSupport": ""
+        },
+        {
+            "siteName": "Manga ZIP",
+            "siteAddresses": [
+                "http://manga-zip.net/"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "editorNotes": "Japanese Raws are available. ",
+            "isEnglish": "N",
+            "otherLanguages": "Japanese",
+            "hasTachiyomiSupport": "N"
         }
     ],
     "englishMangaScans": [
