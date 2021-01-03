@@ -2923,9 +2923,9 @@
             "siteAddresses": [
                 "https://novelupdates.com"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isMobileFriendly": ""
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?"
         },
         {
             "siteName": "ReadLightNovel",
