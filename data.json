@@ -2860,9 +2860,9 @@
             "siteAddresses": [
                 "https://armaell-library.net"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isMobileFriendly": ""
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?"
         },
         {
             "siteName": "Just Light Novels",
