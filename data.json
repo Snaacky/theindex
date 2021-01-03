@@ -2950,9 +2950,9 @@
             "siteAddresses": [
                 "https://thatnovelcorner.com"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isMobileFriendly": ""
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?"
         },
         {
             "siteName": "WebNovel",
