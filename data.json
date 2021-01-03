@@ -212,23 +212,23 @@
             "siteAddresses": [
                 "https://animefrenzy.net"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "?",
             "480p": "?",
             "720p": "?",
             "1080p": "?",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "N",
-            "hasWatermarks": "N",
-            "hasDisqusSupport": "N",
-            "editorNotes": ""
+            "editorNotes": "?",
+            "otherLanguages": "?"
         },
         {
             "siteName": "AnimeHub",
@@ -3012,7 +3012,7 @@
                 "https://github.com/Michael24884/TaiYaKiAnime"
             ],
             "hasMalSupport": "Y",
-            "hasAnilistSupport": "N",
+            "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "Y",
             "siteFeatures": "Stream Anime "
