@@ -3174,6 +3174,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "Y",
             "siteFeatures": "Stream Anime"
+        },
+        {
+            "siteName": "Ranobe",
+            "siteAddresses": [
+                "https://cyberneticlifeform.wixsite.com/cylonu87/ranobe-lightnovel"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "N",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Read Light Novels"
         }
     ],
     "windowsApplications": [
