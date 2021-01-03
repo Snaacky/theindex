@@ -1565,6 +1565,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Greek"
+        },
+        {
+            "siteName": "AnimeDesu",
+            "siteAddresses": [
+                "https://animedesu.pl/"
+            ],
+            "360p": "Y",
+            "480p": "?",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "N",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Polish"
         }
     ],
     "animeDownloadSites": [
