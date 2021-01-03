@@ -1299,7 +1299,7 @@
             "480p": "Y",
             "720p": "Y",
             "1080p": "N",
-            "hasDubs": "?",
+            "hasDubs": "Y",
             "hasSubs": "",
             "hasAds": "Y",
             "isAntiAdblock": "N",
