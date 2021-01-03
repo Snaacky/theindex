@@ -210,7 +210,7 @@
         {
             "siteName": "AnimeFrenzy",
             "siteAddresses": [
-                "https://animefrenzy.net"
+                "https://animefrenzy.org/"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -225,10 +225,10 @@
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "N",
+            "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "-"
         },
         {
             "siteName": "AnimeHub",
