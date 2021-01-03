@@ -129,7 +129,7 @@
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
-            "malSyncSupport": "N",
+            "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "Y",
