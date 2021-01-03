@@ -1017,10 +1017,10 @@
             "siteAddresses": [
                 "https://animeparadise.cc/"
             ],
-            "360p": "?",
+            "360p": "Y",
             "480p": "?",
-            "720p": "?",
-            "1080p": "?",
+            "720p": "Y",
+            "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
             "hasAds": "N",
@@ -1031,7 +1031,7 @@
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "?",
+            "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "-"
         }
