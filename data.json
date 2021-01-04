@@ -1795,6 +1795,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Espanol"
+        },
+        {
+            "siteName": "Neko-sama",
+            "siteAddresses": [
+                "https://neko-sama.fr/"
+            ],
+            "360p": "N",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "French"
         }
     ],
     "animeDownloadSites": [
