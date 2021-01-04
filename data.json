@@ -1749,6 +1749,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Italian"
+        },
+        {
+            "siteName": "jKanime",
+            "siteAddresses": [
+                "https://jkanime.net/"
+            ],
+            "360p": "?",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "?",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Espanol"
         }
     ],
     "animeDownloadSites": [
