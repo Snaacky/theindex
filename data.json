@@ -1657,6 +1657,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Espanol"
+        },
+        {
+            "siteName": "AnimeIndo",
+            "siteAddresses": [
+                "http://animeindo.moe/"
+            ],
+            "360p": "Y",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "N",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Indonesian"
         }
     ],
     "animeDownloadSites": [
