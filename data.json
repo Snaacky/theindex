@@ -1680,6 +1680,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Indonesian"
+        },
+        {
+            "siteName": "Anime-Odcinki",
+            "siteAddresses": [
+                "https://anime-odcinki.pl/"
+            ],
+            "360p": "N",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "?",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Polish"
         }
     ],
     "animeDownloadSites": [
