@@ -1726,6 +1726,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Polish"
+        },
+        {
+            "siteName": "DreamSub",
+            "siteAddresses": [
+                "https://dreamsub.stream/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Polish"
         }
     ],
     "animeDownloadSites": [
