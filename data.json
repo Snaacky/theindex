@@ -1103,6 +1103,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Many"
+        },
+        {
+            "siteName": "AnimeXin",
+            "siteAddresses": [
+                "https://animexin.xyz/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Many"
         }
     ],
     "foreignAnimeSites": [
