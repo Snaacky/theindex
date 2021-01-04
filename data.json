@@ -1634,6 +1634,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "Polish"
+        },
+        {
+            "siteName": "AnimeID",
+            "siteAddresses": [
+                "https://www.animeid.tv/"
+            ],
+            "360p": "?",
+            "480p": "?",
+            "720p": "?",
+            "1080p": "?",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Espanol"
         }
     ],
     "animeDownloadSites": [
