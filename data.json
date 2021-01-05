@@ -2326,6 +2326,29 @@
             "hasBatchDownloads": "Y",
             "editorNotes": "",
             "otherLanguages": "Many"
+        },
+        {
+            "siteName": "Chau Thanh",
+            "siteAddresses": [
+                "https://chauthanh.info/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "",
+            "otherLanguages": ""
         }
     ],
     "englishMangaSites": [
