@@ -1149,6 +1149,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "Animenight",
+            "siteAddresses": [
+                "https://animenight.tv/"
+            ],
+            "360p": "N",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "-"
         }
     ],
     "foreignAnimeSites": [
