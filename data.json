@@ -626,23 +626,23 @@
             "siteAddresses": [
                 "https://aniwatch.me"
             ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "German",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
-            "editorNotes": "Requires an account to stream anime."
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Requires an account to stream anime.",
+            "otherLanguages": "German"
         },
         {
             "siteName": "Aniwatcher",
