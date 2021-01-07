@@ -2791,6 +2791,20 @@
             "isMobileFriendly": "",
             "malSyncSupport": "",
             "hasTachiyomiSupport": ""
+        },
+        {
+            "siteName": "ComicK",
+            "siteAddresses": [
+                "https://comick.fun/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "editorNotes": "Mirrors MangaDex.",
+            "isEnglish": "Y",
+            "otherLanguages": "Many",
+            "hasTachiyomiSupport": "N"
         }
     ],
     "foreignMangaSites": [
