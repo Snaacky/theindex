@@ -2513,10 +2513,11 @@
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isEnglish": "Y",
-            "otherLanguages": "30+ Others",
             "isMobileFriendly": "Y",
-            "malSyncSupport": "",
+            "malSyncSupport": "Y",
+            "editorNotes": "Scanlation hub.",
+            "isEnglish": "Y",
+            "otherLanguages": "Many",
             "hasTachiyomiSupport": "Y"
         },
         {
