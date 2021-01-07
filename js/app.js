@@ -320,6 +320,7 @@ fetch('/index/data.json')
     // APPLICATIONS ------------------------------
     const iosApplicationsTable = $('#iosApplications').DataTable(getApplicationTableOptions(parsedData.iOSApplications))
     const androidApplicationsTable = $('#androidApplications').DataTable(getApplicationTableOptions(parsedData.androidApplications))
+    const windowsApplicationsTable = $('#windowsApplications').DataTable(getApplicationTableOptions(parsedData.windowsApplications))
     const mangaApplicationsTable = $('#mangaApplications').DataTable(getApplicationTableOptions(parsedData.mangaApplications))
     const macOSXApplicationsTable = $('#macApplications').DataTable(getApplicationTableOptions(parsedData.macOSApplications))
     const browserExtensionsTable = $('#browserExtensionsTable').DataTable(getApplicationTableOptions(parsedData.browserExtensions))
