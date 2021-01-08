@@ -282,7 +282,7 @@ fetch('/index/data.json')
       const dataSet = json[key]
 
       const entries = dataSet.map((entry) => {
-        entry.siteAddresses = entry.siteAddresses.join(', ')
+        entry.siteAddresses = entry.siteAddresses.map(e => '<a href="' + e + '">' + e + '</a>').join(', ')
         return entry
       })
 
