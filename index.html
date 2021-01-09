@@ -54,16 +54,16 @@
                     <div id="tab-nav">
                         <ul class="nav nav-pills nav-fill">
                             <li class="nav-item">
-                                <a class="nav-link active" onclick="hideAll();document.getElementById('animeTables').style.display = 'block'" href="#">Anime</a>
+                                <a class="nav-link active" onclick="showAnimeTables()" href="#">Anime</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" onclick="hideAll(); document.getElementById('mangaTables').style.display = 'block'" href="#">Manga</a>
+                                <a class="nav-link" onclick="showMangaTables()" href="#">Manga</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" onclick="hideAll(); document.getElementById('lightNovelTables').style.display = 'block'" href="#"> Novels</a>
+                                <a class="nav-link" onclick="showNovelTables()" href="#"> Novels</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" onclick="hideAll();document.getElementById('applicationsTables').style.display = 'block'" href="#">Applications</a>
+                                <a class="nav-link" onclick="showAppTables()" href="#">Applications</a>
                             </li>
                         </ul>
                     </div>
@@ -301,6 +301,35 @@
 
       }
       hideAll(0, false)
+	  
+	function showAnimeTables() {
+		if ($('#animeTables').css('display') !== 'block') { 
+			hideAll(); 
+			document.getElementById('animeTables').style.display = 'block'
+		}
+	}
+	
+	function showMangaTables() {
+		if ($('#mangaTables').css('display') !== 'block') { 
+			hideAll(); 
+			document.getElementById('mangaTables').style.display = 'block'
+		}
+	}
+	
+	function showNovelTables() {
+		if ($('#lightNovelTables').css('display') !== 'block') { 
+			hideAll(); 
+			document.getElementById('lightNovelTables').style.display = 'block'
+		}
+	}
+	
+	function showAppTables() {
+		if ($('#applicationsTables').css('display') !== 'block') { 
+			hideAll(); 
+			document.getElementById('applicationsTables').style.display = 'block'
+		}
+	}
+	
     </script>
     <script async defer data-website-id="6e4610bb-d364-413d-a371-2601b31a4c9b" src="https://stats.piracy.moe/umami.js"></script>
 </body>
