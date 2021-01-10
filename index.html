@@ -24,7 +24,7 @@
 <!-- #BODY -->
 <body class="d-flex flex-column h-100 bg-dark text-white pt-5">
 <!-- sticky-top navbar -->
-<nav class="navbar navbar-dark fixed-top">
+<nav class="navbar navbar-dark fixed-top bg-darker">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img src="/img/logo.png"
@@ -83,13 +83,13 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-light" id="applicationsTablesTab" href="#applicationsTables" role="tab"
-                       data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
+                       data-bs-toggle="pill" aria-selected="false">
                         📱 Applications
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light disabled" id="hentaiTablesTab"
-                       data-bs-toggle="pill" aria-selected="false">
+                    <a class="nav-link link-light" id="hentaiTablesTab" href="#hentaiTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
                         🔞 Hentai
                     </a>
                 </li>
@@ -337,10 +337,25 @@
                 </thead>
             </table>
         </div>
+
+        <div class="tab-pane fade" id="hentaiTables" role="tabpanel" aria-labelledby="hentaiTablesTab">
+            <div class="container d-flex justify-content-center">
+                <div class="card bg-darker" style="max-width: 22em;">
+                    <div class="card-header">
+                        Be patient...
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            ... we are adding this feature right now, just wait for a few days
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<footer class="footer mt-auto py-3">
+<footer class="footer mt-auto py-3 bg-darker">
     <div class="container text-muted">
         We are not liable for the accuracy of the contents and everything is subject to be changed without prior notice.
     </div>
