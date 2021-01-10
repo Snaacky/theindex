@@ -1,4 +1,4 @@
-tbody>tr {
+tbody>tr, nav.fixed-top, footer.footer {
     background-color: #1c1c1c !important;
 }
 
