@@ -332,5 +332,8 @@ window.onload = e => {
           macOSXApplicationsTable.tables().search($(this).val()).draw()
           browserExtensionsTable.tables().search($(this).val()).draw()
         })
+
+        document.querySelector('#tablesList').style = ""
+        document.querySelector('#loader').remove()
 	  })
 }
