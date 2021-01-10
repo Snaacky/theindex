@@ -1,3 +1,7 @@
+tbody>tr {
+    background-color: #1c1c1c;
+}
+
 /* Resizes the search to be a bit less chunky */
 #animeTableSearch {
     height: 30px;
