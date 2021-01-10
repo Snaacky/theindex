@@ -1,5 +1,10 @@
 tbody>tr {
-    background-color: #1c1c1c;
+    background-color: #1c1c1c !important;
+}
+
+.fixedHeader-floating {
+    z-index: 1040;
+    background-color: rgb(16, 16, 16) !important;
 }
 
 /* Resizes the search to be a bit less chunky */
