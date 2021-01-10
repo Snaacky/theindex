@@ -1,5 +1,5 @@
-tbody>tr, nav.fixed-top, footer.footer, input {
-    background-color: #1c1c1c !important;
+tbody>tr, nav.fixed-top, footer.footer {
+    background-color: rgb(16, 16, 16) !important;
 }
 
 td>a, .alert>p>a {
