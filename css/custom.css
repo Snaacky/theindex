@@ -2,14 +2,28 @@ tbody>tr, nav.fixed-top, footer.footer, input {
     background-color: #1c1c1c !important;
 }
 
-a {
+td>a, .alert>p>a {
     color: #bababa !important;
     text-decoration: none;
 }
 
-a:hover {
+td>a:hover, .alert>p>a:hover {
     color: #2a6496 !important;
     text-decoration: underline;
+}
+
+th.sorting_asc,
+th.sorting_desc,
+th.sorting {
+    background: none !important;
+}
+
+.bg-dark {
+    background-color: #1f1f1f !important;
+}
+
+.alert.border-danger {
+    background-color: #ff00000d;
 }
 
 .fixedHeader-floating {
