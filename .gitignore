@@ -3,3 +3,5 @@ css/admin.css
 index/
 js/editor.js
 MongooseWebServer6.7.exe
+.idea/
+Dockerfile

@@ -1,337 +1,340 @@
-<html lang="en">
+<!doctype html>
+<html lang="en" class="h-100">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/png" href=”img/logo.png” />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" type="image/png" href=”img/logo.png”/>
     <title>/r/AnimePiracy Index</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="css/three-dots.css" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+
     <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/fh-3.1.6/r-2.2.3/sl-1.3.1/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/table.css" />
-    <style>
-        .fixedHeader-floating {
-        background-color: rgb(16, 16, 16) !important;
-      }
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/dt-1.10.20/fh-3.1.6/r-2.2.3/sl-1.3.1/datatables.min.css"/>
 
-    </style>
-    <!-- jQuery & Datatables -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/fh-3.1.6/r-2.2.3/sl-1.3.1/datatables.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="js/app.js"></script>
-    <!-- #FONT-AWESOME -->
-    <script src="https://kit.fontawesome.com/212aaa0caa.js" crossorigin="anonymous"></script>
-    <!-- #GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,200,300,700" rel="stylesheet" type="text/css" />
+    <!-- Custom design -->
+    <link rel="stylesheet" type="text/css" href="css/custom.css"/>
 </head>
-<!-- #BODY -->
 
-<body>
-    <div id="wrapper">
-        <nav class="navbar navbar-inverse" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" style="padding: 10px 15px !important; display: flex; gap: 10px" href="https://reddit.com/r/animepiracy">
-                        <img src="https://piracy.moe/img/logo.png" width="32" height="32" class="align-top d-inline-block" alt="" />
-                        <h2 style="margin: 0"><i class="text-danger"></i>/r/AnimePiracy Index</h2>
-                    </a>
-                </div>
-            </div>
-        </nav>
-        <div class="table-content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="flex-parent">
-                        <div id="wip-warning" class="well">
-                            Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy development and does not reflect the final version of the index. Expect things to change and break while this alert is still active. For a more stable experience, you can find an Excel sheet export of the old Zoho index pinned <a href="https://discord.gg/piracy">in the #index in our Discord server</a>. Feel free to report any bugs in that channel as well!
-                        </div>
-                    </div>
-                    <div id="tab-nav">
-                        <ul class="nav nav-pills nav-fill">
-                            <li class="nav-item">
-                                <a class="nav-link active" onclick="showAnimeTables()" href="#">Anime</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="showMangaTables()" href="#">Manga</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="showNovelTables()" href="#"> Novels</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="showAppTables()" href="#">Applications</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="animeTables">
-                        <div style="display: flex; justify-content: flex-end;"><input id="animeTableSearch" placeholder="Search terms here..."></input></div>
-                        <h1>English Streaming Sites</h1>
-                        <table id="animeEnglishTable" class="dataTable table-hover compact hover animeTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does the site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti-Adblock</th>
-                                    <th title="Does the site offer subs">Subs</th>
-                                    <th title="Does the site offer dubs">Dubs</th>
-                                    <th title="Does the site support other languages">Other Language</th>
-                                    <th title="Does the site offer 360p streams">360p</th>
-                                    <th title="Does the site offer 480p streams">480p</th>
-                                    <th title="Does the site offer 720p streams">720p</th>
-                                    <th title="Does the site offer 1080p streams">1080p</th>
-                                    <th title="Does the site have a schedule listing">Schedule</th>
-                                    <th title="Does the site offer downloads">DL</th>
-                                    <th title="Does the site offer batch downloads">Batch DL</th>
-                                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
-                                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
-                                    <th title="Does the site have watermarks on streams">Watermark</th>
-                                    <th title="Does the site have a Disqus comments section">Disqus</th>
-                                    <th title="Any additional notes from the index editors">Notes</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Foreign Streaming Sites</h1>
-                        <table id="animeForeignTable" class="dataTable table-hover compact hover animeTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does the site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti-Adblock</th>
-                                    <th title="Does the site offer subs">Subs</th>
-                                    <th title="Does the site offer dubs">Dubs</th>
-                                    <th title="Does the site support other languages">Other Language</th>
-                                    <th title="Does the site offer 360p streams">360p</th>
-                                    <th title="Does the site offer 480p streams">480p</th>
-                                    <th title="Does the site offer 720p streams">720p</th>
-                                    <th title="Does the site offer 1080p streams">1080p</th>
-                                    <th title="Does the site have a schedule listing">Schedule</th>
-                                    <th title="Does the site offer downloads">DL</th>
-                                    <th title="Does the site offer batch downloads">Batch DL</th>
-                                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
-                                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
-                                    <th title="Does the site have watermarks on streams">Watermark</th>
-                                    <th title="Does the site have a Disqus comments section">Disqus</th>
-                                    <th title="Any additional notes from the index editors">Notes</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Download Only Sites</h1>
-                        <table id="animeDownloadTable" class="dataTable table-hover compact hover animeTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does the site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti-Adblock</th>
-                                    <th title="Does the site offer subs">Subs</th>
-                                    <th title="Does the site offer dubs">Dubs</th>
-                                    <th title="Does the site support other languages">Other Language</th>
-                                    <th title="Does the site offer 360p streams">360p</th>
-                                    <th title="Does the site offer 480p streams">480p</th>
-                                    <th title="Does the site offer 720p streams">720p</th>
-                                    <th title="Does the site offer 1080p streams">1080p</th>
-                                    <th title="Does the site have a schedule listing">Schedule</th>
-                                    <th title="Does the site offer downloads">DL</th>
-                                    <th title="Does the site offer batch downloads">Batch DL</th>
-                                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
-                                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
-                                    <th title="Does the site have watermarks on streams">Watermark</th>
-                                    <th title="Does the site have a Disqus comments section">Disqus</th>
-                                    <th title="Any additional notes from the index editors">Notes</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div id="mangaTables">
-                        <div style="display: flex; justify-content: flex-end;"><input id="mangaTableSearch" placeholder="Search terms here..."></input></div>
-                        <h1>Aggregators</h1>
-                        <table id="mangaTable" class="dataTable table-hover compact hover mangaTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti Adblock</th>
-                                    <th title="Is this site in English">English</th>
-                                    <th title="Does the site support other languages">Other Languages</th>
-                                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
-                                    <th title="Does the site have MAL-Sync support">MAL Sync</th>
-                                    <th title="Does the site have Tachiyomi support">Tachiyomi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Scans</h1>
-                        <table id="scansTable" class="dataTable table-hover compact hover mangaTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti Adblock</th>
-                                    <th title="Is this site in English">English</th>
-                                    <th title="Does the site support other languages">Other Languages</th>
-                                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
-                                    <th title="Does the site have MAL-Sync support">MAL Sync</th>
-                                    <th title="Does the site have Tachiyomi support">Tachiyomi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div id="lightNovelTables">
-                        <div style="display: flex; justify-content: flex-end;"><input id="novelTableSearch" placeholder="Search terms here..."></input></div>
-                        <h1>Light Novels</h1>
-                        <table id="lightNovelTable" class="dataTable table-hover compact hover novelTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this site have ads">Ads</th>
-                                    <th title="Does the site block adblockers">Anti Adblock</th>
-                                    <th title="Is this site mobile friendly">Mobile Friendly</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Visual Novels</h1>
-                        <table id="visualNovelTable" class="dataTable table-hover compact hover novelTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this site have ads">Ads</th>
-                                    <th title="Does this site block adblockers">Anti Adblock</th>
-                                    <th title="The main language of the site">Language</th>
-                                    <th title="Is the site subbed">Subs</th>
-                                    <th title="Is this site mobile friendly">Mobile Friendly</th>
-                                    <th title="Other languages the site offers">Other Languages</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div id="applicationsTables">
-                        <div style="display: flex; justify-content: flex-end;"><input id="applicationsTableSearch" placeholder="Search terms here..."></input></div>
-                        <h1>iOS</h1>
-                        <table id="iosApplications" class="dataTable table-hover compact hover applicationsTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this application have MAL support">MAL Support</th>
-                                    <th title="Does this application have Anilist support">Anilist Support</th>
-                                    <th title="Does this application have Kitsu support">Kitsu Support</th>
-                                    <th title="Does this application have SimKL support">SimKL Support</th>
-                                    <th title="This extensions features">Features</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Android</h1>
-                        <table id="androidApplications" class="dataTable table-hover compact hover applicationsTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this application have MAL support">MAL Support</th>
-                                    <th title="Does this application have Anilist support">Anilist Support</th>
-                                    <th title="Does this application have Kitsu support">Kitsu Support</th>
-                                    <th title="Does this application have SimKL support">SimKL Support</th>
-                                    <th title="This extensions features">Features</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Windows</h1>
-                        <table id="windowsApplications" class="dataTable table-hover compact hover applicationsTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this application have MAL support">MAL Support</th>
-                                    <th title="Does this application have Anilist support">Anilist Support</th>
-                                    <th title="Does this application have Kitsu support">Kitsu Support</th>
-                                    <th title="Does this application have SimKL support">SimKL Support</th>
-                                    <th title="This extensions features">Features</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>macOS</h1>
-                        <table id="macApplications" class="dataTable table-hover compact hover applicationsTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this application have MAL support">MAL Support</th>
-                                    <th title="Does this application have Anilist support">Anilist Support</th>
-                                    <th title="Does this application have Kitsu support">Kitsu Support</th>
-                                    <th title="Does this application have SimKL support">SimKL Support</th>
-                                    <th title="This extensions features">Features</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <h1>Browser Extensions</h1>
-                        <table id="browserExtensionsTable" class="dataTable table-hover compact hover applicationsTableSearch" style="width: 100% !important">
-                            <thead>
-                                <tr>
-                                    <th title="The sites name">Name</th>
-                                    <th title="The sites address">Address</th>
-                                    <th title="Does this extension have MAL support">MAL Support</th>
-                                    <th title="Does this extension have Anilist support">Anilist Support</th>
-                                    <th title="Does this extension have Kitsu support">Kitsu Support</th>
-                                    <th title="Does this extension have SimKL support">SimKL Support</th>
-                                    <th title="This extensions features">Features</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
+<!-- #BODY -->
+<body class="d-flex flex-column h-100 bg-dark text-white pt-5">
+<!-- sticky-top navbar -->
+<nav class="navbar navbar-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/img/logo.png"
+                 alt="Logo" width="32" height="32" class="d-inline-block align-top">
+            /r/AnimePiracy Index
+        </a>
+    </div>
+</nav>
+
+<noscript>
+    <div class="container mt-3">
+        <div class="alert alert-danger" role="alert">
+            You need to have JavaScript enabled for this site to properly work!
         </div>
     </div>
-    <script src="js/bootstrap.js"></script>
-     <script>
-      const hideAll = (duration = 500, hideAnime = true) => {
-        if (hideAnime) { $("#animeTables").hide(duration) }
+</noscript>
 
-        $("#mangaTables").hide(duration)
-        $("#lightNovelTables").hide(duration)
-        $("#applicationsTables").hide(duration)
+<!-- Notice -->
+<div class="container mt-3">
+    <div class="alert alert-dismissible border border-danger fade show" role="alert">
+        <p>
+            Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
+            development and does not reflect the final version of the index. Expect things to change and
+            break while this alert is still active. For a more stable experience, you can find an Excel
+            sheet export of the old Zoho index pinned <a href="https://discord.gg/piracy" class="alert-link">in the
+            #index in our Discord server</a>. Feel free to report any bugs in that channel as well!
+        </p>
+        <hr>
+        <p class="mb-0">Best regards, /r/AnimePiracy Team</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
 
-      }
-      hideAll(0, false)
-	  
-	function showAnimeTables() {
-		if ($('#animeTables').css('display') !== 'block') { 
-			hideAll(); 
-			document.getElementById('animeTables').style.display = 'block'
-		}
-	}
-	
-	function showMangaTables() {
-		if ($('#mangaTables').css('display') !== 'block') { 
-			hideAll(); 
-			document.getElementById('mangaTables').style.display = 'block'
-		}
-	}
-	
-	function showNovelTables() {
-		if ($('#lightNovelTables').css('display') !== 'block') { 
-			hideAll(); 
-			document.getElementById('lightNovelTables').style.display = 'block'
-		}
-	}
-	
-	function showAppTables() {
-		if ($('#applicationsTables').css('display') !== 'block') { 
-			hideAll(); 
-			document.getElementById('applicationsTables').style.display = 'block'
-		}
-	}
-	
-    </script>
-    <script async defer data-website-id="6e4610bb-d364-413d-a371-2601b31a4c9b" src="https://stats.piracy.moe/umami.js"></script>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-auto">
+            <ul class="nav nav-pills" id="tableNav" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link link-light active" id="animeTablesTab" href="#animeTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
+                        Anime
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="mangaTablesTab" href="#mangaTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
+                        Manga
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="lightNovelTablesTab" href="#lightNovelTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
+                        Novels
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="applicationsTablesTab" href="#applicationsTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
+                        Applications
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <input id="tableSearch" class="form-control border-secondary bg-dark text-white" type="text" placeholder="Search terms here...">
+        </div>
+    </div>
+</div>
+<div class="container-fluid mb-3">
+    <div class="tab-content" id="tablesList">
+        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab">
+            <h1>English Streaming Sites</h1>
+            <table id="animeEnglishTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does the site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti-Adblock</th>
+                    <th title="Does the site offer subs">Subs</th>
+                    <th title="Does the site offer dubs">Dubs</th>
+                    <th title="Does the site support other languages">Other Language</th>
+                    <th title="Does the site offer 360p streams">360p</th>
+                    <th title="Does the site offer 480p streams">480p</th>
+                    <th title="Does the site offer 720p streams">720p</th>
+                    <th title="Does the site offer 1080p streams">1080p</th>
+                    <th title="Does the site have a schedule listing">Schedule</th>
+                    <th title="Does the site offer downloads">DL</th>
+                    <th title="Does the site offer batch downloads">Batch DL</th>
+                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
+                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
+                    <th title="Does the site have watermarks on streams">Watermark</th>
+                    <th title="Does the site have a Disqus comments section">Disqus</th>
+                    <th title="Any additional notes from the index editors">Notes</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Foreign Streaming Sites</h1>
+            <table id="animeForeignTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does the site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti-Adblock</th>
+                    <th title="Does the site offer subs">Subs</th>
+                    <th title="Does the site offer dubs">Dubs</th>
+                    <th title="Does the site support other languages">Other Language</th>
+                    <th title="Does the site offer 360p streams">360p</th>
+                    <th title="Does the site offer 480p streams">480p</th>
+                    <th title="Does the site offer 720p streams">720p</th>
+                    <th title="Does the site offer 1080p streams">1080p</th>
+                    <th title="Does the site have a schedule listing">Schedule</th>
+                    <th title="Does the site offer downloads">DL</th>
+                    <th title="Does the site offer batch downloads">Batch DL</th>
+                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
+                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
+                    <th title="Does the site have watermarks on streams">Watermark</th>
+                    <th title="Does the site have a Disqus comments section">Disqus</th>
+                    <th title="Any additional notes from the index editors">Notes</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Download Only Sites</h1>
+            <table id="animeDownloadTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does the site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti-Adblock</th>
+                    <th title="Does the site offer subs">Subs</th>
+                    <th title="Does the site offer dubs">Dubs</th>
+                    <th title="Does the site support other languages">Other Language</th>
+                    <th title="Does the site offer 360p streams">360p</th>
+                    <th title="Does the site offer 480p streams">480p</th>
+                    <th title="Does the site offer 720p streams">720p</th>
+                    <th title="Does the site offer 1080p streams">1080p</th>
+                    <th title="Does the site have a schedule listing">Schedule</th>
+                    <th title="Does the site offer downloads">DL</th>
+                    <th title="Does the site offer batch downloads">Batch DL</th>
+                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
+                    <th title="Does the site have MAL-Sync support">MAL-Sync</th>
+                    <th title="Does the site have watermarks on streams">Watermark</th>
+                    <th title="Does the site have a Disqus comments section">Disqus</th>
+                    <th title="Any additional notes from the index editors">Notes</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="mangaTables" role="tabpanel" aria-labelledby="mangaTablesTab">
+            <h1>Aggregators</h1>
+            <table id="mangaTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti Adblock</th>
+                    <th title="Is this site in English">English</th>
+                    <th title="Does the site support other languages">Other Languages</th>
+                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
+                    <th title="Does the site have MAL-Sync support">MAL Sync</th>
+                    <th title="Does the site have Tachiyomi support">Tachiyomi</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Scans</h1>
+            <table id="scansTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti Adblock</th>
+                    <th title="Is this site in English">English</th>
+                    <th title="Does the site support other languages">Other Languages</th>
+                    <th title="Is the site friendly on mobile">Mobile Friendly</th>
+                    <th title="Does the site have MAL-Sync support">MAL Sync</th>
+                    <th title="Does the site have Tachiyomi support">Tachiyomi</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="lightNovelTables" role="tabpanel" aria-labelledby="lightNovelTablesTab">
+            <h1>Light Novels</h1>
+            <table id="lightNovelTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this site have ads">Ads</th>
+                    <th title="Does the site block adblockers">Anti Adblock</th>
+                    <th title="Is this site mobile friendly">Mobile Friendly</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Visual Novels</h1>
+            <table id="visualNovelTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this site have ads">Ads</th>
+                    <th title="Does this site block adblockers">Anti Adblock</th>
+                    <th title="The main language of the site">Language</th>
+                    <th title="Is the site subbed">Subs</th>
+                    <th title="Is this site mobile friendly">Mobile Friendly</th>
+                    <th title="Other languages the site offers">Other Languages</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="applicationsTables" role="tabpanel" aria-labelledby="applicationsTablesTab">
+            <h1>iOS</h1>
+            <table id="iosApplications" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this application have MAL support">MAL Support</th>
+                    <th title="Does this application have Anilist support">Anilist Support</th>
+                    <th title="Does this application have Kitsu support">Kitsu Support</th>
+                    <th title="Does this application have SimKL support">SimKL Support</th>
+                    <th title="This extensions features">Features</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Android</h1>
+            <table id="androidApplications" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this application have MAL support">MAL Support</th>
+                    <th title="Does this application have Anilist support">Anilist Support</th>
+                    <th title="Does this application have Kitsu support">Kitsu Support</th>
+                    <th title="Does this application have SimKL support">SimKL Support</th>
+                    <th title="This extensions features">Features</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Windows</h1>
+            <table id="windowsApplications" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this application have MAL support">MAL Support</th>
+                    <th title="Does this application have Anilist support">Anilist Support</th>
+                    <th title="Does this application have Kitsu support">Kitsu Support</th>
+                    <th title="Does this application have SimKL support">SimKL Support</th>
+                    <th title="This extensions features">Features</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>macOS</h1>
+            <table id="macApplications" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this application have MAL support">MAL Support</th>
+                    <th title="Does this application have Anilist support">Anilist Support</th>
+                    <th title="Does this application have Kitsu support">Kitsu Support</th>
+                    <th title="Does this application have SimKL support">SimKL Support</th>
+                    <th title="This extensions features">Features</th>
+                </tr>
+                </thead>
+            </table>
+            <h1>Browser Extensions</h1>
+            <table id="browserExtensionsTable" class="dataTable table-hover compact hover w-100">
+                <thead>
+                <tr>
+                    <th title="The sites name">Name</th>
+                    <th title="The sites address">Address</th>
+                    <th title="Does this extension have MAL support">MAL Support</th>
+                    <th title="Does this extension have Anilist support">Anilist Support</th>
+                    <th title="Does this extension have Kitsu support">Kitsu Support</th>
+                    <th title="Does this extension have SimKL support">SimKL Support</th>
+                    <th title="This extensions features">Features</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-muted">
+        We are not liable for the accuracy of the contents and everything is subject to be changed without prior notice.
+    </div>
+</footer>
+
+<!-- jQuery required for Datatables -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Datatables -->
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/dt-1.10.20/fh-3.1.6/r-2.2.3/sl-1.3.1/datatables.min.js"></script>
+<!-- Bootstrap-JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+<!-- Umami-Statboard -->
+<script async defer data-website-id="6e4610bb-d364-413d-a371-2601b31a4c9b"
+        src="https://stats.piracy.moe/umami.js"></script>
+
+<!-- app.js -->
+<script type="text/javascript" charset="UTF-8" src="js/app.js"></script>
 </body>
 
 </html>
