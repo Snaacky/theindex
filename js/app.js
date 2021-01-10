@@ -24,6 +24,7 @@ const getAnimeTableOptions = (data) => ({
   columnDefs: [
     {
       targets: [2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      className: "dt-body-center",
       render: function (data) {
         const styleMap = {
           Y: {
@@ -81,6 +82,7 @@ const getMangaTableOptions = (data) => ({
   columnDefs: [
     {
       targets: [2, 3, 4, 5, 6, 7, 8],
+      className: "dt-body-center",
       render: function (data) {
         const styleMap = {
           Y: {
@@ -126,6 +128,7 @@ const getLightNovelTableOptions = (data) => ({
   columnDefs: [
     {
       targets: [2, 3, 4],
+      className: "dt-body-center",
       render: function (data) {
         const styleMap = {
           Y: {
@@ -180,6 +183,7 @@ const getVisualNovelTableOptions = (data) => ({
   columnDefs: [
     {
       targets: [2, 3, 4, 5, 6],
+      className: "dt-body-center",
       render: function (data) {
         const styleMap = {
           Y: {
@@ -233,6 +237,7 @@ const getApplicationTableOptions = (data) => ({
   columnDefs: [
     {
       targets: [2, 3, 4, 5],
+      className: "dt-body-center",
       render: function (data) {
         const styleMap = {
           Y: {
