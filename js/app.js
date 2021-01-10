@@ -274,7 +274,7 @@ const getApplicationTableOptions = (data) => ({
 
 // Fetch raw json so we can combine multiple keys/sets
 window.onload = e => {
-	fetch('/index/data.json')
+	fetch('/data.json')
 	  .then((data) => data.json())
 	  .then((json) => {
 	    // Remap entries to convert url arrays into comma seperated strings
