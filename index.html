@@ -36,7 +36,7 @@
 
 <!-- Notice -->
 <div class="container mt-3">
-    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <div class="alert alert-dismissible border border-danger fade show" role="alert">
         <p>
             Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
             development and does not reflect the final version of the index. Expect things to change and
@@ -50,42 +50,46 @@
     </div>
 </div>
 
-<div class="container mt-3">
-    <ul class="nav nav-pills" id="tableNav" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link link-light active" id="animeTablesTab" href="#animeTables" role="tab"
-               data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
-                Anime
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link link-light" id="mangaTablesTab" href="#mangaTables" role="tab"
-               data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
-                Manga
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link link-light" id="lightNovelTablesTab" href="#lightNovelTables" role="tab"
-               data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
-                Novels
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link link-light" id="applicationsTablesTab" href="#applicationsTables" role="tab"
-               data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
-                Applications
-            </a>
-        </li>
-    </ul>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-auto">
+            <ul class="nav nav-pills" id="tableNav" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link link-light active" id="animeTablesTab" href="#animeTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
+                        Anime
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="mangaTablesTab" href="#mangaTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
+                        Manga
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="lightNovelTablesTab" href="#lightNovelTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
+                        Novels
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" id="applicationsTablesTab" href="#applicationsTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
+                        Applications
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <input id="tableSearch" class="form-control text-white" type="text" placeholder="Search terms here...">
+        </div>
+    </div>
 </div>
 <div class="container-fluid mb-3">
     <div class="tab-content" id="tablesList">
         <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab">
-            <div style="display: flex; justify-content: flex-end;">
-                <input id="animeTableSearch" placeholder="Search terms here...">
-            </div>
             <h1>English Streaming Sites</h1>
-            <table id="animeEnglishTable" class="dataTable table-hover compact hover w-100 animeTableSearch">
+            <table id="animeEnglishTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -111,7 +115,7 @@
                 </thead>
             </table>
             <h1>Foreign Streaming Sites</h1>
-            <table id="animeForeignTable" class="dataTable table-hover compact hover w-100 animeTableSearch">
+            <table id="animeForeignTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -137,7 +141,7 @@
                 </thead>
             </table>
             <h1>Download Only Sites</h1>
-            <table id="animeDownloadTable" class="dataTable table-hover compact hover w-100 animeTableSearch">
+            <table id="animeDownloadTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -164,11 +168,8 @@
             </table>
         </div>
         <div class="tab-pane fade" id="mangaTables" role="tabpanel" aria-labelledby="mangaTablesTab">
-            <div style="display: flex; justify-content: flex-end;">
-                <input id="mangaTableSearch" placeholder="Search terms here...">
-            </div>
             <h1>Aggregators</h1>
-            <table id="mangaTable" class="dataTable table-hover compact hover w-100 mangaTableSearch">
+            <table id="mangaTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -184,7 +185,7 @@
                 </thead>
             </table>
             <h1>Scans</h1>
-            <table id="scansTable" class="dataTable table-hover compact hover w-100 mangaTableSearch">
+            <table id="scansTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -201,11 +202,8 @@
             </table>
         </div>
         <div class="tab-pane fade" id="lightNovelTables" role="tabpanel" aria-labelledby="lightNovelTablesTab">
-            <div style="display: flex; justify-content: flex-end;">
-                <input id="novelTableSearch" placeholder="Search terms here..."/>
-            </div>
             <h1>Light Novels</h1>
-            <table id="lightNovelTable" class="dataTable table-hover compact hover w-100 novelTableSearch">
+            <table id="lightNovelTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -217,7 +215,7 @@
                 </thead>
             </table>
             <h1>Visual Novels</h1>
-            <table id="visualNovelTable" class="dataTable table-hover compact hover w-100 novelTableSearch">
+            <table id="visualNovelTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -233,11 +231,8 @@
             </table>
         </div>
         <div class="tab-pane fade" id="applicationsTables" role="tabpanel" aria-labelledby="applicationsTablesTab">
-            <div style="display: flex; justify-content: flex-end;">
-                <input id="applicationsTableSearch" placeholder="Search terms here..."/>
-            </div>
             <h1>iOS</h1>
-            <table id="iosApplications" class="dataTable table-hover compact hover w-100 applicationsTableSearch">
+            <table id="iosApplications" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -251,7 +246,7 @@
                 </thead>
             </table>
             <h1>Android</h1>
-            <table id="androidApplications" class="dataTable table-hover compact hover w-100 applicationsTableSearch">
+            <table id="androidApplications" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -265,7 +260,7 @@
                 </thead>
             </table>
             <h1>Windows</h1>
-            <table id="windowsApplications" class="dataTable table-hover compact hover w-100 applicationsTableSearch">
+            <table id="windowsApplications" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -279,7 +274,7 @@
                 </thead>
             </table>
             <h1>macOS</h1>
-            <table id="macApplications" class="dataTable table-hover compact hover w-100 applicationsTableSearch">
+            <table id="macApplications" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>
@@ -293,7 +288,7 @@
                 </thead>
             </table>
             <h1>Browser Extensions</h1>
-            <table id="browserExtensionsTable" class="dataTable table-hover compact hover w-100 applicationsTableSearch">
+            <table id="browserExtensionsTable" class="dataTable table-hover compact hover w-100">
                 <thead>
                 <tr>
                     <th title="The sites name">Name</th>

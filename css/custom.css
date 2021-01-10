@@ -1,5 +1,15 @@
-tbody>tr, nav.fixed-top, footer.footer {
+tbody>tr, nav.fixed-top, footer.footer, input {
     background-color: #1c1c1c !important;
+}
+
+a {
+    color: #bababa !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2a6496 !important;
+    text-decoration: underline;
 }
 
 .fixedHeader-floating {
