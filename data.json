@@ -419,23 +419,23 @@
             "siteAddresses": [
                 "https://animesa.ga"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "N",
             "480p": "Y",
             "720p": "Y",
             "1080p": "N",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
             "isMobileFriendly": "Y",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "AnimeSeries",
