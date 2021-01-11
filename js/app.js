@@ -60,7 +60,7 @@ const propertyToName = (property) => {
         case "isEnglish":
             return "English"
         case "malSyncSupport":
-            return "MAl-Sync"
+            return "MAL-Sync"
         case "hasWatermarks":
             return "Watermark"
         case "hasDisqusSupport":
@@ -108,7 +108,7 @@ const getAnimeTableOptions = (data) => ({
     ],
     columnDefs: [
         {
-            targets: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
             className: "dt-body-center",
             render: render
         }
@@ -263,7 +263,7 @@ const showInfoModal = (key, index) => {
     if (data['hasAds'] || data['isAntiAdblock']) {
         modalBody += '<div class="card bg-darker text-white my-2">' +
             '<div class="card-header">' +
-            '<strong class="me-auto">Ad-Policy</strong>' +
+            '<strong class="me-auto">Ad Policy</strong>' +
             '</div>' +
             '<div class="card-body"><div class="row">' +
             '<div class="col-auto">Ads: ' + render(data['hasAds']) + '</div>' +
@@ -277,11 +277,11 @@ const showInfoModal = (key, index) => {
     if (data['hasDirectDownloads'] || data['hasBatchDownloads']) {
         modalBody += '<div class="card bg-darker text-white my-2">' +
             '<div class="card-header">' +
-            '<strong class="me-auto">Download-Options</strong>' +
+            '<strong class="me-auto">Download Options</strong>' +
             '</div>' +
             '<div class="card-body"><div class="row">' +
             '<div class="col-auto">Downloads: ' + render(data['hasDirectDownloads']) + '</div>' +
-            '<div class="col">Batch-Downloads: ' + render(data['hasBatchDownloads']) + '</div> ' +
+            '<div class="col">Batch Downloads: ' + render(data['hasBatchDownloads']) + '</div> ' +
             '</div></div>' +
             '</div>'
     }

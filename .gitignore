@@ -5,3 +5,4 @@ js/editor.js
 MongooseWebServer6.7.exe
 .idea/
 Dockerfile
+debug.log
