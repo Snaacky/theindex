@@ -327,23 +327,23 @@
             "siteAddresses": [
                 "https://animepahe.com"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "N",
             "480p": "N",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
             "malSyncSupport": "Y",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "N",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "AnimePill",
@@ -366,7 +366,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Animereborn",
