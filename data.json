@@ -112,8 +112,8 @@
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "?"
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "AnimeDao",
@@ -136,7 +136,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Animefever",
