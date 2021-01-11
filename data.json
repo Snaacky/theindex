@@ -258,23 +258,23 @@
             "siteAddresses": [
                 "https://animekisa.tv"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "otherLanguages": "-",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "Animelon",
@@ -297,7 +297,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "Japanese subtitles are available.  Viewers can toggle subtitles as per their wish. Anyone wishing to learn Japanese from watching anime can use this site.",
-            "otherLanguages": "Japanese"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "AnimeOwl",
