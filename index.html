@@ -64,9 +64,9 @@
     </div>
 </div>
 
-<div class="container-fluid my-3">
+<div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-auto">
+        <div class="col-auto mb-3">
             <ul class="nav nav-pills" id="tableNav" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link link-light active" id="animeTablesTab" href="#animeTables" role="tab"
@@ -100,9 +100,21 @@
                 </li>
             </ul>
         </div>
-        <div class="col">
-            <input id="tableSearch" class="form-control border-secondary bg-dark text-white" type="text"
-                   placeholder="Search terms here...">
+        <div class="col mb-3">
+            <div class="input-group">
+                <input id="tableSearch" class="form-control border-secondary bg-dark text-white" type="text"
+                       placeholder="Search terms here..." aria-label="Recipient's username"
+                       aria-describedby="search-addon">
+                <button class="btn btn-outline-secondary" type="button" id="search-addon" data-bs-toggle="collapse"
+                        data-bs-target="#search-filter" aria-expanded="false" aria-controls="search-filter">⚙
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse" id="search-filter">
+        <div class="card card-body">
+            Search-Filter is coming soon™️
         </div>
     </div>
 </div>
