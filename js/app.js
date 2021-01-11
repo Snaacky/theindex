@@ -79,6 +79,8 @@ const propertyToName = (property) => {
             return "SimKL Support"
         case "siteFeatures":
             return "Features"
+        case "siteLanguage":
+            return "Site Language"
         default:
             return property
     }
