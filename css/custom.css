@@ -47,3 +47,7 @@ th.sorting {
 .card-header {
     background-color: #444 !important;
 }
+
+.dt-body-center kbd {
+    background-color: #0f0f0f;
+}
