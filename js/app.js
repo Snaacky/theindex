@@ -101,16 +101,14 @@ const getAnimeTableOptions = (data) => ({
         {data: '1080p'},
         {data: 'hasReleaseSchedule'},
         {data: 'hasDirectDownloads'},
-        {data: 'hasBatchDownloads'},
         {data: 'isMobileFriendly'},
         {data: 'malSyncSupport'},
         {data: 'hasWatermarks'},
-        {data: 'hasDisqusSupport'},
-        {data: 'editorNotes'},
+        {data: 'hasDisqusSupport'}
     ],
     columnDefs: [
         {
-            targets: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            targets: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
             className: "dt-body-center",
             render: render
         }
@@ -224,18 +222,73 @@ const getApplicationTableOptions = (data) => ({
 const showInfoModal = (key, index) => {
     const data = window.rawData[key][index]
     console.log("Creating infoModal for ", key, index, data)
-    if (data['isMobileFriendly'] && data['isMobileFriendly'] === 'Y') {
-        document.querySelector('#infoModalLabel').innerHTML = data.siteName +
-            ' <small class="text-muted">' + propertyToName('isMobileFriendly') + '</small>'
-    } else {
-        document.querySelector('#infoModalLabel').innerHTML = data.siteName
-    }
 
+    // Modal-Header
+    if (data['isMobileFriendly'] && data['isMobileFriendly'] === 'Y') {
+        document.querySelector('#infoModalMobile').style = ""
+    } else {
+        document.querySelector('#infoModalMobile').style = "display: none;"
+    }
+    document.querySelector('#infoModalLabel').innerHTML = data.siteName
+
+    // Modal-Body
     let alreadyShowed = ['siteName', 'siteAddresses', 'editorNotes', 'siteFeatures', 'hasSubs', 'hasDubs', '360p',
         '480p', '720p', '1080p', 'hasWatermarks', 'hasAds', 'isAntiAdblock', 'otherLanguages', 'hasDirectDownloads',
         'hasBatchDownloads', 'isMobileFriendly', 'malSyncSupport', 'hasDisqusSupport', 'hasTachiyomiSupport',
         'hasAnilistSupport', 'hasKitsuSupport', 'hasSimKLSupport', 'hasMalSupport']
-    let modalBody = ""
+    let modalBody = '<div class="card bg-darker text-white mb-2">' +
+        '<div class="card-header">' +
+        '<strong class="me-auto">Official Sites</strong>' +
+        '</div>' +
+        '<div class="card-body">'
+    let primary = true
+    data['siteAddresses'].forEach(address => {
+        modalBody += ' <a class="btn btn-' + (primary ? 'primary' : 'secondary') + ' rounded-pill" target="_blank" href="' + address + '">🔗 ' +
+            address + '</a>'
+        primary = false
+    })
+    modalBody += '</div>' +
+        '</div>'
+
+    if (data['editorNotes']) {
+        modalBody += '<p class="my-3">' + data['editorNotes'] + '</p>'
+    }
+    if (data['siteFeatures']) {
+        modalBody += '<p class="my-3">' + data['siteFeatures'] + '</p>'
+    }
+
+    if ((data['hasAds'] || data['isAntiAdblock']) && (data['hasDirectDownloads'] || data['hasBatchDownloads'])) {
+        modalBody += '<div class="row"><div class="col-sm-6">'
+    }
+    if (data['hasAds'] || data['isAntiAdblock']) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Ad-Policy</strong>' +
+            '</div>' +
+            '<div class="card-body"><div class="row">' +
+            '<div class="col-auto">Ads: ' + render(data['hasAds']) + '</div>' +
+            '<div class="col">Anti-Adblock: ' + render(data['isAntiAdblock']) + '</div> ' +
+            '</div></div>' +
+            '</div>'
+    }
+    if ((data['hasAds'] || data['isAntiAdblock']) && (data['hasDirectDownloads'] || data['hasBatchDownloads'])) {
+        modalBody += '</div><div class="col-sm-6">'
+    }
+    if (data['hasDirectDownloads'] || data['hasBatchDownloads']) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Download-Options</strong>' +
+            '</div>' +
+            '<div class="card-body"><div class="row">' +
+            '<div class="col-auto">Downloads: ' + render(data['hasDirectDownloads']) + '</div>' +
+            '<div class="col">Batch-Downloads: ' + render(data['hasBatchDownloads']) + '</div> ' +
+            '</div></div>' +
+            '</div>'
+    }
+    if ((data['hasAds'] || data['isAntiAdblock']) && (data['hasDirectDownloads'] || data['hasBatchDownloads'])) {
+        modalBody += '</div></div>'
+    }
+
     if (data['360p'] || data['480p'] || data['720p'] || data['1080p']) {
         modalBody += '<div class="card bg-darker text-white my-2">' +
             '<div class="card-header">' +
@@ -269,34 +322,6 @@ const showInfoModal = (key, index) => {
         modalBody += '<div class="row my-2">' +
             '<div class="col">' + propertyToName('otherLanguages') + ':</div>' +
             '<div class="col">' + data['otherLanguages'] + '</div>' +
-            '</div>'
-    }
-    if (data.editorNotes) {
-        modalBody += '<p class="my-3">' + data.editorNotes + '</p>'
-    }
-    if (data.siteFeatures) {
-        modalBody += '<p class="my-3">' + data.siteFeatures + '</p>'
-    }
-    if (data['hasAds'] || data['isAntiAdblock']) {
-        modalBody += '<div class="card bg-darker text-white my-2">' +
-            '<div class="card-header">' +
-            '<strong class="me-auto">Ad-Policy</strong>' +
-            '</div>' +
-            '<div class="card-body"><div class="row">' +
-            '<div class="col">Ads: ' + render(data['hasAds']) + '</div>' +
-            '<div class="col">Anti-Adblock: ' + render(data['isAntiAdblock']) + '</div> ' +
-            '</div></div>' +
-            '</div>'
-    }
-    if (data['hasDirectDownloads'] || data['hasBatchDownloads']) {
-        modalBody += '<div class="card bg-darker text-white my-2">' +
-            '<div class="card-header">' +
-            '<strong class="me-auto">Download-Options</strong>' +
-            '</div>' +
-            '<div class="card-body"><div class="row">' +
-            '<div class="col">Downloads: ' + render(data['hasDirectDownloads']) + '</div>' +
-            '<div class="col">Batch-Downloads: ' + render(data['hasBatchDownloads']) + '</div> ' +
-            '</div></div>' +
             '</div>'
     }
 
@@ -335,13 +360,7 @@ const showInfoModal = (key, index) => {
     }
     document.querySelector('#infoModal .modal-body').innerHTML = modalBody
 
-    let modalLinks = ''
-    data.siteAddresses.forEach(address => {
-        modalLinks += '<a class="btn btn-secondary" target="_blank" href="' + address + '">' + address + '</a>'
-    })
-    document.querySelector('#infoModal .modal-footer').innerHTML = modalLinks
-
-    // launch modal
+// launch modal
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
