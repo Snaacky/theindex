@@ -18,12 +18,16 @@ const render = (data) => {
         }
     }
 
+    if (!data) {
+        data = '?'
+    }
+
     const styles = styleMap[data]
 
     if (styles) {
         const labelType = styles.labelType || 'default'
         const style = styles.style || ''
-        return `<span class="label label-${labelType}" style="background-color: rgba(26, 26, 26, 1); ${style}"> ${data} </span>`
+        return `<kbd class="label label-${labelType}" style="${style}"> ${data} </kbd>`
     }
 
     return data
@@ -53,6 +57,8 @@ const propertyToName = (property) => {
             return "Batch DL"
         case "isMobileFriendly":
             return "Mobile Friendly"
+        case "isEnglish":
+            return "English"
         case "malSyncSupport":
             return "MAl-Sync"
         case "hasWatermarks":
@@ -216,24 +222,108 @@ const getApplicationTableOptions = (data) => ({
 const showInfoModal = (key, index) => {
     const data = window.rawData[key][index]
     console.log("Creating infoModal for ", key, index, data)
-    document.querySelector('#infoModalLabel').innerHTML = data.siteName
+    if (data['isMobileFriendly'] && data['isMobileFriendly'] === 'Y') {
+        document.querySelector('#infoModalLabel').innerHTML = data.siteName +
+            ' <small class="text-muted">' + propertyToName('isMobileFriendly') + '</small>'
+    } else {
+        document.querySelector('#infoModalLabel').innerHTML = data.siteName
+    }
 
+    let alreadyShowed = ['siteName', 'siteAddresses', 'editorNotes', 'siteFeatures', 'hasSubs', 'hasDubs', '360p',
+        '480p', '720p', '1080p', 'hasWatermarks', 'hasAds', 'isAntiAdblock', 'otherLanguages', 'hasDirectDownloads',
+        'hasBatchDownloads', 'isMobileFriendly', 'malSyncSupport', 'hasDisqusSupport', 'hasTachiyomiSupport',
+        'hasAnilistSupport', 'hasKitsuSupport', 'hasSimKLSupport', 'hasMalSupport']
     let modalBody = ""
+    if (data['360p'] || data['480p'] || data['720p'] || data['1080p']) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Video Options</strong>' +
+            '</div>' +
+            '<div class="card-body p-0">' +
+            '<div class="table-responsive">' +
+            '<table class="table table-dark mb-0">' +
+            '<thead><tr>' +
+            '<th>Subs</th>' +
+            '<th>Dubs</th>' +
+            '<th>1080p</th>' +
+            '<th>720p</th>' +
+            '<th>480p</th>' +
+            '<th>360p</th>' +
+            '<th>Watermarks</th>' +
+            '</tr></thead>' +
+            '<tbody><tr>' +
+            '<td>' + render(data['hasSubs']) + '</td>' +
+            '<td>' + render(data['hasDubs']) + '</td>' +
+            '<td>' + render(data['1080p']) + '</td>' +
+            '<td>' + render(data['720p']) + '</td>' +
+            '<td>' + render(data['480p']) + '</td>' +
+            '<td>' + render(data['360p']) + '</td>' +
+            '<td>' + render(data['hasWatermarks']) + '</td>' +
+            '</tr></tbody>' +
+            '</table></div>' +
+            '</div></div>'
+    }
+    if (data['otherLanguages']) {
+        modalBody += '<div class="row my-2">' +
+            '<div class="col">' + propertyToName('otherLanguages') + ':</div>' +
+            '<div class="col">' + data['otherLanguages'] + '</div>' +
+            '</div>'
+    }
     if (data.editorNotes) {
         modalBody += '<p class="my-3">' + data.editorNotes + '</p>'
     }
     if (data.siteFeatures) {
         modalBody += '<p class="my-3">' + data.siteFeatures + '</p>'
     }
+    if (data['hasAds'] || data['isAntiAdblock']) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Ad-Policy</strong>' +
+            '</div>' +
+            '<div class="card-body"><div class="row">' +
+            '<div class="col">Ads: ' + render(data['hasAds']) + '</div>' +
+            '<div class="col">Anti-Adblock: ' + render(data['isAntiAdblock']) + '</div> ' +
+            '</div></div>' +
+            '</div>'
+    }
+    if (data['hasDirectDownloads'] || data['hasBatchDownloads']) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Download-Options</strong>' +
+            '</div>' +
+            '<div class="card-body"><div class="row">' +
+            '<div class="col">Downloads: ' + render(data['hasDirectDownloads']) + '</div>' +
+            '<div class="col">Batch-Downloads: ' + render(data['hasBatchDownloads']) + '</div> ' +
+            '</div></div>' +
+            '</div>'
+    }
 
-    modalBody += '<div class="my-3 d-flex">'
-    data.siteAddresses.forEach(address => {
-        modalBody += '<a class="btn btn-secondary" target="_blank" href="' + address + '">' + address + '</a>'
-    })
-    modalBody += '</div>'
+    let listSupport = ['malSyncSupport', 'hasMalSupport', 'hasDisqusSupport', 'hasTachiyomiSupport', 'hasAnilistSupport', 'hasKitsuSupport', 'hasSimKLSupport']
+    listSupport = listSupport.filter(key => data[key])
+    if (listSupport.length > 0) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">3rd-Party Support</strong>' +
+            '</div>' +
+            '<div class="card-body p-0">' +
+            '<div class="table-responsive">' +
+            '<table class="table table-dark mb-0">' +
+            '<thead><tr>'
+        listSupport.forEach(key => {
+            modalBody += '<th>' + propertyToName(key) + '</th>'
+        })
+        modalBody += '</tr></thead>' +
+            '<tbody><tr>'
+        listSupport.forEach(key => {
+            modalBody += '<td>' + render(data[key]) + '</td>'
+        })
+        modalBody += '</tr></tbody>' +
+            '</table></div>' +
+            '</div></div>'
+    }
 
     for (const key in data) {
-        if (['siteName', 'siteAddresses', 'editorNotes', 'siteFeatures'].includes(key)) {
+        if (alreadyShowed.includes(key)) {
             continue
         }
         modalBody += '<div class="row my-2">' +
@@ -241,9 +331,15 @@ const showInfoModal = (key, index) => {
             '<div class="col">' + render(data[key]) + '</div>' +
             '</div>'
     }
+    document.querySelector('#infoModal .modal-body').innerHTML = modalBody
+
+    let modalLinks = ''
+    data.siteAddresses.forEach(address => {
+        modalLinks += '<a class="btn btn-secondary" target="_blank" href="' + address + '">' + address + '</a>'
+    })
+    document.querySelector('#infoModal .modal-footer').innerHTML = modalLinks
 
     // launch modal
-    document.querySelector('#infoModal .modal-body').innerHTML = modalBody
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
