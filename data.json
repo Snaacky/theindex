@@ -228,7 +228,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "-"
+            "otherLanguages": "---"
         },
         {
             "siteName": "AnimeHub",
@@ -251,7 +251,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "AnimeKisa",
