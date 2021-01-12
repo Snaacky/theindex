@@ -1438,7 +1438,7 @@
             "720p": "Y",
             "1080p": "N",
             "hasDubs": "N",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1449,7 +1449,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Arabic"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "Mavanimes",
