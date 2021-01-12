@@ -1185,7 +1185,7 @@
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1196,7 +1196,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "Arabic"
         },
         {
             "siteName": "AniFlix",
