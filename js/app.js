@@ -48,7 +48,7 @@ const propertyToName = (property) => {
         case "hasDubs":
             return "Dubs"
         case "otherLanguages":
-            return "Other Languages"
+            return "Languages"
         case "hasReleaseSchedule":
             return "Schedule"
         case "hasDirectDownloads":
@@ -81,6 +81,67 @@ const propertyToName = (property) => {
             return "Features"
         case "siteLanguage":
             return "Site Language"
+        default:
+            return property
+    }
+}
+
+const propertyToTooltip = (property) => {
+    switch (property) {
+        case "siteName":
+            return "The sites name"
+        case "siteAddresses":
+            return "The sites address"
+        case "hasAds":
+            return "Does the site have ads"
+        case "isAntiAdblock":
+            return "Does the site block adblockers"
+        case "hasSubs":
+            return "Does the site offer subs"
+        case "hasDubs":
+            return "Does the site offer dubs"
+        case "360p":
+            return "Does the site offer 360p streams"
+        case "480p":
+            return "Does the site offer 480p streams"
+        case "720p":
+            return "Does the site offer 720p streams"
+        case "1080p":
+            return "Does the site offer 1080p streams"
+        case "otherLanguages":
+            return "What language does the site support"
+        case "hasReleaseSchedule":
+            return "Does the site have a schedule listing"
+        case "hasDirectDownloads":
+            return "Does the site offer downloads"
+        case "hasBatchDownloads":
+            return "Does the site offer batch downloads"
+        case "isMobileFriendly":
+            return "Is the site friendly on mobile"
+        case "isEnglish":
+            return "Is this site in English"
+        case "malSyncSupport":
+            return "Does the site have MAL-Sync support"
+        case "hasWatermarks":
+            return "Does the site have watermarks on streams"
+        case "hasDisqusSupport":
+            return "Does the site have a Disqus comments section"
+        case "editorNotes":
+            return "Any additional notes from the index editors"
+        case "hasMalSupport":
+            return "Does the site have MAL support"
+        case "hasTachiyomiSupport":
+            return "Does the site have Tachiyomi support"
+        case "hasAnilistSupport":
+            return "Does this application have Anilist support"
+        case "hasKitsuSupport":
+            return "Does this application have Kitsu support"
+        case "hasSimKLSupport":
+            return "Does this application have SimKL support"
+        case "siteFeatures":
+            return "This extensions features"
+        case "siteLanguage":
+            return "The main language of the site"
         default:
             return property
     }
