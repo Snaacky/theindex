@@ -1208,7 +1208,7 @@
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "N",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1219,7 +1219,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "German"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "Anime4Up",
