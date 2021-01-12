@@ -642,7 +642,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "Requires an account to stream anime.",
-            "otherLanguages": "German"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "Aniwatcher",
@@ -665,7 +665,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Chia-Anime",
