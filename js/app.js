@@ -357,7 +357,7 @@ const showInfoModal = (key, index) => {
     }
 
      if (data['editorNotes']) {
-        if (data['editorNotes'] == "---") data['editorNotes'] = "No information provided.";
+        if (data['editorNotes'] == "---" || data['editorNotes'] == "?" ) data['editorNotes'] = "No information provided.";
         modalBody += '<div class="card bg-darker text-white my-2">' +
         '<div class="card-header">' +
         '<strong class="me-auto">Editor Notes</strong>' +
