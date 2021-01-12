@@ -1323,7 +1323,7 @@
             "720p": "?",
             "1080p": "?",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1334,7 +1334,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "German"
         },
         {
             "siteName": "AnimeWorld",
