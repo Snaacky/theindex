@@ -1226,23 +1226,23 @@
             "siteAddresses": [
                 "https://anime4up.com"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "-",
-            "hasSubs": "AR",
-            "otherLanguages": "Arabic",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
+            "hasDubs": "?",
+            "hasSubs": "",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "?",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "isMobileFriendly": "",
-            "malSyncSupport": "N",
-            "hasWatermarks": "Y",
-            "hasDisqusSupport": "",
-            "editorNotes": ""
+            "editorNotes": "?",
+            "otherLanguages": "Y"
         },
         {
             "siteName": "AnimeFLV ",
