@@ -787,23 +787,23 @@
             "siteAddresses": [
                 "https://kimcartoon.to"
             ],
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "hasDubs": "Y",
-            "hasSubs": "N",
-            "otherLanguages": "-",
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
+            "hasDubs": "Y",
+            "hasSubs": "N",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
             "malSyncSupport": "N",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "Y",
-            "editorNotes": ""
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "Pantsubase TV",
@@ -826,7 +826,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Proxer",
