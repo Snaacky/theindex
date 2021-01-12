@@ -1645,7 +1645,7 @@
             "720p": "Y",
             "1080p": "N",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1656,7 +1656,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "Main site for Arabic sub uploads",
-            "otherLanguages": "Y"
+            "otherLanguages": "Arabic"
         },
         {
             "siteName": "An1me",
