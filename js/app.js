@@ -101,14 +101,12 @@ const getAnimeTableOptions = (data) => ({
         {data: '1080p'},
         {data: 'hasReleaseSchedule'},
         {data: 'hasDirectDownloads'},
-        {data: 'isMobileFriendly'},
-        {data: 'malSyncSupport'},
         {data: 'hasWatermarks'},
         {data: 'hasDisqusSupport'}
     ],
     columnDefs: [
         {
-            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
             className: "dt-body-center",
             render: render
         }
