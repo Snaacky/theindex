@@ -849,7 +849,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "German"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "Ryuanime",
@@ -872,7 +872,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Shiro",
