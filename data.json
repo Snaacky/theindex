@@ -1147,8 +1147,8 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": ""
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "Animenight",
