@@ -357,15 +357,16 @@ const showInfoModal = (key, index) => {
     }
 
      if (data['editorNotes']) {
-        if (data['editorNotes'] == "---" || data['editorNotes'] == "?" ) data['editorNotes'] = "No information provided.";
-        modalBody += '<div class="card bg-darker text-white my-2">' +
-        '<div class="card-header">' +
-        '<strong class="me-auto">Editor Notes</strong>' +
-        '</div>' +
-        '<div class="card-body"><div class="row">' +
-        '<p class="my-1">' + data['editorNotes'] + '</p>' +
-        '</div></div>' +
-        '</div>'
+        if (!data['editorNotes'] == "---" || data['editorNotes'] == "?" ) {
+            modalBody += '<div class="card bg-darker text-white my-2">' +
+            '<div class="card-header">' +
+            '<strong class="me-auto">Editor Notes</strong>' +
+            '</div>' +
+            '<div class="card-body"><div class="row">' +
+            '<p class="my-1">' + data['editorNotes'] + '</p>' +
+            '</div></div>' +
+            '</div>'
+        }
     }
     document.querySelector('#infoModal .modal-body').innerHTML = modalBody
 
