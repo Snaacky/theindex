@@ -1254,7 +1254,7 @@
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "N",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1265,7 +1265,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Espanol"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "AnimeKom",
