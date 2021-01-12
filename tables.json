@@ -111,7 +111,7 @@
       },
       {
         "key": "otherLanguages",
-        "hidden": true
+        "hidden": false
       },
       {
         "key": "isMobileFriendly",
