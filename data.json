@@ -1055,8 +1055,8 @@
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "German"
+            "editorNotes": "?",
+            "otherLanguages": "Y"
         },
         {
             "siteName": "AnimeTribes",
@@ -1078,8 +1078,8 @@
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": ""
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "JustAnime",
