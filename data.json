@@ -1507,7 +1507,7 @@
             "720p": "Y",
             "1080p": "N",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1518,7 +1518,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "German"
         },
         {
             "siteName": "Shahiid Anime",
