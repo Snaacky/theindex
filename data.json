@@ -1300,7 +1300,7 @@
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1311,7 +1311,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "Arabic"
         },
         {
             "siteName": "AnimeStream",
