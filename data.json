@@ -1369,7 +1369,7 @@
             "720p": "Y",
             "1080p": "N",
             "hasDubs": "N",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1380,7 +1380,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Arabic"
+            "otherLanguages": "Y"
         },
         {
             "siteName": "AniSenpai",
