@@ -1415,7 +1415,7 @@
             "720p": "Y",
             "1080p": "Y",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1426,7 +1426,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "Portugese"
         },
         {
             "siteName": "EgyAnime",
