@@ -1124,8 +1124,8 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "Many"
+            "editorNotes": "?",
+            "otherLanguages": "Y"
         },
         {
             "siteName": "ArrayAnime",
