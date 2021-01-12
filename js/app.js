@@ -223,9 +223,9 @@ const showInfoModal = (key, index) => {
 
     // Modal-Header
     if (data['isMobileFriendly'] && data['isMobileFriendly'] === 'Y') {
-        document.querySelector('#infoModalMobile').style = ""
+        document.querySelector('#infoModalMobile>span').style = ""
     } else {
-        document.querySelector('#infoModalMobile').style = "display: none;"
+        document.querySelector('#infoModalMobile>span').style = "display: none;"
     }
     document.querySelector('#infoModalLabel').innerHTML = data.siteName
 
