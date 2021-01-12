@@ -147,136 +147,31 @@ const propertyToTooltip = (property) => {
     }
 }
 
-const getAnimeTableOptions = (data) => ({
-    data,
-    columns: [
-        {data: 'siteName'},
-        {data: 'hasAds'},
-        {data: 'isAntiAdblock'},
-        {data: 'hasSubs'},
-        {data: 'hasDubs'},
-        {data: 'otherLanguages'},
-        {data: '360p'},
-        {data: '480p'},
-        {data: '720p'},
-        {data: '1080p'},
-        {data: 'hasReleaseSchedule'},
-        {data: 'hasDirectDownloads'},
-        {data: 'hasWatermarks'},
-        {data: 'hasDisqusSupport'}
-    ],
-    columnDefs: [
-        {
-            targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-            className: "dt-body-center",
-            render: render
+const getTableOptions = (tab, data) => {
+    let columns = []
+    window.tables.forEach(tables => {
+        if (tables['tab'] === tab) {
+            columns = tables['columns']
         }
-    ],
-    dom: '<"top"i>rt<"bottom">p<"clear">',
-    bInfo: false,
-    paging: false,
-    responsive: true,
-    fixedHeader: true
-})
-
-const getMangaTableOptions = (data) => ({
-    data,
-    processing: true,
-    cache: false,
-    columns: [
-        {data: 'siteName'},
-        {data: 'hasAds'},
-        {data: 'isAntiAdblock'},
-        {data: 'isEnglish'},
-        {data: 'otherLanguages'},
-        {data: 'isMobileFriendly'},
-        {data: 'malSyncSupport'},
-        {data: 'hasTachiyomiSupport'}
-    ],
-    columnDefs: [
-        {
-            targets: [1, 2, 3, 4, 5, 6, 7],
-            className: "dt-body-center",
-            render: render
-        }
-    ],
-    dom: '<"top"i>rt<"bottom">p<"clear">',
-    bInfo: false,
-    paging: false,
-    responsive: true,
-    fixedHeader: true
-})
-
-const getLightNovelTableOptions = (data) => ({
-    data,
-    columns: [
-        {data: 'siteName'},
-        {data: 'hasAds'},
-        {data: 'isAntiAdblock'},
-        {data: 'isMobileFriendly'}
-    ],
-    columnDefs: [
-        {
-            targets: [1, 2, 3],
-            className: "dt-body-center",
-            render: render
-        }
-    ],
-    dom: '<"top"i>rt<"bottom">p<"clear">',
-    bInfo: false,
-    paging: false,
-    responsive: true,
-    fixedHeader: true
-})
-
-const getVisualNovelTableOptions = (data) => ({
-    data,
-    columns: [
-        {data: 'siteName'},
-        {data: 'hasAds'},
-        {data: 'isAntiAdblock'},
-        {data: 'siteLanguage'},
-        {data: 'hasSubs'},
-        {data: 'isMobileFriendly'},
-        {data: 'otherLanguages'}
-    ],
-    columnDefs: [
-        {
-            targets: [1, 2, 3, 4, 5],
-            className: "dt-body-center",
-            render: render
-        }
-    ],
-    dom: '<"top"i>rt<"bottom">p<"clear">',
-    bInfo: false,
-    paging: false,
-    responsive: true,
-    fixedHeader: true
-})
-
-const getApplicationTableOptions = (data) => ({
-    data,
-    columns: [
-        {data: 'siteName'},
-        {data: 'hasMalSupport'},
-        {data: 'hasAnilistSupport'},
-        {data: 'hasKitsuSupport'},
-        {data: 'hasSimKLSupport'},
-        {data: 'siteFeatures'}
-    ],
-    columnDefs: [
-        {
-            targets: [1, 2, 3, 4],
-            className: "dt-body-center",
-            render: render
-        }
-    ],
-    dom: '<"top"i>rt<"bottom">p<"clear">',
-    bInfo: false,
-    paging: false,
-    responsive: true,
-    fixedHeader: true
-})
+    })
+    columns = columns.filter(e => !e['hidden']).map(e => ({data: e['key']}))
+    return {
+        data,
+        "columns": columns,
+        columnDefs: [
+            {
+                targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
+                className: "dt-body-center",
+                render: render
+            }
+        ],
+        dom: '<"top"i>rt<"bottom">p<"clear">',
+        bInfo: false,
+        paging: false,
+        responsive: true,
+        fixedHeader: true
+    }
+}
 
 const showInfoModal = (key, index) => {
     const data = window.rawData[key][index]
@@ -416,8 +311,8 @@ const showInfoModal = (key, index) => {
             '</div>'
     })
 
-     if (data['editorNotes'] && (!["---", "?"].includes(data['editorNotes']))) {
-            modalBody += '<div class="card bg-darker text-white my-2">' +
+    if (data['editorNotes'] && (!["---", "?"].includes(data['editorNotes']))) {
+        modalBody += '<div class="card bg-darker text-white my-2">' +
             '<div class="card-header">' +
             '<strong class="me-auto">Editor Notes</strong>' +
             '</div>' +
@@ -434,61 +329,90 @@ const showInfoModal = (key, index) => {
 
 // Fetch raw json so we can combine multiple keys/sets
 window.rawData = {}
-window.onload = e => {
-    fetch('/data.json')
+window.onload = () => {
+    // generates tables
+    fetch('/tables.json')
         .then(data => data.json())
-        .then(json => {
-            // clone data to be displayed in #infoModal
-            window.rawData = JSON.parse(JSON.stringify(json))
+        .then(tables => {
+            window.tables = tables
+            tables.forEach(table => {
+                let tableString = ''
+                table['tables'].forEach(t => {
+                    tableString += '<div class="card mb-3">' +
+                        '<div class="card-header">' + t['title'] + '</div>' +
+                        '<div class="card-body p-0"><div class="table-responsive">' +
+                        '<table id="' + t['id'] + '" class="dataTable compact w-100">' +
+                        '<thead><tr>'
+                    table['columns'].forEach(th => {
+                        if (th['hidden']) {
+                            return
+                        }
+                        tableString += '<th title="' + propertyToTooltip(th['key']) + '">' + propertyToName(th['key']) + '</th>'
+                    })
+                    tableString += '</tr></thead>' +
+                        '</table>' +
+                        '</div></div>' +
+                        '</div>'
 
-            // Remap entries to convert url arrays into comma seperated strings
-            const parsedData = {}
-            Object.keys(json).forEach(key => {
-                parsedData[key] = json[key].map((entry, index) => {
-                    entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">${entry.siteName}</a>`
-                    return entry
                 })
+                document.querySelector('#' + table['tab']).innerHTML = tableString
             })
 
-            // ANIME SITES ------------------------------
-            const animeEnglishTable = $('#animeEnglishTable').DataTable(getAnimeTableOptions(parsedData.englishAnimeSites))
-            const animeForeignTable = $('#animeForeignTable').DataTable(getAnimeTableOptions(parsedData.foreignAnimeSites))
-            const animeDownloadTable = $('#animeDownloadTable').DataTable(getAnimeTableOptions(parsedData.animeDownloadSites))
+            fetch('/data.json')
+                .then(data => data.json())
+                .then(json => {
+                    // clone data to be displayed in #infoModal
+                    window.rawData = JSON.parse(JSON.stringify(json))
 
-            // MANGA SITES ------------------------------
-            const mangaTable = $('#mangaTable').DataTable(getMangaTableOptions([...parsedData.englishMangaSites, ...parsedData.foreignMangaSites]))
-            const scansTable = $('#scansTable').DataTable(getMangaTableOptions([...parsedData.englishMangaScans, ...parsedData.foreignMangaScans]))
+                    // Remap entries to convert url arrays into comma seperated strings
+                    let parsedData = {}
+                    Object.keys(json).forEach(key => {
+                        parsedData[key] = json[key].map((entry, index) => {
+                            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">${entry.siteName}</a>`
+                            return entry
+                        })
+                    })
 
-            // NOVEL SITES ------------------------------
-            const lightNovelTable = $('#lightNovelTable').DataTable(getLightNovelTableOptions(parsedData.lightNovels))
-            const visualNovelTable = $('#visualNovelTable').DataTable(getVisualNovelTableOptions(parsedData.visualNovels))
+                    // ANIME SITES ------------------------------
+                    const animeEnglishTable = $('#animeEnglishTable').DataTable(getTableOptions('animeTables', parsedData.englishAnimeSites))
+                    const animeForeignTable = $('#animeForeignTable').DataTable(getTableOptions('animeTables', parsedData.foreignAnimeSites))
+                    const animeDownloadTable = $('#animeDownloadTable').DataTable(getTableOptions('animeTables', parsedData.animeDownloadSites))
 
-            // APPLICATIONS ------------------------------
-            const iosApplicationsTable = $('#iosApplications').DataTable(getApplicationTableOptions(parsedData.iOSApplications))
-            const androidApplicationsTable = $('#androidApplications').DataTable(getApplicationTableOptions(parsedData.androidApplications))
-            const windowsApplicationsTable = $('#windowsApplications').DataTable(getApplicationTableOptions(parsedData.windowsApplications))
-            const mangaApplicationsTable = $('#mangaApplications').DataTable(getApplicationTableOptions(parsedData.mangaApplications))
-            const macOSXApplicationsTable = $('#macApplications').DataTable(getApplicationTableOptions(parsedData.macOSApplications))
-            const browserExtensionsTable = $('#browserExtensionsTable').DataTable(getApplicationTableOptions(parsedData.browserExtensions))
+                    // MANGA SITES ------------------------------
+                    const mangaTable = $('#mangaTable').DataTable(getTableOptions('mangaTables', [...parsedData.englishMangaSites, ...parsedData.foreignMangaSites]))
+                    const scansTable = $('#scansTable').DataTable(getTableOptions('mangaTables', [...parsedData.englishMangaScans, ...parsedData.foreignMangaScans]))
 
-            // Handles using a single search bar for multiple tables
-            $('#tableSearch').on('keyup click', function () {
-                animeEnglishTable.tables().search($(this).val()).draw()
-                animeForeignTable.tables().search($(this).val()).draw()
-                animeDownloadTable.tables().search($(this).val()).draw()
-                mangaTable.tables().search($(this).val()).draw()
-                scansTable.tables().search($(this).val()).draw()
-                lightNovelTable.tables().search($(this).val()).draw()
-                visualNovelTable.tables().search($(this).val()).draw()
-                iosApplicationsTable.tables().search($(this).val()).draw()
-                androidApplicationsTable.tables().search($(this).val()).draw()
-                windowsApplicationsTable.tables().search($(this).val()).draw()
-                mangaApplicationsTable.tables().search($(this).val()).draw()
-                macOSXApplicationsTable.tables().search($(this).val()).draw()
-                browserExtensionsTable.tables().search($(this).val()).draw()
-            })
+                    // NOVEL SITES ------------------------------
+                    const lightNovelTable = $('#lightNovelTable').DataTable(getTableOptions('lightNovelTables', parsedData.lightNovels))
+                    const visualNovelTable = $('#visualNovelTable').DataTable(getTableOptions('lightNovelTables', parsedData.visualNovels))
 
-            document.querySelector('#tablesList').style = ""
-            document.querySelector('#loader').remove()
+                    // APPLICATIONS ------------------------------
+                    const iosApplicationsTable = $('#iosApplications').DataTable(getTableOptions('applicationsTables', parsedData.iOSApplications))
+                    const androidApplicationsTable = $('#androidApplications').DataTable(getTableOptions('applicationsTables', parsedData.androidApplications))
+                    const windowsApplicationsTable = $('#windowsApplications').DataTable(getTableOptions('applicationsTables', parsedData.windowsApplications))
+                    const mangaApplicationsTable = $('#mangaApplications').DataTable(getTableOptions('applicationsTables', parsedData.mangaApplications))
+                    const macOSXApplicationsTable = $('#macApplications').DataTable(getTableOptions('applicationsTables', parsedData.macOSApplications))
+                    const browserExtensionsTable = $('#browserExtensionsTable').DataTable(getTableOptions('applicationsTables', parsedData.browserExtensions))
+
+                    // Handles using a single search bar for multiple tables
+                    $('#tableSearch').on('keyup click', function () {
+                        animeEnglishTable.tables().search($(this).val()).draw()
+                        animeForeignTable.tables().search($(this).val()).draw()
+                        animeDownloadTable.tables().search($(this).val()).draw()
+                        mangaTable.tables().search($(this).val()).draw()
+                        scansTable.tables().search($(this).val()).draw()
+                        lightNovelTable.tables().search($(this).val()).draw()
+                        visualNovelTable.tables().search($(this).val()).draw()
+                        iosApplicationsTable.tables().search($(this).val()).draw()
+                        androidApplicationsTable.tables().search($(this).val()).draw()
+                        windowsApplicationsTable.tables().search($(this).val()).draw()
+                        mangaApplicationsTable.tables().search($(this).val()).draw()
+                        macOSXApplicationsTable.tables().search($(this).val()).draw()
+                        browserExtensionsTable.tables().search($(this).val()).draw()
+                    })
+
+                    document.querySelector('#tablesList').style = ""
+                    document.querySelector('#loader').remove()
+                })
         })
 }

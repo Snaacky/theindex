@@ -1,0 +1,234 @@
+[
+  {
+    "tab": "animeTables",
+    "columns": [
+      {
+        "key": "siteName",
+        "hidden": false
+      },
+      {
+        "key": "hasAds",
+        "hidden": false
+      },
+      {
+        "key": "isAntiAdblock",
+        "hidden": true
+      },
+      {
+        "key": "hasSubs",
+        "hidden": false
+      },
+      {
+        "key": "hasDubs",
+        "hidden": false
+      },
+      {
+        "key": "360p",
+        "hidden": false
+      },
+      {
+        "key": "480p",
+        "hidden": false
+      },
+      {
+        "key": "720p",
+        "hidden": false
+      },
+      {
+        "key": "1080p",
+        "hidden": false
+      },
+      {
+        "key": "otherLanguages",
+        "hidden": true
+      },
+      {
+        "key": "hasReleaseSchedule",
+        "hidden": false
+      },
+      {
+        "key": "hasDirectDownloads",
+        "hidden": false
+      },
+      {
+        "key": "hasBatchDownloads",
+        "hidden": true
+      },
+      {
+        "key": "isMobileFriendly",
+        "hidden": true
+      },
+      {
+        "key": "malSyncSupport",
+        "hidden": false
+      },
+      {
+        "key": "hasWatermarks",
+        "hidden": true
+      },
+      {
+        "key": "hasDisqusSupport",
+        "hidden": true
+      },
+      {
+        "key": "editorNotes",
+        "hidden": true
+      }
+    ],
+    "tables": [
+      {
+        "id": "animeEnglishTable",
+        "title": "English Streaming Sites"
+      },
+      {
+        "id": "animeForeignTable",
+        "title": "Foreign Streaming Sites"
+      },
+      {
+        "id": "animeDownloadTable",
+        "title": "Download Only Sites"
+      }
+    ]
+  },
+  {
+    "tab": "mangaTables",
+    "columns": [
+      {
+        "key": "siteName",
+        "hidden": false
+      },
+      {
+        "key": "hasAds",
+        "hidden": false
+      },
+      {
+        "key": "isAntiAdblock",
+        "hidden": true
+      },
+      {
+        "key": "isEnglish",
+        "hidden": false
+      },
+      {
+        "key": "otherLanguages",
+        "hidden": true
+      },
+      {
+        "key": "isMobileFriendly",
+        "hidden": true
+      },
+      {
+        "key": "malSyncSupport",
+        "hidden": false
+      },
+      {
+        "key": "hasTachiyomiSupport",
+        "hidden": false
+      }
+    ],
+    "tables": [
+      {
+        "id": "mangaTable",
+        "title": "Aggregators"
+      },
+      {
+        "id": "scansTable",
+        "title": "Scans"
+      }
+    ]
+  },
+  {
+    "tab": "lightNovelTables",
+    "columns": [
+      {
+        "key": "siteName",
+        "hidden": false
+      },
+      {
+        "key": "hasAds",
+        "hidden": false
+      },
+      {
+        "key": "isAntiAdblock",
+        "hidden": true
+      },
+      {
+        "key": "siteLanguage",
+        "hidden": false
+      },
+      {
+        "key": "otherLanguages",
+        "hidden": false
+      },
+      {
+        "key": "hasSubs",
+        "hidden": true
+      },
+      {
+        "key": "isMobileFriendly",
+        "hidden": true
+      }
+    ],
+    "tables": [
+      {
+        "id": "lightNovelTable",
+        "title": "Light Novels"
+      },
+      {
+        "id": "visualNovelTable",
+        "title": "Visual Novels"
+      }
+    ]
+  },
+  {
+    "tab": "applicationsTables",
+    "columns": [
+      {
+        "key": "siteName",
+        "hidden": false
+      },
+      {
+        "key": "hasMalSupport",
+        "hidden": false
+      },
+      {
+        "key": "hasAnilistSupport",
+        "hidden": false
+      },
+      {
+        "key": "hasKitsuSupport",
+        "hidden": false
+      },
+      {
+        "key": "hasSimKLSupport",
+        "hidden": false
+      },
+      {
+        "key": "siteFeatures",
+        "hidden": false
+      }
+    ],
+    "tables": [
+      {
+        "id": "iosApplications",
+        "title": "iOS"
+      },
+      {
+        "id": "androidApplications",
+        "title": "Android"
+      },
+      {
+        "id": "windowsApplications",
+        "title": "Windows"
+      },
+      {
+        "id": "macApplications",
+        "title": "macOS"
+      },
+      {
+        "id": "browserExtensionsTable",
+        "title": "Browser Extensions"
+      }
+    ]
+  }
+]
