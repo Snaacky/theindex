@@ -2340,15 +2340,15 @@
             "hasSubs": "Y",
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "",
+            "isMobileFriendly": "?",
             "malSyncSupport": "N",
-            "hasWatermarks": "",
+            "hasWatermarks": "?",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "---",
-            "otherLanguages": "Y"
+            "otherLanguages": "French"
         },
         {
             "siteName": "Anime Tosho",
