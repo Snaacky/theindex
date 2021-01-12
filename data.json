@@ -1461,7 +1461,7 @@
             "720p": "Y",
             "1080p": "N",
             "hasDubs": "?",
-            "hasSubs": "",
+            "hasSubs": "?",
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
@@ -1472,7 +1472,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Y"
+            "otherLanguages": "French"
         },
         {
             "siteName": "OKanime",
