@@ -438,13 +438,31 @@ window.onload = () => {
 
                     Object.keys(parsedData).forEach(key => {
                         parsedData[key].forEach((entry, index) => {
+                            // apply yellow color after 10s if not finished
+                            let applyWarning = setTimeout(() => {
+                                let onlineStatus = document.querySelector('#' + key + index + '>div')
+                                onlineStatus.classList.remove("bg-secondary")
+                                onlineStatus.classList.add("bg-warning")
+                            }, 10000)
+
+                            // actually ping the site
                             checkOnlineStatus(entry['siteAddresses'][0])
                                 .then(result => {
-                                    document.querySelector('#' + key + index + '>div').classList.remove("spinner-grow", "bg-secondary")
-                                    if (result) {
-                                        document.querySelector('#' + key + index + '>div').classList.add("bg-success")
+                                    clearTimeout(applyWarning)
+                                    let onlineStatus = document.querySelector('#' + key + index + '>div')
+                                    onlineStatus.classList.remove("spinner-grow")
+                                    // remove previous color-state
+                                    if (onlineStatus.classList.contains("bg-secondary")) {
+                                        onlineStatus.classList.remove("bg-secondary")
                                     } else {
-                                        document.querySelector('#' + key + index + '>div').classList.add("bg-danger")
+                                        onlineStatus.classList.remove("bg-warning")
+                                    }
+
+                                    // apply result color
+                                    if (result) {
+                                        onlineStatus.classList.add("bg-success")
+                                    } else {
+                                        onlineStatus.classList.add("bg-danger")
                                     }
                                 })
                         })
