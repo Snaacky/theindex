@@ -30,6 +30,14 @@ th.sorting {
     background-color: rgb(18, 18, 18) !important;
 }
 
+.bg-success {
+    background-color: #50992a !important;
+}
+
+.bg-danger {
+    background-color: #a05262 !important;
+}
+
 .alert.border-danger {
     background-color: #ff00000d;
 }

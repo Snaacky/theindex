@@ -147,6 +147,22 @@ const propertyToTooltip = (property) => {
     }
 }
 
+const checkOnlineStatus = async (server) => {
+    if (!server) {
+        server = "/"
+    }
+    try {
+        const online = await fetch(server, {
+            method: 'HEAD',
+            mode: 'no-cors'
+        })
+        return online.status < 500 // either true or false
+    } catch (err) {
+        console.log(server + " is not reachable")
+        return false // definitely offline
+    }
+}
+
 const getTableOptions = (tab, data) => {
     let columns = []
     window.tables.forEach(tables => {
@@ -368,7 +384,11 @@ window.onload = () => {
                     let parsedData = {}
                     Object.keys(json).forEach(key => {
                         parsedData[key] = json[key].map((entry, index) => {
-                            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">${entry.siteName}</a>`
+                            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" id="` +
+                                key + index + '" href="javascript:void(0)">' +
+                                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" role="status">' +
+                                '<span class="visually-hidden">Loading...</span>' +
+                                '</div> ' + entry.siteName + '</a>'
                             return entry
                         })
                     })
@@ -413,6 +433,29 @@ window.onload = () => {
 
                     document.querySelector('#tablesList').style = ""
                     document.querySelector('#loader').remove()
+
+
+                    Object.keys(parsedData).forEach(key => {
+                        parsedData[key].forEach((entry, index) => {
+                            checkOnlineStatus(entry['siteAddresses'][0])
+                                .then(result => {
+                                    document.querySelector('#' + key + index + '>div').classList.remove("spinner-grow", "bg-secondary")
+                                    if (result) {
+                                        document.querySelector('#' + key + index + '>div').classList.add("bg-success")
+                                    } else {
+                                        document.querySelector('#' + key + index + '>div').classList.add("bg-danger")
+                                    }
+                                })
+                        })
+                    })
                 })
         })
+
+    setInterval(async () => {
+        if (await checkOnlineStatus()) {
+            document.getElementById("online-status").innerHTML = ""
+        } else {
+            document.getElementById("online-status").innerHTML = "You or we are OFFLINE"
+        }
+    }, 10000) // ping every 10s
 }
