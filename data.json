@@ -734,7 +734,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "?"
+            "otherLanguages": "---"
         },
         {
             "siteName": "GoGoAnime",
@@ -756,8 +756,8 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "-"
+            "editorNotes": "?",
+            "otherLanguages": "---"
         },
         {
             "siteName": "Kawaiifu",
