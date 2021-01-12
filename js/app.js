@@ -149,8 +149,9 @@ const propertyToTooltip = (property) => {
 
 const checkOnlineStatus = async (server) => {
     if (!server) {
-        server = "/"
+        server = ""
     }
+    server += "/ping"
     try {
         const online = await fetch(server, {
             method: 'HEAD',
