@@ -406,16 +406,15 @@ const showInfoModal = (key, index) => {
     }
 
 
-
-    for (const key in data) {
+    Object.keys(data).forEach(key => {
         if (alreadyShowed.includes(key)) {
-            continue
+            return
         }
         modalBody += '<div class="row my-2">' +
             '<div class="col">' + propertyToName(key) + '</div>' +
             '<div class="col">' + render(data[key]) + '</div>' +
             '</div>'
-    }
+    })
 
      if (data['editorNotes'] && (!["---", "?"].includes(data['editorNotes']))) {
             modalBody += '<div class="card bg-darker text-white my-2">' +
