@@ -1,6 +1,7 @@
 [
   {
     "tab": "animeTables",
+    "name": "Anime",
     "columns": [
       {
         "key": "siteName",
@@ -77,21 +78,22 @@
     ],
     "tables": [
       {
-        "id": "animeEnglishTable",
+        "id": "englishAnimeSites",
         "title": "English Streaming Sites"
       },
       {
-        "id": "animeForeignTable",
+        "id": "foreignAnimeSites",
         "title": "Foreign Streaming Sites"
       },
       {
-        "id": "animeDownloadTable",
+        "id": "animeDownloadSites",
         "title": "Download Only Sites"
       }
     ]
   },
   {
     "tab": "mangaTables",
+    "name": "Manga",
     "columns": [
       {
         "key": "siteName",
@@ -128,17 +130,26 @@
     ],
     "tables": [
       {
-        "id": "mangaTable",
+        "id": "englishMangaSites",
         "title": "Aggregators"
       },
       {
-        "id": "scansTable",
+        "id": "foreignMangaSites",
+        "title": "Non-English Aggregators"
+      },
+      {
+        "id": "englishMangaScans",
         "title": "Scans"
+      },
+      {
+        "id": "foreignMangaScans",
+        "title": "Non-English Scans"
       }
     ]
   },
   {
     "tab": "lightNovelTables",
+    "name": "Novels",
     "columns": [
       {
         "key": "siteName",
@@ -171,17 +182,18 @@
     ],
     "tables": [
       {
-        "id": "lightNovelTable",
+        "id": "lightNovels",
         "title": "Light Novels"
       },
       {
-        "id": "visualNovelTable",
+        "id": "visualNovels",
         "title": "Visual Novels"
       }
     ]
   },
   {
     "tab": "applicationsTables",
+    "name": "Applications",
     "columns": [
       {
         "key": "siteName",
@@ -210,7 +222,7 @@
     ],
     "tables": [
       {
-        "id": "iosApplications",
+        "id": "iOSApplications",
         "title": "iOS"
       },
       {
@@ -222,11 +234,11 @@
         "title": "Windows"
       },
       {
-        "id": "macApplications",
+        "id": "macOSApplications",
         "title": "macOS"
       },
       {
-        "id": "browserExtensionsTable",
+        "id": "browserExtensions",
         "title": "Browser Extensions"
       }
     ]

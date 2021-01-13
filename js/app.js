@@ -171,7 +171,11 @@ const getTableOptions = (tab, data) => {
             columns = tables['columns']
         }
     })
-    columns = columns.filter(e => !e['hidden']).map(e => ({data: e['key']}))
+    columns = columns.map(e => ({
+        name: e['key'],
+        data: e['key'],
+        visible: !e['hidden']
+    }))
     return {
         data,
         "columns": columns,
@@ -353,6 +357,7 @@ window.onload = () => {
         .then(tables => {
             window.tables = tables
             tables.forEach(table => {
+                // create tables
                 let tableString = ''
                 table['tables'].forEach(t => {
                     tableString += '<div class="card mb-3">' +
@@ -361,9 +366,6 @@ window.onload = () => {
                         '<table id="' + t['id'] + '" class="dataTable compact w-100">' +
                         '<thead><tr>'
                     table['columns'].forEach(th => {
-                        if (th['hidden']) {
-                            return
-                        }
                         tableString += '<th title="' + propertyToTooltip(th['key']) + '">' + propertyToName(th['key']) + '</th>'
                     })
                     tableString += '</tr></thead>' +
@@ -373,6 +375,22 @@ window.onload = () => {
 
                 })
                 document.querySelector('#' + table['tab']).innerHTML = tableString
+
+                // create specific search-filter
+                let filter = '<hr><h3>' + table['name'] + '</h3>' +
+                    '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5" id="filter-' + table['tab'] + '">'
+                table['columns'].forEach(th => {
+                    filter += '<div class="col">' +
+                        '<div class="form-check form-check-inline form-switch">' +
+                        '<input class="form-check-input" type="checkbox" id="show-' + table['tab'] + th['key'] +
+                        '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-tab="' + table['tab'] +
+                        '"> <label class="form-check-label" for="show-' + table['tab'] + th['key'] + '">' +
+                        propertyToName(th['key']) + '</label>' +
+                        '</div></div>'
+                })
+                filter += '</div>'
+                document.querySelector('#specific-filter').innerHTML += filter
+
             })
 
             fetch('/data.json')
@@ -394,42 +412,19 @@ window.onload = () => {
                         })
                     })
 
-                    // ANIME SITES ------------------------------
-                    const animeEnglishTable = $('#animeEnglishTable').DataTable(getTableOptions('animeTables', parsedData.englishAnimeSites))
-                    const animeForeignTable = $('#animeForeignTable').DataTable(getTableOptions('animeTables', parsedData.foreignAnimeSites))
-                    const animeDownloadTable = $('#animeDownloadTable').DataTable(getTableOptions('animeTables', parsedData.animeDownloadSites))
-
-                    // MANGA SITES ------------------------------
-                    const mangaTable = $('#mangaTable').DataTable(getTableOptions('mangaTables', [...parsedData.englishMangaSites, ...parsedData.foreignMangaSites]))
-                    const scansTable = $('#scansTable').DataTable(getTableOptions('mangaTables', [...parsedData.englishMangaScans, ...parsedData.foreignMangaScans]))
-
-                    // NOVEL SITES ------------------------------
-                    const lightNovelTable = $('#lightNovelTable').DataTable(getTableOptions('lightNovelTables', parsedData.lightNovels))
-                    const visualNovelTable = $('#visualNovelTable').DataTable(getTableOptions('lightNovelTables', parsedData.visualNovels))
-
-                    // APPLICATIONS ------------------------------
-                    const iosApplicationsTable = $('#iosApplications').DataTable(getTableOptions('applicationsTables', parsedData.iOSApplications))
-                    const androidApplicationsTable = $('#androidApplications').DataTable(getTableOptions('applicationsTables', parsedData.androidApplications))
-                    const windowsApplicationsTable = $('#windowsApplications').DataTable(getTableOptions('applicationsTables', parsedData.windowsApplications))
-                    const mangaApplicationsTable = $('#mangaApplications').DataTable(getTableOptions('applicationsTables', parsedData.mangaApplications))
-                    const macOSXApplicationsTable = $('#macApplications').DataTable(getTableOptions('applicationsTables', parsedData.macOSApplications))
-                    const browserExtensionsTable = $('#browserExtensionsTable').DataTable(getTableOptions('applicationsTables', parsedData.browserExtensions))
+                    // initialize datatables
+                    window.dataTables = {}
+                    window.tables.forEach(tab => {
+                        tab['tables'].forEach(t => {
+                            window.dataTables[t['id']] = $('#' + t['id']).DataTable(getTableOptions(tab['tab'], parsedData[t['id']]))
+                        })
+                    })
 
                     // Handles using a single search bar for multiple tables
-                    $('#tableSearch').on('keyup click', function () {
-                        animeEnglishTable.tables().search($(this).val()).draw()
-                        animeForeignTable.tables().search($(this).val()).draw()
-                        animeDownloadTable.tables().search($(this).val()).draw()
-                        mangaTable.tables().search($(this).val()).draw()
-                        scansTable.tables().search($(this).val()).draw()
-                        lightNovelTable.tables().search($(this).val()).draw()
-                        visualNovelTable.tables().search($(this).val()).draw()
-                        iosApplicationsTable.tables().search($(this).val()).draw()
-                        androidApplicationsTable.tables().search($(this).val()).draw()
-                        windowsApplicationsTable.tables().search($(this).val()).draw()
-                        mangaApplicationsTable.tables().search($(this).val()).draw()
-                        macOSXApplicationsTable.tables().search($(this).val()).draw()
-                        browserExtensionsTable.tables().search($(this).val()).draw()
+                    $('#tableSearch').on('keyup click', () => {
+                        Object.keys(window.dataTables).forEach(key => {
+                            window.dataTables[key].tables().search($(this).val()).draw()
+                        })
                     })
 
                     document.querySelector('#tablesList').style = ""
@@ -471,6 +466,23 @@ window.onload = () => {
                                     new bootstrap.Tooltip(onlineStatus)
                                 })
                         })
+                    })
+
+                    // add event-listener for visibility toggle
+                    window.tables.forEach(table => {
+                        document.querySelectorAll('#filter-' + table['tab'] + ' input')
+                            .forEach(el => {
+                                el.addEventListener('change', (event) => {
+                                    console.log("Toggling visibility of column", el.getAttribute("data-column"), "in", el.getAttribute("data-tab"))
+                                    // Get the column API object
+                                    let tab = window.tables.filter(t => t['tab'] === el.getAttribute("data-tab"))[0]
+                                    tab['tables'].forEach(t => {
+                                        let c = window.dataTables[t['id']].column(el.getAttribute("data-column") + ':name')
+                                        console.log("Found column", c, "currently", c.visible())
+                                        c.visible(!c.visible())
+                                    })
+                                })
+                            })
                     })
                 })
         })
