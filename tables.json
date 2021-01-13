@@ -242,5 +242,15 @@
         "title": "Browser Extensions"
       }
     ]
+  },
+  {
+    "tab": "hentaiTables",
+    "name": "Hentai",
+    "columns": [
+
+    ],
+    "tables": [
+
+    ]
   }
 ]

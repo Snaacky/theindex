@@ -356,6 +356,7 @@ window.onload = () => {
         .then(data => data.json())
         .then(tables => {
             window.tables = tables
+            let firstTable = true;
             tables.forEach(table => {
                 // create tables
                 let tableString = ''
@@ -374,11 +375,13 @@ window.onload = () => {
                         '</div>'
 
                 })
-                document.querySelector('#' + table['tab']).innerHTML = tableString
+                document.querySelector('#' + table['tab']).innerHTML += tableString
 
                 // create specific search-filter
-                let filter = '<hr><h3>' + table['name'] + '</h3>' +
-                    '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5" id="filter-' + table['tab'] + '">'
+                let filter = '<div id="filter-' + table['tab'] + '" class="' +
+                    (firstTable ? '' : 'd-none') + '"><h3>' + table['name'] + '</h3>' +
+                    '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
+                firstTable = false;
                 table['columns'].forEach(th => {
                     filter += '<div class="col">' +
                         '<div class="form-check form-check-inline form-switch">' +
@@ -388,7 +391,7 @@ window.onload = () => {
                         propertyToName(th['key']) + '</label>' +
                         '</div></div>'
                 })
-                filter += '</div>'
+                filter += '</div></div>'
                 document.querySelector('#specific-filter').innerHTML += filter
 
             })
@@ -494,4 +497,11 @@ window.onload = () => {
             document.getElementById("online-status").innerHTML = "You or we are OFFLINE"
         }
     }, 10000) // ping every 10s
+
+    document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => el.addEventListener('shown.bs.tab', e => {
+        console.log("Switching tab", e.target.getAttribute('aria-controls'), e.relatedTarget.getAttribute('aria-controls'))
+        e.target.getAttribute('aria-controls')
+        document.querySelector("#filter-" + e.target.getAttribute('aria-controls')).classList.remove("d-none")
+        document.querySelector("#filter-" + e.relatedTarget.getAttribute('aria-controls')).classList.add("d-none")
+    }))
 }
