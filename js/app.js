@@ -387,7 +387,7 @@ window.onload = () => {
                         parsedData[key] = json[key].map((entry, index) => {
                             entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" id="` +
                                 key + index + '" href="javascript:void(0)">' +
-                                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" role="status">' +
+                                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" data-bs-toggle="tooltip" role="status">' +
                                 '<span class="visually-hidden">Loading...</span>' +
                                 '</div> ' + entry.siteName + '</a>'
                             return entry
@@ -461,9 +461,14 @@ window.onload = () => {
                                     // apply result color
                                     if (result) {
                                         onlineStatus.classList.add("bg-success")
+                                        onlineStatus.setAttribute("title", "Online")
                                     } else {
                                         onlineStatus.classList.add("bg-danger")
+                                        onlineStatus.setAttribute("title", "Offline")
                                     }
+
+                                    // initialize Tooltip
+                                    new bootstrap.Tooltip(onlineStatus)
                                 })
                         })
                     })
