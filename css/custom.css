@@ -48,6 +48,10 @@ th.sorting {
     max-width: 100vw;
 }
 
+.fixedHeader-locked {
+    display: none;
+}
+
 .card {
     background-color: #303030 !important;
 }
