@@ -345,7 +345,7 @@ const pingTab = (tab) => {
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
                     clearTimeout(applyWarning)
-                    let onlineStatus = document.querySelector('#' + table["id"] + index + '>div')
+                    let onlineStatus = document.querySelector('#online-' + table["id"] + index + '')
                     onlineStatus.classList.remove("spinner-grow")
                     // remove previous color-state
                     if (onlineStatus.classList.contains("bg-secondary")) {
@@ -384,11 +384,11 @@ const populateTables = () => {
     let parsedData = {}
     Object.keys(data).forEach(key => {
         parsedData[key] = data[key].map((entry, index) => {
-            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" id="` +
-                key + index + '" href="javascript:void(0)">' +
-                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" data-bs-toggle="tooltip" role="status">' +
+            entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
+                key + index + '" data-bs-toggle="tooltip" role="status">' +
                 '<span class="visually-hidden">Loading...</span>' +
-                '</div> ' + entry.siteName + '</a>'
+                '</div> ' + `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">` +
+                entry.siteName + '</a>'
             return entry
         })
     })
