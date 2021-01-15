@@ -210,7 +210,7 @@
         {
             "siteName": "AnimeFrenzy",
             "siteAddresses": [
-                "https://animefrenzy.org/"
+                "https://animefrenzy.org"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -739,7 +739,7 @@
         {
             "siteName": "GoGoAnime",
             "siteAddresses": [
-                "https://gogoanime.so/"
+                "https://gogoanime.so"
             ],
             "360p": "N",
             "480p": "N",
@@ -969,7 +969,7 @@
         {
             "siteName": "FastAni",
             "siteAddresses": [
-                "https://fastani.net/"
+                "https://fastani.net"
             ],
             "360p": "N",
             "480p": "N",
@@ -992,7 +992,7 @@
         {
             "siteName": "YugenAnime",
             "siteAddresses": [
-                "https://yugenani.me/"
+                "https://yugenani.me"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1015,7 +1015,7 @@
         {
             "siteName": "AnimeParadise",
             "siteAddresses": [
-                "https://animeparadise.cc/"
+                "https://animeparadise.cc"
             ],
             "360p": "Y",
             "480p": "?",
@@ -1061,7 +1061,7 @@
         {
             "siteName": "AnimeTribes",
             "siteAddresses": [
-                "https://animetribes.ru/"
+                "https://animetribes.ru"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1084,7 +1084,7 @@
         {
             "siteName": "JustAnime",
             "siteAddresses": [
-                "https://justanime.app/"
+                "https://justanime.app"
             ],
             "360p": "N",
             "480p": "N",
@@ -1107,7 +1107,7 @@
         {
             "siteName": "AnimeXin",
             "siteAddresses": [
-                "https://animexin.xyz/"
+                "https://animexin.xyz"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1153,7 +1153,7 @@
         {
             "siteName": "Animenight",
             "siteAddresses": [
-                "https://animenight.tv/"
+                "https://animenight.tv"
             ],
             "360p": "N",
             "480p": "Y",
@@ -1661,7 +1661,7 @@
         {
             "siteName": "An1me",
             "siteAddresses": [
-                "https://an1me.nl/"
+                "https://an1me.nl"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1684,7 +1684,7 @@
         {
             "siteName": "AnimeDesu",
             "siteAddresses": [
-                "https://animedesu.pl/"
+                "https://animedesu.pl"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1707,7 +1707,7 @@
         {
             "siteName": "AnimeID",
             "siteAddresses": [
-                "https://www.animeid.tv/"
+                "https://www.animeid.tv"
             ],
             "360p": "?",
             "480p": "?",
@@ -1730,7 +1730,7 @@
         {
             "siteName": "AnimeIndo",
             "siteAddresses": [
-                "http://animeindo.moe/"
+                "http://animeindo.moe"
             ],
             "360p": "Y",
             "480p": "N",
@@ -1753,7 +1753,7 @@
         {
             "siteName": "Anime-Odcinki",
             "siteAddresses": [
-                "https://anime-odcinki.pl/"
+                "https://anime-odcinki.pl"
             ],
             "360p": "N",
             "480p": "Y",
@@ -1776,7 +1776,7 @@
         {
             "siteName": "DreamSub",
             "siteAddresses": [
-                "https://dreamsub.stream/"
+                "https://dreamsub.stream"
             ],
             "360p": "N",
             "480p": "N",
@@ -1799,7 +1799,7 @@
         {
             "siteName": "jKanime",
             "siteAddresses": [
-                "https://jkanime.net/"
+                "https://jkanime.net"
             ],
             "360p": "?",
             "480p": "Y",
@@ -1822,7 +1822,7 @@
         {
             "siteName": "MonosChinos",
             "siteAddresses": [
-                "https://monoschinos2.com/"
+                "https://monoschinos2.com"
             ],
             "360p": "N",
             "480p": "Y",
@@ -1845,7 +1845,7 @@
         {
             "siteName": "Neko-sama",
             "siteAddresses": [
-                "https://neko-sama.fr/"
+                "https://neko-sama.fr"
             ],
             "360p": "N",
             "480p": "Y",
@@ -1868,7 +1868,7 @@
         {
             "siteName": "Animelite",
             "siteAddresses": [
-                "https://animelite.site/"
+                "https://animelite.site"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -2376,7 +2376,7 @@
         {
             "siteName": "AnimeK [Torrent Only]",
             "siteAddresses": [
-                "https://animek.fun/"
+                "https://animek.fun"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -2399,7 +2399,7 @@
         {
             "siteName": "Chau Thanh",
             "siteAddresses": [
-                "https://chauthanh.info/"
+                "https://chauthanh.info"
             ],
             "360p": "N",
             "480p": "N",
@@ -2422,7 +2422,7 @@
         {
             "siteName": "AnimeSub",
             "siteAddresses": [
-                "https://animesub.in/"
+                "https://animesub.in"
             ],
             "360p": "N",
             "480p": "Y",
@@ -2773,7 +2773,7 @@
         {
             "siteName": "ComicK",
             "siteAddresses": [
-                "https://comick.fun/"
+                "https://comick.fun"
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
@@ -2854,7 +2854,7 @@
         {
             "siteName": "Manga ZIP",
             "siteAddresses": [
-                "http://manga-zip.net/"
+                "http://manga-zip.net"
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
@@ -3327,7 +3327,7 @@
         {
             "siteName": "NovelCool",
             "siteAddresses": [
-                "https://www.novelcool.com/"
+                "https://www.novelcool.com"
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
@@ -3390,7 +3390,7 @@
         {
             "siteName": "WebNovel",
             "siteAddresses": [
-                "https://webnovel.com/"
+                "https://webnovel.com"
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
@@ -3741,7 +3741,7 @@
         {
             "siteName": "MAL-Sync",
             "siteAddresses": [
-                "https://malsync.moe/"
+                "https://malsync.moe"
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
