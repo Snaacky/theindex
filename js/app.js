@@ -264,7 +264,7 @@ const generateTable = (tab, table) => {
     // create tables
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header">' + table['title'] +
-        '<a class="float-end text-decoration-none text-white" type="button" id="toggleFilter-' + table['id'] +
+        '<a class="float-end text-decoration-none text-white" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a></div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
