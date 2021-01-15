@@ -1,3 +1,7 @@
+window.rawData = {}
+// progress of async json loading
+let columnsReady, tablesReady, tablesGenerated, dataReady = false
+
 const render = (data) => {
     const styleMap = {
         Y: {
@@ -33,118 +37,26 @@ const render = (data) => {
     return data
 }
 
-const propertyToName = (property) => {
-    switch (property) {
-        case "siteName":
-            return "Name"
-        case "siteAddresses":
-            return "Address"
-        case "hasAds":
-            return "Ads"
-        case "isAntiAdblock":
-            return "Anti-Adblock"
-        case "hasSubs":
-            return "Subs"
-        case "hasDubs":
-            return "Dubs"
-        case "otherLanguages":
-            return "Languages"
-        case "hasReleaseSchedule":
-            return "Schedule"
-        case "hasDirectDownloads":
-            return "DL"
-        case "hasBatchDownloads":
-            return "Batch DL"
-        case "isMobileFriendly":
-            return "Mobile Friendly"
-        case "isEnglish":
-            return "English"
-        case "malSyncSupport":
-            return "MAL-Sync"
-        case "hasWatermarks":
-            return "Watermark"
-        case "hasDisqusSupport":
-            return "Disqus"
-        case "editorNotes":
-            return "Notes"
-        case "hasMalSupport":
-            return "MAL Support"
-        case "hasTachiyomiSupport":
-            return "Tachiyomi"
-        case "hasAnilistSupport":
-            return "Anilist Support"
-        case "hasKitsuSupport":
-            return "Kitsu Support"
-        case "hasSimKLSupport":
-            return "SimKL Support"
-        case "siteFeatures":
-            return "Features"
-        case "siteLanguage":
-            return "Site Language"
-        default:
-            return property
+const propertyName = (property) => {
+    if (columnsReady) {
+        try {
+            return window.columns["keys"][property]["name"]
+        } catch (e) {
+            console.error("Property", property, "has no name", e)
+        }
     }
+    return "???"
 }
 
-const propertyToTooltip = (property) => {
-    switch (property) {
-        case "siteName":
-            return "The sites name"
-        case "siteAddresses":
-            return "The sites address"
-        case "hasAds":
-            return "Does the site have ads"
-        case "isAntiAdblock":
-            return "Does the site block adblockers"
-        case "hasSubs":
-            return "Does the site offer subs"
-        case "hasDubs":
-            return "Does the site offer dubs"
-        case "360p":
-            return "Does the site offer 360p streams"
-        case "480p":
-            return "Does the site offer 480p streams"
-        case "720p":
-            return "Does the site offer 720p streams"
-        case "1080p":
-            return "Does the site offer 1080p streams"
-        case "otherLanguages":
-            return "What language does the site support"
-        case "hasReleaseSchedule":
-            return "Does the site have a schedule listing"
-        case "hasDirectDownloads":
-            return "Does the site offer downloads"
-        case "hasBatchDownloads":
-            return "Does the site offer batch downloads"
-        case "isMobileFriendly":
-            return "Is the site friendly on mobile"
-        case "isEnglish":
-            return "Is this site in English"
-        case "malSyncSupport":
-            return "Does the site have MAL-Sync support"
-        case "hasWatermarks":
-            return "Does the site have watermarks on streams"
-        case "hasDisqusSupport":
-            return "Does the site have a Disqus comments section"
-        case "editorNotes":
-            return "Any additional notes from the index editors"
-        case "hasMalSupport":
-            return "Does the site have MAL support"
-        case "hasTachiyomiSupport":
-            return "Does the site have Tachiyomi support"
-        case "hasAnilistSupport":
-            return "Does this application have Anilist support"
-        case "hasKitsuSupport":
-            return "Does this application have Kitsu support"
-        case "hasSimKLSupport":
-            return "Does this application have SimKL support"
-        case "siteFeatures":
-            return "This extensions features"
-        case "siteLanguage":
-            return "The main language of the site"
-        default:
-            return property
+const propertyDescription = (property) => {
+    if (columnsReady) {
+        try {
+            return window.columns["keys"][property]["description"]
+        } catch (e) {
+            console.error("Property", property, "has no description", e)
+        }
     }
+    return "???"
 }
 
 const checkOnlineStatus = async (server) => {
@@ -164,14 +76,9 @@ const checkOnlineStatus = async (server) => {
     }
 }
 
-const getTableOptions = (tab, data) => {
-    let columns = []
-    window.tables.forEach(tables => {
-        if (tables['tab'] === tab) {
-            columns = tables['columns']
-        }
-    })
-    columns = columns.map(e => ({
+const getTableOptions = (table, data) => {
+    console.log("Accessing", table, "for window.columns", window.columns)
+    let columns = window.columns["types"][table["type"]].map(e => ({
         name: e['key'],
         data: e['key'],
         visible: !e['hidden']
@@ -292,7 +199,7 @@ const showInfoModal = (key, index) => {
     }
     if (data['otherLanguages']) {
         modalBody += '<div class="row my-2">' +
-            '<div class="col">' + propertyToName('otherLanguages') + ':</div>' +
+            '<div class="col">' + propertyName('otherLanguages') + ':</div>' +
             '<div class="col">' + data['otherLanguages'] + '</div>' +
             '</div>'
     }
@@ -309,7 +216,7 @@ const showInfoModal = (key, index) => {
             '<table class="table table-dark mb-0">' +
             '<thead><tr>'
         listSupport.forEach(key => {
-            modalBody += '<th>' + propertyToName(key) + '</th>'
+            modalBody += '<th>' + propertyName(key) + '</th>'
         })
         modalBody += '</tr></thead>' +
             '<tbody><tr>'
@@ -327,7 +234,7 @@ const showInfoModal = (key, index) => {
             return
         }
         modalBody += '<div class="row my-2">' +
-            '<div class="col">' + propertyToName(key) + '</div>' +
+            '<div class="col">' + propertyName(key) + '</div>' +
             '<div class="col">' + render(data[key]) + '</div>' +
             '</div>'
     })
@@ -348,146 +255,190 @@ const showInfoModal = (key, index) => {
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
-// Fetch raw json so we can combine multiple keys/sets
-window.rawData = {}
+const generateTable = (tab, table) => {
+    console.log("Generating table", table, "in", tab)
+    if (!window.tables || !window.columns) {
+        console.error("Missing data: tables:", window.tables, "columns:", window.columns)
+        return
+    }
+
+    // create tables
+    let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
+        '<div class="card-header"><button class="btn btn-secondary" type="button" id="toggleFilter-' + table['id'] +
+        '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
+        'aria-controls="search-filter">⚙</button> ' +  table['title'] + '</div>' +
+        '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
+        '<div class="card card-body"><div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
+
+    // add column toggles
+    try {
+        window.columns['types'][table["type"]].forEach(th => {
+            if (th['key'] === "siteName"){
+                return
+            }
+            tableString += '<div class="col">' +
+                '<div class="form-check form-check-inline form-switch">' +
+                '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
+                '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
+                table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
+                propertyName(th['key']) + '</label>' +
+                '</div></div>'
+        })
+    } catch (e) {
+        console.error("Table type", table["type"], "could not be found", e)
+    }
+
+    tableString += '</div></div></div><div class="table-responsive">' +
+        '<table id="table-' + table['id'] + '" class="dataTable compact w-100">' +
+        '<thead><tr>'
+
+    // add thead row
+    window.columns['types'][table["type"]].forEach(th => {
+        tableString += '<th title="' + propertyDescription(th['key']) + '">' + propertyName(th['key']) + '</th>'
+    })
+
+    tableString += '</tr></thead>' +
+        '</table>' +
+        '</div></div>' +
+        '</div>'
+
+    document.querySelector('#' + tab).innerHTML += tableString
+}
+
+const generateAllTables = () => {
+    if (columnsReady && tablesReady) {
+        window.tables.forEach(tab => {
+            tab['tables'].forEach(t => generateTable(tab["tab"], t))
+        })
+        tablesGenerated = true
+
+        // get data
+        fetch('/data.json')
+            .then(data => data.json())
+            .then(json => {
+                window.rawData = json
+                dataReady = true
+                console.log("Data loaded...")
+                populateTables()
+            })
+    }
+}
+
+const populateTables = () => {
+    console.log("Populating tables with data, Status:")
+    console.log("tablesGenerated:\t", tablesGenerated, "\tdataReady:\t", dataReady, "\tcolumnsReady:\t", columnsReady, "\ttablesReady:\t", tablesReady)
+    if (!tablesGenerated || !dataReady) {
+        return
+    }
+
+    // clone data to be displayed in #infoModal
+    let data = JSON.parse(JSON.stringify(window.rawData))
+
+    // Remap entries to convert url arrays into comma seperated strings
+    let parsedData = {}
+    Object.keys(data).forEach(key => {
+        parsedData[key] = data[key].map((entry, index) => {
+            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" id="` +
+                key + index + '" href="javascript:void(0)">' +
+                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" data-bs-toggle="tooltip" role="status">' +
+                '<span class="visually-hidden">Loading...</span>' +
+                '</div> ' + entry.siteName + '</a>'
+            return entry
+        })
+    })
+
+    // initialize datatables
+    window.dataTables = {}
+    window.tables.forEach(tab => {
+        tab['tables'].forEach(t => {
+            window.dataTables[t['id']] = $('#table-' + t['id']).DataTable(getTableOptions(t, parsedData[t['id']]))
+        })
+    })
+
+    // Handles using a single search bar for multiple tables
+    $('#tableSearch').on('keyup click', () => {
+        Object.keys(window.dataTables).forEach(key => {
+            window.dataTables[key].tables().search($(this).val()).draw()
+        })
+    })
+
+    document.querySelector('#tablesList').style = ""
+    document.querySelector('#loader').remove()
+
+
+    Object.keys(parsedData).forEach(key => {
+        parsedData[key].forEach((entry, index) => {
+            // apply yellow color after 10s if not finished
+            let applyWarning = setTimeout(() => {
+                let onlineStatus = document.querySelector('#' + key + index + '>div')
+                onlineStatus.classList.remove("bg-secondary")
+                onlineStatus.classList.add("bg-warning")
+            }, 10000)
+
+            // actually ping the site
+            checkOnlineStatus(entry['siteAddresses'][0])
+                .then(result => {
+                    clearTimeout(applyWarning)
+                    let onlineStatus = document.querySelector('#' + key + index + '>div')
+                    onlineStatus.classList.remove("spinner-grow")
+                    // remove previous color-state
+                    if (onlineStatus.classList.contains("bg-secondary")) {
+                        onlineStatus.classList.remove("bg-secondary")
+                    } else {
+                        onlineStatus.classList.remove("bg-warning")
+                    }
+
+                    // apply result color
+                    if (result) {
+                        onlineStatus.classList.add("bg-success")
+                        onlineStatus.setAttribute("title", "Online")
+                    } else {
+                        onlineStatus.classList.add("bg-danger")
+                        onlineStatus.setAttribute("title", "Offline")
+                    }
+
+                    // initialize Tooltip
+                    new bootstrap.Tooltip(onlineStatus)
+                })
+        })
+    })
+
+    // add event-listener
+    window.tables.forEach(tab => {
+        tab["tables"].forEach(table => {
+            document.querySelectorAll('#collapse-' + table['id'] + ' input')
+                .forEach(el => {
+                    el.addEventListener('change', (event) => {
+                        console.log("Toggling visibility of column", el.getAttribute("data-column"), "for table",
+                            el.getAttribute("data-table"), "in tab", el.getAttribute("data-tab"))
+                        // Get the column API object
+                        let c = window.dataTables[el.getAttribute("data-table")].column(el.getAttribute("data-column") + ':name')
+                        console.log("Found column", c, "currently", c.visible())
+                        c.visible(!c.visible())
+                    })
+                })
+        })
+    })
+}
+
 window.onload = () => {
+    // get columns definition
+    fetch('/columns.json')
+        .then(data => data.json())
+        .then(columns => {
+            window.columns = columns
+            columnsReady = true
+            console.log("Columns loaded...")
+            generateAllTables()
+        })
     // generates tables
     fetch('/tables.json')
         .then(data => data.json())
         .then(tables => {
             window.tables = tables
-            let firstTable = true;
-            tables.forEach(table => {
-                // create tables
-                let tableString = ''
-                table['tables'].forEach(t => {
-                    tableString += '<div class="card mb-3">' +
-                        '<div class="card-header">' + t['title'] + '</div>' +
-                        '<div class="card-body p-0"><div class="table-responsive">' +
-                        '<table id="' + t['id'] + '" class="dataTable compact w-100">' +
-                        '<thead><tr>'
-                    table['columns'].forEach(th => {
-                        tableString += '<th title="' + propertyToTooltip(th['key']) + '">' + propertyToName(th['key']) + '</th>'
-                    })
-                    tableString += '</tr></thead>' +
-                        '</table>' +
-                        '</div></div>' +
-                        '</div>'
-
-                })
-                document.querySelector('#' + table['tab']).innerHTML += tableString
-
-                // create specific search-filter
-                let filter = '<div id="filter-' + table['tab'] + '" class="' +
-                    (firstTable ? '' : 'd-none') + '"><h3>' + table['name'] + '</h3>' +
-                    '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
-                firstTable = false;
-                table['columns'].forEach(th => {
-                    filter += '<div class="col">' +
-                        '<div class="form-check form-check-inline form-switch">' +
-                        '<input class="form-check-input" type="checkbox" id="show-' + table['tab'] + th['key'] +
-                        '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-tab="' + table['tab'] +
-                        '"> <label class="form-check-label" for="show-' + table['tab'] + th['key'] + '">' +
-                        propertyToName(th['key']) + '</label>' +
-                        '</div></div>'
-                })
-                filter += '</div></div>'
-                document.querySelector('#specific-filter').innerHTML += filter
-
-            })
-
-            fetch('/data.json')
-                .then(data => data.json())
-                .then(json => {
-                    // clone data to be displayed in #infoModal
-                    window.rawData = JSON.parse(JSON.stringify(json))
-
-                    // Remap entries to convert url arrays into comma seperated strings
-                    let parsedData = {}
-                    Object.keys(json).forEach(key => {
-                        parsedData[key] = json[key].map((entry, index) => {
-                            entry.siteName = `<a onclick="showInfoModal('${key}', ${index})" id="` +
-                                key + index + '" href="javascript:void(0)">' +
-                                '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" data-bs-toggle="tooltip" role="status">' +
-                                '<span class="visually-hidden">Loading...</span>' +
-                                '</div> ' + entry.siteName + '</a>'
-                            return entry
-                        })
-                    })
-
-                    // initialize datatables
-                    window.dataTables = {}
-                    window.tables.forEach(tab => {
-                        tab['tables'].forEach(t => {
-                            window.dataTables[t['id']] = $('#' + t['id']).DataTable(getTableOptions(tab['tab'], parsedData[t['id']]))
-                        })
-                    })
-
-                    // Handles using a single search bar for multiple tables
-                    $('#tableSearch').on('keyup click', () => {
-                        Object.keys(window.dataTables).forEach(key => {
-                            window.dataTables[key].tables().search($(this).val()).draw()
-                        })
-                    })
-
-                    document.querySelector('#tablesList').style = ""
-                    document.querySelector('#loader').remove()
-
-
-                    Object.keys(parsedData).forEach(key => {
-                        parsedData[key].forEach((entry, index) => {
-                            // apply yellow color after 10s if not finished
-                            let applyWarning = setTimeout(() => {
-                                let onlineStatus = document.querySelector('#' + key + index + '>div')
-                                onlineStatus.classList.remove("bg-secondary")
-                                onlineStatus.classList.add("bg-warning")
-                            }, 10000)
-
-                            // actually ping the site
-                            checkOnlineStatus(entry['siteAddresses'][0])
-                                .then(result => {
-                                    clearTimeout(applyWarning)
-                                    let onlineStatus = document.querySelector('#' + key + index + '>div')
-                                    onlineStatus.classList.remove("spinner-grow")
-                                    // remove previous color-state
-                                    if (onlineStatus.classList.contains("bg-secondary")) {
-                                        onlineStatus.classList.remove("bg-secondary")
-                                    } else {
-                                        onlineStatus.classList.remove("bg-warning")
-                                    }
-
-                                    // apply result color
-                                    if (result) {
-                                        onlineStatus.classList.add("bg-success")
-                                        onlineStatus.setAttribute("title", "Online")
-                                    } else {
-                                        onlineStatus.classList.add("bg-danger")
-                                        onlineStatus.setAttribute("title", "Offline")
-                                    }
-
-                                    // initialize Tooltip
-                                    new bootstrap.Tooltip(onlineStatus)
-                                })
-                        })
-                    })
-
-                    // add event-listener for visibility toggle
-                    window.tables.forEach(table => {
-                        document.querySelectorAll('#filter-' + table['tab'] + ' input')
-                            .forEach(el => {
-                                el.addEventListener('change', (event) => {
-                                    console.log("Toggling visibility of column", el.getAttribute("data-column"), "in", el.getAttribute("data-tab"))
-                                    // Get the column API object
-                                    let tab = window.tables.filter(t => t['tab'] === el.getAttribute("data-tab"))[0]
-                                    tab['tables'].forEach(t => {
-                                        let c = window.dataTables[t['id']].column(el.getAttribute("data-column") + ':name')
-                                        console.log("Found column", c, "currently", c.visible())
-                                        c.visible(!c.visible())
-                                    })
-                                })
-                            })
-                    })
-                })
+            tablesReady = true
+            console.log("Tables loaded...")
+            generateAllTables()
         })
 
     setInterval(async () => {
@@ -498,10 +449,13 @@ window.onload = () => {
         }
     }, 10000) // ping every 10s
 
+    /*
+    // switch to tab specific filter
     document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => el.addEventListener('shown.bs.tab', e => {
         console.log("Switching tab", e.target.getAttribute('aria-controls'), e.relatedTarget.getAttribute('aria-controls'))
         e.target.getAttribute('aria-controls')
         document.querySelector("#filter-" + e.target.getAttribute('aria-controls')).classList.remove("d-none")
         document.querySelector("#filter-" + e.relatedTarget.getAttribute('aria-controls')).classList.add("d-none")
     }))
+    */
 }

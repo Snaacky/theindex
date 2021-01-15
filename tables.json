@@ -2,255 +2,121 @@
   {
     "tab": "animeTables",
     "name": "Anime",
-    "columns": [
-      {
-        "key": "siteName",
-        "hidden": false
-      },
-      {
-        "key": "hasAds",
-        "hidden": false
-      },
-      {
-        "key": "isAntiAdblock",
-        "hidden": true
-      },
-      {
-        "key": "hasSubs",
-        "hidden": false
-      },
-      {
-        "key": "hasDubs",
-        "hidden": false
-      },
-      {
-        "key": "360p",
-        "hidden": false
-      },
-      {
-        "key": "480p",
-        "hidden": false
-      },
-      {
-        "key": "720p",
-        "hidden": false
-      },
-      {
-        "key": "1080p",
-        "hidden": false
-      },
-      {
-        "key": "otherLanguages",
-        "hidden": true
-      },
-      {
-        "key": "hasReleaseSchedule",
-        "hidden": false
-      },
-      {
-        "key": "hasDirectDownloads",
-        "hidden": false
-      },
-      {
-        "key": "hasBatchDownloads",
-        "hidden": true
-      },
-      {
-        "key": "isMobileFriendly",
-        "hidden": true
-      },
-      {
-        "key": "malSyncSupport",
-        "hidden": false
-      },
-      {
-        "key": "hasWatermarks",
-        "hidden": true
-      },
-      {
-        "key": "hasDisqusSupport",
-        "hidden": true
-      },
-      {
-        "key": "editorNotes",
-        "hidden": true
-      }
-    ],
     "tables": [
       {
         "id": "englishAnimeSites",
-        "title": "English Streaming Sites"
+        "title": "English Streaming Sites",
+        "type": "anime"
       },
       {
         "id": "foreignAnimeSites",
-        "title": "Foreign Streaming Sites"
+        "title": "Foreign Streaming Sites",
+        "type": "anime"
       },
       {
         "id": "animeDownloadSites",
-        "title": "Download Only Sites"
+        "title": "Download Only Sites",
+        "type": "animeDownload"
       }
     ]
   },
   {
     "tab": "mangaTables",
     "name": "Manga",
-    "columns": [
-      {
-        "key": "siteName",
-        "hidden": false
-      },
-      {
-        "key": "hasAds",
-        "hidden": false
-      },
-      {
-        "key": "isAntiAdblock",
-        "hidden": true
-      },
-      {
-        "key": "isEnglish",
-        "hidden": false
-      },
-      {
-        "key": "otherLanguages",
-        "hidden": false
-      },
-      {
-        "key": "isMobileFriendly",
-        "hidden": true
-      },
-      {
-        "key": "malSyncSupport",
-        "hidden": false
-      },
-      {
-        "key": "hasTachiyomiSupport",
-        "hidden": false
-      }
-    ],
     "tables": [
       {
         "id": "englishMangaSites",
-        "title": "Aggregators"
+        "title": "Aggregators",
+        "type": "manga"
       },
       {
         "id": "foreignMangaSites",
-        "title": "Non-English Aggregators"
+        "title": "Non-English Aggregators",
+        "type": "manga"
       },
       {
         "id": "englishMangaScans",
-        "title": "Scans"
+        "title": "Scans",
+        "type": "manga"
       },
       {
         "id": "foreignMangaScans",
-        "title": "Non-English Scans"
+        "title": "Non-English Scans",
+        "type": "manga"
       }
     ]
   },
   {
     "tab": "lightNovelTables",
     "name": "Novels",
-    "columns": [
-      {
-        "key": "siteName",
-        "hidden": false
-      },
-      {
-        "key": "hasAds",
-        "hidden": false
-      },
-      {
-        "key": "isAntiAdblock",
-        "hidden": true
-      },
-      {
-        "key": "siteLanguage",
-        "hidden": false
-      },
-      {
-        "key": "otherLanguages",
-        "hidden": false
-      },
-      {
-        "key": "hasSubs",
-        "hidden": true
-      },
-      {
-        "key": "isMobileFriendly",
-        "hidden": true
-      }
-    ],
     "tables": [
       {
         "id": "lightNovels",
-        "title": "Light Novels"
+        "title": "Light Novels",
+        "type": "novel"
       },
       {
         "id": "visualNovels",
-        "title": "Visual Novels"
+        "title": "Visual Novels",
+        "type": "novel"
       }
     ]
   },
   {
     "tab": "applicationsTables",
     "name": "Applications",
-    "columns": [
-      {
-        "key": "siteName",
-        "hidden": false
-      },
-      {
-        "key": "hasMalSupport",
-        "hidden": false
-      },
-      {
-        "key": "hasAnilistSupport",
-        "hidden": false
-      },
-      {
-        "key": "hasKitsuSupport",
-        "hidden": false
-      },
-      {
-        "key": "hasSimKLSupport",
-        "hidden": false
-      },
-      {
-        "key": "siteFeatures",
-        "hidden": false
-      }
-    ],
     "tables": [
       {
         "id": "iOSApplications",
-        "title": "iOS"
+        "title": "iOS",
+        "type": "application"
       },
       {
         "id": "androidApplications",
-        "title": "Android"
+        "title": "Android",
+        "type": "application"
       },
       {
         "id": "windowsApplications",
-        "title": "Windows"
+        "title": "Windows",
+        "type": "application"
       },
       {
         "id": "macOSApplications",
-        "title": "macOS"
+        "title": "macOS",
+        "type": "application"
       },
       {
         "id": "browserExtensions",
-        "title": "Browser Extensions"
+        "title": "Browser Extensions",
+        "type": "application"
       }
     ]
   },
   {
     "tab": "hentaiTables",
     "name": "Hentai",
-    "columns": [
-
-    ],
     "tables": [
-
+      {
+        "id": "hentaiAnime",
+        "title": "Hentai Anime Streaming Sites",
+        "type": "anime"
+      },
+      {
+        "id": "hentaiDoujinshi",
+        "title": "Hentai Manga/Image Boards/LN sites",
+        "type": "novel"
+      },
+      {
+        "id": "hentaiDownload",
+        "title": "Hentai Download",
+        "type": "animeDownload"
+      },
+      {
+        "id": "hentaiApplications",
+        "title": "Hentai Applications",
+        "type": "application"
+      }
     ]
   }
 ]
