@@ -3271,6 +3271,15 @@
             "isMobileFriendly": "?"
         },
         {
+            "siteName": "Asianovel",
+            "siteAddresses": [
+                "https://www.asianovel.com"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y"
+        },
+        {
             "siteName": "Just Light Novels",
             "siteAddresses": [
                 "https://justlightnovels.com"
@@ -3314,6 +3323,24 @@
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
+        },
+        {
+            "siteName": "NovelCool",
+            "siteAddresses": [
+                "https://www.novelcool.com/"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y"
+        },
+        {
+            "siteName": "NovelKiss",
+            "siteAddresses": [
+                "https://novelkiss.com"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y"
         },
         {
             "siteName": "NovelPortal",
