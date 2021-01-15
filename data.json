@@ -3320,9 +3320,9 @@
             "siteAddresses": [
                 "https://mtlnovel.com"
             ],
-            "hasAds": "N",
+            "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": ""
+            "isMobileFriendly": "Y"
         },
         {
             "siteName": "NovelCool",
