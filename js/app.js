@@ -311,16 +311,7 @@ const generateAllTables = () => {
             tab['tables'].forEach(t => generateTable(tab["tab"], t))
         })
         tablesGenerated = true
-
-        // get data
-        fetch('/data.json')
-            .then(data => data.json())
-            .then(json => {
-                window.rawData = json
-                dataReady = true
-                console.log("Data loaded...")
-                populateTables()
-            })
+        populateTables()
     }
 }
 
@@ -337,7 +328,7 @@ const pingTab = (tab) => {
         window.rawData[table["id"]].forEach((entry, index) => {
             // apply yellow color after 10s if not finished
             let applyWarning = setTimeout(() => {
-                let onlineStatus = document.querySelector('#' + table["id"] + index + '>div')
+                let onlineStatus = document.querySelector('#online-' + table["id"] + index)
                 onlineStatus.classList.remove("bg-secondary")
                 onlineStatus.classList.add("bg-warning")
             }, 10000)
@@ -346,7 +337,7 @@ const pingTab = (tab) => {
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
                     clearTimeout(applyWarning)
-                    let onlineStatus = document.querySelector('#online-' + table["id"] + index + '')
+                    let onlineStatus = document.querySelector('#online-' + table["id"] + index)
                     onlineStatus.classList.remove("spinner-grow")
                     // remove previous color-state
                     if (onlineStatus.classList.contains("bg-secondary")) {
@@ -450,6 +441,15 @@ window.onload = () => {
             tablesReady = true
             console.log("Tables loaded...")
             generateAllTables()
+        })
+    // get data
+    fetch('/data.json')
+        .then(data => data.json())
+        .then(json => {
+            window.rawData = json
+            dataReady = true
+            console.log("Data loaded...")
+            populateTables()
         })
 
     setInterval(async () => {
