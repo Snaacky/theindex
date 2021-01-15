@@ -77,7 +77,6 @@ const checkOnlineStatus = async (server) => {
 }
 
 const getTableOptions = (table, data) => {
-    console.log("Accessing", table, "for window.columns", window.columns)
     let columns = window.columns["types"][table["type"]].map(e => ({
         name: e['key'],
         data: e['key'],
@@ -266,14 +265,14 @@ const generateTable = (tab, table) => {
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header"><button class="btn btn-secondary" type="button" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
-        'aria-controls="search-filter">⚙</button> ' +  table['title'] + '</div>' +
+        'aria-controls="search-filter">⚙</button> ' + table['title'] + '</div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
         '<div class="card card-body"><div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
 
     // add column toggles
     try {
         window.columns['types'][table["type"]].forEach(th => {
-            if (th['key'] === "siteName"){
+            if (th['key'] === "siteName") {
                 return
             }
             tableString += '<div class="col">' +
@@ -324,6 +323,53 @@ const generateAllTables = () => {
     }
 }
 
+let alreadyPingedTab = {}
+const pingTab = (tab) => {
+    if (alreadyPingedTab[tab]) {
+        return
+    }
+    alreadyPingedTab[tab] = true
+
+    let tables = window.tables.filter(t => t["tab"] === tab)[0]["tables"]
+    console.log("Pinging for tab", tab, tables)
+    tables.forEach(table => {
+        window.rawData[table["id"]].forEach((entry, index) => {
+            // apply yellow color after 10s if not finished
+            let applyWarning = setTimeout(() => {
+                let onlineStatus = document.querySelector('#' + table["id"] + index + '>div')
+                onlineStatus.classList.remove("bg-secondary")
+                onlineStatus.classList.add("bg-warning")
+            }, 10000)
+
+            // actually ping the site
+            checkOnlineStatus(entry['siteAddresses'][0])
+                .then(result => {
+                    clearTimeout(applyWarning)
+                    let onlineStatus = document.querySelector('#' + table["id"] + index + '>div')
+                    onlineStatus.classList.remove("spinner-grow")
+                    // remove previous color-state
+                    if (onlineStatus.classList.contains("bg-secondary")) {
+                        onlineStatus.classList.remove("bg-secondary")
+                    } else {
+                        onlineStatus.classList.remove("bg-warning")
+                    }
+
+                    // apply result color
+                    if (result) {
+                        onlineStatus.classList.add("bg-success")
+                        onlineStatus.setAttribute("title", "Online")
+                    } else {
+                        onlineStatus.classList.add("bg-danger")
+                        onlineStatus.setAttribute("title", "Offline")
+                    }
+
+                    // initialize Tooltip
+                    new bootstrap.Tooltip(onlineStatus)
+                })
+        })
+    })
+}
+
 const populateTables = () => {
     console.log("Populating tables with data, Status:")
     console.log("tablesGenerated:\t", tablesGenerated, "\tdataReady:\t", dataReady, "\tcolumnsReady:\t", columnsReady, "\ttablesReady:\t", tablesReady)
@@ -355,6 +401,11 @@ const populateTables = () => {
         })
     })
 
+    document.querySelector('#tablesList').style = ""
+    document.querySelector('#loader').remove()
+    pingTab(window.tables[0]["tab"])
+
+
     // Handles using a single search bar for multiple tables
     $('#tableSearch').on('keyup click', () => {
         Object.keys(window.dataTables).forEach(key => {
@@ -362,48 +413,7 @@ const populateTables = () => {
         })
     })
 
-    document.querySelector('#tablesList').style = ""
-    document.querySelector('#loader').remove()
-
-
-    Object.keys(parsedData).forEach(key => {
-        parsedData[key].forEach((entry, index) => {
-            // apply yellow color after 10s if not finished
-            let applyWarning = setTimeout(() => {
-                let onlineStatus = document.querySelector('#' + key + index + '>div')
-                onlineStatus.classList.remove("bg-secondary")
-                onlineStatus.classList.add("bg-warning")
-            }, 10000)
-
-            // actually ping the site
-            checkOnlineStatus(entry['siteAddresses'][0])
-                .then(result => {
-                    clearTimeout(applyWarning)
-                    let onlineStatus = document.querySelector('#' + key + index + '>div')
-                    onlineStatus.classList.remove("spinner-grow")
-                    // remove previous color-state
-                    if (onlineStatus.classList.contains("bg-secondary")) {
-                        onlineStatus.classList.remove("bg-secondary")
-                    } else {
-                        onlineStatus.classList.remove("bg-warning")
-                    }
-
-                    // apply result color
-                    if (result) {
-                        onlineStatus.classList.add("bg-success")
-                        onlineStatus.setAttribute("title", "Online")
-                    } else {
-                        onlineStatus.classList.add("bg-danger")
-                        onlineStatus.setAttribute("title", "Offline")
-                    }
-
-                    // initialize Tooltip
-                    new bootstrap.Tooltip(onlineStatus)
-                })
-        })
-    })
-
-    // add event-listener
+    // collapse of column selection
     window.tables.forEach(tab => {
         tab["tables"].forEach(table => {
             document.querySelectorAll('#collapse-' + table['id'] + ' input')
@@ -449,13 +459,12 @@ window.onload = () => {
         }
     }, 10000) // ping every 10s
 
-    /*
-    // switch to tab specific filter
+
+    // switching tabs
     document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => el.addEventListener('shown.bs.tab', e => {
         console.log("Switching tab", e.target.getAttribute('aria-controls'), e.relatedTarget.getAttribute('aria-controls'))
-        e.target.getAttribute('aria-controls')
-        document.querySelector("#filter-" + e.target.getAttribute('aria-controls')).classList.remove("d-none")
-        document.querySelector("#filter-" + e.relatedTarget.getAttribute('aria-controls')).classList.add("d-none")
+
+        // ping if not already pinged
+        pingTab(e.target.getAttribute('aria-controls'))
     }))
-    */
 }
