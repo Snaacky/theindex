@@ -500,10 +500,10 @@ window.onload = () => {
     }))
 
     // Handles using a single search bar for multiple tables
-    document.querySelector('#tableSearch').addEventListener('keyup click', async () => {
+    $('#tableSearch').on('keyup click', () => {
         Object.keys(window.dataTables).forEach(key => {
             const search = document.querySelector('#tableSearch').value
-            window.dataTables[key].tables().search(search)
+            window.dataTables[key].tables().search(search).draw()
         })
     })
 }
