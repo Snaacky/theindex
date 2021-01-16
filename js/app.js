@@ -126,7 +126,8 @@ const showInfoModal = (key, index) => {
         '<div class="card-body">'
     let primary = true
     data['siteAddresses'].forEach(address => {
-        modalBody += ' <a class="btn btn-' + (primary ? 'primary' : 'secondary') + ' rounded-pill" target="_blank" href="' + address + '">🔗 ' +
+        modalBody += ' <a class="btn btn-' + (primary ? 'primary' : 'secondary') + ' rounded-pill" target="_blank" href="' + address + '">' +
+            (primary ? '<i class="bi bi-box-arrow-up-right"></i> ' : '') +
             address + '</a>'
         primary = false
     })

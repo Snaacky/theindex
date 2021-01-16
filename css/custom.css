@@ -16,7 +16,7 @@ td > a:hover, .alert > p > a:hover {
     text-decoration: underline;
 }
 
-a:hover > i.bi {
+a:hover:not(.btn-primary) > i.bi {
     color: #2a6496 !important;
 }
 
