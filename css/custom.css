@@ -52,7 +52,7 @@ th.sorting {
     display: none;
 }
 
-.card {
+.card, tbody>tr:hover {
     background-color: #303030 !important;
 }
 

@@ -31,7 +31,7 @@ const render = (data) => {
     if (styles) {
         const labelType = styles.labelType || 'default'
         const style = styles.style || ''
-        return `<kbd class="label label-${labelType}" style="${style}"> ${data} </kbd>`
+        return `<kbd class="label label-${labelType}" style="${style}">${data}</kbd>`
     }
 
     return data
