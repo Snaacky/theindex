@@ -69,6 +69,14 @@ th.sorting {
     font-size: 1rem !important;
 }
 
+#tablesList .card-header span.float-end a {
+    transition: all .15s ease-in-out;
+}
+
+#tablesList .card-header span.float-end a[data-bs-toggle="collapse"]:not(.collapsed) {
+    transform: rotate(180deg);
+}
+
 .alert p {
     margin-bottom: 0;
 }

@@ -304,7 +304,7 @@ const generateTable = (tab, table) => {
         '<a class="text-decoration-none text-white me-3" title="Export as CSV"' +
         `href="javascript:exportTable('` + tab + `', '` + table['id'] + `');">` +
         '<i class="bi bi-cloud-download"></i></a>' +
-        '<a class="text-decoration-none text-white" title="Show/Hide Columns" id="toggleFilter-' + table['id'] +
+        '<a class="text-decoration-none text-white collapsed" title="Show/Hide Columns" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
         '</span></div>' +
