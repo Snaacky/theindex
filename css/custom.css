@@ -7,7 +7,7 @@ tbody > tr:nth-child(even) {
 }
 
 td > a, .alert > p > a {
-    color: #bababa !important;
+    color: #c6c6c6 !important;
     text-decoration: none;
 }
 
