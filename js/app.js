@@ -439,13 +439,6 @@ const populateTables = () => {
     pingTab(window.tables[0]["tab"])
 
 
-    // Handles using a single search bar for multiple tables
-    $('#tableSearch').on('keyup click', () => {
-        Object.keys(window.dataTables).forEach(key => {
-            window.dataTables[key].tables().search($(this).val()).draw()
-        })
-    })
-
     // collapse of column selection
     window.tables.forEach(tab => {
         tab["tables"].forEach(table => {
@@ -509,4 +502,11 @@ window.onload = () => {
         // ping if not already pinged
         pingTab(e.target.getAttribute('aria-controls'))
     }))
+
+    // Handles using a single search bar for multiple tables
+    $('#tableSearch').on('keyup click', () => {
+        Object.keys(window.dataTables).forEach(key => {
+            window.dataTables[key].tables().search($('#tableSearch').val()).draw()
+        })
+    })
 }
