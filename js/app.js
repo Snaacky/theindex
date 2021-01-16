@@ -84,11 +84,10 @@ const getTableOptions = (table, data) => {
     }))
     return {
         data,
-        "columns": columns,
-        columnDefs: [
-            {
+        columns: columns,
+        columnDefs: [{
                 targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
-                className: "dt-body-center",
+                className: "dt-body-center dt-body-nowrap dt-head-nowrap",
                 render: render
             }
         ],
@@ -264,7 +263,7 @@ const generateTable = (tab, table) => {
     // create tables
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header">' + table['title'] +
-        '<a class="float-end text-decoration-none text-white" id="toggleFilter-' + table['id'] +
+        '<a class="float-end d-flex justify-content-center text-decoration-none text-white" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a></div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +

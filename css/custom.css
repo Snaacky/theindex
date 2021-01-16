@@ -73,15 +73,11 @@ table.dataTable th:not(:first-child) {
 }
 
 table.dataTable.compact thead th, table.dataTable.compact thead td {
-    padding: 4px 0px 4px 4px;
+    padding: 4px;
 }
 
-#tableSearch {
+#tableSearch, #search-addon {
     border-color: #5f5f5f!important;
-}
-
-#search-addon {
-    border-color: #5f5f5f;
 }
 
 /* Not sure how I feel about this one, not sure if it fits
@@ -90,3 +86,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
     box-shadow: 0px 0px 14px 0rem rgb(141 147 157 / 25%);
 }
 */
+
+.bi::before {
+    vertical-align: -2px;
+}
