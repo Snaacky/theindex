@@ -62,6 +62,7 @@ th.sorting {
 
 .dt-body-center kbd {
     background-color: #0f0f0f;
+    font-size: 1rem !important;
 }
 
 .alert p {
