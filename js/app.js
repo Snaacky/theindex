@@ -87,18 +87,13 @@ const getTableOptions = (table, data) => {
         columns: columns,
         columnDefs: [{
             targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
-            className: "dt-body-center dt-body-nowrap dt-head-nowrap",
+            className: "dt-body-center dt-head-nowrap",
             render: render
         }],
-        dom: 'B<"top"i>rt<"bottom">p<"clear">',
+        dom: '<"top"i>rt<"bottom">p<"clear">',
         bInfo: false,
         paging: false,
-        responsive: true,
-        fixedHeader: true,
-        buttons: [
-            'excel',
-            'csv'
-        ]
+        fixedHeader: true
     }
 }
 
@@ -282,7 +277,7 @@ const exportTable = (tab, table) => {
     link.href = 'data:text/csv;charset=utf-8,' + escape(csv)
     link.download = 'r_animepiracy Index ' + table["title"] + ' ' +
         new Date().toUTCString().replaceAll(':', '.') + '.csv'
-    link.style = "display: none;"
+    link.style.display = "none"
 
     // initiate "download"
     document.body.appendChild(link)
@@ -302,7 +297,7 @@ const generateTable = (tab, table) => {
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header">' + table['title'] +
         '<span class="float-end d-flex justify-content-center">' +
-        '<a class="text-decoration-none text-white me-3" title="Export as CSV"' +
+        '<a class="text-decoration-none text-white me-3" title="Export as CSV" ' +
         `href="javascript:exportTable('` + tab + `', '` + table['id'] + `');">` +
         '<i class="bi bi-cloud-download"></i></a>' +
         '<a class="text-decoration-none text-white collapsed" title="Show/Hide Columns" id="toggleFilter-' + table['id'] +
@@ -445,7 +440,7 @@ const populateTables = () => {
         tab["tables"].forEach(table => {
             document.querySelectorAll('#collapse-' + table['id'] + ' input')
                 .forEach(el => {
-                    el.addEventListener('change', (event) => {
+                    el.addEventListener('change', async () => {
                         console.log("Toggling visibility of column", el.getAttribute("data-column"), "for table",
                             el.getAttribute("data-table"), "in tab", el.getAttribute("data-tab"))
                         // Get the column API object
@@ -497,7 +492,7 @@ window.onload = () => {
 
 
     // switching tabs
-    document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(el => el.addEventListener('shown.bs.tab', e => {
+    document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(async el => el.addEventListener('shown.bs.tab', e => {
         console.log("Switching tab", e.target.getAttribute('aria-controls'), e.relatedTarget.getAttribute('aria-controls'))
 
         // ping if not already pinged
@@ -505,9 +500,10 @@ window.onload = () => {
     }))
 
     // Handles using a single search bar for multiple tables
-    $('#tableSearch').on('keyup click', () => {
+    document.querySelector('#tableSearch').addEventListener('keyup click', async () => {
         Object.keys(window.dataTables).forEach(key => {
-            window.dataTables[key].tables().search($('#tableSearch').val()).draw()
+            const search = document.querySelector('#tableSearch').value
+            window.dataTables[key].tables().search(search)
         })
     })
 }
