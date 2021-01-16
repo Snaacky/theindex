@@ -86,16 +86,19 @@ const getTableOptions = (table, data) => {
         data,
         columns: columns,
         columnDefs: [{
-                targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
-                className: "dt-body-center dt-body-nowrap dt-head-nowrap",
-                render: render
-            }
-        ],
-        dom: '<"top"i>rt<"bottom">p<"clear">',
+            targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
+            className: "dt-body-center dt-body-nowrap dt-head-nowrap",
+            render: render
+        }],
+        dom: 'B<"top"i>rt<"bottom">p<"clear">',
         bInfo: false,
         paging: false,
         responsive: true,
-        fixedHeader: true
+        fixedHeader: true,
+        buttons: [
+            'excel',
+            'csv'
+        ]
     }
 }
 
@@ -249,8 +252,42 @@ const showInfoModal = (key, index) => {
     }
     document.querySelector('#infoModal .modal-body').innerHTML = modalBody
 
-// launch modal
+    // launch modal
     new bootstrap.Modal(document.getElementById('infoModal')).show()
+}
+
+const exportTable = (tab, table) => {
+    console.log("Generating csv for table", table)
+    if (!window.rawData[table] || !window.tables.some(t => t["tab"] === tab)) {
+        return console.error("Could not find table", table, "in", tab)
+    }
+
+    // get table infos
+    table = window.tables.filter(t => t["tab"] === tab)[0]["tables"].filter(t => t["id"] === table)[0]
+
+    let csv = table["title"] + '\n\n'
+
+    // generate header
+    csv += window.columns["types"][table["type"]]
+        .map(header => propertyName(header["key"])).join(',') + '\n'
+
+    // add rows of data
+    window.rawData[table["id"]].forEach(row => {
+        csv += window.columns["types"][table["type"]]
+            .map(data => (row[data["key"]] ? row[data["key"]] : "?")).join(',') + '\n'
+    })
+
+    let link = document.createElement("a")
+    link.href = 'data:text/csv;charset=utf-8,' + escape(csv)
+    link.download = 'r_animepiracy Index ' + table["title"] + ' ' +
+        new Date().toUTCString().replaceAll(':', '.') + '.csv'
+    link.style = "display: none;"
+
+    // initiate "download"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+
 }
 
 const generateTable = (tab, table) => {
@@ -263,9 +300,14 @@ const generateTable = (tab, table) => {
     // create tables
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header">' + table['title'] +
-        '<a class="float-end d-flex justify-content-center text-decoration-none text-white" id="toggleFilter-' + table['id'] +
+        '<span class="float-end d-flex justify-content-center">' +
+        '<a class="text-decoration-none text-white me-3" ' +
+        `href="javascript:exportTable('` + tab + `', '` + table['id'] + `');">` +
+        '<i class="bi bi-cloud-download"></i></a>' +
+        '<a class="text-decoration-none text-white" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
-        'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a></div>' +
+        'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
+        '</span></div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
         '<div class="card card-body"><div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
 
