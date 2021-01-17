@@ -1218,6 +1218,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "Not associated with KissAnime.ru",
             "otherLanguages": "-"
+        },
+        {
+            "siteName": "KimAnime.ru",
+            "siteAddresses": [
+                "https://kimanime.ru/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Not associated with KissAnime.ru",
+            "otherLanguages": "-"
         }
     ],
     "foreignAnimeSites": [
