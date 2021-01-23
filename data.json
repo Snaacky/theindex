@@ -1239,8 +1239,8 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": "N"
+            "editorNotes": "?",
+            "otherLanguages": "---"
         }
     ],
     "foreignAnimeSites": [
