@@ -3754,6 +3754,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Read downloaded Manga, Manhwa, Comic, etc"
+        },
+        {
+            "siteName": "Nine Animator",
+            "siteAddresses": [
+                "https://nineanimator.marcuszhou.com/"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "Y",
+            "hasSimKLSupport": "Y",
+            "siteFeatures": "Stream Anime | Download Episodes"
         }
     ],
     "browserExtensions": [
