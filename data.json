@@ -3486,7 +3486,7 @@
             "siteFeatures": ""
         },
         {
-            "siteName": "Nine Animator",
+            "siteName": "NineAnimator",
             "siteAddresses": [
                 "https://github.com/SuperMarcus/NineAnimator"
             ],
@@ -3743,6 +3743,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Download Anime and Manga | For PC"
+        },
+        {
+            "siteName": "NineAnimator",
+            "siteAddresses": [
+                "https://github.com/SuperMarcus/NineAnimator"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "Y",
+            "hasSimKLSupport": "Y",
+            "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
             "siteName": "OpenComic",
