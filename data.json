@@ -3663,6 +3663,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Read Light Novels"
+        },
+        {
+            "siteName": "TioAnime",
+            "siteAddresses": [
+                "https://app.tioanime.com/"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "?",
+            "hasKitsuSupport": "?",
+            "hasSimKLSupport": "?",
+            "siteFeatures": ""
         }
     ],
     "windowsApplications": [
