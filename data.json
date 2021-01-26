@@ -3813,5 +3813,64 @@
             "hasSimKLSupport": "Y",
             "siteFeatures": "MAL-Sync is a powerful extension and userscript, which enables automatic episode tracking between MyAnimeList/Anilist/Kitsu/Simkl and multiple anime streaming websites."
         }
+    ],
+    "hentaiAnime": [
+        {
+            "siteName": "Hanime",
+            "siteAddresses": [
+                "https://hanime.tv"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "hasWatermarks": "Y",
+            "hasTags": "Y",
+            "editorNotes": ""
+        }
+    ],
+    "hentaiDoujinshi": [
+        {
+            "siteName": "Nhentai",
+            "siteAddresses": [
+                "https://nhentai.net"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "hasTags": "Y",
+            "hasDirectDownloads": "Y",
+            "editorNotes": "Requires login to download."
+        }
+    ],
+    "hentaiDownload": [
+        {
+            "siteName": "Nyaa(Sukebei)",
+            "siteAddresses": [
+                "https://sukebei.nyaa.si"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "hasTags": "Y",
+            "hasDirectDownloads": "Y",
+            "hasTorrents": "Y",
+            "editorNotes": "The NSFW section of Nyaa.si."
+        }
+    ],
+    "hentaiApplications": [
+        {
+            "siteName": "TachiyomiAZ",
+            "siteAddresses": [
+                "https://tachiyomi.org/forks/TachiyomiAZ"
+            ],
+            "supportPlatform": [
+                "Android"
+            ],
+            "editorNotes": "A fork of the popular manga app Tachiyomi focusing on NSFW content."
+        }
     ]
 }
