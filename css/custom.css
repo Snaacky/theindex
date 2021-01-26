@@ -118,7 +118,7 @@ table.dataTable th:not(:first-child) {
 }
 
 table.dataTable.compact thead th, table.dataTable.compact thead td {
-    padding: 4px;
+    padding: 2px;
 }
 
 .fixedHeader-floating {
