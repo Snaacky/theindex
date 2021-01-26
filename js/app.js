@@ -5,20 +5,16 @@ let columnsReady, tablesReady, tablesGenerated, dataReady = false
 const render = (data) => {
     const styleMap = {
         Y: {
-            labelType: 'default',
-            style: 'color: #50992a;'
+            labelType: 'yes'
         },
         N: {
-            labelType: 'default',
-            style: 'color: #a05262;'
+            labelType: 'no'
         },
         '?': {
-            labelType: 'default',
-            style: 'color: #9b9b9b;'
+            labelType: 'default'
         },
         '-': {
-            labelType: 'default',
-            style: 'color: #9b9b9b;'
+            labelType: 'default'
         }
     }
 
@@ -30,8 +26,7 @@ const render = (data) => {
 
     if (styles) {
         const labelType = styles.labelType || 'default'
-        const style = styles.style || ''
-        return `<kbd class="label label-${labelType}" style="${style}">${data}</kbd>`
+        return `<kbd class="label-${labelType}">${data}</kbd>`
     }
 
     return data
@@ -121,7 +116,7 @@ const showInfoModal = (key, index) => {
         '<div class="card-body">'
     let primary = true
     data['siteAddresses'].forEach(address => {
-        modalBody += ' <a class="btn btn-' + (primary ? 'primary' : 'secondary') + ' rounded-pill" target="_blank" href="' +
+        modalBody += ' <a class="btn btn-' + (primary ? 'primary' : 'secondary') + ' link-light rounded-pill" target="_blank" href="' +
             address + '" rel="noopener">' + (primary ? '<i class="bi bi-box-arrow-up-right"></i> ' : '') +
             address + '</a>'
         primary = false
@@ -385,10 +380,10 @@ const pingTab = (tab) => {
 
                     // apply result color
                     if (result) {
-                        onlineStatus.classList.add("bg-success")
+                        onlineStatus.classList.add("label-yes")
                         onlineStatus.setAttribute("title", "Online")
                     } else {
-                        onlineStatus.classList.add("bg-danger")
+                        onlineStatus.classList.add("label-no")
                         onlineStatus.setAttribute("title", "Offline")
                     }
 
@@ -415,7 +410,6 @@ const populateTables = () => {
         parsedData[key] = data[key].map((entry, index) => {
             entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
                 key + index + '" data-bs-toggle="tooltip" role="status">' +
-                '<span class="visually-hidden">Loading...</span>' +
                 '</div> ' + `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">` +
                 entry.siteName + '</a>'
             return entry

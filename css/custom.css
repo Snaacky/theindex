@@ -1,84 +1,112 @@
-tbody > tr {
-    background-color: rgb(18, 18, 18) !important;
+/* custom color-scheme */
+.label-yes {
+    color: var(--yes);
+    background-color: var(--yes);
 }
 
-tbody > tr:nth-child(even) {
-    background-color: rgb(22, 22, 22) !important;
+.label-no {
+    color: var(--no);
+    background-color: var(--no);
 }
 
-td > a, .alert > p > a, footer a {
-    color: #c6c6c6 !important;
-    text-decoration: none;
-}
-
-td > a:hover, .alert > p > a:hover {
-    color: #2a6496 !important;
-    text-decoration: underline;
-}
-
-a:hover:not(.btn-primary) > i.bi, footer a:hover {
-    color: #2a6496 !important;
-}
-
-th.sorting_asc,
-th.sorting_desc,
-th.sorting {
-    background: none !important;
-}
-
-.bg-dark {
-    background-color: #1f1f1f !important;
-}
-
-.bg-darker {
-    background-color: rgb(18, 18, 18) !important;
-}
-
-.bg-success {
-    background-color: #50992a !important;
-}
-
-.bg-danger {
-    background-color: #a05262 !important;
-}
-
-.alert.border-danger {
-    background-color: #ff00000d;
-}
-
-.fixedHeader-floating {
-    z-index: 1040;
-    background-color: rgb(16, 16, 16) !important;
-    max-width: 100vw;
-}
-
-.fixedHeader-locked {
-    display: none;
-}
-
-.card, tbody > tr:hover {
-    background-color: #303030 !important;
+.label-default {
+    color: var(--grey);
 }
 
 .card-header {
     background-color: #444 !important;
 }
 
-.dt-body-center kbd {
-    background-color: #0f0f0f;
-    font-size: 1rem !important;
+.bg-dark {
+    background-color: var(--dark) !important;
 }
 
+.bg-darker {
+    background-color: var(--darker) !important;
+}
+
+.bg-success {
+    background-color: var(--yes) !important;
+}
+
+.bg-danger {
+    background-color: var(--no) !important;
+}
+
+.border-secondary {
+    border-color: var(--grey) !important;
+}
+
+kbd {
+    background-color: var(--y-n-bg) !important;
+}
+
+
+/* a-colors */
+a:not(.link-light) {
+    color: var(--grey) !important;
+    text-decoration: none;
+}
+
+a:not(.link-light):not(.navbar-brand):hover {
+    color: var(--a-hover) !important;
+}
+
+td > a:hover, .alert > p > a:hover {
+    text-decoration: underline;
+}
+
+
+/* alert */
+.alert.border-danger {
+    background-color: var(--alert-bg);
+}
+
+.alert p {
+    margin-bottom: 0;
+}
+
+
+/* table-card icons */
 #tablesList .card-header span.float-end a {
-    transition: all .15s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 #tablesList .card-header span.float-end a[data-bs-toggle="collapse"]:not(.collapsed) {
     transform: rotate(180deg);
 }
 
-.alert p {
-    margin-bottom: 0;
+
+/* tab-select */
+#tableNav > li.nav-item:not(.active) > a:hover {
+    background-color: rgba(13, 110, 253, .25);
+}
+
+/* Not sure how I feel about this one, not sure if it fits
+ * in the modern theme. Also, the animation is kinda laggy.
+ */
+.form-control {
+    transition: all .4s ease-in-out;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 14px 0 rgba(141, 147, 157, .25);
+}
+
+
+/* footer */
+footer {
+    color: var(--grey);
+}
+
+
+/* data-table */
+tbody > tr {
+    background-color: var(--table-dark) !important;
+}
+
+tbody > tr:nth-child(even) {
+    background-color: var(--table-darker) !important;
 }
 
 table.dataTable th:not(:first-child) {
@@ -89,21 +117,32 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
     padding: 4px;
 }
 
-#tableSearch, #search-addon {
-    border-color: #5f5f5f !important;
+.fixedHeader-floating {
+    z-index: 1040;
+    background-color: var(--table-dark) !important;
+    max-width: 100vw;
 }
 
-#tableNav > li.nav-item:not(.active) > a:hover {
-    background-color: rgba(13, 110, 253, .25);
+.fixedHeader-locked {
+    display: none;
 }
 
-/* Not sure how I feel about this one, not sure if it fits
- * in the modern theme. Also, the animation is kinda laggy.
-.form-control:focus {
-    box-shadow: 0px 0px 14px 0rem rgb(141 147 157 / 25%);
+.card, tbody > tr:hover {
+    background-color: var(--table-hover) !important;
 }
-*/
 
+.dt-body-center kbd {
+    font-size: 1rem !important;
+}
+
+th.sorting_asc,
+th.sorting_desc,
+th.sorting {
+    background: none !important;
+}
+
+
+/* bootstrap-icon */
 .bi::before {
     vertical-align: -2px;
 }
