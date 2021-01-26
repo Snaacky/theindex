@@ -3,12 +3,12 @@
     --darker: rgb(18, 18, 18);
     --dark: #1f1f1f;
     --grey: #c6c6c6;
-    --yes: #5dd020;
-    --no: #eb1c3c;
+    --yes: #5fb033;
+    --no: #ce344c;
     --alert-bg: #ff00000d;
     --a-hover: #2a6496;
     --table-dark: rgb(18, 18, 18);
     --table-darker: rgb(22, 22, 22);
     --table-hover: #303030;
-    --y-n-bg: #0f0f0f;
+    --y-n-bg: #060606;
 }
