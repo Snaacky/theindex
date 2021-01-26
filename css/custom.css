@@ -82,6 +82,10 @@ td > a:hover, .alert > p > a:hover {
     background-color: rgba(13, 110, 253, .25);
 }
 
+.input-group {
+    min-width: 200px;
+}
+
 /* Not sure how I feel about this one, not sure if it fits
  * in the modern theme. Also, the animation is kinda laggy.
  */
