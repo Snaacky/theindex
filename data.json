@@ -1956,6 +1956,29 @@
             "hasBatchDownloads": "Y",
             "editorNotes": "?",
             "otherLanguages": "Indonesian"
+        },
+        {
+            "siteName": "TioAnime",
+            "siteAddresses": [
+                "https://tioanime.com/"
+            ],
+            "360p": "N",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "N",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "Espanol"
         }
     ],
     "animeDownloadSites": [
@@ -3488,7 +3511,7 @@
         {
             "siteName": "Nine Animator",
             "siteAddresses": [
-                "https://github.com/SuperMarcus/NineAnimator"
+                "https://nineanimator.marcuszhou.com/"
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
@@ -3640,6 +3663,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Read Light Novels"
+        },
+        {
+            "siteName": "TioAnime",
+            "siteAddresses": [
+                "https://app.tioanime.com/"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "?",
+            "hasKitsuSupport": "?",
+            "hasSimKLSupport": "?",
+            "siteFeatures": ""
         }
     ],
     "windowsApplications": [
@@ -3754,6 +3788,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Read downloaded Manga, Manhwa, Comic, etc"
+        },
+        {
+            "siteName": "Nine Animator",
+            "siteAddresses": [
+                "https://nineanimator.marcuszhou.com/"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "Y",
+            "hasSimKLSupport": "Y",
+            "siteFeatures": "Stream Anime | Download Episodes"
         }
     ],
     "browserExtensions": [
