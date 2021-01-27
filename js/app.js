@@ -58,25 +58,32 @@ const checkOnlineStatus = async (server) => {
     if (!server) {
         server = ""
     }
-    server += "/ping"
-    try {
-        return await fetch(server, {
-            method: 'HEAD',
-            mode: 'no-cors'
-        }).then(response => {
-            if (response.ok) {
-                return true
-            } else if (response.status < 500) {
-                return true
-            } else {
-                console.log(server + " has error", response.status)
-                return false
-            }
-        })
-    } catch (err) {
-        console.log(server + " is not reachable")
-        return false // definitely offline
+    if (server.substr(server.length - 1) === "/") {
+        server += "ping"
+    } else {
+        server += "/ping"
     }
+
+    return await fetch(server, {
+        method: 'HEAD',
+        mode: 'no-cors'
+    }).then(response => {
+        if (response.ok) {
+            // ok means ok
+            return true
+        } else if (response.status < 500) {
+            // we allow 404 or 403 etc. as that indicates server is still alive
+            return true
+        } else {
+            // for 500 or above -> server is currently screwed up, so considered down
+            console.log(server + " has error:", response.status)
+            return false
+        }
+    }).catch(error => {
+        // well for other errors like timeout, ssl or connection error...
+        console.log(server + " is not reachable due to:", error)
+        return false
+    })
 }
 
 const getTableOptions = (table, data) => {
