@@ -60,11 +60,19 @@ const checkOnlineStatus = async (server) => {
     }
     server += "/ping"
     try {
-        const online = await fetch(server, {
+        return await fetch(server, {
             method: 'HEAD',
             mode: 'no-cors'
+        }).then(response => {
+            if (response.ok) {
+                return true
+            } else if (response.status < 500) {
+                return true
+            } else {
+                console.log(server + " has error", response.status)
+                return false
+            }
         })
-        return online.status < 500 // either true or false
     } catch (err) {
         console.log(server + " is not reachable")
         return false // definitely offline
