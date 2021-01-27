@@ -58,7 +58,7 @@ const checkOnlineStatus = async (server) => {
     if (!server) {
         server = ""
     }
-    if (server.substr(server.length - 1) === "/") {
+    if (server.slice(server.length - 1) === "/") {
         server += "ping"
     } else {
         server += "/ping"
