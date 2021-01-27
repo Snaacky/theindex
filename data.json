@@ -741,10 +741,10 @@
             "siteAddresses": [
                 "https://gogoanime.so/"
             ],
-            "360p": "N",
-            "480p": "N",
+            "360p": "Y",
+            "480p": "Y",
             "720p": "Y",
-            "1080p": "N",
+            "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
             "hasAds": "Y",
@@ -756,7 +756,7 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "?",
+            "editorNotes": "---",
             "otherLanguages": "---"
         },
         {
