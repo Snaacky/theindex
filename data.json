@@ -1937,7 +1937,7 @@
         {
             "siteName": "Animelite",
             "siteAddresses": [
-                "https://animelite.site/"
+                "https://animelite.site"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -1947,14 +1947,14 @@
             "hasSubs": "Y",
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
+            "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
-            "editorNotes": "?",
+            "editorNotes": "---",
             "otherLanguages": "Indonesian"
         },
         {
