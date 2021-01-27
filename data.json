@@ -1241,6 +1241,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "Discord:  https://discord.com/invite/KSjT9UU",
             "otherLanguages": "---"
+        },
+        {
+            "siteName": "Genoanime",
+            "siteAddresses": [
+                "https://genoanime.com/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "-"
         }
     ],
     "foreignAnimeSites": [
