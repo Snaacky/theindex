@@ -302,6 +302,7 @@ const generateTable = (tab, table) => {
         console.error("Missing data: tables:", window.tables, "columns:", window.columns)
         return
     }
+    let columnsShown = window.columns['types'][table["type"]].length
 
     // create tables
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
@@ -315,7 +316,13 @@ const generateTable = (tab, table) => {
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
         '</span></div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
-        '<div class="card card-body"><div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
+        '<div class="card card-body">' +
+        '<div class="form-check form-check-inline">' +
+        '<input class="form-check-input" type="checkbox" id="toggleAll-' + table['id'] +
+        '" data-table="' + table['id'] + '" data-toggle-type="all"> ' +
+        '<label class="form-check-label" for="toggleAll-' + table['id'] + '">Toggle All</label>' +
+        '</div>' +
+        '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
 
     // add column toggles
     try {
@@ -323,6 +330,10 @@ const generateTable = (tab, table) => {
             if (th['key'] === "siteName") {
                 return
             }
+            if (th['hidden']) {
+                columnsShown = columnsShown - 1
+            }
+
             tableString += '<div class="col">' +
                 '<div class="form-check form-check-inline form-switch">' +
                 '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
@@ -409,6 +420,62 @@ const pingTab = (tab) => {
     })
 }
 
+const countToggles = (table) => {
+    return document.querySelectorAll("#collapse-" + table + " div.row input").length
+}
+
+const countVisibleToggles = (table) => {
+    let count = 0
+    document.querySelectorAll("#collapse-" + table + " div.row input").forEach(el => {
+        if (el.checked) {
+            count += 1
+        }
+    })
+
+    return count
+}
+
+const setToggleAllState = (table) => {
+    let visible = countVisibleToggles(table), toggle = document.querySelector("#toggleAll-" + table)
+    console.log("Currently visible", visible, "of", countToggles(table), "in total", toggle)
+    if (visible === 0) {
+        toggle.indeterminate = false
+        toggle.checked = false
+    } else if (visible === countToggles(table)) {
+        toggle.indeterminate = false
+        toggle.checked = true
+    } else {
+        toggle.indeterminate = true
+    }
+}
+
+const toggleAll = (table) => {
+    let state = document.querySelector("#toggleAll-" + table).checked
+    document.querySelectorAll("#collapse-" + table + " div.row input").forEach(el => {
+        if (el.checked !== state) {
+            el.checked = state
+            toggleColumn(table, el.getAttribute("data-column"))
+        }
+    })
+}
+
+const toggleColumn = (table, key) => {
+    // Get the column API object
+    let c = window.dataTables[table].column(key + ':name')
+    console.log("Visibility of column", key, "for table", table, c.visible(), "->", !c.visible())
+    c.visible(!c.visible())
+}
+
+const toggleHandle = (el) => {
+    let table = el.getAttribute("data-table")
+    if (el.getAttribute("data-toggle-type") === "all") {
+        toggleAll(table)
+    } else {
+        toggleColumn(table, el.getAttribute("data-column"))
+        setToggleAllState(table)
+    }
+}
+
 const populateTables = () => {
     console.log("Populating tables with data, Status:")
     console.log("tablesGenerated:\t", tablesGenerated, "\tdataReady:\t", dataReady, "\tcolumnsReady:\t", columnsReady, "\ttablesReady:\t", tablesReady)
@@ -449,15 +516,11 @@ const populateTables = () => {
         tab["tables"].forEach(table => {
             document.querySelectorAll('#collapse-' + table['id'] + ' input')
                 .forEach(el => {
-                    el.addEventListener('change', async () => {
-                        console.log("Toggling visibility of column", el.getAttribute("data-column"), "for table",
-                            el.getAttribute("data-table"), "in tab", el.getAttribute("data-tab"))
-                        // Get the column API object
-                        let c = window.dataTables[el.getAttribute("data-table")].column(el.getAttribute("data-column") + ':name')
-                        console.log("Found column", c, "currently", c.visible())
-                        c.visible(!c.visible())
-                    })
+                    el.addEventListener('change', async () => toggleHandle(el))
                 })
+
+            // adjust toggleAll-state
+            setToggleAllState(table['id'])
         })
     })
 }
