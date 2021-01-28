@@ -14,7 +14,7 @@
 }
 
 .card-header {
-    background-color: #444 !important;
+    background-color: var(--darker) !important;
 }
 
 .bg-dark {
@@ -56,6 +56,18 @@ td > a:hover, .alert > p > a:hover {
     text-decoration: underline;
 }
 
+/* hover-effects */
+.hover-blue, .hover-dark {
+    transition: background-color .1s ease-in-out;
+}
+.hover-dark:hover {
+    background-color: var(--dark) !important;
+}
+
+.hover-blue:hover {
+    background-color: rgba(13, 110, 253, .25) !important;
+}
+
 
 /* alert */
 .alert.border-danger {
@@ -78,10 +90,6 @@ td > a:hover, .alert > p > a:hover {
 
 
 /* tab-select */
-#tableNav > li.nav-item:not(.active) > a:hover {
-    background-color: rgba(13, 110, 253, .25);
-}
-
 .input-group {
     min-width: 200px;
 }
@@ -149,4 +157,9 @@ th.sorting {
 /* bootstrap-icon */
 .bi::before {
     vertical-align: -2px;
+}
+
+/* online/offline status */
+.spinner-grow-sm {
+    vertical-align: sub !important;
 }

@@ -437,7 +437,7 @@ const countVisibleToggles = (table) => {
 
 const setToggleAllState = (table) => {
     let visible = countVisibleToggles(table), toggle = document.querySelector("#toggleAll-" + table)
-    console.log("Currently visible", visible, "of", countToggles(table), "in total", toggle)
+    console.log("Currently visible", visible, "of", countToggles(table), "in total in", table)
     if (visible === 0) {
         toggle.indeterminate = false
         toggle.checked = false
@@ -525,6 +525,34 @@ const populateTables = () => {
     })
 }
 
+const generateColumnsDetails = () => {
+    if (!columnsReady) {
+        return console.error("Columns aren't ready")
+    }
+
+    let accordion = ''
+    Object.keys(window.columns["keys"]).forEach(key => {
+        let column = window.columns["keys"][key]
+        accordion += '<div class="col hover-dark p-2">' +
+            '<div class="row">' +
+            '<div class="col-4">' +
+            '<div class="badge hover-blue border border-primary py-1 px-2 rounded-pill">' + column["name"] + '</div>' +
+            '</div>' +
+            '<div class="col-8">' + column["description"] + '</div>' +
+            '</div>' +
+            '</div>'
+    })
+    document.querySelector('#columnsDetails').innerHTML = accordion
+}
+
+const adultConsent = (yes) => {
+    if (yes) {
+        document.querySelectorAll(".i-am-a-adult").forEach(el => {
+            el.classList.remove("d-none")
+        })
+    }
+}
+
 window.onload = () => {
     // get columns definition
     fetch('/columns.json')
@@ -534,6 +562,8 @@ window.onload = () => {
             columnsReady = true
             console.log("Columns loaded...")
             generateAllTables()
+
+            generateColumnsDetails()
         })
     // generates tables
     fetch('/tables.json')
@@ -565,10 +595,15 @@ window.onload = () => {
 
     // switching tabs
     document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(async el => el.addEventListener('shown.bs.tab', e => {
-        console.log("Switching tab", e.target.getAttribute('aria-controls'), e.relatedTarget.getAttribute('aria-controls'))
+        let tab = e.target.getAttribute('aria-controls')
+        console.log("Switching tab", e.relatedTarget.getAttribute('aria-controls'), "->", tab)
 
-        // ping if not already pinged
-        pingTab(e.target.getAttribute('aria-controls'))
+        if (tab !== "help") {
+            // ping if not already pinged
+            pingTab(tab)
+        } else {
+            return true
+        }
     }))
 
     // Handles using a single search bar for multiple tables

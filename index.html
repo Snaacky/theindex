@@ -36,15 +36,15 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <!-- Custom design -->
-    <link rel="stylesheet" type="text/css" href="css/colors.css?t=sup">
-    <link rel="stylesheet" type="text/css" href="css/custom.css?t=sup">
+    <link rel="stylesheet" type="text/css" href="css/colors.css?t=ho">
+    <link rel="stylesheet" type="text/css" href="css/custom.css?t=ho">
 </head>
 
 
 <!-- #BODY -->
 <body class="d-flex flex-column h-100 bg-dark text-white">
 <!-- sticky-top navbar -->
-<nav class="navbar navbar-dark d-block bg-darker">
+<nav class="navbar navbar-dark d-block bg-darker mb-3">
     <div class="container-fluid ps-3">
         <a class="navbar-brand" href="#">
             <img src="/img/logo.png"
@@ -64,52 +64,72 @@
 </noscript>
 
 <!-- Notice -->
-<div class="container mt-3">
+<div class="container">
     <div class="alert alert-dismissible border border-danger fade show" role="alert">
         <p>
             Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
             development and does not reflect the final version of the index. Expect things to change and
             break while this alert is still active. Report any bugs in the <kbd>#index</kbd> channel in our Discord at
-            <a
-                    href="https://discord.gg/piracy">https://discord.gg/piracy</a>!
+            <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>!
         </p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
                 style="filter: invert(1);"></button>
     </div>
+
+    <div class="alert fade show d-flex justify-content-center me-0" role="alert">
+        <div>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="alert" aria-label="Close"
+                    onclick="adultConsent(true)">
+                I am an adult! Gimme that <img src="/img/gasm.png" width="23px" height="23px" alt="I am an adult">!
+            </button>
+            or
+            <button type="button" class="btn btn-outline-success" data-bs-dismiss="alert" aria-label="Close">
+                Hold up! FBI <img src="/img/lolipolice.png" width="23px" height="23px" alt="I am not adult">
+            </button>
+        </div>
+    </div>
 </div>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid">
     <div class="row">
         <div class="col-auto mb-3">
             <ul class="nav nav-pills" id="tableNav" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link link-light active" id="animeTablesTab" href="#animeTables" role="tab"
+                    <a class="nav-link link-light hover-blue active" id="animeTablesTab" href="#animeTables" role="tab"
                        data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
-                        📺 Anime
+                        <i class="bi bi-film"></i> Anime
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" id="mangaTablesTab" href="#mangaTables" role="tab"
+                    <a class="nav-link link-light hover-blue" id="mangaTablesTab" href="#mangaTables" role="tab"
                        data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
-                        📖 Manga
+                        <i class="bi bi-book"></i> Manga
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" id="lightNovelTablesTab" href="#lightNovelTables" role="tab"
+                    <a class="nav-link link-light hover-blue" id="lightNovelTablesTab" href="#lightNovelTables"
+                       role="tab"
                        data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
-                        📚 Novels
+                        <i class="bi bi-journal-text"></i> Novels
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" id="applicationsTablesTab" href="#applicationsTables" role="tab"
+                    <a class="nav-link link-light hover-blue" id="applicationsTablesTab" href="#applicationsTables"
+                       role="tab"
                        data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
-                        📱 Applications
+                        <i class="bi bi-window-sidebar"></i> Applications
+                    </a>
+                </li>
+                <li class="nav-item d-none i-am-a-adult">
+                    <a class="nav-link link-light hover-blue" id="hentaiTablesTab" href="#hentaiTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
+                        <img src="/img/18.png" width="23px" height="23px" alt="18+ only"> Hentai
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-light" id="hentaiTablesTab" href="#hentaiTables" role="tab"
-                       data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
-                        🔞 Hentai
+                    <a class="nav-link link-light hover-blue" id="helpTab" href="#help" role="tab"
+                       data-bs-toggle="pill" aria-controls="help" aria-selected="false">
+                        <i class="bi bi-info-circle"></i> Help
                     </a>
                 </li>
             </ul>
@@ -170,6 +190,50 @@
                         <p class="card-text">
                             Keep your vaseline and tissues on standby.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="helpTab">
+            <div class="container">
+                <div class="card bg-darker">
+                    <div class="card-header">
+                        <h2>Online-Status</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-inline-block border border-primary py-1 px-2 rounded-pill hover-blue me-2">
+                            <div class="d-inline-block rounded-circle spinner-grow-sm label-yes"
+                                 data-bs-toggle="tooltip"
+                                 role="status"></div>
+                            Online
+                        </div>
+                        <div class="d-inline-block border border-primary py-1 px-2 rounded-pill hover-blue me-2">
+                            <div class="d-inline-block rounded-circle spinner-grow-sm label-no" data-bs-toggle="tooltip"
+                                 role="status"></div>
+                            Offline
+                        </div>
+                        <div class="d-inline-block border border-primary py-1 px-2 rounded-pill hover-blue">
+                            <div class="spinner-grow d-inline-block rounded-circle spinner-grow-sm bg-warning"
+                                 data-bs-toggle="tooltip"
+                                 role="status"></div>
+                            Waiting for response...
+                        </div>
+
+                        <hr>
+                        <p class="card-text">
+                            We automatically ping every server and try to determine whether they are online or not
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card bg-darker my-3">
+                    <div class="card-header">
+                        <h2>Table Columns</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3"
+                             id="columnsDetails"></div>
                     </div>
                 </div>
             </div>
@@ -269,7 +333,7 @@
         crossorigin="anonymous"></script>
 
 <!-- app.js -->
-<script src="js/app.js?t=ssss"></script>
+<script src="js/app.js?t=ho"></script>
 
 <!-- Umami-Statboard -->
 <script src="js/stats.js"></script>
