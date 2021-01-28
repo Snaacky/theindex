@@ -56,32 +56,42 @@ const propertyDescription = (property) => {
 
 const checkOnlineStatus = async (server) => {
     if (!server) {
-        server = ""
+        server = "https://piracy.moe"
     }
     if (server.slice(server.length - 1) === "/") {
-        server += "ping"
-    } else {
-        server += "/ping"
+        server = server.slice(0, -1);
     }
 
-    return await fetch(server, {
-        method: 'HEAD',
-        mode: 'no-cors'
+    return await fetch("https://ping.piracy.moe", {
+        method: 'POST',
+        mode: 'no-cors',
+        body: 'url=' + server
     }).then(response => {
+        console.log(response)
         if (response.ok) {
-            // ok means ok
-            return true
-        } else if (response.status < 500) {
-            // we allow 404 or 403 etc. as that indicates server is still alive
-            return true
+            return response.text()
         } else {
-            // for 500 or above -> server is currently screwed up, so considered down
-            console.log(server + " has error:", response.status)
+            console.error("Answer of ping-request of ", server, "is not ok")
             return false
+        }
+    }).then(status => {
+        if (status !== false) {
+            console.log("Ping-System answered with: ", status, "for", server)
+            if (status === "error") {
+                console.log("Ping-request went somewhere wrong for", server)
+                return false
+            } else if (status < 500) {
+                // we allow 404 or 403 etc. as that indicates server is still alive
+                return true
+            } else {
+                // for 500 or above -> server is currently screwed up, so considered down
+                console.log(server + " has error:", status)
+                return false
+            }
         }
     }).catch(error => {
         // well for other errors like timeout, ssl or connection error...
-        console.log(server + " is not reachable due to:", error)
+        console.error("Unable to complete ping-request of ", server, "due to:", error)
         return false
     })
 }
