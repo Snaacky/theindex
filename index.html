@@ -65,7 +65,7 @@
 
 <!-- Notice -->
 <div class="container">
-    <div class="alert alert-dismissible border border-danger fade show" role="alert">
+    <div class="alert alert-dismissible border border-danger mb-0 fade show" role="alert">
         <p>
             Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
             development and does not reflect the final version of the index. Expect things to change and
@@ -76,9 +76,9 @@
                 style="filter: invert(1);"></button>
     </div>
 
-    <div class="alert fade show d-flex justify-content-center me-0" role="alert">
+    <div class="alert fade show d-flex justify-content-center mb-0" role="alert">
         <div>
-            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="alert" aria-label="Close"
+            <button type="button" class="btn btn-outline-danger mb-1" data-bs-dismiss="alert" aria-label="Close"
                     onclick="adultConsent(true)">
                 I am an adult! Gimme that <img src="/img/gasm.png" width="23px" height="23px" alt="I am an adult">!
             </button>
@@ -92,41 +92,41 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-auto mb-3">
+        <div class="col-auto mb-2">
             <ul class="nav nav-pills" id="tableNav" role="tablist">
-                <li class="nav-item">
+                <li class="nav-item m-1">
                     <a class="nav-link link-light hover-blue active" id="animeTablesTab" href="#animeTables" role="tab"
                        data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
                         <i class="bi bi-film"></i> Anime
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item m-1">
                     <a class="nav-link link-light hover-blue" id="mangaTablesTab" href="#mangaTables" role="tab"
                        data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
                         <i class="bi bi-book"></i> Manga
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item m-1">
                     <a class="nav-link link-light hover-blue" id="lightNovelTablesTab" href="#lightNovelTables"
                        role="tab"
                        data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
                         <i class="bi bi-journal-text"></i> Novels
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item m-1">
                     <a class="nav-link link-light hover-blue" id="applicationsTablesTab" href="#applicationsTables"
                        role="tab"
                        data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
                         <i class="bi bi-window-sidebar"></i> Applications
                     </a>
                 </li>
-                <li class="nav-item d-none i-am-a-adult">
+                <li class="nav-item m-1 d-none i-am-a-adult">
                     <a class="nav-link link-light hover-blue" id="hentaiTablesTab" href="#hentaiTables" role="tab"
                        data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
                         <img src="/img/18.png" width="23px" height="23px" alt="18+ only"> Hentai
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item m-1">
                     <a class="nav-link link-light hover-blue" id="helpTab" href="#help" role="tab"
                        data-bs-toggle="pill" aria-controls="help" aria-selected="false">
                         <i class="bi bi-info-circle"></i> Help
@@ -134,8 +134,8 @@
                 </li>
             </ul>
         </div>
-        <div class="col mb-3">
-            <div class="input-group">
+        <div class="col mb-2">
+            <div class="input-group mt-1">
                 <input id="tableSearch" class="form-control border-secondary bg-dark text-white" type="text"
                        placeholder="Search terms here..." aria-label="Recipient's username"
                        aria-describedby="search-addon">
@@ -232,7 +232,7 @@
                         <h2>Table Columns</h2>
                     </div>
                     <div class="card-body">
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3"
+                        <div class="row g-1 row-cols-1 row-cols-md-2 row-cols-xl-3"
                              id="columnsDetails"></div>
                     </div>
                 </div>
