@@ -14,6 +14,7 @@
 }
 
 .card-header {
+    font-weight: 600;
     background-color: var(--darker) !important;
 }
 
@@ -141,6 +142,7 @@ table.dataTable thead {
 
 table.dataTable.compact thead th, table.dataTable.compact thead td {
     padding: 2px;
+    font-weight: 500;
 }
 
 .fixedHeader-floating {
