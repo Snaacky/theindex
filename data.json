@@ -3860,6 +3860,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "Kisshentai",
+            "siteAddresses": [
+                "https://kisshentai.net/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
+            "otherLanguages": ""
         }
     ],
     "hentaiDoujinshi": [
