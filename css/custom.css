@@ -166,5 +166,5 @@ th.sorting {
 
 /* online/offline status */
 .spinner-grow-sm {
-    vertical-align: sub !important;
+    vertical-align: unset !important;
 }
