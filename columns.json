@@ -89,23 +89,23 @@
       "description": "Any additional notes from the index editors"
     },
     "hasTachiyomiSupport": {
-      "name": "Tachiyomi Support",
+      "name": "Tachiyomi",
       "description": "Is Tachiyomi supported"
     },
     "hasMalSupport": {
-      "name": "MAL Support",
+      "name": "MAL",
       "description": "Is MAL supported"
     },
     "hasAnilistSupport": {
-      "name": "Anilist Support",
+      "name": "Anilist",
       "description": "Is Anilist supported"
     },
     "hasKitsuSupport": {
-      "name": "Kitsu Support",
+      "name": "Kitsu",
       "description": "Is Kitsu supported"
     },
     "hasSimKLSupport": {
-      "name": "SimKL Support",
+      "name": "SimKL",
       "description": "Is SimKL supported"
     },
     "siteFeatures": {
