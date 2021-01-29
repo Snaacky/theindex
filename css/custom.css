@@ -60,12 +60,29 @@ td > a:hover, .alert > p > a:hover {
 .hover-blue, .hover-dark {
     transition: background-color .1s ease-in-out;
 }
+
 .hover-dark:hover {
     background-color: var(--dark) !important;
 }
 
 .hover-blue:hover {
     background-color: rgba(13, 110, 253, .25) !important;
+}
+
+.hover-shadow {
+    transition: box-shadow .4s ease-in-out;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 0 16px 0 var(--no);
+}
+
+.hover-grow {
+    transition: transform .2s ease-in-out;
+}
+
+.hover-grow:hover {
+    transform: scale(1.1, 1.1);
 }
 
 /* Discord-Emoji icons */
@@ -97,17 +114,6 @@ img.dc-emoji {
 /* tab-select */
 .input-group {
     min-width: 200px;
-}
-
-/* Not sure how I feel about this one, not sure if it fits
- * in the modern theme. Also, the animation is kinda laggy.
- */
-.form-control {
-    transition: all .4s ease-in-out;
-}
-
-.form-control:focus {
-    box-shadow: 0 0 14px 0 rgba(141, 147, 157, .25);
 }
 
 

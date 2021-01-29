@@ -533,7 +533,7 @@ const generateColumnsDetails = () => {
     let accordion = ''
     Object.keys(window.columns["keys"]).forEach(key => {
         let column = window.columns["keys"][key]
-        accordion += '<div class="col rounded hover-dark p-2">' +
+        accordion += '<div class="col rounded hover-grow hover-shadow hover-dark p-2">' +
             '<div class="row">' +
             '<div class="col-4">' +
             '<div class="badge hover-blue border border-primary py-1 px-2 rounded-pill">' + column["name"] + '</div>' +
