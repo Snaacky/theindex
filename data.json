@@ -3906,6 +3906,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "---",
             "otherLanguages": "German"
+        },
+        {
+            "siteName": "HentaiGasm",
+            "siteAddresses": [
+                "http://hentaigasm.com"
+            ],
+            "360p": "---",
+            "480p": "---",
+            "720p": "Y",
+            "1080p": "---",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "---",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": ""
         }
     ],
     "hentaiDoujinshi": [
