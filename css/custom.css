@@ -135,6 +135,9 @@ tbody > tr:nth-child(even) {
 table.dataTable th:not(:first-child) {
     text-align: center;
 }
+table.dataTable thead {
+    background-color: var(--dark);
+}
 
 table.dataTable.compact thead th, table.dataTable.compact thead td {
     padding: 2px;

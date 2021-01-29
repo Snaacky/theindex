@@ -144,11 +144,7 @@
         "hidden": false
       },
       {
-        "key": "360p",
-        "hidden": false
-      },
-      {
-        "key": "480p",
+        "key": "1080p",
         "hidden": false
       },
       {
@@ -156,7 +152,11 @@
         "hidden": false
       },
       {
-        "key": "1080p",
+        "key": "480p",
+        "hidden": false
+      },
+      {
+        "key": "360p",
         "hidden": false
       },
       {
@@ -218,11 +218,7 @@
         "hidden": false
       },
       {
-        "key": "360p",
-        "hidden": false
-      },
-      {
-        "key": "480p",
+        "key": "1080p",
         "hidden": false
       },
       {
@@ -230,7 +226,11 @@
         "hidden": false
       },
       {
-        "key": "1080p",
+        "key": "480p",
+        "hidden": false
+      },
+      {
+        "key": "360p",
         "hidden": false
       },
       {
