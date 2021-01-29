@@ -3883,6 +3883,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "Hentai AHO Streaming",
+            "siteAddresses": [
+                "https://haho.moe"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "---",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "---",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": "German"
         }
     ],
     "hentaiDoujinshi": [
