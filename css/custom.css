@@ -71,7 +71,7 @@ td > a:hover, .alert > p > a:hover {
 }
 
 .hover-shadow {
-    transition: box-shadow .4s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
 }
 
 .hover-shadow:hover {
