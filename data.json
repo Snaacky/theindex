@@ -3852,9 +3852,14 @@
             "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
             "hasWatermarks": "Y",
-            "hasTags": "Y",
-            "editorNotes": ""
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": ""
         }
     ],
     "hentaiDoujinshi": [
