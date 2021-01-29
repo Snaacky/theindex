@@ -68,6 +68,11 @@ td > a:hover, .alert > p > a:hover {
     background-color: rgba(13, 110, 253, .25) !important;
 }
 
+/* Discord-Emoji icons */
+img.dc-emoji {
+    vertical-align: top;
+    display: inline-block;
+}
 
 /* alert */
 .alert.border-danger {
