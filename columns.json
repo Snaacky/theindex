@@ -61,7 +61,7 @@
       "description": "Does the site offer torrents"
     },
     "isMobileFriendly": {
-      "name": "Mobile Friendly",
+      "name": "Mobile",
       "description": "Is the site friendly on mobile"
     },
     "isEnglish": {
