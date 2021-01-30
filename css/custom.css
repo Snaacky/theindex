@@ -13,11 +13,6 @@
     color: var(--grey);
 }
 
-.card-header {
-    font-weight: 600;
-    background-color: var(--darker) !important;
-}
-
 .bg-dark {
     background-color: var(--dark) !important;
 }
@@ -40,6 +35,17 @@
 
 kbd {
     background-color: var(--y-n-bg) !important;
+}
+
+
+/* card */
+.card {
+    border-color: var(--darker);
+    background-color: var(--table-hover) !important;
+}
+.card-header {
+    font-weight: 600;
+    background-color: var(--darker) !important;
 }
 
 
@@ -144,6 +150,15 @@ footer {
 
 
 /* data-table */
+table {
+    --bs-table-bg: var(--table-dark) !important;
+    --bs-table-striped-bg: var(--table-darker) !important;
+}
+
+tbody > tr:hover {
+    background-color: var(--table-hover) !important;
+}
+
 tbody > tr {
     background-color: var(--table-dark) !important;
 }
@@ -173,10 +188,6 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 
 .fixedHeader-locked {
     display: none;
-}
-
-.card, tbody > tr:hover {
-    background-color: var(--table-hover) !important;
 }
 
 .dt-body-center kbd {

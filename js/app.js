@@ -314,9 +314,6 @@ const generateTable = (tab, table) => {
     let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
         '<div class="card-header">' + table['title'] +
         '<span class="float-end d-flex justify-content-center">' +
-        '<a class="text-decoration-none text-white me-3" title="Export as CSV" ' +
-        `href="javascript:exportTable('` + tab + `', '` + table['id'] + `');">` +
-        '<i class="bi bi-cloud-download"></i></a>' +
         '<a class="text-decoration-none text-white collapsed" title="Show/Hide Columns" id="toggleFilter-' + table['id'] +
         '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
@@ -341,7 +338,7 @@ const generateTable = (tab, table) => {
             }
 
             tableString += '<div class="col">' +
-                '<div class="form-check form-check-inline form-switch">' +
+                '<div class="form-check form-check-inline form-switch">' + t['title'] +
                 '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
                 '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
                 table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
@@ -372,7 +369,22 @@ const generateTable = (tab, table) => {
 const generateAllTables = () => {
     if (columnsReady && tablesReady) {
         window.tables.forEach(tab => {
-            tab['tables'].forEach(t => generateTable(tab["tab"], t))
+            tab['tables'].forEach(t => {
+                generateTable(tab["tab"], t)
+
+            })
+
+            let download = '<div class="card">' +
+                '<div class="card-header">Export Table-Data</div>' +
+                '<div class="card-body p-0"><table class="table table-hover table-striped table-responsive table-dark mb-0"><tbody>'
+            tab['tables'].forEach(t => {
+                download += '<tr><td>' + t["title"] +
+                    '<span class="float-end d-flex justify-content-center">' +
+                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'animeTables\', \'englishAnimeSites\');">' +
+                    '<i class="bi bi-cloud-download"></i></a></span>' +
+                    '</td></tr>'
+            })
+            document.querySelector('#' + tab["tab"]).innerHTML += download + '</tbody></table></div></div>'
         })
         tablesGenerated = true
         populateTables()
