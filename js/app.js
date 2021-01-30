@@ -268,6 +268,33 @@ const showInfoModal = (key, index) => {
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
+const resetColumns = (table) => {
+    console.log("Resetting to default columns for ", table)
+    window.columns["types"][tableById(table)["type"]].forEach(th => {
+        if (th["key"] === "siteName") {
+            return
+        }
+
+        let toggle = document.querySelector("#show-" + table + th['key'])
+        if (toggle.checked === th["hidden"]) {
+            toggle.checked = !toggle.checked
+            toggleColumn(table, th["key"])
+        }
+    })
+
+    setToggleAllState(table)
+}
+
+const tableById = (table) => {
+    if (!tablesReady) {
+        console.error("Trying to get table", table, "but table-data not loaded")
+        return false
+    }
+    return window.tables.map(tab => {
+        return tab['tables'].filter(t => t["id"] === table)
+    }).filter(t => t.length > 0)[0][0]
+}
+
 const exportTable = (tab, table) => {
     console.log("Generating csv for table", table)
     if (!window.rawData[table] || !window.tables.some(t => t["tab"] === tab)) {
@@ -319,13 +346,18 @@ const generateTable = (tab, table) => {
         'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
         '</span></div>' +
         '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
-        '<div class="card card-body">' +
-        '<div class="form-check form-check-inline">' +
+        '<div class="card card-body"><div class="row g-3 align-items-center">' +
+        '<div class="col-auto">' +
+        '<div class="form-check">' +
         '<input class="form-check-input" type="checkbox" id="toggleAll-' + table['id'] +
         '" data-table="' + table['id'] + '" data-toggle-type="all"> ' +
         '<label class="form-check-label" for="toggleAll-' + table['id'] + '">Toggle All</label>' +
-        '</div>' +
-        '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5">'
+        '</div></div>' +
+        '<div class="col-auto">' +
+        '<button type="button" class="btn btn-outline-danger" onclick="resetColumns(\'' + table['id'] + '\')">' +
+        'Reset <i class="bi bi-trash"></i></button>' +
+        '</div></div>' +
+        '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row">'
 
     // add column toggles
     try {
@@ -432,12 +464,12 @@ const pingTab = (tab) => {
 }
 
 const countToggles = (table) => {
-    return document.querySelectorAll("#collapse-" + table + " div.row input").length
+    return document.querySelectorAll("#collapse-" + table + " .toggle-row input").length
 }
 
 const countVisibleToggles = (table) => {
     let count = 0
-    document.querySelectorAll("#collapse-" + table + " div.row input").forEach(el => {
+    document.querySelectorAll("#collapse-" + table + " .toggle-row input").forEach(el => {
         if (el.checked) {
             count += 1
         }
