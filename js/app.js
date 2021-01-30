@@ -401,7 +401,7 @@ const pingTab = (tab) => {
                     }
 
                     // apply result color
-                    if (result === "cloudflare"){
+                    if (result === "cloudflare") {
                         onlineStatus.classList.add("bg-warning")
                         onlineStatus.setAttribute("title", "Unknown")
                     } else if (result) {
@@ -545,6 +545,9 @@ const generateColumnsDetails = () => {
 }
 
 const adultConsent = (yes) => {
+    if (document.querySelector("input#remember-i-am-an-adult").checked) {
+        localStorage.setItem("i-am-an-adult", document.querySelector("input#remember-i-am-an-adult").checked.toString())
+    }
     if (yes) {
         document.querySelectorAll(".i-am-a-adult").forEach(el => {
             el.classList.remove("d-none")
@@ -553,6 +556,14 @@ const adultConsent = (yes) => {
 }
 
 window.onload = () => {
+    if (!localStorage.getItem("i-am-an-adult")) {
+        document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
+    } else if (localStorage.getItem("i-am-an-adult") === "true") {
+        document.querySelectorAll(".i-am-a-adult").forEach(el => {
+            el.classList.remove("d-none")
+        })
+    }
+
     // get columns definition
     fetch('/columns.json')
         .then(data => data.json())
