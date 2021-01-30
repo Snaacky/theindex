@@ -56,32 +56,38 @@ const propertyDescription = (property) => {
 
 const checkOnlineStatus = async (server) => {
     if (!server) {
-        server = ""
+        server = "https://piracy.moe"
     }
     if (server.slice(server.length - 1) === "/") {
-        server += "ping"
-    } else {
-        server += "/ping"
+        server = server.slice(0, -1);
     }
 
-    return await fetch(server, {
-        method: 'HEAD',
-        mode: 'no-cors'
+    return await fetch("https://ping.piracy.moe/ping", {
+        method: 'post',
+        body: JSON.stringify({"url": server}),
     }).then(response => {
-        if (response.ok) {
-            // ok means ok
+        if (!response.ok) {
+            console.error("Ping-System response is not ok for", server, response)
+        }
+        return response.text()
+    }).then(status => {
+        if (status === "online") {
             return true
-        } else if (response.status < 500) {
-            // we allow 404 or 403 etc. as that indicates server is still alive
-            return true
+        } else if (status === "down") {
+            return false
+        } else if (status === "error") {
+            console.warn("Ping-request went somewhere wrong for", server)
+            return false
+        } else if (status === "cloudflare") {
+            return "cloudflare"
         } else {
             // for 500 or above -> server is currently screwed up, so considered down
-            console.log(server + " has error:", response.status)
+            console.error("Got error pinging", server, status)
             return false
         }
     }).catch(error => {
         // well for other errors like timeout, ssl or connection error...
-        console.log(server + " is not reachable due to:", error)
+        console.error("Unable to complete ping-request of ", server, "due to:", error)
         return false
     })
 }
@@ -384,28 +390,21 @@ const pingTab = (tab) => {
     console.log("Pinging for tab", tab, tables)
     tables.forEach(table => {
         window.rawData[table["id"]].forEach((entry, index) => {
-            // apply yellow color after 10s if not finished
-            let applyWarning = setTimeout(() => {
-                let onlineStatus = document.querySelector('#online-' + table["id"] + index)
-                onlineStatus.classList.remove("bg-secondary")
-                onlineStatus.classList.add("bg-warning")
-            }, 10000)
-
             // actually ping the site
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
-                    clearTimeout(applyWarning)
                     let onlineStatus = document.querySelector('#online-' + table["id"] + index)
                     onlineStatus.classList.remove("spinner-grow")
                     // remove previous color-state
                     if (onlineStatus.classList.contains("bg-secondary")) {
                         onlineStatus.classList.remove("bg-secondary")
-                    } else {
-                        onlineStatus.classList.remove("bg-warning")
                     }
 
                     // apply result color
-                    if (result) {
+                    if (result === "cloudflare"){
+                        onlineStatus.classList.add("bg-warning")
+                        onlineStatus.setAttribute("title", "Unknown")
+                    } else if (result) {
                         onlineStatus.classList.add("label-yes")
                         onlineStatus.setAttribute("title", "Online")
                     } else {
