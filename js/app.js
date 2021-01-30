@@ -62,7 +62,7 @@ const checkOnlineStatus = async (server) => {
         server = server.slice(0, -1);
     }
 
-    return await fetch("https://ping.piracy.moe", {
+    return await fetch("https://ping.piracy.moe/ping", {
         method: 'post',
         mode: 'no-cors',
         body: JSON.stringify({"url": server}),
