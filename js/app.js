@@ -63,9 +63,8 @@ const checkOnlineStatus = async (server) => {
     }
 
     return await fetch("https://ping.piracy.moe", {
-        method: 'POST',
-        mode: 'no-cors',
-        body: 'url=' + server
+        method: 'post',
+        body: JSON.stringify({"url": server}),
     }).then(response => {
         console.log(response)
         if (response.ok) {
@@ -77,15 +76,16 @@ const checkOnlineStatus = async (server) => {
     }).then(status => {
         if (status !== false) {
             console.log("Ping-System answered with: ", status, "for", server)
-            if (status === "error") {
-                console.log("Ping-request went somewhere wrong for", server)
-                return false
-            } else if (status < 500) {
-                // we allow 404 or 403 etc. as that indicates server is still alive
+            if (status === "online") {
                 return true
+            } else if (status === "down") {
+                return false
+            } else if (status === "error") {
+                console.warn("Ping-request went somewhere wrong for", server)
+                return false
             } else {
                 // for 500 or above -> server is currently screwed up, so considered down
-                console.log(server + " has error:", status)
+                console.error("Got error pinging", server, status)
                 return false
             }
         }
