@@ -2722,14 +2722,15 @@
         {
             "siteName": "MangaReader",
             "siteAddresses": [
-                "https://mangareader.net"
+                "https://www.mangareader.net/"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
+            "hasAds": "---",
+            "isAntiAdblock": "---",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "---",
+            "editorNotes": "",
             "isEnglish": "Y",
-            "otherLanguages": "",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
+            "otherLanguages": "---",
             "hasTachiyomiSupport": "Y"
         },
         {
