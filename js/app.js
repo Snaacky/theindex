@@ -78,6 +78,8 @@ const checkOnlineStatus = async (server) => {
         } else if (status === "error") {
             console.warn("Ping-request went somewhere wrong for", server)
             return false
+        } else if (status === "cloudflare") {
+            return "cloudflare"
         } else {
             // for 500 or above -> server is currently screwed up, so considered down
             console.error("Got error pinging", server, status)
@@ -388,28 +390,21 @@ const pingTab = (tab) => {
     console.log("Pinging for tab", tab, tables)
     tables.forEach(table => {
         window.rawData[table["id"]].forEach((entry, index) => {
-            // apply yellow color after 10s if not finished
-            let applyWarning = setTimeout(() => {
-                let onlineStatus = document.querySelector('#online-' + table["id"] + index)
-                onlineStatus.classList.remove("bg-secondary")
-                onlineStatus.classList.add("bg-warning")
-            }, 10000)
-
             // actually ping the site
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
-                    clearTimeout(applyWarning)
                     let onlineStatus = document.querySelector('#online-' + table["id"] + index)
                     onlineStatus.classList.remove("spinner-grow")
                     // remove previous color-state
                     if (onlineStatus.classList.contains("bg-secondary")) {
                         onlineStatus.classList.remove("bg-secondary")
-                    } else {
-                        onlineStatus.classList.remove("bg-warning")
                     }
 
                     // apply result color
-                    if (result) {
+                    if (result === "cloudflare"){
+                        onlineStatus.classList.add("bg-warning")
+                        onlineStatus.setAttribute("title", "Unknown")
+                    } else if (result) {
                         onlineStatus.classList.add("label-yes")
                         onlineStatus.setAttribute("title", "Online")
                     } else {
