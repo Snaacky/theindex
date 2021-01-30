@@ -155,16 +155,16 @@ table {
     --bs-table-striped-bg: var(--table-darker) !important;
 }
 
-tbody > tr:hover {
-    background-color: var(--table-hover) !important;
-}
-
 tbody > tr {
     background-color: var(--table-dark) !important;
 }
 
 tbody > tr:nth-child(even) {
     background-color: var(--table-darker) !important;
+}
+
+tbody > tr:hover {
+    background-color: var(--table-hover) !important;
 }
 
 table.dataTable th:not(:first-child) {
