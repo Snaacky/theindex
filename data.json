@@ -2951,11 +2951,11 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
+            "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "editorNotes": "Japanese Raws are available. ",
             "isEnglish": "N",
-            "otherLanguages": "Japanese",
+            "otherLanguages": "JP",
             "hasTachiyomiSupport": "N"
         }
     ],
