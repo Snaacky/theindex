@@ -545,23 +545,58 @@ const generateColumnsDetails = () => {
 }
 
 const adultConsent = (yes) => {
-    if (document.querySelector("input#remember-i-am-an-adult").checked) {
-        localStorage.setItem("i-am-an-adult", document.querySelector("input#remember-i-am-an-adult").checked.toString())
+    let remember = document.querySelector("input#remember-i-am-an-adult").checked
+    console.log("I am an adult changed to:", yes, "remembering:", remember)
+    if (yes === "save") {
+        yes = !document.querySelector("#setting-adult-no").classList.contains("btn-success")
     }
+
+    if (remember) {
+        localStorage.setItem("i-am-an-adult", yes.toString())
+    } else if (localStorage.getItem("i-am-an-adult")) {
+        localStorage.removeItem("i-am-an-adult")
+    }
+
+    document.querySelectorAll(".i-am-a-adult").forEach(el => {
+        if (yes) {
+            if (el.classList.contains("d-none")) {
+                el.classList.remove("d-none")
+            }
+        } else {
+            if (!el.classList.contains("d-none")) {
+                el.classList.add("d-none")
+            }
+        }
+    })
+
+    let y = document.querySelector("#setting-adult-yes").classList,
+        n = document.querySelector("#setting-adult-no").classList;
     if (yes) {
-        document.querySelectorAll(".i-am-a-adult").forEach(el => {
-            el.classList.remove("d-none")
-        })
+        if (y.contains("btn-outline-danger")) {
+            y.remove("btn-outline-danger")
+            y.add("btn-danger")
+        }
+        if (n.contains("btn-success")) {
+            n.remove("btn-success")
+            n.add("btn-outline-success")
+        }
+    } else {
+        if (y.contains("btn-danger")) {
+            y.remove("btn-danger")
+            y.add("btn-outline-danger")
+        }
+        if (n.contains("btn-outline-success")) {
+            n.remove("btn-outline-success")
+            n.add("btn-success")
+        }
     }
 }
 
 window.onload = () => {
     if (!localStorage.getItem("i-am-an-adult")) {
         document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
-    } else if (localStorage.getItem("i-am-an-adult") === "true") {
-        document.querySelectorAll(".i-am-a-adult").forEach(el => {
-            el.classList.remove("d-none")
-        })
+    } else {
+        adultConsent(localStorage.getItem("i-am-an-adult") === "true")
     }
 
     // get columns definition

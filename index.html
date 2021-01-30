@@ -92,12 +92,6 @@
                 </button>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="remember-i-am-an-adult" checked>
-                <label class="form-check-label" for="remember-i-am-an-adult">Remember my choice</label>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -208,7 +202,31 @@
 
         <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="helpTab">
             <div class="container">
-                <div class="card bg-darker">
+
+                <div class="card bg-darker mb-3">
+                    <div class="card-header">Ecchi things</div>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-outline-danger hover-grow hover-shadow m-1"
+                                onclick="adultConsent(true)" id="setting-adult-yes">
+                            I am an adult! Gimme that <img class="dc-emoji" src="/img/gasm.png" width="23px"
+                                                           height="23px"
+                                                           alt="I am an adult">!
+                        </button>
+                        or
+                        <button type="button" class="btn btn-success hover-grow hover-shadow m-1"
+                                onclick="adultConsent(false)" id="setting-adult-no">
+                            Hold up! FBI <img class="dc-emoji" src="/img/lolipolice.png" width="23px" height="23px"
+                                              alt="I am not adult">
+                        </button>
+
+                        <div class="form-check form-switch ms-1">
+                            <input class="form-check-input" type="checkbox" id="remember-i-am-an-adult" checked>
+                            <label class="form-check-label" for="remember-i-am-an-adult">Remember my choice</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-darker mb-3">
                     <div class="card-header">Server-Status</div>
                     <div class="card-body">
                         <div class="d-inline-block border border-primary py-1 px-2 rounded-pill hover-blue me-2 mb-2">
@@ -236,7 +254,7 @@
                     </div>
                 </div>
 
-                <div class="card bg-darker my-3">
+                <div class="card bg-darker mb-3">
                     <div class="card-header">Table Columns</div>
                     <div class="card-body">
                         <div class="row g-1 row-cols-1 row-cols-md-2 row-cols-xl-3"
