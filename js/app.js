@@ -64,30 +64,26 @@ const checkOnlineStatus = async (server) => {
 
     return await fetch("https://ping.piracy.moe", {
         method: 'post',
+        mode: 'no-cors',
         body: JSON.stringify({"url": server}),
     }).then(response => {
-        console.log(response)
-        if (response.ok) {
-            return response.text()
-        } else {
-            console.error("Answer of ping-request of ", server, "is not ok")
-            return false
+        if (!response.ok) {
+            console.error("Ping-System response is not ok for", server, response)
         }
+        return response.text()
     }).then(status => {
-        if (status !== false) {
-            console.log("Ping-System answered with: ", status, "for", server)
-            if (status === "online") {
-                return true
-            } else if (status === "down") {
-                return false
-            } else if (status === "error") {
-                console.warn("Ping-request went somewhere wrong for", server)
-                return false
-            } else {
-                // for 500 or above -> server is currently screwed up, so considered down
-                console.error("Got error pinging", server, status)
-                return false
-            }
+        console.log("Ping-System answered with: ", status, "for", server)
+        if (status === "online") {
+            return true
+        } else if (status === "down") {
+            return false
+        } else if (status === "error") {
+            console.warn("Ping-request went somewhere wrong for", server)
+            return false
+        } else {
+            // for 500 or above -> server is currently screwed up, so considered down
+            console.error("Got error pinging", server, status)
+            return false
         }
     }).catch(error => {
         // well for other errors like timeout, ssl or connection error...
