@@ -338,7 +338,7 @@ const generateTable = (tab, table) => {
             }
 
             tableString += '<div class="col">' +
-                '<div class="form-check form-check-inline form-switch">' + t['title'] +
+                '<div class="form-check form-check-inline form-switch">' +
                 '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
                 '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
                 table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
