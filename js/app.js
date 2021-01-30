@@ -72,7 +72,6 @@ const checkOnlineStatus = async (server) => {
         }
         return response.text()
     }).then(status => {
-        console.log("Ping-System answered with: ", status, "for", server)
         if (status === "online") {
             return true
         } else if (status === "down") {
