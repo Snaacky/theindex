@@ -64,7 +64,6 @@ const checkOnlineStatus = async (server) => {
 
     return await fetch("https://ping.piracy.moe/ping", {
         method: 'post',
-        mode: 'no-cors',
         body: JSON.stringify({"url": server}),
     }).then(response => {
         if (!response.ok) {
