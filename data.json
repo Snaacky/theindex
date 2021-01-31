@@ -118,7 +118,7 @@
         {
             "siteName": "AnimeDao",
             "siteAddresses": [
-                "https://animedao.to"
+                "https://animedao.cc/"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -128,15 +128,15 @@
             "hasSubs": "Y",
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
             "hasWatermarks": "N",
-            "hasDisqusSupport": "Y",
+            "hasDisqusSupport": "N",
             "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
+            "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "?",
-            "otherLanguages": "---"
+            "editorNotes": "Clone site of AnimeDao.to created by the owner of GenoAnime.",
+            "otherLanguages": ""
         },
         {
             "siteName": "Animefever",
@@ -1264,6 +1264,52 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": "-"
+        },
+        {
+            "siteName": "AnimeDao.to",
+            "siteAddresses": [
+                "https://animedao.to/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "-",
+            "otherLanguages": "-"
+        },
+        {
+            "siteName": "AnimeDao.cc",
+            "siteAddresses": [
+                "https://animedao.cc/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Clone site of AnimeDao.to created by the owner of GenoAnime.",
+            "otherLanguages": "---"
         }
     ],
     "foreignAnimeSites": [
