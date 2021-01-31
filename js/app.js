@@ -536,7 +536,7 @@ const populateTables = () => {
             entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
                 key + index + '" data-bs-toggle="tooltip" role="status">' +
                 '</div> ' + `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">` +
-                entry.siteName + '</a>'
+                entry.siteName + ' <i class="bi bi-info-circle"></i></a>'
             return entry
         })
     })
