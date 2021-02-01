@@ -139,27 +139,27 @@
             "otherLanguages": ""
         },
         {
-            "siteName": "Animefever",
+            "siteName": "AnimeFever",
             "siteAddresses": [
-                "https://animefever.tv"
+                "https://www.animefever.tv/"
             ],
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "N",
+            "1080p": "---",
+            "hasDubs": "---",
             "hasSubs": "Y",
-            "hasAds": "Y",
-            "isAntiAdblock": "Y",
-            "isMobileFriendly": "N",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "?",
-            "otherLanguages": "---"
+            "editorNotes": "",
+            "otherLanguages": "-"
         },
         {
             "siteName": "Animeflix",
