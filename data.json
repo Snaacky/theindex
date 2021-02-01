@@ -2944,13 +2944,14 @@
             "siteAddresses": [
                 "http://komikid.com"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "-",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "editorNotes": "",
+            "isEnglish": "N",
             "otherLanguages": "ID",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": ""
+            "hasTachiyomiSupport": "---"
         },
         {
             "siteName": "Leomanga",
