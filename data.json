@@ -2958,13 +2958,14 @@
             "siteAddresses": [
                 "https://leomanga.me"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "-",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "editorNotes": "",
+            "isEnglish": "N",
             "otherLanguages": "ES",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": ""
+            "hasTachiyomiSupport": "---"
         },
         {
             "siteName": "Mangas Yuri",
