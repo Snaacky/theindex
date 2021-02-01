@@ -3008,6 +3008,20 @@
             "isEnglish": "N",
             "otherLanguages": "JP",
             "hasTachiyomiSupport": "N"
+        },
+        {
+            "siteName": "YokaiJump",
+            "siteAddresses": [
+                "https://yokaijump.fr/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "",
+            "malSyncSupport": "N",
+            "editorNotes": "---",
+            "isEnglish": "N",
+            "otherLanguages": "FR",
+            "hasTachiyomiSupport": "Y"
         }
     ],
     "englishMangaScans": [
