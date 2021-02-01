@@ -3516,6 +3516,15 @@
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": ""
+        },
+        {
+            "siteName": "jnovels",
+            "siteAddresses": [
+                "https://jnovels.com/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---"
         }
     ],
     "visualNovels": [
