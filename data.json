@@ -2948,10 +2948,10 @@
             "isAntiAdblock": "N",
             "isMobileFriendly": "---",
             "malSyncSupport": "N",
-            "editorNotes": "",
+            "editorNotes": "---",
             "isEnglish": "N",
             "otherLanguages": "ID",
-            "hasTachiyomiSupport": "---"
+            "hasTachiyomiSupport": "Y"
         },
         {
             "siteName": "Leomanga",
