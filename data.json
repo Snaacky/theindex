@@ -3522,9 +3522,9 @@
             "siteAddresses": [
                 "https://jnovels.com/"
             ],
-            "hasAds": "N",
+            "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---"
+            "isMobileFriendly": ""
         }
     ],
     "visualNovels": [
