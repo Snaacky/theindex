@@ -2974,12 +2974,12 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
+            "isMobileFriendly": "",
             "malSyncSupport": "N",
-            "editorNotes": "",
+            "editorNotes": "---",
             "isEnglish": "N",
             "otherLanguages": "PT",
-            "hasTachiyomiSupport": "---"
+            "hasTachiyomiSupport": "Y"
         },
         {
             "siteName": "YokaJump",
