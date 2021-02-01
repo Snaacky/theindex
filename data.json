@@ -2932,11 +2932,12 @@
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isEnglish": "-",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "editorNotes": "Only Raws available.",
+            "isEnglish": "N",
             "otherLanguages": "JP",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": ""
+            "hasTachiyomiSupport": "---"
         },
         {
             "siteName": "Komikid",
