@@ -2960,12 +2960,12 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
+            "isMobileFriendly": "",
             "malSyncSupport": "N",
-            "editorNotes": "",
+            "editorNotes": "---",
             "isEnglish": "N",
             "otherLanguages": "ES",
-            "hasTachiyomiSupport": "---"
+            "hasTachiyomiSupport": "Y"
         },
         {
             "siteName": "Mangas Yuri",
