@@ -2984,15 +2984,16 @@
         {
             "siteName": "YokaJump",
             "siteAddresses": [
-                "yokaijump.fr"
+                "https://yokaijump.fr/"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "-",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "editorNotes": "",
+            "isEnglish": "N",
             "otherLanguages": "FR",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": ""
+            "hasTachiyomiSupport": "---"
         },
         {
             "siteName": "Manga ZIP",
