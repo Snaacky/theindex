@@ -43,6 +43,7 @@ kbd {
     border-color: var(--darker);
     background-color: var(--table-hover) !important;
 }
+
 .card-header {
     font-weight: 600;
     background-color: var(--darker) !important;
@@ -209,4 +210,12 @@ th.sorting {
 /* online/offline status */
 .spinner-grow-sm {
     vertical-align: unset !important;
+}
+
+.infoModal-link-hover {
+    opacity: 0;
+}
+
+tr:hover .infoModal-link-hover {
+    opacity: 1;
 }

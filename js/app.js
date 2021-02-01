@@ -535,8 +535,8 @@ const populateTables = () => {
         parsedData[key] = data[key].map((entry, index) => {
             entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
                 key + index + '" data-bs-toggle="tooltip" role="status">' +
-                '</div> ' + `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)">` +
-                entry.siteName + ' <i class="bi bi-info-circle"></i></a>'
+                '</div> <a href="' + entry.siteAddresses[0] + '">' + entry.siteName + '</a> ' +
+                `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)" class="infoModal-link-hover"><i class="bi bi-info-circle"></i></a>`
             return entry
         })
     })
