@@ -2006,7 +2006,7 @@
         {
             "siteName": "Animelite",
             "siteAddresses": [
-                "https://animelite.site"
+                "https://www.animelite.site/"
             ],
             "360p": "Y",
             "480p": "Y",
@@ -2016,7 +2016,7 @@
             "hasSubs": "Y",
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
+            "isMobileFriendly": "",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "Y",
