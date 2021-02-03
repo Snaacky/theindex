@@ -677,9 +677,9 @@ window.onload = () => {
         if (await checkOnlineStatus()) {
             document.getElementById("online-status").innerHTML = ""
         } else {
-            document.getElementById("online-status").innerHTML = "You or we are OFFLINE"
+            document.getElementById("online-status").innerHTML = "Ping-System is OFFLINE"
         }
-    }, 10000) // ping every 10s
+    }, 5000) // ping every 5s
 
 
     // switching tabs
