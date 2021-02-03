@@ -683,7 +683,7 @@ window.onload = () => {
         if (await checkOnlineStatus()) {
             document.getElementById("online-status").innerHTML = ""
         } else {
-            document.getElementById("online-status").innerHTML = "Ping-System is OFFLINE"
+            document.getElementById("online-status").innerHTML = "Ping-system is offline"
         }
     }, 5000) // ping every 5s
 
