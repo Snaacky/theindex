@@ -2,6 +2,12 @@ window.rawData = {}
 // progress of async json loading
 let columnsReady, tablesReady, tablesGenerated, dataReady = false
 
+
+const addListenerMulti = (el, s, fn) => {
+    s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+}
+
+
 const render = (data) => {
     const styleMap = {
         Y: {
@@ -696,7 +702,7 @@ window.onload = () => {
     }))
 
     // Handles using a single search bar for multiple tables
-    $('#tableSearch').on('keyup click', () => {
+    addListenerMulti(document.querySelector("#tableSearch"), "keyup click", () => {
         Object.keys(window.dataTables).forEach(key => {
             const search = document.querySelector('#tableSearch').value
             window.dataTables[key].tables().search(search).draw()
