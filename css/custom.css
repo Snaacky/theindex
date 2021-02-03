@@ -179,6 +179,9 @@ table.dataTable thead {
 table.dataTable.compact thead th, table.dataTable.compact thead td {
     padding: 2px;
     font-weight: 500;
+    position: sticky;
+    top: 0;
+    background-color: var(--dark);
 }
 
 .fixedHeader-floating {
