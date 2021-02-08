@@ -1207,9 +1207,9 @@
             "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "hasAds": "N",
+            "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
+            "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "Y",
@@ -1217,7 +1217,7 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "Not associated with KissAnime.ru",
-            "otherLanguages": "-"
+            "otherLanguages": "---"
         },
         {
             "siteName": "Aninow",
