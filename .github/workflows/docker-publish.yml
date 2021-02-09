@@ -13,6 +13,9 @@ on:
   # Run tests for any PRs.
   pull_request:
 
+env:
+  IMAGE_NAME: index-web
+
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
@@ -47,7 +50,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=ranimepiracy/index
+          DOCKER_IMAGE=${GITHUB_REPOSITORY}
           VERSION=edge
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
@@ -60,9 +63,11 @@ jobs:
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
 
-          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          TAG="${DOCKER_IMAGE}:${VERSION}"
+          GITHUB_TAG="${DOCKER_IMAGE}/${IMAGE_NAME}:${VERSION}"
           echo ::set-output name=version::${VERSION}
-          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=tag::${TAG}
+          echo ::set-output name=github-tag::${GITHUB_TAG}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
       - name: Set up Docker Buildx
@@ -81,21 +86,21 @@ jobs:
           context: .
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ steps.prep.outputs.tag }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
 
       - name: Build image for Github
-        run: docker build . --file Dockerfile --tag ${{ steps.prep.outputs.tags }}
+        run: docker build . --file Dockerfile --tag ${{ steps.prep.outputs.tag }}
 
       - name: Log into Github registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to Github packages
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}/index-web
+          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.github-tag }}
 
-          docker image tag ${{ steps.prep.outputs.tags }} $IMAGE_ID
+          docker image tag ${{ steps.prep.outputs.tag }} $IMAGE_ID
           docker push $IMAGE_ID
