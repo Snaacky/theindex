@@ -95,7 +95,7 @@ jobs:
 
       - name: Push image to Github packages
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
+          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}/index-web
 
           docker image tag ${{ steps.prep.outputs.tags }} $IMAGE_ID
           docker push $IMAGE_ID
