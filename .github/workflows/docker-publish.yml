@@ -88,13 +88,13 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
 
       - name: Build image for Github
-        run: docker build . --file Dockerfile --tag $steps.prep.outputs.tags
+        run: docker build . --file Dockerfile --tag ${{ steps.prep.outputs.tags }}
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to Github packages
         run: |
-          IMAGE_ID=docker.pkg.github.com/$steps.prep.outputs.tags
+          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
           echo IMAGE_ID=IMAGE_ID
           docker push $IMAGE_ID
