@@ -95,5 +95,9 @@ jobs:
 
       - name: Push image to Github packages
         run: |
+          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
+
           echo IMAGE_ID=${{ steps.prep.outputs.tags }}
-          docker push ${{ steps.prep.outputs.tags }}
+
+          docker image tag ${{ steps.prep.outputs.tags }} IMAGE_ID
+          docker push IMAGE_ID
