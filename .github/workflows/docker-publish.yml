@@ -90,12 +90,12 @@ jobs:
       - name: Build image for Github
         run: docker build . --file Dockerfile --tag ${{ steps.prep.outputs.tags }}
 
-      - name: Log into registry
+      - name: Log into Github registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to Github packages
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
 
-          docker image tag ${{ steps.prep.outputs.tags }} IMAGE_ID
-          docker push IMAGE_ID
+          docker image tag ${{ steps.prep.outputs.tags }} $IMAGE_ID
+          docker push $IMAGE_ID
