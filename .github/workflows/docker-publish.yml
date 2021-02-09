@@ -98,5 +98,5 @@ jobs:
           IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo IMAGE_ID=IMAGE_ID
+          echo IMAGE_ID=$IMAGE_ID
           docker push IMAGE_ID
