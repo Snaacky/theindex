@@ -19,7 +19,7 @@ responsibility to put a reverse proxy in front of this container.
 Alternatively you can use Github's package repository and instead use:
 
 ```
-docker run -d -p <host-port>:8080 ghcr.io/ranimepiracy/index/index-web
+docker run -d -p <host-port>:8080 docker.pkg.github.com/ranimepiracy/index/index-web
 ```
 
 ## Building from source
