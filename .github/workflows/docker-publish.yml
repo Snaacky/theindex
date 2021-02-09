@@ -97,7 +97,5 @@ jobs:
         run: |
           IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.tags }}
 
-          echo IMAGE_ID=$IMAGE_ID
-
           docker image tag ${{ steps.prep.outputs.tags }} IMAGE_ID
           docker push IMAGE_ID
