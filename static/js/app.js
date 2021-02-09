@@ -650,7 +650,7 @@ window.onload = () => {
     }
 
     // get columns definition
-    fetch('/columns.json')
+    fetch('/static/columns.json')
         .then(data => data.json())
         .then(columns => {
             window.columns = columns
@@ -661,7 +661,7 @@ window.onload = () => {
             generateColumnsDetails()
         })
     // generates tables
-    fetch('/tables.json')
+    fetch('/static/tables.json')
         .then(data => data.json())
         .then(tables => {
             window.tables = tables
@@ -670,7 +670,7 @@ window.onload = () => {
             generateAllTables()
         })
     // get data
-    fetch('/data.json')
+    fetch('/static/data.json')
         .then(data => data.json())
         .then(json => {
             window.rawData = json
