@@ -3,7 +3,15 @@ import os
 from flask import Flask, redirect, url_for, send_file, jsonify, render_template
 from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 
-import config
+# import module from config
+if os.path.isfile("/config/config.py"):
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("config", "/config/config.py")
+    config = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(config)
+else:
+    import config
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
 
