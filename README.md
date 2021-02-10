@@ -1,3 +1,4 @@
+![Docker](https://github.com/ranimepiracy/index/workflows/Docker/badge.svg)
 # piracy.moe index
 This repository is the web-ui of /r/animepiracy index.
 
