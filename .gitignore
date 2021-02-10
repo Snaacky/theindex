@@ -134,6 +134,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# New additions
-config.py
