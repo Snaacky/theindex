@@ -5,5 +5,4 @@ flask-caching
 flask-discord
 
 # database
-redis
 dataset

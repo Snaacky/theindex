@@ -2,7 +2,7 @@ FROM python:3.9-slim-buster
 
 # install nginx and redis
 RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y nginx redis-server && \
+    apt-get install --no-install-recommends -y nginx && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
@@ -20,4 +20,4 @@ VOLUME ["/config"]
 EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
 
-CMD redis-server --daemonize yes && service nginx restart && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock wsgi:app
+CMD service nginx restart && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'

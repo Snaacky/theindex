@@ -36,8 +36,8 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <!-- Custom design -->
-    <link rel="stylesheet" type="text/css" href="/static/css/colors.css?t=hohi">
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css?t=hohi">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
 </head>
 
 
@@ -80,15 +80,15 @@
             <div>
                 <button type="button" class="btn btn-outline-danger hover-grow hover-shadow m-1" data-bs-dismiss="alert"
                         aria-label="Close" onclick="adultConsent(true)">
-                    I am an adult! Gimme that <img class="dc-emoji" src="/static/img/gasm.png" width="23px" height="23px"
-                                                   alt="I am an adult">!
+                    I am an adult! Gimme that <img src="{{ url_for('static', filename='img/gasm.png') }}"
+                                                   class="dc-emoji" width="23px" height="23px" alt="I am an adult">!
                 </button>
                 or
                 <button type="button" class="btn btn-outline-success hover-grow hover-shadow m-1"
                         data-bs-dismiss="alert"
                         aria-label="Close" onclick="adultConsent(false)">
-                    Hold up! FBI <img class="dc-emoji" src="/static/img/lolipolice.png" width="23px" height="23px"
-                                      alt="I am not adult">
+                    Hold up! FBI <img class="dc-emoji" src="{{ url_for('static', filename='img/lolipolice.png') }}"
+                                      width="23px" height="23px" alt="I am not an adult">
                 </button>
             </div>
         </div>
@@ -128,7 +128,8 @@
                 <li class="nav-item m-1 d-none i-am-a-adult">
                     <a class="nav-link link-light hover-blue" id="hentaiTablesTab" href="#hentaiTables" role="tab"
                        data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
-                        <img class="dc-emoji" src="/static/img/18.png" width="23px" height="23px" alt="18+ only"> Hentai
+                        <img class="dc-emoji" src="{{ url_for('static', filename='img/18.png') }}" width="23px"
+                             height="23px" alt="18+ only"> Hentai
                     </a>
                 </li>
                 <li class="nav-item m-1">
@@ -208,15 +209,16 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-outline-danger hover-grow hover-shadow m-1"
                                 onclick="adultConsent(true)" id="setting-adult-yes">
-                            I am an adult! Gimme that <img class="dc-emoji" src="/static/img/gasm.png" width="23px"
-                                                           height="23px"
-                                                           alt="I am an adult">!
+                            I am an adult! Gimme that
+                            <img src="{{ url_for('static', filename='img/gasm.png') }}" class="dc-emoji" width="23px"
+                                 height="23px" alt="I am an adult">!
                         </button>
                         or
                         <button type="button" class="btn btn-success hover-grow hover-shadow m-1"
                                 onclick="adultConsent(false)" id="setting-adult-no">
-                            Hold up! FBI <img class="dc-emoji" src="/static/img/lolipolice.png" width="23px" height="23px"
-                                              alt="I am not adult">
+                            Hold up! FBI
+                            <img class="dc-emoji" src="{{ url_for('static', filename='img/lolipolice.png') }}"
+                                 width="23px" height="23px" alt="I am not adult">
                         </button>
 
                         <div class="form-check form-switch ms-1">
@@ -366,10 +368,10 @@
         crossorigin="anonymous" async></script>
 
 <!-- app.js -->
-<script src="/static/js/app.js?t=hohi"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 <!-- Umami-Statboard -->
-<script src="/static/js/stats.js" async defer></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}" async defer></script>
 </body>
 
 </html>
