@@ -1,8 +1,8 @@
 ![Docker](https://github.com/ranimepiracy/index/workflows/Docker/badge.svg)
-![Discord](https://img.shields.io/discord/622243127435984927)
-![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/animepiracy)
-![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fpiracy.moe)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/ranimepiracy/index/latest)
+![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fpiracy.moe)
+![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/animepiracy)
+![Discord](https://img.shields.io/discord/622243127435984927)
 
 # piracy.moe index
 This repository is the web-ui of /r/animepiracy index.
