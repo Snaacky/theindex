@@ -2,6 +2,7 @@
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/ranimepiracy/index/latest)](https://piracy.moe)
 [![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fpiracy.moe)](https://piracy.moe)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/animepiracy)](https://www.reddit.com/r/animepiracy)
+[![Twitter Follow](https://img.shields.io/twitter/follow/ranimepiracy?style=flat)](https://twitter.com/ranimepiracy)
 [![Discord](https://img.shields.io/discord/622243127435984927)](https://discord.gg/piracy)
 
 # piracy.moe index
