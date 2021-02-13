@@ -1,6 +1,6 @@
-![Docker](https://github.com/ranimepiracy/index/workflows/Docker/badge.svg)
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/ranimepiracy/index/latest?logo=docker)](https://hub.docker.com/r/ranimepiracy/index)
 [![Website](https://img.shields.io/website?down_message=offline&label=piracy.moe&up_message=online&url=https%3A%2F%2Fpiracy.moe)](https://piracy.moe)
+[![Docker](https://github.com/ranimepiracy/index/workflows/Docker/badge.svg)](https://github.com/ranimepiracy/index)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/ranimepiracy/index/latest?logo=docker)](https://hub.docker.com/r/ranimepiracy/index)
 [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/animepiracy?label=%2Fr%2Fanimepiracy&logo=reddit)](https://www.reddit.com/r/animepiracy)
 [![Twitter Follow](https://img.shields.io/twitter/follow/ranimepiracy?label=%40ranimepiracy&logo=twitter&style=flat)](https://twitter.com/ranimepiracy)
 [![Discord](https://img.shields.io/discord/622243127435984927?label=Discord&logo=discord)](https://discord.gg/piracy)
