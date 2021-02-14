@@ -1,6 +1,6 @@
 FROM python:3.9-slim-buster
 
-# install nginx and redis
+# install nginx
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y nginx && \
     apt-get autoremove -y && \
