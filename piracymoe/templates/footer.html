@@ -1,3 +1,26 @@
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <div class="row w-100">
+                    <div class="col">
+                        <h3 class="modal-title" id="infoModalLabel"></h3>
+                    </div>
+                    <div class="col-auto d-flex align-items-center" id="infoModalMobile" style="padding-right: 16px;">
+                        <span class="badge rounded-pill bg-success" style="display: none;">Mobile friendly</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer class="footer mt-auto py-3 bg-darker">
     <div class="container">
         <p>
@@ -52,3 +75,17 @@
         </div>
     </div>
 </footer>
+
+<!-- Bootstrap-JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous" async></script>
+<!-- Tabulator -->
+<script src="https://cdn.jsdelivr.net/npm/tabulator-tables@4.9.3/dist/js/tabulator.min.js"
+        crossorigin="anonymous"></script>
+
+<!-- helpful utils -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<!-- custom table wrapper -->
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+<!-- app.js -->
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>

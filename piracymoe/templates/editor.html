@@ -1,110 +1,129 @@
-<html lang="en">
+<!doctype html>
+<html lang="en" class="h-100">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>/r/AnimePiracy Index</title>
-        <link rel="shortcut icon" type="image/png" href=”{{ url_for('static', filename='img/logo.png') }}” />
-        <style>
-            .fixedHeader-floating {
-                background-color: rgb(16, 16, 16) !important;
-            }
+<head>
+    {% include 'meta.html' %}
 
-        </style>
-        <!-- #FONT-AWESOME -->
-        <script src="https://kit.fontawesome.com/212aaa0caa.js" crossorigin="anonymous"></script>
-        <!-- #GOOGLE FONT -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,200,300,700" rel="stylesheet" type="text/css" />
+    <!-- SEO -->
+    <title>Editor | /r/animepiracy Index</title>
+    <meta name="description"
+          content="Edit the /r/animepiracy index!"/>
+    <meta name="robots" content="noindex, noarchive, nofollow">
+    <link rel=”canonical” href="https://piracy.moe/editor">
+</head>
 
-        <link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet" type="text/css" />
-    </head>
-    <!-- #BODY -->
 
-    <body style="color: var(--light)">
-        <nav class="navbar navbar-light bg-dark">
-            <a class="navbar-brand d-flex align-items-center" href="/" style="gap: 10px; color: var(--light)">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" width="32" height="32" class="d-inline-block align-top" alt="" />
-                <p style="margin-bottom: 0">/r/AnimePiracy Index Editor</p>
-            </a>
-            <div class="navbar-brand d-flex align-items-center" style="gap: 10px; color: var(--light)">
-                <p style="margin-bottom: 0">
-                    {{ user.name }}
-                </p>
-                <img src="{{user.avatar_url}}" width="32" height="32" class="d-inline-block align-top" alt="" />
-                <button type="button" onclick="location.href = '/logout'" style="background: var(--gray)">Logout</button>
-            </div>
-        </nav>
-        <br />
-        <div id="animeSitesContainer" class="container">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h4>Instructions</h4>
-                </div>
-                <div class="card-body">
-                    <p style="font-size: 1.3rem">
-                        <strong>EDITING A ENTRY</strong><br />Select the website you want from the dropdown below and click Save
-                    </p>
-                    <p style="font-size: 1.3rem"><strong>CREATING A NEW ENTRY</strong><br />Fill out the fields below and click Save</p>
-                </div>
-                <div class="card-header" style="display: flex; gap: 10px; justify-content: center">
-                    <select id="dataSelector" style="width: 200px" class="form-control" onchange="handleDataChange()">
-                        <option selected disabled>Select data set</option>
-                    </select>
-                    <select id="siteSelector" style="width: 200px" class="form-control" onchange="handleSelectorChange()">
-                        <option selected disabled>New entry</option>
-                    </select>
-                </div>
-                <div class="card-body" id="editorParent">
-                    <!-- SAVE CONFIRM MODAL -->
-                    <div class="modal fade" id="confirmSaveModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmSaveModalLabel">Are you sure you want to save this entry?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-warning" data-dismiss="modal">NO, go back</button>
-                                    <button type="button" class="btn btn-success" onclick="handleSubmit()">YES, Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- DELETE ENTRY MODAL -->
-                    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="confirmSaveModalLabel">Are you sure you want to delete this entry?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-warning" data-dismiss="modal">No, go back</button>
-                                    <button type="button" class="btn btn-success" onclick="handleDelete()">Yes, Delete changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- #BODY -->
+<body class="d-flex flex-column h-100 bg-dark text-white">
+{% include 'navbar.html' %}
+
+<!-- Notice -->
+<div class="container">
+    <div class="alert alert-dismissible border border-danger mb-3 fade show" role="alert">
+        <p>
+            <b>TODO:</b> add a small guide on editing?
+            <hr>
+            Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
+            development and does not reflect the final version of the index. Expect things to change and
+            break while this alert is still active. Report any bugs in the <kbd>#index</kbd> channel in our Discord at
+            <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>!
+        </p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-auto mb-2">
+            <ul class="nav nav-pills" id="tableNav" role="tablist">
+                <li class="nav-item m-1">
+                    <a class="nav-link link-light hover-blue active" id="animeTablesTab" href="#animeTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="animeTables" aria-selected="true">
+                        <i class="bi bi-film"></i> Anime
+                    </a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="nav-link link-light hover-blue" id="mangaTablesTab" href="#mangaTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="mangaTables" aria-selected="false">
+                        <i class="bi bi-book"></i> Manga
+                    </a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="nav-link link-light hover-blue" id="lightNovelTablesTab" href="#lightNovelTables"
+                       role="tab"
+                       data-bs-toggle="pill" aria-controls="lightNovelTables" aria-selected="false">
+                        <i class="bi bi-journal-text"></i> Novels
+                    </a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="nav-link link-light hover-blue" id="applicationsTablesTab" href="#applicationsTables"
+                       role="tab"
+                       data-bs-toggle="pill" aria-controls="applicationsTables" aria-selected="false">
+                        <i class="bi bi-window-sidebar"></i> Applications
+                    </a>
+                </li>
+                <li class="nav-item m-1">
+                    <a class="nav-link link-light hover-blue" id="hentaiTablesTab" href="#hentaiTables" role="tab"
+                       data-bs-toggle="pill" aria-controls="hentaiTables" aria-selected="false">
+                        <img class="dc-emoji" src="{{ url_for('static', filename='img/18.png') }}" width="23px"
+                             height="23px" alt="18+ only"> Hentai
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col mb-2">
+            <div class="input-group hover-shadow mt-1">
+                <input id="tableSearch" class="form-control border-secondary bg-dark text-white" type="text"
+                       placeholder="Search terms here..." aria-label="Recipient's username"
+                       aria-describedby="search-addon">
+                <button class="btn btn-secondary border-secondary" aria-expanded="false" data-bs-toggle="collapse"
+                        data-bs-target="#search-filter" type="button" id="search-addon" aria-controls="search-filter">
+                    <i class="bi bi-funnel"></i>
+                </button>
             </div>
         </div>
+    </div>
+
+    <div class="collapse" id="search-filter">
+        <div class="card">
+            <div class="card-body">
+                <div id="general-filter">
+                    <h3>Search Filter <small>SoonTM</small></h3>
+                </div>
+                <hr>
+                <div id="specific-filter"></div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button class="btn btn-outline-primary text-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#search-filter" aria-expanded="false" aria-controls="search-filter">
+                    Close Filter
+                </button>
+            </div>
         </div>
-        </div>
-        <!-- #JS LINKS -->
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
-    </body>
+    </div>
+</div>
+
+<div class="container my-3 d-flex justify-content-center" id="loader">
+    <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="container-fluid my-3">
+    <div class="tab-content" id="tablesList" style="display: none">
+        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab"></div>
+        <div class="tab-pane fade" id="mangaTables" role="tabpanel" aria-labelledby="mangaTablesTab"></div>
+        <div class="tab-pane fade" id="lightNovelTables" role="tabpanel" aria-labelledby="lightNovelTablesTab"></div>
+        <div class="tab-pane fade" id="applicationsTables" role="tabpanel"
+             aria-labelledby="applicationsTablesTab"></div>
+        <div class="tab-pane fade" id="hentaiTables" role="tabpanel" aria-labelledby="hentaiTablesTab"></div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<!-- Umami-Statboard -->
+<script src="{{ url_for('static', filename='js/editor.js') }}" async></script>
+</body>
 
 </html>
