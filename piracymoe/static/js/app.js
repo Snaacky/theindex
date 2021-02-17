@@ -1,127 +1,12 @@
 window.rawData = {}
 // progress of async json loading
 let columnsReady, tablesReady, tablesGenerated, dataReady = false
+window.online = {}
 
-
-const addListenerMulti = (el, s, fn) => {
-    s.split(' ').forEach(e => el.addEventListener(e, fn, false));
-}
-
-
-const render = (data) => {
-    const styleMap = {
-        Y: {
-            labelType: 'yes'
-        },
-        N: {
-            labelType: 'no'
-        },
-        '?': {
-            labelType: 'default'
-        },
-        '-': {
-            labelType: 'default'
-        }
-    }
-
-    if (!data) {
-        data = '?'
-    }
-
-    const styles = styleMap[data]
-
-    if (styles) {
-        const labelType = styles.labelType || 'default'
-        return `<kbd class="label-${labelType}">${data}</kbd>`
-    }
-
-    return data
-}
-
-const propertyName = (property) => {
-    if (columnsReady) {
-        try {
-            return window.columns["keys"][property]["name"]
-        } catch (e) {
-            console.error("Property", property, "has no name", e)
-        }
-    }
-    return "???"
-}
-
-const propertyDescription = (property) => {
-    if (columnsReady) {
-        try {
-            return window.columns["keys"][property]["description"]
-        } catch (e) {
-            console.error("Property", property, "has no description", e)
-        }
-    }
-    return "???"
-}
-
-const checkOnlineStatus = async (server) => {
-    if (!server) {
-        server = "https://piracy.moe"
-    }
-    if (server.slice(server.length - 1) === "/") {
-        server = server.slice(0, -1);
-    }
-
-    return await fetch("https://ping.piracy.moe/ping", {
-        method: 'post',
-        body: JSON.stringify({"url": server}),
-    }).then(response => {
-        if (!response.ok) {
-            console.error("Ping-System response is not ok for", server, response)
-        }
-        return response.text()
-    }).then(status => {
-        if (status === "online") {
-            return true
-        } else if (status === "down") {
-            return false
-        } else if (status === "error") {
-            console.warn("Ping-request went somewhere wrong for", server)
-            return false
-        } else if (status === "cloudflare") {
-            return "cloudflare"
-        } else {
-            // for 500 or above -> server is currently screwed up, so considered down
-            console.error("Got error pinging", server, status)
-            return false
-        }
-    }).catch(error => {
-        // well for other errors like timeout, ssl or connection error...
-        console.error("Unable to complete ping-request of ", server, "due to:", error)
-        return false
-    })
-}
-
-const getTableOptions = (table, data) => {
-    let columns = window.columns["types"][table["type"]].map(e => ({
-        name: e['key'],
-        data: e['key'],
-        visible: !e['hidden']
-    }))
-    return {
-        data,
-        columns: columns,
-        columnDefs: [{
-            targets: Array.from({length: columns.length - 1}, (_, i) => i + 1),
-            className: "dt-body-center dt-head-nowrap",
-            render: render
-        }],
-        dom: '<"top"i>rt<"bottom">p<"clear">',
-        bInfo: false,
-        paging: false,
-        fixedHeader: true
-    }
-}
-
-const showInfoModal = (key, index) => {
-    const data = window.rawData[key][index]
-    console.log("Creating infoModal for ", key, index, data)
+const showInfoModal = (row) => {
+    const data = row.getData()
+    console.log("Creating infoModal for ", data)
+    //const data = window.rawData[key][index]
 
     // Modal-Header
     if (data['isMobileFriendly'] && data['isMobileFriendly'] === 'Y') {
@@ -274,161 +159,6 @@ const showInfoModal = (key, index) => {
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
-const resetColumns = (table) => {
-    console.log("Resetting to default columns for ", table)
-    window.columns["types"][tableById(table)["type"]].forEach(th => {
-        if (th["key"] === "siteName") {
-            return
-        }
-
-        let toggle = document.querySelector("#show-" + table + th['key'])
-        if (toggle.checked === th["hidden"]) {
-            toggle.checked = !toggle.checked
-            toggleColumn(table, th["key"])
-        }
-    })
-
-    setToggleAllState(table)
-}
-
-const tableById = (table) => {
-    if (!tablesReady) {
-        console.error("Trying to get table", table, "but table-data not loaded")
-        return false
-    }
-    return window.tables.map(tab => {
-        return tab['tables'].filter(t => t["id"] === table)
-    }).filter(t => t.length > 0)[0][0]
-}
-
-const exportTable = (tab, table) => {
-    console.log("Generating csv for table", table)
-    if (!window.rawData[table] || !window.tables.some(t => t["tab"] === tab)) {
-        return console.error("Could not find table", table, "in", tab)
-    }
-
-    // get table infos
-    table = window.tables.filter(t => t["tab"] === tab)[0]["tables"].filter(t => t["id"] === table)[0]
-
-    let csv = table["title"] + '\n\n'
-
-    // generate header
-    csv += window.columns["types"][table["type"]]
-        .map(header => propertyName(header["key"])).join(',') + '\n'
-
-    // add rows of data
-    window.rawData[table["id"]].forEach(row => {
-        csv += window.columns["types"][table["type"]]
-            .map(data => (row[data["key"]] ? row[data["key"]] : "?")).join(',') + '\n'
-    })
-
-    let link = document.createElement("a")
-    link.href = 'data:text/csv;charset=utf-8,' + escape(csv)
-    link.download = 'r_animepiracy Index ' + table["title"] + ' ' +
-        new Date().toUTCString().replaceAll(':', '.') + '.csv'
-    link.style.display = "none"
-
-    // initiate "download"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-
-}
-
-const generateTable = (tab, table) => {
-    console.log("Generating table", table, "in", tab)
-    if (!window.tables || !window.columns) {
-        console.error("Missing data: tables:", window.tables, "columns:", window.columns)
-        return
-    }
-    let columnsShown = window.columns['types'][table["type"]].length
-
-    // create tables
-    let tableString = '<div class="card mb-3" id="' + table['id'] + '">' +
-        '<div class="card-header">' + table['title'] +
-        '<span class="float-end d-flex justify-content-center">' +
-        '<a class="text-decoration-none text-white collapsed" title="Show/Hide Columns" id="toggleFilter-' + table['id'] +
-        '" data-bs-toggle="collapse" data-bs-target="#collapse-' + table['id'] + '" aria-expanded="false" ' +
-        'aria-controls="search-filter" href="javascript:;"><i class="bi bi-toggles"></i></a>' +
-        '</span></div>' +
-        '<div class="card-body p-0"><div class="collapse" id="collapse-' + table['id'] + '">' +
-        '<div class="card card-body"><div class="row g-3 align-items-center">' +
-        '<div class="col-auto">' +
-        '<div class="form-check">' +
-        '<input class="form-check-input" type="checkbox" id="toggleAll-' + table['id'] +
-        '" data-table="' + table['id'] + '" data-toggle-type="all"> ' +
-        '<label class="form-check-label" for="toggleAll-' + table['id'] + '">Toggle All</label>' +
-        '</div></div>' +
-        '<div class="col-auto">' +
-        '<button type="button" class="btn btn-outline-danger" onclick="resetColumns(\'' + table['id'] + '\')">' +
-        'Reset <i class="bi bi-trash"></i></button>' +
-        '</div></div>' +
-        '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row">'
-
-    // add column toggles
-    try {
-        window.columns['types'][table["type"]].forEach(th => {
-            if (th['key'] === "siteName") {
-                return
-            }
-            if (th['hidden']) {
-                columnsShown = columnsShown - 1
-            }
-
-            tableString += '<div class="col">' +
-                '<div class="form-check form-check-inline form-switch">' +
-                '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
-                '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
-                table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
-                propertyName(th['key']) + '</label>' +
-                '</div></div>'
-        })
-    } catch (e) {
-        console.error("Table type", table["type"], "could not be found", e)
-    }
-
-    tableString += '</div></div></div><div class="table-responsive">' +
-        '<table id="table-' + table['id'] + '" class="dataTable compact w-100">' +
-        '<thead><tr>'
-
-    // add thead row
-    window.columns['types'][table["type"]].forEach(th => {
-        tableString += '<th title="' + propertyDescription(th['key']) + '">' + propertyName(th['key']) + '</th>'
-    })
-
-    tableString += '</tr></thead>' +
-        '</table>' +
-        '</div></div>' +
-        '</div>'
-
-    document.querySelector('#' + tab).innerHTML += tableString
-}
-
-const generateAllTables = () => {
-    if (columnsReady && tablesReady) {
-        window.tables.forEach(tab => {
-            tab['tables'].forEach(t => {
-                generateTable(tab["tab"], t)
-
-            })
-
-            let download = '<div class="card">' +
-                '<div class="card-header">Export Table-Data</div>' +
-                '<div class="card-body p-0"><table class="table table-hover table-striped table-responsive table-dark mb-0"><tbody>'
-            tab['tables'].forEach(t => {
-                download += '<tr><td>' + t["title"] +
-                    '<span class="float-end d-flex justify-content-center">' +
-                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'animeTables\', \'englishAnimeSites\');">' +
-                    '<i class="bi bi-cloud-download"></i></a></span>' +
-                    '</td></tr>'
-            })
-            document.querySelector('#' + tab["tab"]).innerHTML += download + '</tbody></table></div></div>'
-        })
-        tablesGenerated = true
-        populateTables()
-    }
-}
-
 let alreadyPingedTab = {}
 const pingTab = (tab) => {
     if (alreadyPingedTab[tab]) {
@@ -440,158 +170,42 @@ const pingTab = (tab) => {
     console.log("Pinging for tab", tab, tables)
     tables.forEach(table => {
         window.rawData[table["id"]].forEach((entry, index) => {
+            window.online[entry['siteName']] = "pinging"
+
             // actually ping the site
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
-                    let onlineStatus = document.querySelector('#online-' + table["id"] + index)
-                    onlineStatus.classList.remove("spinner-grow")
-                    // remove previous color-state
-                    if (onlineStatus.classList.contains("bg-secondary")) {
-                        onlineStatus.classList.remove("bg-secondary")
-                    }
+                    let onlineStatus = document.querySelector('#online-' + cssSafe(entry["siteName"]))
+                    if (onlineStatus === null) {
+                        console.log("Could not find the pinging thing for", entry["siteName"], "ignoring DOM")
 
-                    // apply result color
-                    if (result === "cloudflare") {
-                        onlineStatus.classList.add("bg-warning")
-                        onlineStatus.setAttribute("title", "Unknown")
-                    } else if (result) {
-                        onlineStatus.classList.add("label-yes")
-                        onlineStatus.setAttribute("title", "Online")
+                        // html has just not being rendered, as the part of the table is not visible
+                        if (result === "cloudflare") {
+                            window.online[entry['siteName']] = "unknown"
+                        } else if (result) {
+                            window.online[entry['siteName']] = "online"
+                        } else {
+                            window.online[entry['siteName']] = "offline"
+                        }
                     } else {
-                        onlineStatus.classList.add("label-no")
-                        onlineStatus.setAttribute("title", "Offline")
+                        onlineStatus.classList.remove("spinner-grow")
+                        // remove previous color-state
+                        if (onlineStatus.classList.contains("bg-secondary")) {
+                            onlineStatus.classList.remove("bg-secondary")
+                        }
+
+                        // apply result color
+                        if (result === "cloudflare") {
+                            onlineStatus.classList.add("bg-warning")
+                        } else if (result) {
+                            onlineStatus.classList.add("label-yes")
+                        } else {
+                            onlineStatus.classList.add("label-no")
+                        }
                     }
-
-                    // initialize Tooltip
-                    new bootstrap.Tooltip(onlineStatus)
                 })
         })
     })
-}
-
-const countToggles = (table) => {
-    return document.querySelectorAll("#collapse-" + table + " .toggle-row input").length
-}
-
-const countVisibleToggles = (table) => {
-    let count = 0
-    document.querySelectorAll("#collapse-" + table + " .toggle-row input").forEach(el => {
-        if (el.checked) {
-            count += 1
-        }
-    })
-
-    return count
-}
-
-const setToggleAllState = (table) => {
-    let visible = countVisibleToggles(table), toggle = document.querySelector("#toggleAll-" + table)
-    console.log("Currently visible", visible, "of", countToggles(table), "in total in", table)
-    if (visible === 0) {
-        toggle.indeterminate = false
-        toggle.checked = false
-    } else if (visible === countToggles(table)) {
-        toggle.indeterminate = false
-        toggle.checked = true
-    } else {
-        toggle.indeterminate = true
-    }
-}
-
-const toggleAll = (table) => {
-    let state = document.querySelector("#toggleAll-" + table).checked
-    document.querySelectorAll("#collapse-" + table + " div.row input").forEach(el => {
-        if (el.checked !== state) {
-            el.checked = state
-            toggleColumn(table, el.getAttribute("data-column"))
-        }
-    })
-}
-
-const toggleColumn = (table, key) => {
-    // Get the column API object
-    let c = window.dataTables[table].column(key + ':name')
-    console.log("Visibility of column", key, "for table", table, c.visible(), "->", !c.visible())
-    c.visible(!c.visible())
-}
-
-const toggleHandle = (el) => {
-    let table = el.getAttribute("data-table")
-    if (el.getAttribute("data-toggle-type") === "all") {
-        toggleAll(table)
-    } else {
-        toggleColumn(table, el.getAttribute("data-column"))
-        setToggleAllState(table)
-    }
-}
-
-const populateTables = () => {
-    console.log("Populating tables with data, Status:")
-    console.log("tablesGenerated:\t", tablesGenerated, "\tdataReady:\t", dataReady, "\tcolumnsReady:\t", columnsReady, "\ttablesReady:\t", tablesReady)
-    if (!tablesGenerated || !dataReady) {
-        return
-    }
-
-    // clone data to be displayed in #infoModal
-    let data = JSON.parse(JSON.stringify(window.rawData))
-
-    // Remap entries to convert url arrays into comma seperated strings
-    let parsedData = {}
-    Object.keys(data).forEach(key => {
-        parsedData[key] = data[key].map((entry, index) => {
-            entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
-                key + index + '" data-bs-toggle="tooltip" role="status">' +
-                '</div> <a href="' + entry.siteAddresses[0] + '" target="_blank">' + entry.siteName + '</a> ' +
-                `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)" class="infoModal-link-hover"><i class="bi bi-info-circle"></i></a>`
-            return entry
-        })
-    })
-
-    // initialize datatables
-    window.dataTables = {}
-    window.tables.forEach(tab => {
-        tab['tables'].forEach(t => {
-            window.dataTables[t['id']] = $('#table-' + t['id']).DataTable(getTableOptions(t, parsedData[t['id']]))
-        })
-    })
-
-    document.querySelector('#tablesList').style = ""
-    document.querySelector('#loader').remove()
-    pingTab(window.tables[0]["tab"])
-
-
-    // collapse of column selection
-    window.tables.forEach(tab => {
-        tab["tables"].forEach(table => {
-            document.querySelectorAll('#collapse-' + table['id'] + ' input')
-                .forEach(el => {
-                    el.addEventListener('change', async () => toggleHandle(el))
-                })
-
-            // adjust toggleAll-state
-            setToggleAllState(table['id'])
-        })
-    })
-}
-
-const generateColumnsDetails = () => {
-    if (!columnsReady) {
-        return console.error("Columns aren't ready")
-    }
-
-    let accordion = ''
-    Object.keys(window.columns["keys"]).forEach(key => {
-        let column = window.columns["keys"][key]
-        accordion += '<div class="col rounded hover-dark p-2">' +
-            '<div class="row">' +
-            '<div class="col-4">' +
-            '<div class="badge hover-blue border border-primary py-1 px-2 rounded-pill">' + column["name"] + '</div>' +
-            '</div>' +
-            '<div class="col-8">' + column["description"] + '</div>' +
-            '</div>' +
-            '</div>'
-    })
-    document.querySelector('#columnsDetails').innerHTML = accordion
 }
 
 const adultConsent = (yes) => {
@@ -676,7 +290,7 @@ window.onload = () => {
             window.rawData = json
             dataReady = true
             console.log("Data loaded...")
-            populateTables()
+            generateAllTables()
         })
 
     setInterval(async () => {
@@ -692,6 +306,9 @@ window.onload = () => {
     document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(async el => el.addEventListener('shown.bs.tab', e => {
         let tab = e.target.getAttribute('aria-controls')
         console.log("Switching tab", e.relatedTarget.getAttribute('aria-controls'), "->", tab)
+        Object.keys(window.dataTables).forEach(key => {
+            window.dataTables[key].redraw(true)
+        })
 
         if (tab !== "help") {
             // ping if not already pinged

@@ -222,3 +222,7 @@ th.sorting {
 tr:hover .infoModal-link-hover {
     opacity: 1;
 }
+
+.no-wrap {
+    white-space: nowrap !important;
+}

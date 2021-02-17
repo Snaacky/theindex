@@ -1,0 +1,19 @@
+<!-- sticky-top navbar -->
+<nav class="navbar navbar-dark d-block bg-darker mb-3">
+    <div class="container-fluid ps-3">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='img/logo.png') }}"
+                 alt="Logo" width="32" height="32" class="dc-emoji">
+            /r/animepiracy Index
+        </a>
+        <span class="text-danger ml-auto" id="online-status"></span>
+    </div>
+</nav>
+
+<noscript>
+    <div class="container mt-3">
+        <div class="alert alert-danger" role="alert">
+            You need to have JavaScript enabled for this site to properly work!
+        </div>
+    </div>
+</noscript>
