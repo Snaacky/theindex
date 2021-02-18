@@ -1,6 +1,9 @@
 // strip string of any unsafe css chars
 const cssSafe = (inputString) => {
-    return inputString.replace(/\W/g, '')
+    if (inputString) {
+        return inputString.replace(/\W/g, '')
+    }
+    return ""
 }
 
 // RegEx matches the input against the IETF standard for URLs

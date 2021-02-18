@@ -217,5 +217,16 @@ const handleDelete = async () => {
     window.alert('Entry deleted')
 }
 
+const addRow = (el) => {
+    console.log("Adding row", el)
+    window.dataTables[el.getAttribute("data-target")].addRow({}, false)
+        .then(row => {
+            row.scrollTo()
+        })
+        .catch(e => {
+            console.error("Failed to create new row for", el.getAttribute("data-target"), "due to", e)
+        })
+
+}
 window.addEventListener('tablesGenerated', () => {
 })

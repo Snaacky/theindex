@@ -240,6 +240,11 @@ const generateAllTables = () => {
                 '</div></div>' +
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
                 '<div id="table-' + t['id'] + '"></div></div>' +
+
+                '<div class="card-footer">' +
+                '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addRow(this);">' +
+                '<i class="bi bi-plus-circle"></i> Add row</button>' +
+                '</div>' +
                 '</div>'
         })
 
