@@ -218,5 +218,4 @@ const handleDelete = async () => {
 }
 
 window.addEventListener('tablesGenerated', () => {
-
 })

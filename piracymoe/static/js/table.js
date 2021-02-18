@@ -122,6 +122,10 @@ const generateTable = (table, data) => {
             return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' + cell.getValue()
         },
         cellClick: (e, cell) => {
+            if (editMode) {
+                return
+            }
+
             let data = cell.getRow().getData()
             window.open(data.siteAddresses[0], '_blank')
             // this may work or may not... it's from browser to browser and from version to version different :/
@@ -129,6 +133,10 @@ const generateTable = (table, data) => {
         }
     }
     ]
+
+    if (editMode) {
+        columnData[1].editor = "input"
+    }
 
     // add column toggles
     let togglesString = ""
@@ -148,14 +156,35 @@ const generateTable = (table, data) => {
                 table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
                 propertyName(th['key']) + '</label>' +
                 '</div></div>'
-            columnData.push({
+
+            let columnUpdate = {
                 title: propertyName(th['key']),
                 field: th['key'],
                 visible: !th['hidden'],
                 hozAlign: "center",
                 headerHozAlign: "center",
                 formatter: render
-            })
+            }
+
+            if (editMode) {
+                if (window.columns["keys"][th["key"]]["type"] === "list") {
+                    columnUpdate.editor = "select"
+                    columnUpdate.editorParams = {
+                        multiselect: true,
+                        values: window.columns["keys"][th["key"]]["values"]
+                    }
+                } else if (window.columns["keys"][th["key"]]["type"] === "check") {
+                    columnUpdate.editor = "tickCross"
+                    columnUpdate.editorParams = {
+                        tristate: true,
+                        indeterminateValue: "?"
+                    }
+                } else {
+                    columnUpdate.editor = "input"
+                }
+            }
+
+            columnData.push(columnUpdate)
         })
     } catch (e) {
         console.error("Table type", table["type"], "could not be found", e)

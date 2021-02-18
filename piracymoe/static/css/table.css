@@ -58,7 +58,11 @@
     font-size: 1rem !important;
 }
 
-.site-name:hover, .cell-infoModal:hover {
+.tabulator-cell.tabulator-editing {
+    background-color: var(--grey);
+}
+
+.site-name:hover:not(.tabulator-editing), .cell-infoModal:hover:not(.tabulator-editing) {
     background-color: var(--dark);
     color: var(--a-hover);
     cursor: pointer;
