@@ -1,11 +1,20 @@
+// strip string of any unsafe css chars
 const cssSafe = (inputString) => {
     return inputString.replace(/\W/g, '')
 }
 
+// RegEx matches the input against the IETF standard for URLs
+const validateUrl = (value) =>
+    /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
+        value
+    )
+
+// adds the same function fn for multiple events s to element el
 const addListenerMulti = (el, s, fn) => {
     s.split(' ').forEach(e => el.addEventListener(e, fn, false));
 }
 
+// property key to name
 const propertyName = (property) => {
     if (columnsReady) {
         try {
@@ -17,6 +26,7 @@ const propertyName = (property) => {
     return "???"
 }
 
+// property key to description
 const propertyDescription = (property) => {
     if (columnsReady) {
         try {
@@ -64,4 +74,9 @@ const checkOnlineStatus = async (server) => {
         console.error("Unable to complete ping-request of ", server, "due to:", error)
         return false
     })
+}
+
+// log to console the async loading status
+const loadingLog = () => {
+    console.log("tablesGenerated:", tablesGenerated, "dataReady:", dataReady, "columnsReady:", columnsReady, "tablesReady:", tablesReady, "domReady:", domReady)
 }

@@ -1,8 +1,12 @@
-window.rawData = {}
 // progress of async json loading
-let columnsReady, tablesReady, tablesGenerated, dataReady = false
+let columnsReady, tablesReady, tablesGenerated, dataReady, domReady = false
+// remember which tab has already been pinged
+let alreadyPingedTab = {}
 window.online = {}
+window.rawData = {}
+window.dataTables = {}
 
+// displays an info modal of a table row
 const showInfoModal = (row) => {
     const data = row.getData()
     console.log("Creating infoModal for ", data)
@@ -159,7 +163,7 @@ const showInfoModal = (row) => {
     new bootstrap.Modal(document.getElementById('infoModal')).show()
 }
 
-let alreadyPingedTab = {}
+// ping all sites listed on a tab
 const pingTab = (tab) => {
     if (alreadyPingedTab[tab]) {
         return
@@ -176,18 +180,15 @@ const pingTab = (tab) => {
             checkOnlineStatus(entry['siteAddresses'][0])
                 .then(result => {
                     let onlineStatus = document.querySelector('#online-' + cssSafe(entry["siteName"]))
-                    if (onlineStatus === null) {
-                        console.log("Could not find the pinging thing for", entry["siteName"], "ignoring DOM")
-
-                        // html has just not being rendered, as the part of the table is not visible
-                        if (result === "cloudflare") {
-                            window.online[entry['siteName']] = "unknown"
-                        } else if (result) {
-                            window.online[entry['siteName']] = "online"
-                        } else {
-                            window.online[entry['siteName']] = "offline"
-                        }
+                    if (result === "cloudflare") {
+                        window.online[entry['siteName']] = "unknown"
+                    } else if (result) {
+                        window.online[entry['siteName']] = "online"
                     } else {
+                        window.online[entry['siteName']] = "offline"
+                    }
+
+                    if (onlineStatus) {
                         onlineStatus.classList.remove("spinner-grow")
                         // remove previous color-state
                         if (onlineStatus.classList.contains("bg-secondary")) {
@@ -208,6 +209,7 @@ const pingTab = (tab) => {
     })
 }
 
+// change i-am-an-adult setting
 const adultConsent = (yes) => {
     let remember = document.querySelector("input#remember-i-am-an-adult").checked
     console.log("I am an adult changed to:", yes, "remembering:", remember)
@@ -256,42 +258,55 @@ const adultConsent = (yes) => {
     }
 }
 
-window.onload = () => {
-    if (!localStorage.getItem("i-am-an-adult")) {
-        document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
-    } else {
-        adultConsent(localStorage.getItem("i-am-an-adult") === "true")
+// --- load a bunch of json ---
+// get columns definition
+fetch('/static/columns.json')
+    .then(data => data.json())
+    .then(columns => {
+        window.columns = columns
+        columnsReady = true
+        console.log("Columns loaded...")
+        generateAllTables()
+
+        generateColumnsDetails()
+    })
+
+// generates tables definition
+fetch('/static/tables.json')
+    .then(data => data.json())
+    .then(tables => {
+        window.tables = tables
+        tablesReady = true
+        console.log("Tables loaded...")
+        generateAllTables()
+    })
+
+// get actual table data
+fetch('/static/data.json')
+    .then(data => data.json())
+    .then(json => {
+        window.rawData = json
+        dataReady = true
+        console.log("Data loaded...")
+        generateAllTables()
+    })
+
+// here happens the magic
+window.addEventListener('load', () => {
+    domReady = true
+
+    // choice will not exists in editor
+    if (document.querySelector("#i-am-an-adult-alert")) {
+        if (!localStorage.getItem("i-am-an-adult")) {
+            document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
+        } else {
+            adultConsent(localStorage.getItem("i-am-an-adult") === "true")
+        }
     }
 
-    // get columns definition
-    fetch('/static/columns.json')
-        .then(data => data.json())
-        .then(columns => {
-            window.columns = columns
-            columnsReady = true
-            console.log("Columns loaded...")
-            generateAllTables()
-
-            generateColumnsDetails()
-        })
-    // generates tables
-    fetch('/static/tables.json')
-        .then(data => data.json())
-        .then(tables => {
-            window.tables = tables
-            tablesReady = true
-            console.log("Tables loaded...")
-            generateAllTables()
-        })
-    // get data
-    fetch('/static/data.json')
-        .then(data => data.json())
-        .then(json => {
-            window.rawData = json
-            dataReady = true
-            console.log("Data loaded...")
-            generateAllTables()
-        })
+    // if data already loaded, but could not execute as DOM wasn't ready yet
+    generateAllTables()
+    generateColumnsDetails()
 
     setInterval(async () => {
         if (await checkOnlineStatus()) {
@@ -300,6 +315,14 @@ window.onload = () => {
             document.getElementById("online-status").innerHTML = "Ping-system is offline"
         }
     }, 5000) // ping every 5s
+    // check once at the beginning instead of waiting for the first 5s
+    checkOnlineStatus().then(result => {
+        if (result) {
+            document.getElementById("online-status").innerHTML = ""
+        } else {
+            document.getElementById("online-status").innerHTML = "Ping-system is offline"
+        }
+    })
 
 
     // switching tabs
@@ -325,4 +348,4 @@ window.onload = () => {
             window.dataTables[key].tables().search(search).draw()
         })
     })
-}
+})

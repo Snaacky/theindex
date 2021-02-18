@@ -1,9 +1,11 @@
-// initialize datatables
-window.dataTables = {}
-
+// formatter for cells
 const render = (cell, formatterParams, onRendered) => {
     let data = ""
-    if (typeof cell === "string") {
+    if (Array.isArray(cell)) {
+        cell.forEach(d => {
+            data += '<span class="badge rounded-pill bg-success">' + d + '</span> '
+        })
+    } else if (typeof cell === "string") {
         data = cell
     } else {
         if (!cell.getValue()) {
@@ -70,6 +72,7 @@ const exportTable = (format, id) => {
 
 const generateTable = (table, data) => {
     console.log("Generating table", table)
+    loadingLog()
     if (!window.tables || !window.columns) {
         console.error("Missing data: tables:", window.tables, "columns:", window.columns)
         return
@@ -77,10 +80,22 @@ const generateTable = (table, data) => {
     let columnsShown = window.columns['types'][table["type"]].length
 
     let columnData = [{
+        width: 30,
+        minWidth: 30,
+        hozAlign: "center",
+        resizable: false,
+        cssClass: "cell-infoModal",
+        tooltip: cell => "Info",
+        cellClick: (e, cell) => {
+            console.log("info-click", e, cell)
+            showInfoModal(cell.getRow())
+        },
+        formatter: cell => '<i class="bi bi-info-circle"></i>'
+    }, {
         title: "Name",
         field: "siteName",
         cssClass: "no-wrap site-name",
-        tooltip: (cell) => {
+        tooltip: cell => {
             let data = cell.getRow().getData()
             let status = window.online[data["siteName"]]
             if (status === "online" || status === "offline") {
@@ -88,8 +103,7 @@ const generateTable = (table, data) => {
             }
             return "Status of " + data["siteName"] + " is " + (status === "unknown" ? "unknown" : "undetermined")
         },
-        // headerMenu: headerMenu,
-        formatter: (cell, formatterParams, onRendered) => {
+        formatter: cell => {
             let data = cell.getRow().getData()
             let status = '<div class="d-inline-block rounded-circle spinner-grow-sm '
             switch (window.online[data["siteName"]]) {
@@ -110,7 +124,8 @@ const generateTable = (table, data) => {
         cellClick: (e, cell) => {
             let data = cell.getRow().getData()
             window.open(data.siteAddresses[0], '_blank')
-            e.stopPropagation()
+            // this may work or may not... it's from browser to browser and from version to version different :/
+            window.focus();
         }
     }
     ]
@@ -139,7 +154,6 @@ const generateTable = (table, data) => {
                 visible: !th['hidden'],
                 hozAlign: "center",
                 headerHozAlign: "center",
-                headerSort: true,
                 formatter: render
             })
         })
@@ -152,10 +166,6 @@ const generateTable = (table, data) => {
         window.dataTables[table['id']] = new Tabulator("#table-" + table['id'], {
             maxHeight: "75vh",
             layout: "fitColumns",
-            rowClick: (e, row) => {
-                console.log("row-click", e, row)
-                showInfoModal(row)
-            },
             placeholder: "No data has been found...",
             tooltipGenerationMode: "hover",
             columns: columnData,
@@ -168,8 +178,8 @@ const generateTable = (table, data) => {
 
 const generateAllTables = () => {
     console.log("Populating tables with data, Status:")
-    console.log("tablesGenerated:\t", tablesGenerated, "\tdataReady:\t", dataReady, "\tcolumnsReady:\t", columnsReady, "\ttablesReady:\t", tablesReady)
-    if (!tablesReady || !dataReady || !columnsReady) {
+    loadingLog()
+    if (!tablesReady || !dataReady || !columnsReady || !domReady) {
         return
     }
 
@@ -226,6 +236,7 @@ const generateAllTables = () => {
         })
     })
     tablesGenerated = true
+    window.dispatchEvent(new Event("tablesGenerated"))
 
     Object.keys(window.dataTables).forEach(key => {
         window.dataTables[key].redraw(true)
@@ -304,7 +315,9 @@ const toggleHandle = (el) => {
 }
 
 const generateColumnsDetails = () => {
-    if (!columnsReady) {
+    console.log("Trying to generate columns details in help tab")
+    loadingLog()
+    if (!columnsReady || !domReady) {
         return console.error("Columns aren't ready")
     }
 
@@ -320,5 +333,11 @@ const generateColumnsDetails = () => {
             '</div>' +
             '</div>'
     })
-    document.querySelector('#columnsDetails').innerHTML = accordion
+
+    let el = document.querySelector('#columnsDetails')
+    if (el) {
+        el.innerHTML = accordion
+    } else {
+        console.log("No help tab found, skipping")
+    }
 }

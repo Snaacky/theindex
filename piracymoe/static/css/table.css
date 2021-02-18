@@ -53,7 +53,7 @@
     text-overflow: unset !important;
 }
 
-.site-name:hover {
+.site-name:hover, .cell-infoModal:hover {
     background-color: var(--dark);
     color: var(--a-hover);
     cursor: pointer;

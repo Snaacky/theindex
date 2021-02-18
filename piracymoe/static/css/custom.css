@@ -215,14 +215,6 @@ th.sorting {
     vertical-align: unset !important;
 }
 
-.infoModal-link-hover {
-    opacity: 0;
-}
-
-tr:hover .infoModal-link-hover {
-    opacity: 1;
-}
-
 .no-wrap {
     white-space: nowrap !important;
 }
