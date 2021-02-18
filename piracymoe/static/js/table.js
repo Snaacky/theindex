@@ -239,7 +239,7 @@ const generateAllTables = () => {
                 'Reset <i class="bi bi-trash"></i></button>' +
                 '</div></div>' +
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
-                '<div id="table-' + t['id'] + '"></div></div>' +
+                '<div><div id="table-' + t['id'] + '"></div></div></div>' +
 
                 '<div class="card-footer">' +
                 '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addRow(this);">' +
@@ -352,7 +352,7 @@ const generateColumnsDetails = () => {
     console.log("Trying to generate columns details in help tab")
     loadingLog()
     if (!columnsReady || !domReady) {
-        return console.error("Columns aren't ready")
+        return console.log("Columns aren't ready")
     }
 
     let accordion = ''
