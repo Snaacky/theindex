@@ -9,7 +9,7 @@
     <meta name="description"
           content="Edit the /r/animepiracy index!"/>
     <meta name="robots" content="noindex, noarchive, nofollow">
-    <link rel=”canonical” href="https://piracy.moe/editor">
+    <link rel=”canonical” href="https://piracy.moe/editor/">
 </head>
 
 
@@ -22,11 +22,11 @@
     <div class="alert alert-dismissible border border-danger mb-3 fade show" role="alert">
         <p>
             <b>TODO:</b> add a small guide on editing?
-            <hr>
-            Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
-            development and does not reflect the final version of the index. Expect things to change and
-            break while this alert is still active. Report any bugs in the <kbd>#index</kbd> channel in our Discord at
-            <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>!
+        <hr>
+        Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
+        development and does not reflect the final version of the index. Expect things to change and
+        break while this alert is still active. Report any bugs in the <kbd>#index</kbd> channel in our Discord at
+        <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>!
         </p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -122,8 +122,14 @@
 
 {% include 'footer.html' %}
 
-<!-- Umami-Statboard -->
-<script src="{{ url_for('static', filename='js/editor.js') }}" async></script>
+<!-- helpful utils -->
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<!-- custom table wrapper -->
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+<!-- app.js -->
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!-- Editor's js -->
+<script src="{{ url_for('static', filename='js/editor.js') }}"></script>
 </body>
 
 </html>

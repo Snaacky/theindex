@@ -51,12 +51,12 @@ kbd {
 
 
 /* a-colors */
-a:not(.link-light) {
+a:not(.link-light):not(.btn) {
     color: var(--grey) !important;
     text-decoration: none;
 }
 
-a:not(.link-light):not(.navbar-brand):hover {
+a:not(.link-light):not(.btn):not(.navbar-brand):hover {
     color: var(--a-hover) !important;
 }
 
@@ -166,42 +166,6 @@ tbody > tr:nth-child(even) {
 
 tbody > tr:hover {
     background-color: var(--table-hover) !important;
-}
-
-table.dataTable th:not(:first-child) {
-    text-align: center;
-}
-
-table.dataTable thead {
-    background-color: var(--dark);
-}
-
-table.dataTable.compact thead th, table.dataTable.compact thead td {
-    padding: 2px;
-    font-weight: 500;
-    position: sticky;
-    top: 0;
-    background-color: var(--dark);
-}
-
-.fixedHeader-floating {
-    z-index: 1040;
-    background-color: var(--table-dark) !important;
-    max-width: 100vw;
-}
-
-.fixedHeader-locked {
-    display: none;
-}
-
-.dt-body-center kbd {
-    font-size: 1rem !important;
-}
-
-th.sorting_asc,
-th.sorting_desc,
-th.sorting {
-    background: none !important;
 }
 
 

@@ -18,6 +18,7 @@
 
 .tabulator .tabulator-header {
     border-bottom-color: var(--yes);
+    font-weight: 500;
 }
 
 /*Color the table rows*/
@@ -51,6 +52,10 @@
 
 .tabulator-row, .tabulator-col-title, .tabulator-cell {
     text-overflow: unset !important;
+}
+
+.tabulator-cell kbd {
+    font-size: 1rem !important;
 }
 
 .site-name:hover, .cell-infoModal:hover {

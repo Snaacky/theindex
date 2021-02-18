@@ -40,4 +40,4 @@ def callback():
 
 @app.errorhandler(Unauthorized)
 def redirect_unauthorized(e):
-    return redirect(url_for("editor.login"))
+    return render_template("login.html")
