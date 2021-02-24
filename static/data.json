@@ -327,7 +327,7 @@
             "siteAddresses": [
                 "https://animepahe.com"
             ],
-            "360p": "N",
+            "360p": "Y",
             "480p": "N",
             "720p": "Y",
             "1080p": "Y",
@@ -507,6 +507,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "AnimeSuge",
+            "siteAddresses": [
+                "https://animesuge.io"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Animetake",
             "siteAddresses": [
                 "https://animetake.tv"
@@ -668,6 +691,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "AniWoofy",
+            "siteAddresses": [
+                "https://aniwoofy.ml"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Chia-Anime",
             "siteAddresses": [
                 "http://chia-anime.me"
@@ -734,6 +780,29 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
+            "otherLanguages": "---"
+        },
+        {
+            "siteName": "GoAnimeList",
+            "siteAddresses": [
+                "https://w2.goanimelist.me"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "?",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
             "otherLanguages": "---"
         },
         {
@@ -919,6 +988,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "?",
             "otherLanguages": "---"
+        },
+        {
+            "siteName": "Tenshi",
+            "siteAddresses": [
+                "https://tenshi.moe"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
         },
         {
             "siteName": "WatchCartoonOnline",
@@ -2374,6 +2466,30 @@
             "otherLanguages": "Japanese"
         },
         {
+            "siteName": "NoobSubs",
+            "siteAddresses": [
+                "https://noobftp1.noobsubs.com/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasTorrents" :  "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "---",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "Nyaa [Torrent Only]",
             "siteAddresses": [
                 "https://nyaa.si"
@@ -2619,6 +2735,19 @@
             "hasTachiyomiSupport": "Y"
         },
         {
+            "siteName": "BATO.TO",
+            "siteAddresses": [
+                "https://bato.to"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
             "siteName": "Chibi Manga Reader",
             "siteAddresses": [
                 "http://cmreader.info"
@@ -2682,6 +2811,21 @@
             "otherLanguages": "-",
             "isMobileFriendly": "",
             "malSyncSupport": "",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
+            "siteName": "MangaOwl",
+            "siteAddresses": [
+                "https://mangaowls.com",
+                "https://mangaowl.com/",
+                "https://mangaowl.net/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
             "hasTachiyomiSupport": "Y"
         },
         {
