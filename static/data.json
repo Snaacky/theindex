@@ -149,8 +149,8 @@
             "1080p": "---",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
             "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
@@ -1680,6 +1680,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "?",
             "otherLanguages": "Arabic"
+        },
+        {
+            "siteName": "SuperAnimes",
+            "siteAddresses": [
+                "https://www.superanimes.biz"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "N",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "Portuguese"
         },
         {
             "siteName": "Turk Anime",
@@ -3763,6 +3786,17 @@
             "siteFeatures": "Read Light Novels, The Dev is MIA"
         },
         {
+            "siteName": "Shosetsu",
+            "siteAddresses": [
+                "https://github.com/shosetsuorg/shosetsu-preview/releases/latest"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "N",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Read Light Novels | Downloads | Japanese, Chinese(Simplified) and Portuguese"
+        },
+        {
             "siteName": "TioAnime",
             "siteAddresses": [
                 "https://app.tioanime.com/"
@@ -3930,8 +3964,8 @@
             "malSyncSupport": "N",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
@@ -4053,7 +4087,20 @@
             "hasTags": "Y",
             "hasDirectDownloads": "Y",
             "hasTorrents": "Y",
+            "hasBatchDownloads": "Y",
             "editorNotes": "The NSFW section of Nyaa.si."
+        },
+        {
+            "siteName": "FapForFun",
+            "siteAddresses": [
+                "https://fapforfun.net"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "hasTags": "Y",
+            "hasDirectDownloads": "N",
+            "hasTorrents": "Y",
+            "editorNotes": "Features RPGs and 3D Hentai."
         }
     ],
     "hentaiApplications": [
