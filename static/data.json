@@ -4312,16 +4312,16 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "360p": "?",
-            "480p": "?",
-            "720p": "?",
-            "1080p": "?",
-            "hasDubs": "N",
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
             "hasSubs": "Y",
             "hasTags": "Y",
             "hasDirectDownloads": "N",
             "hasTorrents": "Y",
-            "editorNotes": ""
+            "editorNotes": "Also has RPGs, VNs and Adult games."
         }
     ],
     "hentaiApplications": [
