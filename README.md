@@ -17,7 +17,7 @@ it in `#index`.
 The easiest way is to use docker via:
 
 ```
-docker run -d -p <host-port>:8080 -v /path/on/host:/config:ro ranimepiracy/index
+docker run -d -p <host-port>:8080 -v /path/on/host:/config ranimepiracy/index
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
@@ -26,7 +26,7 @@ responsibility to put a reverse proxy in front of this container.
 Alternatively you can use Github's package repository and instead use:
 
 ```
-docker run -d -p <host-port>:8080 -v /path/on/host:/config:ro docker.pkg.github.com/ranimepiracy/index/index-web
+docker run -d -p <host-port>:8080 -v /path/on/host:/config docker.pkg.github.com/ranimepiracy/index/index-web
 ```
 
 ## Config
