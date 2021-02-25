@@ -645,6 +645,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "Animumu",
+            "siteAddresses": [
+                "https://animumu.ga"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Aniwatch",
             "siteAddresses": [
                 "https://aniwatch.me"
@@ -2745,7 +2768,8 @@
             "otherLanguages": "-",
             "isMobileFriendly": "?",
             "malSyncSupport": "Y",
-            "hasTachiyomiSupport": "Y"
+            "hasTachiyomiSupport": "Y",
+            "editorNotes": "Not affiliated with the original bato.to"
         },
         {
             "siteName": "Chibi Manga Reader",
@@ -4205,7 +4229,32 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "UnderHentai",
+            "siteAddresses": [
+                "https://underhentai.net/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": ""
         }
+        
+
     ],
     "hentaiDoujinshi": [
         {
@@ -4215,18 +4264,40 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
+            "siteLanguage" : "EN",
+            "otherLanguages" :"CH, KR, JP",
             "hasTags": "Y",
             "hasDirectDownloads": "Y",
-            "editorNotes": "Requires login to download."
+            "editorNotes": "Requires login to download"
+        },
+        {
+            "siteName": "E-hentai",
+            "siteAddresses": [
+                "https://e-hentai.org"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "siteLanguage" : "EN",
+            "otherLanguages" : "CH, KR, JP",
+            "hasTags": "Y",
+            "hasDirectDownloads": "Y",
+            "editorNotes": "Requires login to download | Has torrents."
         }
     ],
     "hentaiDownload": [
         {
-            "siteName": "Nyaa(Sukebei)",
+            "siteName": "Nyaa(Sukebei)[Torrents Only]",
             "siteAddresses": [
                 "https://sukebei.nyaa.si"
             ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
             "hasAds": "N",
+            "hasReleaseSchedule" : "N",
             "isAntiAdblock": "N",
             "hasTags": "Y",
             "hasDirectDownloads": "Y",
@@ -4241,10 +4312,16 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
+            "360p": "?",
+            "480p": "?",
+            "720p": "?",
+            "1080p": "?",
+            "hasDubs": "N",
+            "hasSubs": "Y",
             "hasTags": "Y",
             "hasDirectDownloads": "N",
             "hasTorrents": "Y",
-            "editorNotes": "Features RPGs and 3D Hentai."
+            "editorNotes": ""
         }
     ],
     "hentaiApplications": [
