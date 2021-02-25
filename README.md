@@ -31,12 +31,12 @@ docker run -d -p <host-port>:8080 -v /path/on/host:/config:ro docker.pkg.github.
 
 ## Config
 
-You will need to provide a `config.py` file in `/config` and if you want to have an editor, you need to provide your own
-source of files in `/config`. This can be easily done by including the folder
-of [DataTables-Editor](https://editor.datatables.net). It has to have to be renamed `/config/editor/` and it is expected
-to contain the `/config/editor/css/` and `/config/editor/js/`
-folders with their respective files in it. You can copy our [example configuration](config.example.py) and modify it to
-your needs.
+You will need to provide a `config.py` file in `/config`, which you should have mounted via [container volumes](https://docs.docker.com/storage/volumes/). You can copy our [example configuration](config.example.py) and modify it to
+your needs. Alternatively you can wget it via:
+
+```
+wget https://raw.githubusercontent.com/ranimepiracy/index/master/config.example.py
+```
 
 ## Building from source
 
@@ -61,3 +61,12 @@ you want a certain feature or have an idea, you can always open a feature reques
 in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
 or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
+
+# What we use
+to build this website:
+- [Bootstrap 5](https://getbootstrap.com/)
+- [Tabulator](http://tabulator.info/)
+- [Flask](https://github.com/pallets/flask)
+- [Flask-Discord](https://github.com/weibeu/Flask-Discord)
+- [Flask-Caching](https://github.com/sh4nks/flask-caching)
+- [gunicorn](https://gunicorn.org/)
