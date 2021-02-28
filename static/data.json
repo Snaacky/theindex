@@ -3899,17 +3899,6 @@
             "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
-            "siteName": "AnYme X",
-            "siteAddresses": [
-                "https://zunjae.github.io/anymeapp.com"
-            ],
-            "hasMalSupport": "Y",
-            "hasAnilistSupport": "N",
-            "hasKitsuSupport": "N",
-            "hasSimKLSupport": "N",
-            "siteFeatures": "Stream Anime | Download Episodes"
-        },
-        {
             "siteName": "FireAnime",
             "siteAddresses": [
                 "https://github.com/XenTeckzX/FireAnime"
