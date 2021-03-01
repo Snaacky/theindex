@@ -4,6 +4,11 @@
     "name": "Anime",
     "tables": [
       {
+        "id": "sponsoredAnimeSites",
+        "title": "🌟 Sponsored Listings",
+        "type": "anime"
+      },
+      {
         "id": "englishAnimeSites",
         "title": "English Streaming Sites",
         "type": "anime"

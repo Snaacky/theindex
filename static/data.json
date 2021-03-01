@@ -1,4 +1,29 @@
 {
+    "sponsoredAnimeSites": [
+        {
+            "siteName": "AnimeFever",
+            "siteAddresses": [
+                "https://www.animefever.tv/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "---",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "---"
+        }
+    ],
     "englishAnimeSites": [
         {
             "siteName": "4Anime",
