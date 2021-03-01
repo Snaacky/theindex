@@ -418,7 +418,7 @@ const generateAllTables = () => {
             tab['tables'].forEach(t => {
                 download += '<tr><td>' + t["title"] +
                     '<span class="float-end d-flex justify-content-center">' +
-                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'animeTables\', \'englishAnimeSites\');">' +
+                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'' + tab["tab"] + '\', \'' + t["id"] + '\');">' +
                     '<i class="bi bi-cloud-download"></i></a></span>' +
                     '</td></tr>'
             })
