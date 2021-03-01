@@ -67,7 +67,11 @@
 <div class="container">
     <div class="alert alert-dismissible border border-warning mb-3 fade show" role="alert">
         <p>
-            ⚠️ Apologies for any instabilities on Febuary 28th. The large influx of traffic from Aniwatch was completely unexpected and our services weren't prepared for it. We have made some adjustments in the backend and things should be stable now. As always, you can report any bugs in our Discord server at: <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>
+            <span class="text-warning"><i class="bi bi-exclamation-triangle-fill"></i></span>
+            Apologies for any instabilities on Febuary 28th. The large influx of traffic from Aniwatch was completely
+            unexpected and our services weren't prepared for it. We have made some adjustments in the backend and things
+            should be stable now. As always, you can report any bugs in our Discord server at:
+            <a href="https://discord.gg/piracy">https://discord.gg/piracy</a>
         </p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -77,7 +81,8 @@
             <div>
                 <button type="button" class="btn btn-outline-danger hover-grow hover-shadow m-1" data-bs-dismiss="alert"
                         aria-label="Close" onclick="adultConsent(true)">
-                    I am an adult! Gimme that <img class="dc-emoji" src="/static/img/gasm.png" width="23px" height="23px"
+                    I am an adult! Gimme that <img class="dc-emoji" src="/static/img/gasm.png" width="23px"
+                                                   height="23px"
                                                    alt="I am an adult">!
                 </button>
                 or
@@ -176,7 +181,11 @@
 
 <div class="container-fluid my-3">
     <div class="tab-content" id="tablesList" style="display: none">
-        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab"></div>
+        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab">
+            <!-- sponsored content -->
+            <div class="d-flex justify-content-center align-items-center mb-3" id="sponsoredAnime"></div>
+        </div>
+
         <div class="tab-pane fade" id="mangaTables" role="tabpanel" aria-labelledby="mangaTablesTab"></div>
         <div class="tab-pane fade" id="lightNovelTables" role="tabpanel" aria-labelledby="lightNovelTablesTab"></div>
         <div class="tab-pane fade" id="applicationsTables" role="tabpanel"
@@ -212,7 +221,8 @@
                         or
                         <button type="button" class="btn btn-success hover-grow hover-shadow m-1"
                                 onclick="adultConsent(false)" id="setting-adult-no">
-                            Hold up! FBI <img class="dc-emoji" src="/static/img/lolipolice.png" width="23px" height="23px"
+                            Hold up! FBI <img class="dc-emoji" src="/static/img/lolipolice.png" width="23px"
+                                              height="23px"
                                               alt="I am not adult">
                         </button>
 
@@ -362,8 +372,10 @@
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous" async></script>
 
+<!-- sponsored content -->
+<script src="/static/js/sponsored.js"></script>
 <!-- app.js -->
-<script src="/static/js/app.js?t=hohi"></script>
+<script src="/static/js/app.js"></script>
 
 <!-- Umami-Statboard -->
 <script src="/static/js/stats.js" async defer></script>

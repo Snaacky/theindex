@@ -642,7 +642,7 @@ const adultConsent = (yes) => {
     }
 }
 
-window.onload = () => {
+window.addEventListener("load", () => {
     if (!localStorage.getItem("i-am-an-adult")) {
         document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
     } else {
@@ -708,4 +708,4 @@ window.onload = () => {
             window.dataTables[key].tables().search(search).draw()
         })
     })
-}
+})
