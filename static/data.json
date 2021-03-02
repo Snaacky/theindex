@@ -2167,6 +2167,29 @@
     ],
     "animeDownloadSites": [
         {
+            "siteName": "Anichiraku",
+            "siteAddresses": [
+                "https://anichiraku.ru"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "AniDex [Torrent Only]",
             "siteAddresses": [
                 "https://anidex.info"
