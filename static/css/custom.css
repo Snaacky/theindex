@@ -222,3 +222,11 @@ th.sorting {
 tr:hover .infoModal-link-hover {
     opacity: 1;
 }
+
+.border-warning {
+    border-color: #f9dc5f!important;
+}
+
+.alert.border-warning {
+    background-color: #ffea000d;
+}
