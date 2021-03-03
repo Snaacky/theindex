@@ -1369,7 +1369,7 @@
             "hasDubs": "Y",
             "hasSubs": "Y",
             "hasAds": "Y",
-            "isAntiAdblock": "N",
+            "isAntiAdblock": "Y",
             "isMobileFriendly": "---",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
