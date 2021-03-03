@@ -4128,29 +4128,6 @@
             "otherLanguages": ""
         },
         {
-            "siteName": "Kisshentai",
-            "siteAddresses": [
-                "https://kisshentai.net/"
-            ],
-            "360p": "Y",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "N",
-            "hasWatermarks": "Y",
-            "hasDisqusSupport": "Y",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
-            "otherLanguages": ""
-        },
-        {
             "siteName": "Hentai AHO Streaming",
             "siteAddresses": [
                 "https://haho.moe"
@@ -4197,6 +4174,29 @@
             "otherLanguages": ""
         },
         {
+            "siteName": "Kisshentai",
+            "siteAddresses": [
+                "https://kisshentai.net/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
+            "otherLanguages": ""
+        },
+        {
             "siteName": "MuchoHentai",
             "siteAddresses": [
                 "https://muchohentai.com"
@@ -4216,6 +4216,29 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": ""
+        },
+        {
+            "siteName": "Pico Hentai",
+            "siteAddresses": [
+                " https://picotube.xyz"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
             "editorNotes": "",
             "otherLanguages": ""
         },
