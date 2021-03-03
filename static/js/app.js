@@ -418,7 +418,7 @@ const generateAllTables = () => {
             tab['tables'].forEach(t => {
                 download += '<tr><td>' + t["title"] +
                     '<span class="float-end d-flex justify-content-center">' +
-                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'animeTables\', \'englishAnimeSites\');">' +
+                    '<a class="text-decoration-none text-white me-3" title="Export as CSV" href="javascript:exportTable(\'' + tab["tab"] + '\', \'' + t["id"] + '\');">' +
                     '<i class="bi bi-cloud-download"></i></a></span>' +
                     '</td></tr>'
             })
@@ -541,7 +541,7 @@ const populateTables = () => {
         parsedData[key] = data[key].map((entry, index) => {
             entry.siteName = '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" id="online-' +
                 key + index + '" data-bs-toggle="tooltip" role="status">' +
-                '</div> <a href="' + entry.siteAddresses[0] + '">' + entry.siteName + '</a> ' +
+                '</div> <a href="' + entry.siteAddresses[0] + '" target="_blank">' + entry.siteName + '</a> ' +
                 `<a onclick="showInfoModal('${key}', ${index})" href="javascript:void(0)" class="infoModal-link-hover"><i class="bi bi-info-circle"></i></a>`
             return entry
         })
@@ -642,7 +642,7 @@ const adultConsent = (yes) => {
     }
 }
 
-window.onload = () => {
+window.addEventListener("load", () => {
     if (!localStorage.getItem("i-am-an-adult")) {
         document.querySelector("#i-am-an-adult-alert").classList.remove("d-none")
     } else {
@@ -708,4 +708,4 @@ window.onload = () => {
             window.dataTables[key].tables().search(search).draw()
         })
     })
-}
+})
