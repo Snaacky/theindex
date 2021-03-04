@@ -1092,7 +1092,7 @@
             "1080p": "Y",
             "hasDubs": "N",
             "hasSubs": "Y",
-            "hasAds": "N",
+            "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
             "malSyncSupport": "Y",
