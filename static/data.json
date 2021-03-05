@@ -2798,20 +2798,6 @@
             "hasTachiyomiSupport": "Y"
         },
         {
-            "siteName": "MangaDex",
-            "siteAddresses": [
-                "https://mangadex.org"
-            ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",
-            "editorNotes": "Scanlation hub.",
-            "isEnglish": "Y",
-            "otherLanguages": "Many",
-            "hasTachiyomiSupport": "Y"
-        },
-        {
             "siteName": "MangaFreak",
             "siteAddresses": [
                 "https://w11.mangafreak.net"
@@ -3370,6 +3356,20 @@
             "otherLanguages": "-",
             "isMobileFriendly": "",
             "malSyncSupport": "",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
+            "siteName": "MangaDex",
+            "siteAddresses": [
+                "https://mangadex.org"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "editorNotes": "Scanlation hub.",
+            "isEnglish": "Y",
+            "otherLanguages": "Many",
             "hasTachiyomiSupport": "Y"
         },
         {
