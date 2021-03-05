@@ -19,8 +19,10 @@ def create_app():
     with app.app_context():
         from piracymoe.views import editor
         from piracymoe.views import index
+        from piracymoe import api
         app.register_blueprint(editor.bp)
         app.register_blueprint(index.bp)
+        app.register_blueprint(api.bp)
         app.discord = DiscordOAuth2Session(app)
 
     return app
