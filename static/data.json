@@ -4099,7 +4099,7 @@
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "Y",
-            "hasSimKLSupport": "",
+            "hasSimKLSupport": "N",
             "siteFeatures": ""
         }
     ],
