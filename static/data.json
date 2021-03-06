@@ -3740,6 +3740,20 @@
     ],
     "visualNovels": [
         {
+            "siteName": "CPG Repacks",
+            "siteAddresses": [
+                "https://cpgrepacks.site/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "siteLanguage": "EN",
+            "hasSubs": "Y",
+            "hasDirectDownloads" : "Y",
+            "isMobileFriendly": "",
+            "otherLanguages": "EN,JP",
+            "editorNotes" : "Offers highly compressed repacks of games that are smaller-sized but may take several hours to install."
+        },
+        {
             "siteName": "Erogedownload",
             "siteAddresses": [
                 "https://erogedownload.com",
@@ -3751,7 +3765,7 @@
             "hasSubs": "Y",
             "hasDirectDownloads" : "Y",
             "isMobileFriendly": "",
-            "otherLanguages": "JP",
+            "otherLanguages": "EN,JP",
             "editorNotes" : "Files are offered in 200 MB parts in the free download option."
         },
         {
@@ -3765,7 +3779,7 @@
             "hasSubs": "Y",
             "isMobileFriendly": "",
             "hasDirectDownloads" : "Y",
-            "otherLanguages": "JP",
+            "otherLanguages": "EN,JP",
             "editorNotes": "Dump of torrents from the site Fuwanovel, which was shut down."
         },
         {
@@ -3780,7 +3794,7 @@
             "hasDirectDownloads" : "Y",
             "hasTorrents" : "Y",
             "isMobileFriendly": "",
-            "otherLanguages": "JP"
+            "otherLanguages": "EN,JP"
         },
         {
             "siteName": "Ryuugames",
@@ -3793,7 +3807,7 @@
             "hasSubs": "Y",
             "hasDirectDownloads" : "Y",
             "isMobileFriendly": "",
-            "otherLanguages": "JP",
+            "otherLanguages": "EN,JP",
             "editorNotes": "There are ads on the link shorteners. Main site has no ads."
         }   
     ],
