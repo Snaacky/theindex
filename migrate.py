@@ -398,7 +398,7 @@ for entry in data["browserExtensions"]:
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
             hasSimKLSupport=has_simkl_support,
-            applicationFeatures=extension_features,
+            extensionFeatures=extension_features,
             editorNotes=editor_notes
         ))
 print("Migrated browserExtensions to DB.")
