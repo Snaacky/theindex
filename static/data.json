@@ -3746,22 +3746,40 @@
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
-            "siteLanguage": "",
-            "hasSubs": "",
+            "siteLanguage": "EN",
+            "hasSubs": "Y",
             "isMobileFriendly": "",
-            "otherLanguages": ""
+            "hasDirectDownloads" : "Y",
+            "otherLanguages": "JP",
+            "editorNotes": "Dump of torrents from the site Fuwanovel, which was shut down."
         },
         {
             "siteName": "Nitro Blog",
             "siteAddresses": [
                 "https://nblog.org/genre/visual-novel"
             ],
-            "hasAds": "",
+            "hasAds": "N",
             "isAntiAdblock": "N",
-            "siteLanguage": "",
-            "hasSubs": "",
+            "siteLanguage": "EN",
+            "hasSubs": "Y",
+            "hasDirectDownloads" : "Y",
+            "hasTorrents" : "Y",
             "isMobileFriendly": "",
-            "otherLanguages": ""
+            "otherLanguages": "JP"
+        },
+        {
+            "siteName": "Ryuugames",
+            "siteAddresses": [
+                "https://www.ryuugames.com"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "siteLanguage": "EN",
+            "hasSubs": "Y",
+            "hasDirectDownloads" : "Y",
+            "isMobileFriendly": "",
+            "otherLanguages": "JP",
+            "editorNotes": "There are ads on the link shorteners. Main site has no ads."
         }
     ],
     "iOSApplications": [
