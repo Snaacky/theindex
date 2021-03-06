@@ -3993,7 +3993,8 @@
         {
             "siteName": "Shosetsu",
             "siteAddresses": [
-                "https://github.com/shosetsuorg/shosetsu-preview/releases/latest"
+                "https://shosetsu.app/",
+                "https://github.com/shosetsuorg/android-app"
             ],
             "hasMalSupport": "N",
             "hasAnilistSupport": "N",
