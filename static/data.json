@@ -715,6 +715,29 @@
             "otherLanguages": "--"
         },
         {
+            "siteName": "AnimeX",
+            "siteAddresses": [
+                "https://animex.ninja"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Chia-Anime",
             "siteAddresses": [
                 "http://chia-anime.me"
