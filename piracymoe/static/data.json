@@ -116,29 +116,6 @@
             "otherLanguages": "---"
         },
         {
-            "siteName": "AnimeDao",
-            "siteAddresses": [
-                "https://animedao.cc/"
-            ],
-            "360p": "Y",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "N",
-            "hasWatermarks": "N",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "editorNotes": "Clone site of AnimeDao.to created by the owner of GenoAnime.",
-            "otherLanguages": ""
-        },
-        {
             "siteName": "AnimeFever",
             "siteAddresses": [
                 "https://www.animefever.tv/"
@@ -149,8 +126,8 @@
             "1080p": "---",
             "hasDubs": "Y",
             "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
             "isMobileFriendly": "---",
             "malSyncSupport": "N",
             "hasWatermarks": "N",
@@ -327,7 +304,7 @@
             "siteAddresses": [
                 "https://animepahe.com"
             ],
-            "360p": "N",
+            "360p": "Y",
             "480p": "N",
             "720p": "Y",
             "1080p": "Y",
@@ -507,6 +484,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "AnimeSuge",
+            "siteAddresses": [
+                "https://animesuge.io"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Animetake",
             "siteAddresses": [
                 "https://animetake.tv"
@@ -622,6 +622,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "Animumu",
+            "siteAddresses": [
+                "https://animumu.ga"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Aniwatch",
             "siteAddresses": [
                 "https://aniwatch.me"
@@ -666,6 +689,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "?",
             "otherLanguages": "---"
+        },
+        {
+            "siteName": "AniWoofy",
+            "siteAddresses": [
+                "https://aniwoofy.ml"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
         },
         {
             "siteName": "Chia-Anime",
@@ -734,6 +780,29 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
+            "otherLanguages": "---"
+        },
+        {
+            "siteName": "GoAnimeList",
+            "siteAddresses": [
+                "https://w2.goanimelist.me"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "?",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
             "otherLanguages": "---"
         },
         {
@@ -921,6 +990,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "Tenshi",
+            "siteAddresses": [
+                "https://tenshi.moe"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "WatchCartoonOnline",
             "siteAddresses": [
                 "https://watchcartoononline.io"
@@ -1000,7 +1092,7 @@
             "1080p": "Y",
             "hasDubs": "N",
             "hasSubs": "Y",
-            "hasAds": "N",
+            "hasAds": "Y",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?",
             "malSyncSupport": "Y",
@@ -1277,7 +1369,7 @@
             "hasDubs": "Y",
             "hasSubs": "Y",
             "hasAds": "Y",
-            "isAntiAdblock": "N",
+            "isAntiAdblock": "Y",
             "isMobileFriendly": "---",
             "malSyncSupport": "Y",
             "hasWatermarks": "N",
@@ -1564,7 +1656,7 @@
             "hasDirectDownloads": "N",
             "hasBatchDownloads": "N",
             "editorNotes": "?",
-            "otherLanguages": "Portugese"
+            "otherLanguages": "Portuguese"
         },
         {
             "siteName": "EgyAnime",
@@ -1621,13 +1713,13 @@
             "480p": "Y",
             "720p": "Y",
             "1080p": "Y",
-            "hasDubs": "?",
-            "hasSubs": "?",
+            "hasDubs": "N",
+            "hasSubs": "Y",
             "hasAds": "Y",
             "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
+            "isMobileFriendly": "Y",
             "malSyncSupport": "Y",
-            "hasWatermarks": "N",
+            "hasWatermarks": "Y",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
@@ -1680,6 +1772,29 @@
             "hasBatchDownloads": "N",
             "editorNotes": "?",
             "otherLanguages": "Arabic"
+        },
+        {
+            "siteName": "SuperAnimes",
+            "siteAddresses": [
+                "https://www.superanimes.biz"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "N",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "N",
+            "hasBatchDownloads": "N",
+            "editorNotes": "?",
+            "otherLanguages": "Portuguese"
         },
         {
             "siteName": "Turk Anime",
@@ -2052,6 +2167,29 @@
     ],
     "animeDownloadSites": [
         {
+            "siteName": "Anichiraku",
+            "siteAddresses": [
+                "https://anichiraku.ru"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "Currently invite-only.",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "AniDex [Torrent Only]",
             "siteAddresses": [
                 "https://anidex.info"
@@ -2351,6 +2489,30 @@
             "otherLanguages": "Japanese"
         },
         {
+            "siteName": "NoobSubs",
+            "siteAddresses": [
+                "https://noobftp1.noobsubs.com/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasTorrents" :  "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "---",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "Nyaa [Torrent Only]",
             "siteAddresses": [
                 "https://nyaa.si"
@@ -2596,6 +2758,20 @@
             "hasTachiyomiSupport": "Y"
         },
         {
+            "siteName": "BATO.TO",
+            "siteAddresses": [
+                "https://bato.to"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasTachiyomiSupport": "Y",
+            "editorNotes": "Not affiliated with the original bato.to"
+        },
+        {
             "siteName": "Chibi Manga Reader",
             "siteAddresses": [
                 "http://cmreader.info"
@@ -2622,20 +2798,6 @@
             "hasTachiyomiSupport": "Y"
         },
         {
-            "siteName": "MangaDex",
-            "siteAddresses": [
-                "https://mangadex.org"
-            ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",
-            "editorNotes": "Scanlation hub.",
-            "isEnglish": "Y",
-            "otherLanguages": "Many",
-            "hasTachiyomiSupport": "Y"
-        },
-        {
             "siteName": "MangaFreak",
             "siteAddresses": [
                 "https://w11.mangafreak.net"
@@ -2659,6 +2821,21 @@
             "otherLanguages": "-",
             "isMobileFriendly": "",
             "malSyncSupport": "",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
+            "siteName": "MangaOwl",
+            "siteAddresses": [
+                "https://mangaowls.com",
+                "https://mangaowl.com/",
+                "https://mangaowl.net/"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
             "hasTachiyomiSupport": "Y"
         },
         {
@@ -3179,6 +3356,20 @@
             "otherLanguages": "-",
             "isMobileFriendly": "",
             "malSyncSupport": "",
+            "hasTachiyomiSupport": "Y"
+        },
+        {
+            "siteName": "MangaDex",
+            "siteAddresses": [
+                "https://mangadex.org"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",
+            "editorNotes": "Scanlation hub.",
+            "isEnglish": "Y",
+            "otherLanguages": "Many",
             "hasTachiyomiSupport": "Y"
         },
         {
@@ -3708,17 +3899,6 @@
             "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
-            "siteName": "AnYme X",
-            "siteAddresses": [
-                "https://zunjae.github.io/anymeapp.com"
-            ],
-            "hasMalSupport": "Y",
-            "hasAnilistSupport": "N",
-            "hasKitsuSupport": "N",
-            "hasSimKLSupport": "N",
-            "siteFeatures": "Stream Anime | Download Episodes"
-        },
-        {
             "siteName": "FireAnime",
             "siteAddresses": [
                 "https://github.com/XenTeckzX/FireAnime"
@@ -3761,6 +3941,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Read Light Novels, The Dev is MIA"
+        },
+        {
+            "siteName": "Shosetsu",
+            "siteAddresses": [
+                "https://github.com/shosetsuorg/shosetsu-preview/releases/latest"
+            ],
+            "hasMalSupport": "N",
+            "hasAnilistSupport": "N",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Read Light Novels | Downloads | Japanese, Chinese(Simplified) and Portuguese"
         },
         {
             "siteName": "TioAnime",
@@ -3930,33 +4121,10 @@
             "malSyncSupport": "N",
             "hasWatermarks": "Y",
             "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "editorNotes": "",
-            "otherLanguages": ""
-        },
-        {
-            "siteName": "Kisshentai",
-            "siteAddresses": [
-                "https://kisshentai.net/"
-            ],
-            "360p": "Y",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "N",
-            "hasWatermarks": "Y",
-            "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
+            "editorNotes": "",
             "otherLanguages": ""
         },
         {
@@ -4006,6 +4174,29 @@
             "otherLanguages": ""
         },
         {
+            "siteName": "Kisshentai",
+            "siteAddresses": [
+                "https://kisshentai.net/"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Possibly unrelated to KissAnime and KissManga, as it didn't go down then.",
+            "otherLanguages": ""
+        },
+        {
             "siteName": "MuchoHentai",
             "siteAddresses": [
                 "https://muchohentai.com"
@@ -4027,7 +4218,55 @@
             "hasBatchDownloads": "N",
             "editorNotes": "",
             "otherLanguages": ""
+        },
+        {
+            "siteName": "Pico Hentai",
+            "siteAddresses": [
+                " https://picotube.xyz"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "Discord Server at https://discord.gg/HtJWAHC",
+            "otherLanguages": ""
+        },
+        {
+            "siteName": "UnderHentai",
+            "siteAddresses": [
+                "https://underhentai.net/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "N",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
+            "malSyncSupport": "N",
+            "hasWatermarks": "Y",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "",
+            "otherLanguages": ""
         }
+        
+
     ],
     "hentaiDoujinshi": [
         {
@@ -4037,23 +4276,64 @@
             ],
             "hasAds": "Y",
             "isAntiAdblock": "N",
+            "siteLanguage" : "EN",
+            "otherLanguages" :"CH, KR, JP",
             "hasTags": "Y",
             "hasDirectDownloads": "Y",
-            "editorNotes": "Requires login to download."
+            "editorNotes": "Requires login to download"
+        },
+        {
+            "siteName": "E-hentai",
+            "siteAddresses": [
+                "https://e-hentai.org"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "siteLanguage" : "EN",
+            "otherLanguages" : "CH, KR, JP",
+            "hasTags": "Y",
+            "hasDirectDownloads": "Y",
+            "editorNotes": "Requires login to download | Has torrents."
         }
     ],
     "hentaiDownload": [
         {
-            "siteName": "Nyaa(Sukebei)",
+            "siteName": "Nyaa(Sukebei)[Torrents Only]",
             "siteAddresses": [
                 "https://sukebei.nyaa.si"
             ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
             "hasAds": "N",
+            "hasReleaseSchedule" : "N",
             "isAntiAdblock": "N",
             "hasTags": "Y",
             "hasDirectDownloads": "Y",
             "hasTorrents": "Y",
+            "hasBatchDownloads": "Y",
             "editorNotes": "The NSFW section of Nyaa.si."
+        },
+        {
+            "siteName": "FapForFun",
+            "siteAddresses": [
+                "https://fapforfun.net"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasTags": "Y",
+            "hasDirectDownloads": "N",
+            "hasTorrents": "Y",
+            "editorNotes": "Also has RPGs, VNs and Adult games."
         }
     ],
     "hentaiApplications": [

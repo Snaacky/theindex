@@ -12,24 +12,6 @@ with open("piracymoe\\static\\data.json", encoding="utf8") as json_file:
     data = json.load(json_file)
 
 english_anime_sites = db.create_table("englishAnimeSites")
-english_anime_sites.create_column("siteName", db.types.text)
-english_anime_sites.create_column("siteAddresses", db.types.text)
-english_anime_sites.create_column("resolution360p", db.types.text)
-english_anime_sites.create_column("resolution480p", db.types.text)
-english_anime_sites.create_column("resolution720p", db.types.text)
-english_anime_sites.create_column("resolution1080p", db.types.text)
-english_anime_sites.create_column("hasSubs", db.types.text)
-english_anime_sites.create_column("hasDubs", db.types.text)
-english_anime_sites.create_column("hasAds", db.types.text)
-english_anime_sites.create_column("hasAntiAdblock", db.types.text)
-english_anime_sites.create_column("isMobileFriendly", db.types.text)
-english_anime_sites.create_column("hasWatermarks", db.types.text)
-english_anime_sites.create_column("hasDisqusSupport", db.types.text)
-english_anime_sites.create_column("hasReleaseSchedule", db.types.text)
-english_anime_sites.create_column("hasDirectDownloads", db.types.text)
-english_anime_sites.create_column("hasBatchDownloads", db.types.text)
-english_anime_sites.create_column("malSyncSupport", db.types.text)
-english_anime_sites.create_column("editorNotes", db.types.text)
 
 for entry in data["englishAnimeSites"]:
     site_name = entry["siteName"]
@@ -76,24 +58,6 @@ for entry in data["englishAnimeSites"]:
 print("Migrated englishAnimeSites to DB.")
 
 foreign_anime_sites = db.create_table("foreignAnimeSites")
-foreign_anime_sites.create_column("siteName", db.types.text)
-foreign_anime_sites.create_column("siteAddresses", db.types.text)
-foreign_anime_sites.create_column("resolution360p", db.types.text)
-foreign_anime_sites.create_column("resolution480p", db.types.text)
-foreign_anime_sites.create_column("resolution720p", db.types.text)
-foreign_anime_sites.create_column("resolution1080p", db.types.text)
-foreign_anime_sites.create_column("hasSubs", db.types.text)
-foreign_anime_sites.create_column("hasDubs", db.types.text)
-foreign_anime_sites.create_column("hasAds", db.types.text)
-foreign_anime_sites.create_column("hasAntiAdblock", db.types.text)
-foreign_anime_sites.create_column("isMobileFriendly", db.types.text)
-foreign_anime_sites.create_column("hasWatermarks", db.types.text)
-foreign_anime_sites.create_column("hasDisqusSupport", db.types.text)
-foreign_anime_sites.create_column("hasReleaseSchedule", db.types.text)
-foreign_anime_sites.create_column("hasDirectDownloads", db.types.text)
-foreign_anime_sites.create_column("hasBatchDownloads", db.types.text)
-foreign_anime_sites.create_column("editorNotes", db.types.text)
-foreign_anime_sites.create_column("siteLanguage", db.types.text)
 
 for entry in data["foreignAnimeSites"]:
     site_name = entry["siteName"]
@@ -142,23 +106,6 @@ for entry in data["foreignAnimeSites"]:
 print("Migrated foreignAnimeSites to DB.")
 
 download_sites = db.create_table("downloadSites")
-download_sites.create_column("siteName", db.types.text)
-download_sites.create_column("siteAddresses", db.types.text)
-download_sites.create_column("resolution360p", db.types.text)
-download_sites.create_column("resolution480p", db.types.text)
-download_sites.create_column("resolution720p", db.types.text)
-download_sites.create_column("resolution1080p", db.types.text)
-download_sites.create_column("hasSubs", db.types.text)
-download_sites.create_column("hasDubs", db.types.text)
-download_sites.create_column("hasAds", db.types.text)
-download_sites.create_column("hasAntiAdblock", db.types.text)
-download_sites.create_column("isMobileFriendly", db.types.text)
-download_sites.create_column("hasWatermarks", db.types.text)
-download_sites.create_column("hasDisqusSupport", db.types.text)
-download_sites.create_column("hasReleaseSchedule", db.types.text)
-download_sites.create_column("hasDirectDownloads", db.types.text)
-download_sites.create_column("hasBatchDownloads", db.types.text)
-download_sites.create_column("editorNotes", db.types.text)
 
 for entry in data["animeDownloadSites"]:
     site_name = entry["siteName"]
@@ -205,14 +152,6 @@ for entry in data["animeDownloadSites"]:
 print("Migrated downloadSites to DB.")
 
 english_manga_aggregators = db.create_table("englishMangaAggregators")
-english_manga_aggregators.create_column("siteName", db.types.text)
-english_manga_aggregators.create_column("siteAddresses", db.types.text)
-english_manga_aggregators.create_column("hasAds", db.types.text)
-english_manga_aggregators.create_column("hasAntiAdblock", db.types.text)
-english_manga_aggregators.create_column("isMobileFriendly", db.types.text)
-english_manga_aggregators.create_column("malSyncSupport", db.types.text)
-english_manga_aggregators.create_column("hasTachiyomiSupport", db.types.text)
-english_manga_aggregators.create_column("editorNotes", db.types.text)
 
 for entry in data["englishMangaSites"]:
     site_name = entry["siteName"]
@@ -239,14 +178,6 @@ for entry in data["englishMangaSites"]:
 print("Migrated englishMangaSites to DB.")
 
 english_manga_scans = db.create_table("englishMangaScans")
-english_manga_scans.create_column("siteName", db.types.text)
-english_manga_scans.create_column("siteAddresses", db.types.text)
-english_manga_scans.create_column("hasAds", db.types.text)
-english_manga_scans.create_column("hasAntiAdblock", db.types.text)
-english_manga_scans.create_column("isMobileFriendly", db.types.text)
-english_manga_scans.create_column("malSyncSupport", db.types.text)
-english_manga_scans.create_column("hasTachiyomiSupport", db.types.text)
-english_manga_scans.create_column("editorNotes", db.types.text)
 
 for entry in data["englishMangaScans"]:
     site_name = entry["siteName"]
@@ -270,18 +201,9 @@ for entry in data["englishMangaScans"]:
             editorNotes=editor_notes
         ))
     
-print("Migrated englishMangaSites to DB.")
+print("Migrated englishMangaScans to DB.")
 
 foreign_manga_aggregators = db.create_table("foreignMangaAggregators")
-foreign_manga_aggregators.create_column("siteName", db.types.text)
-foreign_manga_aggregators.create_column("siteAddresses", db.types.text)
-foreign_manga_aggregators.create_column("hasAds", db.types.text)
-foreign_manga_aggregators.create_column("hasAntiAdblock", db.types.text)
-foreign_manga_aggregators.create_column("siteLanguage", db.types.text)
-foreign_manga_aggregators.create_column("isMobileFriendly", db.types.text)
-foreign_manga_aggregators.create_column("malSyncSupport", db.types.text)
-foreign_manga_aggregators.create_column("hasTachiyomiSupport", db.types.text)
-foreign_manga_aggregators.create_column("editorNotes", db.types.text)
 
 for entry in data["foreignMangaSites"]:
     site_name = entry["siteName"]
@@ -310,15 +232,6 @@ for entry in data["foreignMangaSites"]:
 print("Migrated foreignMangaSites to DB.")
 
 foreign_manga_scans = db.create_table("foreignMangaScans")
-foreign_manga_scans.create_column("siteName", db.types.text)
-foreign_manga_scans.create_column("siteAddresses", db.types.text)
-foreign_manga_scans.create_column("hasAds", db.types.text)
-foreign_manga_scans.create_column("hasAntiAdblock", db.types.text)
-foreign_manga_scans.create_column("siteLanguage", db.types.text)
-foreign_manga_scans.create_column("isMobileFriendly", db.types.text)
-foreign_manga_scans.create_column("malSyncSupport", db.types.text)
-foreign_manga_scans.create_column("hasTachiyomiSupport", db.types.text)
-foreign_manga_scans.create_column("editorNotes", db.types.text)
 
 for entry in data["foreignMangaScans"]:
     site_name = entry["siteName"]
@@ -347,12 +260,6 @@ for entry in data["foreignMangaScans"]:
 print("Migrated foreignMangaScans to DB.")
 
 light_novels = db.create_table("lightNovels")
-light_novels.create_column("siteName", db.types.text)
-light_novels.create_column("siteAddresses", db.types.text)
-light_novels.create_column("hasAds", db.types.text)
-light_novels.create_column("hasAntiAdblock", db.types.text)
-light_novels.create_column("isMobileFriendly", db.types.text)
-light_novels.create_column("editorNotes", db.types.text)
 
 for entry in data["lightNovels"]:
     site_name = entry["siteName"]
@@ -373,11 +280,6 @@ for entry in data["lightNovels"]:
 print("Migrated lightNovels to DB.")
 
 visual_novels = db.create_table("visualNovels")
-visual_novels.create_column("siteName", db.types.text)
-visual_novels.create_column("siteAddresses", db.types.text)
-visual_novels.create_column("hasAds", db.types.text)
-visual_novels.create_column("hasAntiAdblock", db.types.text)
-visual_novels.create_column("editorNotes", db.types.text)
 
 for entry in data["visualNovels"]:
     site_name = entry["siteName"]
@@ -400,14 +302,6 @@ for entry in data["visualNovels"]:
 print("Migrated visualNovels to DB.")
 
 ios_applications = db.create_table("iosApplications")
-ios_applications.create_column("siteName", db.types.text)
-ios_applications.create_column("siteAddresses", db.types.text)
-ios_applications.create_column("hasMalSupport", db.types.text)
-ios_applications.create_column("hasAnilistSupport", db.types.text)
-ios_applications.create_column("hasKitsuSupport", db.types.text)
-ios_applications.create_column("hasSimKLSupport", db.types.text)
-ios_applications.create_column("applicationFeatures", db.types.text)
-ios_applications.create_column("editorNotes", db.types.text)
 
 for entry in data["iOSApplications"]:
     site_name = entry["siteName"]
@@ -434,14 +328,6 @@ for entry in data["iOSApplications"]:
 print("Migrated iosApplications to DB.")
 
 android_applications = db.create_table("androidApplications")
-android_applications.create_column("siteName", db.types.text)
-android_applications.create_column("siteAddresses", db.types.text)
-android_applications.create_column("hasMalSupport", db.types.text)
-android_applications.create_column("hasAnilistSupport", db.types.text)
-android_applications.create_column("hasKitsuSupport", db.types.text)
-android_applications.create_column("hasSimKLSupport", db.types.text)
-android_applications.create_column("applicationFeatures", db.types.text)
-android_applications.create_column("editorNotes", db.types.text)
 
 for entry in data["androidApplications"]:
     site_name = entry["siteName"]
@@ -468,14 +354,6 @@ for entry in data["androidApplications"]:
 print("Migrated androidApplications to DB.")
 
 windows_applications = db.create_table("windowsApplications")
-windows_applications.create_column("siteName", db.types.text)
-windows_applications.create_column("siteAddresses", db.types.text)
-windows_applications.create_column("hasMalSupport", db.types.text)
-windows_applications.create_column("hasAnilistSupport", db.types.text)
-windows_applications.create_column("hasKitsuSupport", db.types.text)
-windows_applications.create_column("hasSimKLSupport", db.types.text)
-windows_applications.create_column("applicationFeatures", db.types.text)
-windows_applications.create_column("editorNotes", db.types.text)
 
 for entry in data["windowsApplications"]:
     site_name = entry["siteName"]
@@ -502,14 +380,6 @@ for entry in data["windowsApplications"]:
 print("Migrated windowsApplications to DB.")
 
 macos_applications = db.create_table("macOSApplications")
-macos_applications.create_column("siteName", db.types.text)
-macos_applications.create_column("siteAddresses", db.types.text)
-macos_applications.create_column("hasMalSupport", db.types.text)
-macos_applications.create_column("hasAnilistSupport", db.types.text)
-macos_applications.create_column("hasKitsuSupport", db.types.text)
-macos_applications.create_column("hasSimKLSupport", db.types.text)
-macos_applications.create_column("applicationFeatures", db.types.text)
-macos_applications.create_column("editorNotes", db.types.text)
 
 for entry in data["macOSApplications"]:
     site_name = entry["siteName"]
@@ -536,14 +406,6 @@ for entry in data["macOSApplications"]:
 print("Migrated macOSApplications to DB.")
 
 browser_extensions = db.create_table("browserExtensions")
-browser_extensions.create_column("siteName", db.types.text)
-browser_extensions.create_column("siteAddresses", db.types.text)
-browser_extensions.create_column("hasMalSupport", db.types.text)
-browser_extensions.create_column("hasAnilistSupport", db.types.text)
-browser_extensions.create_column("hasKitsuSupport", db.types.text)
-browser_extensions.create_column("hasSimKLSupport", db.types.text)
-browser_extensions.create_column("extensionFeatures", db.types.text)
-browser_extensions.create_column("editorNotes", db.types.text)
 
 for entry in data["browserExtensions"]:
     site_name = entry["siteName"]
@@ -552,7 +414,7 @@ for entry in data["browserExtensions"]:
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["siteFeatures"]
+    extension_features = entry["siteFeatures"]
     editor_notes = ""
     
     with dataset.connect(get_db()) as db:
@@ -563,31 +425,13 @@ for entry in data["browserExtensions"]:
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
             hasSimKLSupport=has_simkl_support,
-            applicationFeatures=application_features,
+            applicationFeatures=extension_features,
             editorNotes=editor_notes
         ))
     
 print("Migrated browserExtensions to DB.")
 
 hentai_anime_sites = db.create_table("hentaiAnimeSites")
-hentai_anime_sites.create_column("siteName", db.types.text)
-hentai_anime_sites.create_column("siteAddresses", db.types.text)
-hentai_anime_sites.create_column("resolution360p", db.types.text)
-hentai_anime_sites.create_column("resolution480p", db.types.text)
-hentai_anime_sites.create_column("resolution720p", db.types.text)
-hentai_anime_sites.create_column("resolution1080p", db.types.text)
-hentai_anime_sites.create_column("hasSubs", db.types.text)
-hentai_anime_sites.create_column("hasDubs", db.types.text)
-hentai_anime_sites.create_column("hasAds", db.types.text)
-hentai_anime_sites.create_column("hasAntiAdblock", db.types.text)
-hentai_anime_sites.create_column("isMobileFriendly", db.types.text)
-hentai_anime_sites.create_column("hasWatermarks", db.types.text)
-hentai_anime_sites.create_column("hasDisqusSupport", db.types.text)
-hentai_anime_sites.create_column("hasReleaseSchedule", db.types.text)
-hentai_anime_sites.create_column("hasDirectDownloads", db.types.text)
-hentai_anime_sites.create_column("hasBatchDownloads", db.types.text)
-hentai_anime_sites.create_column("malSyncSupport", db.types.text)
-hentai_anime_sites.create_column("editorNotes", db.types.text)
 
 for entry in data["hentaiAnime"]:
     site_name = entry["siteName"]
@@ -634,13 +478,6 @@ for entry in data["hentaiAnime"]:
 print("Migrated hentaiAnime to DB.")
 
 hentai_doujinshi_sites = db.create_table("hentaiDoujinshiSites")
-hentai_doujinshi_sites.create_column("siteName", db.types.text)
-hentai_doujinshi_sites.create_column("siteAddresses", db.types.text)
-hentai_doujinshi_sites.create_column("hasAds", db.types.text)
-hentai_doujinshi_sites.create_column("hasAntiAdblock", db.types.text)
-hentai_doujinshi_sites.create_column("hasDirectDownloads", db.types.text)
-hentai_doujinshi_sites.create_column("hasTags", db.types.text)
-hentai_doujinshi_sites.create_column("editorNotes", db.types.text)
 
 for entry in data["hentaiDoujinshi"]:
     site_name = entry["siteName"]
@@ -665,14 +502,6 @@ for entry in data["hentaiDoujinshi"]:
 print("Migrated hentaiDoujinshi to DB.")
 
 hentai_download_sites = db.create_table("hentaiDownloadSites")
-hentai_download_sites.create_column("siteName", db.types.text)
-hentai_download_sites.create_column("siteAddresses", db.types.text)
-hentai_download_sites.create_column("hasAds", db.types.text)
-hentai_download_sites.create_column("hasAntiAdblock", db.types.text)
-hentai_download_sites.create_column("hasDirectDownloads", db.types.text)
-hentai_download_sites.create_column("hasTags", db.types.text)
-hentai_download_sites.create_column("hasTorrents", db.types.text)
-hentai_download_sites.create_column("editorNotes", db.types.text)
 
 for entry in data["hentaiDownload"]:
     site_name = entry["siteName"]
@@ -697,10 +526,6 @@ for entry in data["hentaiDownload"]:
 print("Migrated hentaiDownload to DB.")
 
 hentai_applications = db.create_table("hentaiApplications")
-hentai_applications.create_column("siteName", db.types.text)
-hentai_applications.create_column("siteAddresses", db.types.text)
-hentai_applications.create_column("supportedPlatforms", db.types.text)
-hentai_applications.create_column("editorNotes", db.types.text)
 
 for entry in data["hentaiApplications"]:
     site_name = entry["siteName"]
@@ -712,7 +537,7 @@ for entry in data["hentaiApplications"]:
         db["hentaiApplications"].insert(dict(
             siteName=site_name,
             siteAddresses=str(site_addresses),
-            supportedPlatforms=supported_platforms,
+            supportedPlatforms=str(supported_platforms),
             editorNotes=editor_notes,
         ))
 
