@@ -302,7 +302,8 @@
         {
             "siteName": "Animepahe",
             "siteAddresses": [
-                "https://animepahe.com"
+                "https://animepahe.com",
+                "https://animepahe.ru"
             ],
             "360p": "Y",
             "480p": "N",
