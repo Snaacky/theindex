@@ -54,7 +54,7 @@ for entry in data["englishAnimeSites"]:
     with dataset.connect(get_db()) as db:
         db["englishAnimeSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             resolution360p=resolution_360p,
             resolution480p=resolution_480p,
             resolution720p=resolution_720p,
@@ -70,7 +70,7 @@ for entry in data["englishAnimeSites"]:
             hasReleaseSchedule=has_schedule,
             hasDirectDownloads=has_downloads,
             hasBatchDownloads=has_batch_downloads,
-            editorNotes=editor_notes,
+            editorNotes=editor_notes
         ))
 
 print("Migrated englishAnimeSites to DB.")
@@ -119,7 +119,7 @@ for entry in data["foreignAnimeSites"]:
     with dataset.connect(get_db()) as db:
         db["foreignAnimeSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             resolution360p=resolution_360p,
             resolution480p=resolution_480p,
             resolution720p=resolution_720p,
@@ -139,6 +139,7 @@ for entry in data["foreignAnimeSites"]:
             siteLanguage=site_language
         ))
 
+print("Migrated foreignAnimeSites to DB.")
 
 download_sites = db.create_table("downloadSites")
 download_sites.create_column("siteName", db.types.text)
@@ -159,7 +160,7 @@ download_sites.create_column("hasDirectDownloads", db.types.text)
 download_sites.create_column("hasBatchDownloads", db.types.text)
 download_sites.create_column("editorNotes", db.types.text)
 
-for entry in data["downloadSites"]:
+for entry in data["animeDownloadSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
     resolution_360p = entry["360p"]
@@ -182,7 +183,7 @@ for entry in data["downloadSites"]:
     with dataset.connect(get_db()) as db:
         db["downloadSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             resolution360p=resolution_360p,
             resolution480p=resolution_480p,
             resolution720p=resolution_720p,
@@ -216,18 +217,17 @@ english_manga_aggregators.create_column("editorNotes", db.types.text)
 for entry in data["englishMangaSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
-    has_subs = entry["hasSubs"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
     is_mobile_friendly = entry["isMobileFriendly"]
     malsync_support = entry["malSyncSupport"]
     has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    editor_notes = entry["editorNotes"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["englishMangaAggregators"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             isMobileFriendly=is_mobile_friendly,
@@ -251,18 +251,17 @@ english_manga_scans.create_column("editorNotes", db.types.text)
 for entry in data["englishMangaScans"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
-    has_subs = entry["hasSubs"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
     is_mobile_friendly = entry["isMobileFriendly"]
     malsync_support = entry["malSyncSupport"]
     has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    editor_notes = entry["editorNotes"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["englishMangaScans"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             isMobileFriendly=is_mobile_friendly,
@@ -287,19 +286,18 @@ foreign_manga_aggregators.create_column("editorNotes", db.types.text)
 for entry in data["foreignMangaSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
-    has_subs = entry["hasSubs"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
     is_mobile_friendly = entry["isMobileFriendly"]
     malsync_support = entry["malSyncSupport"]
     has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    site_language = entry["siteLanguage"]
+    site_language = entry["otherLanguages"]
     editor_notes = entry["editorNotes"]
     
     with dataset.connect(get_db()) as db:
         db["foreignMangaAggregators"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             siteLanguage=site_language,
@@ -325,19 +323,18 @@ foreign_manga_scans.create_column("editorNotes", db.types.text)
 for entry in data["foreignMangaScans"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
-    has_subs = entry["hasSubs"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
     is_mobile_friendly = entry["isMobileFriendly"]
     malsync_support = entry["malSyncSupport"]
     has_tachiyomi_support = entry["hasTachiyomiSupport"]
     other_languages = entry["otherLanguages"]
-    editor_notes = entry["editorNotes"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["foreignMangaScans"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             otherLanguages=other_languages,
@@ -362,12 +359,12 @@ for entry in data["lightNovels"]:
     site_addresses = entry["siteAddresses"]
     has_ads = entry["hasAds"]
     is_mobile_friendly = entry["isMobileFriendly"]
-    editor_notes = entry["editorNotes"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["lightNovels"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             isMobileFriendly=is_mobile_friendly,
             editorNotes=editor_notes
@@ -386,14 +383,14 @@ for entry in data["visualNovels"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
     has_ads = entry["hasAds"]
-    has_anti_adblock = entry["hasAntiAdblock"]
+    has_anti_adblock = entry["isAntiAdblock"]
     is_mobile_friendly = entry["isMobileFriendly"]
-    editor_notes = entry["editorNotes"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["lightNovels"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             isMobileFriendly=is_mobile_friendly,
@@ -412,20 +409,20 @@ ios_applications.create_column("hasSimKLSupport", db.types.text)
 ios_applications.create_column("applicationFeatures", db.types.text)
 ios_applications.create_column("editorNotes", db.types.text)
 
-for entry in data["iosApplications"]:
+for entry in data["iOSApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
     has_mal_support = entry["hasMalSupport"]
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["applicationFeatures"]
-    editor_notes = entry["editorNotes"]
+    application_features = entry["siteFeatures"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["iosApplications"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasMalSupport=has_mal_support,
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
@@ -453,13 +450,13 @@ for entry in data["androidApplications"]:
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["applicationFeatures"]
-    editor_notes = entry["editorNotes"]
+    application_features = entry["siteFeatures"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["androidApplications"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasMalSupport=has_mal_support,
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
@@ -487,13 +484,13 @@ for entry in data["windowsApplications"]:
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["applicationFeatures"]
-    editor_notes = entry["editorNotes"]
+    application_features = entry["siteFeatures"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["windowsApplications"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasMalSupport=has_mal_support,
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
@@ -521,13 +518,13 @@ for entry in data["macOSApplications"]:
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["applicationFeatures"]
-    editor_notes = entry["editorNotes"]
+    application_features = entry["siteFeatures"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["macOSApplications"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasMalSupport=has_mal_support,
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
@@ -555,13 +552,13 @@ for entry in data["browserExtensions"]:
     has_al_support = entry["hasAnilistSupport"]
     has_kitsu_support = entry["hasKitsuSupport"]
     has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["applicationFeatures"]
-    editor_notes = entry["editorNotes"]
+    application_features = entry["siteFeatures"]
+    editor_notes = ""
     
     with dataset.connect(get_db()) as db:
         db["browserExtensions"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasMalSupport=has_mal_support,
             hasAnilistSupport=has_al_support,
             hasKitsuSupport=has_kitsu_support,
@@ -592,7 +589,7 @@ hentai_anime_sites.create_column("hasBatchDownloads", db.types.text)
 hentai_anime_sites.create_column("malSyncSupport", db.types.text)
 hentai_anime_sites.create_column("editorNotes", db.types.text)
 
-for entry in data["hentaiAnimeSites"]:
+for entry in data["hentaiAnime"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
     resolution_360p = entry["360p"]
@@ -615,7 +612,7 @@ for entry in data["hentaiAnimeSites"]:
     with dataset.connect(get_db()) as db:
         db["hentaiAnimeSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             resolution360p=resolution_360p,
             resolution480p=resolution_480p,
             resolution720p=resolution_720p,
@@ -634,7 +631,7 @@ for entry in data["hentaiAnimeSites"]:
             editorNotes=editor_notes,
         ))
 
-print("Migrated hentaiAnimeSites to DB.")
+print("Migrated hentaiAnime to DB.")
 
 hentai_doujinshi_sites = db.create_table("hentaiDoujinshiSites")
 hentai_doujinshi_sites.create_column("siteName", db.types.text)
@@ -650,7 +647,6 @@ for entry in data["hentaiDoujinshi"]:
     site_addresses = entry["siteAddresses"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
-    has_watermarks = entry["hasWatermarks"]
     has_downloads = entry["hasDirectDownloads"]
     has_tags = entry["hasTags"]
     editor_notes = entry["editorNotes"]
@@ -658,7 +654,7 @@ for entry in data["hentaiDoujinshi"]:
     with dataset.connect(get_db()) as db:
         db["hentaiDoujinshiSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             hasDirectDownloads=has_downloads,
@@ -683,7 +679,6 @@ for entry in data["hentaiDownload"]:
     site_addresses = entry["siteAddresses"]
     has_ads = entry["hasAds"]
     has_anti_adblock = entry["isAntiAdblock"]
-    has_watermarks = entry["hasWatermarks"]
     has_downloads = entry["hasDirectDownloads"]
     has_tags = entry["hasTags"]
     editor_notes = entry["editorNotes"]
@@ -691,7 +686,7 @@ for entry in data["hentaiDownload"]:
     with dataset.connect(get_db()) as db:
         db["hentaiDownloadSites"].insert(dict(
             siteName=site_name,
-            siteAddresses=site_addresses,
+            siteAddresses=str(site_addresses),
             hasAds=has_ads,
             hasAntiAdblock=has_anti_adblock,
             hasDirectDownloads=has_downloads,
@@ -700,3 +695,26 @@ for entry in data["hentaiDownload"]:
         ))
 
 print("Migrated hentaiDownload to DB.")
+
+hentai_applications = db.create_table("hentaiApplications")
+hentai_applications.create_column("siteName", db.types.text)
+hentai_applications.create_column("siteAddresses", db.types.text)
+hentai_applications.create_column("supportedPlatforms", db.types.text)
+hentai_applications.create_column("editorNotes", db.types.text)
+
+for entry in data["hentaiApplications"]:
+    site_name = entry["siteName"]
+    site_addresses = entry["siteAddresses"]
+    supported_platforms = entry["supportPlatform"]
+    editor_notes = entry["editorNotes"]
+
+    with dataset.connect(get_db()) as db:
+        db["hentaiApplications"].insert(dict(
+            siteName=site_name,
+            siteAddresses=str(site_addresses),
+            supportedPlatforms=supported_platforms,
+            editorNotes=editor_notes,
+        ))
+
+print("Migrated hentaiApplications to DB.")
+print("Migration process complete.")
