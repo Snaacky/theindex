@@ -11,8 +11,7 @@ db = dataset.connect(get_db())
 with open("piracymoe\\static\\data.json", encoding="utf8") as json_file:
     data = json.load(json_file)
 
-english_anime_sites = db.create_table("englishAnimeSites")
-
+db.create_table("englishAnimeSites")
 for entry in data["englishAnimeSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -54,11 +53,9 @@ for entry in data["englishAnimeSites"]:
             hasBatchDownloads=has_batch_downloads,
             editorNotes=editor_notes
         ))
-
 print("Migrated englishAnimeSites to DB.")
 
-foreign_anime_sites = db.create_table("foreignAnimeSites")
-
+db.create_table("foreignAnimeSites")
 for entry in data["foreignAnimeSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -102,11 +99,9 @@ for entry in data["foreignAnimeSites"]:
             editorNotes=editor_notes,
             siteLanguage=site_language
         ))
-
 print("Migrated foreignAnimeSites to DB.")
 
-download_sites = db.create_table("downloadSites")
-
+db.create_table("downloadSites")
 for entry in data["animeDownloadSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -148,11 +143,9 @@ for entry in data["animeDownloadSites"]:
             hasBatchDownloads=has_batch_downloads,
             editorNotes=editor_notes
         ))
-    
 print("Migrated downloadSites to DB.")
 
 english_manga_aggregators = db.create_table("englishMangaAggregators")
-
 for entry in data["englishMangaSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -174,11 +167,9 @@ for entry in data["englishMangaSites"]:
             hasTachiyomiSupport=has_tachiyomi_support,
             editorNotes=editor_notes
         ))
-    
 print("Migrated englishMangaSites to DB.")
 
-english_manga_scans = db.create_table("englishMangaScans")
-
+db.create_table("englishMangaScans")
 for entry in data["englishMangaScans"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -200,11 +191,9 @@ for entry in data["englishMangaScans"]:
             hasTachiyomiSupport=has_tachiyomi_support,
             editorNotes=editor_notes
         ))
-    
 print("Migrated englishMangaScans to DB.")
 
-foreign_manga_aggregators = db.create_table("foreignMangaAggregators")
-
+db.create_table("foreignMangaAggregators")
 for entry in data["foreignMangaSites"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -228,11 +217,9 @@ for entry in data["foreignMangaSites"]:
             hasTachiyomiSupport=has_tachiyomi_support,
             editorNotes=editor_notes
         ))
-    
 print("Migrated foreignMangaSites to DB.")
 
-foreign_manga_scans = db.create_table("foreignMangaScans")
-
+db.create_table("foreignMangaScans")
 for entry in data["foreignMangaScans"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -255,12 +242,10 @@ for entry in data["foreignMangaScans"]:
             malSyncSupport=malsync_support,
             hasTachiyomiSupport=has_tachiyomi_support,
             editorNotes=editor_notes
-        ))
-    
+        ))    
 print("Migrated foreignMangaScans to DB.")
 
-light_novels = db.create_table("lightNovels")
-
+db.create_table("lightNovels")
 for entry in data["lightNovels"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -276,11 +261,9 @@ for entry in data["lightNovels"]:
             isMobileFriendly=is_mobile_friendly,
             editorNotes=editor_notes
         ))
-    
 print("Migrated lightNovels to DB.")
 
-visual_novels = db.create_table("visualNovels")
-
+db.create_table("visualNovels")
 for entry in data["visualNovels"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -298,11 +281,9 @@ for entry in data["visualNovels"]:
             isMobileFriendly=is_mobile_friendly,
             editorNotes=editor_notes
         ))
-    
 print("Migrated visualNovels to DB.")
 
-ios_applications = db.create_table("iosApplications")
-
+db.create_table("iosApplications")
 for entry in data["iOSApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -324,11 +305,9 @@ for entry in data["iOSApplications"]:
             applicationFeatures=application_features,
             editorNotes=editor_notes
         ))
-    
 print("Migrated iosApplications to DB.")
 
-android_applications = db.create_table("androidApplications")
-
+db.create_table("androidApplications")
 for entry in data["androidApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -350,11 +329,9 @@ for entry in data["androidApplications"]:
             applicationFeatures=application_features,
             editorNotes=editor_notes
         ))
-    
 print("Migrated androidApplications to DB.")
 
-windows_applications = db.create_table("windowsApplications")
-
+db.create_table("windowsApplications")
 for entry in data["windowsApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -376,11 +353,9 @@ for entry in data["windowsApplications"]:
             applicationFeatures=application_features,
             editorNotes=editor_notes
         ))
-    
 print("Migrated windowsApplications to DB.")
 
 macos_applications = db.create_table("macOSApplications")
-
 for entry in data["macOSApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -402,11 +377,9 @@ for entry in data["macOSApplications"]:
             applicationFeatures=application_features,
             editorNotes=editor_notes
         ))
-    
 print("Migrated macOSApplications to DB.")
 
-browser_extensions = db.create_table("browserExtensions")
-
+db.create_table("browserExtensions")
 for entry in data["browserExtensions"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -428,11 +401,9 @@ for entry in data["browserExtensions"]:
             applicationFeatures=extension_features,
             editorNotes=editor_notes
         ))
-    
 print("Migrated browserExtensions to DB.")
 
-hentai_anime_sites = db.create_table("hentaiAnimeSites")
-
+db.create_table("hentaiAnimeSites")
 for entry in data["hentaiAnime"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -474,11 +445,9 @@ for entry in data["hentaiAnime"]:
             hasBatchDownloads=has_batch_downloads,
             editorNotes=editor_notes,
         ))
-
 print("Migrated hentaiAnime to DB.")
 
-hentai_doujinshi_sites = db.create_table("hentaiDoujinshiSites")
-
+db.create_table("hentaiDoujinshiSites")
 for entry in data["hentaiDoujinshi"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -498,11 +467,9 @@ for entry in data["hentaiDoujinshi"]:
             hasTags=has_tags,
             editorNotes=editor_notes,
         ))
-
 print("Migrated hentaiDoujinshi to DB.")
 
-hentai_download_sites = db.create_table("hentaiDownloadSites")
-
+db.create_table("hentaiDownloadSites")
 for entry in data["hentaiDownload"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -522,11 +489,9 @@ for entry in data["hentaiDownload"]:
             hasTags=has_tags,
             editorNotes=editor_notes,
         ))
-
 print("Migrated hentaiDownload to DB.")
 
-hentai_applications = db.create_table("hentaiApplications")
-
+db.create_table("hentaiApplications")
 for entry in data["hentaiApplications"]:
     site_name = entry["siteName"]
     site_addresses = entry["siteAddresses"]
@@ -540,6 +505,6 @@ for entry in data["hentaiApplications"]:
             supportedPlatforms=str(supported_platforms),
             editorNotes=editor_notes,
         ))
-
 print("Migrated hentaiApplications to DB.")
+
 print("Migration process complete.")
