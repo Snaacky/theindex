@@ -92,6 +92,7 @@
 
 <!-- Notice -->
 <div class="container">
+    <!-- announcements
     <div class="alert alert-dismissible border border-danger mb-3 fade show" role="alert">
         <p>
             Welcome to the future home of the /r/animepiracy index! This page is currently undergoing heavy
@@ -101,6 +102,7 @@
         </p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    -->
 
     <div class="d-none alert show fade pt-0 mb-0" role="alert" id="i-am-an-adult-alert">
         <div class="d-flex justify-content-center">
@@ -207,26 +209,17 @@
 
 <div class="container-fluid my-3">
     <div class="tab-content" id="tablesList" style="display: none">
-        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab"></div>
+        <div class="tab-pane fade show active" id="animeTables" role="tabpanel" aria-labelledby="animeTablesTab">
+            <div class="d-flex justify-content-center align-items-center mb-3" id="sponsoredAnime">
+                <!-- sponsored content -->
+            </div>
+        </div>
         <div class="tab-pane fade" id="mangaTables" role="tabpanel" aria-labelledby="mangaTablesTab"></div>
         <div class="tab-pane fade" id="lightNovelTables" role="tabpanel" aria-labelledby="lightNovelTablesTab"></div>
         <div class="tab-pane fade" id="applicationsTables" role="tabpanel"
              aria-labelledby="applicationsTablesTab"></div>
 
-        <div class="tab-pane fade" id="hentaiTables" role="tabpanel" aria-labelledby="hentaiTablesTab">
-            <div class="container d-flex justify-content-center mb-3">
-                <div class="card bg-darker" style="max-width: 22em;">
-                    <div class="card-header">
-                        Coming soon!
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Keep your vaseline and tissues on standby.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="tab-pane fade" id="hentaiTables" role="tabpanel" aria-labelledby="hentaiTablesTab"></div>
 
         <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="helpTab">
             <div class="container">
@@ -396,6 +389,8 @@
 
 <!-- helpful utils -->
 <script src="/piracymoe/static/js/utils.js"></script>
+<!-- sponsored content -->
+<script src="/piracymoe/static/js/sponsored.js"></script>
 <!-- custom table wrapper -->
 <script src="/piracymoe/static/js/table.js"></script>
 <!-- app.js -->
