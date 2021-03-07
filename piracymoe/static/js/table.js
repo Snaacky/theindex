@@ -131,11 +131,16 @@ const generateTable = (table, data) => {
             // this may work or may not... it's from browser to browser and from version to version different :/
             window.focus();
         }
-    }
-    ]
+    }]
 
     if (editMode) {
         columnData[1].editor = "input"
+        columnData.push({
+            title: propertyName("siteAddresses"),
+            field: "siteAddresses",
+            headerHozAlign: "center",
+            editor: "input"
+        })
     }
 
     // add column toggles
@@ -198,7 +203,30 @@ const generateTable = (table, data) => {
             placeholder: "No data has been found...",
             tooltipGenerationMode: "hover",
             columns: columnData,
-            data: data
+            data: data,
+            dataChanged: () => {
+                console.log("Table", "#table-" + table['id'], "has been edited")
+                if (window.dataTables[table['id']]) {
+                    let editedCells = window.dataTables[table['id']].getEditedCells()
+
+                    let discard = document.querySelector("#discard-" + table['id']),
+                        save = document.querySelector("#save-" + table['id'])
+
+                    if (editedCells.length > 0) {
+                        if (!window.editedTables.includes(table["id"])) {
+                            window.editedTables.push(table["id"])
+                        }
+                        discard.disabled = false
+                        save.disabled = false
+                    } else {
+                        if (window.editedTables.includes(table["id"])) {
+                            window.editedTables = window.editedTables.filter(t => t !== table["id"])
+                        }
+                        discard.disabled = true
+                        save.disabled = true
+                    }
+                }
+            }
         })
     } catch (e) {
         console.error("Yeah, failed to generate table", table["id"], "due to", e)
@@ -240,11 +268,18 @@ const generateAllTables = () => {
                 '</div></div>' +
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
                 '<div><div id="table-' + t['id'] + '"></div></div></div>' +
-
-                '<div class="card-footer">' +
-                '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addRow(this);">' +
-                '<i class="bi bi-plus-circle"></i> Add row</button>' +
-                '</div>' +
+                (editMode ? '<div class="card-footer">' +
+                    '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addTableRow(this);">' +
+                    '<i class="bi bi-plus-circle"></i> Add row</button>' +
+                    '<span class="float-end">' +
+                    '<button disabled class="btn btn-danger" id="discard-' + t['id'] + '" data-target="' + t['id'] +
+                    '" onclick="javascript:discardTableEdit(this);">' +
+                    '<i class="bi bi-trash"></i> Discard</button> ' +
+                    '<button disabled class="btn btn-success" id="save-' + t['id'] + '" data-target="' + t['id'] +
+                    '" onclick="javascript:saveTableEdit(this);">' +
+                    '<i class="bi bi-check2-circle"></i> Save</button>' +
+                    '</span></div>'
+                    : '') +
                 '</div>'
         })
 
@@ -375,3 +410,13 @@ const generateColumnsDetails = () => {
         console.log("No help tab found, skipping")
     }
 }
+
+window.addEventListener("beforeunload", (e) => {
+    if (window.editedTables.length > 0) {
+        e.preventDefault()
+        e.returnValue = "Unsaved changes for table(s):\n"
+        window.editedTables.forEach(t => {
+            e.returnValue += t + "\n"
+        })
+    }
+})

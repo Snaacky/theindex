@@ -2,6 +2,7 @@
 let columnsReady, tablesReady, tablesGenerated, dataReady, domReady = false
 // remember which tab has already been pinged
 let alreadyPingedTab = {}
+window.editedTables = []
 window.online = {}
 window.rawData = {}
 window.dataTables = {}
@@ -347,9 +348,9 @@ window.addEventListener('load', () => {
 
     // Handles using a single search bar for multiple tables
     addListenerMulti(document.querySelector("#tableSearch"), "keyup click", () => {
+        const search = document.querySelector('#tableSearch').value
         Object.keys(window.dataTables).forEach(key => {
-            const search = document.querySelector('#tableSearch').value
-            window.dataTables[key].tables().search(search).draw()
+            window.dataTables[key].setFilter("siteName", "like", search)
         })
     })
 })

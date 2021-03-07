@@ -217,16 +217,40 @@ const handleDelete = async () => {
     window.alert('Entry deleted')
 }
 
-const addRow = (el) => {
-    console.log("Adding row", el)
-    window.dataTables[el.getAttribute("data-target")].addRow({}, false)
+const addTableRow = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Adding row to table", id)
+
+    window.dataTables[id].addRow({}, false)
         .then(row => {
             row.scrollTo()
         })
         .catch(e => {
-            console.error("Failed to create new row for", el.getAttribute("data-target"), "due to", e)
+            console.error("Failed to create new row for", id, "due to", e)
         })
 
 }
+
+const discardTableEdit = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Discarding edits to table", id)
+
+    // replace with original data-state
+    window.dataTables[id].replaceData(window.rawData[id])
+}
+
+const saveTableEdit = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Saving table", id)
+
+    // reset edit-history
+    window.dataTables[id].clearCellEdited()
+    //document.querySelector("#discard-" + id).disabled = true
+    //document.querySelector("#save-" + id).disabled = true
+
+    // setting new rawData-state
+    window.rawData[id] = window.dataTables[id].getData()
+}
+
 window.addEventListener('tablesGenerated', () => {
 })
