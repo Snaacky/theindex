@@ -646,29 +646,6 @@
             "otherLanguages": "--"
         },
         {
-            "siteName": "Aniwatch",
-            "siteAddresses": [
-                "https://aniwatch.me"
-            ],
-            "360p": "Y",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",
-            "hasWatermarks": "N",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "editorNotes": "Requires an account to stream anime.",
-            "otherLanguages": "German"
-        },
-        {
             "siteName": "Aniwatcher",
             "siteAddresses": [
                 "https://aniwatcher.com"
@@ -1080,29 +1057,6 @@
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "",
-            "otherLanguages": "---"
-        },
-        {
-            "siteName": "FastAni",
-            "siteAddresses": [
-                "https://fastani.net/"
-            ],
-            "360p": "N",
-            "480p": "N",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "Y",
-            "hasWatermarks": "N",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "N",
-            "hasBatchDownloads": "N",
-            "editorNotes": "---",
             "otherLanguages": "---"
         },
         {
