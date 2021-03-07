@@ -2,9 +2,6 @@
 .idea/
 .DS_STORE
 
-# settings
-config.py
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

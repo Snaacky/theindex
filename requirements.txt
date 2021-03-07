@@ -1,7 +1,8 @@
 # web stuff
-gunicorn~=20.0.4
-Flask~=1.1.2
+gunicorn
+flask
+flask-caching
+flask-discord
 
 # database
-redis~=3.5.3
-dataset~=1.4.5
+dataset

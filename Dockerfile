@@ -1,23 +1,23 @@
-FROM nginx:alpine
+FROM python:3.9-slim-buster
 
-EXPOSE 8080
-HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
-
-# install python and uswgi
-RUN apk add --no-cache \
-    python3 \
-    py-pip \
-    redis
-
-# replace default nginx conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# install nginx
+RUN apt-get update -y && \
+    apt-get install --no-install-recommends -y nginx && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 # install needed python packages
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# replace default nginx conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 WORKDIR /app
 COPY . /app
 
+VOLUME ["/config"]
+EXPOSE 8080
+HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
 
-CMD redis-server --daemonize yes && gunicorn --workers=2 'app:create_app()'
+CMD service nginx restart && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'
