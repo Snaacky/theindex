@@ -2260,29 +2260,6 @@
             "otherLanguages": "---"
         },
         {
-            "siteName": "AnimEncodes",
-            "siteAddresses": [
-                "https://animencodes.com"
-            ],
-            "360p": "N",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "Y",
-            "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "",
-            "malSyncSupport": "N",
-            "hasWatermarks": "",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "Y",
-            "editorNotes": "?",
-            "otherLanguages": "---"
-        },
-        {
             "siteName": "AnimeKayo",
             "siteAddresses": [
                 "https://animekayo.com"
@@ -2919,20 +2896,6 @@
             "isMobileFriendly": "",
             "malSyncSupport": "",
             "hasTachiyomiSupport": "-"
-        },
-        {
-            "siteName": "MangaReader",
-            "siteAddresses": [
-                "https://www.mangareader.net/"
-            ],
-            "hasAds": "---",
-            "isAntiAdblock": "---",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "---",
-            "editorNotes": "",
-            "isEnglish": "Y",
-            "otherLanguages": "---",
-            "hasTachiyomiSupport": "Y"
         },
         {
             "siteName": "MangaSee",
