@@ -205,6 +205,10 @@ const generateTable = (table, data) => {
             columns: columnData,
             data: data,
             dataChanged: () => {
+                if (!editMode) {
+                    return
+                }
+
                 console.log("Table", "#table-" + table['id'], "has been edited")
                 if (window.dataTables[table['id']]) {
                     let editedCells = window.dataTables[table['id']].getEditedCells()
