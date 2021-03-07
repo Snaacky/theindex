@@ -264,8 +264,10 @@ const adultConsent = (yes) => {
 }
 
 // --- load a bunch of json ---
+
+// TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
 // get columns definition
-fetch('/static/columns.json')
+fetch('/piracymoe/static/columns.json')
     .then(data => data.json())
     .then(columns => {
         window.columns = columns
@@ -277,7 +279,7 @@ fetch('/static/columns.json')
     })
 
 // generates tables definition
-fetch('/static/tables.json')
+fetch('/piracymoe/static/tables.json')
     .then(data => data.json())
     .then(tables => {
         window.tables = tables
@@ -287,7 +289,7 @@ fetch('/static/tables.json')
     })
 
 // get actual table data
-fetch('/static/data.json')
+fetch('/piracymoe/static/data.json')
     .then(data => data.json())
     .then(json => {
         window.rawData = json
