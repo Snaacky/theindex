@@ -3194,19 +3194,6 @@
             "hasTachiyomiSupport": "Y"
         },
         {
-            "siteName": "AOC Translations",
-            "siteAddresses": [
-                "https://aoc.moe"
-            ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "Y",
-            "otherLanguages": "-",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": "Y"
-        },
-        {
             "siteName": "Arc-Relight",
             "siteAddresses": [
                 "https://arc-relight.com"
@@ -3388,19 +3375,6 @@
             "isMobileFriendly": "",
             "malSyncSupport": "",
             "hasTachiyomiSupport": ""
-        },
-        {
-            "siteName": "One Time Scans",
-            "siteAddresses": [
-                "https://otscans.com"
-            ],
-            "hasAds": "",
-            "isAntiAdblock": "",
-            "isEnglish": "Y",
-            "otherLanguages": "-",
-            "isMobileFriendly": "",
-            "malSyncSupport": "",
-            "hasTachiyomiSupport": "Y"
         },
         {
             "siteName": "Sense-Scans",
