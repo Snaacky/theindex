@@ -92,8 +92,10 @@ const generateTable = (table, data) => {
         },
         formatter: cell => '<i class="bi bi-info-circle"></i>'
     }, {
+        minWidth: 120,
         title: "Name",
         field: "siteName",
+        dir: "asc",
         cssClass: "no-wrap site-name",
         tooltip: cell => {
             let data = cell.getRow().getData()
