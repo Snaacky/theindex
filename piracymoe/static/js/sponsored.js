@@ -17,7 +17,8 @@ window.addEventListener("load", () => {
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
-                '<div class="card m-2" style="width: 18rem;"><div class="card-body bg-darker">' +
+                '<div class="col d-flex justify-content-center">' +
+                '<div class="card" style="min-width: 240px; max-width: 19rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
@@ -29,7 +30,7 @@ window.addEventListener("load", () => {
                 '<a href="' + sponsored["url"] + '" target="_blank">' +
                 '<i class="bi bi-box-arrow-up-right"></i> Visit site' +
                 '</a>' +
-                '</div></div>'
+                '</div></div></div>'
             checkOnlineStatus(sponsored['url'])
                 .then(result => {
                     let onlineStatus = document.querySelector('#online-' + sponsored["id"])

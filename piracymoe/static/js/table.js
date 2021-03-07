@@ -121,7 +121,8 @@ const generateTable = (table, data) => {
                 default:
                     status += "bg-secondary spinner-grow"
             }
-            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' + cell.getValue()
+            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' +
+                '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
         },
         cellClick: (e, cell) => {
             if (editMode) {
