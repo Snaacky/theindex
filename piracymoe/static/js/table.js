@@ -92,10 +92,9 @@ const generateTable = (table, data) => {
         },
         formatter: cell => '<i class="bi bi-info-circle"></i>'
     }, {
-        minWidth: 120,
+        minWidth: 160,
         title: "Name",
         field: "siteName",
-        dir: "asc",
         cssClass: "no-wrap site-name",
         tooltip: cell => {
             let data = cell.getRow().getData()
@@ -233,7 +232,10 @@ const generateTable = (table, data) => {
                         save.disabled = true
                     }
                 }
-            }
+            },
+            initialSort: [
+                {column: "siteName", dir: "asc"}
+            ]
         })
     } catch (e) {
         console.error("Yeah, failed to generate table", table["id"], "due to", e)
