@@ -36,8 +36,12 @@
     background-color: var(--table-hover);
 }
 
-.tabulator-row .tabulator-cell, .tabulator-row .tabulator-frozen.tabulator-frozen-left {
-    border-right: none !important;
+.tabulator-row .tabulator-cell {
+    border-right: none;
+}
+
+.tabulator-frozen.tabulator-frozen-left {
+    border-right: 1px solid var(--yes);
 }
 
 /*hide sort arrows*/
