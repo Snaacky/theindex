@@ -92,6 +92,7 @@ const generateTable = (table, data) => {
         },
         formatter: cell => '<i class="bi bi-info-circle"></i>'
     }, {
+        minWidth: 160,
         title: "Name",
         field: "siteName",
         cssClass: "no-wrap site-name",
@@ -119,7 +120,8 @@ const generateTable = (table, data) => {
                 default:
                     status += "bg-secondary spinner-grow"
             }
-            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' + cell.getValue()
+            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' +
+                '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
         },
         cellClick: (e, cell) => {
             if (editMode) {
@@ -230,7 +232,10 @@ const generateTable = (table, data) => {
                         save.disabled = true
                     }
                 }
-            }
+            },
+            initialSort: [
+                {column: "siteName", dir: "asc"}
+            ]
         })
     } catch (e) {
         console.error("Yeah, failed to generate table", table["id"], "due to", e)
