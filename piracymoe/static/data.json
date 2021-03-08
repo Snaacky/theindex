@@ -2306,6 +2306,30 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "Beatrice Raws [Torrent Only]",
+            "siteAddresses": [
+                "https://beatrice-raws.org/"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "N",
+            "hasTorrents":"Y",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "---",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "CoolsAnime",
             "siteAddresses": [
                 "https://coolsanime.org"
@@ -2370,6 +2394,7 @@
             "hasDisqusSupport": "Y",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
+            "hasTorrents":"Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "?",
             "otherLanguages": "---"
