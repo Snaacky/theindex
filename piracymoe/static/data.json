@@ -93,29 +93,6 @@
             "otherLanguages": "---"
         },
         {
-            "siteName": "AnimeDaisuki",
-            "siteAddresses": [
-                "https://animedaisuki.moe"
-            ],
-            "360p": "N",
-            "480p": "N",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "hasAds": "Y",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
-            "malSyncSupport": "Y",
-            "hasWatermarks": "Y",
-            "hasDisqusSupport": "Y",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "editorNotes": "?",
-            "otherLanguages": "---"
-        },
-        {
             "siteName": "AnimeFever",
             "siteAddresses": [
                 "https://www.animefever.tv/"
@@ -2283,29 +2260,6 @@
             "otherLanguages": "---"
         },
         {
-            "siteName": "AnimeList ",
-            "siteAddresses": [
-                "http://animelist.pw"
-            ],
-            "360p": "N",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
-            "malSyncSupport": "N",
-            "hasWatermarks": "?",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "Y",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "editorNotes": "?",
-            "otherLanguages": "---"
-        },
-        {
             "siteName": "AnimeOut",
             "siteAddresses": [
                 "https://animeout.xyz"
@@ -2510,29 +2464,6 @@
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "Y",
-            "editorNotes": "?",
-            "otherLanguages": "---"
-        },
-        {
-            "siteName": "TakAnimeList",
-            "siteAddresses": [
-                "http://takanimelist.live"
-            ],
-            "360p": "N",
-            "480p": "Y",
-            "720p": "Y",
-            "1080p": "Y",
-            "hasDubs": "N",
-            "hasSubs": "Y",
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "?",
-            "malSyncSupport": "N",
-            "hasWatermarks": "?",
-            "hasDisqusSupport": "N",
-            "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
             "editorNotes": "?",
             "otherLanguages": "---"
         },
@@ -3574,15 +3505,6 @@
             "siteName": "MTL Novel",
             "siteAddresses": [
                 "https://mtlnovel.com"
-            ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": ""
-        },
-        {
-            "siteName": "NovelPortal",
-            "siteAddresses": [
-                "https://novelportal.com"
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
