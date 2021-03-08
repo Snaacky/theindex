@@ -2671,6 +2671,20 @@
             "hasTachiyomiSupport": "Y"
         },
         {
+            "siteName": "Dynasty Reader",
+            "siteAddresses": [
+                "https://dynasty-scans.com"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "N",
+            "hasTachiyomiSupport": "Y",
+            "editorNotes": "Online manga reader for scanlations released by Dynasty Scans and other Yuri groups. "
+        },
+        {
             "siteName": "FanFox",
             "siteAddresses": [
                 "https://fanfox.net"
