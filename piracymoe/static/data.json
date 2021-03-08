@@ -3132,12 +3132,12 @@
             "siteAddresses": [
                 "https://doki.co"
             ],
-            "hasAds": "",
-            "isAntiAdblock": "",
+            "hasAds": "N",
+            "isAntiAdblock": "N",
             "isEnglish": "Y",
             "otherLanguages": "-",
             "isMobileFriendly": "",
-            "malSyncSupport": "",
+            "malSyncSupport": "N",
             "hasTachiyomiSupport": "Y"
         },
         {
