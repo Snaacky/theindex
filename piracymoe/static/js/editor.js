@@ -217,6 +217,10 @@ const handleDelete = async () => {
     window.alert('Entry deleted')
 }
 
+
+
+
+// --------------------------------------------
 const addTableRow = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Adding row to table", id)
@@ -231,12 +235,45 @@ const addTableRow = (el) => {
 
 }
 
+const deleteSelectedRow = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Delete selected rows of table", id)
+
+    window.dataTables[id].getSelectedRows().forEach(r => r.delete())
+    document.querySelector("#delete-" + id).disabled = true
+}
+
 const discardTableEdit = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Discarding edits to table", id)
 
-    // replace with original data-state
-    window.dataTables[id].replaceData(window.rawData[id])
+    // undo all
+    for (let i in window.dataTables[id].getHistoryUndoSize()) {
+        window.dataTables[id].undo()
+    }
+    resetTableEditState()
+}
+
+const undoTableEdit = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Undo edit of table", id)
+
+    window.dataTables[id].undo()
+    if (window.dataTables[id].getHistoryUndoSize() === 0) {
+        document.querySelector("#undo-" + id).disabled = true
+    }
+    document.querySelector("#redo-" + id).disabled = false
+}
+
+const redoTableEdit = (el) => {
+    const id = el.getAttribute("data-target")
+    console.log("Redo edit of table", id)
+
+    window.dataTables[id].redo()
+    if (window.dataTables[id].getHistoryRedoSize() === 0) {
+        document.querySelector("#redo-" + id).disabled = true
+    }
+    document.querySelector("#undo-" + id).disabled = false
 }
 
 const saveTableEdit = (el) => {
@@ -244,13 +281,21 @@ const saveTableEdit = (el) => {
     console.log("Saving table", id)
 
     // reset edit-history
-    window.dataTables[id].clearCellEdited()
-    //document.querySelector("#discard-" + id).disabled = true
-    //document.querySelector("#save-" + id).disabled = true
+    resetTableEditState(id)
+}
 
-    // setting new rawData-state
-    window.rawData[id] = window.dataTables[id].getData()
+const resetTableEditState = (id) => {
+    window.dataTables[id].clearHistory()
+    document.querySelector("#undo-" + id).disabled = true
+    document.querySelector("#redo-" + id).disabled = true
+    document.querySelector("#discard-" + id).disabled = true
+    document.querySelector("#save-" + id).disabled = true
 }
 
 window.addEventListener('tablesGenerated', () => {
+    if (editMode) {
+        Object.keys(window.dataTables).forEach(id => {
+            resetTableEditState(id)
+        })
+    }
 })

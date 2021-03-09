@@ -78,20 +78,38 @@ const generateTable = (table, data) => {
         return
     }
     let columnsShown = window.columns['types'][table["type"]].length
+    let columnData = []
 
-    let columnData = [{
-        width: 30,
-        minWidth: 30,
-        hozAlign: "center",
-        resizable: false,
-        cssClass: "cell-infoModal",
-        tooltip: cell => "Info",
-        cellClick: (e, cell) => {
-            console.log("info-click", e, cell)
-            showInfoModal(cell.getRow())
-        },
-        formatter: cell => '<i class="bi bi-info-circle"></i>'
-    }, {
+    if (editMode) {
+        columnData.push({
+            width: 30,
+            minWidth: 30,
+            hozAlign: "center",
+            resizable: false,
+            cssClass: "cell-infoModal",
+            formatter: "rowSelection",
+            titleFormatter: "rowSelection",
+            headerSort: false,
+            cellClick: (e, cell) => {
+                cell.getRow().toggleSelect();
+            }
+        })
+    } else {
+        columnData.push({
+            width: 30,
+            minWidth: 30,
+            hozAlign: "center",
+            resizable: false,
+            cssClass: "cell-infoModal",
+            tooltip: () => "Info",
+            cellClick: (e, cell) => {
+                console.log("info-click", e, cell)
+                showInfoModal(cell.getRow())
+            },
+            formatter: () => '<i class="bi bi-info-circle"></i>'
+        })
+    }
+    columnData.push({
         minWidth: 160,
         title: "Name",
         field: "siteName",
@@ -105,6 +123,10 @@ const generateTable = (table, data) => {
             return "Status of " + data["siteName"] + " is " + (status === "unknown" ? "unknown" : "undetermined")
         },
         formatter: cell => {
+            if (editMode) {
+                return cell.getValue()
+            }
+
             let data = cell.getRow().getData()
             let status = '<div class="d-inline-block rounded-circle spinner-grow-sm '
             switch (window.online[data["siteName"]]) {
@@ -133,7 +155,7 @@ const generateTable = (table, data) => {
             // this may work or may not... it's from browser to browser and from version to version different :/
             window.focus();
         }
-    }]
+    })
 
     if (editMode) {
         columnData[1].editor = "input"
@@ -205,6 +227,8 @@ const generateTable = (table, data) => {
             placeholder: "No data has been found...",
             tooltipGenerationMode: "hover",
             columns: columnData,
+            resizableColumns: false,
+            history: true,
             data: data,
             dataChanged: () => {
                 if (!editMode) {
@@ -213,29 +237,37 @@ const generateTable = (table, data) => {
 
                 console.log("Table", "#table-" + table['id'], "has been edited")
                 if (window.dataTables[table['id']]) {
-                    let editedCells = window.dataTables[table['id']].getEditedCells()
+                    let undoSize = window.dataTables[table['id']].getHistoryUndoSize(),
+                        redoSize = window.dataTables[table['id']].getHistoryRedoSize()
+                    console.log("currently", undoSize, "undos and", redoSize, "redos available")
 
-                    let discard = document.querySelector("#discard-" + table['id']),
-                        save = document.querySelector("#save-" + table['id'])
+                    document.querySelector("#discard-" + table['id']).disabled = undoSize === 0
+                    document.querySelector("#save-" + table['id']).disabled = undoSize === 0
 
-                    if (editedCells.length > 0) {
+                    if (undoSize > 0) {
                         if (!window.editedTables.includes(table["id"])) {
                             window.editedTables.push(table["id"])
                         }
-                        discard.disabled = false
-                        save.disabled = false
                     } else {
                         if (window.editedTables.includes(table["id"])) {
                             window.editedTables = window.editedTables.filter(t => t !== table["id"])
                         }
-                        discard.disabled = true
-                        save.disabled = true
                     }
+
+                    document.querySelector("#undo-" + table["id"]).disabled = undoSize === 0
+                    document.querySelector("#redo-" + table["id"]).disabled = redoSize === 0
+                } else if (tablesGenerated) {
+                    console.error("Failed to access table-object of", table["id"])
                 }
             },
             initialSort: [
                 {column: "siteName", dir: "asc"}
-            ]
+            ],
+            rowSelectionChanged: (d, rows) => {
+                if (editMode) {
+                    document.querySelector("#delete-" + table["id"]).disabled = rows.length === 0
+                }
+            }
         })
     } catch (e) {
         console.error("Yeah, failed to generate table", table["id"], "due to", e)
@@ -279,7 +311,16 @@ const generateAllTables = () => {
                 '<div><div id="table-' + t['id'] + '"></div></div></div>' +
                 (editMode ? '<div class="card-footer">' +
                     '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addTableRow(this);">' +
-                    '<i class="bi bi-plus-circle"></i> Add row</button>' +
+                    '<i class="bi bi-plus-circle"></i> Add row</button> ' +
+                    '<button disabled class="btn btn-danger" id="delete-' + t['id'] + '" data-target="' + t['id'] +
+                    '" onclick="javascript:deleteSelectedRow(this);">' +
+                    '<i class="bi bi-trash"></i> Delete row</button> ' +
+                    '<button disabled class="btn btn-danger" id="undo-' + t['id'] + '" data-target="' + t['id'] +
+                    '" onclick="javascript:undoTableEdit(this);">' +
+                    '<i class="bi bi-arrow-90deg-left"></i></button> ' +
+                    '<button disabled class="btn btn-danger" id="redo-' + t['id'] + '" data-target="' + t['id'] +
+                    '" onclick="javascript:redoTableEdit(this);">' +
+                    '<i class="bi bi-arrow-90deg-right"></i></button> ' +
                     '<span class="float-end">' +
                     '<button disabled class="btn btn-danger" id="discard-' + t['id'] + '" data-target="' + t['id'] +
                     '" onclick="javascript:discardTableEdit(this);">' +
@@ -315,10 +356,6 @@ const generateAllTables = () => {
     })
     tablesGenerated = true
     window.dispatchEvent(new Event("tablesGenerated"))
-
-    Object.keys(window.dataTables).forEach(key => {
-        window.dataTables[key].redraw(true)
-    })
 
     document.querySelector('#loader').remove()
     pingTab(window.tables[0]["tab"])
