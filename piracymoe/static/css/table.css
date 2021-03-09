@@ -54,8 +54,8 @@
     text-align: center;
 }
 
-.tabulator-row, .tabulator-col-title, .tabulator-cell {
-    text-overflow: unset !important;
+.tabulator-cell {
+    white-space: normal !important;
 }
 
 .tabulator-cell kbd {
