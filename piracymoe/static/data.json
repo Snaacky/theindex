@@ -3858,7 +3858,7 @@
         {
             "siteName": "Tachiyomi",
             "siteAddresses": [
-                "https://github.com/inorichi/tachiyomi/releases"
+                "https://tachiyomi.org/"
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
