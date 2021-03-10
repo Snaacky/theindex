@@ -17,6 +17,14 @@ const addListenerMulti = (el, s, fn) => {
     s.split(' ').forEach(e => el.addEventListener(e, fn, false));
 }
 
+// calculates the needed width of a text using a DOM-Element
+const calcTextWidth = (text) => {
+    let el = document.querySelector("#text-width-test")
+    el.innerHTML = text;
+
+    return Math.ceil(el.clientWidth);
+}
+
 // property key to name
 const propertyName = (property) => {
     if (columnsReady) {

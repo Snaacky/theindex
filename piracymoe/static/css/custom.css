@@ -186,3 +186,13 @@ tbody > tr:hover {
 .no-wrap {
     white-space: nowrap !important;
 }
+
+#text-width-test {
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+}

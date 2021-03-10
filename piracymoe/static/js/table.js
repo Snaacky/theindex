@@ -185,17 +185,18 @@ const generateTable = (table, data) => {
                 propertyName(th['key']) + '</label>' +
                 '</div></div>'
 
+            console.log("Column", propertyName(th['key']), "calcWidth", calcTextWidth(propertyName(th['key'])), "total", calcTextWidth(propertyName(th['key'])) + 5)
             let columnUpdate = {
                 title: propertyName(th['key']),
                 field: th['key'],
                 visible: !th['hidden'],
-                formatter: render
+                formatter: render,
+                minWidth: (calcTextWidth(propertyName(th['key'])) + 9)
             }
 
             if (th["key"] === "editorNotes" || th["key"] === "siteFeatures") {
                 columnUpdate.hozAlign = "left"
                 columnUpdate.minWidth = 120
-                columnUpdate.maxWidth = 280
             }
 
             if (editMode) {
@@ -412,19 +413,24 @@ const setToggleAllState = (table) => {
 
 const toggleAll = (table) => {
     let state = document.querySelector("#toggleAll-" + table).checked
+    console.log("Toggle all columns of table", table)
     document.querySelectorAll("#collapse-" + table + " div.row input").forEach(el => {
         if (el.checked !== state) {
             el.checked = state
-            toggleColumn(table, el.getAttribute("data-column"))
+            toggleColumn(table, el.getAttribute("data-column"), false)
         }
     })
 
     window.dataTables[table].redraw(true)
 }
 
-const toggleColumn = (table, key) => {
+const toggleColumn = (table, key, update = true) => {
     console.log("Toggle visibility of column", key, "for table", table)
-    window.dataTables[table].toggleColumn(key)
+    window.dataTables[table].getColumn(key).toggle()
+
+    if (update) {
+        window.dataTables[table].redraw(true)
+    }
 }
 
 const toggleHandle = (el) => {
