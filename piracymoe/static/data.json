@@ -3862,8 +3862,8 @@
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
-            "hasKitsuSupport": "Y",
-            "hasSimKLSupport": "N",
+            "hasKitsuSupport": "?",
+            "hasSimKLSupport": "?",
             "siteFeatures": "Tachiyomi fork for MangaDex"
         },
         {
