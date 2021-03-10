@@ -226,7 +226,7 @@ const generateTable = (table, data) => {
     try {
         window.dataTables[table['id']] = new Tabulator("#table-" + table['id'], {
             maxHeight: "75vh",
-            layout: "fitDataFill",
+            layout: "fitColumns",
             placeholder: "No data has been found...",
             tooltipGenerationMode: "hover",
             headerHozAlign: "center",
