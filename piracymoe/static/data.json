@@ -3878,6 +3878,28 @@
             "siteFeatures": "Read Manga, Manhwa etc | Download Chapters"
         },
         {
+            "siteName": "TachiyomiJ2K",
+            "siteAddresses": [
+                "https://tachiyomi.org/forks/TachiyomiJ2K/"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "?",
+            "hasSimKLSupport": "?",
+            "siteFeatures": "Read Manga, Manwha, etc, | Download Chapters"
+        },
+        {
+            "siteName": "TachiyomiSY",
+            "siteAddresses": [
+                "https://tachiyomi.org/forks/TachiyomiSY/"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "?",
+            "hasSimKLSupport": "?",
+            "siteFeatures": "Features: Read Manga, Manhwa, etc | Download Chapters"
+        },
+        {
             "siteName": "Taiyaki",
             "siteAddresses": [
                 "https://github.com/Michael24884/TaiYaKiAnime"
