@@ -52,6 +52,7 @@
 .tabulator-col-title {
     padding-right: 0 !important;
     text-align: center;
+    white-space: normal !important;
 }
 
 .tabulator-cell {
