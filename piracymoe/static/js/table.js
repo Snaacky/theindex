@@ -54,6 +54,7 @@ const resetColumns = (table) => {
     })
 
     setToggleAllState(table)
+    window.dataTables[table].redraw(true)
 }
 
 const tableById = (table) => {
@@ -84,8 +85,6 @@ const generateTable = (table, data) => {
         columnData.push({
             width: 30,
             minWidth: 30,
-            hozAlign: "center",
-            resizable: false,
             cssClass: "cell-infoModal",
             formatter: "rowSelection",
             titleFormatter: "rowSelection",
@@ -98,9 +97,8 @@ const generateTable = (table, data) => {
         columnData.push({
             width: 30,
             minWidth: 30,
-            hozAlign: "center",
-            resizable: false,
             cssClass: "cell-infoModal",
+            headerSort: false,
             tooltip: () => "Info",
             cellClick: (e, cell) => {
                 console.log("info-click", e, cell)
@@ -113,7 +111,8 @@ const generateTable = (table, data) => {
         minWidth: 160,
         title: "Name",
         field: "siteName",
-        cssClass: "no-wrap site-name",
+        hozAlign: "left",
+        cssClass: "no-wrap",
         tooltip: cell => {
             let data = cell.getRow().getData()
             let status = window.online[data["siteName"]]
@@ -128,7 +127,7 @@ const generateTable = (table, data) => {
             }
 
             let data = cell.getRow().getData()
-            let status = '<div class="d-inline-block rounded-circle spinner-grow-sm '
+            let status = '<div class="d-inline-block me-1 rounded-circle spinner-grow-sm '
             switch (window.online[data["siteName"]]) {
                 case "unknown":
                     status += "bg-warning"
@@ -142,7 +141,7 @@ const generateTable = (table, data) => {
                 default:
                     status += "bg-secondary spinner-grow"
             }
-            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div> ' +
+            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div>' +
                 '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
         },
         cellClick: (e, cell) => {
@@ -162,7 +161,7 @@ const generateTable = (table, data) => {
         columnData.push({
             title: propertyName("siteAddresses"),
             field: "siteAddresses",
-            headerHozAlign: "center",
+            hozAlign: "left",
             editor: "input"
         })
     }
@@ -190,9 +189,13 @@ const generateTable = (table, data) => {
                 title: propertyName(th['key']),
                 field: th['key'],
                 visible: !th['hidden'],
-                hozAlign: "center",
-                headerHozAlign: "center",
                 formatter: render
+            }
+
+            if (th["key"] === "editorNotes" || th["key"] === "siteFeatures") {
+                columnUpdate.hozAlign = "left"
+                columnUpdate.minWidth = 120
+                columnUpdate.maxWidth = 280
             }
 
             if (editMode) {
@@ -223,9 +226,12 @@ const generateTable = (table, data) => {
     try {
         window.dataTables[table['id']] = new Tabulator("#table-" + table['id'], {
             maxHeight: "75vh",
-            layout: "fitColumns",
+            layout: "fitDataFill",
             placeholder: "No data has been found...",
             tooltipGenerationMode: "hover",
+            headerHozAlign: "center",
+            cellVertAlign: "middle",
+            cellHozAlign: "center",
             columns: columnData,
             resizableColumns: false,
             history: true,
@@ -412,10 +418,12 @@ const toggleAll = (table) => {
             toggleColumn(table, el.getAttribute("data-column"))
         }
     })
+
+    window.dataTables[table].redraw(true)
 }
 
 const toggleColumn = (table, key) => {
-    console.log("Toggle visibility of column", key, "for table", table, "visible:",)
+    console.log("Toggle visibility of column", key, "for table", table)
     window.dataTables[table].toggleColumn(key)
 }
 
@@ -427,6 +435,8 @@ const toggleHandle = (el) => {
         toggleColumn(table, el.getAttribute("data-column"))
         setToggleAllState(table)
     }
+
+    window.dataTables[table].redraw(true)
 }
 
 const generateColumnsDetails = () => {

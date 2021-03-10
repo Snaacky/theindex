@@ -179,6 +179,10 @@ tbody > tr:hover {
     vertical-align: unset !important;
 }
 
+.rounded-circle {
+    flex-shrink: 0;
+}
+
 .no-wrap {
     white-space: nowrap !important;
 }
