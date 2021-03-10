@@ -3856,6 +3856,17 @@
             "siteFeatures": "Stream Anime"
         },
         {
+            "siteName": "Neko",
+            "siteAddresses": [
+                "https://tachiyomi.org/forks/Neko/"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "Y",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Tachiyomi fork for MangaDex"
+        },
+        {
             "siteName": "Tachiyomi",
             "siteAddresses": [
                 "https://tachiyomi.org/"
