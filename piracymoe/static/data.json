@@ -3897,7 +3897,7 @@
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "?",
             "hasSimKLSupport": "?",
-            "siteFeatures": "Features: Read Manga, Manhwa, etc | Download Chapters"
+            "siteFeatures": "Read Manga, Manhwa, etc | Download Chapters"
         },
         {
             "siteName": "Taiyaki",
@@ -4324,6 +4324,16 @@
                 "Android"
             ],
             "editorNotes": "A fork of the popular manga app Tachiyomi focusing on NSFW content."
+        },
+        {
+            "siteName": "TachiyomiSY",
+            "siteAddresses": [
+                "https://tachiyomi.org/forks/TachiyomiSY"
+            ],
+            "supportPlatform": [
+                "Android"
+            ],
+            "editorNotes": "Based on TachiyomiAZ and features the new Tachiyomi UI."
         }
     ]
 }
