@@ -3862,7 +3862,7 @@
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
-            "hasKitsuSupport": "?",
+            "hasKitsuSupport": "Y",
             "hasSimKLSupport": "?",
             "siteFeatures": "Tachiyomi fork for MangaDex"
         },
@@ -3884,7 +3884,7 @@
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
-            "hasKitsuSupport": "?",
+            "hasKitsuSupport": "Y",
             "hasSimKLSupport": "?",
             "siteFeatures": "Read Manga, Manwha, etc, | Download Chapters"
         },
@@ -3895,7 +3895,7 @@
             ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
-            "hasKitsuSupport": "?",
+            "hasKitsuSupport": "Y",
             "hasSimKLSupport": "?",
             "siteFeatures": "Read Manga, Manhwa, etc | Download Chapters"
         },
