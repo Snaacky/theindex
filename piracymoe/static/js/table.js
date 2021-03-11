@@ -143,16 +143,6 @@ const generateTable = (table, data) => {
             }
             return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div>' +
                 '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
-        },
-        cellClick: (e, cell) => {
-            if (editMode) {
-                return
-            }
-
-            let data = cell.getRow().getData()
-            window.open(data.siteAddresses[0], '_blank')
-            // this may work or may not... it's from browser to browser and from version to version different :/
-            window.focus();
         }
     })
 
