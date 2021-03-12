@@ -6,11 +6,6 @@ from flask_discord import DiscordOAuth2Session
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
 
-from flask import Flask
-from flask_discord import DiscordOAuth2Session
-
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
-
 def create_app():
     app = Flask(__name__, 
             template_folder=os.path.join("piracymoe", "templates"),
