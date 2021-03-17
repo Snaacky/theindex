@@ -636,7 +636,7 @@
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",
+            "malSyncSupport": "N",
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
