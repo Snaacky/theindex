@@ -2323,7 +2323,7 @@
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
-            "hasDirectDownloads": "N",
+            "hasDirectDownloads": "Y",
             "hasTorrents":"Y",
             "hasBatchDownloads": "Y",
             "editorNotes": "---",
