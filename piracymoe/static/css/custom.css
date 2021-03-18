@@ -30,10 +30,11 @@
 }
 
 .border-secondary {
-    border-color: var(--grey) !important;
+    border-color: #333333!important;
 }
 
 kbd {
+    padding: .15rem 0.7rem;
     background-color: var(--y-n-bg) !important;
 }
 
@@ -64,52 +65,22 @@ td > a:hover, .alert > p > a:hover {
     text-decoration: underline;
 }
 
+/* search */
+#search-addon {
+    background-color: #1f1f1f;
+}
+
+.btn-check:focus+.btn-secondary, .btn-secondary:focus {
+    box-shadow: 0 0 0 0.25rem rgb(130 138 145 / 50%);
+}
 
 /* forms */
-.form-control:focus {
-    box-shadow: 0 0 12px 0 var(--no) !important;
-}
-
-.btn:focus {
-    box-shadow: 0 0 12px 0 var(--no) !important;
-}
-
 .btn-close {
     background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
 }
 
 .btn-close:focus {
     box-shadow: 0 0 12px 0 var(--no) !important;
-}
-
-
-/* hover-effects */
-.hover-blue, .hover-dark {
-    transition: background-color .1s ease-in-out;
-}
-
-.hover-dark:hover {
-    background-color: var(--dark) !important;
-}
-
-.hover-blue:hover {
-    background-color: rgba(13, 110, 253, .25) !important;
-}
-
-.hover-shadow {
-    transition: box-shadow .1s ease-in-out;
-}
-
-.hover-shadow:hover {
-    box-shadow: 0 0 12px 0 var(--no);
-}
-
-.hover-grow {
-    transition: transform .2s ease-in-out;
-}
-
-.hover-grow:hover {
-    transform: scale(1.1, 1.1);
 }
 
 /* Discord-Emoji icons */

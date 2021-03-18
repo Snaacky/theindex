@@ -1,18 +1,34 @@
 window.addEventListener("load", () => {
-    const sponsoredList = [/*{
-        id: "sponsored0",
-        title: "AnimeFever",
-        url: "https://www.animefever.tv",
-        description: 'Videos in ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">720p</span> ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">480p</span> ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">360p</span> ' +
-            'and available as ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Dubs</span> ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Subs</span> ' +
-            'with ' +
-            '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Download</span>-Support'
-    }*/]
+    const sponsoredList = [
+        /*{
+            id: "sponsored0",
+            title: "AnimeFever",
+            url: "https://www.animefever.tv",
+            description: 'Videos in ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">720p</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">480p</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">360p</span> ' +
+                'and available as ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Dubs</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Subs</span> ' +
+                'with ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Download</span>-Support'
+        },
+        {
+            id: "sponsored1",
+            title: "AnimeFever",
+            url: "https://www.animefever.tv",
+            description: 'Videos in ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">720p</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">480p</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">360p</span> ' +
+                'and available as ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Dubs</span> ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Subs</span> ' +
+                'with ' +
+                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Download</span>-Support'
+        }*/
+    ]
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {

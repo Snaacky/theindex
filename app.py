@@ -35,4 +35,4 @@ def create_app():
 
 # Testing the server without docker
 if __name__ == '__main__':
-    create_app().run(port=5000, debug=True)
+    create_app().run(host="0.0.0.0", port=5000, debug=True)
