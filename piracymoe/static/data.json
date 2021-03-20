@@ -3845,6 +3845,17 @@
             "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
+            "siteName": "AnimeFever",
+            "siteAddresses": [
+                "https://play.google.com/store/apps/details?id=com.animefever.droid"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Watch Anime"
+        },
+        {
             "siteName": "FireAnime",
             "siteAddresses": [
                 "https://github.com/XenTeckzX/FireAnime"
