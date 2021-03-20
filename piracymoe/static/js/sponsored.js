@@ -35,7 +35,7 @@ window.addEventListener("load", () => {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
                 '<div class="col d-flex justify-content-center">' +
-                '<div class="card" style="min-width: 240px; max-width: 19rem;"><div class="card-body bg-darker">' +
+                '<div class="card" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
