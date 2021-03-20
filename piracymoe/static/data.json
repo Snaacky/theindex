@@ -3722,6 +3722,17 @@
             "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
+            "siteName": "AnimeFever",
+            "siteAddresses": [
+                "https://testflight.apple.com/join/T0yiS2no"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Watch Anime"
+        {,
+        {
             "siteName": "Manga Man",
             "siteAddresses": [
                 "http://tinymanga.com/"
