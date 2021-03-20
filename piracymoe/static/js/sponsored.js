@@ -44,7 +44,7 @@ window.addEventListener("load", () => {
                 '<small>Sponsored <i class="bi bi-star-fill"></i></small>' +
                 '</h6>' +
                 '<p class="card-text d-none d-sm-block">' + sponsored["description"] + '</p>' +
-                '<a href="' + sponsored["url"] + '" target="_blank">' +
+                '<a class="umami--click--sponsored--' + sponsored["title"].toLowerCase() + '" href="' + sponsored["url"] + '" target="_blank">' +
                 '<i class="bi bi-box-arrow-up-right"></i> Visit site' +
                 '</a>' +
                 '</div></div></div>'

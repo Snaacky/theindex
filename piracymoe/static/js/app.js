@@ -265,7 +265,7 @@ const adultConsent = (yes) => {
 
 // --- load a bunch of json ---
 
-// TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
+// TODO: once moved from github-pages, rename /piracymoe/static/... to /piracymoe/static/...
 // get columns definition
 fetch('/piracymoe/static/columns.json')
     .then(data => data.json())
