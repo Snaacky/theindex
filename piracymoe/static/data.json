@@ -100,20 +100,20 @@
             "360p": "Y",
             "480p": "Y",
             "720p": "Y",
-            "1080p": "---",
+            "1080p": "Y",
             "hasDubs": "Y",
             "hasSubs": "Y",
             "hasAds": "Y",
             "isAntiAdblock": "Y",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "Y",  
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "---",
-            "otherLanguages": "---"
+            "editorNotes": "1080p streaming feature for subscribers.",
+            "otherLanguages": "ES, FR, BR"
         },
         {
             "siteName": "Animeflix",
@@ -3711,6 +3711,17 @@
     ],
     "iOSApplications": [
         {
+            "siteName": "AnimeFever",
+            "siteAddresses": [
+                "https://testflight.apple.com/join/T0yiS2no"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Watch Anime"
+        },
+        {
             "siteName": "AnimeGlare",
             "siteAddresses": [
                 "https://animeglare.xyz"
@@ -3810,6 +3821,17 @@
             "hasKitsuSupport": "N",
             "hasSimKLSupport": "N",
             "siteFeatures": "Stream Anime | Download Episodes"
+        },
+        {
+            "siteName": "AnimeFever",
+            "siteAddresses": [
+                "https://play.google.com/store/apps/details?id=com.animefever.droid"
+            ],
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "siteFeatures": "Watch Anime"
         },
         {
             "siteName": "AnimeGlare",
