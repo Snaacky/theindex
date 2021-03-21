@@ -265,7 +265,7 @@ const adultConsent = (yes) => {
 
 // --- load a bunch of json ---
 
-// TODO: once moved from github-pages, rename /piracymoe/static/... to /piracymoe/static/...
+// TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
 // get columns definition
 fetch('/piracymoe/static/columns.json')
     .then(data => data.json())
@@ -315,21 +315,23 @@ window.addEventListener('load', () => {
     generateAllTables()
     generateColumnsDetails()
 
-    setInterval(async () => {
-        if (await checkOnlineStatus()) {
-            document.getElementById("online-status").innerHTML = ""
-        } else {
-            document.getElementById("online-status").innerHTML = "Ping-system is offline"
-        }
-    }, 5000) // ping every 5s
-    // check once at the beginning instead of waiting for the first 5s
-    checkOnlineStatus().then(result => {
-        if (result) {
-            document.getElementById("online-status").innerHTML = ""
-        } else {
-            document.getElementById("online-status").innerHTML = "Ping-system is offline"
-        }
-    })
+    if (!editMode) {
+        setInterval(async () => {
+            if (await checkOnlineStatus()) {
+                document.getElementById("online-status").innerHTML = ""
+            } else {
+                document.getElementById("online-status").innerHTML = "Ping-system is offline"
+            }
+        }, 5000) // ping every 5s
+        // check once at the beginning instead of waiting for the first 5s
+        checkOnlineStatus().then(result => {
+            if (result) {
+                document.getElementById("online-status").innerHTML = ""
+            } else {
+                document.getElementById("online-status").innerHTML = "Ping-system is offline"
+            }
+        })
+    }
 
 
     // switching tabs
@@ -340,7 +342,7 @@ window.addEventListener('load', () => {
             window.dataTables[key].redraw(true)
         })
 
-        if (tab !== "help") {
+        if (tab !== "help" && !editMode) {
             // ping if not already pinged
             pingTab(tab)
         } else {

@@ -123,6 +123,9 @@ const generateTable = (table, data) => {
         },
         formatter: cell => {
             if (editMode) {
+                if (!cell.getValue()) {
+                    return '<span class="text-warning">Animepiracy</span>'
+                }
                 return cell.getValue()
             }
 
@@ -152,7 +155,13 @@ const generateTable = (table, data) => {
             title: propertyName("siteAddresses"),
             field: "siteAddresses",
             hozAlign: "left",
-            editor: "input"
+            editor: "input",
+            formatter: cell => {
+                if (!cell.getValue()) {
+                    return '<span class="text-warning">https://piracy.moe</span>'
+                }
+                return cell.getValue()[0]
+            }
         })
     }
 
@@ -235,24 +244,11 @@ const generateTable = (table, data) => {
                 console.log("Table", "#table-" + table['id'], "has been edited")
                 if (window.dataTables[table['id']]) {
                     let undoSize = window.dataTables[table['id']].getHistoryUndoSize(),
-                        redoSize = window.dataTables[table['id']].getHistoryRedoSize()
-                    console.log("currently", undoSize, "undos and", redoSize, "redos available")
+                        redoSize = window.dataTables[table['id']].getHistoryRedoSize(),
+                        editCells = window.dataTables[table['id']].getEditedCells().length
+                    console.log("currently", undoSize, "undos and", redoSize, "redos available and", editCells, "edited Cells")
 
-                    document.querySelector("#discard-" + table['id']).disabled = undoSize === 0
-                    document.querySelector("#save-" + table['id']).disabled = undoSize === 0
-
-                    if (undoSize > 0) {
-                        if (!window.editedTables.includes(table["id"])) {
-                            window.editedTables.push(table["id"])
-                        }
-                    } else {
-                        if (window.editedTables.includes(table["id"])) {
-                            window.editedTables = window.editedTables.filter(t => t !== table["id"])
-                        }
-                    }
-
-                    document.querySelector("#undo-" + table["id"]).disabled = undoSize === 0
-                    document.querySelector("#redo-" + table["id"]).disabled = redoSize === 0
+                    setEditHistoryButtonState(table['id'])
                 } else if (tablesGenerated) {
                     console.error("Failed to access table-object of", table["id"])
                 }
@@ -355,7 +351,9 @@ const generateAllTables = () => {
     window.dispatchEvent(new Event("tablesGenerated"))
 
     document.querySelector('#loader').remove()
-    pingTab(window.tables[0]["tab"])
+    if (!editMode) {
+        pingTab(window.tables[0]["tab"])
+    }
 
     // collapse of column selection
     window.tables.forEach(tab => {
@@ -466,9 +464,10 @@ const generateColumnsDetails = () => {
 window.addEventListener("beforeunload", (e) => {
     if (window.editedTables.length > 0) {
         e.preventDefault()
-        e.returnValue = "Unsaved changes for table(s):\n"
+        let text = "Unsaved changes for table(s):\n"
         window.editedTables.forEach(t => {
-            e.returnValue += t + "\n"
+            text += tableById(t).title + "\n"
         })
+        e.returnValue = text
     }
 })
