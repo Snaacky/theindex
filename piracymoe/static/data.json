@@ -106,13 +106,13 @@
             "hasAds": "Y",
             "isAntiAdblock": "Y",
             "isMobileFriendly": "Y",
-            "malSyncSupport": "Y",  
+            "malSyncSupport": "N",  
             "hasWatermarks": "N",
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "Y",
             "hasDirectDownloads": "Y",
             "hasBatchDownloads": "N",
-            "editorNotes": "1080p streaming feature for subscribers.",
+            "editorNotes": "1080p streaming feature for subscribers. MAL and AniList sync is built into site, and not via MAL-Sync extension.",
             "otherLanguages": "ES, FR, BR"
         },
         {
