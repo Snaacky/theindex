@@ -83,6 +83,35 @@ td > a:hover, .alert > p > a:hover {
     box-shadow: 0 0 12px 0 var(--no) !important;
 }
 
+/* hover-effects */
+.hover-blue, .hover-dark {
+    transition: background-color .1s ease-in-out;
+}
+
+.hover-dark:hover {
+    background-color: var(--dark) !important;
+}
+
+.hover-blue:hover {
+    background-color: rgba(13, 110, 253, .25) !important;
+}
+
+.hover-shadow {
+    transition: box-shadow .1s ease-in-out;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 0 12px 0 var(--no);
+}
+
+.hover-grow {
+    transition: transform .2s ease-in-out;
+}
+
+.hover-grow:hover {
+    transform: scale(1.1, 1.1);
+}
+
 /* Discord-Emoji icons */
 img.dc-emoji {
     vertical-align: top;
