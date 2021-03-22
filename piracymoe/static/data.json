@@ -3051,6 +3051,20 @@
             "hasTachiyomiSupport": "---"
         },
         {
+            "siteName": "Itazuraneko",
+            "siteAddresses": [
+                "https://itazuraneko.neocities.org/library/manga.html"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "---",
+            "malSyncSupport": "N",
+            "editorNotes": "Only Raws available.",
+            "isEnglish": "N",
+            "otherLanguages": "JP",
+            "hasTachiyomiSupport": "N"
+        },
+        {
             "siteName": "MangaPoisk",
             "siteAddresses": [
                 "https://mangapoisk.ru"
@@ -3540,6 +3554,20 @@
             "hasAds": "N",
             "isAntiAdblock": "N",
             "isMobileFriendly": "?"
+        },
+        {
+            "siteName": "Itazuraneko",
+            "siteAddresses": [
+                "https://itazuraneko.neocities.org/library/shosetsu.html"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "siteLanguage": "JP",
+            "hasSubs": "Y",
+            "hasDirectDownloads" : "Y",
+            "isMobileFriendly": "",
+            "otherLanguages": "EN,JP",
+            "editorNotes" : "DDL via Mega links."
         },
         {
             "siteName": "Just Light Novels",
