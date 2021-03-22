@@ -3051,6 +3051,20 @@
             "hasTachiyomiSupport": "---"
         },
         {
+            "siteName": "MangaPoisk",
+            "siteAddresses": [
+                "https://mangapoisk.ru"
+            ],
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "editorNotes": "---",
+            "isEnglish": "N",
+            "otherLanguages": "RU",
+            "hasTachiyomiSupport": "N"
+        },
+        {
             "siteName": "Komikid",
             "siteAddresses": [
                 "http://komikid.com"
