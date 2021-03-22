@@ -1,4 +1,5 @@
 window.newRows = {}
+window.deletedRows = {}
 
 // TODO: I don't want this workaround, make it a nice UI
 // transforms siteAddresses-array to string and vice-versa
@@ -35,6 +36,16 @@ const addTableRow = (el) => {
 const deleteSelectedRow = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Delete selected rows of table", id)
+    if (!window.deletedRows["id"]) {
+        window.deletedRows["id"] = window.dataTables[id].getSelectedRows().map(r => r.getData())
+    } else {
+        window.dataTables[id].getSelectedRows().forEach(r => {
+            const data = r.getData()
+            if (!window.deletedRows["id"].includes(data)) {
+                window.deletedRows["id"].push(data)
+            }
+        })
+    }
 
     window.dataTables[id].getSelectedRows().forEach(r => r.delete())
     document.querySelector("#delete-" + id).disabled = true
@@ -61,27 +72,27 @@ const discardTableEdit = (el) => {
     console.log("Discarding edits to table", id)
 
     // undo all edited cells
-    window.dataTables[id].getEditedCells().forEach(c => c.restoreInitialValue())
-    if (window.newRows[id]) {
-        window.newRows[id].forEach(r => r.delete())
-    }
+    window.dataTables[id].setData(window.rawData[id])
     resetTableEditState(id)
 }
 
 const setEditHistoryButtonState = (id) => {
     // for undo we need to check editedCells as well, due to DOM-Rendering triggering a data-change, which breaks history
     document.querySelector("#undo-" + id).disabled = (
-        window.dataTables[id].getHistoryUndoSize() === 0 || window.dataTables[id].getEditedCells().length === 0
+        window.dataTables[id].getHistoryUndoSize() === 0 || window.dataTables[id].getEditedCells().length === 0 &&
+        (!window.deletedRows[id] || window.deletedRows[id].length === 0)
     )
     document.querySelector("#redo-" + id).disabled = (
         window.dataTables[id].getHistoryRedoSize() === 0
     )
 
     document.querySelector("#discard-" + id).disabled = (
-        window.dataTables[id].getEditedCells().length === 0 && (!window.newRows[id] || window.newRows[id].length === 0)
+        window.dataTables[id].getEditedCells().length === 0 && (!window.newRows[id] || window.newRows[id].length === 0) &&
+        (window.deletedRows[id] && window.deletedRows[id].length > 0)
     )
     document.querySelector("#save-" + id).disabled = (
-        window.dataTables[id].getEditedCells().length === 0 || !isValidTable(id)
+        !isValidTable(id) || window.dataTables[id].getEditedCells().length === 0 &&
+        (!window.deletedRows[id] || window.deletedRows[id].length === 0)
     )
 
     // checks if table has been edited or not
@@ -97,6 +108,11 @@ const undoTableEdit = (el) => {
     console.log("Undo edit of table", id)
 
     window.dataTables[id].undo()
+    if (window.deletedRows[id]) {
+        window.dataTables[id].getData().forEach(d => {
+            window.deletedRows[id] = window.deletedRows[id].filter(r => r !== d)
+        })
+    }
     setEditHistoryButtonState(id)
 }
 
@@ -105,6 +121,13 @@ const redoTableEdit = (el) => {
     console.log("Redo edit of table", id)
 
     window.dataTables[id].redo()
+    if (window.deletedRows[id]) {
+        window.dataTables[id].getData().forEach(d => {
+            if (!window.deletedRows[id].includes(d)) {
+                window.deletedRows[id].push(d)
+            }
+        })
+    }
     setEditHistoryButtonState(id)
 }
 
