@@ -3695,6 +3695,20 @@
             "editorNotes": "Dump of torrents from the site Fuwanovel, which was shut down."
         },
         {
+            "siteName": "Itazuraneko",
+            "siteAddresses": [
+                "https://itazuraneko.neocities.org/library/vn.html"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "siteLanguage": "JP",
+            "hasSubs": "Y",
+            "hasDirectDownloads" : "Y",
+            "isMobileFriendly": "",
+            "otherLanguages": "EN,JP",
+            "editorNotes" : "DDL via Mega links. Also has Manga, Light Novels and other misc stuff."
+        },
+        {
             "siteName": "Nitro Blog",
             "siteAddresses": [
                 "https://nblog.org/genre/visual-novel"
