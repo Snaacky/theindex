@@ -1085,7 +1085,7 @@
         {
             "siteName": "AnimeParadise",
             "siteAddresses": [
-                "https://animeparadise.cc/"
+                "https://animeparadise.org/"
             ],
             "360p": "Y",
             "480p": "?",
@@ -1101,8 +1101,8 @@
             "hasDisqusSupport": "N",
             "hasReleaseSchedule": "N",
             "hasDirectDownloads": "Y",
-            "hasBatchDownloads": "N",
-            "editorNotes": "?",
+            "hasBatchDownloads": "Y",
+            "editorNotes": "---",
             "otherLanguages": "---"
         },
         {
