@@ -6,5 +6,5 @@ if (window.location.hostname === "piracy.moe") {
     script.setAttribute("data-website-id", "6e4610bb-d364-413d-a371-2601b31a4c9b")
     document.body.appendChild(script)
 } else {
-    console.error("You are not viewing the index under the real domain piracy.moe, but", window.location.hostname)
+    console.warn("You are not viewing the index under the real domain piracy.moe, but", window.location.hostname)
 }
