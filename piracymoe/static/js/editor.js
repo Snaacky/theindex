@@ -1,5 +1,17 @@
 window.newRows = {}
 
+// TODO: I don't want this workaround, make it a nice UI
+// transforms siteAddresses-array to string and vice-versa
+const workaroundAddressArray = (data, target = "array") => {
+    if (Array.isArray(data) && target === "string") {
+        return data.join(", ")
+    } else if (typeof data === "string" && target === "array") {
+        return data.split(", ")
+    } else {
+        return data
+    }
+}
+
 const addTableRow = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Adding row to table", id)
@@ -30,8 +42,13 @@ const deleteSelectedRow = (el) => {
 
 const isValidTable = (id) => {
     return !window.dataTables[id].getRows().some(r => {
-        const d = r.getData()
-        const invalid = !d["siteName"] || !d["siteAddresses"] || d["siteAddresses"].length === 0
+        let d = r.getData()
+        let invalid = !d["siteName"] || !d["siteAddresses"]
+        if (!invalid) {
+            d["siteAddresses"] = workaroundAddressArray(d["siteAddresses"], "array")
+            invalid = d["siteAddresses"].some(site => !validateUrl(site)) || d["siteAddresses"].length === 0
+        }
+
         if (invalid) {
             r.scrollTo()
         }
@@ -95,7 +112,7 @@ const saveTableEdit = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Saving table", id)
     let rows = window.dataTables[id].getEditedCells().map(c => c.getRow())
-    if (isValidTable(id)) {
+    if (!isValidTable(id)) {
         console.error("Illegal submit, missing name or url")
         return
     }
@@ -105,18 +122,39 @@ const saveTableEdit = (el) => {
     let updateRows = rows.filter(r => {
         const duplicate = uniques.has(r)
         uniques.add(r)
-        return !window.newRows.includes(r) && !duplicate
-    }).map(r => r.getData())
+        if (window.newRows[id]) {
+            return !window.newRows[id].includes(r) && !duplicate
+        }
+        return !duplicate
+    }).map(r => {
+        let d = r.getData()
+        d["siteAddresses"] = workaroundAddressArray(d["siteAddresses"], "array")
+        return d
+    })
     console.log("Update rows:", updateRows)
 
     // find new rows
     uniques = new Set()
     let newRows = rows.filter(r => {
-        const duplicate = uniques.has(r)
-        uniques.add(r)
-        return window.newRows.includes(r) && !duplicate
-    }).map(r => r.getData())
+        if (window.newRows[id]) {
+            const duplicate = uniques.has(r)
+            uniques.add(r)
+            return window.newRows[id].includes(r) && !duplicate
+        }
+        return false
+    }).map(r => {
+        let d = r.getData()
+        d["siteAddresses"] = workaroundAddressArray(d["siteAddresses"], "array")
+        return d
+    })
     console.log("Create new rows:", newRows)
+
+    if (newRows.length === 0 && updateRows.length === 0) {
+        console.error("What... abort")
+        return
+    }
+
+    // TODO: send data to api
 
     // reset edit-history
     resetTableEditState(id)

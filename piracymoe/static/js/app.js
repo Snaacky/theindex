@@ -292,6 +292,15 @@ fetch('/piracymoe/static/tables.json')
 fetch('/piracymoe/static/data.json')
     .then(data => data.json())
     .then(json => {
+        // TODO: create an array editor for siteAddresses...
+        // this is a workaround atm
+        if (editMode) {
+            Object.keys(json).forEach(key => {
+                json[key].forEach(r => r["siteAddresses"] = workaroundAddressArray(r["siteAddresses"], "string"))
+            })
+        }
+
+
         window.rawData = json
         dataReady = true
         console.log("Data loaded...")

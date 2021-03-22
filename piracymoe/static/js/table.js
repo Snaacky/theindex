@@ -152,15 +152,20 @@ const generateTable = (table, data) => {
     if (editMode) {
         columnData[1].editor = "input"
         columnData.push({
+            minWidth: 240,
             title: propertyName("siteAddresses"),
             field: "siteAddresses",
             hozAlign: "left",
             editor: "input",
             formatter: cell => {
-                if (!cell.getValue()) {
+                let d = cell.getValue()
+                if (!d) {
                     return '<span class="text-warning">https://piracy.moe</span>'
                 }
-                return cell.getValue()[0]
+                d = workaroundAddressArray(d, "array").map(url =>
+                    validateUrl(url) ? url : '<span class="text-warning">' + url + '</span>'
+                )
+                return workaroundAddressArray(d, "string")
             }
         })
     }
