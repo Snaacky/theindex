@@ -1430,6 +1430,29 @@
             "otherLanguages": "German"
         },
         {
+            "siteName": "AniHub",
+            "siteAddresses": [
+                "https://aniflix.tv"
+            ],
+            "360p": "Y",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "Y",
+            "isMobileFriendly": "?",
+            "malSyncSupport": "Y",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "1080p streaming is a subscriber-only feature.",
+            "otherLanguages": "PT-BR, ES, RU, IT, FR, AR, DE"
+        },
+        {
             "siteName": "Anime4Up",
             "siteAddresses": [
                 "https://anime4up.com"
