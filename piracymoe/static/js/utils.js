@@ -66,6 +66,12 @@ const checkOnlineStatus = async (server) => {
         }
         return response.text()
     }).then(status => {
+        try {
+            status = JSON.parse(status)
+        } catch (e) {
+            console.warn("No JSON-response found")
+        }
+        status = status.status
         if (status === "online") {
             return true
         } else if (status === "down") {
