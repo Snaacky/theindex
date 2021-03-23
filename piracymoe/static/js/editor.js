@@ -13,6 +13,62 @@ const workaroundAddressArray = (data, target = "array") => {
     }
 }
 
+
+const postUpdateData = (tableId, data, method = "update") => {
+    console.log("[API] Method:", method, "for table:", tableId, data)
+    fetch("/api/" + method + "/" + tableId, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+        .then(resp => handleAPIResponse(resp, tableId, null, data))
+        .catch(err => {
+            if (err !== "api call failed") {
+                console.log(err)
+            }
+        })
+}
+
+const postDeleteRow = (tableId, id) => {
+    console.log("[API] Method: delete for table:", tableId, id)
+    fetch("/api/delete/" + tableId + "/" + id)
+        .then(resp => handleAPIResponse(resp, tableId, id))
+        .catch(err => {
+            if (err !== "api call failed") {
+                console.log(err)
+            }
+        })
+}
+
+const handleAPIResponse = (resp, tableId, id = null, data = null) => {
+    (async (resp) => {
+        if (resp.status === 200) {
+            return resp.text()
+        } else {
+            console.log("[API] Status: " + resp.status)
+            return Promise.reject("api call failed")
+        }
+    })(resp)
+        .then(result => {
+            switch (result) {
+                case "table does not exist":
+                    return console.error("[API] Failed to find table:", tableId)
+                case "received no POST JSON data":
+                    return console.error("[API] No data sent on tableUpdate", tableId, data)
+                case "id does not exist":
+                    return console.error("[API] ID", id, " could not be found in table", tableId, data)
+                case "updated":
+                    return console.log("[API] Successfully updated row", id, " of table", tableId, data)
+                case "inserted":
+                    return console.log("[API] Successfully inserted row of table", tableId, data)
+                case "deleted":
+                    return console.log("[API] Successfully deleted row", id, " of table", tableId)
+                default:
+                    return console.error("[API] Unknown response", result, "for tableUpdate", tableId, data, id)
+            }
+        })
+}
+
 const addTableRow = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Adding row to table", id)
@@ -131,46 +187,6 @@ const redoTableEdit = (el) => {
     setEditHistoryButtonState(id)
 }
 
-const postUpdateData = (id, data, method = "update") => {
-    console.log("[API] Method:", method, "for table:", id, data)
-    fetch("/api/" + method + "/" + id, {
-        credentials: "same-origin",
-        mode: "same-origin",
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    })
-        .then(resp => {
-            if (resp.status === 200) {
-                return resp.text()
-            } else {
-                console.log("[API] Status: " + resp.status)
-                return Promise.reject("api call failed")
-            }
-        })
-        .then(result => {
-            switch (result) {
-                case "table does not exist":
-                    return console.error("[API] Failed to find table:", id)
-                case "received no POST JSON data":
-                    return console.error("[API] No data sent on tableUpdate", id, data)
-                case "id does not exist":
-                    return console.error("[API] No ID could be found in table", id, data)
-                case "updated":
-                    return console.log("[API] Successfully updated row of table", id, data)
-                case "inserted":
-                    return console.log("[API] Successfully inserted row of table", id, data)
-                default:
-                    return console.error("[API] Unknown response", result, "for tableUpdate", id, data)
-            }
-        })
-        .catch(err => {
-            if (err !== "api call failed") {
-                console.log(err)
-            }
-        })
-}
-
 const saveTableEdit = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Saving table", id)
@@ -219,6 +235,7 @@ const saveTableEdit = (el) => {
 
     updateRows.forEach(data => postUpdateData(id, data))
     newRows.forEach(data => postUpdateData(id, data, "create"))
+    window.deletedRows.filter(r => r["id"]).forEach(data => postDeleteRow(id, data["id"]))
 
     // reset edit-history
     resetTableEditState(id)
