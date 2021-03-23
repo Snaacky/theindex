@@ -115,9 +115,9 @@ const generateTable = (table, data) => {
         cssClass: "no-wrap",
         tooltip: cell => {
             let data = cell.getRow().getData()
-            let status = window.online[data["siteName"]]
+            let status = window.online[data["siteAddresses"][0]]
             if (status === "online" || status === "offline") {
-                return data["siteName"] + " is " + window.online[data["siteName"]]
+                return data["siteName"] + " is " + window.online[data["siteAddresses"][0]]
             }
             return "Status of " + data["siteName"] + " is " + (status === "unknown" ? "unknown" : "undetermined")
         },
@@ -131,7 +131,7 @@ const generateTable = (table, data) => {
 
             let data = cell.getRow().getData()
             let status = '<div class="d-inline-block me-1 rounded-circle spinner-grow-sm '
-            switch (window.online[data["siteName"]]) {
+            switch (window.online[data["siteAddresses"][0]]) {
                 case "unknown":
                     status += "bg-warning"
                     break
@@ -144,7 +144,7 @@ const generateTable = (table, data) => {
                 default:
                     status += "bg-secondary spinner-grow"
             }
-            return status + '" id="online-' + cssSafe(data["siteName"]) + '" role="status"></div>' +
+            return status + '" role="status"></div>' +
                 '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
         }
     })

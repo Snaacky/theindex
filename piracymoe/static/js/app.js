@@ -169,48 +169,51 @@ const showInfoModal = (row) => {
 }
 
 // ping all sites listed on a tab
-const pingTab = (tab) => {
+const pingTab = async (tab) => {
     if (alreadyPingedTab[tab]) {
         return
     }
     alreadyPingedTab[tab] = true
 
-    let tables = window.tables.filter(t => t["tab"] === tab)[0]["tables"]
+    // filter tables of tab
+    const tables = window.tables.filter(t => t["tab"] === tab)[0]["tables"]
     console.log("Pinging for tab", tab, tables)
-    tables.forEach(table => {
-        window.rawData[table["id"]].forEach((entry, index) => {
-            window.online[entry['siteName']] = "pinging"
 
-            // actually ping the site
-            checkOnlineStatus(entry['siteAddresses'][0])
-                .then(result => {
-                    let onlineStatus = document.querySelector('#online-' + cssSafe(entry["siteName"]))
-                    if (result === "cloudflare") {
-                        window.online[entry['siteName']] = "unknown"
-                    } else if (result) {
-                        window.online[entry['siteName']] = "online"
-                    } else {
-                        window.online[entry['siteName']] = "offline"
-                    }
+    // reduce tables to
+    let entries = tables.reduce((accumulator, table) => accumulator.concat(window.rawData[table["id"]]), [])
+    const urls = entries.map(e => {
+        window.online[e["siteAddresses"][0]] = "pinging"
+        return e["siteAddresses"][0]
+    })
 
-                    if (onlineStatus) {
-                        onlineStatus.classList.remove("spinner-grow")
-                        // remove previous color-state
-                        if (onlineStatus.classList.contains("bg-secondary")) {
-                            onlineStatus.classList.remove("bg-secondary")
-                        }
+    const status = await fetch("https://ping.piracy.moe/ping", {
+        method: 'post',
+        body: JSON.stringify({"urls": urls}),
+    }).then(response => {
+        if (!response.ok) {
+            console.error("Ping-System response is not ok for", urls, response)
+        }
+        return response.json()
+    }).catch(error => {
+        // well for other errors like timeout, ssl or connection error...
+        console.error("Unable to complete ping-request of ", urls, "due to:", error)
+        return false
+    })
 
-                        // apply result color
-                        if (result === "cloudflare") {
-                            onlineStatus.classList.add("bg-warning")
-                        } else if (result) {
-                            onlineStatus.classList.add("label-yes")
-                        } else {
-                            onlineStatus.classList.add("label-no")
-                        }
-                    }
-                })
-        })
+    status.forEach(s => {
+        if (s["status"] === "cloudflare") {
+            window.online[s["url"]] = "unknown"
+        } else if (s["status"] === "online") {
+            window.online[s["url"]] = "online"
+        } else if (s["status"] === "down") {
+            window.online[s["url"]] = "offline"
+        } else {
+            console.error("impossible status", s)
+        }
+    })
+
+    tables.forEach(t => {
+        window.dataTables[t["id"]].redraw(true)
     })
 }
 
