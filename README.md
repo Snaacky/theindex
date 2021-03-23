@@ -30,7 +30,22 @@ Alternatively you can use Github's package repository and instead use:
 docker run -d -p <host-port>:8080 -v /path/on/host:/config docker.pkg.github.com/ranimepiracy/index/index-web
 ```
 
-## Config
+# Updating container image
+
+When using the image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you will need to
+run:
+
+```
+docker pull ranimepiracy/index
+```
+
+Alternatively with Github's package repository you will need to run:
+
+```
+docker pull docker.pkg.github.com/ranimepiracy/index/index-web
+```
+
+# Config
 
 You will need to provide a `config.py` file in `/config`, which you should have mounted via [container volumes](https://docs.docker.com/storage/volumes/). You can copy our [example configuration](config.example.py) and modify it to
 your needs. Alternatively you can wget it via:
@@ -39,7 +54,7 @@ your needs. Alternatively you can wget it via:
 wget https://raw.githubusercontent.com/ranimepiracy/index/master/config.example.py
 ```
 
-## Building from source
+# Building from source
 
 To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/) you will need to run:
 
