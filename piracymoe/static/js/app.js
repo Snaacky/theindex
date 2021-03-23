@@ -200,21 +200,9 @@ const pingTab = async (tab) => {
         return false
     })
 
-    status.forEach(s => {
-        if (s["status"] === "cloudflare") {
-            window.online[s["url"]] = "unknown"
-        } else if (s["status"] === "online") {
-            window.online[s["url"]] = "online"
-        } else if (s["status"] === "down") {
-            window.online[s["url"]] = "offline"
-        } else {
-            console.error("impossible status", s)
-        }
-    })
+    status.forEach(s => window.online[s["url"]] = s["status"])
 
-    tables.forEach(t => {
-        window.dataTables[t["id"]].redraw(true)
-    })
+    tables.forEach(t => window.dataTables[t["id"]].redraw(true))
 }
 
 // change i-am-an-adult setting

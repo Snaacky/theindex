@@ -71,6 +71,27 @@ const exportTable = (format, id) => {
     window.dataTables[id].downloadToTab(format)
 }
 
+const onlineStatusToDot = (status) => {
+    return '<div class="d-inline-block me-1 rounded-circle spinner-grow-sm ' + ((status) => {
+        switch (status) {
+            case "unknown":
+                return "bg-warning"
+            case "cloudflare":
+                return "bg-warning"
+            case "up":
+                return "label-yes"
+            case "online":
+                return "label-yes"
+            case "down":
+                return "label-no"
+            case "offline":
+                return "label-no"
+            default:
+                return "bg-secondary spinner-grow"
+        }
+    })(status) + '" role="status"></div>'
+}
+
 const generateTable = (table, data) => {
     console.log("Generating table", table)
     loadingLog()
@@ -130,21 +151,7 @@ const generateTable = (table, data) => {
             }
 
             let data = cell.getRow().getData()
-            let status = '<div class="d-inline-block me-1 rounded-circle spinner-grow-sm '
-            switch (window.online[data["siteAddresses"][0]]) {
-                case "unknown":
-                    status += "bg-warning"
-                    break
-                case "online":
-                    status += "label-yes"
-                    break
-                case "offline":
-                    status += "label-no"
-                    break
-                default:
-                    status += "bg-secondary spinner-grow"
-            }
-            return status + '" role="status"></div>' +
+            return onlineStatusToDot(window.online[data["siteAddresses"][0]]) +
                 '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
         }
     })
