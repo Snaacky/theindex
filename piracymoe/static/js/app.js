@@ -317,7 +317,7 @@ window.addEventListener('load', () => {
 
     if (!editMode) {
         setInterval(async () => {
-            if (await checkOnlineStatus()) {
+            if ((await checkOnlineStatus())["status"] === "up") {
                 document.getElementById("online-status").innerHTML = ""
             } else {
                 document.getElementById("online-status").innerHTML = "Ping-system is offline"
@@ -325,7 +325,7 @@ window.addEventListener('load', () => {
         }, 5000) // ping every 5s
         // check once at the beginning instead of waiting for the first 5s
         checkOnlineStatus().then(result => {
-            if (result) {
+            if (result["status"] === "up") {
                 document.getElementById("online-status").innerHTML = ""
             } else {
                 document.getElementById("online-status").innerHTML = "Ping-system is offline"

@@ -57,40 +57,23 @@ const checkOnlineStatus = async (server) => {
         server = server.slice(0, -1);
     }
 
-    return await fetch("https://ping.piracy.moe/ping", {
+
+    const status = await fetch("https://ping.piracy.moe/ping", {
         method: 'post',
         body: JSON.stringify({"url": server}),
     }).then(response => {
         if (!response.ok) {
             console.error("Ping-System response is not ok for", server, response)
         }
-        return response.text()
-    }).then(status => {
-        try {
-            status = JSON.parse(status)
-        } catch (e) {
-            console.warn("No JSON-response found")
-        }
-        status = status.status
-        if (status === "online") {
-            return true
-        } else if (status === "down") {
-            return false
-        } else if (status === "error") {
-            console.warn("Ping-request went somewhere wrong for", server)
-            return false
-        } else if (status === "cloudflare") {
-            return "cloudflare"
-        } else {
-            // for 500 or above -> server is currently screwed up, so considered down
-            console.error("Got error pinging", server, status)
-            return false
-        }
+        return response.json()
     }).catch(error => {
         // well for other errors like timeout, ssl or connection error...
         console.error("Unable to complete ping-request of ", server, "due to:", error)
         return false
     })
+
+    window.online[status["url"]] = status["status"]
+    return status
 }
 
 // log to console the async loading status

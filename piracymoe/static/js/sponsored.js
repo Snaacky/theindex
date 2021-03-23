@@ -6,14 +6,14 @@ window.addEventListener("load", () => {
             url: "https://www.animefever.tv",
             description: 'Watch anime in ' +
                 '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span> ' +
-                '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +  
-                ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' + 
-                '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' + 
+                '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+                ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
+                '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
                 ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
                 ' , <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span>' +
                 ' &amp; <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span><span>, apps available in </span>' +
                 '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Android</span><span>' +
-                ' and </span><span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">iOS</span>'    
+                ' and </span><span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">iOS</span>'
         }/*,
         {
             id: "sponsored1",
@@ -49,9 +49,9 @@ window.addEventListener("load", () => {
                 '</a>' +
                 '</div></div></div>'
             checkOnlineStatus(sponsored['url'])
-                .then(result => {
+                .then(status => {
                     let onlineStatus = document.querySelector('#online-' + sponsored["id"])
-                    console.log("Sponsor online-check", onlineStatus, result)
+                    console.log("Sponsor online-check", onlineStatus, status)
                     onlineStatus.classList.remove("spinner-grow")
                     // remove previous color-state
                     if (onlineStatus.classList.contains("bg-secondary")) {
@@ -59,10 +59,10 @@ window.addEventListener("load", () => {
                     }
 
                     // apply result color
-                    if (result === "cloudflare") {
+                    if (status["status"] === "unknown") {
                         onlineStatus.classList.add("bg-warning")
                         onlineStatus.setAttribute("title", "Unknown")
-                    } else if (result) {
+                    } else if (status["status"] === "up") {
                         onlineStatus.classList.add("label-yes")
                         onlineStatus.setAttribute("title", "Online")
                     } else {
