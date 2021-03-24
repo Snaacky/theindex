@@ -189,6 +189,7 @@ const pingTab = async (tab) => {
     const status = await fetch("https://ping.piracy.moe/ping", {
         method: 'post',
         body: JSON.stringify({"urls": urls}),
+        headers: new Headers({'content-type': 'application/json'})
     }).then(response => {
         if (!response.ok) {
             console.error("Ping-System response is not ok for", urls, response)
