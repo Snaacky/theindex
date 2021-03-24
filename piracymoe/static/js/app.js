@@ -186,7 +186,7 @@ const pingTab = async (tab) => {
         return e["siteAddresses"][0]
     })
 
-    const status = await fetch("https://ping.piracy.moe/ping", {
+    const status = await fetch("https://ping.piracy.moe/pings", {
         method: 'post',
         body: JSON.stringify({"urls": urls}),
         headers: new Headers({'content-type': 'application/json'})
