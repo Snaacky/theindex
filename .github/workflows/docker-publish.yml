@@ -53,10 +53,8 @@ jobs:
           [ "$VERSION" == "master" ] && VERSION=latest
 
           TAG="${DOCKER_IMAGE}:${VERSION}"
-          GITHUB_TAG="${DOCKER_IMAGE}/${IMAGE_NAME}:${VERSION}"
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tag::${TAG}
-          echo ::set-output name=github-tag::${GITHUB_TAG}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
       - name: Set up Docker Buildx
@@ -80,16 +78,3 @@ jobs:
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
-
-      - name: Build image for Github
-        run: docker build . --file Dockerfile --tag ${{ steps.prep.outputs.tag }}
-
-      - name: Log into Github registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-      - name: Push image to Github packages
-        run: |
-          IMAGE_ID=docker.pkg.github.com/${{ steps.prep.outputs.github-tag }}
-
-          docker image tag ${{ steps.prep.outputs.tag }} $IMAGE_ID
-          docker push $IMAGE_ID

@@ -20,4 +20,10 @@ VOLUME ["/config"]
 EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
 
+LABEL org.opencontainers.image.vendor="/r/animepiracy" \
+      org.opencontainers.image.url="https://piracy.moe" \
+      org.opencontainers.image.description="Webserver of piracy.moe Index" \
+      org.opencontainers.image.title="Index" \
+      maintainer="Community of /r/animepiracy"
+
 CMD service nginx restart && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'

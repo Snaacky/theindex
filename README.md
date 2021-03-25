@@ -32,23 +32,20 @@ docker run -d -p <host-port>:8080 -v /path/on/host:/config docker.pkg.github.com
 
 # Updating container image
 
-When using the image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you will need to
-run:
+To get the newest version of image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
+will need to run:
 
 ```
 docker pull ranimepiracy/index
 ```
 
-Alternatively with Github's package repository you will need to run:
-
-```
-docker pull docker.pkg.github.com/ranimepiracy/index/index-web
-```
+Afterwards you will need to stop and remove your current running instance and start it again.
 
 # Config
 
-You will need to provide a `config.py` file in `/config`, which you should have mounted via [container volumes](https://docs.docker.com/storage/volumes/). You can copy our [example configuration](config.example.py) and modify it to
-your needs. Alternatively you can wget it via:
+You will need to provide a `config.py` file in `/config`, which you should have mounted
+via [container volumes](https://docs.docker.com/storage/volumes/). You can copy
+our [example configuration](config.example.py) and modify it to your needs. Alternatively you can wget it via:
 
 ```
 wget https://raw.githubusercontent.com/ranimepiracy/index/master/config.example.py
@@ -79,7 +76,9 @@ or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discu
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
 
 # What we use
+
 to build this website:
+
 - [Bootstrap 5](https://getbootstrap.com/)
 - [Tabulator](http://tabulator.info/)
 - [Flask](https://github.com/pallets/flask)
