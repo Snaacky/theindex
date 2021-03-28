@@ -4278,6 +4278,29 @@
             "otherLanguages": ""
         },
         {
+            "siteName": "Hentaimama",
+            "siteAddresses": [
+                "https://hentaimama.io"
+            ],
+            "360p": "N",
+            "480p": "N",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "N",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "Y",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "N",
+            "hasReleaseSchedule": "Y",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "---",
+            "otherLanguages": "---"
+        },
+        {
             "siteName": "Kisshentai",
             "siteAddresses": [
                 "https://kisshentai.net/"
