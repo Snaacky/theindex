@@ -3167,20 +3167,6 @@
             "hasTachiyomiSupport": "Y"
         },
         {
-            "siteName": "YokaJump",
-            "siteAddresses": [
-                "https://yokaijump.fr/"
-            ],
-            "hasAds": "N",
-            "isAntiAdblock": "N",
-            "isMobileFriendly": "---",
-            "malSyncSupport": "N",
-            "editorNotes": "",
-            "isEnglish": "N",
-            "otherLanguages": "FR",
-            "hasTachiyomiSupport": "---"
-        },
-        {
             "siteName": "Manga ZIP",
             "siteAddresses": [
                 "http://manga-zip.net/"
@@ -3604,7 +3590,7 @@
         {
             "siteName": "Itazuraneko",
             "siteAddresses": [
-                "https://itazuraneko.neocities.org/library/shosetsu.html"
+                "https://itazuraneko.neocities.org/library/shousetu.html"
             ],
             "hasAds": "N",
             "isAntiAdblock": "N",
