@@ -47,6 +47,29 @@
             "otherLanguages": "---"
         },
         {
+            "siteName": "All Anime",
+            "siteAddresses": [
+                "https://allanime.site/anime"
+            ],
+            "360p": "Y",
+            "480p": "Y",
+            "720p": "Y",
+            "1080p": "Y",
+            "hasDubs": "Y",
+            "hasSubs": "Y",
+            "hasAds": "Y",
+            "isAntiAdblock": "N",
+            "isMobileFriendly": "N",
+            "malSyncSupport": "N",
+            "hasWatermarks": "N",
+            "hasDisqusSupport": "Y",
+            "hasReleaseSchedule": "N",
+            "hasDirectDownloads": "Y",
+            "hasBatchDownloads": "N",
+            "editorNotes": "Also has Music and Manga.",
+            "otherLanguages": "--"
+        },
+        {
             "siteName": "Anime8",
             "siteAddresses": [
                 "https://anime8.ru"
@@ -2736,6 +2759,20 @@
             "isMobileFriendly": "",
             "malSyncSupport": "N",
             "hasTachiyomiSupport": "Y"
+        },
+        {
+            "siteName": "All Anime",
+            "siteAddresses": [
+                "https://allanime.site/manga"
+            ],
+            "hasAds": "N",
+            "isAntiAdblock": "N",
+            "isEnglish": "Y",
+            "otherLanguages": "-",
+            "isMobileFriendly": "N",
+            "malSyncSupport": "N",
+            "hasTachiyomiSupport": "N",
+            "editorNotes": "Has Anime and Music also."
         },
         {
             "siteName": "BATO.TO",
