@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 from flask import Flask
 from flask_discord import DiscordOAuth2Session
@@ -8,32 +9,20 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
 
 
 def create_app():
-    app = Flask(__name__,
-                template_folder=os.path.join("piracymoe", "templates"),
-                static_folder=os.path.join("piracymoe", "static")
-                )
-
-    app.secret_key = "CHANGE THIS IN PRODUCTION 11111"
+    app = Flask(__name__)
 
     if os.path.isfile("/config/config.py"):
         app.config.from_pyfile("/config/config.py")
     else:
-        app.config.from_pyfile("config.py")
-
-    logging.error(app.config)
+        logging.error("No config file found in /config/config.py")
+        sys.exit(0)
 
     with app.app_context():
-        from piracymoe.views import editor
-        from piracymoe.views import index
         from piracymoe import api
-        app.register_blueprint(editor.bp)
-        app.register_blueprint(index.bp)
         app.register_blueprint(api.bp)
+        from piracymoe import editor
+        app.register_blueprint(editor.bp)
+
         app.discord = DiscordOAuth2Session(app)
 
     return app
-
-
-# Testing the server without docker
-if __name__ == '__main__':
-    create_app().run(host="0.0.0.0", port=5000, debug=True)

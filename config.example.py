@@ -4,8 +4,8 @@ SECRET_KEY = "random_key_for_flask"
 # well.. for what to we need those exactly?
 DISCORD_CLIENT_ID = "your_discord_client_id"
 DISCORD_CLIENT_SECRET = "your_discord_client_secret"
-# is this really necessary? we could hardcode this with something like https://{http_servername}/callback
-DISCORD_REDIRECT_URI = "http://localhost:5000/callback"
+# is this really necessary? we could hardcode this with something like https://{http_servername}/user/callback
+DISCORD_REDIRECT_URI = "http://localhost:8080/user/callback"
 
 # discord api access for OAuth2
 DISCORD_BOT_TOKEN = "your_discord_bot_token"

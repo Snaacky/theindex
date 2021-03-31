@@ -259,7 +259,7 @@ const adultConsent = (yes) => {
 
 // TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
 // get columns definition
-fetch('/piracymoe/static/columns.json')
+fetch('/static/columns.json')
     .then(data => data.json())
     .then(columns => {
         window.columns = columns
@@ -271,7 +271,7 @@ fetch('/piracymoe/static/columns.json')
     })
 
 // generates tables definition
-fetch('/piracymoe/static/tables.json')
+fetch('/static/tables.json')
     .then(data => data.json())
     .then(tables => {
         window.tables = tables
@@ -281,7 +281,7 @@ fetch('/piracymoe/static/tables.json')
     })
 
 // get actual table data
-fetch('/piracymoe/static/data.json')
+fetch('/static/data.json')
     .then(data => data.json())
     .then(json => {
         // TODO: create an array editor for siteAddresses...
