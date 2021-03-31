@@ -248,7 +248,17 @@ const generateTable = (table, data) => {
             columns: columnData,
             resizableColumns: false,
             history: true,
-            data: data,
+            ajaxURL: "/api/fetch/data/" + table['id'],
+            ajaxResponse: (url, params, json) => {
+                // TODO: create an array editor for siteAddresses...
+                // this is a workaround atm
+                if (window.editMode) {
+                    json.forEach(r => r["siteAddresses"] = workaroundAddressArray(r["siteAddresses"], "string"))
+                }
+                window.rawData[table['id']] = json
+                setTimeout(() => pingTable(table['id']), 1000)
+                return json
+            },
             dataChanged: () => {
                 if (!window.editMode) {
                     return
@@ -283,7 +293,7 @@ const generateTable = (table, data) => {
 const generateAllTables = () => {
     console.log("Populating tables with data, Status:")
     loadingLog()
-    if (!tablesReady || !dataReady || !columnsReady || !domReady) {
+    if (!tablesReady || !columnsReady || !domReady) {
         return
     }
 
@@ -357,16 +367,13 @@ const generateAllTables = () => {
     document.querySelector('#tablesList').style = ""
     window.tables.forEach(tab => {
         tab['tables'].forEach(t => {
-            generateTable(t, data[t['id']])
+            generateTable(t)
         })
     })
     tablesGenerated = true
     window.dispatchEvent(new Event("tablesGenerated"))
 
     document.querySelector('#loader').remove()
-    if (!editMode) {
-        pingTab(window.tables[0]["tab"])
-    }
 
     // collapse of column selection
     window.tables.forEach(tab => {

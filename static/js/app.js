@@ -1,7 +1,7 @@
 // progress of async json loading
-let columnsReady, tablesReady, tablesGenerated, dataReady, domReady = false
+let columnsReady, tablesReady, tablesGenerated, domReady = false
 // remember which tab has already been pinged
-let alreadyPingedTab = {}
+let alreadyPinged = {}
 window.editedTables = []
 window.online = {}
 window.rawData = {}
@@ -9,21 +9,20 @@ window.dataTables = {}
 
 
 // ping all sites listed on a tab
-const pingTab = async (tab) => {
-    if (alreadyPingedTab[tab]) {
+const pingTable = async (table) => {
+    if (!tablesGenerated || alreadyPinged[table]) {
         return
     }
-    alreadyPingedTab[tab] = true
 
-    // filter tables of tab
-    const tables = window.tables.filter(t => t["tab"] === tab)[0]["tables"]
-    console.log("Pinging for tab", tab, tables)
+    alreadyPinged[table] = true
 
-    // reduce tables to
-    let entries = tables.reduce((accumulator, table) => accumulator.concat(window.rawData[table["id"]]), [])
-    const urls = entries.map(e => {
-        window.online[e["siteAddresses"][0]] = "pinging"
-        return e["siteAddresses"][0]
+    console.log("Pinging for table", table)
+    const urls = window.rawData[table].map(e => {
+        if (e) {
+            let urls = workaroundAddressArray(e["siteAddresses"], "array")
+            window.online[urls[0]] = "pinging"
+            return urls[0]
+        }
     })
 
     const status = await fetch("https://ping.piracy.moe/pings", {
@@ -41,9 +40,10 @@ const pingTab = async (tab) => {
         return false
     })
 
-    status.forEach(s => window.online[s["url"]] = s["status"])
-
-    tables.forEach(t => window.dataTables[t["id"]].redraw(true))
+    if (status) {
+        status.forEach(s => window.online[s["url"]] = s["status"])
+        window.dataTables[table].redraw(true)
+    }
 }
 
 // change i-am-an-adult setting
@@ -96,11 +96,17 @@ const adultConsent = (yes) => {
 }
 
 // --- load a bunch of json ---
+window.editMode = false
 fetch('/user/is-login')
+    .then(data => data.json())
+    .then(is_login => {
+        if (is_login["edit"] === "true") {
+            window.editMode = true
+        }
+    })
 
-// TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
 // get columns definition
-fetch('/static/columns.json')
+fetch('/api/fetch/columns')
     .then(data => data.json())
     .then(columns => {
         window.columns = columns
@@ -110,9 +116,8 @@ fetch('/static/columns.json')
 
         generateColumnsDetails()
     })
-
 // generates tables definition
-fetch('/static/tables.json')
+fetch('/api/fetch/tables')
     .then(data => data.json())
     .then(tables => {
         window.tables = tables
@@ -121,24 +126,6 @@ fetch('/static/tables.json')
         generateAllTables()
     })
 
-// get actual table data
-fetch('/static/data.json')
-    .then(data => data.json())
-    .then(json => {
-        // TODO: create an array editor for siteAddresses...
-        // this is a workaround atm
-        if (editMode) {
-            Object.keys(json).forEach(key => {
-                json[key].forEach(r => r["siteAddresses"] = workaroundAddressArray(r["siteAddresses"], "string"))
-            })
-        }
-
-
-        window.rawData = json
-        dataReady = true
-        console.log("Data loaded...")
-        generateAllTables()
-    })
 
 // here happens the magic
 window.addEventListener('load', () => {
@@ -184,13 +171,6 @@ window.addEventListener('load', () => {
         Object.keys(window.dataTables).forEach(key => {
             window.dataTables[key].redraw(true)
         })
-
-        if (tab !== "help" && !editMode) {
-            // ping if not already pinged
-            pingTab(tab)
-        } else {
-            return true
-        }
     }))
 
     // Handles using a single search bar for multiple tables
