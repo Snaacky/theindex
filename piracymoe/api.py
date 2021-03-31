@@ -9,7 +9,13 @@ from flask_discord import requires_authorization
 app = flask.current_app
 bp = flask.Blueprint('api', __name__)
 
-database = "".join(["sqlite:///", os.path.join(os.getcwd(), "migration.db")])  # TODO: Migrate to a separate db.py file
+database = "".join(["sqlite:///", os.path.join("/config", "data.db")])  # TODO: Migrate to a separate db.py file
+
+
+@bp.route("/api/health")
+def health():
+    """ heartbeat """
+    return "Ok"
 
 
 @bp.route("/api/fetch/tables")

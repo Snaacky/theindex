@@ -5,9 +5,10 @@ import dataset
 
 
 def get_db():
-    return "".join(["sqlite:///", os.path.join(os.getcwd(), "migration.db")])
+    return "".join(["sqlite:///", os.path.join("/config", "data.db")])
 
 
+print("Connecting to db " + get_db())
 db = dataset.connect(get_db())
 
 with open(os.path.join("static", "data.json"), encoding="utf8") as json_file:
