@@ -127,17 +127,17 @@ def fetch_tables():
             "name": "Hentai",
             "tables": [
                 {
-                    "id": "hentaiAnime",
+                    "id": "hentaiAnimeSites",
                     "title": "Hentai Anime Streaming Sites",
                     "type": "anime"
                 },
                 {
-                    "id": "hentaiDoujinshi",
+                    "id": "hentaiDoujinshiSites",
                     "title": "Hentai Manga/Image Boards/LN sites",
                     "type": "novel"
                 },
                 {
-                    "id": "hentaiDownload",
+                    "id": "hentaiDownloadSites",
                     "title": "Hentai Download",
                     "type": "animeDownload"
                 },
