@@ -26,4 +26,4 @@ LABEL org.opencontainers.image.vendor="/r/animepiracy" \
       org.opencontainers.image.title="Index" \
       maintainer="Community of /r/animepiracy"
 
-CMD service nginx restart && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'
+CMD service nginx restart && python migrate.py && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'

@@ -1,10 +1,17 @@
 import flask
 
-from flask import redirect, url_for
-from flask_discord import requires_authorization
+from flask import redirect, url_for, jsonify
+from flask_discord import requires_authorization, Unauthorized
 
 app = flask.current_app
 bp = flask.Blueprint('editor', __name__)
+
+
+@bp.route("/user/is-login/")
+def is_login():
+    if app.discord.authorized:
+        return jsonify({"edit": True})
+    return jsonify({"edit": False})
 
 
 @bp.route("/user/login/")
@@ -29,3 +36,8 @@ def callback():
         app.discord.revoke()
         return redirect(url_for("editor.logout"))
     return redirect("/")
+
+
+@app.errorhandler(Unauthorized)
+def redirect_unauthorized(e):
+    return redirect(url_for("editor.login"))
