@@ -1,7 +1,7 @@
 window.addEventListener("load", () => {
-    const sponsoredList = [
+    let sponsoredList = [
         {
-            id: "sponsored0",
+            id: "sponsored1",
             title: "AnimeFever",
             url: "https://www.animefever.tv",
             description: 'Watch anime in ' +
@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
                 ' and </span><span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">iOS</span>'
         }/*,
         {
-            id: "sponsored1",
+            id: "sponsored2",
             title: "AnimeFever",
             url: "https://www.animefever.tv",
             description: 'Videos in ' +
@@ -31,11 +31,27 @@ window.addEventListener("load", () => {
         }*/
     ]
 
+    // 1. April
+    let t = new Date()
+    if (t.getMonth() === 3 && t.getDate() === 1) {
+        sponsoredList = [
+            {
+                id: "sponsored0",
+                title: "Nyanee",
+                url: "https://nyanee.vip/",
+                description: '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Editor\'s choice</span> ' +
+                    'and nominated as the ' +
+                    '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">best site</span> ' +
+                    'by the /r/animepiracy-team for watching and downloading animes!'
+            },
+            sponsoredList[0]
+        ]
+    }
+
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
-                '<div class="col d-flex justify-content-center">' +
-                '<div class="card" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
+                '<div class="card mx-3" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
@@ -47,7 +63,7 @@ window.addEventListener("load", () => {
                 '<a class="umami--click--sponsored--' + sponsored["title"].toLowerCase() + '" href="' + sponsored["url"] + '" target="_blank">' +
                 '<i class="bi bi-box-arrow-up-right"></i> Visit site' +
                 '</a>' +
-                '</div></div></div>'
+                '</div></div>'
             checkOnlineStatus(sponsored['url'])
                 .then(status => {
                     let onlineStatus = document.querySelector('#online-' + sponsored["id"])
