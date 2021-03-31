@@ -8,10 +8,11 @@ const render = (cell, formatterParams, onRendered) => {
     } else if (typeof cell === "string") {
         data = cell
     } else {
-        if (!cell.getValue()) {
-            cell.setValue('?')
+        if (!cell || !cell.getValue()) {
+            data = "?"
+        } else {
+            data = cell.getValue()
         }
-        data = cell.getValue()
     }
 
     const styleMap = {
@@ -102,7 +103,7 @@ const generateTable = (table, data) => {
     let columnsShown = window.columns['types'][table["type"]].length
     let columnData = []
 
-    if (editMode) {
+    if (window.editMode) {
         columnData.push({
             width: 30,
             minWidth: 30,
@@ -143,7 +144,7 @@ const generateTable = (table, data) => {
             return "Status of " + data["siteName"] + " is " + (status === "unknown" ? "unknown" : "undetermined")
         },
         formatter: cell => {
-            if (editMode) {
+            if (window.editMode) {
                 if (!cell.getValue()) {
                     return '<span class="text-warning">Animepiracy</span>'
                 }
@@ -156,7 +157,7 @@ const generateTable = (table, data) => {
         }
     })
 
-    if (editMode) {
+    if (window.editMode) {
         columnData[1].editor = "input"
         columnData.push({
             minWidth: 240,
@@ -210,7 +211,7 @@ const generateTable = (table, data) => {
                 columnUpdate.minWidth = 120
             }
 
-            if (editMode) {
+            if (window.editMode) {
                 if (window.columns["keys"][th["key"]]["type"] === "list") {
                     columnUpdate.editor = "select"
                     columnUpdate.editorParams = {
@@ -249,7 +250,7 @@ const generateTable = (table, data) => {
             history: true,
             data: data,
             dataChanged: () => {
-                if (!editMode) {
+                if (!window.editMode) {
                     return
                 }
 
@@ -269,7 +270,7 @@ const generateTable = (table, data) => {
                 {column: "siteName", dir: "asc"}
             ],
             rowSelectionChanged: (d, rows) => {
-                if (editMode) {
+                if (window.editMode) {
                     document.querySelector("#delete-" + table["id"]).disabled = rows.length === 0
                 }
             }
@@ -314,7 +315,7 @@ const generateAllTables = () => {
                 '</div></div>' +
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
                 '<div><div id="table-' + t['id'] + '"></div></div></div>' +
-                (editMode ? '<div class="card-footer">' +
+                (window.editMode ? '<div class="card-footer">' +
                     '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addTableRow(this);">' +
                     '<i class="bi bi-plus-circle"></i> Add row</button> ' +
                     '<button disabled class="btn btn-danger" id="delete-' + t['id'] + '" data-target="' + t['id'] +

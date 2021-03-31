@@ -96,6 +96,7 @@ const adultConsent = (yes) => {
 }
 
 // --- load a bunch of json ---
+fetch('/user/is-login')
 
 // TODO: once moved from github-pages, rename /piracymoe/static/... to /static/...
 // get columns definition
@@ -157,6 +158,7 @@ window.addEventListener('load', () => {
     generateColumnsDetails()
 
     if (!editMode) {
+    /*
         setInterval(async () => {
             if ((await checkOnlineStatus())["status"] === "up") {
                 document.getElementById("online-status").innerHTML = ""

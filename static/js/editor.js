@@ -254,7 +254,7 @@ const resetTableEditState = (id) => {
 }
 
 window.addEventListener('tablesGenerated', () => {
-    if (editMode) {
+    if (window.editMode) {
         Object.keys(window.dataTables).forEach(id => {
             resetTableEditState(id)
         })
