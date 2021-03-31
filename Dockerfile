@@ -2,7 +2,7 @@ FROM python:3.9-slim-buster
 
 # install nginx
 RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y nginx && \
+    apt-get install --no-install-recommends -y nginx wget && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 

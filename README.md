@@ -24,12 +24,6 @@ docker run -d -p <host-port>:8080 -v /path/on/host:/config ranimepiracy/index
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
 responsibility to put a reverse proxy in front of this container.
 
-Alternatively you can use Github's package repository and instead use:
-
-```
-docker run -d -p <host-port>:8080 -v /path/on/host:/config docker.pkg.github.com/ranimepiracy/index/index-web
-```
-
 # Updating container image
 
 To get the newest version of image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
@@ -65,7 +59,7 @@ Afterwards you will just need to run
 docker run -d -p <host-port>:8080 index-web
 ```
 
-You can than open http://localhost:8080 in your browser.
+You can now open http://localhost:8080 in your browser.
 
 # Contribution
 
