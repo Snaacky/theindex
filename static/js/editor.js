@@ -15,6 +15,10 @@ const workaroundAddressArray = (data, target = "array") => {
 
 
 const postUpdateData = (tableId, data, method = "update") => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     console.log("[API] Method:", method, "for table:", tableId, data)
     fetch("/api/" + method + "/" + tableId, {
         method: "POST",
@@ -30,6 +34,10 @@ const postUpdateData = (tableId, data, method = "update") => {
 }
 
 const postDeleteRow = (tableId, id) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     console.log("[API] Method: delete for table:", tableId, id)
     fetch("/api/delete/" + tableId + "/" + id)
         .then(resp => handleAPIResponse(resp, tableId, id))
@@ -70,6 +78,10 @@ const handleAPIResponse = (resp, tableId, id = null, data = null) => {
 }
 
 const addTableRow = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Adding row to table", id)
 
@@ -90,15 +102,19 @@ const addTableRow = (el) => {
 }
 
 const deleteSelectedRow = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Delete selected rows of table", id)
-    if (!window.deletedRows["id"]) {
-        window.deletedRows["id"] = window.dataTables[id].getSelectedRows().map(r => r.getData())
+    if (!window.deletedRows[id]) {
+        window.deletedRows[id] = window.dataTables[id].getSelectedRows().map(r => r.getData())
     } else {
         window.dataTables[id].getSelectedRows().forEach(r => {
             const data = r.getData()
-            if (!window.deletedRows["id"].includes(data)) {
-                window.deletedRows["id"].push(data)
+            if (!window.deletedRows[id].includes(data)) {
+                window.deletedRows[id].push(data)
             }
         })
     }
@@ -124,6 +140,10 @@ const isValidTable = (id) => {
 }
 
 const discardTableEdit = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Discarding edits to table", id)
 
@@ -160,6 +180,10 @@ const setEditHistoryButtonState = (id) => {
 }
 
 const undoTableEdit = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Undo edit of table", id)
 
@@ -173,6 +197,10 @@ const undoTableEdit = (el) => {
 }
 
 const redoTableEdit = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Redo edit of table", id)
 
@@ -188,6 +216,10 @@ const redoTableEdit = (el) => {
 }
 
 const saveTableEdit = (el) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     const id = el.getAttribute("data-target")
     console.log("Saving table", id)
     let rows = window.dataTables[id].getEditedCells().map(c => c.getRow())
@@ -228,14 +260,16 @@ const saveTableEdit = (el) => {
     })
     console.log("Create new rows:", newRows)
 
-    if (newRows.length === 0 && updateRows.length === 0) {
-        console.error("What... abort")
+    if (newRows.length === 0 && updateRows.length === 0 && (!window.deletedRows[id] || window.deletedRows[id].length === 0) ) {
+        console.error("What... abort, there is nothing to send")
         return
     }
 
     updateRows.forEach(data => postUpdateData(id, data))
     newRows.forEach(data => postUpdateData(id, data, "create"))
-    window.deletedRows.filter(r => r["id"]).forEach(data => postDeleteRow(id, data["id"]))
+    if (window.deletedRows[id]) {
+        window.deletedRows[id].forEach(data => postDeleteRow(id, data["id"]))
+    }
 
     // reset edit-history
     resetTableEditState(id)
@@ -245,6 +279,10 @@ const saveTableEdit = (el) => {
 }
 
 const resetTableEditState = (id) => {
+    if (!window.editMode) {
+        return console.error("You are not in edit-mode...")
+    }
+
     console.log("Resetting tableEdit of", id)
     window.dataTables[id].clearHistory()
     document.querySelector("#undo-" + id).disabled = true
@@ -260,3 +298,23 @@ window.addEventListener('tablesGenerated', () => {
         })
     }
 })
+
+const switchEditMode = (editMode) => {
+    document.querySelectorAll(".editor-only").forEach(node => {
+        if (node.style.display === "none") {
+            if (editMode) {
+                node.style.display = null
+            }
+        } else if (!editMode) {
+            node.style.display = "none"
+        }
+    })
+
+    if (window.editMode !== editMode) {
+        Object.keys(window.dataTables).forEach(key => {
+            window.dataTables[key].setColumns(getColumnsDefinition(tableById(key)))
+        })
+    }
+
+    window.editMode = editMode
+}

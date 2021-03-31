@@ -100,9 +100,18 @@ window.editMode = false
 fetch('/user/is-login')
     .then(data => data.json())
     .then(is_login => {
-        if (is_login["edit"] === "true") {
-            window.editMode = true
-        }
+        console.log("You are in edit-mode:", is_login["edit"])
+        switchEditMode(is_login["edit"])
+
+        // generates tables definition
+        fetch('/api/fetch/tables')
+            .then(data => data.json())
+            .then(tables => {
+                window.tables = tables
+                tablesReady = true
+                console.log("Tables loaded...")
+                generateAllTables()
+            })
     })
 
 // get columns definition
@@ -115,15 +124,6 @@ fetch('/api/fetch/columns')
         generateAllTables()
 
         generateColumnsDetails()
-    })
-// generates tables definition
-fetch('/api/fetch/tables')
-    .then(data => data.json())
-    .then(tables => {
-        window.tables = tables
-        tablesReady = true
-        console.log("Tables loaded...")
-        generateAllTables()
     })
 
 
@@ -144,24 +144,21 @@ window.addEventListener('load', () => {
     generateAllTables()
     generateColumnsDetails()
 
-    /*
-    if (!window.editMode) {
-        setInterval(async () => {
-            if ((await checkOnlineStatus())["status"] === "up") {
-                document.getElementById("online-status").innerHTML = ""
-            } else {
-                document.getElementById("online-status").innerHTML = "Ping-system is offline"
-            }
-        }, 5000) // ping every 5s
-        // check once at the beginning instead of waiting for the first 5s
-        checkOnlineStatus().then(result => {
-            if (result["status"] === "up") {
-                document.getElementById("online-status").innerHTML = ""
-            } else {
-                document.getElementById("online-status").innerHTML = "Ping-system is offline"
-            }
-        })
-    }*/
+    setInterval(async () => {
+        if ((await checkOnlineStatus())["status"] === "up") {
+            document.getElementById("online-status").innerHTML = ""
+        } else {
+            document.getElementById("online-status").innerHTML = "Ping-system is offline"
+        }
+    }, 5000) // ping every 5s
+    // check once at the beginning instead of waiting for the first 5s
+    checkOnlineStatus().then(result => {
+        if (result["status"] === "up") {
+            document.getElementById("online-status").innerHTML = ""
+        } else {
+            document.getElementById("online-status").innerHTML = "Ping-system is offline"
+        }
+    })
 
 
     // switching tabs
