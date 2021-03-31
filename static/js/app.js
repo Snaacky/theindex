@@ -157,8 +157,8 @@ window.addEventListener('load', () => {
     generateAllTables()
     generateColumnsDetails()
 
-    if (!editMode) {
     /*
+    if (!window.editMode) {
         setInterval(async () => {
             if ((await checkOnlineStatus())["status"] === "up") {
                 document.getElementById("online-status").innerHTML = ""
@@ -174,7 +174,7 @@ window.addEventListener('load', () => {
                 document.getElementById("online-status").innerHTML = "Ping-system is offline"
             }
         })
-    }
+    }*/
 
 
     // switching tabs
