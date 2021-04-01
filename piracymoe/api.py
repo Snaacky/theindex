@@ -2,12 +2,11 @@ import json
 import os
 
 import dataset
-import flask
-from flask import jsonify, request
+from flask import jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization
 
-app = flask.current_app
-bp = flask.Blueprint('api', __name__)
+app = current_app
+bp = Blueprint('api', __name__)
 
 database = "".join(["sqlite:///", os.path.join("/config", "data.db")])  # TODO: Migrate to a separate db.py file
 
@@ -21,12 +20,6 @@ def health():
 @bp.route("/api/fetch/tables")
 def fetch_tables():
     """ returns all tables """
-    """
-    we cannot use this, as we will loose infromation about the title and type of columns which are being used and what
-    the tab-id is
-    db = dataset.connect(database)
-    return jsonify(db.tables)
-    """
     return jsonify([
         {
             "tab": "animeTables",
@@ -154,14 +147,6 @@ def fetch_tables():
 @bp.route("/api/fetch/columns")
 def fetch_columns():
     """ returns all columns """
-    """
-    we cannot use this as we would lose information about what columns are hidden by default or their title/description
-    db = dataset.connect(database)
-    for table in db.tables:
-        table = db.load_table(table)
-        columns[table.name] = table.columns
-    return jsonify(columns)
-    """
     return jsonify({
         "keys": {
             "siteName": {
@@ -204,7 +189,7 @@ def fetch_columns():
                 "name": "1080p",
                 "description": "Does the site offer 1080p streams"
             },
-            "otherLanguages": {
+            "languages": {
                 "name": "Languages",
                 "description": "What language does the site support"
             },
@@ -248,6 +233,10 @@ def fetch_columns():
                 "name": "Disqus",
                 "description": "Does the site have a Disqus comments section"
             },
+            "hasMTL": {
+                "name": "MTL",
+                "description": "Does the site use machine translation"
+            },
             "editorNotes": {
                 "name": "Notes",
                 "description": "Any additional notes from the index editors"
@@ -272,17 +261,9 @@ def fetch_columns():
                 "name": "SimKL",
                 "description": "Is SimKL supported"
             },
-            "siteFeatures": {
+            "features": {
                 "name": "Features",
-                "description": "This extensions features"
-            },
-            "siteLanguage": {
-                "name": "Site Language",
-                "description": "The main language of the site"
-            },
-            "supportPlatform": {
-                "name": "Platform",
-                "description": "Is this application available for platform"
+                "description": "Available features"
             }
         },
         "types": {
@@ -324,7 +305,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": True
                 },
                 {
@@ -354,6 +335,10 @@ def fetch_columns():
                 {
                     "key": "hasDisqusSupport",
                     "hidden": True
+                },
+                {
+                    "key": "features",
+                    "hidden": False
                 },
                 {
                     "key": "editorNotes",
@@ -398,7 +383,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": True
                 },
                 {
@@ -430,6 +415,10 @@ def fetch_columns():
                     "hidden": True
                 },
                 {
+                    "key": "features",
+                    "hidden": False
+                },
+                {
                     "key": "editorNotes",
                     "hidden": True
                 }
@@ -452,7 +441,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": False
                 },
                 {
@@ -465,6 +454,10 @@ def fetch_columns():
                 },
                 {
                     "key": "hasTachiyomiSupport",
+                    "hidden": False
+                },
+                {
+                    "key": "features",
                     "hidden": False
                 },
                 {
@@ -486,11 +479,11 @@ def fetch_columns():
                     "hidden": True
                 },
                 {
-                    "key": "siteLanguage",
+                    "key": "languages",
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "hasMTL",
                     "hidden": False
                 },
                 {
@@ -498,16 +491,12 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "hasBatchDownloads",
-                    "hidden": True
-                },
-                {
-                    "key": "hasTorrents",
-                    "hidden": True
-                },
-                {
                     "key": "isMobileFriendly",
                     "hidden": True
+                },
+                {
+                    "key": "features",
+                    "hidden": False
                 },
                 {
                     "key": "editorNotes",
@@ -518,10 +507,6 @@ def fetch_columns():
                 {
                     "key": "siteName",
                     "hidden": False
-                },
-                {
-                    "key": "supportPlatform",
-                    "hidden": True
                 },
                 {
                     "key": "hasMalSupport",
@@ -540,7 +525,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "siteFeatures",
+                    "key": "features",
                     "hidden": False
                 },
                 {
@@ -598,13 +583,6 @@ def fetch_data_by_table(table):
     return jsonify(data)
 
 
-@bp.route("/api/fetch/ping/<table>")
-@requires_authorization
-def fetch_ping_by_table(table):
-    """ returns ping results by table """
-    return "hello world"
-
-
 @bp.route("/api/update/<table>", methods=["POST"])
 @requires_authorization
 def update_table_entry(table):
@@ -622,6 +600,7 @@ def update_table_entry(table):
     if row is None:
         return "id does not exist"
 
+    data["siteAddresses"] = json.dumps(data["siteAddresses"])
     table.update(data, ["id"])
     return "updated"
 
@@ -661,17 +640,3 @@ def delete_entry(table, id):
 
     table.delete(id=id)
     return "deleted"
-
-
-@bp.route("/api/cache/<table>/clear")
-@requires_authorization
-def clear_cache_for_table(table):
-    """ for manual cache data + ping refreshing when needed """
-    return "hello world"
-
-
-@bp.route("/api/cache/ping/clear")
-@requires_authorization
-def clear_ping_cache(table):
-    """ for manual clearing all ping caches when needed """
-    return "hello world"

@@ -93,13 +93,7 @@ const onlineStatusToDot = (status) => {
     })(status) + '" role="status"></div>'
 }
 
-const generateTable = (table, data) => {
-    console.log("Generating table", table)
-    loadingLog()
-    if (!window.tables || !window.columns) {
-        console.error("Missing data: tables:", window.tables, "columns:", window.columns)
-        return
-    }
+const getColumnsDefinition = (table) => {
     let columnsShown = window.columns['types'][table["type"]].length
     let columnData = []
 
@@ -137,23 +131,26 @@ const generateTable = (table, data) => {
         cssClass: "no-wrap",
         tooltip: cell => {
             let data = cell.getRow().getData()
-            let status = window.online[data["siteAddresses"][0]]
-            if (status === "online" || status === "offline") {
-                return data["siteName"] + " is " + window.online[data["siteAddresses"][0]]
+            if (data["siteAddresses"]) {
+                const url = workaroundAddressArray(data["siteAddresses"], "array")
+                const status = window.online[url[0]]
+                if (status === "online" || status === "offline") {
+                    return data["siteName"] + " is " + window.online[url[0]]
+                }
             }
-            return "Status of " + data["siteName"] + " is " + (status === "unknown" ? "unknown" : "undetermined")
+            return "Status of " + data["siteName"] + " is unknown"
         },
         formatter: cell => {
+            let data = cell.getRow().getData()
+            const url = workaroundAddressArray(data["siteAddresses"], "array")
+            let txt = onlineStatusToDot(window.online[url[0]]) + ' '
             if (window.editMode) {
                 if (!cell.getValue()) {
-                    return '<span class="text-warning">Animepiracy</span>'
+                    return txt + '<span class="text-warning">Animepiracy</span>'
                 }
-                return cell.getValue()
+                return txt + cell.getValue()
             }
-
-            let data = cell.getRow().getData()
-            return onlineStatusToDot(window.online[data["siteAddresses"][0]]) +
-                '<a href="' + data.siteAddresses[0] + '" target="_blank">' + cell.getValue() + '</a>'
+            return txt + '<a href="' + url[0] + '" target="_blank">' + cell.getValue() + '</a>'
         }
     })
 
@@ -178,62 +175,80 @@ const generateTable = (table, data) => {
         })
     }
 
+    window.columns['types'][table["type"]].forEach(th => {
+        if (th['key'] === "siteName") {
+            return
+        }
+        if (th['hidden']) {
+            columnsShown = columnsShown - 1
+        }
+
+        console.log("Column", propertyName(th['key']), "calcWidth", calcTextWidth(propertyName(th['key'])), "total", calcTextWidth(propertyName(th['key'])) + 5)
+        let columnUpdate = {
+            title: propertyName(th['key']),
+            field: th['key'],
+            visible: !th['hidden'],
+            formatter: render,
+            minWidth: (calcTextWidth(propertyName(th['key'])) + 9)
+        }
+
+        if (th["key"] === "editorNotes" || th["key"] === "siteFeatures") {
+            columnUpdate.hozAlign = "left"
+            columnUpdate.minWidth = 120
+        }
+
+        if (window.editMode) {
+            if (window.columns["keys"][th["key"]]["type"] === "list") {
+                columnUpdate.editor = "select"
+                columnUpdate.editorParams = {
+                    multiselect: true,
+                    values: window.columns["keys"][th["key"]]["values"]
+                }
+            } else if (window.columns["keys"][th["key"]]["type"] === "check") {
+                columnUpdate.editor = "tickCross"
+                columnUpdate.editorParams = {
+                    tristate: true,
+                    indeterminateValue: "?"
+                }
+            } else {
+                columnUpdate.editor = "input"
+            }
+        }
+
+        columnData.push(columnUpdate)
+    })
+
+    return columnData
+}
+
+const generateTable = (table) => {
+    console.log("Generating table", table)
+    loadingLog()
+    if (!window.tables || !window.columns) {
+        console.error("Missing data: tables:", window.tables, "columns:", window.columns)
+        return
+    }
+
+    if (!window.columns['types'][table["type"]]) {
+        return console.error("Table type", table["type"], "could not be found")
+    }
+
+
     // add column toggles
     let togglesString = ""
-    try {
-        window.columns['types'][table["type"]].forEach(th => {
-            if (th['key'] === "siteName") {
-                return
-            }
-            if (th['hidden']) {
-                columnsShown = columnsShown - 1
-            }
+    window.columns['types'][table["type"]].forEach(th => {
+        if (th['key'] === "siteName") {
+            return
+        }
 
-            togglesString += '<div class="col">' +
-                '<div class="form-check form-check-inline form-switch">' +
-                '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
-                '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
-                table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
-                propertyName(th['key']) + '</label>' +
-                '</div></div>'
-
-            console.log("Column", propertyName(th['key']), "calcWidth", calcTextWidth(propertyName(th['key'])), "total", calcTextWidth(propertyName(th['key'])) + 5)
-            let columnUpdate = {
-                title: propertyName(th['key']),
-                field: th['key'],
-                visible: !th['hidden'],
-                formatter: render,
-                minWidth: (calcTextWidth(propertyName(th['key'])) + 9)
-            }
-
-            if (th["key"] === "editorNotes" || th["key"] === "siteFeatures") {
-                columnUpdate.hozAlign = "left"
-                columnUpdate.minWidth = 120
-            }
-
-            if (window.editMode) {
-                if (window.columns["keys"][th["key"]]["type"] === "list") {
-                    columnUpdate.editor = "select"
-                    columnUpdate.editorParams = {
-                        multiselect: true,
-                        values: window.columns["keys"][th["key"]]["values"]
-                    }
-                } else if (window.columns["keys"][th["key"]]["type"] === "check") {
-                    columnUpdate.editor = "tickCross"
-                    columnUpdate.editorParams = {
-                        tristate: true,
-                        indeterminateValue: "?"
-                    }
-                } else {
-                    columnUpdate.editor = "input"
-                }
-            }
-
-            columnData.push(columnUpdate)
-        })
-    } catch (e) {
-        console.error("Table type", table["type"], "could not be found", e)
-    }
+        togglesString += '<div class="col">' +
+            '<div class="form-check form-check-inline form-switch">' +
+            '<input class="form-check-input" type="checkbox" id="show-' + table['id'] + th['key'] +
+            '"' + (th['hidden'] ? '' : ' checked') + ' data-column="' + th['key'] + '" data-table="' +
+            table['id'] + '"> <label class="form-check-label" for="show-' + table['id'] + th['key'] + '">' +
+            propertyName(th['key']) + '</label>' +
+            '</div></div>'
+    })
     document.querySelector('#' + table['id'] + ' .toggle-row').innerHTML = togglesString
 
     try {
@@ -245,10 +260,20 @@ const generateTable = (table, data) => {
             headerHozAlign: "center",
             cellVertAlign: "middle",
             cellHozAlign: "center",
-            columns: columnData,
+            columns: getColumnsDefinition(table),
             resizableColumns: false,
             history: true,
-            data: data,
+            ajaxURL: "/api/fetch/data/" + table['id'],
+            ajaxResponse: (url, params, json) => {
+                // TODO: create an array editor for siteAddresses...
+                // this is a workaround atm
+                if (window.editMode) {
+                    json.forEach(r => r["siteAddresses"] = workaroundAddressArray(r["siteAddresses"], "string"))
+                }
+                window.rawData[table['id']] = json
+                setTimeout(() => pingTable(table['id']), 1000)
+                return json
+            },
             dataChanged: () => {
                 if (!window.editMode) {
                     return
@@ -283,12 +308,9 @@ const generateTable = (table, data) => {
 const generateAllTables = () => {
     console.log("Populating tables with data, Status:")
     loadingLog()
-    if (!tablesReady || !dataReady || !columnsReady || !domReady) {
+    if (!tablesReady || !columnsReady || !domReady) {
         return
     }
-
-    // clone data to be displayed in #infoModal
-    let data = JSON.parse(JSON.stringify(window.rawData))
 
     window.tables.forEach(tab => {
         tab['tables'].forEach(t => {
@@ -315,28 +337,26 @@ const generateAllTables = () => {
                 '</div></div>' +
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
                 '<div><div id="table-' + t['id'] + '"></div></div></div>' +
-                (window.editMode ? '<div class="card-footer">' +
-                    '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addTableRow(this);">' +
-                    '<i class="bi bi-plus-circle"></i> Add row</button> ' +
-                    '<button disabled class="btn btn-danger" id="delete-' + t['id'] + '" data-target="' + t['id'] +
-                    '" onclick="javascript:deleteSelectedRow(this);">' +
-                    '<i class="bi bi-trash"></i> Delete row</button> ' +
-                    '<button disabled class="btn btn-danger" id="undo-' + t['id'] + '" data-target="' + t['id'] +
-                    '" onclick="javascript:undoTableEdit(this);">' +
-                    '<i class="bi bi-arrow-90deg-left"></i></button> ' +
-                    '<button disabled class="btn btn-danger" id="redo-' + t['id'] + '" data-target="' + t['id'] +
-                    '" onclick="javascript:redoTableEdit(this);">' +
-                    '<i class="bi bi-arrow-90deg-right"></i></button> ' +
-                    '<span class="float-end">' +
-                    '<button disabled class="btn btn-danger" id="discard-' + t['id'] + '" data-target="' + t['id'] +
-                    '" onclick="javascript:discardTableEdit(this);">' +
-                    '<i class="bi bi-trash"></i> Discard</button> ' +
-                    '<button disabled class="btn btn-success" id="save-' + t['id'] + '" data-target="' + t['id'] +
-                    '" onclick="javascript:saveTableEdit(this);">' +
-                    '<i class="bi bi-check2-circle"></i> Save</button>' +
-                    '</span></div>'
-                    : '') +
-                '</div>'
+                '<div class="card-footer editor-only"' + (!window.editMode ? ' style="display: none;">' : '>') +
+                '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="addTableRow(this)">' +
+                '<i class="bi bi-plus-circle"></i> Add row</button> ' +
+                '<button disabled class="btn btn-danger" id="delete-' + t['id'] + '" data-target="' + t['id'] +
+                '" onclick="deleteSelectedRow(this)">' +
+                '<i class="bi bi-trash"></i> Delete row</button> ' +
+                '<button disabled class="btn btn-danger" id="undo-' + t['id'] + '" data-target="' + t['id'] +
+                '" onclick="undoTableEdit(this)">' +
+                '<i class="bi bi-arrow-90deg-left"></i></button> ' +
+                '<button disabled class="btn btn-danger" id="redo-' + t['id'] + '" data-target="' + t['id'] +
+                '" onclick="redoTableEdit(this)">' +
+                '<i class="bi bi-arrow-90deg-right"></i></button> ' +
+                '<span class="float-end">' +
+                '<button disabled class="btn btn-danger" id="discard-' + t['id'] + '" data-target="' + t['id'] +
+                '" onclick="discardTableEdit(this)">' +
+                '<i class="bi bi-trash"></i> Discard</button> ' +
+                '<button disabled class="btn btn-success" id="save-' + t['id'] + '" data-target="' + t['id'] +
+                '" onclick="saveTableEdit(this)">' +
+                '<i class="bi bi-check2-circle"></i> Save</button>' +
+                '</span></div></div>'
         })
 
         let download = '<div class="card">' +
@@ -357,16 +377,13 @@ const generateAllTables = () => {
     document.querySelector('#tablesList').style = ""
     window.tables.forEach(tab => {
         tab['tables'].forEach(t => {
-            generateTable(t, data[t['id']])
+            generateTable(t)
         })
     })
     tablesGenerated = true
     window.dispatchEvent(new Event("tablesGenerated"))
 
     document.querySelector('#loader').remove()
-    if (!editMode) {
-        pingTab(window.tables[0]["tab"])
-    }
 
     // collapse of column selection
     window.tables.forEach(tab => {

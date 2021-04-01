@@ -11,6 +11,10 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
 def create_app():
     app = Flask(__name__)
 
+    # setting flask_secret
+    with open(os.path.join("/srv", ".flask_secret"), "rb") as secret:
+        app.secret_key = secret.read()
+
     if os.path.isfile("/config/config.py"):
         app.config.from_pyfile("/config/config.py")
     else:

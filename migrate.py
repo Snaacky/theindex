@@ -8,506 +8,162 @@ def get_db():
     return "".join(["sqlite:///", os.path.join("/config", "data.db")])
 
 
-print("Connecting to db " + get_db())
-db = dataset.connect(get_db())
+anime_type = [
+    "englishAnimeSites",
+    "foreignAnimeSites",
+    "hentaiAnimeSites"
+]
+download_type = [
+    "downloadSites",
+    "hentaiDownloadSites"
+]
+manga_type = [
+    "englishMangaAggregators",
+    "englishMangaScans",
+    "foreignMangaAggregators",
+    "foreignMangaScans",
+    "hentaiDoujinshiSites"
+]
+novel_type = [
+    "lightNovels",
+    "visualNovels"
+]
+app_type = [
+    "iosApplications",
+    "androidApplications",
+    "windowsApplications",
+    "macOSApplications",
+    "browserExtensions",
+    "hentaiApplications"
+]
+
+
+def get_language(entry):
+    lang = ""
+    if "isEnglish" in entry:
+        if entry["isEnglish"]:
+            lang = "EN"
+            if "otherLanguages" in entry or "siteLanguage" in entry:
+                lang += ", "
+    if "otherLanguages" in entry:
+        return lang + entry["otherLanguages"]
+    if "siteLanguage" in entry:
+        return lang + entry["siteLanguage"]
+    return lang
+
+
+def insert_db(table, entry):
+    insert_data = dict(
+        siteName=entry["siteName"],
+        siteAddresses=json.dumps(entry["siteAddresses"]),
+        isMobileFriendly=(entry["isMobileFriendly"] if "isMobileFriendly" in entry else ""),
+        features=(entry["siteFeatures"] if "siteFeatures" in entry else ""),
+        editorNotes=(entry["editorNotes"] if "editorNotes" in entry else "")
+    )
+    if table in anime_type:
+        insert_data = insert_data | dict(
+            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
+            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
+            resolution360p=(entry["360p"] if "360p" in entry else ""),
+            resolution480p=(entry["480p"] if "480p" in entry else ""),
+            resolution720p=(entry["720p"] if "720p" in entry else ""),
+            resolution1080p=(entry["1080p"] if "1080p" in entry else ""),
+            languages=get_language(entry),
+            hasSubs=(entry["hasSubs"] if "hasSubs" in entry else ""),
+            hasDubs=(entry["hasDubs"] if "hasDubs" in entry else ""),
+            hasWatermarks=(entry["hasWatermarks"] if "hasWatermarks" in entry else ""),
+            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
+            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
+            hasReleaseSchedule=(entry["hasReleaseSchedule"] if "hasReleaseSchedule" in entry else ""),
+            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
+            hasBatchDownloads=(entry["hasBatchDownloads"] if "hasBatchDownloads" in entry else "")
+        )
+    elif table in download_type:
+        insert_data = insert_data | dict(
+            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
+            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
+            resolution360p=(entry["360p"] if "360p" in entry else ""),
+            resolution480p=(entry["480p"] if "480p" in entry else ""),
+            resolution720p=(entry["720p"] if "720p" in entry else ""),
+            resolution1080p=(entry["1080p"] if "1080p" in entry else ""),
+            languages=get_language(entry),
+            hasSubs=(entry["hasSubs"] if "hasSubs" in entry else ""),
+            hasDubs=(entry["hasDubs"] if "hasDubs" in entry else ""),
+            hasWatermarks=(entry["hasWatermarks"] if "hasWatermarks" in entry else ""),
+            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
+            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
+            hasReleaseSchedule=(entry["hasReleaseSchedule"] if "hasReleaseSchedule" in entry else ""),
+            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
+            hasBatchDownloads=(entry["hasBatchDownloads"] if "hasBatchDownloads" in entry else ""),
+            hasTorrents=(entry["hasTorrents"] if "hasTorrents" in entry else "")
+        )
+    elif table in manga_type:
+        insert_data = insert_data | dict(
+            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
+            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
+            languages=get_language(entry),
+            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
+            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
+            hasTachiyomiSupport=(entry["hasTachiyomiSupport"] if "hasTachiyomiSupport" in entry else "")
+        )
+    elif table in novel_type:
+        insert_data = insert_data | dict(
+            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
+            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
+            languages=get_language(entry),
+            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
+            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
+            hasMTL=(entry["hasMTL"] if "hasMTL" in entry else "")
+        )
+    elif table in app_type:
+        insert_data = insert_data | dict(
+            hasMalSupport=(entry["hasMalSupport"] if "hasMalSupport" in entry else ""),
+            hasAnilistSupport=(entry["hasAnilistSupport"] if "hasAnilistSupport" in entry else ""),
+            hasKitsuSupport=(entry["hasKitsuSupport"] if "hasKitsuSupport" in entry else ""),
+            hasSimKLSupport=(entry["hasSimKLSupport"] if "hasSimKLSupport" in entry else "")
+        )
+
+    with dataset.connect(get_db()) as con:
+        con[table].insert(insert_data)
+
+
+def transfer_table(data, table, old_name):
+    db = dataset.connect(get_db())
+    db.create_table(table)
+    for entry in data[old_name]:
+        insert_db(table, entry)
+    print("Migrated " + old_name + " -> " + table + " to DB.")
+
 
 with open(os.path.join("static", "data.json"), encoding="utf8") as json_file:
     data = json.load(json_file)
 
-db.create_table("englishAnimeSites")
-for entry in data["englishAnimeSites"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    resolution_360p = entry["360p"]
-    resolution_480p = entry["480p"]
-    resolution_720p = entry["720p"]
-    resolution_1080p = entry["1080p"]
-    has_subs = entry["hasSubs"]
-    has_dubs = entry["hasDubs"]
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_watermarks = entry["hasWatermarks"]
-    has_disqus = entry["hasDisqusSupport"]
-    has_schedule = entry["hasReleaseSchedule"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_batch_downloads = entry["hasBatchDownloads"]
-    editor_notes = entry["editorNotes"]
+# streaming sites
+transfer_table(data, "englishAnimeSites", "englishAnimeSites")
+transfer_table(data, "foreignAnimeSites", "foreignAnimeSites")
+transfer_table(data, "downloadSites", "animeDownloadSites")
 
-    with dataset.connect(get_db()) as db:
-        db["englishAnimeSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=site_addresses,
-            resolution360p=resolution_360p,
-            resolution480p=resolution_480p,
-            resolution720p=resolution_720p,
-            resolution1080p=resolution_1080p,
-            hasSubs=has_subs,
-            hasDubs=has_dubs,
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            hasWatermarks=has_watermarks,
-            malSyncSupport=malsync_support,
-            hasDisqusSupport=has_disqus,
-            hasReleaseSchedule=has_schedule,
-            hasDirectDownloads=has_downloads,
-            hasBatchDownloads=has_batch_downloads,
-            editorNotes=editor_notes
-        ))
-print("Migrated englishAnimeSites to DB.")
+# manga/scans
+transfer_table(data, "englishMangaAggregators", "englishMangaSites")
+transfer_table(data, "englishMangaScans", "englishMangaScans")
+transfer_table(data, "foreignMangaAggregators", "foreignMangaSites")
+transfer_table(data, "foreignMangaScans", "foreignMangaScans")
 
-db.create_table("foreignAnimeSites")
-for entry in data["foreignAnimeSites"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    resolution_360p = entry["360p"]
-    resolution_480p = entry["480p"]
-    resolution_720p = entry["720p"]
-    resolution_1080p = entry["1080p"]
-    has_subs = entry["hasSubs"]
-    has_dubs = entry["hasDubs"]
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_watermarks = entry["hasWatermarks"]
-    has_disqus = entry["hasDisqusSupport"]
-    has_schedule = entry["hasReleaseSchedule"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_batch_downloads = entry["hasBatchDownloads"]
-    editor_notes = entry["editorNotes"]
-    site_language = entry["otherLanguages"]
+# novel
+transfer_table(data, "lightNovels", "lightNovels")
+transfer_table(data, "visualNovels", "visualNovels")
 
-    with dataset.connect(get_db()) as db:
-        db["foreignAnimeSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            resolution360p=resolution_360p,
-            resolution480p=resolution_480p,
-            resolution720p=resolution_720p,
-            resolution1080p=resolution_1080p,
-            hasSubs=has_subs,
-            hasDubs=has_dubs,
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            hasWatermarks=has_watermarks,
-            malSyncSupport=malsync_support,
-            hasDisqusSupport=has_disqus,
-            hasReleaseSchedule=has_schedule,
-            hasDirectDownloads=has_downloads,
-            hasBatchDownloads=has_batch_downloads,
-            editorNotes=editor_notes,
-            siteLanguage=site_language
-        ))
-print("Migrated foreignAnimeSites to DB.")
+# applications
+transfer_table(data, "iosApplications", "iOSApplications")
+transfer_table(data, "androidApplications", "androidApplications")
+transfer_table(data, "windowsApplications", "windowsApplications")
+transfer_table(data, "macOSApplications", "macOSApplications")
+transfer_table(data, "browserExtensions", "browserExtensions")
 
-db.create_table("downloadSites")
-for entry in data["animeDownloadSites"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    resolution_360p = entry["360p"]
-    resolution_480p = entry["480p"]
-    resolution_720p = entry["720p"]
-    resolution_1080p = entry["1080p"]
-    has_subs = entry["hasSubs"]
-    has_dubs = entry["hasDubs"]
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_watermarks = entry["hasWatermarks"]
-    has_disqus = entry["hasDisqusSupport"]
-    has_schedule = entry["hasReleaseSchedule"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_batch_downloads = entry["hasBatchDownloads"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["downloadSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            resolution360p=resolution_360p,
-            resolution480p=resolution_480p,
-            resolution720p=resolution_720p,
-            resolution1080p=resolution_1080p,
-            hasSubs=has_subs,
-            hasDubs=has_dubs,
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            hasWatermarks=has_watermarks,
-            malSyncSupport=malsync_support,
-            hasDisqusSupport=has_disqus,
-            hasReleaseSchedule=has_schedule,
-            hasDirectDownloads=has_downloads,
-            hasBatchDownloads=has_batch_downloads,
-            editorNotes=editor_notes
-        ))
-print("Migrated downloadSites to DB.")
-
-english_manga_aggregators = db.create_table("englishMangaAggregators")
-for entry in data["englishMangaSites"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["englishMangaAggregators"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            malSyncSupport=malsync_support,
-            hasTachiyomiSupport=has_tachiyomi_support,
-            editorNotes=editor_notes
-        ))
-print("Migrated englishMangaSites to DB.")
-
-db.create_table("englishMangaScans")
-for entry in data["englishMangaScans"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["englishMangaScans"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            malSyncSupport=malsync_support,
-            hasTachiyomiSupport=has_tachiyomi_support,
-            editorNotes=editor_notes
-        ))
-print("Migrated englishMangaScans to DB.")
-
-db.create_table("foreignMangaAggregators")
-for entry in data["foreignMangaSites"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    site_language = entry["otherLanguages"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["foreignMangaAggregators"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            siteLanguage=site_language,
-            isMobileFriendly=is_mobile_friendly,
-            malSyncSupport=malsync_support,
-            hasTachiyomiSupport=has_tachiyomi_support,
-            editorNotes=editor_notes
-        ))
-print("Migrated foreignMangaSites to DB.")
-
-db.create_table("foreignMangaScans")
-for entry in data["foreignMangaScans"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_tachiyomi_support = entry["hasTachiyomiSupport"]
-    other_languages = entry["otherLanguages"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["foreignMangaScans"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            otherLanguages=other_languages,
-            isMobileFriendly=is_mobile_friendly,
-            malSyncSupport=malsync_support,
-            hasTachiyomiSupport=has_tachiyomi_support,
-            editorNotes=editor_notes
-        ))
-print("Migrated foreignMangaScans to DB.")
-
-db.create_table("lightNovels")
-for entry in data["lightNovels"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["lightNovels"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            isMobileFriendly=is_mobile_friendly,
-            editorNotes=editor_notes
-        ))
-print("Migrated lightNovels to DB.")
-
-db.create_table("visualNovels")
-for entry in data["visualNovels"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["visualNovels"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            editorNotes=editor_notes
-        ))
-print("Migrated visualNovels to DB.")
-
-db.create_table("iosApplications")
-for entry in data["iOSApplications"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_mal_support = entry["hasMalSupport"]
-    has_al_support = entry["hasAnilistSupport"]
-    has_kitsu_support = entry["hasKitsuSupport"]
-    has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["siteFeatures"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["iosApplications"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasMalSupport=has_mal_support,
-            hasAnilistSupport=has_al_support,
-            hasKitsuSupport=has_kitsu_support,
-            hasSimKLSupport=has_simkl_support,
-            applicationFeatures=application_features,
-            editorNotes=editor_notes
-        ))
-print("Migrated iosApplications to DB.")
-
-db.create_table("androidApplications")
-for entry in data["androidApplications"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_mal_support = entry["hasMalSupport"]
-    has_al_support = entry["hasAnilistSupport"]
-    has_kitsu_support = entry["hasKitsuSupport"]
-    has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["siteFeatures"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["androidApplications"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasMalSupport=has_mal_support,
-            hasAnilistSupport=has_al_support,
-            hasKitsuSupport=has_kitsu_support,
-            hasSimKLSupport=has_simkl_support,
-            applicationFeatures=application_features,
-            editorNotes=editor_notes
-        ))
-print("Migrated androidApplications to DB.")
-
-db.create_table("windowsApplications")
-for entry in data["windowsApplications"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_mal_support = entry["hasMalSupport"]
-    has_al_support = entry["hasAnilistSupport"]
-    has_kitsu_support = entry["hasKitsuSupport"]
-    has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["siteFeatures"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["windowsApplications"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasMalSupport=has_mal_support,
-            hasAnilistSupport=has_al_support,
-            hasKitsuSupport=has_kitsu_support,
-            hasSimKLSupport=has_simkl_support,
-            applicationFeatures=application_features,
-            editorNotes=editor_notes
-        ))
-print("Migrated windowsApplications to DB.")
-
-macos_applications = db.create_table("macOSApplications")
-for entry in data["macOSApplications"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_mal_support = entry["hasMalSupport"]
-    has_al_support = entry["hasAnilistSupport"]
-    has_kitsu_support = entry["hasKitsuSupport"]
-    has_simkl_support = entry["hasSimKLSupport"]
-    application_features = entry["siteFeatures"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["macOSApplications"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasMalSupport=has_mal_support,
-            hasAnilistSupport=has_al_support,
-            hasKitsuSupport=has_kitsu_support,
-            hasSimKLSupport=has_simkl_support,
-            applicationFeatures=application_features,
-            editorNotes=editor_notes
-        ))
-print("Migrated macOSApplications to DB.")
-
-db.create_table("browserExtensions")
-for entry in data["browserExtensions"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_mal_support = entry["hasMalSupport"]
-    has_al_support = entry["hasAnilistSupport"]
-    has_kitsu_support = entry["hasKitsuSupport"]
-    has_simkl_support = entry["hasSimKLSupport"]
-    extension_features = entry["siteFeatures"]
-    editor_notes = ""
-
-    with dataset.connect(get_db()) as db:
-        db["browserExtensions"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasMalSupport=has_mal_support,
-            hasAnilistSupport=has_al_support,
-            hasKitsuSupport=has_kitsu_support,
-            hasSimKLSupport=has_simkl_support,
-            extensionFeatures=extension_features,
-            editorNotes=editor_notes
-        ))
-print("Migrated browserExtensions to DB.")
-
-db.create_table("hentaiAnimeSites")
-for entry in data["hentaiAnime"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    resolution_360p = entry["360p"]
-    resolution_480p = entry["480p"]
-    resolution_720p = entry["720p"]
-    resolution_1080p = entry["1080p"]
-    has_subs = entry["hasSubs"]
-    has_dubs = entry["hasDubs"]
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    is_mobile_friendly = entry["isMobileFriendly"]
-    malsync_support = entry["malSyncSupport"]
-    has_watermarks = entry["hasWatermarks"]
-    has_disqus = entry["hasDisqusSupport"]
-    has_schedule = entry["hasReleaseSchedule"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_batch_downloads = entry["hasBatchDownloads"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["hentaiAnimeSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            resolution360p=resolution_360p,
-            resolution480p=resolution_480p,
-            resolution720p=resolution_720p,
-            resolution1080p=resolution_1080p,
-            hasSubs=has_subs,
-            hasDubs=has_dubs,
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            isMobileFriendly=is_mobile_friendly,
-            hasWatermarks=has_watermarks,
-            malSyncSupport=malsync_support,
-            hasDisqusSupport=has_disqus,
-            hasReleaseSchedule=has_schedule,
-            hasDirectDownloads=has_downloads,
-            hasBatchDownloads=has_batch_downloads,
-            editorNotes=editor_notes,
-        ))
-print("Migrated hentaiAnime to DB.")
-
-db.create_table("hentaiDoujinshiSites")
-for entry in data["hentaiDoujinshi"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_tags = entry["hasTags"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["hentaiDoujinshiSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            hasDirectDownloads=has_downloads,
-            hasTags=has_tags,
-            editorNotes=editor_notes,
-        ))
-print("Migrated hentaiDoujinshi to DB.")
-
-db.create_table("hentaiDownloadSites")
-for entry in data["hentaiDownload"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    has_ads = entry["hasAds"]
-    has_anti_adblock = entry["isAntiAdblock"]
-    has_downloads = entry["hasDirectDownloads"]
-    has_tags = entry["hasTags"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["hentaiDownloadSites"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            hasAds=has_ads,
-            hasAntiAdblock=has_anti_adblock,
-            hasDirectDownloads=has_downloads,
-            hasTags=has_tags,
-            editorNotes=editor_notes,
-        ))
-print("Migrated hentaiDownload to DB.")
-
-db.create_table("hentaiApplications")
-for entry in data["hentaiApplications"]:
-    site_name = entry["siteName"]
-    site_addresses = json.dumps(entry["siteAddresses"])
-    supported_platforms = entry["supportPlatform"]
-    editor_notes = entry["editorNotes"]
-
-    with dataset.connect(get_db()) as db:
-        db["hentaiApplications"].insert(dict(
-            siteName=site_name,
-            siteAddresses=str(site_addresses),
-            supportedPlatforms=str(supported_platforms),
-            editorNotes=editor_notes,
-        ))
-print("Migrated hentaiApplications to DB.")
+# hentai
+transfer_table(data, "hentaiAnimeSites", "hentaiAnime")
+transfer_table(data, "hentaiDoujinshiSites", "hentaiDoujinshi")
+transfer_table(data, "hentaiDownloadSites", "hentaiDownload")
+transfer_table(data, "hentaiApplications", "hentaiApplications")
 
 print("Migration process complete.")
