@@ -138,3 +138,5 @@ dmypy.json
 
 config.py
 migration.db*
+data.db*
+.vscode/
