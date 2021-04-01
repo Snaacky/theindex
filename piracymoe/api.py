@@ -623,7 +623,6 @@ def update_table_entry(table):
         return "id does not exist"
 
     data["siteAddresses"] = json.dumps(data["siteAddresses"])
-    print("Updating row", row, "with data", data)
     table.update(data, ["id"])
     return "updated"
 
