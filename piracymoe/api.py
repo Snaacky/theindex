@@ -213,10 +213,6 @@ def fetch_columns():
                 "name": "Mobile",
                 "description": "Is the site friendly on mobile"
             },
-            "isEnglish": {
-                "name": "English",
-                "description": "Is this site in English"
-            },
             "malSyncSupport": {
                 "name": "MAL-Sync",
                 "description": "Does the site have MAL-Sync support"
@@ -435,10 +431,6 @@ def fetch_columns():
                 {
                     "key": "hasAntiAdblock",
                     "hidden": True
-                },
-                {
-                    "key": "isEnglish",
-                    "hidden": False
                 },
                 {
                     "key": "languages",
