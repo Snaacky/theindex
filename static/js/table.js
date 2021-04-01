@@ -143,14 +143,14 @@ const getColumnsDefinition = (table) => {
         formatter: cell => {
             let data = cell.getRow().getData()
             const url = workaroundAddressArray(data["siteAddresses"], "array")
-            let txt = onlineStatusToDot(window.online[url[0]]) + ' '
+            let txt = onlineStatusToDot((url ? window.online[url[0]] : "unknown")) + ' '
             if (window.editMode) {
                 if (!cell.getValue()) {
                     return txt + '<span class="text-warning">Animepiracy</span>'
                 }
                 return txt + cell.getValue()
             }
-            return txt + '<a href="' + url[0] + '" target="_blank">' + cell.getValue() + '</a>'
+            return txt + '<a href="' + (url ? url[0] : "#") + '" target="_blank">' + cell.getValue() + '</a>'
         }
     })
 

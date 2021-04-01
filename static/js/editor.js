@@ -85,7 +85,7 @@ const addTableRow = (el) => {
     const id = el.getAttribute("data-target")
     console.log("Adding row to table", id)
 
-    window.dataTables[id].addRow({}, false)
+    window.dataTables[id].addRow({}, true)
         .then(row => {
             if (!window.newRows[id]) {
                 window.newRows[id] = [row]
