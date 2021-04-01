@@ -204,7 +204,7 @@ def fetch_columns():
                 "name": "1080p",
                 "description": "Does the site offer 1080p streams"
             },
-            "otherLanguages": {
+            "languages": {
                 "name": "Languages",
                 "description": "What language does the site support"
             },
@@ -248,6 +248,10 @@ def fetch_columns():
                 "name": "Disqus",
                 "description": "Does the site have a Disqus comments section"
             },
+            "hasMTL": {
+                "name": "MTL",
+                "description": "Does the site use machine translation"
+            },
             "editorNotes": {
                 "name": "Notes",
                 "description": "Any additional notes from the index editors"
@@ -272,17 +276,9 @@ def fetch_columns():
                 "name": "SimKL",
                 "description": "Is SimKL supported"
             },
-            "siteFeatures": {
+            "features": {
                 "name": "Features",
-                "description": "This extensions features"
-            },
-            "siteLanguage": {
-                "name": "Site Language",
-                "description": "The main language of the site"
-            },
-            "supportPlatform": {
-                "name": "Platform",
-                "description": "Is this application available for platform"
+                "description": "Available features"
             }
         },
         "types": {
@@ -324,7 +320,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": True
                 },
                 {
@@ -354,6 +350,10 @@ def fetch_columns():
                 {
                     "key": "hasDisqusSupport",
                     "hidden": True
+                },
+                {
+                    "key": "features",
+                    "hidden": False
                 },
                 {
                     "key": "editorNotes",
@@ -398,7 +398,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": True
                 },
                 {
@@ -430,6 +430,10 @@ def fetch_columns():
                     "hidden": True
                 },
                 {
+                    "key": "features",
+                    "hidden": False
+                },
+                {
                     "key": "editorNotes",
                     "hidden": True
                 }
@@ -452,7 +456,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "languages",
                     "hidden": False
                 },
                 {
@@ -465,6 +469,10 @@ def fetch_columns():
                 },
                 {
                     "key": "hasTachiyomiSupport",
+                    "hidden": False
+                },
+                {
+                    "key": "features",
                     "hidden": False
                 },
                 {
@@ -486,11 +494,11 @@ def fetch_columns():
                     "hidden": True
                 },
                 {
-                    "key": "siteLanguage",
+                    "key": "languages",
                     "hidden": False
                 },
                 {
-                    "key": "otherLanguages",
+                    "key": "hasMTL",
                     "hidden": False
                 },
                 {
@@ -498,16 +506,12 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "hasBatchDownloads",
-                    "hidden": True
-                },
-                {
-                    "key": "hasTorrents",
-                    "hidden": True
-                },
-                {
                     "key": "isMobileFriendly",
                     "hidden": True
+                },
+                {
+                    "key": "features",
+                    "hidden": False
                 },
                 {
                     "key": "editorNotes",
@@ -518,10 +522,6 @@ def fetch_columns():
                 {
                     "key": "siteName",
                     "hidden": False
-                },
-                {
-                    "key": "supportPlatform",
-                    "hidden": True
                 },
                 {
                     "key": "hasMalSupport",
@@ -540,7 +540,7 @@ def fetch_columns():
                     "hidden": False
                 },
                 {
-                    "key": "siteFeatures",
+                    "key": "features",
                     "hidden": False
                 },
                 {
@@ -622,6 +622,8 @@ def update_table_entry(table):
     if row is None:
         return "id does not exist"
 
+    data["siteAddresses"] = json.dumps(data["siteAddresses"])
+    print("Updating row", row, "with data", data)
     table.update(data, ["id"])
     return "updated"
 

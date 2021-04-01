@@ -141,17 +141,16 @@ const getColumnsDefinition = (table) => {
             return "Status of " + data["siteName"] + " is unknown"
         },
         formatter: cell => {
-            if (window.editMode) {
-                if (!cell.getValue()) {
-                    return '<span class="text-warning">Animepiracy</span>'
-                }
-                return cell.getValue()
-            }
-
             let data = cell.getRow().getData()
             const url = workaroundAddressArray(data["siteAddresses"], "array")
-            return onlineStatusToDot(window.online[url[0]]) +
-                '<a href="' + url[0] + '" target="_blank">' + cell.getValue() + '</a>'
+            let txt = onlineStatusToDot(window.online[url[0]]) + ' '
+            if (window.editMode) {
+                if (!cell.getValue()) {
+                    return txt + '<span class="text-warning">Animepiracy</span>'
+                }
+                return txt + cell.getValue()
+            }
+            return txt + '<a href="' + url[0] + '" target="_blank">' + cell.getValue() + '</a>'
         }
     })
 

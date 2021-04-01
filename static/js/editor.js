@@ -300,6 +300,9 @@ window.addEventListener('tablesGenerated', () => {
 })
 
 const switchEditMode = (editMode) => {
+    console.log("Switching editMode", window.editMode, "->", editMode)
+    const diff = window.editMode !== editMode
+    window.editMode = editMode
     document.querySelectorAll(".editor-only").forEach(node => {
         if (node.style.display === "none") {
             if (editMode) {
@@ -310,11 +313,10 @@ const switchEditMode = (editMode) => {
         }
     })
 
-    if (window.editMode !== editMode) {
+    if (diff) {
         Object.keys(window.dataTables).forEach(key => {
             window.dataTables[key].setColumns(getColumnsDefinition(tableById(key)))
         })
     }
 
-    window.editMode = editMode
 }
