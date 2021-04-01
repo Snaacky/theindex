@@ -18,7 +18,7 @@ it in `#index`.
 The easiest way is to use docker via:
 
 ```
-docker run -d -p <host-port>:8080 -v /path/on/host:/config ranimepiracy/index
+docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepiracy/index
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
