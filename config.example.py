@@ -1,6 +1,3 @@
-# provide a random string as secret to enforce consistent sessions even after an restart
-SECRET_KEY = "random_key_for_flask"
-
 # Discord client ID.
 DISCORD_CLIENT_ID = 353828110103478272
 # Discord client secret.

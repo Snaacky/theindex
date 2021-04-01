@@ -2,7 +2,7 @@ FROM python:3.9-slim-buster
 
 # install nginx
 RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y nginx wget && \
+    apt-get install --no-install-recommends -y nginx makepasswd wget && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
@@ -26,4 +26,5 @@ LABEL org.opencontainers.image.vendor="/r/animepiracy" \
       org.opencontainers.image.title="Index" \
       maintainer="Community of /r/animepiracy"
 
-CMD service nginx restart && python migrate.py && gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'
+# sed is for replacing windows newline
+CMD sed -i 's/\r$//' start.sh && sh start.sh
