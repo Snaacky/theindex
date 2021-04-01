@@ -14,7 +14,7 @@ def is_login():
     return jsonify({"edit": False})
 
 
-@bp.route("/user/logina/")
+@bp.route("/user/login/")
 def login():
     if app.discord.authorized:
         return redirect(url_for("editor.login"))
