@@ -71,6 +71,11 @@
                         <i class="bi bi-broadcast"></i> Status
                     </a>
                 </li>
+                <li class="nav-item user-only" style="display: none;">
+                    <button class="btn btn-outline-success" onclick="toggleEditMode()" id="editToggle">
+                        <i class="bi bi-pencil"></i> Enable Edit
+                    </button>
+                </li>
                 <!-- replace it with login or something etc.
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url_for('editor.editor') }}"><i class="bi bi-pen"></i> Editor</a>

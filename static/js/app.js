@@ -100,18 +100,26 @@ window.editMode = false
 fetch('/user/is-login')
     .then(data => data.json())
     .then(is_login => {
-        console.log("You are in edit-mode:", is_login["edit"])
-        switchEditMode(is_login["edit"])
+        console.log("You are logged in:", is_login["edit"])
+        document.querySelectorAll(".user-only").forEach(node => {
+            if (node.style.display === "none") {
+                if (is_login["edit"]) {
+                    node.style.display = null
+                }
+            } else if (!is_login["edit"]) {
+                node.style.display = "none"
+            }
+        })
+    })
 
-        // generates tables definition
-        fetch('/api/fetch/tables')
-            .then(data => data.json())
-            .then(tables => {
-                window.tables = tables
-                tablesReady = true
-                console.log("Tables loaded...")
-                generateAllTables()
-            })
+// generates tables definition
+fetch('/api/fetch/tables')
+    .then(data => data.json())
+    .then(tables => {
+        window.tables = tables
+        tablesReady = true
+        console.log("Tables loaded...")
+        generateAllTables()
     })
 
 // get columns definition

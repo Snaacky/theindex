@@ -260,7 +260,7 @@ const saveTableEdit = (el) => {
     })
     console.log("Create new rows:", newRows)
 
-    if (newRows.length === 0 && updateRows.length === 0 && (!window.deletedRows[id] || window.deletedRows[id].length === 0) ) {
+    if (newRows.length === 0 && updateRows.length === 0 && (!window.deletedRows[id] || window.deletedRows[id].length === 0)) {
         console.error("What... abort, there is nothing to send")
         return
     }
@@ -299,24 +299,23 @@ window.addEventListener('tablesGenerated', () => {
     }
 })
 
-const switchEditMode = (editMode) => {
-    console.log("Switching editMode", window.editMode, "->", editMode)
-    const diff = window.editMode !== editMode
-    window.editMode = editMode
+const toggleEditMode = () => {
+    console.log("Switching editMode", window.editMode, "->", !window.editMode)
     document.querySelectorAll(".editor-only").forEach(node => {
         if (node.style.display === "none") {
-            if (editMode) {
+            if (window.editMode) {
                 node.style.display = null
             }
-        } else if (!editMode) {
+        } else if (!window.editMode) {
             node.style.display = "none"
         }
     })
+    document.querySelector("#editToggle").innerHTML =
+        window.editMode ? '<i class="bi bi-pencil"></i> Enable Edit' : '<i class="bi bi-pencil"></i> Disable Edit'
 
-    if (diff) {
-        Object.keys(window.dataTables).forEach(key => {
-            window.dataTables[key].setColumns(getColumnsDefinition(tableById(key)))
-        })
-    }
+    window.editMode = !window.editMode
+    Object.keys(window.dataTables).forEach(key => {
+        window.dataTables[key].setColumns(getColumnsDefinition(tableById(key)))
+    })
 
 }
