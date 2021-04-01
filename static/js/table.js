@@ -133,7 +133,7 @@ const getColumnsDefinition = (table) => {
             let data = cell.getRow().getData()
             if (data["siteAddresses"]) {
                 const url = workaroundAddressArray(data["siteAddresses"], "array")
-                const status = window.online[url[0]]
+                const status = (url ? window.online[url[0]] : "unknown")
                 if (status === "online" || status === "offline") {
                     return data["siteName"] + " is " + window.online[url[0]]
                 }
