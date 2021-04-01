@@ -97,7 +97,7 @@ const adultConsent = (yes) => {
 
 // --- load a bunch of json ---
 window.editMode = false
-fetch('/user/is-login/')
+fetch('/user/is-login')
     .then(data => data.json())
     .then(is_login => {
         console.log("You are in edit-mode:", is_login["edit"])

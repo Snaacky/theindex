@@ -7,7 +7,7 @@ app = flask.current_app
 bp = flask.Blueprint('editor', __name__)
 
 
-@bp.route("/user/is-login/")
+@bp.route("/user/is-login")
 def is_login():
     if app.discord.authorized:
         return jsonify({"edit": True})
