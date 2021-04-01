@@ -6,6 +6,8 @@ if [ ! -f /config/data.db ]; then
     echo "Could not find existing db, trying to run migration script"
     python migrate.py
 fi
+
+# generate a new one time flask_secret
 flask_secret=$(makepasswd)
 echo "Generated new flask_secret: ${flask_secret}"
 echo "${flask_secret}" > /srv/.flask_secret
