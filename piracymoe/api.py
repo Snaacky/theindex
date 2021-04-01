@@ -21,12 +21,6 @@ def health():
 @bp.route("/api/fetch/tables")
 def fetch_tables():
     """ returns all tables """
-    """
-    we cannot use this, as we will loose infromation about the title and type of columns which are being used and what
-    the tab-id is
-    db = dataset.connect(database)
-    return jsonify(db.tables)
-    """
     return jsonify([
         {
             "tab": "animeTables",
@@ -154,14 +148,6 @@ def fetch_tables():
 @bp.route("/api/fetch/columns")
 def fetch_columns():
     """ returns all columns """
-    """
-    we cannot use this as we would lose information about what columns are hidden by default or their title/description
-    db = dataset.connect(database)
-    for table in db.tables:
-        table = db.load_table(table)
-        columns[table.name] = table.columns
-    return jsonify(columns)
-    """
     return jsonify({
         "keys": {
             "siteName": {
@@ -598,13 +584,6 @@ def fetch_data_by_table(table):
     return jsonify(data)
 
 
-@bp.route("/api/fetch/ping/<table>")
-@requires_authorization
-def fetch_ping_by_table(table):
-    """ returns ping results by table """
-    return "hello world"
-
-
 @bp.route("/api/update/<table>", methods=["POST"])
 @requires_authorization
 def update_table_entry(table):
@@ -662,17 +641,3 @@ def delete_entry(table, id):
 
     table.delete(id=id)
     return "deleted"
-
-
-@bp.route("/api/cache/<table>/clear")
-@requires_authorization
-def clear_cache_for_table(table):
-    """ for manual cache data + ping refreshing when needed """
-    return "hello world"
-
-
-@bp.route("/api/cache/ping/clear")
-@requires_authorization
-def clear_ping_cache(table):
-    """ for manual clearing all ping caches when needed """
-    return "hello world"
