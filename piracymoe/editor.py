@@ -7,7 +7,7 @@ app = flask.current_app
 bp = flask.Blueprint('editor', __name__)
 
 
-@bp.route("/user/is-login/")
+@bp.route("/user/is-login")
 def is_login():
     if app.discord.authorized:
         return jsonify({"edit": True})
@@ -17,7 +17,7 @@ def is_login():
 @bp.route("/user/login/")
 def login():
     if app.discord.authorized:
-        return redirect(url_for("editor.login"))
+        return redirect("/")
     return app.discord.create_session(scope=["identify"])
 
 
@@ -34,10 +34,10 @@ def callback():
     user = app.discord.fetch_user()
     if user.id not in app.config["WHITELISTED_USERS"]:
         app.discord.revoke()
-        return redirect(url_for("editor.logout"))
+        return redirect("/user/logout/")
     return redirect("/")
 
 
 @app.errorhandler(Unauthorized)
 def redirect_unauthorized(e):
-    return redirect(url_for("editor.login"))
+    return redirect("/user/login/")
