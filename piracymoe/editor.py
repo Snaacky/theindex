@@ -1,10 +1,8 @@
-import flask
-
-from flask import redirect, url_for, jsonify, request
+from flask import redirect, jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization, Unauthorized
 
-app = flask.current_app
-bp = flask.Blueprint('editor', __name__)
+app = current_app
+bp = Blueprint('editor', __name__)
 
 
 @bp.route("/user/is-login")

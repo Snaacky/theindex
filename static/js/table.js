@@ -312,9 +312,6 @@ const generateAllTables = () => {
         return
     }
 
-    // clone data to be displayed in #infoModal
-    let data = JSON.parse(JSON.stringify(window.rawData))
-
     window.tables.forEach(tab => {
         tab['tables'].forEach(t => {
             document.querySelector('#' + tab["tab"]).innerHTML += '<div class="card mb-3" id="' + t['id'] + '">' +
@@ -341,23 +338,23 @@ const generateAllTables = () => {
                 '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 toggle-row"></div></div></div>' +
                 '<div><div id="table-' + t['id'] + '"></div></div></div>' +
                 '<div class="card-footer editor-only"' + (!window.editMode ? ' style="display: none;">' : '>') +
-                '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="javascript:addTableRow(this);">' +
+                '<button class="btn btn-success" data-target="' + t['id'] + '" onclick="addTableRow(this)">' +
                 '<i class="bi bi-plus-circle"></i> Add row</button> ' +
                 '<button disabled class="btn btn-danger" id="delete-' + t['id'] + '" data-target="' + t['id'] +
-                '" onclick="javascript:deleteSelectedRow(this);">' +
+                '" onclick="deleteSelectedRow(this)">' +
                 '<i class="bi bi-trash"></i> Delete row</button> ' +
                 '<button disabled class="btn btn-danger" id="undo-' + t['id'] + '" data-target="' + t['id'] +
-                '" onclick="javascript:undoTableEdit(this);">' +
+                '" onclick="undoTableEdit(this)">' +
                 '<i class="bi bi-arrow-90deg-left"></i></button> ' +
                 '<button disabled class="btn btn-danger" id="redo-' + t['id'] + '" data-target="' + t['id'] +
-                '" onclick="javascript:redoTableEdit(this);">' +
+                '" onclick="redoTableEdit(this)">' +
                 '<i class="bi bi-arrow-90deg-right"></i></button> ' +
                 '<span class="float-end">' +
                 '<button disabled class="btn btn-danger" id="discard-' + t['id'] + '" data-target="' + t['id'] +
-                '" onclick="javascript:discardTableEdit(this);">' +
+                '" onclick="discardTableEdit(this)">' +
                 '<i class="bi bi-trash"></i> Discard</button> ' +
                 '<button disabled class="btn btn-success" id="save-' + t['id'] + '" data-target="' + t['id'] +
-                '" onclick="javascript:saveTableEdit(this);">' +
+                '" onclick="saveTableEdit(this)">' +
                 '<i class="bi bi-check2-circle"></i> Save</button>' +
                 '</span></div></div>'
         })

@@ -2,12 +2,11 @@ import json
 import os
 
 import dataset
-import flask
-from flask import jsonify, request
+from flask import jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization
 
-app = flask.current_app
-bp = flask.Blueprint('api', __name__)
+app = current_app
+bp = Blueprint('api', __name__)
 
 database = "".join(["sqlite:///", os.path.join("/config", "data.db")])  # TODO: Migrate to a separate db.py file
 
