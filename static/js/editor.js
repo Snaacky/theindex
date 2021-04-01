@@ -301,6 +301,7 @@ window.addEventListener('tablesGenerated', () => {
 
 const toggleEditMode = () => {
     console.log("Switching editMode", window.editMode, "->", !window.editMode)
+    window.editMode = !window.editMode
     document.querySelectorAll(".editor-only").forEach(node => {
         if (node.style.display === "none") {
             if (window.editMode) {
@@ -311,9 +312,8 @@ const toggleEditMode = () => {
         }
     })
     document.querySelector("#editToggle").innerHTML =
-        window.editMode ? '<i class="bi bi-pencil"></i> Enable Edit' : '<i class="bi bi-pencil"></i> Disable Edit'
+        window.editMode ? '<i class="bi bi-pencil"></i> Disable Edit': '<i class="bi bi-pencil"></i> Enable Edit'
 
-    window.editMode = !window.editMode
     Object.keys(window.dataTables).forEach(key => {
         window.dataTables[key].setColumns(getColumnsDefinition(tableById(key)))
     })
