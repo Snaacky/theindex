@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
-            document.querySelector('#sponsoredAnime').innerHTML +=
+            document.querySelector('#sAnime').innerHTML +=
                 '<div class="col d-flex justify-content-center">' +
                 '<div class="card" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
@@ -75,7 +75,7 @@ window.addEventListener("load", () => {
                 })
         })
     } else {
-        document.querySelector('#sponsoredAnime').remove()
+        document.querySelector('#sAnime').remove()
     }
 
 })
