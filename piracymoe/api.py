@@ -8,7 +8,9 @@ from flask_discord import requires_authorization
 app = current_app
 bp = Blueprint('api', __name__)
 
-database = "".join(["sqlite:///", os.path.join("/config", "data.db")])  # TODO: Migrate to a separate db.py file
+
+def get_database():
+    return dataset.connect("".join(["sqlite:///", os.path.join("/config", "data.db")]))
 
 
 @bp.route("/api/health")
@@ -532,7 +534,7 @@ def fetch_columns():
 @bp.route("/api/fetch/columns/<table>")
 def fetch_columns_by_table(table):
     """ returns columns by table """
-    db = dataset.connect(database)
+    db = get_database()
     table = db.load_table(table)
 
     if not table.exists:
@@ -562,14 +564,17 @@ def fetch_tables_by_tab(tab):
 @bp.route("/api/fetch/data/<table>")
 def fetch_data_by_table(table):
     """ returns data by table """
-    db = dataset.connect(database)
+    db = get_database()
     table = db.load_table(table)
 
     if not table.exists:
         return "table does not exist"
 
+    # for some reason, doing this without a manual sql query 
+    # causes a memory leak that results in crashing :^)
+    results = db.query(f"SELECT * from {table.name}")
     data = []
-    for row in table:
+    for row in results:
         row["siteAddresses"] = json.loads(row["siteAddresses"])
         data.append(row)
     return jsonify(data)
@@ -578,7 +583,7 @@ def fetch_data_by_table(table):
 @bp.route("/api/update/<table>", methods=["POST"])
 @requires_authorization
 def update_table_entry(table):
-    db = dataset.connect(database)
+    db = get_database()
     table = db.load_table(table)
 
     if not table.exists:
@@ -601,7 +606,7 @@ def update_table_entry(table):
 @requires_authorization
 def create_new_entry(table):
     """ creates new data entry in table, **does not create new tables** """
-    db = dataset.connect(database)
+    db = get_database()
     table = db.load_table(table)
 
     if not table.exists:
@@ -620,7 +625,7 @@ def create_new_entry(table):
 @requires_authorization
 def delete_entry(table, id):
     """ deletes data entry in table """
-    db = dataset.connect(database)
+    db = get_database()
     table = db.load_table(table)
 
     if not table.exists:
