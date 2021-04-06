@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
-            document.querySelector('#sAnime').innerHTML +=
+            document.querySelector('#sponsoredAnime').innerHTML +=
                 '<div class="col d-flex justify-content-center">' +
                 '<div class="card" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
@@ -41,7 +41,7 @@ window.addEventListener("load", () => {
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
                 sponsored["title"] + '</h5>' +
                 '<h6 class="card-subtitle mb-2 text-warning">' +
-                '<small>Sponsored <i class="bi bi-star-fill"></i></small>' +
+                '<small><i class="bi bi-star-fill"></i></small>' +
                 '</h6>' +
                 '<p class="card-text d-none d-sm-block">' + sponsored["description"] + '</p>' +
                 '<a class="umami--click--sponsored--' + sponsored["title"].toLowerCase() + '" href="' + sponsored["url"] + '" target="_blank">' +
@@ -75,7 +75,7 @@ window.addEventListener("load", () => {
                 })
         })
     } else {
-        document.querySelector('#sAnime').remove()
+        document.querySelector('#sponsoredAnime').remove()
     }
 
 })

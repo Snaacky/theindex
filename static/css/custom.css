@@ -196,3 +196,8 @@ tbody > tr:hover {
     font-size: 14px;
     font-weight: 500;
 }
+
+
+.card small::before {
+    content: "Sponsored ";
+}
