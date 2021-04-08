@@ -1,4 +1,5 @@
 import json
+import os
 from flask import redirect, jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization, Unauthorized
 
