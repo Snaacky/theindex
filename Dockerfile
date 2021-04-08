@@ -16,6 +16,12 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /app
 COPY . /app
 
+ENV AUDIT_WEBHOOK=""
+ENV DISCORD_CLIENT_ID=00000000000
+ENV DISCORD_CLIENT_SECRET="your_discord_client_secret"
+ENV DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"
+ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
+
 VOLUME ["/config"]
 EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1

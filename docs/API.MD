@@ -14,7 +14,7 @@
 
 ## Data manipulation
 
-`POST /api/create/<table>` will create a new entry in the specified table.
+`POST /api/insert/<table>` will create a new entry in the specified table.
 
 - Payload is expected to be in JSON format and should look something like this (visualNovels example):
   ```

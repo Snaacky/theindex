@@ -22,7 +22,9 @@ docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepi
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
-responsibility to put a reverse proxy in front of this container.
+responsibility to put a reverse proxy in front of this container. After starting the container you can add your own
+[discord-id](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
+login and edit.
 
 # Updating container image
 
@@ -35,15 +37,17 @@ docker pull ranimepiracy/index
 
 Afterwards you will need to stop and remove your current running instance and start it again.
 
-# Config
+# Parameters
 
-You will need to provide a `config.py` file in `/config`, which you should have mounted
-via [container volumes](https://docs.docker.com/storage/volumes/). You can copy
-our [example configuration](config.example.py) and modify it to your needs. Alternatively you can wget it via:
+Here is a table of the possible ENV-variables with their default values.
 
-```
-wget https://raw.githubusercontent.com/ranimepiracy/index/master/config.example.py
-```
+| Parameter | Function |
+| :----: | --- |
+| `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
+| `-e DISCORD_CLIENT_ID=00000000000` | Discord client ID |
+| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord client secret |
+| `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
+| `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
 
 # Building from source
 

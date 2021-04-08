@@ -266,7 +266,7 @@ const saveTableEdit = (el) => {
     }
 
     updateRows.forEach(data => postUpdateData(id, data))
-    newRows.forEach(data => postUpdateData(id, data, "create"))
+    newRows.forEach(data => postUpdateData(id, data, "insert"))
     if (window.deletedRows[id]) {
         window.deletedRows[id].forEach(data => postDeleteRow(id, data["id"]))
     }

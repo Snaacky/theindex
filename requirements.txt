@@ -6,3 +6,5 @@ flask-discord
 
 # database
 dataset
+
+deepdiff
