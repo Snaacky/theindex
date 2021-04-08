@@ -1,25 +1,22 @@
 import json
-import os
 
-import dataset
 from flask import jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization
+
+from piracymoe import utils
 
 app = current_app
 bp = Blueprint('api', __name__)
 
-database = "".join(["sqlite:///", os.path.join("/config", "data.db")])  # TODO: Migrate to a separate db.py file
-
 
 @bp.route("/api/health")
 def health():
-    """ heartbeat """
+    """ Heartbeat used for uptime monitoring purposes. """
     return "Ok"
-
 
 @bp.route("/api/fetch/tables")
 def fetch_tables():
-    """ returns all tables """
+    """ Used by the frontend, returns a JSON list of all the tables including metadata. """
     return jsonify([
         {
             "tab": "animeTables",
@@ -146,7 +143,7 @@ def fetch_tables():
 
 @bp.route("/api/fetch/columns")
 def fetch_columns():
-    """ returns all columns """
+    """ Used by the frontend, returns a JSON list of all the columns in use with metadata. """
     return jsonify({
         "keys": {
             "siteName": {
@@ -531,8 +528,8 @@ def fetch_columns():
 
 @bp.route("/api/fetch/columns/<table>")
 def fetch_columns_by_table(table):
-    """ returns columns by table """
-    db = dataset.connect(database)
+    """ Used by the frontend, returns a JSON list of all the columns for the table specified. """
+    db = utils._get_database()
     table = db.load_table(table)
 
     if not table.exists:
@@ -543,7 +540,15 @@ def fetch_columns_by_table(table):
 
 @bp.route("/api/fetch/tables/<tab>")
 def fetch_tables_by_tab(tab):
-    """ returns tables by tab """
+    """ 
+    Used by the frontend, returns a JSON list of all the tables for the tab specified. 
+
+        Parameters:
+            tab (str): The tab requested by the frontend.
+
+        Returns:
+            data (flask.Response): Response containing a list of the tabs tables in JSON format.
+    """
     tabs = {
         "anime": ["englishAnimeSites", "foreignAnimeSites", "downloadSites"],
         "manga": ["englishMangaAggregators", "englishMangaScans", "foreignMangaAggregators", "foreignMangaScans"],
@@ -561,15 +566,30 @@ def fetch_tables_by_tab(tab):
 
 @bp.route("/api/fetch/data/<table>")
 def fetch_data_by_table(table):
-    """ returns data by table """
-    db = dataset.connect(database)
+    """ 
+    Used by the frontend, returns a JSON list of all the data (rows and columns) for the table specified. 
+
+        Parameters:
+            table (str): The table requested by the frontend.
+
+        Returns:
+            data (flask.Response): Response containing the data in JSON format.
+    """
+    db = utils._get_database()
     table = db.load_table(table)
 
     if not table.exists:
         return "table does not exist"
 
+    """ 
+    For some reason, accessing all the data in the table
+    as Python objects causes a memory leak that results
+    in memory exhaustion and an endless crash-reboot
+    loop but this manual SQL query works just fine. :^)
+    """
+    results = db.query(f"SELECT * from {table.name}")
     data = []
-    for row in table:
+    for row in results:
         row["siteAddresses"] = json.loads(row["siteAddresses"])
         data.append(row)
     return jsonify(data)
@@ -578,7 +598,45 @@ def fetch_data_by_table(table):
 @bp.route("/api/update/<table>", methods=["POST"])
 @requires_authorization
 def update_table_entry(table):
-    db = dataset.connect(database)
+    db = utils._get_database()
+    table = db.load_table(table)
+
+    # error if table doesn't exist
+    if not table.exists:
+        return "table does not exist"
+
+    # attempt to get POST data
+    data = request.get_json()
+
+    # error if did not receive POST data
+    if not data:
+        return "received no POST JSON data"
+
+    # lookup entry from POST data in database by id
+    before = table.find_one(id=data["id"])
+
+    # error if did entry did not exist in database
+    if before is None:
+        return "id does not exist"
+
+    data["siteAddresses"] = json.dumps(data["siteAddresses"])
+
+    before = dict(before)
+    after = request.get_json()
+
+    utils._send_webhook_message(user=app.discord.fetch_user(), operation="update",
+                                table=table.name, before=before, 
+                                after=after)
+
+    table.update(data, ["id"])
+    return "updated"
+
+
+@bp.route("/api/insert/<table>", methods=["POST"])
+@requires_authorization
+def insert_new_entry(table):
+    """ insert new data entry in table """
+    db = utils._get_database()
     table = db.load_table(table)
 
     if not table.exists:
@@ -588,31 +646,12 @@ def update_table_entry(table):
     if not data:
         return "received no POST JSON data"
 
-    row = table.find_one(id=data["id"])
-    if row is None:
-        return "id does not exist"
-
     data["siteAddresses"] = json.dumps(data["siteAddresses"])
-    table.update(data, ["id"])
-    return "updated"
 
-
-@bp.route("/api/create/<table>", methods=["POST"])
-@requires_authorization
-def create_new_entry(table):
-    """ creates new data entry in table, **does not create new tables** """
-    db = dataset.connect(database)
-    table = db.load_table(table)
-
-    if not table.exists:
-        return "table does not exist"
-
-    row = request.get_json()
-    if not row:
-        return "received no POST JSON data"
-
-    row["siteAddresses"] = json.dumps(row["siteAddresses"])
-    table.insert(row)
+    utils._send_webhook_message(user=app.discord.fetch_user(), operation="insert",
+                                table=table.name, after=data)
+    
+    table.insert(data)
     return "inserted"
 
 
@@ -620,15 +659,18 @@ def create_new_entry(table):
 @requires_authorization
 def delete_entry(table, id):
     """ deletes data entry in table """
-    db = dataset.connect(database)
+    db = utils._get_database()
     table = db.load_table(table)
 
     if not table.exists:
         return "table does not exist"
 
-    row = table.find_one(id=id)
-    if row is None:
+    data = table.find_one(id=id)
+    if data is None:
         return "id does not exist"
+
+    utils._send_webhook_message(user=app.discord.fetch_user(), operation="delete",
+                                table=table.name, after=data)
 
     table.delete(id=id)
     return "deleted"
