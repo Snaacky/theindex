@@ -13,7 +13,7 @@ def _get_database():
 
 def _send_webhook_message(user, operation, table, after, before=None):
     """
-    Sends a Discord webhook.
+    Sends a Discord webhook if env AUDIT_WEBHOOK set.
 
         Parameters:
             user (discord.User): Returns the Discord user object that called the route.
@@ -25,7 +25,10 @@ def _send_webhook_message(user, operation, table, after, before=None):
             after (dict): Used during update operations, the data submitted by the user to be updated in the database.
     """
 
-    webhook = "https://canary.discord.com/api/webhooks/829140853993635860/16S-j5PkBvaHO9XCplklzqGp3lLJ83xAQ3jwxRrI_EuAsNFMC6ExUCHcgovQH8E7pmJc"
+    webhook = os.environ.get('AUDIT_WEBHOOK')
+    if webhook == "":
+        return
+
     embed = {
         "embeds": [
             {
