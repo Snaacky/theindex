@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import json
 
 from flask import Flask
 from flask_discord import DiscordOAuth2Session
@@ -16,7 +17,7 @@ if os.environ.get('AUDIT_WEBHOOK') == "":
 if not os.path.isfile("/config/whitelist.json"):
     logging.warn("No whitelist file found in /config/whitelist.json, creating new")
     with open("/config/whitelist.json", "w") as f:
-        f.write("[00000000000]")
+        json.dump([9999999999], f)
 
 def create_app():
     app = Flask(__name__)

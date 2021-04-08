@@ -1,3 +1,4 @@
+import json
 from flask import redirect, jsonify, request, Blueprint, current_app
 from flask_discord import requires_authorization, Unauthorized
 
@@ -30,10 +31,12 @@ def logout():
 def callback():
     app.discord.callback()
     user = app.discord.fetch_user()
-    if user.id not in app.config["WHITELISTED_USERS"]:
-        app.discord.revoke()
-        return redirect(request.host_url + "user/logout/")
-    return redirect(request.host_url)
+    with open(os.path.join("/config", "whitelist.json")) as f:
+        whitelist = json.load(f)
+        if user.id not in whitelist:
+            app.discord.revoke()
+            return redirect(request.host_url + "user/logout/")
+        return redirect(request.host_url)
 
 
 @app.errorhandler(Unauthorized)
