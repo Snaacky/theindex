@@ -331,7 +331,7 @@ def fetch_columns():
                 },
                 {
                     "key": "features",
-                    "hidden": False
+                    "hidden": True
                 },
                 {
                     "key": "editorNotes",
@@ -409,7 +409,7 @@ def fetch_columns():
                 },
                 {
                     "key": "features",
-                    "hidden": False
+                    "hidden": True
                 },
                 {
                     "key": "editorNotes",
@@ -447,7 +447,7 @@ def fetch_columns():
                 },
                 {
                     "key": "features",
-                    "hidden": False
+                    "hidden": True
                 },
                 {
                     "key": "editorNotes",
