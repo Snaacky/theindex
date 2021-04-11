@@ -14,6 +14,8 @@
 
 ## Data manipulation
 
+These endpoints can only be accessed by authenticated users.
+
 `POST /api/insert/<table>` will create a new entry in the specified table.
 
 - Payload is expected to be in JSON format and should look something like this (visualNovels example):
