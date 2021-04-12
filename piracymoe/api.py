@@ -14,6 +14,7 @@ def health():
     """ Heartbeat used for uptime monitoring purposes. """
     return "Ok"
 
+
 @bp.route("/api/fetch/tables")
 def fetch_tables():
     """ Used by the frontend, returns a JSON list of all the tables including metadata. """
@@ -625,7 +626,7 @@ def update_table_entry(table):
     after = request.get_json()
 
     utils._send_webhook_message(user=app.discord.fetch_user(), operation="update",
-                                table=table.name, before=before, 
+                                table=table.name, before=before,
                                 after=after)
 
     table.update(data, ["id"])
@@ -650,7 +651,7 @@ def insert_new_entry(table):
 
     utils._send_webhook_message(user=app.discord.fetch_user(), operation="insert",
                                 table=table.name, after=data)
-    
+
     table.insert(data)
     return "inserted"
 
