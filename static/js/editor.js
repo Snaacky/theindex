@@ -292,6 +292,8 @@ const reloadAfterEdit = (id) => {
 
     // reset edit-history
     resetTableEditState(id)
+    window.deletedRows[id] = []
+    window.newRows[id] = []
     if (window.editedTables.includes(id)) {
         window.editedTables = window.editedTables.filter(t => t !== id)
     }
