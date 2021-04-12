@@ -31,6 +31,9 @@ const postUpdateData = (tableId, data, method = "update") => {
                 console.log(err)
             }
         })
+        .finally( () => {
+            window.saveProgress -= 1
+        })
 }
 
 const postDeleteRow = (tableId, id) => {
@@ -45,6 +48,9 @@ const postDeleteRow = (tableId, id) => {
             if (err !== "api call failed") {
                 console.log(err)
             }
+        })
+        .finally( () => {
+            window.saveProgress -= 1
         })
 }
 
@@ -265,11 +271,24 @@ const saveTableEdit = (el) => {
         return
     }
 
+    window.saveProgress = updateRows.length + newRows.length
     updateRows.forEach(data => postUpdateData(id, data))
     newRows.forEach(data => postUpdateData(id, data, "insert"))
     if (window.deletedRows[id]) {
         window.deletedRows[id].forEach(data => postDeleteRow(id, data["id"]))
     }
+
+    setTimeout(() => reloadAfterEdit(id), 500)
+}
+
+const reloadAfterEdit = (id) => {
+    if (window.saveProgress > 0) {
+        setTimeout(() => reloadAfterEdit(id), 500)
+        return console.log("Save not finished yet...")
+    }
+
+    console.log("Save finished, reload saved data")
+    window.dataTables[id].setData("/api/fetch/data/" + id)
 
     // reset edit-history
     resetTableEditState(id)
