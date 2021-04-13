@@ -42,7 +42,7 @@ const render = (cell, formatterParams, onRendered) => {
 
 const resetColumns = (table) => {
     console.log("Resetting to default columns for ", table)
-    window.columns["types"][tableById(table)["type"]].forEach(th => {
+    window.table_types[tableById(table)["type"]].forEach(th => {
         if (th["key"] === "siteName") {
             return
         }
@@ -94,7 +94,7 @@ const onlineStatusToDot = (status) => {
 }
 
 const getColumnsDefinition = (table) => {
-    let columnsShown = window.columns['types'][table["type"]].length
+    let columnsShown = window.table_types.filter(t => t["name"] === table["type"])[0]["columns"].length
     let columnData = []
 
     if (window.editMode) {
@@ -175,7 +175,7 @@ const getColumnsDefinition = (table) => {
         })
     }
 
-    window.columns['types'][table["type"]].forEach(th => {
+    window.table_types.filter(t => t["name"] === table["type"])[0]["columns"].forEach(th => {
         if (th['key'] === "siteName") {
             return
         }
@@ -198,13 +198,14 @@ const getColumnsDefinition = (table) => {
         }
 
         if (window.editMode) {
-            if (window.columns["keys"][th["key"]]["type"] === "list") {
+            let column = window.columns.filter(c => c["key"] === th["key"])[0]
+            if (column["type"] === "list") {
                 columnUpdate.editor = "select"
                 columnUpdate.editorParams = {
                     multiselect: true,
-                    values: window.columns["keys"][th["key"]]["values"]
+                    values: column["values"]
                 }
-            } else if (window.columns["keys"][th["key"]]["type"] === "check") {
+            } else if (column["type"] === "check") {
                 columnUpdate.editor = "tickCross"
                 columnUpdate.editorParams = {
                     tristate: true,
@@ -224,19 +225,20 @@ const getColumnsDefinition = (table) => {
 const generateTable = (table) => {
     console.log("Generating table", table)
     loadingLog()
-    if (!window.tables || !window.columns) {
+    if (!window.tables || !window.columns || !window.table_types) {
         console.error("Missing data: tables:", window.tables, "columns:", window.columns)
         return
     }
 
-    if (!window.columns['types'][table["type"]]) {
+    if (!window.table_types.some(t => t["name"] === table["type"])) {
         return console.error("Table type", table["type"], "could not be found")
     }
 
 
     // add column toggles
     let togglesString = ""
-    window.columns['types'][table["type"]].forEach(th => {
+    let table_type = window.table_types.filter(t => t["name"] === table["type"])[0]
+    table_type["columns"].forEach(th => {
         if (th['key'] === "siteName") {
             return
         }
@@ -249,10 +251,10 @@ const generateTable = (table) => {
             propertyName(th['key']) + '</label>' +
             '</div></div>'
     })
-    document.querySelector('#' + table['id'] + ' .toggle-row').innerHTML = togglesString
+    document.querySelector('#card-' + table['id'] + ' .toggle-row').innerHTML = togglesString
 
     try {
-        window.dataTables[table['id']] = new Tabulator("#table-" + table['id'], {
+        window.dataTables[table['key']] = new Tabulator("#table-" + table['id'], {
             maxHeight: "75vh",
             layout: "fitColumns",
             placeholder: "No data has been found...",
@@ -263,15 +265,15 @@ const generateTable = (table) => {
             columns: getColumnsDefinition(table),
             resizableColumns: false,
             history: true,
-            ajaxURL: "/api/fetch/data/" + table['id'],
+            ajaxURL: "/api/fetch/data/table_" + table['key'],
             ajaxResponse: (url, params, json) => {
                 // TODO: create an array editor for siteAddresses...
                 // this is a workaround atm
                 if (window.editMode) {
                     json.forEach(r => r["siteAddresses"] = workaroundAddressArray(r["siteAddresses"], "string"))
                 }
-                window.rawData[table['id']] = json
-                setTimeout(() => pingTable(table['id']), 1000)
+                window.rawData[table['key']] = json
+                setTimeout(() => pingTable(table['key']), 1000)
                 return json
             },
             dataChanged: () => {
@@ -280,10 +282,10 @@ const generateTable = (table) => {
                 }
 
                 console.log("Table", "#table-" + table['id'], "has been edited")
-                if (window.dataTables[table['id']]) {
-                    let undoSize = window.dataTables[table['id']].getHistoryUndoSize(),
-                        redoSize = window.dataTables[table['id']].getHistoryRedoSize(),
-                        editCells = window.dataTables[table['id']].getEditedCells().length
+                if (window.dataTables[table['key']]) {
+                    let undoSize = window.dataTables[table['key']].getHistoryUndoSize(),
+                        redoSize = window.dataTables[table['key']].getHistoryRedoSize(),
+                        editCells = window.dataTables[table['key']].getEditedCells().length
                     console.log("currently", undoSize, "undos and", redoSize, "redos available and", editCells, "edited Cells")
 
                     setEditHistoryButtonState(table['id'])
@@ -308,13 +310,13 @@ const generateTable = (table) => {
 const generateAllTables = () => {
     console.log("Populating tables with data, Status:")
     loadingLog()
-    if (!tablesReady || !columnsReady || !domReady) {
+    if (!tablesReady || !columnsReady || ! tableTypeReady || !domReady) {
         return
     }
 
     window.tables.forEach(tab => {
         tab['tables'].forEach(t => {
-            document.querySelector('#' + tab["tab"]).innerHTML += '<div class="card mb-3" id="' + t['id'] + '">' +
+            document.querySelector('#tab-' + tab["key"]).innerHTML += '<div class="card mb-3" id="card-' + t['id'] + '">' +
                 '<div class="card-header">' + t['title'] +
                 '<span class="float-end d-flex justify-content-center">' +
                 '<a class="text-decoration-none text-white collapsed" title="Show/Hide Columns" id="toggleFilter-' + t['id'] +
@@ -371,7 +373,7 @@ const generateAllTables = () => {
                 'CSV <i class="bi bi-cloud-download"></i></a></span>' +
                 '</td></tr>'
         })
-        document.querySelector('#' + tab["tab"]).innerHTML += download + '</tbody></table></div></div>'
+        document.querySelector('#tab-' + tab["key"]).innerHTML += download + '</tbody></table></div></div>'
     })
 
     document.querySelector('#tablesList').style = ""
@@ -471,8 +473,7 @@ const generateColumnsDetails = () => {
     }
 
     let accordion = ''
-    Object.keys(window.columns["keys"]).forEach(key => {
-        let column = window.columns["keys"][key]
+    window.columns.forEach(column => {
         accordion += '<div class="col rounded hover-dark p-2">' +
             '<div class="row">' +
             '<div class="col-4">' +

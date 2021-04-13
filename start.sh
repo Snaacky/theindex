@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 service nginx restart
 
+cd /app/api
+
 # migrate if db does not exists
 if [ ! -f /config/data.db ]; then
     echo "Could not find existing db, trying to run migration script"
-    python migrate.py
+    python init.py
 fi
 
 # generate a new one time flask_secret

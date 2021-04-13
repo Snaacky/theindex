@@ -18,6 +18,7 @@ if not os.path.isfile("/config/whitelist.json"):
     with open("/config/whitelist.json", "w") as f:
         json.dump([9999999999], f)
 
+
 def create_app():
     app = Flask(__name__)
 
@@ -32,10 +33,10 @@ def create_app():
     app.config["DISCORD_BOT_TOKEN"] = os.environ.get("DISCORD_BOT_TOKEN")
 
     with app.app_context():
-        from piracymoe import api
-        app.register_blueprint(api.bp)
-        from piracymoe import editor
-        app.register_blueprint(editor.bp)
+        from api import bp as api_bp
+        app.register_blueprint(api_bp)
+        from editor import bp as editor_bp
+        app.register_blueprint(editor_bp)
 
         app.discord = DiscordOAuth2Session(app)
 

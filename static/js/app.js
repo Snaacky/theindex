@@ -1,5 +1,5 @@
 // progress of async json loading
-let columnsReady, tablesReady, tablesGenerated, domReady = false
+let columnsReady, tableTypeReady, tablesReady, tablesGenerated, domReady = false
 // remember which tab has already been pinged
 let alreadyPinged = {}
 window.editedTables = []
@@ -113,10 +113,10 @@ fetch('/user/is-login')
     })
 
 // generates tables definition
-fetch('/api/fetch/tables')
+fetch('/api/fetch/tabs')
     .then(data => data.json())
-    .then(tables => {
-        window.tables = tables
+    .then(tabs => {
+        window.tables = tabs
         tablesReady = true
         console.log("Tables loaded...")
         generateAllTables()
@@ -132,6 +132,16 @@ fetch('/api/fetch/columns')
         generateAllTables()
 
         generateColumnsDetails()
+    })
+
+// get columns definition
+fetch('/api/fetch/table_types')
+    .then(data => data.json())
+    .then(types => {
+        window.table_types = types
+        tableTypeReady = true
+        console.log("Table types loaded...")
+        generateAllTables()
     })
 
 

@@ -14,7 +14,7 @@
         "type": "anime"
       },
       {
-        "id": "animeDownloadSites",
+        "id": "downloadSites",
         "title": "Download Only Sites",
         "type": "animeDownload"
       }
@@ -25,12 +25,12 @@
     "name": "Manga",
     "tables": [
       {
-        "id": "englishMangaSites",
+        "id": "englishMangaAggregators",
         "title": "Aggregators",
         "type": "manga"
       },
       {
-        "id": "foreignMangaSites",
+        "id": "foreignMangaAggregators",
         "title": "Non-English Aggregators",
         "type": "manga"
       },
@@ -42,6 +42,16 @@
       {
         "id": "foreignMangaScans",
         "title": "Non-English Scans",
+        "type": "manga"
+      },
+      {
+        "id": "manhwaScans",
+        "title": "Manhwa/Manhua/Webtoon",
+        "type": "manga"
+      },
+      {
+        "id": "comicScans",
+        "title": "Comics",
         "type": "manga"
       }
     ]
@@ -67,7 +77,7 @@
     "name": "Applications",
     "tables": [
       {
-        "id": "iOSApplications",
+        "id": "iosApplications",
         "title": "iOS",
         "type": "application"
       },
@@ -98,17 +108,22 @@
     "name": "Hentai",
     "tables": [
       {
-        "id": "hentaiAnime",
+        "id": "hentaiAnimeSites",
         "title": "Hentai Anime Streaming Sites",
         "type": "anime"
       },
       {
-        "id": "hentaiDoujinshi",
+        "id": "hentaiDoujinshiSites",
         "title": "Hentai Manga/Image Boards/LN sites",
         "type": "novel"
       },
       {
-        "id": "hentaiDownload",
+        "id": "hentaiManwhaSites",
+        "title": "Hentai Manhwa",
+        "type": "manga"
+      },
+      {
+        "id": "hentaiDownloadSites",
         "title": "Hentai Download",
         "type": "animeDownload"
       },

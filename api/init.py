@@ -1,12 +1,9 @@
+# This python file should only be run once when the server hasn't been configured yet!
+# It will generate the missing data.db with the default value and structure
+
 import json
 import os
-
-import dataset
-
-
-def get_db():
-    return "".join(["sqlite:///", os.path.join("/config", "data.db")])
-
+import db
 
 anime_type = [
     "englishAnimeSites",
@@ -123,47 +120,100 @@ def insert_db(table, entry):
             hasSimKLSupport=(entry["hasSimKLSupport"] if "hasSimKLSupport" in entry else "")
         )
 
-    with dataset.connect(get_db()) as con:
-        con[table].insert(insert_data)
+    con = db._get_database()
+    con["table_" + table].insert(insert_data)
 
 
 def transfer_table(data, table, old_name):
-    db = dataset.connect(get_db())
-    db.create_table(table)
+    db.create_table("table_" + table)
     for entry in data[old_name]:
         insert_db(table, entry)
-    print("Migrated " + old_name + " -> " + table + " to DB.")
+    print("Migrated " + old_name + " -> table_" + table + " to DB.")
 
 
-with open(os.path.join("static", "data.json"), encoding="utf8") as json_file:
-    data = json.load(json_file)
+if __name__ == "__main__":
+    with open(os.path.join('../static', 'columns.json')) as json_file:
+        columns_data = json.load(json_file)
+    with open(os.path.join('../static', 'tables.json')) as json_file:
+        tables_data = json.load(json_file)
 
-# streaming sites
-transfer_table(data, "englishAnimeSites", "englishAnimeSites")
-transfer_table(data, "foreignAnimeSites", "foreignAnimeSites")
-transfer_table(data, "downloadSites", "animeDownloadSites")
+    con = db._get_database()
 
-# manga/scans
-transfer_table(data, "englishMangaAggregators", "englishMangaSites")
-transfer_table(data, "englishMangaScans", "englishMangaScans")
-transfer_table(data, "foreignMangaAggregators", "foreignMangaSites")
-transfer_table(data, "foreignMangaScans", "foreignMangaScans")
+    for key in columns_data["keys"].keys():
+        column = columns_data["keys"][key]
+        con["columns"].insert(dict(
+            key=key,
+            name=column["name"],
+            description=column["description"],
+            type=column["type"]
+        ))
+    print("columns table generated")
 
-# novel
-transfer_table(data, "lightNovels", "lightNovels")
-transfer_table(data, "visualNovels", "visualNovels")
+    for t in columns_data["types"].keys():
+        con["table_types"].insert(dict(
+            name=t
+        ))
+        order = 0
+        for column in columns_data["types"][t]:
+            con["type_" + t].insert(dict(
+                key=column["key"],
+                hidden=column["hidden"],
+                order=order
+            ))
+            order += 1
+    print("table_types table generated")
 
-# applications
-transfer_table(data, "iosApplications", "iOSApplications")
-transfer_table(data, "androidApplications", "androidApplications")
-transfer_table(data, "windowsApplications", "windowsApplications")
-transfer_table(data, "macOSApplications", "macOSApplications")
-transfer_table(data, "browserExtensions", "browserExtensions")
+    for tab in tables_data:
+        con["tabs"].insert(dict(
+            key=tab["tab"],
+            name=tab["name"]
+        ))
 
-# hentai
-transfer_table(data, "hentaiAnimeSites", "hentaiAnime")
-transfer_table(data, "hentaiDoujinshiSites", "hentaiDoujinshi")
-transfer_table(data, "hentaiDownloadSites", "hentaiDownload")
-transfer_table(data, "hentaiApplications", "hentaiApplications")
+        order = 0
+        for table in tab["tables"]:
+            con["tables"].insert(dict(
+                key=table["id"],
+                title=table["title"],
+                type=table["type"]
+            ))
 
-print("Migration process complete.")
+            con["tab_" + tab["tab"]].insert(dict(
+                key=table["id"],
+                order=order
+            ))
+            order += 1
+    print("tables table generated")
+    print("tabs table generated")
+
+    with open(os.path.join("../static", "data.json"), encoding="utf8") as json_file:
+        old_data = json.load(json_file)
+
+    # streaming sites
+    transfer_table(old_data, "englishAnimeSites", "englishAnimeSites")
+    transfer_table(old_data, "foreignAnimeSites", "foreignAnimeSites")
+    transfer_table(old_data, "downloadSites", "animeDownloadSites")
+
+    # manga/scans
+    transfer_table(old_data, "englishMangaAggregators", "englishMangaSites")
+    transfer_table(old_data, "englishMangaScans", "englishMangaScans")
+    transfer_table(old_data, "foreignMangaAggregators", "foreignMangaSites")
+    transfer_table(old_data, "foreignMangaScans", "foreignMangaScans")
+
+    # novel
+    transfer_table(old_data, "lightNovels", "lightNovels")
+    transfer_table(old_data, "visualNovels", "visualNovels")
+
+    # applications
+    transfer_table(old_data, "iosApplications", "iOSApplications")
+    transfer_table(old_data, "androidApplications", "androidApplications")
+    transfer_table(old_data, "windowsApplications", "windowsApplications")
+    transfer_table(old_data, "macOSApplications", "macOSApplications")
+    transfer_table(old_data, "browserExtensions", "browserExtensions")
+
+    # hentai
+    transfer_table(old_data, "hentaiAnimeSites", "hentaiAnime")
+    transfer_table(old_data, "hentaiDoujinshiSites", "hentaiDoujinshi")
+    transfer_table(old_data, "hentaiDownloadSites", "hentaiDownload")
+    transfer_table(old_data, "hentaiApplications", "hentaiApplications")
+
+    print("Initialization process complete.")
