@@ -10,9 +10,11 @@ if [ ! -f /config/data.db ]; then
 fi
 
 # generate a new one time flask_secret
-flask_secret=$(makepasswd)
-echo "Generated new flask_secret: ${flask_secret}"
-echo "${flask_secret}" > /srv/.flask_secret
+if [ ! -f /srv/.flask_secret ]; then
+    flask_secret=$(makepasswd)
+    echo "Generated new flask_secret: ${flask_secret}"
+    echo "${flask_secret}" > /srv/.flask_secret
+fi
 
 # replace sponsoredAnime with dynamic string
 sponsored_anime=$(makepasswd --minchars=5 --maxchars=20 --string="abcdefghijklmnopqrstuvwxyz")

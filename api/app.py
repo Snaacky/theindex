@@ -1,28 +1,33 @@
+import json
 import logging
 import os
-import json
 
 from flask import Flask
 from flask_discord import DiscordOAuth2Session
-
-# can this be removed? TODO: test it
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
+from flask_sqlalchemy import SQLAlchemy
 
 # warn if no audit webhook has been found
 if os.environ.get('AUDIT_WEBHOOK') == "":
-    logging.warn("WARNING: No webhook for audit-log found")
+    logging.warning("No webhook for audit-log found")
 
 # create whitelist.json if not exists
 if not os.path.isfile("/config/whitelist.json"):
-    logging.warn("No whitelist file found in /config/whitelist.json, creating new")
+    logging.warning("No whitelist file found in /config/whitelist.json, creating new")
     with open("/config/whitelist.json", "w") as f:
         json.dump([9999999999], f)
+
+db = SQLAlchemy()
 
 
 def create_app():
     app = Flask(__name__)
 
-    # setting flask_secret
+    @app.route("/api/health")
+    def health():
+        """ Heartbeat used for uptime monitoring purposes. """
+        return "Ok"
+
+    # setting flask_secret, on startup it is being generated once in start.sh
     with open(os.path.join("/srv", ".flask_secret"), "rb") as secret:
         app.secret_key = secret.read()
 
@@ -32,12 +37,24 @@ def create_app():
     app.config["DISCORD_REDIRECT_URI"] = os.environ.get("DISCORD_REDIRECT_URI")
     app.config["DISCORD_BOT_TOKEN"] = os.environ.get("DISCORD_BOT_TOKEN")
 
+    # backend db
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # TODO: test on separate mariadb or postgress database
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://user:pass@some_mariadb/dbname?charset=utf8mb4"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///config/data.db"
+
     with app.app_context():
-        from api import bp as api_bp
-        app.register_blueprint(api_bp)
-        from editor import bp as editor_bp
-        app.register_blueprint(editor_bp)
+        from queries import bp as queries_bp
+        app.register_blueprint(queries_bp)
+
+        from mutations import bp as mutations_bp
+        app.register_blueprint(mutations_bp)
+
+        # blueprint for user management
+        from user import bp as user_bp
+        app.register_blueprint(user_bp)
 
         app.discord = DiscordOAuth2Session(app)
-
+        db.init_app(app)
+        # db.create_all()
     return app

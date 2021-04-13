@@ -3,7 +3,8 @@
 
 import json
 import os
-import db
+
+from app import db
 
 anime_type = [
     "englishAnimeSites",
@@ -120,7 +121,7 @@ def insert_db(table, entry):
             hasSimKLSupport=(entry["hasSimKLSupport"] if "hasSimKLSupport" in entry else "")
         )
 
-    con = db._get_database()
+    con = db.get_db()
     con["table_" + table].insert(insert_data)
 
 
@@ -137,7 +138,7 @@ if __name__ == "__main__":
     with open(os.path.join('../static', 'tables.json')) as json_file:
         tables_data = json.load(json_file)
 
-    con = db._get_database()
+    con = db.get_db()
 
     for key in columns_data["keys"].keys():
         column = columns_data["keys"][key]
