@@ -1,21 +1,5 @@
 FROM python:3.9-slim-buster
 
-# install nginx
-RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y nginx makepasswd wget && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
-
-# install needed python packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# replace default nginx conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-WORKDIR /app
-COPY . /app
-
 ENV AUDIT_WEBHOOK=""
 ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="your_discord_client_secret"
@@ -31,6 +15,22 @@ LABEL org.opencontainers.image.vendor="/r/animepiracy" \
       org.opencontainers.image.description="Webserver of piracy.moe Index" \
       org.opencontainers.image.title="Index" \
       maintainer="Community of /r/animepiracy"
+
+# install nginx
+RUN apt-get update -y && \
+    apt-get install --no-install-recommends -y nginx makepasswd wget && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# install needed python packages
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# replace default nginx conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /app
+COPY . /app
 
 # sed is for replacing windows newline
 CMD sed -i 's/\r$//' start.sh && sh start.sh
