@@ -6,7 +6,7 @@ from flask_discord import requires_authorization
 
 import utils
 from app import db
-from models import Table, Tab, Column, Data
+from models import Table, Tab, Column, Data, TableColumn
 
 bp = Blueprint('mutation_api', __name__)
 
@@ -21,12 +21,18 @@ def create_table():
     if not data:
         return "received no POST JSON data", 403
 
-    insert = Table(data["name"], data["description"], Tab.query.get(data["tab.id"]))
+    insert = Table(
+        name=data["name"],
+        description=data["description"],
+        tab_id=Tab.query.get_or_404(
+            data["tab_id"],
+            "Tab %s not found" % data["tab_id"]
+        ).id
+    )
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} created new table {data}")
-    utils._send_webhook_message(user=user, operation="insert",
-                                table=data["name"], after=data)
+    # TODO: webhook notification
 
     try:
         db.session.add(insert)
@@ -39,22 +45,19 @@ def create_table():
 @bp.route("/api/tables/<table_id>", methods=["PUT"])
 @requires_authorization
 def update_table(table_id):
+    # to modify columns of table use table-columns endpoints
     data = request.get_json()
     if not data:
         return "received no POST JSON data", 403
 
-    update = Table.query.get(table_id)
-    old = update.to_dict()
+    update = Table.query.get_or_404(table_id, "Table %s not found" % table_id)
     update.name = data["name"]
     update.description = data["description"]
-    update.tab = Tab.query.get(data["tab"])
-    update.columns = [Tab.query.get(t["tab.id"]) for t in data["columns"]]
+    update.tab_id = Tab.query.get_or_404(data["tab_id"], "Tab %s not found" % data["tab_id"]).id
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} updated table {table_id}")
-    utils._send_webhook_message(user=user, operation="update",
-                                table=update.name, before=old,
-                                after=data)
+    # TODO: webhook notification
 
     try:
         db.session.commit()
@@ -66,13 +69,11 @@ def update_table(table_id):
 @bp.route("/api/tables/<table_id>", methods=["DELETE"])
 @requires_authorization
 def delete_table(table_id):
-    table = Table.query.get(table_id)
-    data = table.to_dict()
+    table = Table.query.get_or_404(table_id, f"Table {table_id} not found")
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} deleted table {table_id}")
-    utils._send_webhook_message(user=user, operation="delete",
-                                table=data.name, after=data)
+    # TODO: webhook notification
 
     try:
         db.session.delete(table)
@@ -96,8 +97,7 @@ def create_tab():
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} created new tab {data}")
-    utils._send_webhook_message(user=user, operation="insert",
-                                table=data["name"], after=data)
+    # TODO: webhook notification
 
     try:
         db.session.add(insert)
@@ -114,17 +114,17 @@ def update_tab(tab_id):
     if not data:
         return "received no POST JSON data", 403
 
-    update = Tab.query.get(tab_id)
-    old = update.to_dict()
+    update = Tab.query.get_or_404(tab_id, f"Tab {tab_id} not found")
     update.name = data["name"]
     update.description = data["description"]
-    update.tables = [Tab.query.get(t["table.id"]) for t in data["tables"]]
+    update.tables = [Table.query.get_or_404(
+        t["table.id"],
+        f"Table {t['table.id']} not found"
+    ).id for t in data["tables"]]
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} updated tab {tab_id}")
-    utils._send_webhook_message(user=user, operation="update",
-                                table=update.name, before=old,
-                                after=data)
+    # TODO: webhook notification
 
     try:
         db.session.commit()
@@ -136,13 +136,11 @@ def update_tab(tab_id):
 @bp.route("/api/tabs/<tab_id>", methods=["DELETE"])
 @requires_authorization
 def delete_tab(tab_id):
-    delete = Tab.query.get(tab_id)
-    data = delete.to_dict()
+    delete = Tab.query.get_or_404(tab_id, f"Tab {tab_id} not found")
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} deleted tab {tab_id}")
-    utils._send_webhook_message(user=user, operation="delete",
-                                table=data.name, after=data)
+    # TODO: webhook notification
 
     try:
         db.session.delete(delete)
@@ -166,8 +164,7 @@ def create_column():
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} created new column {data}")
-    utils._send_webhook_message(user=user, operation="insert",
-                                table=data["name"], after=data)
+    # TODO: webhook notification
 
     try:
         db.session.add(insert)
@@ -184,17 +181,14 @@ def update_column(column_id):
     if not data:
         return "received no POST JSON data", 403
 
-    update = Column.query.get(column_id)
-    old = update.to_dict()
+    update = Column.query.get_or_404(column_id, "column %s not found" % column_id)
     update.name = data["name"]
+    update.column_type = data["column_type"]
     update.description = data["description"]
-    update.tab = Column.query.get(data["tab.id"])
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} updated column {column_id}")
-    utils._send_webhook_message(user=user, operation="update",
-                                table=update.name, before=old,
-                                after=data)
+    # TODO: webhook notification
 
     try:
         db.session.commit()
@@ -207,12 +201,10 @@ def update_column(column_id):
 @requires_authorization
 def delete_column(column_id):
     delete = Column.query.get_or_404(column_id, "column %s not found" % column_id)
-    data = delete.to_dict()
 
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} deleted column {column_id}")
-    utils._send_webhook_message(user=user, operation="delete",
-                                table=data.name, after=data)
+    # TODO: webhook notification
 
     try:
         db.session.delete(delete)
@@ -232,7 +224,12 @@ def create_data(table_id):
     if not data:
         return "received no POST JSON data", 403
 
-    insert = Data(json.dumps(data), Table.query.get(table_id))
+    Table.query.get_or_404(
+        table_id,
+        "table %s not found" % table_id
+    )
+
+    insert = Data(data=json.dumps(data), table_id=table_id)
     user = current_app.discord.fetch_user()
     logging.info(f"User {user} created new table {data}")
     utils._send_webhook_message(user=user, operation="insert",
@@ -296,4 +293,79 @@ def delete_entry(table_id, data_id):
         db.session.commit()
     except Exception as e:
         return "Delete of row %s in table %s failed: %s" % (data_id, table_id, str(e)), 500
+    return "Ok"
+
+
+# ------------------------------------------------------------------------------
+# table-column endpoint
+# ------------------------------------------------------------------------------
+@bp.route("/api/tables/<table_id>/columns", methods=["POST"])
+@requires_authorization
+def create_table_column(table_id):
+    data = request.get_json()
+    if not data:
+        return "received no POST JSON data", 403
+
+    t = Table.query.get(table_id)
+    if t is None:
+        return "table %s not found" % table_id, 403
+    c = Column.query.get(data["column_id"])
+    if c is None:
+        return "column %s not found" % data["column_id"], 403
+    insert = TableColumn(table_id=t.id, column_id=c.id, order=data["order"], hidden=data["hidden"])
+
+    user = current_app.discord.fetch_user()
+    logging.info(f"User {user} added column {c.id} to table {t.id}")
+    # TODO: webhook notification
+
+    try:
+        db.session.add(insert)
+        db.session.commit()
+    except Exception as e:
+        return "Addition of column %s to table %s failed: %s" % (c.id, t.id, str(e)), 500
+    return "Ok"
+
+
+@bp.route("/api/tables/<table_id>/columns/<column_id>", methods=["PUT"])
+@requires_authorization
+def update_table_column(table_id, column_id):
+    data = request.get_json()
+    if not data:
+        return "received no POST JSON data", 400
+
+    c = TableColumn.query.get_or_404(
+        (table_id, column_id),
+        "column %s not found in table %s" % (column_id, table_id)
+    )
+    c.order = data["order"]
+    c.hidden = data["hidden"]
+
+    user = current_app.discord.fetch_user()
+    logging.info(f"User {user} updated column {column_id} in table {table_id}")
+    # TODO: webhook notification
+
+    try:
+        db.session.commit()
+    except Exception as e:
+        return "Update of column %s in table %s failed: %s" % (column_id, table_id, str(e)), 500
+    return "Ok"
+
+
+@bp.route("/api/tables/<table_id>/column/<column_id>", methods=["DELETE"])
+@requires_authorization
+def delete_table_column(table_id, column_id):
+    delete = TableColumn.query.get_or_404(
+        (table_id, column_id),
+        "column %s not found in table %s" % (column_id, table_id)
+    )
+
+    user = current_app.discord.fetch_user()
+    logging.info(f"User {user} deleted column {column_id} in table {table_id}")
+    # TODO: webhook notification
+
+    try:
+        db.session.delete(delete)
+        db.session.commit()
+    except Exception as e:
+        return "Delete of column %s in table %s failed: %s" % (column_id, table_id, str(e)), 500
     return "Ok"

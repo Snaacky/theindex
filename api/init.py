@@ -38,6 +38,19 @@ app_type = [
 ]
 
 
+def check_entry(entry, key):
+    if key in entry:
+        return entry[key]
+    return ""
+
+
+def get_dict(data, keys):
+    result = dict()
+    for key in keys:
+        result[key] = check_entry(data, key)
+    return result
+
+
 def get_language(entry):
     lang = ""
     if "isEnglish" in entry:
@@ -53,75 +66,71 @@ def get_language(entry):
 
 
 def insert_db(table, entry):
-    insert_data = dict(
-        siteName=entry["siteName"],
-        siteAddresses=json.dumps(entry["siteAddresses"]),
-        isMobileFriendly=(entry["isMobileFriendly"] if "isMobileFriendly" in entry else ""),
-        features=(entry["siteFeatures"] if "siteFeatures" in entry else ""),
-        editorNotes=(entry["editorNotes"] if "editorNotes" in entry else "")
-    )
+    insert_data = get_dict(entry, [
+        "siteName",
+        "isMobileFriendly",
+        "features",
+        "editorNotes"
+    ]) | dict(siteAddresses=json.dumps(entry["siteAddresses"]))
     if table in anime_type:
-        insert_data = insert_data | dict(
-            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
-            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
-            resolution360p=(entry["360p"] if "360p" in entry else ""),
-            resolution480p=(entry["480p"] if "480p" in entry else ""),
-            resolution720p=(entry["720p"] if "720p" in entry else ""),
-            resolution1080p=(entry["1080p"] if "1080p" in entry else ""),
-            languages=get_language(entry),
-            hasSubs=(entry["hasSubs"] if "hasSubs" in entry else ""),
-            hasDubs=(entry["hasDubs"] if "hasDubs" in entry else ""),
-            hasWatermarks=(entry["hasWatermarks"] if "hasWatermarks" in entry else ""),
-            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
-            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
-            hasReleaseSchedule=(entry["hasReleaseSchedule"] if "hasReleaseSchedule" in entry else ""),
-            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
-            hasBatchDownloads=(entry["hasBatchDownloads"] if "hasBatchDownloads" in entry else "")
-        )
+        insert_data = insert_data | get_dict(entry, [
+            "hasAds",
+            "hasAntiAdblock",
+            "resolution360p",
+            "resolution480p",
+            "resolution720p",
+            "resolution1080p",
+            "hasSubs",
+            "hasDubs",
+            "hasWatermarks",
+            "malSyncSupport",
+            "hasDisqusSupport",
+            "hasReleaseSchedule",
+            "hasDirectDownloads",
+            "hasBatchDownloads"
+        ]) | dict(languages=get_language(entry))
     elif table in download_type:
-        insert_data = insert_data | dict(
-            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
-            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
-            resolution360p=(entry["360p"] if "360p" in entry else ""),
-            resolution480p=(entry["480p"] if "480p" in entry else ""),
-            resolution720p=(entry["720p"] if "720p" in entry else ""),
-            resolution1080p=(entry["1080p"] if "1080p" in entry else ""),
-            languages=get_language(entry),
-            hasSubs=(entry["hasSubs"] if "hasSubs" in entry else ""),
-            hasDubs=(entry["hasDubs"] if "hasDubs" in entry else ""),
-            hasWatermarks=(entry["hasWatermarks"] if "hasWatermarks" in entry else ""),
-            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
-            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
-            hasReleaseSchedule=(entry["hasReleaseSchedule"] if "hasReleaseSchedule" in entry else ""),
-            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
-            hasBatchDownloads=(entry["hasBatchDownloads"] if "hasBatchDownloads" in entry else ""),
-            hasTorrents=(entry["hasTorrents"] if "hasTorrents" in entry else "")
-        )
+        insert_data = insert_data | get_dict(entry, [
+            "hasAds",
+            "hasAntiAdblock",
+            "resolution360p",
+            "resolution480p",
+            "resolution720p",
+            "resolution1080p",
+            "hasSubs",
+            "hasDubs",
+            "hasWatermarks",
+            "malSyncSupport",
+            "hasDisqusSupport",
+            "hasReleaseSchedule",
+            "hasDirectDownloads",
+            "hasBatchDownloads",
+            "hasTorrents"
+        ]) | dict(languages=get_language(entry))
     elif table in manga_type:
-        insert_data = insert_data | dict(
-            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
-            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
-            languages=get_language(entry),
-            malSyncSupport=(entry["malSyncSupport"] if "malSyncSupport" in entry else ""),
-            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
-            hasTachiyomiSupport=(entry["hasTachiyomiSupport"] if "hasTachiyomiSupport" in entry else "")
-        )
+        insert_data = insert_data | get_dict(entry, [
+            "hasAds",
+            "hasAntiAdblock",
+            "malSyncSupport",
+            "hasDisqusSupport",
+            "hasTachiyomiSupport"
+        ]) | dict(languages=get_language(entry))
     elif table in novel_type:
-        insert_data = insert_data | dict(
-            hasAds=(entry["hasAds"] if "hasAds" in entry else ""),
-            hasAntiAdblock=(entry["isAntiAdblock"] if "isAntiAdblock" in entry else ""),
-            languages=get_language(entry),
-            hasDisqusSupport=(entry["hasDisqusSupport"] if "hasDisqusSupport" in entry else ""),
-            hasDirectDownloads=(entry["hasDirectDownloads"] if "hasDirectDownloads" in entry else ""),
-            hasMTL=(entry["hasMTL"] if "hasMTL" in entry else "")
-        )
+        insert_data = insert_data | get_dict(entry, [
+            "hasAds",
+            "hasAntiAdblock",
+            "malSyncSupport",
+            "hasDisqusSupport",
+            "hasDirectDownloads",
+            "hasMTL"
+        ]) | dict(languages=get_language(entry))
     elif table in app_type:
-        insert_data = insert_data | dict(
-            hasMalSupport=(entry["hasMalSupport"] if "hasMalSupport" in entry else ""),
-            hasAnilistSupport=(entry["hasAnilistSupport"] if "hasAnilistSupport" in entry else ""),
-            hasKitsuSupport=(entry["hasKitsuSupport"] if "hasKitsuSupport" in entry else ""),
-            hasSimKLSupport=(entry["hasSimKLSupport"] if "hasSimKLSupport" in entry else "")
-        )
+        insert_data = insert_data | get_dict(entry, [
+            "hasMalSupport",
+            "hasAnilistSupport",
+            "hasKitsuSupport",
+            "hasSimKLSupport"
+        ])
 
     t = Table.query.filter_by(name=table).first()
     d = Data(data=json.dumps(insert_data), table_id=t.id)
@@ -129,10 +138,10 @@ def insert_db(table, entry):
     db.session.commit()
 
 
-def transfer_table(data, table, old_name):
-    for entry in data[old_name]:
+def transfer_table(data, table):
+    for entry in data[table]:
         insert_db(table, entry)
-    print("Migrated " + old_name + " -> table_" + table + " to DB.")
+    print("Migrated " + table + " to DB.")
 
 
 if __name__ == "__main__":
@@ -194,31 +203,31 @@ if __name__ == "__main__":
             old_data = json.load(json_file)
 
         # streaming sites
-        transfer_table(old_data, "englishAnimeSites", "englishAnimeSites")
-        transfer_table(old_data, "foreignAnimeSites", "foreignAnimeSites")
-        transfer_table(old_data, "downloadSites", "animeDownloadSites")
+        transfer_table(old_data, "englishAnimeSites")
+        transfer_table(old_data, "foreignAnimeSites")
+        transfer_table(old_data, "downloadSites")
 
         # manga/scans
-        transfer_table(old_data, "englishMangaAggregators", "englishMangaSites")
-        transfer_table(old_data, "englishMangaScans", "englishMangaScans")
-        transfer_table(old_data, "foreignMangaAggregators", "foreignMangaSites")
-        transfer_table(old_data, "foreignMangaScans", "foreignMangaScans")
+        transfer_table(old_data, "englishMangaAggregators")
+        transfer_table(old_data, "englishMangaScans")
+        transfer_table(old_data, "foreignMangaAggregators")
+        transfer_table(old_data, "foreignMangaScans")
 
         # novel
-        transfer_table(old_data, "lightNovels", "lightNovels")
-        transfer_table(old_data, "visualNovels", "visualNovels")
+        transfer_table(old_data, "lightNovels")
+        transfer_table(old_data, "visualNovels")
 
         # applications
-        transfer_table(old_data, "iosApplications", "iOSApplications")
-        transfer_table(old_data, "androidApplications", "androidApplications")
-        transfer_table(old_data, "windowsApplications", "windowsApplications")
-        transfer_table(old_data, "macOSApplications", "macOSApplications")
-        transfer_table(old_data, "browserExtensions", "browserExtensions")
+        transfer_table(old_data, "iosApplications")
+        transfer_table(old_data, "androidApplications")
+        transfer_table(old_data, "windowsApplications")
+        transfer_table(old_data, "macOSApplications")
+        transfer_table(old_data, "browserExtensions")
 
         # hentai
-        transfer_table(old_data, "hentaiAnimeSites", "hentaiAnime")
-        transfer_table(old_data, "hentaiDoujinshiSites", "hentaiDoujinshi")
-        transfer_table(old_data, "hentaiDownloadSites", "hentaiDownload")
-        transfer_table(old_data, "hentaiApplications", "hentaiApplications")
+        transfer_table(old_data, "hentaiAnimeSites")
+        transfer_table(old_data, "hentaiDoujinshiSites")
+        transfer_table(old_data, "hentaiDownloadSites")
+        transfer_table(old_data, "hentaiApplications")
 
         print("Initialization process complete.")

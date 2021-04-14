@@ -17,7 +17,7 @@ class Tab(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "tables": [t.to_dict() for t in self.tables]
+            "tables": [t.id for t in self.tables]
         }
 
 
@@ -47,8 +47,8 @@ class Table(db.Model):
             "tab_id": self.tab_id,
             "name": self.name,
             "description": self.description,
-            "columns": [t.to_dict() for t in self.columns],
-            "data": [t.to_dict() for t in self.data]
+            "columns": [t.column_id for t in self.columns],
+            "data": [t.id for t in self.data]
         }
 
 

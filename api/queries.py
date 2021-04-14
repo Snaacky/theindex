@@ -27,9 +27,10 @@ def resolve_tables():
 @bp.route("/api/tables/<table_id>", methods=["GET"])
 def resolve_table(table_id):
     try:
-        table = Table.query.get(table_id)
-        if table is None:
-            return f"table {table_id} not found", 404
+        table = Table.query.get_or_404(
+            table_id,
+            f"table {table_id} not found"
+        )
         return jsonify(table.to_dict())
     except Exception as e:
         return str(e), 500
@@ -49,9 +50,10 @@ def resolve_tabs():
 @bp.route("/api/tabs/<tab_id>", methods=["GET"])
 def resolve_tab(tab_id):
     try:
-        tab = Tab.query.get(tab_id)
-        if tab is None:
-            return f"tab {tab_id} not found", 404
+        tab = Tab.query.get_or_404(
+            tab_id,
+            f"tab {tab_id} not found"
+        )
         return jsonify(tab.to_dict())
     except Exception as e:
         return str(e), 500
@@ -71,9 +73,10 @@ def resolve_columns():
 @bp.route("/api/columns/<column_id>", methods=["GET"])
 def resolve_column(column_id):
     try:
-        column = Column.query.get(column_id)
-        if column is None:
-            return f"column {column_id} not found", 404
+        column = Column.query.get_or_404(
+            column_id,
+            f"Column {column_id} not found"
+        )
         return jsonify(column.to_dict())
     except Exception as e:
         return str(e), 500
@@ -85,7 +88,8 @@ def resolve_column(column_id):
 @bp.route("/api/tables/<table_id>/data", methods=["GET"])
 def resolve_data(table_id):
     try:
-        results = [json.loads(c.data) | dict(id=c.id) for c in Data.query.filter(Data.table.id == table_id).all()]
+        t = Table.query.get_or_404(table_id, f"Table {table_id} not found")
+        results = [json.loads(c.data) | dict(id=c.id) for c in t.data]
         return jsonify(results)
     except Exception as e:
         return str(e), 500
