@@ -5,16 +5,32 @@ import 'package:http/http.dart' as http;
 // for debugging only, on prod everything will be relative, meaning domain = ""
 var domain = "http://localhost:8080";
 
+Future<bool> health() async {
+  return http.get(Uri.parse(domain + '/api/health')).then((resp) {
+    return resp.statusCode == 200;
+  }, onError: (e) {
+    return false;
+  });
+}
+
 class Tab {
   final int id;
   String name;
   String description;
-  List<int> tables;
+  List<int>? tables;
 
-  Tab(this.id, this.name, this.description);
+  Tab({
+    required this.id,
+    this.name = "",
+    this.description = "",
+  });
 
   factory Tab.fromJson(Map<String, dynamic> json) {
-    return Tab(json["id"], json["name"], json["description"]);
+    return Tab(
+      id: json["id"],
+      name: json["name"],
+      description: json["description"],
+    );
   }
 
   static Future<Tab> fetch(int id) async {
@@ -36,18 +52,18 @@ class Table {
   final int id;
   String name;
   String description;
-  int tabId;
+  int? tabId;
 
   // data should be fetched via /api/tables/<id>/data
-  List<int> data;
+  List<int>? data;
 
   // columns should be fetched via /api/tables/<id>/columns
-  List<int> columns;
+  List<int>? columns;
 
   Table({
-    this.id,
-    this.name,
-    this.description,
+    required this.id,
+    this.name = "",
+    this.description = "",
     this.tabId,
     this.data,
     this.columns,
@@ -85,7 +101,12 @@ class Column {
   String description;
   String columnType;
 
-  Column({this.id, this.name, this.description, this.columnType});
+  Column({
+    required this.id,
+    this.name = "",
+    this.description = "",
+    this.columnType = "text",
+  });
 
   factory Column.fromJson(Map<String, dynamic> json) {
     return Column(

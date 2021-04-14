@@ -1,18 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:index/api.dart' as api;
 
-var domain = "http://localhost:8080";
-
 void main() {
-  var url = Uri.parse(domain + '/api/health');
-  print("url is $url");
-  http.get(url).then((value) {
-    print('Response status: ${value.statusCode}');
-    print('Response body: ${value.body}');
-  }, onError: (e) {
-    print('Request failed: $e');
-  });
   runApp(App());
 }
 
@@ -26,25 +15,12 @@ class App extends StatelessWidget {
         // https://flutter.dev/docs/cookbook/design/themes
         primarySwatch: Colors.blue,
       ),
-      home: LandingPage(title: 'Flutter Demo Home Page'),
+      home: LandingPage(),
     );
   }
 }
 
 class LandingPage extends StatefulWidget {
-  LandingPage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -57,12 +33,23 @@ class _LandingPageState extends State<LandingPage> {
       _counter++;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    api.health().then((alive) {
+      if (alive) {
+        print("Yeah! API is still alive!");
+      } else {
+        print("Oh no... API seems not to be okay");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("/r/animepiracy Index"),
       ),
       body: Center(
         child: Column(
@@ -90,7 +77,7 @@ class _LandingPageState extends State<LandingPage> {
 class TabPage extends StatefulWidget {
   final int id;
 
-  const TabPage({Key key, this.id}) : super(key: key);
+  const TabPage({required this.id}) : super();
 
   @override
   _TabPageState createState() => _TabPageState();
