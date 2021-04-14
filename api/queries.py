@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 
 from flask import jsonify, Blueprint
 
@@ -12,6 +13,12 @@ bp = Blueprint('queries_api', __name__)
 def health():
     """Heartbeat used for uptime monitoring purposes."""
     return "Ok"
+
+
+@bp.after_request
+def apply_caching(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 # ------------------------------------------------------------------------------
