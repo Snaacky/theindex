@@ -1,3 +1,16 @@
+# ------------------------------------------------------------------------------
+# Flutter Build Stage
+# ------------------------------------------------------------------------------
+FROM cirrusci/flutter:2.0.4 as flutter-build
+
+WORKDIR /app
+COPY . .
+
+RUN flutter build web
+
+# ------------------------------------------------------------------------------
+# Final Stage
+# ------------------------------------------------------------------------------
 FROM python:3.9-slim-buster
 
 ENV AUDIT_WEBHOOK=""
@@ -30,7 +43,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /app
-COPY . /app
+COPY api /app
+COPY --from=flutter-build /app/build/web /usr/share/nginx/html
 
 # sed is for replacing windows newline
 CMD sed -i 's/\r$//' start.sh && sh start.sh
