@@ -2,9 +2,11 @@
 # It will generate the missing data.db with the default value and structure
 
 import json
+import logging
 import os
 
-from app import db
+from models import Column, TableColumn, Tab, Table, Data
+from app import create_app, db
 
 anime_type = [
     "englishAnimeSites",
@@ -121,12 +123,13 @@ def insert_db(table, entry):
             hasSimKLSupport=(entry["hasSimKLSupport"] if "hasSimKLSupport" in entry else "")
         )
 
-    con = db.get_db()
-    con["table_" + table].insert(insert_data)
+    t = Table.query.filter_by(name=table).first()
+    d = Data(data=json.dumps(insert_data), table_id=t.id)
+    db.session.add(d)
+    db.session.commit()
 
 
 def transfer_table(data, table, old_name):
-    db.create_table("table_" + table)
     for entry in data[old_name]:
         insert_db(table, entry)
     print("Migrated " + old_name + " -> table_" + table + " to DB.")
@@ -138,83 +141,84 @@ if __name__ == "__main__":
     with open(os.path.join('../static', 'tables.json')) as json_file:
         tables_data = json.load(json_file)
 
-    con = db.get_db()
+    with create_app().app_context():
+        for key in columns_data["keys"].keys():
+            c = columns_data["keys"][key]
+            col = Column(
+                name=c["name"],
+                column_type=c["type"],
+                description=c["description"]
+            )
+            db.session.add(col)
+        db.session.commit()
+        print("column table generated")
+        for c in Column.query.all():
+            print(c.to_dict())
 
-    for key in columns_data["keys"].keys():
-        column = columns_data["keys"][key]
-        con["columns"].insert(dict(
-            key=key,
-            name=column["name"],
-            description=column["description"],
-            type=column["type"]
-        ))
-    print("columns table generated")
+        for tab in tables_data:
+            db.session.add(Tab(name=tab["tab"], description=tab["name"]))
+            db.session.commit()
+            order = 0
+            gen_tab = Tab.query.filter_by(name=tab["tab"]).first()
+            for t in tab["tables"]:
+                db.session.add(Table(name=t["id"], tab_id=gen_tab.id, description=t["title"], order=order))
+                order += 1
+        db.session.commit()
+        print("tables table generated")
+        print("tabs table generated")
+        for c in Table.query.all():
+            print(c.to_dict())
+        for c in Tab.query.all():
+            print(c.to_dict())
 
-    for t in columns_data["types"].keys():
-        con["table_types"].insert(dict(
-            name=t
-        ))
-        order = 0
-        for column in columns_data["types"][t]:
-            con["type_" + t].insert(dict(
-                key=column["key"],
-                hidden=column["hidden"],
-                order=order
-            ))
-            order += 1
-    print("table_types table generated")
+        for tab in tables_data:
+            for t in tab["tables"]:
+                order = 0
+                for c in columns_data["types"][t["type"]]:
+                    col = Column.query.filter_by(name=columns_data["keys"][c["key"]]["name"]).first()
+                    table = Table.query.filter_by(name=t["id"]).first()
+                    tc = TableColumn(
+                        table_id=table.id,
+                        column_id=col.id,
+                        order=order,
+                        hidden=c["hidden"]
+                    )
+                    db.session.add(tc)
+                    order += 1
+        db.session.commit()
+        print("tablecolumn table generated")
+        for c in TableColumn.query.all():
+            print(c.to_dict())
 
-    for tab in tables_data:
-        con["tabs"].insert(dict(
-            key=tab["tab"],
-            name=tab["name"]
-        ))
+        with open(os.path.join("../static", "data.json"), encoding="utf8") as json_file:
+            old_data = json.load(json_file)
 
-        order = 0
-        for table in tab["tables"]:
-            con["tables"].insert(dict(
-                key=table["id"],
-                title=table["title"],
-                type=table["type"]
-            ))
+        # streaming sites
+        transfer_table(old_data, "englishAnimeSites", "englishAnimeSites")
+        transfer_table(old_data, "foreignAnimeSites", "foreignAnimeSites")
+        transfer_table(old_data, "downloadSites", "animeDownloadSites")
 
-            con["tab_" + tab["tab"]].insert(dict(
-                key=table["id"],
-                order=order
-            ))
-            order += 1
-    print("tables table generated")
-    print("tabs table generated")
+        # manga/scans
+        transfer_table(old_data, "englishMangaAggregators", "englishMangaSites")
+        transfer_table(old_data, "englishMangaScans", "englishMangaScans")
+        transfer_table(old_data, "foreignMangaAggregators", "foreignMangaSites")
+        transfer_table(old_data, "foreignMangaScans", "foreignMangaScans")
 
-    with open(os.path.join("../static", "data.json"), encoding="utf8") as json_file:
-        old_data = json.load(json_file)
+        # novel
+        transfer_table(old_data, "lightNovels", "lightNovels")
+        transfer_table(old_data, "visualNovels", "visualNovels")
 
-    # streaming sites
-    transfer_table(old_data, "englishAnimeSites", "englishAnimeSites")
-    transfer_table(old_data, "foreignAnimeSites", "foreignAnimeSites")
-    transfer_table(old_data, "downloadSites", "animeDownloadSites")
+        # applications
+        transfer_table(old_data, "iosApplications", "iOSApplications")
+        transfer_table(old_data, "androidApplications", "androidApplications")
+        transfer_table(old_data, "windowsApplications", "windowsApplications")
+        transfer_table(old_data, "macOSApplications", "macOSApplications")
+        transfer_table(old_data, "browserExtensions", "browserExtensions")
 
-    # manga/scans
-    transfer_table(old_data, "englishMangaAggregators", "englishMangaSites")
-    transfer_table(old_data, "englishMangaScans", "englishMangaScans")
-    transfer_table(old_data, "foreignMangaAggregators", "foreignMangaSites")
-    transfer_table(old_data, "foreignMangaScans", "foreignMangaScans")
+        # hentai
+        transfer_table(old_data, "hentaiAnimeSites", "hentaiAnime")
+        transfer_table(old_data, "hentaiDoujinshiSites", "hentaiDoujinshi")
+        transfer_table(old_data, "hentaiDownloadSites", "hentaiDownload")
+        transfer_table(old_data, "hentaiApplications", "hentaiApplications")
 
-    # novel
-    transfer_table(old_data, "lightNovels", "lightNovels")
-    transfer_table(old_data, "visualNovels", "visualNovels")
-
-    # applications
-    transfer_table(old_data, "iosApplications", "iOSApplications")
-    transfer_table(old_data, "androidApplications", "androidApplications")
-    transfer_table(old_data, "windowsApplications", "windowsApplications")
-    transfer_table(old_data, "macOSApplications", "macOSApplications")
-    transfer_table(old_data, "browserExtensions", "browserExtensions")
-
-    # hentai
-    transfer_table(old_data, "hentaiAnimeSites", "hentaiAnime")
-    transfer_table(old_data, "hentaiDoujinshiSites", "hentaiDoujinshi")
-    transfer_table(old_data, "hentaiDownloadSites", "hentaiDownload")
-    transfer_table(old_data, "hentaiApplications", "hentaiApplications")
-
-    print("Initialization process complete.")
+        print("Initialization process complete.")

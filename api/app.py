@@ -41,7 +41,10 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     # TODO: test on separate mariadb or postgress database
     # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://user:pass@some_mariadb/dbname?charset=utf8mb4"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///config/data.db"
+    # internally it will be mapped to "sqlite:///your/path/<os.get_cwd()>/data.sqlite3"
+    # or "sqlite:///your/path//app/api/data.sqlite3".... why?
+    # TODO: move away from sqlite
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.sqlite3"
 
     with app.app_context():
         from queries import bp as queries_bp
@@ -56,5 +59,5 @@ def create_app():
 
         app.discord = DiscordOAuth2Session(app)
         db.init_app(app)
-        # db.create_all()
+        db.create_all()
     return app
