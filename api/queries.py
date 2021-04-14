@@ -1,6 +1,5 @@
 import json
 import logging
-import os
 
 from flask import jsonify, Blueprint
 
