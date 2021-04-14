@@ -144,9 +144,9 @@ def transfer_table(data, table):
 
 
 if __name__ == "__main__":
-    with open(os.path.join('../static', 'columns.json')) as json_file:
+    with open(os.path.join('static', 'columns.json')) as json_file:
         columns_data = json.load(json_file)
-    with open(os.path.join('../static', 'tables.json')) as json_file:
+    with open(os.path.join('static', 'tables.json')) as json_file:
         tables_data = json.load(json_file)
 
     with create_app().app_context():
@@ -198,7 +198,7 @@ if __name__ == "__main__":
         for c in TableColumn.query.all():
             print(c.to_dict())
 
-        with open(os.path.join("../static", "data.json"), encoding="utf8") as json_file:
+        with open(os.path.join("static", "data.json"), encoding="utf8") as json_file:
             old_data = json.load(json_file)
 
         # streaming sites

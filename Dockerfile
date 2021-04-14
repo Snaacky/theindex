@@ -3,9 +3,16 @@
 # ------------------------------------------------------------------------------
 FROM cirrusci/flutter:2.0.4 as flutter-build
 
+# Copy as few files as possible to take advantage of build caching
+# and as this is a build image, they number of layers don't matter
 WORKDIR /app
-COPY . .
+COPY lib/ lib/
+COPY web/ web/
+COPY test/ test/
+COPY .metadata .
+COPY pubspec.yaml .
 
+# build the web app
 RUN flutter build web
 
 # ------------------------------------------------------------------------------
@@ -29,22 +36,23 @@ LABEL org.opencontainers.image.vendor="/r/animepiracy" \
       org.opencontainers.image.title="Index" \
       maintainer="Community of /r/animepiracy"
 
-# install nginx
+# copy python requirements beforehand for improved building caching
+COPY api/requirements.txt .
+
+# install nginx and needed python packages
 RUN apt-get update -y && \
     apt-get install --no-install-recommends -y nginx makepasswd wget && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
-
-# install needed python packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+    rm -rf /var/lib/apt/lists/* && \
+    pip install --no-cache-dir -r requirements.txt
 
 # replace default nginx conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+# copy build web app
+COPY --from=flutter-build /app/build/web /usr/share/nginx/html
 
 WORKDIR /app
-COPY api /app
-COPY --from=flutter-build /app/build/web /usr/share/nginx/html
+COPY api .
 
 # sed is for replacing windows newline
 CMD sed -i 's/\r$//' start.sh && sh start.sh

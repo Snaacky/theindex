@@ -14,7 +14,6 @@ sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/static/js/sponsored.js
 sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/index.html
 
 mkdir -p /config
-cd /app/api || return
 
 # migrate if db does not exists
 if [ ! -f /config/data.db ]; then

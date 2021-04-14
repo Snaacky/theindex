@@ -1,6 +1,5 @@
 import json
 import logging
-
 from flask import Blueprint, request, current_app
 from flask_discord import requires_authorization
 
@@ -318,12 +317,14 @@ def create_table_column(table_id):
     if not data:
         return "received no POST JSON data", 403
 
-    t = Table.query.get(table_id)
-    if t is None:
-        return "table %s not found" % table_id, 403
-    c = Column.query.get(data["column_id"])
-    if c is None:
-        return "column %s not found" % data["column_id"], 403
+    t = Table.query.get_or_404(
+        table_id,
+        "table %s not found" % table_id
+    )
+    c = Column.query.get_or_404(
+        data["column_id"],
+        "column %s not found" % data["column_id"]
+    )
     insert = TableColumn(table_id=t.id, column_id=c.id, order=data["order"], hidden=data["hidden"])
 
     user = current_app.discord.fetch_user()
