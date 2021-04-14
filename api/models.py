@@ -9,8 +9,7 @@ class Tab(db.Model):
         'Table',
         backref="tab",
         lazy=True,
-        uselist=True,
-        # primaryjoin="foreign(Tab.id) == remote(Table.tab_id)"
+        uselist=True
     )
 
     def to_dict(self):

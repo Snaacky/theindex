@@ -22,11 +22,6 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    @app.route("/api/health")
-    def health():
-        """ Heartbeat used for uptime monitoring purposes. """
-        return "Ok"
-
     # setting flask_secret, on startup it is being generated once in start.sh
     with open(os.path.join("/srv", ".flask_secret"), "rb") as secret:
         app.secret_key = secret.read()

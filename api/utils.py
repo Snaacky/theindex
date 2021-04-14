@@ -5,6 +5,7 @@ import urllib3
 from deepdiff import DeepDiff
 
 
+# TODO: adjust for more general notifications
 def _send_webhook_message(user, operation, table, after, before=None):
     """
     Sends a Discord webhook if env AUDIT_WEBHOOK set.

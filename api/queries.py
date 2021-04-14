@@ -7,6 +7,12 @@ from models import Table, Tab, Column, Data
 bp = Blueprint('queries_api', __name__)
 
 
+@bp.route("/api/health")
+def health():
+    """Heartbeat used for uptime monitoring purposes."""
+    return "Ok"
+
+
 # ------------------------------------------------------------------------------
 # tables endpoint
 # ------------------------------------------------------------------------------
