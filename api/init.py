@@ -2,11 +2,10 @@
 # It will generate the missing data.db with the default value and structure
 
 import json
-import logging
 import os
 
-from models import Column, TableColumn, Tab, Table, Data
 from app import create_app, db
+from models import Column, TableColumn, Tab, Table, Data
 
 anime_type = [
     "englishAnimeSites",

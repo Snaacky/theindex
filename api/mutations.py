@@ -38,7 +38,8 @@ def create_table():
         db.session.add(insert)
         db.session.commit()
     except Exception as e:
-        return "Insert table %s failed: %s" % (data, str(e)), 500
+        logging.error("Insert table %s failed: %s" % (data, str(e)))
+        return 500
     return "Ok"
 
 
@@ -62,7 +63,8 @@ def update_table(table_id):
     try:
         db.session.commit()
     except Exception as e:
-        return "Update of table %s failed: %s" % (table_id, str(e)), 500
+        logging.error("Update of table %s failed: %s" % (table_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -79,7 +81,8 @@ def delete_table(table_id):
         db.session.delete(table)
         db.session.commit()
     except Exception as e:
-        return "Delete of table %s failed: %s" % (table_id, str(e)), 500
+        logging.error("Delete of table %s failed: %s" % (table_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -103,7 +106,8 @@ def create_tab():
         db.session.add(insert)
         db.session.commit()
     except Exception as e:
-        return "Insert tab %s failed: %s" % (data, str(e)), 500
+        logging.error("Insert tab %s failed: %s" % (data, str(e)))
+        return 500
     return "Ok"
 
 
@@ -129,7 +133,8 @@ def update_tab(tab_id):
     try:
         db.session.commit()
     except Exception as e:
-        return "Update of tab %s failed: %s" % (tab_id, str(e)), 500
+        logging.error("Update of tab %s failed: %s" % (tab_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -146,7 +151,8 @@ def delete_tab(tab_id):
         db.session.delete(delete)
         db.session.commit()
     except Exception as e:
-        return "Delete of tab %s failed: %s" % (tab_id, str(e)), 500
+        logging.error("Delete of tab %s failed: %s" % (tab_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -170,7 +176,8 @@ def create_column():
         db.session.add(insert)
         db.session.commit()
     except Exception as e:
-        return "Insert column %s failed: %s" % (data, str(e)), 500
+        logging.error("Insert column %s failed: %s" % (data, str(e)))
+        return 500
     return "Ok"
 
 
@@ -193,7 +200,8 @@ def update_column(column_id):
     try:
         db.session.commit()
     except Exception as e:
-        return "Update of column %s failed: %s" % (column_id, str(e)), 500
+        logging.error("Update of column %s failed: %s" % (column_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -210,7 +218,8 @@ def delete_column(column_id):
         db.session.delete(delete)
         db.session.commit()
     except Exception as e:
-        return "Delete of column %s failed: %s" % (column_id, str(e)), 500
+        logging.error("Delete of column %s failed: %s" % (column_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -239,7 +248,8 @@ def create_data(table_id):
         db.session.add(insert)
         db.session.commit()
     except Exception as e:
-        return "Insert table %s failed: %s" % (data, str(e)), 500
+        logging.error("Insert table %s failed: %s" % (data, str(e)))
+        return 500
     return "Ok"
 
 
@@ -270,7 +280,8 @@ def update_data(table_id, data_id):
     try:
         db.session.commit()
     except Exception as e:
-        return "Update of row %s in table %s failed: %s" % (data_id, table_id, str(e)), 500
+        logging.error("Update of row %s in table %s failed: %s" % (data_id, table_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -292,7 +303,8 @@ def delete_entry(table_id, data_id):
         db.session.delete(delete)
         db.session.commit()
     except Exception as e:
-        return "Delete of row %s in table %s failed: %s" % (data_id, table_id, str(e)), 500
+        logging.error("Delete of row %s in table %s failed: %s" % (data_id, table_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -322,7 +334,8 @@ def create_table_column(table_id):
         db.session.add(insert)
         db.session.commit()
     except Exception as e:
-        return "Addition of column %s to table %s failed: %s" % (c.id, t.id, str(e)), 500
+        logging.error("Addition of column %s to table %s failed: %s" % (c.id, t.id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -347,7 +360,8 @@ def update_table_column(table_id, column_id):
     try:
         db.session.commit()
     except Exception as e:
-        return "Update of column %s in table %s failed: %s" % (column_id, table_id, str(e)), 500
+        logging.error("Update of column %s in table %s failed: %s" % (column_id, table_id, str(e)))
+        return 500
     return "Ok"
 
 
@@ -367,5 +381,6 @@ def delete_table_column(table_id, column_id):
         db.session.delete(delete)
         db.session.commit()
     except Exception as e:
-        return "Delete of column %s in table %s failed: %s" % (column_id, table_id, str(e)), 500
+        logging.error("Delete of column %s in table %s failed: %s" % (column_id, table_id, str(e)))
+        return 500
     return "Ok"

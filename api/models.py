@@ -93,8 +93,8 @@ class TableColumn(db.Model):
 
     def to_dict(self):
         return {
-            "table_id": self.table_id,
-            "column_id": self.column_id,
-            "order": self.order,
-            "hidden": self.hidden
-        } | self.column.to_dict()
+                   "table_id": self.table_id,
+                   "column_id": self.column_id,
+                   "order": self.order,
+                   "hidden": self.hidden
+               } | self.column.to_dict()
