@@ -80,7 +80,6 @@ class Column(db.Model):
         }
 
 
-# TODO: add manipulation of hidden and order
 class TableColumn(db.Model):
     table_id = db.Column(db.Integer, db.ForeignKey('table.id'), primary_key=True)
     column_id = db.Column(db.Integer, db.ForeignKey('column.id'), primary_key=True)
