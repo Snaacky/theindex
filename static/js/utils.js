@@ -29,7 +29,7 @@ const calcTextWidth = (text) => {
 const propertyName = (property) => {
     if (columnsReady) {
         try {
-            return window.columns.filter(c => c["key"] === property)[0]["name"]
+            return window.columns.filter((c) => c["key"] === property)[0]["name"]
         } catch (e) {
             console.error("Property", property, "has no name", e)
         }
