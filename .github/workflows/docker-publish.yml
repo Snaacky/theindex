@@ -1,6 +1,6 @@
 name: Docker
 
-on: [push, pull_request]
+on: [push]
 
 env:
   IMAGE_NAME: index-web
