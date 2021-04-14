@@ -41,7 +41,7 @@ const propertyName = (property) => {
 const propertyDescription = (property) => {
     if (columnsReady) {
         try {
-            return window.columns.filter(c => c["key"] === property)[0]["description"]
+            return window.columns.filter((c) => c["key"] === property)[0]["description"]
         } catch (e) {
             console.error("Property", property, "has no description", e)
         }
