@@ -43,7 +43,7 @@ def _send_webhook_message(user, operation, table, after, before=None):
                         # A stupid hack so we don't have any diffs on the first row.
                         # I couldn't think of any other useful data to put on this line...
                         "name": "** **",
-                        "value": f"** **",
+                        "value": "** **",
                         "inline": "true"
                     },
                     {
