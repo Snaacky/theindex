@@ -47,8 +47,8 @@ class Table(db.Model):
             "tab_id": self.tab_id,
             "name": self.name,
             "description": self.description,
-            "columns": [t.to_dict() if recursive else t.column_id for t in self.columns],
-            "data": [t.to_dict() if recursive else t.id for t in self.data]
+            "columns": [t.to_dict() for t in self.columns],
+            "data": [t.to_dict() for t in self.data]
         }
 
 
@@ -69,12 +69,14 @@ class Column(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     column_type = db.Column(db.String, default="text")
+    key = db.Column(db.String)
     description = db.Column(db.String)
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
+            "key": self.key,
             "description": self.description,
             "column_type": self.column_type
         }

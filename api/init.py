@@ -154,6 +154,7 @@ if __name__ == "__main__":
             c = columns_data["keys"][key]
             col = Column(
                 name=c["name"],
+                key=key,
                 column_type=c["type"],
                 description=c["description"]
             )
