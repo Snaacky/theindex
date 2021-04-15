@@ -36,7 +36,7 @@ class App extends React.Component {
             })
         fetch(debugUrl + '/api/tabs')
             .then(r => r.json())
-            .then(tabs => {
+            .then((tabs) => {
                 this.setState({tabs: tabs, currentTab: tabs[0]});
             })
     }
