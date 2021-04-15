@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:index/api.dart' as api;
+import 'package:table_sticky_headers/table_sticky_headers.dart';
 
 class TablePage extends StatefulWidget {
   final int id;
@@ -59,7 +60,8 @@ class DataTableWrapper extends StatefulWidget {
 }
 
 class _DataTableWrapperState extends State<DataTableWrapper> {
-  List<dynamic>? _sorted;
+  List<dynamic> _sorted = <dynamic>[];
+  List<bool> _selected = <bool>[];
 
   List<dynamic> _sortColumns(List<dynamic> cols) {
     List<dynamic?> result = new List<dynamic?>.generate(
@@ -75,14 +77,14 @@ class _DataTableWrapperState extends State<DataTableWrapper> {
   List<DataColumn> _columnsGenerator(List<dynamic> cols) {
     return new List<DataColumn>.generate(
       cols.length,
-      (i) => DataColumn(label: _sorted![i]["name"]),
+      (i) => DataColumn(label: Text(_sorted[i]["name"])),
     );
   }
 
   List<DataCell> _rowGenerator(dynamic row) {
     return new List<DataCell>.generate(
-      _sorted!.length,
-      (i) => DataCell(Text(row[_sorted![i]["name"]])),
+      _sorted.length,
+      (i) => DataCell(Text(row[_sorted[i]["name"]].toString())),
     );
   }
 
@@ -90,38 +92,24 @@ class _DataTableWrapperState extends State<DataTableWrapper> {
   void initState() {
     super.initState();
     _sorted = _sortColumns(widget.table.columns!);
+    _selected = List<bool>.generate(
+      widget.table.data!.length,
+      (int index) => false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     int numItems = widget.table.data!.length;
-    List<bool> selected = List<bool>.generate(numItems, (int index) => false);
 
-    return DataTable(
-      columns: _columnsGenerator(widget.table.columns!),
-      rows: List<DataRow>.generate(
-        numItems,
-        (int index) => DataRow(
-          color: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-            // All rows will have the same selected color.
-            if (states.contains(MaterialState.selected))
-              return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-            // Even rows will have a grey color.
-            if (index.isEven) {
-              return Colors.grey.withOpacity(0.3);
-            }
-            return null; // Use default value for other states and odd rows.
-          }),
-          cells: _rowGenerator(widget.table.data![index]),
-          selected: selected[index],
-          onSelectChanged: (bool? value) {
-            setState(() {
-              selected[index] = value!;
-            });
-          },
-        ),
-      ),
+    return StickyHeadersTable(
+      columnsLength: _sorted.length - 1,
+      rowsLength: numItems,
+      columnsTitleBuilder: (i) => Text(_sorted[i]["name"]),
+      rowsTitleBuilder: (i) => Text(widget.table.data![i][_sorted[0]["name"]].toString()),
+      contentCellBuilder: (i, j) =>
+          Text(widget.table.data![j][_sorted[i]["name"]].toString()),
+      legendCell: Text(_sorted[0]["name"]),
     );
   }
 }

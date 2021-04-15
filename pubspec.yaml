@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.1
   adaptive_breakpoints: ^0.0.4
+  table_sticky_headers: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -30,9 +30,6 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   int _selectedTab = -1;
   List<api.Tab> _tabs = <api.Tab>[];
-  static List<Widget> _tabOptions = <Widget>[
-    CircularProgressIndicator(),
-  ];
 
   void _onTabTapped(int id) {
     print("Clicked Tab $id");
@@ -104,7 +101,6 @@ class _RootState extends State<Root> {
         List<Widget> children;
         if (snapshot.hasData && snapshot.data!.length > 0) {
           _tabs = snapshot.data!;
-          _tabOptions = _tabs.map((tab) => TabPage(id: tab.id)).toList();
           children = _tabs.map((tab) {
             return ListTile(
               leading: Icon(Icons.business),
