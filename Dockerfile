@@ -1,19 +1,20 @@
 # ------------------------------------------------------------------------------
-# Flutter Build Stage
+# React Build Stage
 # ------------------------------------------------------------------------------
-FROM cirrusci/flutter:2.0.4 as flutter-build
+FROM node:15.14.0-alpine as react-build
 
-# Copy as few files as possible to take advantage of build caching
-# and as this is a build image, they number of layers don't matter
 WORKDIR /app
-COPY lib/ lib/
-COPY web/ web/
-COPY test/ test/
-COPY .metadata .
-COPY pubspec.yaml .
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install the dependencies
+COPY package.json .
+COPY package-lock.json .
+RUN npm ci --silent && \
+    npm install react-scripts@4.0.3 -g --silent
 
 # build the web app
-RUN flutter build web
+COPY . .
+RUN npm run build
 
 # ------------------------------------------------------------------------------
 # Final Stage
@@ -49,7 +50,7 @@ RUN apt-get update -y && \
 # replace default nginx conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 # copy build web app
-COPY --from=flutter-build /app/build/web /usr/share/nginx/html
+COPY --from=react-build /app/build /usr/share/nginx/html
 
 WORKDIR /app
 COPY api .
