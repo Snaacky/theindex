@@ -29,7 +29,7 @@ class App extends React.Component {
             .then(cols => {
                 this.setState({columns: cols});
             })
-        fetch(debugUrl + '/api/tables')
+        fetch(debugUrl + "/api/tables")
             .then(r => r.json())
             .then(tables => {
                 this.setState({tables: tables});
