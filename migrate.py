@@ -5,7 +5,7 @@ import dataset
 
 
 def get_db():
-    return "".join(["sqlite:///", os.path.join("/config", "data.db")])
+    return "".join(["sqlite://", os.path.join("/config", "data.db")])
 
 
 anime_type = [
