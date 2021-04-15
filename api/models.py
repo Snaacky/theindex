@@ -41,14 +41,14 @@ class Table(db.Model):
         uselist=True
     )
 
-    def to_dict(self):
+    def to_dict(self, recursive=False):
         return {
             "id": self.id,
             "tab_id": self.tab_id,
             "name": self.name,
             "description": self.description,
-            "columns": [t.column_id for t in self.columns],
-            "data": [t.id for t in self.data]
+            "columns": [t.to_dict() if recursive else t.column_id for t in self.columns],
+            "data": [t.to_dict() if recursive else t.id for t in self.data]
         }
 
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:index/api.dart' as api;
+import 'api.dart' as api;
+import 'layout/adaptive.dart';
+import 'layout/tab.dart';
 
 void main() {
   runApp(App());
@@ -15,24 +17,37 @@ class App extends StatelessWidget {
         // https://flutter.dev/docs/cookbook/design/themes
         primarySwatch: Colors.blue,
       ),
-      home: LandingPage(),
+      home: Root(),
     );
   }
 }
 
-class LandingPage extends StatefulWidget {
+class Root extends StatefulWidget {
   @override
-  _LandingPageState createState() => _LandingPageState();
+  _RootState createState() => _RootState();
 }
 
-class _LandingPageState extends State<LandingPage> {
-  int _counter = 0;
+class _RootState extends State<Root> {
+  int _selectedTab = -1;
+  List<api.Tab> _tabs = <api.Tab>[];
+  static List<Widget> _tabOptions = <Widget>[
+    CircularProgressIndicator(),
+  ];
 
-  void _incrementCounter() {
+  void _onTabTapped(int id) {
+    print("Clicked Tab $id");
     setState(() {
-      _counter++;
+      _selectedTab = id;
     });
   }
+
+  Widget _getBody() {
+    if (_selectedTab < 0) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return TabPage(id: _selectedTab);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,54 +62,106 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("/r/animepiracy Index"),
+    // bar at the top
+    PreferredSizeWidget appbar = AppBar(
+      title: Row(
+        children: [
+          Container(
+            child: const Image(
+              image: NetworkImage('/img/logo.png'),
+              height: 40,
+            ),
+            margin: const EdgeInsets.only(right: 10),
+          ),
+          const Text("/r/animepiracy Index"),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.account_circle),
+          tooltip: 'Show Snackbar',
+          onPressed: () {
+            api.isLoggedIn().then((loggedIn) {
+              Widget status;
+              if (loggedIn) {
+                status = const Text("You are logged in");
+              } else {
+                status = const Text("You are not logged in");
+              }
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: status));
+            });
+          },
+        ),
+      ],
+    );
+
+    // drawer with tab listing
+    Widget drawer = FutureBuilder<List<api.Tab>>(
+      future: api.fetchTabs(),
+      initialData: <api.Tab>[],
+      builder: (BuildContext context, AsyncSnapshot<List<api.Tab>> snapshot) {
+        List<Widget> children;
+        if (snapshot.hasData && snapshot.data!.length > 0) {
+          _tabs = snapshot.data!;
+          _tabOptions = _tabs.map((tab) => TabPage(id: tab.id)).toList();
+          children = _tabs.map((tab) {
+            return ListTile(
+              leading: Icon(Icons.business),
+              title: Text(tab.name),
+              onTap: () {
+                if (_selectedTab != tab.id) {
+                  _onTabTapped(tab.id);
+                }
+                if (!isDesktop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+            );
+          }).toList();
+        } else if (snapshot.hasError) {
+          children = <Widget>[Center(child: Text("Error: ${snapshot.error}"))];
+        } else {
+          children = <Widget>[Center(child: Text("Loading..."))];
+        }
+
+        return Drawer(
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(
+                child: const Text(
+                  'Tabs',
+                  textAlign: TextAlign.left,
+                ),
+                // why is there a huge bottom spacer?? TODO: investigate
+                margin: null,
+              ),
+              Divider(),
+              Column(children: children)
+            ],
+          ),
+        );
+      },
+    );
+
+    // for large displays, we want the drawer to stick around
+    if (isDesktop(context)) {
+      return Scaffold(
+        appBar: appbar,
+        body: Row(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            drawer,
+            _getBody(),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      );
+    }
+
+    // for small it is collapsable
+    return Scaffold(
+      appBar: appbar,
+      drawer: drawer,
+      body: _getBody(),
     );
-  }
-}
-
-class TabPage extends StatefulWidget {
-  final int id;
-
-  const TabPage({required this.id}) : super();
-
-  @override
-  _TabPageState createState() => _TabPageState();
-}
-
-class _TabPageState extends State<TabPage> {
-  late Future<api.Tab> tab;
-
-  @override
-  void initState() {
-    super.initState();
-    tab = api.Tab.fetch(widget.id);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

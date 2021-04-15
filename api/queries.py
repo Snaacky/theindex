@@ -39,7 +39,7 @@ def resolve_table(table_id):
             table_id,
             f"table {table_id} not found"
         )
-        return jsonify(table.to_dict())
+        return jsonify(table.to_dict(True))
     except Exception as e:
         logging.error(str(e))
         return 500

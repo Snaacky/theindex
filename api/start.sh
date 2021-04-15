@@ -17,7 +17,7 @@ mkdir -p /config
 
 # migrate if db does not exists
 if [ ! -f /config/data.db ]; then
-    echo "Could not find existing db, trying to run migration script"
+    echo "Could not find existing db, trying to run init script"
     python init.py
 fi
 
