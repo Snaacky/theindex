@@ -34,7 +34,7 @@ class App extends React.Component {
             .then(tables => {
                 this.setState({tables: tables});
             })
-        fetch(debugUrl + '/api/tabs')
+        fetch(debugUrl + "/api/tabs")
             .then(r => r.json())
             .then((tabs) => {
                 this.setState({tabs: tabs, currentTab: tabs[0]});
