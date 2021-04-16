@@ -13,7 +13,7 @@ if os.environ.get('AUDIT_WEBHOOK') == "":
 # create whitelist.json if not exists
 if not os.path.isfile("/config/whitelist.json"):
     logging.warning("No whitelist file found in /config/whitelist.json, creating new")
-    with open("/config/whitelist.json", "w") as f:
+    with open(os.path.join("/config", "whitelist.json"), "w") as f:
         json.dump([9999999999], f)
 
 db = SQLAlchemy()

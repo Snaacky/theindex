@@ -11,7 +11,7 @@ class TableRowView extends React.Component<TableRowViewProps> {
         let expanded = JSON.parse(this.props.row.data);
         return (
             <tr style={{backgroundColor: (this.props.row.id % 2 === 0 ? "rgb(22, 22, 22)" : "rgb(18, 18, 18)")}}>
-                {this.props.columns.map((c: TableColumnData) => {
+                {this.props.columns.filter((c) => c.hidden === false).map((c: TableColumnData) => {
                     return (
                         <td key={c.id} className={"align-items-start"}>
                             {cellFormatter(expanded[c.key as keyof typeof expanded])}

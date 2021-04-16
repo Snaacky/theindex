@@ -42,8 +42,7 @@ class App extends React.Component {
     }
 
     switchTab(id: number) {
-        console.log("Trying to access state of :", this);
-        // this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
+        this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
     }
 
     render() {
@@ -55,7 +54,8 @@ class App extends React.Component {
             }}>
                 <IndexNavbar/>
                 <Container className={"my-4"}>
-                    <TabNav tabs={this.state.tabs} currentTab={this.state.currentTab} onTabChange={this.switchTab}/>
+                    <TabNav tabs={this.state.tabs} currentTab={this.state.currentTab}
+                            onTabChange={this.switchTab.bind(this)}/>
                 </Container>
                 {this.state.currentTab !== undefined ?
                     <TabView tab={this.state.currentTab} tables={this.state.tables}/> :
