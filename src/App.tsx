@@ -1,6 +1,6 @@
 import React from "react";
-import './App.css';
-import IndexNavbar from './components/IndexNavbar';
+import "./App.css";
+import IndexNavbar from "./components/IndexNavbar";
 import TabNav from "./components/TabNav";
 import {Container} from "react-bootstrap";
 import TabView from "./components/TabView";
@@ -49,7 +49,7 @@ class App extends React.Component {
         return (
             <div className="App" style={{
                 backgroundColor: "#1f1f1f",
-                minHeight: '100vh',
+                minHeight: "100vh",
                 color: "#fff"
             }}>
                 <IndexNavbar/>

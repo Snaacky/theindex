@@ -3,7 +3,7 @@ import {TableColumnData, TableData, TableRowData} from "../api/Interfaces";
 import {Card, Table} from "react-bootstrap";
 import TableRowView from "./TableRowView";
 import TableColumnTogglesView from "./TableColumnTogglesView";
-import Accordion from 'react-bootstrap/Accordion';
+import Accordion from "react-bootstrap/Accordion";
 import {BsToggles} from "react-icons/all";
 
 interface TableViewProps {
@@ -58,7 +58,7 @@ class TableView extends React.Component<TableViewProps> {
                     <Table striped responsive hover variant="dark" className={"mb-0"}>
                         <thead>
                         <tr style={{backgroundColor: "rgb(18, 18, 18)"}}>
-                            {sortedColumns.filter((c) => c.hidden === false).map((c: TableColumnData) => {
+                            {sortedColumns.filter((c) => !c.hidden).map((c: TableColumnData) => {
                                 return (
                                     <th key={c.id} style={{fontWeight: 500}}>
                                         {c.name}
