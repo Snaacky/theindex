@@ -124,10 +124,3 @@ you want a certain feature or have an idea, you can always open a feature reques
 in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
 or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
-
-## What we use
-
-to create this website:
-
-- [React](https://reactjs.org)
-- [Flask](https://github.com/pallets/flask)
