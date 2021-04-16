@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import './App.css';
 import IndexNavbar from './components/IndexNavbar';
 import TabNav from "./components/TabNav";
