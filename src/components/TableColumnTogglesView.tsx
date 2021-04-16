@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {TableColumnData} from "../api/Interfaces";
 
 interface TableColumnTogglesViewProps {
