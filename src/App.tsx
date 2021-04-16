@@ -48,7 +48,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App" style={{
-                backgroundColor: '#1f1f1f',
+                backgroundColor: "#1f1f1f",
                 minHeight: '100vh',
                 color: "#fff"
             }}>
