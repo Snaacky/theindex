@@ -54,7 +54,7 @@ Here is a table of the possible ENV-variables with their default values.
 
 ### Backend
 
-You highly encourage you to use [Docker](https://get.docker.com) to run the backend, as the setup of the run environment
+We highly encourage you to use [Docker](https://get.docker.com) to run the backend, as the setup of the run environment
 would require a lot of work. To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/)
 you will need to run:
 
@@ -71,15 +71,18 @@ docker run -p 8080:8080 index
 You can now open http://localhost:8080 in your browser to see a running version of the backend server. If you don't want
 the console to continue running in the foreground, add the `-d` argument to the run command.
 
-The source of the backend api can be found at /api. The script /api/init.py will only be run if there is an empty or non
-existing database found. The [Flask](https://github.com/pallets/flask) server itself will be generated at /api/app.py.
+The source of the backend api can be found at [/api](api). The script /api/init.py will only be run if no existing
+database is found. The [Flask](https://github.com/pallets/flask) server itself will be generated at [/api/app.py](api/app.py).
 
 We use blueprints to register all http endpoints:
-- /api/queries.py defines the public api endpoints, a.k.a. the fetch only stuff with `Access-Control-Allow-Origin` set to `*`
-- /api/mutations.py creates the edit endpoints for modifying existing data
-- /api/user.py handles the user management, e.g. login/logout
+- [/api/queries.py](api/queries.py) defines the public api endpoints, a.k.a. the fetch only stuff with
+  `Access-Control-Allow-Origin` set to `*`
 
-The data models are defined in /api/models.py
+- [/api/mutations.py](api/mutations.py) creates the edit endpoints for modifying existing data
+
+- [/api/user.py](api/user.py) handles the user management, e.g. login/logout
+
+The data models are defined in [/api/models.py](api/models.py).
 
 ### Frontend
 
@@ -102,7 +105,7 @@ After compiling your browser should open the running frontend automatically, you
 in the console, depending on your IDE of choice.
 
 As we use [React](https://reactjs.org), the frontend supports hot reloading, so you can just leave the page open, while
-you modify the code in /src and see the changes on the fly in your browser.
+you modify the code in [/src](src) and see the changes on the fly in your browser.
 
 ## Building everything
 
