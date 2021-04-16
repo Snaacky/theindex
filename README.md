@@ -50,21 +50,69 @@ Here is a table of the possible ENV-variables with their default values.
 | `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
 
-## Building from source
+## Getting started to code
 
-To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/) you will need to run:
+### Backend
+
+You highly encourage you to use [Docker](https://get.docker.com) to run the backend, as the setup of the run environment
+would require a lot of work. To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/)
+you will need to run:
 
 ```shell
-docker build . -t index-web
+docker build -f Docker-api-only -t index
 ```
 
 Afterwards you will just need to run
 
 ```shell
-docker run -d -p <host-port>:8080 index-web
+docker run -p 8080:8080 index
 ```
 
-You can now open http://localhost:8080 in your browser.
+You can now open http://localhost:8080 in your browser to see a running version of the backend server. If you don't want
+the console to continue running in the foreground, add the `-d` argument to the run command.
+
+The source of the backend api can be found at /api. The script /api/init.py will only be run if there is an empty or non
+existing database found. The [Flask](https://github.com/pallets/flask) server itself will be generated at /api/app.py.
+
+We use blueprints to register all http endpoints:
+- /api/queries.py defines the public api endpoints, a.k.a. the fetch only stuff with `Access-Control-Allow-Origin` set to `*`
+- /api/mutations.py creates the edit endpoints for modifying existing data
+- /api/user.py handles the user management, e.g. login/logout
+
+The data models are defined in /api/models.py
+
+### Frontend
+
+To start coding on the frontend, you will need to make sure, you have [node.js](https://nodejs.org/en/https://nodejs.org/en/)
+correctly installed. To install all the required dependencies run once:
+
+```shell
+npm install
+```
+
+You should now have a folder called `node_modules`, which contains all the dependencies we need. We use
+[React](https://reactjs.org) as framework with [TypeScript](https://www.typescriptlang.org) as language. To test the
+frontend you will have to run the backend api server in the background and start the frontend via:
+
+```shell
+npm start
+```
+
+After compiling your browser should open the running frontend automatically, you may need to manually copy the url shown
+in the console, depending on your IDE of choice.
+
+As we use [React](https://reactjs.org), the frontend supports hot reloading, so you can just leave the page open, while
+you modify the code in /src and see the changes on the fly in your browser.
+
+## Building everything
+
+To create a ready made docker image with frontend and backend together, just run:
+
+```shell
+docker build . -t index
+```
+
+You now have a local image with tag `index` that contains the build, minified distribution version of the code.
 
 ## Contribution
 
@@ -78,8 +126,7 @@ our ideas, and we find some time, we will certainly implement your requested fea
 
 to create this website:
 
-- [Flutter](https://flutter.dev/)
-- [Tabulator](http://tabulator.info/)
+- [React](https://reactjs.org)
 - [Flask](https://github.com/pallets/flask)
 - [Flask-Discord](https://github.com/weibeu/Flask-Discord)
 - [Flask-Caching](https://github.com/sh4nks/flask-caching)
