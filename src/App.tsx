@@ -24,7 +24,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        fetch(debugUrl + '/api/columns')
+        fetch(debugUrl + "/api/columns")
             .then(r => r.json())
             .then(cols => {
                 this.setState({columns: cols});
