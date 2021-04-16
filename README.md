@@ -131,7 +131,3 @@ to create this website:
 
 - [React](https://reactjs.org)
 - [Flask](https://github.com/pallets/flask)
-- [Flask-Discord](https://github.com/weibeu/Flask-Discord)
-- [Flask-Caching](https://github.com/sh4nks/flask-caching)
-- [Flask-SQLAlchemy](https://github.com/pallets/flask-sqlalchemy)
-- [gunicorn](https://gunicorn.org/)
