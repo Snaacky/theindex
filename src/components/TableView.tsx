@@ -87,11 +87,13 @@ class TableView extends React.Component<TableViewProps> {
                 </Card.Header>
                 <Card.Body className={"p-0"} style={{backgroundColor: "#202020"}}>
                     <Collapse in={this.state.toggleColumnsExpanded}>
-                        <TableColumnTogglesView
-                            cols={sorted}
-                            toggleColumn={this.toggleColumn.bind(this)}
-                            resetColumn={this.resetColumn.bind(this)}
-                            tableId={this.props.table.id}/>
+                        <div>
+                            <TableColumnTogglesView
+                                cols={sorted}
+                                toggleColumn={this.toggleColumn.bind(this)}
+                                resetColumn={this.resetColumn.bind(this)}
+                                tableId={this.props.table.id}/>
+                        </div>
                     </Collapse>
                     <Table striped responsive hover variant="dark" className={"mb-0"}>
                         <thead>
