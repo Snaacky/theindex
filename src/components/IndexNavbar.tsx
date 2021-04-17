@@ -30,6 +30,6 @@ const IndexNavbar = () => {
             </NavbarCollapse>
         </Navbar>
     );
-}
+};
 
 export default IndexNavbar;

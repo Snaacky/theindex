@@ -40,7 +40,7 @@ class TableView extends React.Component<TableViewProps> {
                 columnType: c.columnType,
                 order: c.order,
                 hidden: c.hidden
-            } as TableColumnData)
+            } as TableColumnData);
         });
         return result;
     }
@@ -59,7 +59,7 @@ class TableView extends React.Component<TableViewProps> {
     }
 
     sortColumns() {
-        return this.state.cols.sort((a, b) => a.order > b.order ? 1 : -1)
+        return this.state.cols.sort((a, b) => a.order > b.order ? 1 : -1);
     }
 
     render() {

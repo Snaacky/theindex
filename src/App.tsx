@@ -27,17 +27,17 @@ class App extends React.Component {
             .then(r => r.json())
             .then(cols => {
                 this.setState({columns: cols});
-            })
+            });
         fetch(debugUrl + "/api/tables")
             .then(r => r.json())
             .then(tables => {
                 this.setState({tables: tables});
-            })
+            });
         fetch(debugUrl + "/api/tabs")
             .then(r => r.json())
             .then((tabs) => {
                 this.setState({tabs: tabs, currentTab: tabs[0]});
-            })
+            });
     }
 
     switchTab(id: number) {
@@ -56,7 +56,7 @@ class App extends React.Component {
                     <TabNav tabs={this.state.tabs} currentTab={this.state.currentTab}
                             onTabChange={this.switchTab.bind(this)}/>
                 </Container>
-                {this.state.currentTab !== undefined ?
+                {typeof this.state.currentTab !== "undefined" ?
                     <TabView tab={this.state.currentTab} tables={this.state.tables}/> :
                     <span>Loading....</span>}
             </div>

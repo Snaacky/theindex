@@ -22,11 +22,11 @@ class TabView extends React.Component<TabViewProps> {
                         {this.props.tab.description}
                     </Card.Body>
                 </Card>
-                {this.props.tab.tables.map((table_id: number) => {
-                    let t = this.props.tables.filter(table => table.id === table_id)[0];
+                {this.props.tab.tables.map((tableId: number) => {
+                    let t = this.props.tables.filter(table => table.id === tableId)[0];
                     if (typeof t === "undefined") {
                         return (
-                            <span key={table_id}>Loading...</span>
+                            <span key={tableId}>Loading...</span>
                         );
                     }
                     return (

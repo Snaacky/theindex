@@ -1,6 +1,6 @@
 import React from "react";
 import {BsToggles} from "react-icons/all";
-import "./ToggleColumnsButton.css"
+import "./ToggleColumnsButton.css";
 
 interface ToggleColumnsButtonProps {
     toggled: boolean,
