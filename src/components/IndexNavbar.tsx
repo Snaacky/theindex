@@ -23,8 +23,8 @@ const IndexNavbar = () => {
                     </Nav.Link>
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#deets" disabled>
-                        More deets
+                    <Nav.Link href="#" disabled>
+                        unstable version
                     </Nav.Link>
                 </Nav>
             </NavbarCollapse>

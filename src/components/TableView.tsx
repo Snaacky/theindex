@@ -95,12 +95,12 @@ class TableView extends React.Component<TableViewProps> {
                                 tableId={this.props.table.id}/>
                         </div>
                     </Collapse>
-                    <Table striped responsive hover variant="dark" className={"mb-0"}>
+                    <Table variant="dark" className={"mb-0"}>
                         <thead>
-                        <tr style={{backgroundColor: "rgb(18, 18, 18)"}}>
+                        <tr>
                             {sorted.filter((c) => !c.hidden).map((c: TableColumnData) => {
                                 return (
-                                    <th key={c.id} style={{fontWeight: 500}}>
+                                    <th key={c.id}>
                                         {c.name}
                                     </th>
                                 );

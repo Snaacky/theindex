@@ -1,5 +1,6 @@
 import React from "react";
 import {TableColumnData, TableRowData} from "../api/Interfaces";
+import "./TableRowView.css";
 
 interface TableRowViewProps {
     row: TableRowData,
@@ -19,12 +20,7 @@ class TableRowView extends React.Component<TableRowViewProps> {
         }
 
         return (
-            <kbd style={{
-                backgroundColor: "#0d0d0d",
-                padding: ".15rem 0.7rem",
-                fontSize: "1rem",
-                color: color
-            }}>
+            <kbd style={{color: color}}>
                 {output}
             </kbd>
         );
@@ -33,7 +29,7 @@ class TableRowView extends React.Component<TableRowViewProps> {
     render() {
         let expanded = JSON.parse(this.props.row.data);
         return (
-            <tr style={{backgroundColor: (this.props.row.id % 2 === 0 ? "rgb(22, 22, 22)" : "rgb(18, 18, 18)")}}>
+            <tr>
                 {this.props.columns.filter((c) => c.hidden === false).map((c: TableColumnData) => {
                     return (
                         <td key={c.id} className={"align-items-start"}>

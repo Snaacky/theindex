@@ -47,11 +47,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App" style={{
-                backgroundColor: "#1f1f1f",
-                minHeight: "100vh",
-                color: "#fff"
-            }}>
+            <div className="App" style={{minHeight: "100vh"}}>
                 <IndexNavbar/>
                 <Container className={"my-4"}>
                     <TabNav tabs={this.state.tabs} currentTab={this.state.currentTab}
