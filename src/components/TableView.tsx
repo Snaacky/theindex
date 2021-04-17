@@ -1,10 +1,9 @@
 import React from "react";
 import {TableColumnData, TableData, TableRowData} from "../api/Interfaces";
-import {Card, Table} from "react-bootstrap";
+import {Card, Collapse, Table} from "react-bootstrap";
 import TableRowView from "./TableRowView";
 import TableColumnTogglesView from "./TableColumnTogglesView";
-import Accordion from "react-bootstrap/Accordion";
-import {BsToggles} from "react-icons/all";
+import ToggleColumnsButton from "./ToggleColumnsButton";
 
 interface TableViewProps {
     table: TableData
@@ -22,43 +21,82 @@ class TableView extends React.Component<TableViewProps> {
         super(props);
 
         this.state = {
-            cols: props.table.columns,
+            cols: this.cloneShallow(this.props.table.columns),
             toggleColumnsExpanded: false,
         };
+    }
+
+    cloneShallow(cols: TableColumnData[]) {
+        // clone required to not overwrite the original state for resetting
+        let result: TableColumnData[] = [];
+        cols.forEach(c => {
+            result.push({
+                id: c.id,
+                name: c.name,
+                key: c.key,
+                description: c.description,
+                column_id: c.column_id,
+                table_id: c.table_id,
+                column_type: c.column_type,
+                order: c.order,
+                hidden: c.hidden
+            } as TableColumnData)
+        });
+        return result;
     }
 
     toggleColumn(cols: TableColumnData[]) {
         this.setState({cols: cols});
     }
 
-    toggleExpandColumnsToggleView() {
-        this.setState({toggleColumnsExpanded: !this.state.toggleColumnsExpanded});
+    resetColumn() {
+        // we need to adjust this manually to prevent unreferencing the columns
+        let cols = this.state.cols;
+        this.props.table.columns.forEach((c, i) => {
+            cols[i].hidden = c.hidden;
+        });
+        this.setState({cols: cols});
+    }
+
+    sortColumns() {
+        return this.state.cols.sort((a, b) => a.order > b.order ? 1 : -1)
     }
 
     render() {
-        let sortedColumns = this.props.table.columns.sort((a, b) => a.order > b.order ? 1 : -1)
+        let sorted = this.sortColumns();
         return (
-            <Card className={"mb-3"} style={{backgroundColor: "#121212"}}>
-                <Card.Header>
-                    {this.props.table.name}
-                    <span className={"float-end d-flex justify-content-center"}>
-                        <button
-                            type="button"
-                            style={{transform: this.state.toggleColumnsExpanded ? "rotate(180deg)" : "rotate(0deg)"}}
-                            onClick={this.toggleExpandColumnsToggleView.bind(this)}
-                        >
-                            <BsToggles/>
-                        </button>
+            <Card className={"mt-3"} style={{backgroundColor: "#121212"}}>
+                <Card.Header className={"d-flex"}>
+                    <div>
+                        {this.props.table.name}
+                        <small className={"ml-1 text-muted"}>
+                            {this.props.table.description}
+                        </small>
+                    </div>
+                    <span
+                        className={"ml-auto"}
+                        style={{
+                            lineHeight: 1
+                        }}
+                    >
+                        <ToggleColumnsButton
+                            toggled={this.state.toggleColumnsExpanded}
+                            onClick={() => this.setState({toggleColumnsExpanded: !this.state.toggleColumnsExpanded})}
+                        />
                     </span>
                 </Card.Header>
                 <Card.Body className={"p-0"} style={{backgroundColor: "#202020"}}>
-                    <Accordion.Collapse eventKey={"s"}>
-                        <TableColumnTogglesView cols={this.state.cols} toggleColumn={this.toggleColumn}/>
-                    </Accordion.Collapse>
+                    <Collapse in={this.state.toggleColumnsExpanded}>
+                        <TableColumnTogglesView
+                            cols={sorted}
+                            toggleColumn={this.toggleColumn.bind(this)}
+                            resetColumn={this.resetColumn.bind(this)}
+                            tableId={this.props.table.id}/>
+                    </Collapse>
                     <Table striped responsive hover variant="dark" className={"mb-0"}>
                         <thead>
                         <tr style={{backgroundColor: "rgb(18, 18, 18)"}}>
-                            {sortedColumns.filter((c) => !c.hidden).map((c: TableColumnData) => {
+                            {sorted.filter((c) => !c.hidden).map((c: TableColumnData) => {
                                 return (
                                     <th key={c.id} style={{fontWeight: 500}}>
                                         {c.name}
@@ -70,7 +108,7 @@ class TableView extends React.Component<TableViewProps> {
                         <tbody>
                         {this.props.table.data.map((d: TableRowData) => {
                             return (
-                                <TableRowView key={d.id} row={d} columns={sortedColumns}/>
+                                <TableRowView key={d.id} row={d} columns={sorted}/>
                             );
                         })}
                         </tbody>

@@ -7,7 +7,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/ranimepiracy?label=%40ranimepiracy&logo=twitter&style=flat)](https://twitter.com/ranimepiracy)
 [![Discord](https://img.shields.io/discord/622243127435984927?label=Discord&logo=discord)](https://discord.gg/piracy)
 
-# piracy.moe index
+# [piracy.moe](https://piracy.moe) index
 
 This repository is the web-ui of /r/animepiracy index.
 
@@ -72,9 +72,11 @@ You can now open http://localhost:8080 in your browser to see a running version 
 the console to continue running in the foreground, add the `-d` argument to the run command.
 
 The source of the backend api can be found at [/api](api). The script /api/init.py will only be run if no existing
-database is found. The [Flask](https://github.com/pallets/flask) server itself will be generated at [/api/app.py](api/app.py).
+database is found. The [Flask](https://github.com/pallets/flask) server itself will be generated
+at [/api/app.py](api/app.py).
 
 We use blueprints to register all http endpoints:
+
 - [/api/queries.py](api/queries.py) defines the public api endpoints, a.k.a. the fetch only stuff with
   `Access-Control-Allow-Origin` set to `*`
 
@@ -86,8 +88,9 @@ The data models are defined in [/api/models.py](api/models.py).
 
 ### Frontend
 
-To start coding on the frontend, you will need to make sure, you have [node.js](https://nodejs.org/en/https://nodejs.org/en/)
-correctly installed. To install all the required dependencies run once:
+To start coding on the frontend, you will need to make sure, you have
+[node.js](https://nodejs.org/en/https://nodejs.org/en/) correctly installed. To install all the required dependencies
+run once:
 
 ```shell
 npm install
@@ -109,7 +112,7 @@ you modify the code in [/src](src) and see the changes on the fly in your browse
 
 ## Building everything
 
-To create a ready made docker image with frontend and backend together, just run:
+To create a ready-made docker image with frontend and backend together, just run:
 
 ```shell
 docker build . -t index
