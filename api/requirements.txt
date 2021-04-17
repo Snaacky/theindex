@@ -7,7 +7,6 @@ flask-discord~=0.1.64
 # database
 flask-sqlalchemy~=2.5.1
 PyMySQL~=1.0.2
-psycopg2-binary~=2.8.6
 psycopg2~=2.8.6
 
 deepdiff~=5.2.3
