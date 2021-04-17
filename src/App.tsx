@@ -12,15 +12,24 @@ interface AppState {
     columns: [],
     tables: Array<TableData>,
     tabs: Array<TabData>,
-    currentTab?: TabData
+    currentTab?: TabData,
+    searchString: string
 }
 
 class App extends React.Component {
-    state: AppState = {
-        columns: [],
-        tables: Array<TableData>(),
-        tabs: Array<TabData>(),
-        currentTab: undefined
+    state: AppState;
+
+    constructor(props: {} | Readonly<{}>) {
+        super(props);
+
+        this.state = {
+            columns: [],
+            tables: Array<TableData>(),
+            tabs: Array<TabData>(),
+            currentTab: undefined,
+            searchString: ""
+        }
+
     }
 
     componentDidMount() {
@@ -45,16 +54,24 @@ class App extends React.Component {
         this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
     }
 
+    search(query: string) {
+        this.setState({searchString: query});
+    }
+
     render() {
         return (
             <div className="App" style={{minHeight: "100vh"}}>
                 <IndexNavbar/>
                 <Container className={"my-4"}>
-                    <TabNav tabs={this.state.tabs} currentTab={this.state.currentTab}
+                    <TabNav tabs={this.state.tabs}
+                            currentTab={this.state.currentTab}
+                            search={this.search.bind(this)}
                             onTabChange={this.switchTab.bind(this)}/>
                 </Container>
                 {typeof this.state.currentTab !== "undefined" ?
-                    <TabView tab={this.state.currentTab} tables={this.state.tables}/> :
+                    <TabView search={this.state.searchString}
+                             tab={this.state.currentTab}
+                             tables={this.state.tables}/> :
                     <span>Loading....</span>}
                 <Footer/>
             </div>

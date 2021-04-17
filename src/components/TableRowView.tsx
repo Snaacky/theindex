@@ -3,7 +3,7 @@ import {TableColumnData, TableRowData} from "../api/Interfaces";
 import "./TableRowView.css";
 
 interface TableRowViewProps {
-    row: TableRowData,
+    data: any,
     columns: TableColumnData[]
 }
 
@@ -27,7 +27,7 @@ class TableRowView extends React.Component<TableRowViewProps> {
     }
 
     render() {
-        let expanded = JSON.parse(this.props.row.data);
+        let expanded = this.props.data;
         return (
             <tr>
                 {this.props.columns.filter((c) => c.hidden === false).map((c: TableColumnData) => {

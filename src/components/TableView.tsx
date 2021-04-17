@@ -6,7 +6,8 @@ import TableColumnTogglesView from "./TableColumnTogglesView";
 import ToggleColumnsButton from "./ToggleColumnsButton";
 
 interface TableViewProps {
-    table: TableData
+    table: TableData,
+    search: string
 }
 
 interface TableViewState {
@@ -109,8 +110,15 @@ class TableView extends React.Component<TableViewProps> {
                         </thead>
                         <tbody>
                         {this.props.table.data.map((d: TableRowData) => {
+                            return {
+                                id: d.id,
+                                data: JSON.parse(d.data)
+                            };
+                        }).filter((d) => {
+                            return d.data[sorted[0].key as keyof typeof d.data].toLowerCase().indexOf(this.props.search) !== -1
+                        }).map((d: any) => {
                             return (
-                                <TableRowView key={d.id} row={d} columns={sorted}/>
+                                <TableRowView key={d.id} data={d.data} columns={sorted}/>
                             );
                         })}
                         </tbody>

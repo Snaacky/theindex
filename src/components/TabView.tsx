@@ -6,11 +6,11 @@ import TableView from "./TableView";
 
 interface TabViewProps {
     tab: TabData,
-    tables: TableData[]
+    tables: TableData[],
+    search: string
 }
 
 class TabView extends React.Component<TabViewProps> {
-
     render() {
         return (
             <Container fluid className={"py-2"}>
@@ -30,7 +30,7 @@ class TabView extends React.Component<TabViewProps> {
                         );
                     }
                     return (
-                        <TableView table={t} key={t.id}/>
+                        <TableView table={t} key={t.id} search={this.props.search}/>
                     );
                 })}
             </Container>
