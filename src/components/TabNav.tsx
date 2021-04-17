@@ -15,7 +15,7 @@ class TabNav extends React.Component<TabNavProps> {
             return (
                 <Nav variant="pills"
                      activeKey={this.props.currentTab.id}
-                     onSelect={(d) => this.props.onTabChange(parseInt(d as string))}
+                     onSelect={(d) => this.props.onTabChange(parseInt(d as string, 10))}
                      className={"tab-nav"}
                 >
                     {this.props.tabs.map((t: TabData) => {
