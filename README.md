@@ -49,6 +49,7 @@ Here is a table of the possible ENV-variables with their default values.
 | `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord client secret |
 | `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
+| `-e DB_CONNECTION_URI="mysql+pymysql://user:password@hostname/database"` | Required for external database |
 
 ## Building from source
 
