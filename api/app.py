@@ -34,11 +34,7 @@ def create_app():
 
     # backend db
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://user:pass@some_mariadb/dbname?charset=utf8mb4"
-    # internally it will be mapped to "sqlite:///your/path/<os.get_cwd()>/data.sqlite3"
-    # or "sqlite:///your/path//app/api/data.sqlite3".... why?
-    # TODO: move away from sqlite to a separate mariadb or postgress database
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.sqlite3"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_CONNECTION_URI")
 
     with app.app_context():
         from queries import bp as queries_bp
