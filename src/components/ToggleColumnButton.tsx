@@ -14,7 +14,7 @@ class ToggleColumnButton extends React.Component<ToggleColumnButtonProps> {
                 <Form.Check
                     custom
                     type={"switch"}
-                    id={this.props.col.table_id + "-" + this.props.col.id}
+                    id={this.props.col.tableId + "-" + this.props.col.id}
                     checked={!this.props.col.hidden}
                     title={this.props.col.description}
                     label={this.props.col.name}

@@ -35,9 +35,9 @@ class TableView extends React.Component<TableViewProps> {
                 name: c.name,
                 key: c.key,
                 description: c.description,
-                column_id: c.column_id,
-                table_id: c.table_id,
-                column_type: c.column_type,
+                columnId: c.columnId,
+                tableId: c.tableId,
+                columnType: c.columnType,
                 order: c.order,
                 hidden: c.hidden
             } as TableColumnData)
@@ -46,7 +46,7 @@ class TableView extends React.Component<TableViewProps> {
     }
 
     toggleColumn(cols: TableColumnData[]) {
-        this.setState({cols: cols});
+        this.setState({cols});
     }
 
     resetColumn() {

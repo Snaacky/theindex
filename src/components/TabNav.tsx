@@ -10,7 +10,6 @@ interface TabNavProps {
 }
 
 class TabNav extends React.Component<TabNavProps> {
-
     render() {
         if (this.props.tabs.length > 0 && this.props.currentTab !== undefined) {
             return (
