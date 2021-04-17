@@ -13,7 +13,7 @@ class TabView extends React.Component<TabViewProps> {
 
     render() {
         return (
-            <Container fluid style={{textAlign: "left"}}>
+            <Container fluid className={"py-2"}>
                 <Card style={{backgroundColor: "#121212"}}>
                     <Card.Header>
                         {this.props.tab.name}

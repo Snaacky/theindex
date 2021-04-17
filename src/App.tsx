@@ -4,6 +4,7 @@ import TabNav from "./components/TabNav";
 import {Container} from "react-bootstrap";
 import TabView from "./components/TabView";
 import {TabData, TableData} from "./api/Interfaces";
+import Footer from "./components/Footer";
 
 const debugUrl = "http://localhost:8080";
 
@@ -59,6 +60,7 @@ class App extends React.Component {
                 {typeof this.state.currentTab !== "undefined" ?
                     <TabView tab={this.state.currentTab} tables={this.state.tables}/> :
                     <span>Loading....</span>}
+                <Footer/>
             </div>
         );
     }
