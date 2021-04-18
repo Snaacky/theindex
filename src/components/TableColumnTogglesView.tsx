@@ -27,7 +27,7 @@ class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps
             if (c.order > 0) {
                 c.hidden = hide;
             }
-            return c
+            return c;
         }));
     }
 
@@ -36,7 +36,7 @@ class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps
             if (c.id === col.id) {
                 c.hidden = !c.hidden;
             }
-            return c
+            return c;
         }));
     }
 

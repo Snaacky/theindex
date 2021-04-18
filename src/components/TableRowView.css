@@ -23,6 +23,7 @@ tbody tr:hover {
     background-color: rgb(32, 32, 32);
 }
 
-.table tr th, .table tr td {
+.table tr th,
+.table tr td {
     border-top: 0;
 }

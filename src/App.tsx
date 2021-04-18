@@ -26,10 +26,9 @@ class App extends React.Component {
             columns: [],
             tables: Array<TableData>(),
             tabs: Array<TabData>(),
-            currentTab: undefined,
+            currentTab: undefined, // cannot be defined at this state
             searchString: ""
         }
-
     }
 
     componentDidMount() {

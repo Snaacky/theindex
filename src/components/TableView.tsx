@@ -115,7 +115,7 @@ class TableView extends React.Component<TableViewProps> {
                                 data: JSON.parse(d.data)
                             };
                         }).filter((d) => {
-                            return d.data[sorted[0].key as keyof typeof d.data].toLowerCase().indexOf(this.props.search) !== -1
+                            return d.data[sorted[0].key as keyof typeof d.data].toLowerCase().indexOf(this.props.search) !== -1;
                         }).map((d: any) => {
                             return (
                                 <TableRowView key={d.id} data={d.data} columns={sorted}/>
