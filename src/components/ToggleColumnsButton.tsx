@@ -8,7 +8,7 @@ interface ToggleColumnsButtonProps {
 }
 
 class ToggleColumnsButton extends React.Component<ToggleColumnsButtonProps> {
-    render() {
+    render(): JSX.Element {
         return (
             <BsToggles
                 className={"toggle-columns-button"}

@@ -27,7 +27,7 @@ class TableView extends React.Component<TableViewProps> {
         };
     }
 
-    cloneShallow(cols: TableColumnData[]) {
+    cloneShallow(cols: TableColumnData[]): TableColumnData[] {
         // clone required to not overwrite the original state for resetting
         let result: TableColumnData[] = [];
         cols.forEach(c => {
@@ -46,25 +46,25 @@ class TableView extends React.Component<TableViewProps> {
         return result;
     }
 
-    toggleColumn(cols: TableColumnData[]) {
+    toggleColumn(cols: TableColumnData[]): void {
         this.setState({cols});
     }
 
-    resetColumn() {
+    resetColumn(): void {
         // we need to adjust this manually to prevent unreferencing the columns
-        let cols = this.state.cols;
+        const cols = this.state.cols;
         this.props.table.columns.forEach((c, i) => {
             cols[i].hidden = c.hidden;
         });
         this.setState({cols: cols});
     }
 
-    sortColumns() {
+    sortColumns(): TableColumnData[] {
         return this.state.cols.sort((a, b) => a.order > b.order ? 1 : -1);
     }
 
-    render() {
-        let sorted = this.sortColumns();
+    render(): JSX.Element {
+        const sorted = this.sortColumns();
         return (
             <Card className={"mt-3"} style={{backgroundColor: "#121212"}}>
                 <Card.Header className={"d-flex"}>
@@ -115,7 +115,8 @@ class TableView extends React.Component<TableViewProps> {
                                 data: JSON.parse(d.data)
                             };
                         }).filter((d) => {
-                            return d.data[sorted[0].key as keyof typeof d.data].toLowerCase().indexOf(this.props.search) !== -1;
+                            return d.data[sorted[0].key as keyof typeof d.data]
+                                .toLowerCase().indexOf(this.props.search) !== -1;
                         }).map((d: any) => {
                             return (
                                 <TableRowView key={d.id} data={d.data} columns={sorted}/>

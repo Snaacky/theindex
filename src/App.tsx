@@ -49,15 +49,15 @@ class App extends React.Component {
             });
     }
 
-    switchTab(id: number) {
+    switchTab(id: number): void {
         this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
     }
 
-    search(query: string) {
+    search(query: string): void {
         this.setState({searchString: query});
     }
 
-    render() {
+    render(): JSX.Element {
         return (
             <div className="App" style={{minHeight: "100vh"}}>
                 <IndexNavbar/>

@@ -11,7 +11,7 @@ interface TabViewProps {
 }
 
 class TabView extends React.Component<TabViewProps> {
-    render() {
+    render(): JSX.Element {
         return (
             <Container fluid className={"py-2"}>
                 <Card style={{backgroundColor: "#121212"}}>

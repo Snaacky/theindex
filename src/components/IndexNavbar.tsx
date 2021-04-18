@@ -4,7 +4,7 @@ import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import {BsBook, HiOutlineStatusOnline} from "react-icons/all";
 
-const IndexNavbar = () => {
+const IndexNavbar = (): JSX.Element => {
     return (
         <Navbar variant={"dark"} style={{backgroundColor: "#121212"}}>
             <NavbarBrand href={"/#home"}>

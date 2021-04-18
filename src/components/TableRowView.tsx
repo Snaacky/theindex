@@ -1,5 +1,5 @@
 import React from "react";
-import {TableColumnData, TableRowData} from "../api/Interfaces";
+import {TableColumnData} from "../api/Interfaces";
 import "./TableRowView.css";
 
 interface TableRowViewProps {
@@ -8,7 +8,7 @@ interface TableRowViewProps {
 }
 
 class TableRowView extends React.Component<TableRowViewProps> {
-    cellFormatter(data: any) {
+    cellFormatter(data: any): string | JSX.Element {
         if (typeof data === "string") {
             return data;
         }
@@ -26,8 +26,8 @@ class TableRowView extends React.Component<TableRowViewProps> {
         );
     }
 
-    render() {
-        let expanded = this.props.data;
+    render(): JSX.Element {
+        const expanded = this.props.data;
         return (
             <tr>
                 {this.props.columns.filter((c) => c.hidden === false).map((c: TableColumnData) => {

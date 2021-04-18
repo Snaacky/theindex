@@ -12,16 +12,16 @@ interface TableColumnTogglesViewProps {
 }
 
 class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps> {
-    indeterminate() {
+    indeterminate(): boolean {
         return this.props.cols.some((c: TableColumnData) => c.hidden && c.order > 0) &&
             this.props.cols.some((c: TableColumnData) => !c.hidden && c.order > 0);
     }
 
-    checked() {
+    checked(): boolean {
         return !this.props.cols.some((c: TableColumnData) => c.hidden && c.order > 0);
     }
 
-    clicked() {
+    clicked(): TableColumnData | void {
         let hide: boolean = this.checked();
         this.props.toggleColumn(this.props.cols.map((c: TableColumnData) => {
             if (c.order > 0) {
@@ -31,7 +31,7 @@ class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps
         }));
     }
 
-    toggle(col: TableColumnData) {
+    toggle(col: TableColumnData): TableColumnData | void {
         this.props.toggleColumn(this.props.cols.map((c: TableColumnData) => {
             if (c.id === col.id) {
                 c.hidden = !c.hidden;
@@ -40,7 +40,7 @@ class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps
         }));
     }
 
-    render() {
+    render(): JSX.Element {
         return (
             <div className={"card card-body"} style={{backgroundColor: "#202020"}}>
                 <Row>

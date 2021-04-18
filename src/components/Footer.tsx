@@ -3,7 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import {FaDiscord, FaGithub, FaReddit, FaTwitter} from "react-icons/all";
 import "./Footer.css";
 
-const Footer = () => (
+const Footer = (): JSX.Element => (
     <footer className={"mt-auto p-2"}>
         <Container>
             <p>

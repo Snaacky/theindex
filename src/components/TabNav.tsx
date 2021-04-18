@@ -11,7 +11,7 @@ interface TabNavProps {
 }
 
 class TabNav extends React.Component<TabNavProps> {
-    render() {
+    render(): JSX.Element {
         if (this.props.tabs.length > 0 && typeof this.props.currentTab !== "undefined") {
             return (
                 <Row className={"tab-nav"}>
