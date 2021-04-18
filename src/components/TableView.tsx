@@ -1,12 +1,13 @@
 import React from "react";
 import {TableColumnData, TableData, TableRowData} from "../api/Interfaces";
 import {Card, Collapse, Table} from "react-bootstrap";
-import TableRowView from "./TableRowView";
 import TableColumnTogglesView from "./TableColumnTogglesView";
 import ToggleColumnsButton from "./ToggleColumnsButton";
+import TableRowView from "./TableRowView";
 
 interface TableViewProps {
     table: TableData,
+    editMode: boolean,
     search: string
 }
 
@@ -119,7 +120,12 @@ class TableView extends React.Component<TableViewProps> {
                                 .toLowerCase().indexOf(this.props.search) !== -1;
                         }).map((d: any) => {
                             return (
-                                <TableRowView key={d.id} data={d.data} columns={sorted}/>
+                                <TableRowView key={d.id}
+                                              id={d.id}
+                                              editMode={this.props.editMode}
+                                              tableId={this.props.table.id}
+                                              data={d.data}
+                                              columns={sorted}/>
                             );
                         })}
                         </tbody>

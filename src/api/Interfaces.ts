@@ -23,7 +23,7 @@ export interface TableColumnData {
     description: string,
     columnId: number,
     tableId: number,
-    columnType: number,
+    columnType: string,
     order: number,
     hidden: boolean
 }

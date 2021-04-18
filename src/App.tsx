@@ -13,21 +13,23 @@ interface AppState {
     tables: Array<TableData>,
     tabs: Array<TabData>,
     currentTab?: TabData,
+    editMode: boolean,
     searchString: string
 }
 
 class App extends React.Component {
     state: AppState;
 
-    constructor(props: {} | Readonly<{}>) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
             columns: [],
             tables: Array<TableData>(),
             tabs: Array<TabData>(),
+            editMode: false,
             currentTab: undefined, // cannot be defined at this state
-            searchString: ""
+            searchString: "",
         };
     }
 
@@ -53,6 +55,10 @@ class App extends React.Component {
         this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
     }
 
+    enableEditMode(enabled: boolean): void {
+        this.setState({editMode: enabled});
+    }
+
     search(query: string): void {
         this.setState({searchString: query});
     }
@@ -60,15 +66,17 @@ class App extends React.Component {
     render(): JSX.Element {
         return (
             <div className="App" style={{minHeight: "100vh"}}>
-                <IndexNavbar/>
+                <IndexNavbar editMode={this.state.editMode} editModeChange={this.enableEditMode.bind(this)}/>
                 <Container className={"my-4"}>
                     <TabNav tabs={this.state.tabs}
+                            editMode={this.state.editMode}
                             currentTab={this.state.currentTab}
                             search={this.search.bind(this)}
                             onTabChange={this.switchTab.bind(this)}/>
                 </Container>
                 {typeof this.state.currentTab !== "undefined" ?
                     <TabView search={this.state.searchString}
+                             editMode={this.state.editMode}
                              tab={this.state.currentTab}
                              tables={this.state.tables}/> :
                     <span>Loading....</span>}

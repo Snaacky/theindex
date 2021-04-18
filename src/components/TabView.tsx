@@ -7,6 +7,7 @@ import TableView from "./TableView";
 interface TabViewProps {
     tab: TabData,
     tables: TableData[],
+    editMode: boolean,
     search: string
 }
 
@@ -30,7 +31,10 @@ class TabView extends React.Component<TabViewProps> {
                         );
                     }
                     return (
-                        <TableView table={t} key={t.id} search={this.props.search}/>
+                        <TableView table={t}
+                                   editMode={this.props.editMode}
+                                   key={t.id}
+                                   search={this.props.search}/>
                     );
                 })}
             </Container>

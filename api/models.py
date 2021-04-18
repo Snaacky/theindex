@@ -41,10 +41,10 @@ class Table(db.Model):
         uselist=True
     )
 
-    def to_dict(self, recursive=False):
+    def to_dict(self):
         return {
             "id": self.id,
-            "tab_id": self.tab_id,
+            "tabId": self.tab_id,
             "name": self.name,
             "description": self.description,
             "order": self.order,
@@ -63,7 +63,7 @@ class Data(db.Model):
         return {
             "id": self.id,
             "data": self.data,
-            "table_id": self.table_id
+            "tableId": self.table_id
         }
 
 
@@ -80,7 +80,7 @@ class Column(db.Model):
             "name": self.name,
             "key": self.key,
             "description": self.description,
-            "column_type": self.column_type
+            "columnType": self.column_type
         }
 
 
@@ -96,8 +96,8 @@ class TableColumn(db.Model):
 
     def to_dict(self):
         return {
-                   "table_id": self.table_id,
-                   "column_id": self.column_id,
+                   "tableId": self.table_id,
+                   "columnId": self.column_id,
                    "order": self.order,
                    "hidden": self.hidden
                } | self.column.to_dict()

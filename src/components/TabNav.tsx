@@ -7,6 +7,7 @@ interface TabNavProps {
     tabs: Array<any>,
     onTabChange: (id: number) => void,
     search: (query: string) => void,
+    editMode: boolean,
     currentTab?: TabData
 }
 
@@ -33,6 +34,7 @@ class TabNav extends React.Component<TabNavProps> {
                     <Col>
                         <InputGroup className={"mt-1"}>
                             <FormControl
+                                className={"custom"}
                                 onInput={(e: React.FormEvent<HTMLInputElement>) => this.props.search(
                                     e.currentTarget.value.toLowerCase()
                                 )}
