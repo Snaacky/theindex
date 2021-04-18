@@ -52,7 +52,9 @@ class App extends React.Component {
     }
 
     switchTab(id: number): void {
-        this.setState({currentTab: this.state.tabs.filter(t => t.id === id)[0]});
+        this.setState((oldState: AppState) => ({
+            currentTab: oldState.tabs.filter(t => t.id === id)[0]
+        }));
     }
 
     enableEditMode(enabled: boolean): void {

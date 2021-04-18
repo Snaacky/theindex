@@ -23,28 +23,9 @@ class TableView extends React.Component<TableViewProps> {
         super(props);
 
         this.state = {
-            cols: this.cloneShallow(this.props.table.columns),
+            cols: [...this.props.table.columns],
             toggleColumnsExpanded: false,
         };
-    }
-
-    cloneShallow(cols: TableColumnData[]): TableColumnData[] {
-        // clone required to not overwrite the original state for resetting
-        const result: TableColumnData[] = [];
-        cols.forEach(c => {
-            result.push({
-                id: c.id,
-                name: c.name,
-                key: c.key,
-                description: c.description,
-                columnId: c.columnId,
-                tableId: c.tableId,
-                columnType: c.columnType,
-                order: c.order,
-                hidden: c.hidden
-            } as TableColumnData);
-        });
-        return result;
     }
 
     toggleColumn(cols: TableColumnData[]): void {
@@ -52,10 +33,13 @@ class TableView extends React.Component<TableViewProps> {
     }
 
     resetColumn(): void {
-        // we need to adjust this manually to prevent unreferencing the columns
-        const cols = this.state.cols;
+        // we need to make copies to prevent unreferencing the columns
+        const cols = [...this.state.cols];
         this.props.table.columns.forEach((c, i) => {
-            cols[i].hidden = c.hidden;
+            cols[i] = {
+                ...cols[i],
+                hidden: c.hidden
+            };
         });
         this.setState({cols: cols});
     }
