@@ -28,7 +28,7 @@ class TableRowView extends React.Component<TableRowViewProps> {
 
     updateData(data: any, cId: number): void {
         const c = this.props.columns.filter((c: TableColumnData) => c.id === cId)[0];
-        console.log("Update data of column", c.key, "to", data);
+        // console.log("Update data of column", c.key, "to", data);
 
         // we need to adjust this manually to prevent unreferencing the columns
         const d = this.state.data;
