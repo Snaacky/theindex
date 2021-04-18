@@ -144,6 +144,13 @@ def transfer_table(data, table):
 
 
 if __name__ == "__main__":
+
+    # checks if at least 1 tab exists in the database
+    with create_app().app_context():
+        res = Table.query.get(1)
+        if res:
+            exit()
+
     with open(os.path.join('static', 'columns.json')) as json_file:
         columns_data = json.load(json_file)
     with open(os.path.join('static', 'tables.json')) as json_file:
