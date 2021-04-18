@@ -54,7 +54,7 @@ class Table(db.Model):
 
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(255), nullable=False)
+    data = db.Column(db.String(1024), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey('table.id'))
 
     def to_dict(self):
