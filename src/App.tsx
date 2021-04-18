@@ -31,7 +31,7 @@ class App extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         fetch(debugUrl + "/api/columns")
             .then(r => r.json())
             .then(cols => {

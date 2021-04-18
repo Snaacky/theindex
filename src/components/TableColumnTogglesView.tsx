@@ -22,7 +22,7 @@ class TableColumnTogglesView extends React.Component<TableColumnTogglesViewProps
     }
 
     clicked(): TableColumnData | void {
-        let hide: boolean = this.checked();
+        const hide: boolean = this.checked();
         this.props.toggleColumn(this.props.cols.map((c: TableColumnData) => {
             if (c.order > 0) {
                 c.hidden = hide;

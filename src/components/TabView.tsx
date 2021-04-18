@@ -23,7 +23,7 @@ class TabView extends React.Component<TabViewProps> {
                     </Card.Body>
                 </Card>
                 {this.props.tab.tables.map((tableId: number) => {
-                    let t = this.props.tables.filter(table => table.id === tableId)[0];
+                    const t = this.props.tables.filter(table => table.id === tableId)[0];
                     if (typeof t === "undefined") {
                         return (
                             <span key={tableId}>Loading...</span>

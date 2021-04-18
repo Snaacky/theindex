@@ -29,7 +29,7 @@ class TableView extends React.Component<TableViewProps> {
 
     cloneShallow(cols: TableColumnData[]): TableColumnData[] {
         // clone required to not overwrite the original state for resetting
-        let result: TableColumnData[] = [];
+        const result: TableColumnData[] = [];
         cols.forEach(c => {
             result.push({
                 id: c.id,
