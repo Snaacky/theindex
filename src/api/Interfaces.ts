@@ -10,6 +10,8 @@ export interface TableData {
     name: string,
     description: string,
     tabId: number,
+    order: number,
+    hidden: boolean,
     data: TableRowData[],
     columns: TableColumnData[]
 }

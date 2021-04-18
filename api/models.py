@@ -47,6 +47,8 @@ class Table(db.Model):
             "tab_id": self.tab_id,
             "name": self.name,
             "description": self.description,
+            "order": self.order,
+            "hidden": self.hidden,
             "columns": [t.to_dict() for t in self.columns],
             "data": [t.to_dict() for t in self.data]
         }

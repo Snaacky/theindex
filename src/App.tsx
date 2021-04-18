@@ -28,7 +28,7 @@ class App extends React.Component {
             tabs: Array<TabData>(),
             currentTab: undefined, // cannot be defined at this state
             searchString: ""
-        }
+        };
     }
 
     componentDidMount() {
