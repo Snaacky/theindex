@@ -13,6 +13,7 @@ interface TableViewProps {
 
 interface TableViewState {
     cols: TableColumnData[],
+    table: TableData,
     toggleColumnsExpanded: boolean
 }
 
@@ -24,6 +25,7 @@ class TableView extends React.Component<TableViewProps> {
 
         this.state = {
             cols: [...this.props.table.columns],
+            table: {...this.props.table},
             toggleColumnsExpanded: false,
         };
     }
@@ -54,9 +56,9 @@ class TableView extends React.Component<TableViewProps> {
             <Card className={"mt-3"} style={{backgroundColor: "#121212"}}>
                 <Card.Header className={"d-flex"}>
                     <div>
-                        {this.props.table.name}
+                        {this.state.table.name}
                         <small className={"ml-1 text-muted"}>
-                            {this.props.table.description}
+                            {this.state.table.description}
                         </small>
                     </div>
                     <span
@@ -78,7 +80,7 @@ class TableView extends React.Component<TableViewProps> {
                                 cols={sorted}
                                 toggleColumn={this.toggleColumn.bind(this)}
                                 resetColumn={this.resetColumn.bind(this)}
-                                tableId={this.props.table.id}/>
+                                tableId={this.state.table.id}/>
                         </div>
                     </Collapse>
                     <Table variant="dark" className={"mb-0"}>
@@ -94,7 +96,7 @@ class TableView extends React.Component<TableViewProps> {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.table.data.map((d: TableRowData) => {
+                        {this.state.table.data.map((d: TableRowData) => {
                             return {
                                 id: d.id,
                                 data: JSON.parse(d.data)
@@ -102,12 +104,12 @@ class TableView extends React.Component<TableViewProps> {
                         }).filter((d) => {
                             return d.data[sorted[0].key as keyof typeof d.data]
                                 .toLowerCase().indexOf(this.props.search) !== -1;
-                        }).map((d: any) => {
+                        }).map((d) => {
                             return (
                                 <TableRowView key={d.id}
                                               id={d.id}
                                               editMode={this.props.editMode}
-                                              tableId={this.props.table.id}
+                                              tableId={this.state.table.id}
                                               data={d.data}
                                               columns={sorted}/>
                             );
