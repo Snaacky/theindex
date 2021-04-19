@@ -1,0 +1,30 @@
+tbody kbd {
+    background-color: rgb(13, 13, 13);
+    padding: 0.15rem 0.7rem;
+    font-size: 1rem;
+}
+
+thead th {
+    font-weight: 500;
+    position: sticky;
+    background-color: rgb(22, 22, 22);
+    z-index: 100;
+    top: 0;
+}
+
+tbody tr {
+    background-color: rgb(22, 22, 22);
+}
+
+tbody tr:nth-child(2n) {
+    background-color: rgb(18, 18, 18);
+}
+
+tbody tr:hover {
+    background-color: rgb(32, 32, 32);
+}
+
+.table tr th,
+.table tr td {
+    border-top: 0;
+}

@@ -1,34 +1,40 @@
 import React from "react";
 import {TabData, TableData} from "../api/Interfaces";
-import {Container, Jumbotron} from "react-bootstrap";
+import {Card, Container} from "react-bootstrap";
 import TableView from "./TableView";
 
 
 interface TabViewProps {
     tab: TabData,
-    tables: TableData[]
+    tables: TableData[],
+    editMode: boolean,
+    search: string
 }
 
 class TabView extends React.Component<TabViewProps> {
-
-    render() {
+    render(): JSX.Element {
         return (
-            <Container fluid style={{textAlign: "left"}}>
-                <Jumbotron>
-                    <h3>{this.props.tab.name}</h3>
-                    <p>
+            <Container fluid className={"py-2"}>
+                <Card style={{backgroundColor: "#121212"}}>
+                    <Card.Header>
+                        {this.props.tab.name}
+                    </Card.Header>
+                    <Card.Body style={{backgroundColor: "#202020"}}>
                         {this.props.tab.description}
-                    </p>
-                </Jumbotron>
-                {this.props.tab.tables.map((table_id: number) => {
-                    let t = this.props.tables.filter(table => table.id === table_id)[0];
-                    if (t === undefined) {
+                    </Card.Body>
+                </Card>
+                {this.props.tab.tables.map((tableId: number) => {
+                    const t = this.props.tables.filter(table => table.id === tableId)[0];
+                    if (typeof t === "undefined") {
                         return (
-                            <span key={table_id}>Loading...</span>
+                            <span key={tableId}>Loading...</span>
                         );
                     }
                     return (
-                        <TableView table={t} key={t.id}/>
+                        <TableView table={t}
+                                   editMode={this.props.editMode}
+                                   key={t.id}
+                                   search={this.props.search}/>
                     );
                 })}
             </Container>

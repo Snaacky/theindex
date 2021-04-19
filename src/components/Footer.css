@@ -1,0 +1,16 @@
+footer {
+    background-color: #121212;
+    color: rgb(198, 198, 198);
+}
+
+footer .icon {
+    font-size: 1.5em;
+}
+
+footer a {
+    color: rgb(198, 198, 198);
+}
+
+footer hr {
+    background-color: rgb(198, 198, 198);
+}

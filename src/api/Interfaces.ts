@@ -9,7 +9,9 @@ export interface TableData {
     id: number,
     name: string,
     description: string,
-    tab_id: number,
+    tabId: number,
+    order: number,
+    hidden: boolean,
     data: TableRowData[],
     columns: TableColumnData[]
 }
@@ -19,9 +21,9 @@ export interface TableColumnData {
     name: string,
     key: string,
     description: string,
-    column_id: number,
-    table_id: number,
-    column_type: number,
+    columnId: number,
+    tableId: number,
+    columnType: string,
     order: number,
     hidden: boolean
 }
@@ -29,5 +31,5 @@ export interface TableColumnData {
 export interface TableRowData {
     id: number,
     data: string,
-    table_id: number
+    tableId: number
 }

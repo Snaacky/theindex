@@ -1,0 +1,8 @@
+.toggle-columns-button {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.toggle-columns-button:hover {
+    color: rgb(42, 100, 150);
+}

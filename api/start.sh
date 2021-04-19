@@ -13,10 +13,7 @@ sponsored_anime=$(makepasswd --minchars=5 --maxchars=20 --string="abcdefghijklmn
 sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/static/js/sponsored.js
 sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/index.html
 
-mkdir -p /config
-
 python init.py
-
 
 # start the web api
 gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'

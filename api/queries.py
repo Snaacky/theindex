@@ -99,11 +99,24 @@ def resolve_column(column_id):
 # data endpoint
 # ------------------------------------------------------------------------------
 @bp.route("/api/tables/<table_id>/data", methods=["GET"])
-def resolve_data(table_id):
+def resolve_datas(table_id):
     try:
         t = Table.query.get_or_404(table_id, f"Table {table_id} not found")
         results = [json.loads(c.data) | dict(id=c.id) for c in t.data]
         return jsonify(results)
+    except Exception as e:
+        logging.error(str(e))
+        return 500
+
+
+@bp.route("/api/tables/<table_id>/data/<data_id>", methods=["GET"])
+def resolve_data(table_id, data_id):
+    try:
+        t = Table.query.get_or_404(table_id, f"Table {table_id} not found")
+        for d in t.data:
+            if d.id == data_id:
+                return json.loads(d.data) | dict(id=d.id)
+        return "data row not found", 403
     except Exception as e:
         logging.error(str(e))
         return 500
