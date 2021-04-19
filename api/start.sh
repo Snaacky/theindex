@@ -15,11 +15,8 @@ sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/index.html
 
 mkdir -p /config
 
-# migrate if db does not exists
-if [ ! -f /config/data.db ]; then
-    echo "Could not find existing db, trying to run init script"
-    python init.py
-fi
+python init.py
+
 
 # start the web api
 gunicorn --workers 3 -b unix:/tmp/gunicorn.sock 'app:create_app()'
