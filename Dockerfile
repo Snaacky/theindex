@@ -26,6 +26,7 @@ ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="your_discord_client_secret"
 ENV DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"
 ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
+ENV DB_CONNECTION_URI="sqlite:///data.sqlite3"
 
 VOLUME ["/config"]
 EXPOSE 8080
@@ -40,9 +41,12 @@ LABEL org.opencontainers.image.vendor="/r/animepiracy" \
 # copy python requirements beforehand for improved building caching
 COPY api/requirements.txt .
 
+# compile dependency for psycopg2 python library
+#ENV PATH=/usr/lib/postgresql/X.Y/bin/:$PATH
+
 # install nginx and needed python packages
 RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y nginx makepasswd wget && \
+    apt-get install --no-install-recommends -y nginx makepasswd wget libpq-dev python-dev gcc && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --no-cache-dir -r requirements.txt

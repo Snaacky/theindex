@@ -3,8 +3,8 @@ from app import db
 
 class Tab(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
     tables = db.relationship(
         'Table',
         backref="tab",
@@ -23,8 +23,8 @@ class Tab(db.Model):
 
 class Table(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
     tab_id = db.Column(db.Integer, db.ForeignKey('tab.id'))
     order = db.Column(db.Integer)
     hidden = db.Column(db.Boolean, default=False)
@@ -56,7 +56,7 @@ class Table(db.Model):
 
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String, nullable=False)
+    data = db.Column(db.String(1024), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey('table.id'))
 
     def to_dict(self):
@@ -69,10 +69,10 @@ class Data(db.Model):
 
 class Column(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    column_type = db.Column(db.String, default="text")
-    key = db.Column(db.String)
-    description = db.Column(db.String)
+    name = db.Column(db.String(255), nullable=False)
+    column_type = db.Column(db.String(255), default="text")
+    key = db.Column(db.String(255))
+    description = db.Column(db.String(255))
 
     def to_dict(self):
         return {

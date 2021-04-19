@@ -144,12 +144,21 @@ def transfer_table(data, table):
 
 
 if __name__ == "__main__":
-    with open(os.path.join('static', 'columns.json')) as json_file:
-        columns_data = json.load(json_file)
-    with open(os.path.join('static', 'tables.json')) as json_file:
-        tables_data = json.load(json_file)
 
     with create_app().app_context():
+
+        # Checks the database to see if there's at least 1 tab
+        if Table.query.get(1):
+            print("DB found skipping init script")
+            exit()
+
+        print("No DB found running init script")
+        # Loads the data that'll get imported
+        with open(os.path.join('static', 'columns.json')) as json_file:
+            columns_data = json.load(json_file)
+        with open(os.path.join('static', 'tables.json')) as json_file:
+            tables_data = json.load(json_file)
+
         for key in columns_data["keys"].keys():
             c = columns_data["keys"][key]
             col = Column(
