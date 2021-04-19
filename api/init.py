@@ -149,8 +149,10 @@ if __name__ == "__main__":
 
         # Checks the database to see if there's at least 1 tab
         if Table.query.get(1):
+            print("DB found skipping init script")
             exit()
 
+        print("No DB found running init script")
         # Loads the data that'll get imported
         with open(os.path.join('static', 'columns.json')) as json_file:
             columns_data = json.load(json_file)
