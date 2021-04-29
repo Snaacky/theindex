@@ -14,28 +14,26 @@ window.addEventListener("load", () => {
                 ' &amp; <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span><span>, apps available in </span>' +
                 '<span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Android</span><span>' +
                 ' and </span><span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">iOS</span>'
-        }/*,
+        },
         {
             id: "sponsored1",
-            title: "AnimeFever",
-            url: "https://www.animefever.tv",
-            description: 'Videos in ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">720p</span> ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">480p</span> ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">360p</span> ' +
-                'and available as ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Dubs</span> ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Subs</span> ' +
-                'with ' +
-                '<span class="badge rounded-pill" style="background-color: var(--table-hover);">Download</span>-Support'
-        }*/
+            title: "ZoRo.to",
+            url: "https://zoro.to/",
+            description: 'NO ADS, watch free anime in' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span> with' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> + ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Schedule</span><span> feature </span>'
+        }
     ]
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
-                '<div class="col d-flex justify-content-center">' +
-                '<div class="card" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
+                '<div class="col-auto d-flex justify-content-center">' +
+                '<div class="card mx-2" style="min-width: 240px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
