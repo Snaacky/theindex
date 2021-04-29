@@ -140,3 +140,5 @@ config.py
 migration.db*
 data.db*
 .vscode/
+*.bat
+whitelist.json
