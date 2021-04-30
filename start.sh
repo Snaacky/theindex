@@ -7,10 +7,12 @@ if [ ! -f /config/data.db ]; then
     python migrate.py
 fi
 
-# generate a new one time flask_secret
-flask_secret=$(makepasswd)
-echo "Generated new flask_secret: ${flask_secret}"
-echo "${flask_secret}" > /config/.flask_secret
+# generate a new flask_secret
+if [ ! -f /config/.flask_secret ]; then
+    flask_secret=$(makepasswd)
+    echo "Generated new flask_secret: ${flask_secret}"
+    echo "${flask_secret}" > /config/.flask_secret
+fi
 
 # replace sponsoredAnime with dynamic string
 sponsored_anime=$(makepasswd --minchars=5 --maxchars=20 --string="abcdefghijklmnopqrstuvwxyz")
