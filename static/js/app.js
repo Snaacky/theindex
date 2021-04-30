@@ -153,18 +153,18 @@ window.addEventListener('load', () => {
     generateColumnsDetails()
 
     setInterval(async () => {
-        if ((await checkOnlineStatus())["status"] === "up") {
-            document.getElementById("online-status").innerHTML = ""
-        } else {
+        if ((await checkOnlineStatus())["status"] === "down") {
             document.getElementById("online-status").innerHTML = "Ping-system is offline"
+        } else {
+            document.getElementById("online-status").innerHTML = ""
         }
     }, 5000) // ping every 5s
     // check once at the beginning instead of waiting for the first 5s
     checkOnlineStatus().then(result => {
-        if (result["status"] === "up") {
-            document.getElementById("online-status").innerHTML = ""
-        } else {
+        if (result["status"] === "down") {
             document.getElementById("online-status").innerHTML = "Ping-system is offline"
+        } else {
+            document.getElementById("online-status").innerHTML = ""
         }
     })
 
