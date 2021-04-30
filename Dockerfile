@@ -21,7 +21,6 @@ ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="your_discord_client_secret"
 ENV DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"
 ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
-ENV FLASK_SECRET="your_flask_secret_here"
 
 VOLUME ["/config"]
 EXPOSE 8080

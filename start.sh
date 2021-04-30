@@ -7,6 +7,11 @@ if [ ! -f /config/data.db ]; then
     python migrate.py
 fi
 
+# generate a new one time flask_secret
+flask_secret=$(makepasswd)
+echo "Generated new flask_secret: ${flask_secret}"
+echo "${flask_secret}" > /config/.flask_secret
+
 # replace sponsoredAnime with dynamic string
 sponsored_anime=$(makepasswd --minchars=5 --maxchars=20 --string="abcdefghijklmnopqrstuvwxyz")
 sed -i "s/sponsoredAnime/${sponsored_anime}/g" /app/static/js/sponsored.js

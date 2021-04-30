@@ -13,16 +13,17 @@ if os.environ.get('AUDIT_WEBHOOK') == "":
     logging.warn("WARNING: No webhook for audit-log found")
 
 # create whitelist.json if not exists
-if not os.path.isfile("/config/whitelist.json"):
+if not os.path.isfile(os.path.join("/config", "whitelist.json")):
     logging.warn("No whitelist file found in /config/whitelist.json, creating new")
-    with open("/config/whitelist.json", "w") as f:
+    with open(os.path.join("/config", "whitelist.json"), "w") as f:
         json.dump([9999999999], f)
 
 def create_app():
     app = Flask(__name__)
 
-    # setting flask_secret
-    app.secret_key = os.environ.get("FLASK_SECRET")
+    # setting flask_secret#
+    with open(os.path.join("/config", ".flask_secret"), "rb") as secret:
+        app.secret_key = secret.read()
 
     # discord oauth-2 config
     app.config["DISCORD_CLIENT_ID"] = os.environ.get("DISCORD_CLIENT_ID")
