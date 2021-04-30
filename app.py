@@ -22,8 +22,7 @@ def create_app():
     app = Flask(__name__)
 
     # setting flask_secret
-    with open(os.path.join("/srv", ".flask_secret"), "rb") as secret:
-        app.secret_key = secret.read()
+    app.secret_key = os.environ.get("FLASK_SECRET")
 
     # discord oauth-2 config
     app.config["DISCORD_CLIENT_ID"] = os.environ.get("DISCORD_CLIENT_ID")
