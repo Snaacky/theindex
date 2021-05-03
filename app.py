@@ -5,11 +5,8 @@ import json
 from flask import Flask
 from flask_discord import DiscordOAuth2Session
 
-# can this be removed? TODO: test it
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # ONLY FOR DEBUGGING!
-
 # warn if no audit webhook has been found
-if os.environ.get('AUDIT_WEBHOOK') == "":
+if os.environ.get("AUDIT_WEBHOOK") == "":
     logging.warn("WARNING: No webhook for audit-log found")
 
 # create whitelist.json if not exists
