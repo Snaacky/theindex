@@ -48,6 +48,7 @@ Here is a table of the possible ENV-variables with their default values.
 | `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord client secret |
 | `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
+| `-e OAUTHLIB_INSECURE_TRANSPORT="0"` | Allows non-HTTPS OAuth for debugging |
 
 # Building from source
 
@@ -67,11 +68,9 @@ You can now open http://localhost:8080 in your browser.
 
 # Contribution
 
-Pull-requests are always welcome, but may not be always merged as it has to be in align with our idea of the index. If
-you want a certain feature or have an idea, you can always open a feature request
-in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
-or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
-our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
+Pull requests are always welcome, but may not be always merged as the contribution has to align with our idea of the index. If you have an idea for a feature you would like to see added, you can always open a feature request
+on our [issue tracker](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
+or report it on our [Discord server](https://discord.gg/piracy) in `#index-wiki`.
 
 # What we use
 
