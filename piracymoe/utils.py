@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import urllib3
 
@@ -69,6 +70,30 @@ def _send_webhook_message(user, operation, table, after, before=None):
         # Compare the before and after dictionaries using DeepDiff so we can learn the differences.
         # TODO: Replace this with DIY. I thought the library would be more useful than it was.
         diff = DeepDiff(before, after)
+        logging.warn(diff)
+        for item in reversed(diff["values_changed"]):
+            # Every column name is wrapped in root['column_name'] so we need to strip that off.
+            changed = item.replace("root['", "").replace("']", "")
+
+            # Create a new field for the embed containing the column name and a diff of the changes made to the data.
+            # Build the value dynamically so we can exclude the old value if there wasn't a value there previously.
+            value = ""
+            value += "```diff\n"
+            value += f"+ {diff['values_changed'][item]['new_value']}\n"
+            if len(diff['values_changed'][item]['old_value']):
+                value += f"- {diff['values_changed'][item]['old_value']}\n"
+            value += "```"
+
+            field = {
+                "name": f"{changed}:", 
+                "value": value,
+                # A few columns entry changes are typically more lengthy so we want to give those more space than the rest.
+                "inline": "false" if changed in ["features", "siteAddresses", "editorNotes"] else "true"
+            }
+
+            # Append the newly created field to the embed.
+            embed["embeds"][0]["fields"].append(field)
+
         for item in reversed(diff["values_changed"]):
             # Every column name is wrapped in root['column_name'] so we need to strip that off.
             changed = item.replace("root['", "").replace("']", "")

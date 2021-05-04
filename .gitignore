@@ -142,3 +142,4 @@ data.db*
 .vscode/
 *.bat
 whitelist.json
+.flask_secret
