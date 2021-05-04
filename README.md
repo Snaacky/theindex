@@ -14,7 +14,7 @@ Please report incorrect or missing data at our [Discord server](https://discord.
 
 # Getting started
 
-The easiest way is to use Docker via:
+The easiest way is to get started is by using Docker via:
 
 ```
 docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepiracy/index
