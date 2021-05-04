@@ -14,13 +14,13 @@ Please report incorrect or missing data at our [Discord server](https://discord.
 
 # Getting started
 
-The easiest way is to get started is by using Docker via:
+The easiest way is to get started is by using Docker with the following command:
 
 ```
 docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepiracy/index
 ```
 
-You'll need to change `<host-port>` to your desired hostname:port. The web server is not secured via SSL/TLS, it is your
+You will need to change `<host-port>` to your desired hostname:port. The web server is not secured via SSL/TLS, it is your
 responsibility to put a reverse proxy in front of this container. After starting the container you can add your own
 [Discord ID](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
 authenticate with Discord and access the editor panel.
