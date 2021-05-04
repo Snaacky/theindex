@@ -8,56 +8,56 @@
 
 # piracy.moe index
 
-This repository is the web-ui of /r/animepiracy index.
+The frontend, editor panel, and API of the /r/animepiracy index.
 
-If you want to just report missing or false data, please go over to our [Discord](https://discord.gg/piracy) and report
-it in `#index`.
+Please report incorrect or missing data at our [Discord server](https://discord.gg/piracy) in `#index-wiki`, not here.
 
 # Getting started
 
-The easiest way is to use docker via:
+The easiest way is to get started is by using Docker with the following command:
 
 ```
 docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepiracy/index
 ```
 
-You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
+You will need to change `<host-port>` to your desired hostname:port. The web server is not secured via SSL/TLS, it is your
 responsibility to put a reverse proxy in front of this container. After starting the container you can add your own
-[discord-id](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
-login and edit.
+[Discord ID](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
+authenticate with Discord and access the editor panel.
 
 # Updating container image
 
-To get the newest version of image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
+To get the newest version of the container image from [Docker Hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
 will need to run:
 
 ```
 docker pull ranimepiracy/index
 ```
 
-Afterwards you will need to stop and remove your current running instance and start it again.
+Afterwards, you will need to stop and remove your current running instance and start it again.
 
 # Parameters
 
-Here is a table of the possible ENV-variables with their default values.
+Here is a table of the possible environment variables with their default values:
 
 | Parameter | Function |
 | :----: | --- |
-| `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
+| `-e AUDIT_WEBHOOK=""` | Webhook URL for audit log |
 | `-e DISCORD_CLIENT_ID=00000000000` | Discord client ID |
 | `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord client secret |
-| `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
-| `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
+| `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth 2.0 callback for Discord |
+| `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access bot resources |
+| `-e OAUTHLIB_INSECURE_TRANSPORT="0"` | Allows non-HTTPS OAuth for debugging |
 
 # Building from source
 
-To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/) you will need to run:
+To build the [Docker image](https://docs.docker.com/engine/reference/commandline/build/) you will need to run:
 
 ```
 docker build . -t index-web
 ```
 
-Afterwards you will just need to run
+Afterwards you will just need to run:
 
 ```
 docker run -d -p <host-port>:8080 index-web
@@ -67,11 +67,9 @@ You can now open http://localhost:8080 in your browser.
 
 # Contribution
 
-Pull-requests are always welcome, but may not be always merged as it has to be in align with our idea of the index. If
-you want a certain feature or have an idea, you can always open a feature request
-in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
-or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
-our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
+Pull requests are always welcome, but may not be always merged as the contribution needs to align with our idea for the index. If you have an idea for a feature you would like to see added, you can always open a feature request
+on our [issue tracker](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
+or report it on our [Discord server](https://discord.gg/piracy) in `#index-wiki`.
 
 # What we use
 
