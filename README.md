@@ -38,7 +38,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 # Parameters
 
-Here is a table of the possible environment variables with their default values.
+Here is a table of the possible environment variables with their default values:
 
 | Parameter | Function |
 | :----: | --- |
