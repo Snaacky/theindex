@@ -26,13 +26,26 @@ window.addEventListener("load", () => {
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> + ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Schedule</span><span> feature </span>'
+        },
+        {
+            id: "sponsored2",
+            title: "Aniorb",
+            url: "https://beta.aniorb.me",
+            description: 'No ads, FREE anime & manga, no login, multiple servers!' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
         }
     ]
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
-                '<div class="col-auto d-flex justify-content-center">' +
+                '<div class="col">' +
                 '<div class="card mx-2" style="min-width: 160px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
@@ -41,7 +54,7 @@ window.addEventListener("load", () => {
                 '<h6 class="card-subtitle mb-2 text-warning">' +
                 '<small><i class="bi bi-star-fill"></i></small>' +
                 '</h6>' +
-                '<p class="card-text d-none d-sm-block">' + sponsored["description"] + '</p>' +
+                '<p class="card-text d-none d-lg-block">' + sponsored["description"] + '</p>' +
                 '<a class="umami--click--sponsored--' + sponsored["title"].toLowerCase() + '" href="' + sponsored["url"] + '" target="_blank">' +
                 '<i class="bi bi-box-arrow-up-right"></i> Visit site' +
                 '</a>' +

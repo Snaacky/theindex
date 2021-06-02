@@ -197,7 +197,19 @@ tbody > tr:hover {
     font-weight: 500;
 }
 
-
 .card small::before {
     content: "Sponsored ";
+}
+
+.card > .h5, h5 {
+    font-size: 1.15rem;
+}
+
+#animeTables > .row {
+    margin-right: 0;
+    --bs-gutter-x: 0;
+}
+
+#animeTables > .row > .col {
+    margin-bottom: 1em;
 }
