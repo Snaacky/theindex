@@ -39,14 +39,27 @@ window.addEventListener("load", () => {
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
+        },
+        {
+            id: "sponsored3",
+            title: "KimAnime.com",
+            url: "https://kimanime.com",
+            description: 'Watch in ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
+            ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
+            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span><br>(Major Website Update upcoming!)'
         }
     ]
 
     if (sponsoredList && sponsoredList.length > 0) {
         sponsoredList.forEach(sponsored => {
             document.querySelector('#sponsoredAnime').innerHTML +=
-                '<div class="col">' +
-                '<div class="card mx-2" style="min-width: 160px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
+                '<div class="col" style="padding-right:1em;">' +
+                '<div class="card mx-auto pr-1" style="min-width: 160px; max-width: 19.4rem;"><div class="card-body bg-darker">' +
                 '<h5 class="card-title">' +
                 '<div class="spinner-grow d-inline-block rounded-circle bg-secondary spinner-grow-sm" ' +
                 'id="online-' + sponsored["id"] + '" data-bs-toggle="tooltip" role="status"></div> ' +
