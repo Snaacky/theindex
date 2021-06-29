@@ -25,3 +25,7 @@ a:not(.link-light):not(.btn):not(.nav-item a) {
 a:not(.link-light):not(.btn):not(.navbar-brand):hover {
     color: #2a6496 !important;
 }
+
+.card {
+    background-color: rgb(22, 22, 22);
+}

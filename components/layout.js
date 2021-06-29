@@ -6,7 +6,7 @@ import Footer from "./footer";
 const name = 'Your Name'
 export const siteTitle = '/r/animepiracy Index'
 
-export default function Layout({children, home, tabs}) {
+export default function Layout({children, error, home, tabs}) {
     return (
         <div className={"d-flex"}
              style={{
@@ -34,26 +34,24 @@ export default function Layout({children, home, tabs}) {
 
                 <link rel="manifest" href="manifest.json"/>
 
+                {error ?
+                    <title>
+                        Error {error} | {siteTitle}
+                    </title> : <></>}
                 <meta name="description"
                       content="The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."/>
                 <meta name="robots" content="index, archive, nofollow"/>
-
-                <meta property="og:image"
-                      content={`https://og-image.vercel.app/${encodeURI(
-                          siteTitle
-                      )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-                />
-                <meta name="og:title" content={siteTitle}/>
-                <meta name="twitter:card" content="summary_large_image"/>
 
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
                       rel="stylesheet"
                       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
                       crossOrigin="anonymous"/>
             </Head>
-            <header>
-                <Navbar tabs={tabs}/>
-            </header>
+            {error ? <></> :
+                <header>
+                    <Navbar tabs={tabs}/>
+                </header>
+            }
             <div className={"container-fluid my-2"}>
                 {home ? <></> : (
                     <Link href={"/"}>
