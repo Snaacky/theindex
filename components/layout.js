@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import Navbar from "./navbar";
 
@@ -11,7 +10,7 @@ export default function Layout({children, home}) {
         <div>
             <Head>
                 <meta charSet="UTF-8"/>
-                <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+                <meta content="IE=Edge" httpEquiv="X-UA-Compatible"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
                 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -49,21 +48,18 @@ export default function Layout({children, home}) {
             </Head>
             <header>
                 <Navbar/>
-                <h1>{name}</h1>
-                <h2>
-                    <Link href="/">
-                        <a>{name}</a>
-                    </Link>
-                </h2>
             </header>
-            <main>{children}</main>
-            {!home && (
-                <div>
-                    <Link href="/">
-                        <a>← Back to home</a>
+            <div className={"container-fluid my-2"}>
+                {home ? <></> : (
+                    <Link href={"/"}>
+                        <a className={"mb-2"}>
+                            ← go back
+                        </a>
                     </Link>
-                </div>
-            )}
+                )}
+                <main>{children}</main>
+            </div>
+
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
                     crossOrigin="anonymous"/>

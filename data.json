@@ -1,0 +1,50 @@
+[
+  {
+    "id": "anime",
+    "title": "Anime",
+    "tables": [
+      {
+        "id": "english",
+        "title": "English anime",
+        "description": "lorem ipsum",
+        "items": []
+      },
+      {
+        "id": "foreign",
+        "title": "Foreign anime",
+        "description": "lorem ipsum",
+        "items": []
+      },
+      {
+        "id": "download",
+        "title": "Download only",
+        "description": "lorem ipsum",
+        "items": []
+      }
+    ]
+  },
+  {
+    "id": "manga",
+    "title": "Manga",
+    "tables": [
+      {
+        "id": "english scan",
+        "title": "English mangas",
+        "description": "lorem ipsum",
+        "items": []
+      },
+      {
+        "id": "foreign",
+        "title": "Foreign mangas",
+        "description": "lorem ipsum",
+        "items": []
+      },
+      {
+        "id": "download",
+        "title": "Download only",
+        "description": "lorem ipsum",
+        "items": []
+      }
+    ]
+  }
+]

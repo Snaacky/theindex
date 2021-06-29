@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1080p",
+    "title": "1080p",
+    "description": "Video in 1080p resolution",
+    "type": "bool"
+  },
+  {
+    "id": "lang",
+    "title": "Languages",
+    "description": "Languages the site offers, not to be confused with the video/novel language",
+    "type": "array",
+    "values": [
+      "EN",
+      "DE",
+      "FR",
+      "CH",
+      "SP",
+      "JP"
+    ]
+  }
+]
