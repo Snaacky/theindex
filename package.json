@@ -1,51 +1,15 @@
 {
-  "name": "index",
+  "name": "learn-starter",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.22",
-    "@types/node": "^12.20.8",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
-    "bootstrap": "^4.6.0",
-    "react": "^17.0.2",
-    "react-bootstrap": "^1.5.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.2.0",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.2.4",
-    "web-vitals": "^1.1.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3080"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "eslint": "^7.24.0"
+  "dependencies": {
+    "next": "^10.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
   }
 }
