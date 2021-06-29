@@ -1,27 +1,27 @@
 html,
 body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    line-height: 1.6;
-    font-size: 18px;
+    min-height: 100%;
+    background-color: #202020;
+    color: white;
 }
 
-* {
-    box-sizing: border-box;
+.bg-1 {
+    background-color: rgb(18, 18, 18);
 }
 
-a {
-    color: #0070f3;
+.bg-2 {
+    background-color: rgb(22, 22, 22);
+}
+
+.bg-3 {
+    background-color: #202020;
+}
+
+a:not(.link-light):not(.btn):not(.nav-item a) {
+    color: #c6c6c6 !important;
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-img {
-    max-width: 100%;
-    display: block;
+a:not(.link-light):not(.btn):not(.navbar-brand):hover {
+    color: #2a6496 !important;
 }

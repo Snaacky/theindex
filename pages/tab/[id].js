@@ -3,8 +3,8 @@ import Tab from "../../components/tab";
 import {getTabs} from "../../lib/tabs";
 import {getColumns} from "../../lib/columns";
 
-export default function Post({tab, columns}) {
-    return <Layout>
+export default function Post({tabs, tab, columns}) {
+    return <Layout tabs={tabs}>
         <Tab tab={tab} columns={columns}/>
     </Layout>
 }
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
             }
         }
     })
-    console.log(paths, getTabs())
+
     return {
         paths,
         fallback: true,
@@ -25,10 +25,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const tab = getTabs().filter(t => t.id === params.id)[0]
+    const tabs = getTabs()
+    const tab = tabs.filter(t => t.id === params.id)[0]
     const columns = getColumns()
+
     return {
-        props: {tab, columns},
+        props: {tabs, tab, columns},
         revalidate: 600
     };
 }

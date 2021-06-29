@@ -11,12 +11,30 @@
     "description": "Languages the site offers, not to be confused with the video/novel language",
     "type": "array",
     "values": [
-      "EN",
-      "DE",
-      "FR",
-      "CH",
-      "SP",
-      "JP"
+      {
+        "id": "EN",
+        "text": "EN"
+      },
+      {
+        "id": "DE",
+        "text": "DE"
+      },
+      {
+        "id": "FR",
+        "text": "FR"
+      },
+      {
+        "id": "CH",
+        "text": "CH"
+      },
+      {
+        "id": "SP",
+        "text": "SP"
+      },
+      {
+        "id": "JP",
+        "text": "JP"
+      }
     ]
   }
 ]

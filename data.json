@@ -2,22 +2,27 @@
   {
     "id": "anime",
     "title": "Anime",
+    "nsfw": false,
+    "description": "lorem ipsum",
     "tables": [
       {
         "id": "english",
         "title": "English anime",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       },
       {
         "id": "foreign",
         "title": "Foreign anime",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       },
       {
         "id": "download",
         "title": "Download only",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       }
@@ -26,22 +31,27 @@
   {
     "id": "manga",
     "title": "Manga",
+    "nsfw": false,
+    "description": "lorem ipsum",
     "tables": [
       {
         "id": "english scan",
         "title": "English mangas",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       },
       {
         "id": "foreign",
         "title": "Foreign mangas",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       },
       {
         "id": "download",
         "title": "Download only",
+        "nsfw": false,
         "description": "lorem ipsum",
         "items": []
       }

@@ -1,13 +1,18 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Navbar from "./navbar";
+import Footer from "./footer";
 
 const name = 'Your Name'
 export const siteTitle = '/r/animepiracy Index'
 
-export default function Layout({children, home}) {
+export default function Layout({children, home, tabs}) {
     return (
-        <div>
+        <div className={"d-flex"}
+             style={{
+                 minHeight: "100vh",
+                 flexDirection: "column"
+             }}>
             <Head>
                 <meta charSet="UTF-8"/>
                 <meta content="IE=Edge" httpEquiv="X-UA-Compatible"/>
@@ -47,7 +52,7 @@ export default function Layout({children, home}) {
                       crossOrigin="anonymous"/>
             </Head>
             <header>
-                <Navbar/>
+                <Navbar tabs={tabs}/>
             </header>
             <div className={"container-fluid my-2"}>
                 {home ? <></> : (
@@ -59,6 +64,7 @@ export default function Layout({children, home}) {
                 )}
                 <main>{children}</main>
             </div>
+            <Footer/>
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
