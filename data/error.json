@@ -1,0 +1,12 @@
+{
+  "404": {
+    "text": "We couldn't find the site you were searching for",
+    "img": "/img/NoPls.gif",
+    "imgAlt": "Desperate Yui"
+  },
+  "500": {
+    "text": "Oh no! Understand server does not - Yoda",
+    "img": "/img/GuraSaber.gif",
+    "imgAlt": "Gura Jedi on rampage"
+  }
+}
