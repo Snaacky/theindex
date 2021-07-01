@@ -1,53 +1,52 @@
 import Layout from '../../components/layout'
 import Head from "next/head";
-import {getTablesByTab} from "../../lib/tables";
+import {getTabs} from "../../lib/tabs";
+import {useRouter} from 'next/router'
+import Loader from "../../components/loading";
 
-export default function Post({postData}) {
-    /**
-    {tabs.forEach(tab => {
-        const d = getTablesByTab(tab)
-        return (
-            <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/tab/{tab}"
-                   id="animeNavbarDropdownMenuLink" role="button"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    {tab}
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="animeNavbarDropdownMenuLink">
-                    {d.forEach(table => {
-                        return (
-                            <li><a className="dropdown-item" href="/table/{table}">
-                                {table}
-                            </a></li>
-                        )
-                    })}
-                </ul>
-            </li>
-        )
-    })}*/
-    return <Layout>
+export default function Item({tabs, data}) {
+    const router = useRouter()
+
+    if (router.isFallback) {
+        return <Loader/>
+    }
+
+    return <Layout tabs={tabs}>
         <Head>
-            <title>{postData.title}</title>
+            <title>{data.title}</title>
         </Head>
 
-        {postData.title}
+        {data.title}
         <br/>
-        {postData.id}
+        {data.id}
         <br/>
-        {postData.date}
+        {data.date}
     </Layout>
 }
 
 export async function getStaticPaths() {
-
+    return {
+        paths: [{
+            params: {
+                id: "ne"
+            }
+        }],
+        fallback: true
+    }
 }
 
-export async function getStaticProps() {
-    const res = await fetch('https://...');
-    const data = await res.json();
+export async function getStaticProps({params}) {
+    const tabs = getTabs()
 
     return {
-        props: {data},
-        revalidate: 600
-    };
+        props: {
+            tabs,
+            data: {
+                title: "TITLE",
+                id: "yeah",
+                date: "tomorrow"
+            }
+        },
+        revalidate: 10
+    }
 }

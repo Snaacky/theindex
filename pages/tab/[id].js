@@ -2,15 +2,24 @@ import Layout from '../../components/layout'
 import Tab from "../../components/tab";
 import {getTabs} from "../../lib/tabs";
 import {getColumns} from "../../lib/columns";
+import {useRouter} from 'next/router'
+import Loader from "../../components/loading";
 
 export default function Post({tabs, tab, columns}) {
+    const router = useRouter()
+
+    if (router.isFallback) {
+        return <Loader/>
+    }
+
     return <Layout tabs={tabs}>
         <Tab tab={tab} columns={columns}/>
     </Layout>
 }
 
 export async function getStaticPaths() {
-    const paths = getTabs().map(tab => {
+    const tabs = getTabs()
+    const paths = tabs.map(tab => {
         return {
             params: {
                 id: tab.id
