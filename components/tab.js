@@ -26,7 +26,7 @@ export default function Tab({tab}) {
             </div>
 
             {tab.tables.map(t => {
-                return <div className={"card bg-2 mb-2 me-2"} style={{
+                return <div className={"card bg-2 mb-2 me-2"} key={t.url_id} style={{
                     maxWidth: 540
                 }}>
                     <div className="row g-0">

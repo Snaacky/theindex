@@ -7,34 +7,42 @@ body {
 
 .bg-1 {
     background-color: #121212;
+    color: white;
 }
 
 .bg-2 {
     background-color: #1d1d1d;
+    color: white;
 }
 
 .bg-3 {
     background-color: #222222;
+    color: white;
 }
 
 .bg-4 {
     background-color: #242424;
+    color: white;
 }
 
 .bg-5 {
     background-color: #272727;
+    color: white;
 }
 
 .bg-6 {
     background-color: #2c2c2c;
+    color: white;
 }
 
 .bg-7 {
     background-color: #2d2d2d;
+    color: white;
 }
 
 .bg-8 {
     background-color: #323232;
+    color: white;
 }
 
 a:not(.link-light):not(.btn):not(.nav-item a) {
@@ -44,4 +52,11 @@ a:not(.link-light):not(.btn):not(.nav-item a) {
 
 a:not(.link-light):not(.btn):not(.navbar-brand):hover {
     color: #2a6496 !important;
+}
+
+ul.dropdown-menu > li > a.dropdown-item {
+    color: white
+}
+ul.dropdown-menu > li > a.dropdown-item:hover {
+    background-color: #2d2d2d;
 }

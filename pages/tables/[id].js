@@ -5,8 +5,9 @@ import {useRouter} from 'next/router'
 import Loader from "../../components/loading";
 import {getTable, getTables} from "../../lib/db/tables";
 import Table from "../../components/table";
+import {getByURL_ID} from "../../lib/db/db";
 
-export default function Post({tabs, tab, columns}) {
+export default function Post({tabs, table, columns}) {
     const router = useRouter()
 
     if (router.isFallback) {
@@ -14,7 +15,7 @@ export default function Post({tabs, tab, columns}) {
     }
 
     return <Layout tabs={tabs}>
-        <Table tab={tab} columns={columns}/>
+        <Table table={table} columns={columns}/>
     </Layout>
 }
 
@@ -36,7 +37,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
-    const table = await getTable(params.id)
+    const table = await getByURL_ID(params.id)
+    console.log("Table url_id", params.id, table)
+
     const columns = await getColumns()
 
     return {

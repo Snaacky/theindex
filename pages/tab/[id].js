@@ -1,7 +1,6 @@
 import Layout from '../../components/layout'
 import Tab from "../../components/tab";
 import {getTabs, getTabsWithTables} from "../../lib/db/tabs";
-import {getColumns} from "../../lib/db/columns";
 import {useRouter} from 'next/router'
 import Loader from "../../components/loading";
 

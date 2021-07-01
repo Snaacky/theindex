@@ -10,21 +10,23 @@ export default function Navbar({tabs}) {
                 <span className="navbar-toggler-icon"/>
             </button>
 
-            <a className="navbar-brand" href="/">
-                <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
-                       className="d-inline-block rounded align-text-top"/>
-            </a>
+            <Link href={"/"}>
+                <a className="navbar-brand">
+                    <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
+                           className="d-inline-block rounded align-text-top"/>
+                </a>
+            </Link>
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     {
                         tabs.map(({url_id, title, tables}) => {
-                            return <li className="nav-item dropdown">
+                            return <li className="nav-item dropdown" key={url_id}>
                                 <a className={"nav-link dropdown-toggle"} role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false"
                                    id={"navDropdownLink-" + url_id}>
                                     {title}
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby={"navDropdownLink-" + url_id}>
+                                <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + url_id}>
                                     <li>
                                         <Link href={"/tab/" + url_id}>
                                             <a className="dropdown-item">
@@ -37,7 +39,7 @@ export default function Navbar({tabs}) {
                                     </li>
                                     {
                                         tables.map((table) => {
-                                            return <li>
+                                            return <li key={table.url_id}>
                                                 <Link href={"/table/" + table.url_id}>
                                                     <a className="dropdown-item">
                                                         {table.title}

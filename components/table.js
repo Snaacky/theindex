@@ -11,7 +11,7 @@ export default function Table({table, columns}) {
                 </title>
             </Head>
 
-            <div className={"card"}>
+            <div className={"card bg-2"}>
                 <div className="card-body">
                     <div className={"card-title d-flex justify-content-between"}
                          style={{

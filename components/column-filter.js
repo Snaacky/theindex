@@ -51,9 +51,7 @@ export default class ColumnFilter extends React.Component {
             return <div className={"card"}>
                 <div className="card-body">
                     <h5 className="card-title">
-                        <Link href={"/table/" + id}>
-                            {title}
-                        </Link>
+                        {title}
                     </h5>
                     <p>
                         {description}

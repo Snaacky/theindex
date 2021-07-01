@@ -20,7 +20,7 @@ export default function Footer({error}) {
             <hr/>
             <div className="row g-2">
                 <div className="col d-flex justify-content-center icon-link-hover">
-                    <a href="https://www.reddit.com/r/animepiracy/" target="_blank" rel="noopener">
+                    <a href="https://www.reddit.com/r/animepiracy/" target="_blank" rel="noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <title>Reddit</title>
                             <path fill="currentColor" fillRule="evenodd"
@@ -31,7 +31,7 @@ export default function Footer({error}) {
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center icon-link-hover">
-                    <a href="https://discord.gg/piracy" target="_blank" rel="noopener">
+                    <a href="https://discord.gg/piracy" target="_blank" rel="noreferrer">
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <title>Discord</title>
                             <path fill="currentColor" fillRule="evenodd"
@@ -42,7 +42,7 @@ export default function Footer({error}) {
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center">
-                    <a href="https://twitter.com/ranimepiracy" target="_blank" rel="noopener">
+                    <a href="https://twitter.com/ranimepiracy" target="_blank" rel="noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <title>Twitter</title>
                             <path fill="currentColor" fillRule="evenodd"
@@ -53,7 +53,7 @@ export default function Footer({error}) {
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center">
-                    <a href="https://github.com/ranimepiracy/index" target="_blank" rel="noopener">
+                    <a href="https://github.com/ranimepiracy/index" target="_blank" rel="noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <title>GitHub</title>
                             <path fill="currentColor" fillRule="evenodd"
