@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  index:
+    image: ranimepiracy/index:dev-next
+    container_name: index
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      AUDIT_WEBHOOK: ""
+      OAUTH2_TOKEN_ENDPOINT: "https://discord.com/api/oauth2/token"
+      OAUTH2_USER_ENDPOINT: "https://discord.com/api/users/@me"
+      OAUTH2_CLIENT_ID: "00000000000"
+      OAUTH2_CLIENT_SECRET: "secret"
+      ROOT_URL: "https://piracy.moe"
+      DISCORD_BOT_TOKEN: "your_discord_bot_token"
+      # leave empty if you use this compose file
+      # DB_CONNECTION_URI: "mongodb://mongo:27017"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: "SUPER_SECRET"
+    depends_on:
+      - mongo

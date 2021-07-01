@@ -4,12 +4,13 @@
 FROM node:16.3.0-slim as react-build
 
 ENV AUDIT_WEBHOOK=""
-ENV DISCORD_CLIENT_ID=00000000000
-ENV DISCORD_CLIENT_SECRET="your_discord_client_secret"
-ENV DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"
+ENV OAUTH2_TOKEN_ENDPOINT="https://discord.com/api/oauth2/token"
+ENV OAUTH2_USER_ENDPOINT="https://discord.com/api/users/@me"
+ENV OAUTH2_CLIENT_ID=00000000000
+ENV OAUTH2_CLIENT_SECRET="secret"
+ENV ROOT_URL="https://piracy.moe"
 ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
-# refer to https://docs.mongodb.com/manual/reference/connection-string/
-ENV DB_CONNECTION_URI="mongodb:///mongo:27017"
+ENV DB_CONNECTION_URI="mongodb://mongo:27017"
 
 VOLUME ["/data/db"]
 EXPOSE 8080
@@ -31,10 +32,6 @@ RUN npm ci --silent
 
 # build the web app
 COPY . .
-RUN npm run build
-
-# sed is for replacing windows newline
-# CMD sed -i 's/\r$//' start.sh && sh start.sh
 
 # start the node server
-CMD npm run start
+CMD npm run serve

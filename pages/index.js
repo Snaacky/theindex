@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout, {siteTitle} from '../components/layout'
-import {getTabs} from "../lib/tabs";
+import {getTabs} from "../lib/db/tabs";
 
 export default function Home({tabs}) {
     return (

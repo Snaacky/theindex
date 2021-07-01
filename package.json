@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3080"
+    "start": "next start",
+    "serve": "next build && next start -p 8080"
   },
   "dependencies": {
     "mongodb": "^3.6.9",

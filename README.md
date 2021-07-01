@@ -19,7 +19,11 @@ it in `#index`.
 The easiest way is to use docker via:
 
 ```shell
-docker run -d -p <host-port>:8080 -v /path/on/host:/config --name=index ranimepiracy/index
+docker run -d \
+    -p <host-port>:8080 \
+    -e DB_CONNECTION_URI="mongodb:///mongo:27017"
+    --name=index \
+    ranimepiracy/index
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
@@ -27,7 +31,37 @@ responsibility to put a reverse proxy in front of this container. After starting
 [discord-id](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
 login and edit.
 
+## Database
+
+We use [mongodb](https://github.com/mongodb/mongo) as our database server. You can deploy your own mongo setup as HA
+service or just a simple single docker container via e.g.:
+
+```shell
+docker run -d \
+    --name mongo \
+    -v ./db:/data/db \
+    mongo
+```
+
+For development or testing purposes it is highly recommended to
+use [mongo-express](https://github.com/mongo-express/mongo-express) for accessing, viewing and editing the current state
+of the database. If you make it publicly accessible, don't forget to secure it with login credentials.
+
+To simply spin up a mongo-express docker container, run:
+
+```shell
+docker run -d \
+    --name mongo-express \
+    -p 8081:8081 \
+    mongo-express
+```
+
+You can also take a look at our provided `docker-compose.yml` file on how to set it up.
+
 ## Updating container image
+
+Warning: be aware, that we do not offer any kind of official support and every update may be with breaking changes. Be
+sure to make backups before you update
 
 To get the newest version of image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
 will need to run:
@@ -40,56 +74,25 @@ Afterwards you will need to stop and remove your current running instance and st
 
 ## Parameters
 
-Here is a table of the possible ENV-variables with their default values.
+Here is a table of the possible ENV-variables with their default values. Note that OAuth2 is only functional with
+discord and has not been tested with anything else.
 
 | Parameter | Function |
 | :----: | --- |
 | `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
-| `-e DISCORD_CLIENT_ID=00000000000` | Discord client ID |
-| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord client secret |
-| `-e DISCORD_REDIRECT_URI="https://piracy.moe/user/callback/"` | OAuth-2 callback for discord |
+| `-e OAUTH2_TOKEN_ENDPOINT="https://discord.com/api/oauth2/token"` | OAuth2 token endpoint |
+| `-e OAUTH2_USER_ENDPOINT="https://discord.com/api/users/@me"` | OAuth2 userinfo endpoint |
+| `-e OAUTH2_CLIENT_ID=00000000000` | OAuth2 client ID |
+| `-e OAUTH2_CLIENT_SECRET="your_discord_client_secret"` | OAuth2 client secret |
+| `-e ROOT_URL="https://piracy.moe"` | Your domain or IP |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
-| `-e DB_CONNECTION_URI="mysql+pymysql://user:password@hostname/database"` | Required for external database |
+| `-e DB_CONNECTION_URI="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
 
 ## Getting started to code
 
-### Backend
+### Web service
 
-We highly encourage you to use [Docker](https://get.docker.com) to run the backend, as the setup of the run environment
-would require a lot of work. To build the [docker image](https://docs.docker.com/engine/reference/commandline/build/)
-you will need to run:
-
-```shell
-docker build -f Docker-api-only -t index
-```
-
-Afterwards you will just need to run
-
-```shell
-docker run -p 8080:8080 index
-```
-
-You can now open http://localhost:8080 in your browser to see a running version of the backend server. If you don't want
-the console to continue running in the foreground, add the `-d` argument to the run command.
-
-The source of the backend api can be found at [/api](api). The script /api/init.py will only be run if no existing
-database is found. The [Flask](https://github.com/pallets/flask) server itself will be generated
-at [/api/app.py](api/app.py).
-
-We use blueprints to register all http endpoints:
-
-- [/api/queries.py](api/queries.py) defines the public api endpoints, a.k.a. the fetch only stuff with
-  `Access-Control-Allow-Origin` set to `*`
-
-- [/api/mutations.py](api/mutations.py) creates the edit endpoints for modifying existing data
-
-- [/api/user.py](api/user.py) handles the user management, e.g. login/logout
-
-The data models are defined in [/api/models.py](api/models.py).
-
-### Frontend
-
-To start coding on the frontend, you will need to make sure, you have
+To start coding on the frontend, you will need to make sure, you have the latest version of
 [node.js](https://nodejs.org/en/https://nodejs.org/en/) correctly installed. To install all the required dependencies
 run once:
 
@@ -98,22 +101,22 @@ npm install
 ```
 
 You should now have a folder called `node_modules`, which contains all the dependencies we need. We use
-[React](https://reactjs.org) as framework with [TypeScript](https://www.typescriptlang.org) as language. To test the
-frontend you will have to run the backend api server in the background and start the frontend via:
+[Next.js](https://nextjs.org) as framework for our [React](https://reactjs.org) web service. To test the web service you
+will have to run a db server in the background and start the frontend via:
 
 ```shell
-npm start
+npm run dev
 ```
 
-After compiling your browser should open the running frontend automatically, you may need to manually copy the url shown
-in the console, depending on your IDE of choice.
+After compiling you can open [http://localhost:3000](http://localhost:3000) in your browser of choice and see the
+running web application.
 
-As we use [React](https://reactjs.org), the frontend supports hot reloading, so you can just leave the page open, while
-you modify the code in [/src](src) and see the changes on the fly in your browser.
+As we use [Next.js](https://nextjs.org), the frontend supports hot reloading, so you can just leave the page open, while
+you modify the code and see the changes on the fly in your browser.
 
-## Building everything
+### Docker image
 
-To create a ready-made docker image with frontend and backend together, just run:
+To create a ready-made docker image, just run:
 
 ```shell
 docker build . -t index

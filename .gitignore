@@ -3,10 +3,9 @@
 # dependencies
 /node_modules
 /.next
-/.pnp
-.pnp.js
 
 # testing
+/db
 /coverage
 
 # production
