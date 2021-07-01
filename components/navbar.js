@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Navbar({tabs}) {
-    return <nav className="navbar navbar-expand-md navbar-dark bg-1">
+    return <nav className="navbar navbar-expand-md navbar-dark bg-2">
         <div className="container-fluid">
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
@@ -17,16 +17,16 @@ export default function Navbar({tabs}) {
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     {
-                        tabs.map(({id, title, tables}) => {
+                        tabs.map(({url_id, title, tables}) => {
                             return <li className="nav-item dropdown">
                                 <a className={"nav-link dropdown-toggle"} role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                   id={"navDropdownLink-" + id}>
+                                   id={"navDropdownLink-" + url_id}>
                                     {title}
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby={"navDropdownLink-" + id}>
+                                <ul className="dropdown-menu" aria-labelledby={"navDropdownLink-" + url_id}>
                                     <li>
-                                        <Link href={"/tab/" + id}>
+                                        <Link href={"/tab/" + url_id}>
                                             <a className="dropdown-item">
                                                 {title}
                                             </a>
@@ -38,7 +38,7 @@ export default function Navbar({tabs}) {
                                     {
                                         tables.map((table) => {
                                             return <li>
-                                                <Link href={"/tab/" + id + "/" + table.id}>
+                                                <Link href={"/table/" + table.url_id}>
                                                     <a className="dropdown-item">
                                                         {table.title}
                                                     </a>
@@ -60,9 +60,6 @@ export default function Navbar({tabs}) {
                             <a className="nav-link" href="https://status.piracy.moe/">Status</a>
                         </li>
                     </ul>
-                    <input className="form-control me-2" type="search" placeholder="Search"
-                           aria-label="Search"/>
-                    <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout, {siteTitle} from '../components/layout'
-import {getTabs} from "../lib/db/tabs";
+import {getTabsWithTables} from "../lib/db/tabs";
 
 export default function Home({tabs}) {
     return (
@@ -15,9 +15,9 @@ export default function Home({tabs}) {
                     You are searching a site with:
                 </h1>
                 <div className={"gx-4"}>
-                    {tabs.map(({id, title}) => {
+                    {tabs.map(({url_id, title}) => {
                         return (
-                            <Link href={"/tab/" + id} key={id}>
+                            <Link href={"/tab/" + url_id} key={url_id}>
                                 <a type={"button"} className={"btn btn-lg btn-outline-primary me-3"}>
                                     {title}
                                 </a>
@@ -31,9 +31,9 @@ export default function Home({tabs}) {
 }
 
 export async function getStaticProps() {
-    const tabs = getTabs()
+    const tabs = await getTabsWithTables()
     return {
         props: {tabs},
         revalidate: 10
-    };
+    }
 }

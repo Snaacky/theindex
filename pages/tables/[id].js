@@ -1,11 +1,12 @@
 import Layout from '../../components/layout'
-import Tab from "../../components/tab";
-import {getTabs, getTabsWithTables} from "../../lib/db/tabs";
+import {getTabsWithTables} from "../../lib/db/tabs";
 import {getColumns} from "../../lib/db/columns";
 import {useRouter} from 'next/router'
 import Loader from "../../components/loading";
+import {getTable, getTables} from "../../lib/db/tables";
+import Table from "../../components/table";
 
-export default function Post({tabs, tab}) {
+export default function Post({tabs, tab, columns}) {
     const router = useRouter()
 
     if (router.isFallback) {
@@ -13,16 +14,16 @@ export default function Post({tabs, tab}) {
     }
 
     return <Layout tabs={tabs}>
-        <Tab tab={tab}/>
+        <Table tab={tab} columns={columns}/>
     </Layout>
 }
 
 export async function getStaticPaths() {
-    const tabs = await getTabs()
-    const paths = tabs.map(tab => {
+    const tables = await getTables()
+    const paths = tables.map(table => {
         return {
             params: {
-                id: tab.url_id
+                id: table.url_id
             }
         }
     })
@@ -35,10 +36,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
-    const tab = tabs.filter(t => t.url_id === params.id)[0]
+    const table = await getTable(params.id)
+    const columns = await getColumns()
 
     return {
-        props: {tabs, tab},
+        props: {tabs, table, columns},
         revalidate: 600
     };
 }

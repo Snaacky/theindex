@@ -1,6 +1,6 @@
 import Layout from '../../components/layout'
 import Head from "next/head";
-import {getTabs} from "../../lib/db/tabs";
+import {getTabsWithTables} from "../../lib/db/tabs";
 import {useRouter} from 'next/router'
 import Loader from "../../components/loading";
 
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const tabs = getTabs()
+    const tabs = await getTabsWithTables()
 
     return {
         props: {

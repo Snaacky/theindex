@@ -1,12 +1,12 @@
 export default function Footer({error}) {
-    return <footer className={"mt-auto py-3 bg-1"}
+    return <footer className={"mt-auto py-3 bg-2"}
                    style={{color: "#c6c6c6"}}>
         <div className="container">
             {error ?
                 <p>
-                    <span className={"text-danger"}>
+                    HTTP status code <kbd className={"text-danger"}>
                         {error}
-                    </span> HTTP status code
+                    </kbd>
                 </p>
                 :
                 <p>

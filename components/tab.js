@@ -1,39 +1,58 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 import {siteTitle} from "./layout";
-import ColumnFilter from "./column-filter";
 
-export default function Tab({tab, columns}) {
+export default function Tab({tab}) {
     return (
         <>
             <Head>
                 <title>
-                    {tab.id + " | " + siteTitle}
+                    {tab.title + " | " + siteTitle}
                 </title>
             </Head>
 
-            <div className={"card"}>
+            <div className={"card bg-2 mb-3"}>
                 <div className="card-body">
-                    <div className={"card-title d-flex justify-content-between"}
-                         style={{
-                             flexDirection: "row"
-                         }}>
-                        <span className="h3">
+                    <div className={"card-title"}>
+                        <h2>
                             {tab.title}
-                        </span>
-                        <div>
-                            <button className={"btn btn-outline-primary"} type={"button"}
-                                    data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter-" + tab.id}
-                                    aria-expanded="false" aria-controls={"collapseFilter-" + tab.id}>
-                                Filter
-                            </button>
-                        </div>
+                        </h2>
                     </div>
-                    <div id={"collapseFilter-" + tab.id}
-                         className="collapse row g-3">
-                        <ColumnFilter columns={columns} onChange={console.log}/>
-                    </div>
+                    <p className={"card-text"}>
+                        {tab.description}
+                    </p>
                 </div>
             </div>
+
+            {tab.tables.map(t => {
+                return <div className={"card bg-2 mb-2 me-2"} style={{
+                    maxWidth: 540
+                }}>
+                    <div className="row g-0">
+                        <div className="col-auto p-1">
+                            <Image src={t.img ? t.img : "/img/puzzled.png"} className="img-fluid rounded-start"
+                                   alt="..." width={128} height={128}/>
+                        </div>
+                        <div className="col">
+                            <div className={"card-body"}>
+                                <h5 className={"card-title"}>
+                                    {t.title}
+                                </h5>
+
+                                <p className={"card-text"}>
+                                    {t.description}
+                                </p>
+                                <Link href={"/tables/" + t.url_id}>
+                                    <a className={"btn btn-primary"}>
+                                        Take a look
+                                    </a>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            })}
         </>
     )
 }

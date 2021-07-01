@@ -1,20 +1,40 @@
 html,
 body {
     min-height: 100%;
-    background-color: #202020;
+    background-color: rgba(18, 18, 18, 1);
     color: white;
 }
 
 .bg-1 {
-    background-color: rgb(18, 18, 18);
+    background-color: #121212;
 }
 
 .bg-2 {
-    background-color: rgb(22, 22, 22);
+    background-color: #1d1d1d;
 }
 
 .bg-3 {
-    background-color: #202020;
+    background-color: #222222;
+}
+
+.bg-4 {
+    background-color: #242424;
+}
+
+.bg-5 {
+    background-color: #272727;
+}
+
+.bg-6 {
+    background-color: #2c2c2c;
+}
+
+.bg-7 {
+    background-color: #2d2d2d;
+}
+
+.bg-8 {
+    background-color: #323232;
 }
 
 a:not(.link-light):not(.btn):not(.nav-item a) {
@@ -24,8 +44,4 @@ a:not(.link-light):not(.btn):not(.nav-item a) {
 
 a:not(.link-light):not(.btn):not(.navbar-brand):hover {
     color: #2a6496 !important;
-}
-
-.card {
-    background-color: rgb(22, 22, 22);
 }
