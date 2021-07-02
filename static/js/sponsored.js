@@ -29,19 +29,6 @@ window.addEventListener("load", () => {
         },
         {
             id: "sponsored2",
-            title: "Aniorb",
-            url: "https://beta.aniorb.me",
-            description: 'No ads, FREE anime & manga, no login, multiple servers!' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
-        },
-        {
-            id: "sponsored3",
             title: "KimAnime.com",
             url: "https://kimanime.com",
             description: 'Watch in ' +
