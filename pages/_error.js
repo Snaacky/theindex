@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/layout/layout";
 import Image from 'next/image'
 import {getError} from "../lib/error";
 

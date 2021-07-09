@@ -1,18 +1,18 @@
-export default function FormSwitch({id, title, description, onChange}) {
+export default function FormSwitch({_id, title, description, onChange}) {
     return <div>
         <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox"
-                   aria-describedby={"switchFilterHelp-" + id}
-                   id={"switchFilter-" + id}
+                   aria-describedby={"switchFilterHelp-" + _id}
+                   id={"switchFilter-" + _id}
                    onChange={(event) => {
                        onChange(event.target.value)
                    }}/>
             <label className="form-check-label"
-                   htmlFor={"switchFilter-" + id}>
+                   htmlFor={"switchFilter-" + _id}>
                 {title}
             </label>
         </div>
-        <div id={"switchFilterHelp-" + id} className="form-text">
+        <div id={"switchFilterHelp-" + _id} className="form-text">
             {description}
         </div>
     </div>

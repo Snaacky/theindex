@@ -1,6 +1,6 @@
 import React from "react";
-import FormSwitch from "./switch";
-import ArrayInput from "./array-input";
+import FormSwitch from "./form/switch";
+import ArrayInput from "./form/array-input";
 
 
 export default class ColumnFilter extends React.Component {
@@ -24,15 +24,15 @@ export default class ColumnFilter extends React.Component {
         this.onChange(this.filter)
     }
 
-    renderColumn({id, title, description, type, values}) {
+    renderColumn({_id, title, description, type, values}) {
         if (type === "bool") {
-            return <FormSwitch id={id} title={title} description={description}
+            return <FormSwitch _id={_id} title={title} description={description}
                                onChange={(d) => {
                                    console.log("Changed!!!", d)
                                    this.adjustFilter(d)
                                }}/>
         } else if (type === "array") {
-            const f = this.filter.find(f => f.id === id)
+            const f = this.filter.find(f => f._id === _id)
 
             let tags = []
             if (typeof f !== "undefined") {
@@ -40,7 +40,7 @@ export default class ColumnFilter extends React.Component {
             }
 
             return <>
-                <ArrayInput id={id} title={title} description={description}
+                <ArrayInput _id={_id} title={title} description={description}
                             tags={tags} suggestions={values}
                             onChange={(d) => {
                                 console.log("Changed!!!", d)
@@ -63,11 +63,11 @@ export default class ColumnFilter extends React.Component {
 
     render() {
         return <>
-            {this.columns.map(({id, title, description, type, values}) =>
-                <div className="col" key={id}>
+            {this.columns.map(({_id, title, description, type, values}) =>
+                <div className="col" key={_id}>
                     {
                         this.renderColumn({
-                            id,
+                            _id,
                             title,
                             description,
                             type,

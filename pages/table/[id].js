@@ -1,10 +1,9 @@
-import Layout from '../../components/layout'
+import Layout from '../../components/layout/layout'
 import {getTabsWithTables} from "../../lib/db/tabs";
-import {getColumns} from "../../lib/db/columns";
 import {useRouter} from 'next/router'
 import Loader from "../../components/loading";
-import {getTable, getTables} from "../../lib/db/tables";
-import Table from "../../components/table";
+import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables";
+import Table from "../../components/pages/table";
 import {getByURL_ID} from "../../lib/db/db";
 
 export default function Post({tabs, table, columns}) {
@@ -37,13 +36,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
-    const table = await getByURL_ID(params.id)
+    const table = await getTableWithColumnsAndItems(await getByURL_ID("tables", params.id))
     console.log("Table url_id", params.id, table)
 
-    const columns = await getColumns()
-
     return {
-        props: {tabs, table, columns},
+        props: {tabs, table},
         revalidate: 60
     };
 }

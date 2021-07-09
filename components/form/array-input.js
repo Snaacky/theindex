@@ -9,14 +9,14 @@ const KeyCodes = {
 const delimiters = [...KeyCodes.enter, KeyCodes.comma]
 
 export default class ArrayInput extends React.Component {
-    constructor({id, title, description, tags, suggestions, onChange}) {
+    constructor({_id, title, description, tags, suggestions, onChange}) {
         super(undefined);
 
         this.state = {
             tags,
             suggestions
         }
-        this.id = id
+        this._id = _id
         this.title = title
         this.description = description
         this.onChange = onChange
@@ -50,10 +50,10 @@ export default class ArrayInput extends React.Component {
     render() {
         const {tags, suggestions} = this.state
         return <>
-            <label htmlFor={"arrayFilter-" + this.id}>
+            <label htmlFor={"arrayFilter-" + this._id}>
                 {this.title}
             </label>
-            <ReactTags id={"arrayFilter-" + this.id}
+            <ReactTags id={"arrayFilter-" + this._id}
                        tags={tags}
                        allowDragDrop={false}
                        minQueryLength={1}
@@ -62,7 +62,7 @@ export default class ArrayInput extends React.Component {
                        handleAddition={this.handleAddition}
                        handleDrag={this.handleDrag}
                        delimiters={delimiters}/>
-            <div id={"arrayFilterHelp-" + this.id} className="form-text">
+            <div id={"arrayFilterHelp-" + this._id} className="form-text">
                 {this.description}
             </div>
         </>

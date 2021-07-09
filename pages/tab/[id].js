@@ -1,5 +1,5 @@
-import Layout from '../../components/layout'
-import Tab from "../../components/tab";
+import Layout from '../../components/layout/layout'
+import Tab from "../../components/pages/tab";
 import {getTabs, getTabsWithTables} from "../../lib/db/tabs";
 import {useRouter} from 'next/router'
 import Loader from "../../components/loading";

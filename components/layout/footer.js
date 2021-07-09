@@ -5,8 +5,8 @@ export default function Footer({error}) {
             {error ?
                 <p>
                     HTTP status code <kbd className={"text-danger"}>
-                        {error}
-                    </kbd>
+                    {error}
+                </kbd>
                 </p>
                 :
                 <p>

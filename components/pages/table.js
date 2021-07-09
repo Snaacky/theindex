@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import {siteTitle} from "./layout";
-import ColumnFilter from "./column-filter";
+import {siteTitle} from "../layout/layout";
+import ColumnFilter from "../column-filter";
 
-export default function Table({table, columns}) {
+export default function Table({table}) {
     return (
         <>
             <Head>
@@ -30,7 +30,7 @@ export default function Table({table, columns}) {
                     </div>
                     <div id={"collapseFilter-" + table.url_id}
                          className="collapse row g-3">
-                        <ColumnFilter columns={columns} onChange={console.log}/>
+                        <ColumnFilter columns={table.columns} onChange={console.log}/>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import {siteTitle} from "./layout";
+import {siteTitle} from "../layout/layout";
 
 export default function Tab({tab}) {
     return (
