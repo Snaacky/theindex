@@ -11,9 +11,12 @@ export default function Navbar({tabs}) {
             </button>
 
             <Link href={"/"}>
-                <a className="navbar-brand">
+                <a className="navbar-brand pb-0">
                     <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
-                           className="d-inline-block rounded align-text-top"/>
+                           className="d-inline-block rounded align-top"/>
+                    <span className={"ms-2 d-sm-inline-block d-none align-top"}>
+                        /r/animepiracy Index
+                    </span>
                 </a>
             </Link>
             <div className="collapse navbar-collapse" id="navbarToggler">
