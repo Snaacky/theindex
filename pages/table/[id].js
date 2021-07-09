@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true,
+        fallback: 'blocking',
     }
 }
 
@@ -44,6 +44,6 @@ export async function getStaticProps({params}) {
 
     return {
         props: {tabs, table, columns},
-        revalidate: 600
+        revalidate: 60
     };
 }

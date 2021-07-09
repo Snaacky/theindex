@@ -28,16 +28,22 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true,
+        fallback: 'blocking',
     }
 }
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
     const tab = tabs.filter(t => t.url_id === params.id)[0]
+    if (!tab) {
+        return {
+            notFound: true,
+            revalidate: 60
+        }
+    }
 
     return {
         props: {tabs, tab},
-        revalidate: 600
+        revalidate: 60
     };
 }

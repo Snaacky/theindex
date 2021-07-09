@@ -16,7 +16,7 @@ export default function ErrorPage({status, error}) {
 export async function getStaticPaths() {
     return {
         paths: [],
-        fallback: true,
+        fallback: 'blocking',
     }
 }
 
@@ -25,6 +25,6 @@ export async function getStaticProps({params}) {
     const error = getError(status)
     return {
         props: {status, error},
-        revalidate: 10
+        revalidate: 60
     };
 }

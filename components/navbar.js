@@ -59,10 +59,18 @@ export default function Navbar({tabs}) {
                 <form className="d-flex">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="https://wiki.piracy.moe/">Wiki</a>
+                            <a className="nav-link" href="https://wiki.piracy.moe/">
+                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                     src={"/img/wikijs.svg"}/>
+                                Wiki
+                            </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="https://status.piracy.moe/">Status</a>
+                            <a className="nav-link" href="https://status.piracy.moe/">
+                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                     src={"/img/uptimerobot.png"}/>
+                                Status
+                            </a>
                         </li>
                     </ul>
                 </form>
