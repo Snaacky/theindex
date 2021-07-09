@@ -43,7 +43,7 @@ export default function Tab({tab}) {
                                 <p className={"card-text"}>
                                     {t.description}
                                 </p>
-                                <Link href={"/tables/" + t.url_id}>
+                                <Link href={"/table/" + t.url_id}>
                                     <a className={"btn btn-primary"}>
                                         Take a look
                                     </a>

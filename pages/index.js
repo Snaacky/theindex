@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout, {siteTitle} from '../components/layout/layout'
 import {getTabsWithTables} from "../lib/db/tabs";
 
@@ -24,6 +25,18 @@ export default function Home({tabs}) {
                             </Link>
                         )
                     })}
+                </div>
+                <div className={"my-4"}>
+                    This service is still under construction, content is coming soon™
+                    <br/>
+                    <Image width={48} height={48} src={"/img/hinanope.gif"}/>
+                </div>
+                <div className={"my-4"}>
+                    I placed the button here for now, as I have not really thought about where else to put them...
+                    <br/>
+                    <a className={"btn btn-outline-secondary"} href={"/api/export"} target={"_blank"} rel="noreferrer">
+                        Export all data
+                    </a>
                 </div>
             </div>
         </Layout>
