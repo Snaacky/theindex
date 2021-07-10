@@ -1,10 +1,11 @@
-import Layout from '../../components/layout/layout'
-import {getTabsWithTables} from "../../lib/db/tabs";
+import Layout, {siteTitle} from '../../components/layout/layout'
+import {getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from 'next/router'
-import Loader from "../../components/loading";
-import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables";
-import Table from "../../components/pages/table";
-import {getByURL_ID} from "../../lib/db/db";
+import Loader from "../../components/loading"
+import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
+import Head from 'next/head'
+import {getByURL_ID} from "../../lib/db/db"
+import ColumnFilter from "../../components/column-filter"
 
 export default function Post({tabs, table, columns}) {
     const router = useRouter()
@@ -14,7 +15,35 @@ export default function Post({tabs, table, columns}) {
     }
 
     return <Layout tabs={tabs}>
-        <Table table={table} columns={columns}/>
+        <Head>
+            <title>
+                {table.title + " | " + siteTitle}
+            </title>
+        </Head>
+
+        <div className={"card bg-2"}>
+            <div className="card-body">
+                <div className={"card-title d-flex justify-content-between"}
+                     style={{
+                         flexDirection: "row"
+                     }}>
+                        <span className="h3">
+                            {table.title}
+                        </span>
+                    <div>
+                        <button className={"btn btn-outline-primary"} type={"button"}
+                                data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter-" + table.url_id}
+                                aria-expanded="false" aria-controls={"collapseFilter-" + table.url_id}>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div id={"collapseFilter-" + table.url_id}
+                     className="collapse row g-3">
+                    <ColumnFilter columns={table.columns} onChange={console.log}/>
+                </div>
+            </div>
+        </div>
     </Layout>
 }
 
@@ -30,7 +59,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: 'blocking',
+        fallback: true,
     }
 }
 

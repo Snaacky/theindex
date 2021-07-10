@@ -61,14 +61,14 @@ export default function Navbar({tabs}) {
                         <li className="nav-item">
                             <a className="nav-link" href="https://wiki.piracy.moe/">
                                 <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/wikijs.svg"}/>
+                                     src={"/icons/wikijs.svg"} alt={"Wiki.js logo"}/>
                                 Wiki
                             </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="https://status.piracy.moe/">
                                 <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/uptimerobot.png"}/>
+                                     src={"/icons/uptimerobot.png"} alt={"UptimeRobot logo"}/>
                                 Status
                             </a>
                         </li>

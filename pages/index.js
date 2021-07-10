@@ -29,7 +29,7 @@ export default function Home({tabs}) {
                 <div className={"my-4"}>
                     This service is still under construction, content is coming soon™
                     <br/>
-                    <Image width={48} height={48} src={"/img/hinanope.gif"}/>
+                    <Image width={48} height={48} src={"/img/hinanope.gif"} alt={""}/>
                 </div>
                 <div className={"my-4"}>
                     I placed the button here for now, as I have not really thought about where else to put them...
