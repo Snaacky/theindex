@@ -33,34 +33,36 @@ export default function Post({tabs, tab}) {
             </div>
         </div>
 
-        {tab.tables.map(t => {
-            return <div className={"card bg-2 mb-2 me-2"} key={t.url_id} style={{
-                maxWidth: 540
-            }}>
-                <div className="row g-0">
-                    <div className="col-auto p-1">
-                        <Image src={t.img ? t.img : "/img/puzzled.png"} className="img-fluid rounded-start"
-                               alt="..." width={128} height={128}/>
-                    </div>
-                    <div className="col">
-                        <div className={"card-body"}>
-                            <h5 className={"card-title"}>
-                                {t.title}
-                            </h5>
+        <div className={"d-flex flex-wrap"}>
+            {tab.tables.map(t => {
+                return <div className={"card bg-2 mb-2 me-2"} key={t.url_id} style={{
+                    maxWidth: "28rem"
+                }}>
+                    <div className="row g-0">
+                        <div className="col-auto p-1">
+                            <Image src={t.img ? t.img : "/img/puzzled.png"} className="img-fluid rounded-start"
+                                   alt="..." width={128} height={128}/>
+                        </div>
+                        <div className="col">
+                            <div className={"card-body"}>
+                                <h5 className={"card-title"}>
+                                    {t.title}
+                                </h5>
 
-                            <p className={"card-text"}>
-                                {t.description}
-                            </p>
-                            <Link href={"/table/" + t.url_id}>
-                                <a className={"btn btn-primary"}>
-                                    Take a look
-                                </a>
-                            </Link>
+                                <p className={"card-text"}>
+                                    {t.description}
+                                </p>
+                                <Link href={"/table/" + t.url_id}>
+                                    <a className={"btn btn-primary"}>
+                                        Take a look
+                                    </a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        })}
+            })}
+        </div>
     </Layout>
 }
 

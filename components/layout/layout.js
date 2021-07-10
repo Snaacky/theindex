@@ -58,7 +58,7 @@ export default function Layout({children, error, home, tabs}) {
                 {home ? <></> : (
                     <Link href={"/"}>
                         <a className={"mb-2"}>
-                            ← go back
+                            ← go home
                         </a>
                     </Link>
                 )}

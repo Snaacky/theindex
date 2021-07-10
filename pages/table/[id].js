@@ -6,8 +6,9 @@ import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
 import Head from 'next/head'
 import {getByURL_ID} from "../../lib/db/db"
 import ColumnFilter from "../../components/column-filter"
+import ItemTable from "../../components/item-table";
 
-export default function Post({tabs, table, columns}) {
+export default function Post({tabs, table}) {
     const router = useRouter()
 
     if (router.isFallback) {
@@ -42,6 +43,7 @@ export default function Post({tabs, table, columns}) {
                      className="collapse row g-3">
                     <ColumnFilter columns={table.columns} onChange={console.log}/>
                 </div>
+                <ItemTable items={table.items} columns={table.columns}/>
             </div>
         </div>
     </Layout>
@@ -66,7 +68,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
     const table = await getTableWithColumnsAndItems(await getByURL_ID("tables", params.id))
-    console.log("Table url_id", params.id, table)
 
     return {
         props: {tabs, table},
