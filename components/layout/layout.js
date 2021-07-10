@@ -4,7 +4,6 @@ import Script from 'next/script'
 import Navbar from "./navbar";
 import Footer from "./footer";
 
-const name = 'Your Name'
 export const siteTitle = '/r/animepiracy Index'
 
 export default function Layout({children, error, home, tabs}) {
