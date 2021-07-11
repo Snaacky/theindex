@@ -4069,13 +4069,13 @@
             "siteFeatures": ""
         },
         {
-		    "siteName": "Yukino",
-		    "hasMalSupport": "Y",
-		    "hasAnilistSupport": "Y",
-    		"hasKitsuSupport": "N",
-	    	"hasSimKLSupport": "N",
-		    "features": "Scrapes Anime and Manga"
-	    }
+            "siteName": "Yukino",
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "features": "Scrapes Anime and Manga"
+        }
     ],
     "windowsApplications": [
         {
@@ -4167,13 +4167,13 @@
             "siteFeatures": ""
         },
         {
-		    "siteName": "Yukino",
-		    "hasMalSupport": "Y",
-		    "hasAnilistSupport": "Y",
-    		"hasKitsuSupport": "N",
-	    	"hasSimKLSupport": "N",
-		    "features": "Scrapes Anime and Manga"
-	    }
+            "siteName": "Yukino",
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "features": "Scrapes Anime and Manga"
+        }
     ],
     "macOSApplications": [
         {
@@ -4210,13 +4210,13 @@
             "siteFeatures": "Stream Anime | Download Episodes"
         },
         {
-		    "siteName": "Yukino",
-		    "hasMalSupport": "Y",
-		    "hasAnilistSupport": "Y",
-    		"hasKitsuSupport": "N",
-	    	"hasSimKLSupport": "N",
-		    "features": "Scrapes Anime and Manga"
-	    }
+            "siteName": "Yukino",
+            "hasMalSupport": "Y",
+            "hasAnilistSupport": "Y",
+            "hasKitsuSupport": "N",
+            "hasSimKLSupport": "N",
+            "features": "Scrapes Anime and Manga"
+        }
     ],
     "browserExtensions": [
         {
