@@ -4070,6 +4070,9 @@
         },
         {
             "siteName": "Yukino",
+            "siteAddresses": [
+                "https://zyrouge.github.io/yukino-app/"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -4168,6 +4171,9 @@
         },
         {
             "siteName": "Yukino",
+            "siteAddresses": [
+                "https://zyrouge.github.io/yukino-app/"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
@@ -4211,6 +4217,9 @@
         },
         {
             "siteName": "Yukino",
+            "siteAddresses": [
+                "https://zyrouge.github.io/yukino-app/"
+            ],
             "hasMalSupport": "Y",
             "hasAnilistSupport": "Y",
             "hasKitsuSupport": "N",
