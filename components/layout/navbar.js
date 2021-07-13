@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Profile from "./profile";
 
 export default function Navbar({tabs}) {
     return <nav className="navbar navbar-expand-md navbar-dark bg-2">
@@ -72,6 +73,7 @@ export default function Navbar({tabs}) {
                                 Status
                             </a>
                         </li>
+                        <Profile/>
                     </ul>
                 </form>
             </div>

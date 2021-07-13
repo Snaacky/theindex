@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Script from 'next/script'
-import Navbar from "./navbar";
-import Footer from "./footer";
+import Navbar from "./navbar"
+import Footer from "./footer"
 
 export const siteTitle = '/r/animepiracy Index'
 
-export default function Layout({children, error, home, tabs}) {
+export default function Layout({children, error, loggedIn, home, tabs}) {
     return (
         <div className={"d-flex"}
              style={{
@@ -50,7 +50,7 @@ export default function Layout({children, error, home, tabs}) {
             </Head>
             {error ? <></> :
                 <header>
-                    <Navbar tabs={tabs}/>
+                    <Navbar tabs={tabs} loggedIn={loggedIn}/>
                 </header>
             }
             <div className={"container-fluid my-2"}>

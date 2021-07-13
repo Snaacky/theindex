@@ -57,6 +57,12 @@ a:not(.link-light):not(.btn):not(.navbar-brand):hover {
 ul.dropdown-menu > li > a.dropdown-item {
     color: white
 }
+
 ul.dropdown-menu > li > a.dropdown-item:hover {
     background-color: #2d2d2d;
+}
+
+/* remove dropdown arrow from profile in navbar */
+nav.navbar li.nav-item.dropdown > a.dropdown-toggle.profile:after {
+    content: none;
 }
