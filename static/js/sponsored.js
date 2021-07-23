@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
             ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
-            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
+            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span><br><br>'
         }
     ]
 
