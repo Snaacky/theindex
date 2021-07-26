@@ -535,7 +535,8 @@ def fetch_columns_by_table(table):
 
     if not table.exists:
         return "table does not exist"
-
+    
+    db.close()
     return jsonify(table.columns)
 
 
@@ -593,6 +594,7 @@ def fetch_data_by_table(table):
     for row in results:
         row["siteAddresses"] = json.loads(row["siteAddresses"])
         data.append(row)
+    db.close()
     return jsonify(data)
 
 
@@ -630,6 +632,7 @@ def update_table_entry(table):
                                 after=after)
 
     table.update(data, ["id"])
+    db.close()
     return "updated"
 
 
@@ -653,6 +656,7 @@ def insert_new_entry(table):
                                 table=table.name, after=data)
 
     table.insert(data)
+    db.close()
     return "inserted"
 
 
@@ -674,4 +678,5 @@ def delete_entry(table, id):
                                 table=table.name, after=data)
 
     table.delete(id=id)
+    db.close()
     return "deleted"
