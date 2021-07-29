@@ -7,15 +7,19 @@ services:
     ports:
       - 8080:8080
     environment:
-      AUDIT_WEBHOOK: ""
-      OAUTH2_TOKEN_ENDPOINT: "https://discord.com/api/oauth2/token"
-      OAUTH2_USER_ENDPOINT: "https://discord.com/api/users/@me"
-      OAUTH2_CLIENT_ID: "00000000000"
-      OAUTH2_CLIENT_SECRET: "secret"
       ROOT_URL: "https://piracy.moe"
+      # uncomment the following if you are using your own db setup
+      # DATABASE_URL: "mongodb://mongo:27017"
+      AUDIT_WEBHOOK: ""
+
+      # OAuth2
+      DISCORD_CLIENT_ID: 00000000000
+      DISCORD_CLIENT_SECRET: "secret"
       DISCORD_BOT_TOKEN: "your_discord_bot_token"
-      # leave empty if you use this compose file
-      # DB_CONNECTION_URI: "mongodb://mongo:27017"
+
+      # Setup login whitelist
+      # remove once set up
+      SETUP_WHITELIST_DISCORD_ID: 00000000000
     depends_on:
       - mongo
 

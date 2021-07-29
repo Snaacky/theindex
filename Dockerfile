@@ -3,16 +3,21 @@
 # ------------------------------------------------------------------------------
 FROM node:16.3.0-slim as react-build
 
+# Required ENV
+ENV ROOT_URL="https://piracy.moe"
+ENV DATABASE_URL="mongodb://mongo:27017"
 ENV AUDIT_WEBHOOK=""
+
+# ENV for OAuth2
 ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="secret"
-ENV ROOT_URL="https://piracy.moe"
 ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
-ENV DATABASE_URL="mongodb://mongo:27017"
 
-VOLUME ["/data/db"]
-EXPOSE 3000
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+# Setup login whitelist
+ENV SETUP_WHITELIST_DISCORD_ID=00000000000
+
+EXPOSE 8080
+HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
 
 LABEL org.opencontainers.image.vendor="/r/animepiracy" \
       org.opencontainers.image.url="https://piracy.moe" \

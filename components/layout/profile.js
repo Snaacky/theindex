@@ -3,7 +3,7 @@ import {signIn, signOut, useSession} from 'next-auth/client'
 import {FaSignInAlt, FaSignOutAlt, FaUserCircle} from 'react-icons/fa'
 
 export default function Profile() {
-    const [session, loading] = useSession()
+    const [session] = useSession()
     if (session) {
         console.log("USER:", session.user)
     }

@@ -21,15 +21,20 @@ The easiest way is to use docker via:
 ```shell
 docker run -d \
     -p <host-port>:8080 \
-    -e DB_CONNECTION_URI="mongodb:///mongo:27017"
+    -e DATABASE_URL="mongodb:///mongo:27017" \
+    -e ROOT_URL="https://piracy.moe" \
+    -e DISCORD_CLIENT_ID="00000000000" \
+    -e DISCORD_CLIENT_SECRET="secret" \
+    -e SETUP_WHITELIST_DISCORD_ID="00000000000" \
     --name=index \
     ranimepiracy/index
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
-responsibility to put a reverse proxy in front of this container. After starting the container you can add your own
-[discord-id](https://discord.com/developers/docs/resources/user) to the file `/config/whitelist.json` to be able to
-login and edit.
+responsibility to put a reverse proxy in front of this container. When you run the image for the first time, don't
+forget to set your own [discord-id](https://discord.com/developers/docs/resources/user) in the
+env `SETUP_WHITELIST_DISCORD_ID` to be able to login and edit. Once your container has set up itself once, you can
+remove the env variable from your setup.
 
 ## Database
 
@@ -45,7 +50,7 @@ docker run -d \
 
 For development or testing purposes it is highly recommended to
 use [mongo-express](https://github.com/mongo-express/mongo-express) for accessing, viewing and editing the current state
-of the database. If you make it publicly accessible, don't forget to secure it with login credentials.
+of the database. If you make it publicly accessible, **don't forget** to secure it with *login credentials*.
 
 To simply spin up a mongo-express docker container, run:
 
@@ -80,13 +85,11 @@ discord and has not been tested with anything else.
 | Parameter | Function |
 | :----: | --- |
 | `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
-| `-e OAUTH2_TOKEN_ENDPOINT="https://discord.com/api/oauth2/token"` | OAuth2 token endpoint |
-| `-e OAUTH2_USER_ENDPOINT="https://discord.com/api/users/@me"` | OAuth2 userinfo endpoint |
-| `-e OAUTH2_CLIENT_ID=00000000000` | OAuth2 client ID |
-| `-e OAUTH2_CLIENT_SECRET="your_discord_client_secret"` | OAuth2 client secret |
+| `-e DISCORD_CLIENT_ID=00000000000` | OAuth2 client ID |
+| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | OAuth2 client secret |
 | `-e ROOT_URL="https://piracy.moe"` | Your domain or IP |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
-| `-e DB_CONNECTION_URI="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
+| `-e DATABASE_URL="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
 
 ## Getting started to code
 
