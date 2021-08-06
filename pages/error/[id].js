@@ -1,4 +1,4 @@
-import {useRouter} from 'next/router'
+import {useRouter} from "next/router"
 import Loader from "../../components/loading";
 import Error from "../_error";
 import {getError} from "../../lib/error";
@@ -16,7 +16,7 @@ export default function ErrorPage({status, error}) {
 export async function getStaticPaths() {
     return {
         paths: [],
-        fallback: 'blocking',
+        fallback: "blocking",
     }
 }
 

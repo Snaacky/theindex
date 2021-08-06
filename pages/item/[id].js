@@ -1,7 +1,7 @@
-import Layout from '../../components/layout/layout'
+import Layout from "../../components/layout/layout"
 import Head from "next/head";
 import {getTabsWithTables} from "../../lib/db/tabs";
-import {useRouter} from 'next/router'
+import {useRouter} from "next/router"
 import Loader from "../../components/loading";
 
 export default function Item({tabs, data}) {

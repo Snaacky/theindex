@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import {signIn, signOut, useSession} from 'next-auth/client'
-import {Icon} from 'react-icons-kit'
-import {userCircle} from 'react-icons-kit/fa/userCircle'
-import {signOut as iconSignOut} from 'react-icons-kit/fa/signOut'
-import {signIn as iconSignIn} from 'react-icons-kit/fa/signIn'
+import Image from "next/image"
+import {signIn, signOut, useSession} from "next-auth/client"
+import {Icon} from "react-icons-kit"
+import {userCircle} from "react-icons-kit/fa/userCircle"
+import {signOut as iconSignOut} from "react-icons-kit/fa/signOut"
+import {signIn as iconSignIn} from "react-icons-kit/fa/signIn"
 
 export default function Profile() {
     const [session] = useSession()

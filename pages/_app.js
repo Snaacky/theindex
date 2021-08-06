@@ -1,6 +1,6 @@
 // custom css
-import '../styles/global.css'
-import '../styles/arrayInput.css'
+import "../styles/global.css"
+import "../styles/arrayInput.css"
 import {Provider, signIn, useSession} from "next-auth/client"
 import Loader from "../components/loading";
 import {useEffect} from "react";

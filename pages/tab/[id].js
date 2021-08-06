@@ -1,9 +1,9 @@
-import Layout, {siteTitle} from '../../components/layout/layout'
-import Head from 'next/head'
-import Link from 'next/link'
+import Layout, {siteTitle} from "../../components/layout/layout"
+import Head from "next/head"
+import Link from "next/link"
 import {getTabs, getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from 'next/router'
-import {useSession} from 'next-auth/client'
+import {useRouter} from "next/router"
+import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
 import TableCard from "../../components/cards/TableCard";
 import {canEdit} from "../../lib/session";

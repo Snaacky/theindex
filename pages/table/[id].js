@@ -1,9 +1,9 @@
-import Layout, {siteTitle} from '../../components/layout/layout'
+import Layout, {siteTitle} from "../../components/layout/layout"
 import {getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from 'next/router'
+import {useRouter} from "next/router"
 import Loader from "../../components/loading"
 import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
-import Head from 'next/head'
+import Head from "next/head"
 import {getByURL_ID} from "../../lib/db/db"
 import ColumnFilter from "../../components/column-filter"
 import ItemTable from "../../components/item-table";

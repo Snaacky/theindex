@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image"
 
 export default function BoolValue({value, canEdit = false, onChange}) {
     return <div className={"d-inline-flex"} style={{

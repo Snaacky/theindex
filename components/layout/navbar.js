@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image"
+import Link from "next/link"
 import Profile from "./profile";
-import {useSession} from 'next-auth/client'
+import {useSession} from "next-auth/client"
 import IconAdd from "../icons/IconAdd";
 
 export default function Navbar({tabs}) {

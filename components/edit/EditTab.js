@@ -6,12 +6,12 @@ export default class EditTab extends React.Component {
         super({tabs, tables_datalist, _id, url_id, title, nsfw, description, tables});
 
 
-        this.tables_datalist = tables_datalist.sort((a, b) => a.title > b.title)
-        this.tabs_datalist = tabs.map(t => t.title)
-        this.url_datalist = tabs.map(t => t.url_id)
+        this.tablesDatalist = tables_datalist.sort((a, b) => a.title > b.title)
+        this.tabsDatalist = tabs.map(t => t.title)
+        this.urlDatalist = tabs.map(t => t.url_id)
 
-        const tablesNotSelected = tables ? this.tables_datalist.filter(t_dl => !tables.some(t => t._id === t_dl._id))
-            : this.tables_datalist
+        const tablesNotSelected = tables ? this.tablesDatalist.filter(t_dl => !tables.some(t => t._id === t_dl._id))
+            : this.tablesDatalist
         this.state = {
             _id,
             url_id: url_id || "",
@@ -96,7 +96,7 @@ export default class EditTab extends React.Component {
         this.setState({
             tables: temp,
             tablesNotSelected: this.state.tablesNotSelected.concat([
-                this.tables_datalist.find(t_dl => t_dl._id === table._id)
+                this.tablesDatalist.find(t_dl => t_dl._id === table._id)
             ]).sort((a, b) => a.title > b.title)
         })
     }
@@ -115,7 +115,7 @@ export default class EditTab extends React.Component {
                                this.setState({title: input.target.value})
                            }}/>
                     <datalist id={"createTabInputTitleDatalist"}>
-                        {this.tabs_datalist.map(t => <option value={t} key={t}/>)}
+                        {this.tabsDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createTabInputTitleHelp"} className={"form-text"}>
                         Shown name of tab
@@ -132,7 +132,7 @@ export default class EditTab extends React.Component {
                                this.setState({url_id: input.target.value})
                            }}/>
                     <datalist id={"createTabInputURLDatalist"}>
-                        {this.url_datalist.map(t => <option value={t} key={t}/>)}
+                        {this.urlDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createTabInputURLHelp"} className={"form-text"}>
                         Identifier used for the URLs, must be a string containing only <code>[a-zA-Z0-9]</code>
@@ -161,7 +161,7 @@ export default class EditTab extends React.Component {
                 No tables selected
             </div> : <></>
             }
-            {this.state.tables.map(t => <TableRow table={this.tables_datalist.find(t_dl => t_dl._id === t._id)}
+            {this.state.tables.map(t => <TableRow table={this.tablesDatalist.find(t_dl => t_dl._id === t._id)}
                                                   move={(sort) => this.moveTable(t, sort)}
                                                   remove={() => this.removeTable(t)} key={t._id}/>)}
             <hr/>
@@ -173,7 +173,7 @@ export default class EditTab extends React.Component {
             {this.state.tablesNotSelected.map(t => <TableRow table={t} key={t._id} add={() => this.addTable(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
-                {this.state._id === undefined ? "Create tab" : "Save changes"}
+                {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
             </button>
         </form>
     }

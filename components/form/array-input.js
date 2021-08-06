@@ -1,5 +1,5 @@
-import React from 'react';
-// import {WithContext as ReactTags} from 'react-tag-input';
+import React from "react";
+// import {WithContext as ReactTags} from "react-tag-input";
 
 const KeyCodes = {
     comma: 188,
