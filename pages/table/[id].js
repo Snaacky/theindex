@@ -20,6 +20,7 @@ export default function Post({tabs, table}) {
             <title>
                 {table.title + " | " + siteTitle}
             </title>
+            <meta name="description" content={table.description}/>
         </Head>
 
         <div className={"card bg-2"}>

@@ -1,8 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Profile from "./profile";
+import {useSession} from 'next-auth/client'
+import IconAdd from "../icons/IconAdd";
 
 export default function Navbar({tabs}) {
+    const [session] = useSession()
+
     return <nav className="navbar navbar-expand-md navbar-dark bg-2">
         <div className="container-fluid">
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -55,6 +59,19 @@ export default function Navbar({tabs}) {
                                 </ul>
                             </li>
                         })
+                    }
+                    {session ? <li className={"nav-item"}>
+                            <Link href={"/add/tab/_new"}>
+                                <a className={"nav-link"} style={{
+                                    padding: 0,
+                                    height: "40px",
+                                    width: "40px",
+                                }} title={"Create a new tab"}>
+                                    <IconAdd/>
+                                </a>
+                            </Link>
+                        </li> :
+                        <></>
                     }
                 </ul>
                 <form className="d-flex">

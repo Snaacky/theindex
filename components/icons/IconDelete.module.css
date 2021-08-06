@@ -1,0 +1,14 @@
+.delete {
+    color: var(--bs-danger);
+    padding: 0.5rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.delete:hover {
+    color: white;
+    background-color: var(--bs-danger);
+}

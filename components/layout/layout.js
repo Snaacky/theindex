@@ -40,7 +40,7 @@ export default function Layout({children, error, loggedIn, home, tabs}) {
                     </title> : <></>}
                 <meta name="description"
                       content="The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."/>
-                <meta name="robots" content="index, archive, nofollow"/>
+                <meta name="robots" content="index, archive, follow"/>
 
                 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"

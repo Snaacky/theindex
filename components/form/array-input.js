@@ -1,5 +1,5 @@
 import React from 'react';
-import {WithContext as ReactTags} from 'react-tag-input';
+// import {WithContext as ReactTags} from 'react-tag-input';
 
 const KeyCodes = {
     comma: 188,
@@ -48,20 +48,22 @@ export default class ArrayInput extends React.Component {
     }
 
     render() {
-        const {tags, suggestions} = this.state
+        /*const {tags, suggestions} = this.state
+
+        <ReactTags id={"arrayFilter-" + this._id}
+        tags={tags}
+        allowDragDrop={false}
+        minQueryLength={1}
+        suggestions={suggestions}
+        handleDelete={this.handleDelete}
+        handleAddition={this.handleAddition}
+        handleDrag={this.handleDrag}
+        delimiters={delimiters}/>
+        */
         return <>
             <label htmlFor={"arrayFilter-" + this._id}>
                 {this.title}
             </label>
-            <ReactTags id={"arrayFilter-" + this._id}
-                       tags={tags}
-                       allowDragDrop={false}
-                       minQueryLength={1}
-                       suggestions={suggestions}
-                       handleDelete={this.handleDelete}
-                       handleAddition={this.handleAddition}
-                       handleDrag={this.handleDrag}
-                       delimiters={delimiters}/>
             <div id={"arrayFilterHelp-" + this._id} className="form-text">
                 {this.description}
             </div>

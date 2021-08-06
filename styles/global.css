@@ -1,47 +1,58 @@
+:root {
+    --bg-1: #121212;
+    --bg-2: #1d1d1d;
+    --bg-3: #222222;
+    --bg-4: #242424;
+    --bg-5: #272727;
+    --bg-6: #2c2c2c;
+    --bg-7: #2d2d2d;
+    --bg-8: #323232;
+}
+
 html,
 body {
     min-height: 100%;
-    background-color: rgba(18, 18, 18, 1);
+    background-color: var(--bg-1);
     color: white;
 }
 
 .bg-1 {
-    background-color: #121212;
+    background-color: var(--bg-1);
     color: white;
 }
 
 .bg-2 {
-    background-color: #1d1d1d;
+    background-color: var(--bg-2);
     color: white;
 }
 
 .bg-3 {
-    background-color: #222222;
+    background-color: var(--bg-3);
     color: white;
 }
 
 .bg-4 {
-    background-color: #242424;
+    background-color: var(--bg-4);
     color: white;
 }
 
 .bg-5 {
-    background-color: #272727;
+    background-color: var(--bg-5);
     color: white;
 }
 
 .bg-6 {
-    background-color: #2c2c2c;
+    background-color: var(--bg-6);
     color: white;
 }
 
 .bg-7 {
-    background-color: #2d2d2d;
+    background-color: var(--bg-7);
     color: white;
 }
 
 .bg-8 {
-    background-color: #323232;
+    background-color: var(--bg-8);
     color: white;
 }
 
@@ -59,7 +70,7 @@ ul.dropdown-menu > li > a.dropdown-item {
 }
 
 ul.dropdown-menu > li > a.dropdown-item:hover {
-    background-color: #2d2d2d;
+    background-color: var(--bg-7);
 }
 
 /* remove dropdown arrow from profile in navbar */

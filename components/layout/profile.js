@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import {signIn, signOut, useSession} from 'next-auth/client'
-import {FaSignInAlt, FaSignOutAlt, FaUserCircle} from 'react-icons/fa'
+import {Icon} from 'react-icons-kit'
+import {userCircle} from 'react-icons-kit/fa/userCircle'
+import {signOut as iconSignOut} from 'react-icons-kit/fa/signOut'
+import {signIn as iconSignIn} from 'react-icons-kit/fa/signIn'
 
 export default function Profile() {
     const [session] = useSession()
@@ -22,7 +25,7 @@ export default function Profile() {
                         {session.user.name}
                     </span>
                 </div>
-                : <FaUserCircle/>}
+                : <Icon icon={userCircle}/>}
         </a>
         <ul className="dropdown-menu dropdown-menu-end bg-4" aria-labelledby={"userNavDropdownLink"}>
             <li>
@@ -48,7 +51,7 @@ export default function Profile() {
                         signIn("discord")
                     }
                 }}>
-                    {session ? <>Sign out <FaSignOutAlt/></> : <><FaSignInAlt/> Sign In</>}
+                    {session ? <>Sign out <Icon icon={iconSignOut}/></> : <><Icon icon={iconSignIn}/> Sign In</>}
                 </a>
             </li>
         </ul>

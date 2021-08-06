@@ -1,0 +1,25 @@
+.row {
+    width: 100%;
+    background-color: var(--bg-4);
+}
+
+.sorter {
+    display: flex;
+    width: 32px;
+    margin: 0 0.2rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.column {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
