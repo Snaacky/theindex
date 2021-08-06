@@ -3,6 +3,8 @@ import Link from "next/link"
 import Profile from "./profile";
 import {useSession} from "next-auth/client"
 import IconAdd from "../icons/IconAdd";
+import {canEdit} from "../../lib/session";
+import IconAdmin from "../icons/IconAdmin";
 
 export default function Navbar({tabs}) {
     const [session] = useSession()
@@ -60,7 +62,7 @@ export default function Navbar({tabs}) {
                             </li>
                         })
                     }
-                    {session ? <li className={"nav-item"}>
+                    {canEdit(session) ? <li className={"nav-item"}>
                             <Link href={"/edit/tab/_new"}>
                                 <a className={"nav-link"} style={{
                                     padding: 0,
@@ -76,6 +78,54 @@ export default function Navbar({tabs}) {
                 </ul>
                 <form className="d-flex">
                     <ul className="navbar-nav">
+                        {canEdit(session) ? <li className="nav-item dropdown">
+                            <a className={"nav-link dropdown-toggle"} role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               id={"navDropdownLinkAdmin"}>
+                                <IconAdmin/> Admin
+                            </a>
+                            <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkAdmin"}>
+                                <li>
+                                    <Link href={"/admin"}>
+                                        <a className={"dropdown-item"} title={"Admin settings"}>
+                                            <IconAdmin/> Admin
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <hr className="dropdown-divider"/>
+                                </li>
+                                <li>
+                                    <Link href={"/edit/tabs"}>
+                                        <a className="dropdown-item">
+                                            Tabs
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={"/edit/tables"}>
+                                        <a className="dropdown-item">
+                                            Tables
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={"/edit/columns"}>
+                                        <a className="dropdown-item">
+                                            Columns
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={"/edit/items"}>
+                                        <a className="dropdown-item">
+                                            Items
+                                        </a>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li> : <></>
+                        }
                         <li className="nav-item">
                             <a className="nav-link" href="https://wiki.piracy.moe/">
                                 <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}

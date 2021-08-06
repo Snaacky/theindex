@@ -2,11 +2,11 @@ import React from "react";
 import TableRow from "../rows/TableRow";
 
 export default class EditTab extends React.Component {
-    constructor({tabs, tables_datalist, _id, urlId, title, nsfw, description, tables}) {
-        super({tabs, tables_datalist, _id, urlId, title, nsfw, description, tables});
+    constructor({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables}) {
+        super({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables});
 
 
-        this.tablesDatalist = tables_datalist.sort((a, b) => a.title > b.title)
+        this.tablesDatalist = tablesDatalist.sort((a, b) => a.title > b.title)
         this.tabsDatalist = tabs.map(t => t.title)
         this.urlDatalist = tabs.map(t => t.urlId)
 

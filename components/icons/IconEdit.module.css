@@ -1,6 +1,5 @@
 .edit {
     color: var(--bs-warning);
-    display: inline-block;
     margin-left: 0.1rem;
     padding: 0 0.3rem;
     border-bottom: 1px solid transparent;

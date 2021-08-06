@@ -10,7 +10,7 @@ const delimiters = [...KeyCodes.enter, KeyCodes.comma]
 
 export default class ArrayInput extends React.Component {
     constructor({_id, title, description, tags, suggestions, onChange}) {
-        super(undefined);
+        super({_id, title, description, tags, suggestions, onChange});
 
         this.state = {
             tags,
