@@ -9,9 +9,14 @@ export default function Error({statusCode, error}) {
                 <Image src={error.img} alt={error.imgAlt}
                        width={120} height={120}/>
             </div>
-            <h1>
+            <h1 className={"mb-4"}>
                 {error.text}
             </h1>
+            <div className={"d-flex justify-content-center"}>
+                <a href={"/"} className={"btn btn-outline-warning"}>
+                    Go back
+                </a>
+            </div>
         </div>
     </Layout>
 }
