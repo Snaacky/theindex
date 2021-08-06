@@ -2,8 +2,8 @@
 import "../styles/global.css"
 import "../styles/arrayInput.css"
 import {Provider, signIn, useSession} from "next-auth/client"
-import Loader from "../components/loading";
-import {useEffect} from "react";
+import Loader from "../components/loading"
+import {useEffect} from "react"
 
 export default function App({Component, pageProps}) {
     return <Provider session={pageProps.session}>

@@ -1,7 +1,7 @@
-import BoolValue from "./bool-value";
-import ArrayValue from "./array-value";
+import BoolValue from "./bool-value"
+import ArrayValue from "./array-value"
 
-export default function ItemTable({columns, items, canEdit = false}) {
+export default function ItemTable({columns, items}) {
     items = items.filter(i => i.show).map(i => i.data)
     return <div className={"table-responsive"}>
         <table className={"table table-dark table-striped table-hover"}>

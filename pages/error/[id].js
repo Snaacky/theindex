@@ -1,7 +1,7 @@
 import {useRouter} from "next/router"
-import Loader from "../../components/loading";
-import Error from "../_error";
-import {getError} from "../../lib/error";
+import Loader from "../../components/loading"
+import Error from "../_error"
+import {getError} from "../../lib/error"
 
 export default function ErrorPage({status, error}) {
     const router = useRouter()
@@ -26,5 +26,5 @@ export async function getStaticProps({params}) {
     return {
         props: {status, error},
         revalidate: 60
-    };
+    }
 }

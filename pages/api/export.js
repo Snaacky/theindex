@@ -1,4 +1,4 @@
-import {exportData} from "../../lib/db/db";
+import {exportData} from "../../lib/db/db"
 
 export default async function handler(req, res) {
     const d = await exportData()

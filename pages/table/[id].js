@@ -6,7 +6,7 @@ import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
 import Head from "next/head"
 import {getByUrlId} from "../../lib/db/db"
 import ColumnFilter from "../../components/column-filter"
-import ItemTable from "../../components/item-table";
+import ItemTable from "../../components/item-table"
 
 export default function Post({tabs, table}) {
     const router = useRouter()
@@ -73,5 +73,5 @@ export async function getStaticProps({params}) {
     return {
         props: {tabs, table},
         revalidate: 60
-    };
+    }
 }

@@ -1,12 +1,12 @@
 import Link from "next/link"
 import {useSession} from "next-auth/client"
-import {canEdit} from "../../lib/session";
-import IconEdit from "../icons/IconEdit";
+import {canEdit} from "../../lib/session"
+import IconEdit from "../icons/IconEdit"
 import styles from "./TableRow.module.css"
 import {Icon} from "react-icons-kit"
 import {chevronUp} from "react-icons-kit/fa/chevronUp"
 import {chevronDown} from "react-icons-kit/fa/chevronDown"
-import IconDelete from "../icons/IconDelete";
+import IconDelete from "../icons/IconDelete"
 
 const noop = () => {
 }

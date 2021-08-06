@@ -1,14 +1,14 @@
 import Layout, {siteTitle} from "../../components/layout/layout"
 import Head from "next/head"
 import Link from "next/link"
-import {getTabsWithTables} from "../../lib/db/tabs";
+import {getTabsWithTables} from "../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Login from "../../components/Login";
-import IconTab from "../../components/icons/IconTab";
-import TabRow from "../../components/rows/TabRow";
-import React from "react";
-import styles from "../../components/rows/TableRow.module.css";
-import IconAdd from "../../components/icons/IconAdd";
+import Login from "../../components/Login"
+import IconTab from "../../components/icons/IconTab"
+import TabRow from "../../components/rows/TabRow"
+import React from "react"
+import styles from "../../components/rows/TableRow.module.css"
+import IconAdd from "../../components/icons/IconAdd"
 
 export default function EditorTabs({tabs}) {
     const [session] = useSession()
@@ -30,7 +30,7 @@ export default function EditorTabs({tabs}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        <IconTab size={24}/> Tabs
+                        <IconTab size={24}/> Tabs manager
                     </h2>
                 </div>
                 <Tabs tabs={tabs}/>
@@ -79,7 +79,7 @@ export class Tabs extends React.Component {
                 order: tab.order
             })
         }).then(r => {
-            return r.status === 200;
+            return r.status === 200
         })
     }
 
@@ -119,7 +119,7 @@ export class Tabs extends React.Component {
                     _id: tab._id
                 })
             }).then(r => {
-                return r.status === 200;
+                return r.status === 200
             })) {
                 alert("Failed to delete tab '" + tab.title + "'")
             }

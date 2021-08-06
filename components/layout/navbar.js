@@ -1,14 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
-import Profile from "./profile";
+import Profile from "./profile"
 import {useSession} from "next-auth/client"
-import IconAdd from "../icons/IconAdd";
-import {canEdit} from "../../lib/session";
-import IconAdmin from "../icons/IconAdmin";
-import IconTable from "../icons/IconTable";
-import IconTab from "../icons/IconTab";
-import IconItem from "../icons/IconItem";
-import IconColumn from "../icons/IconColumn";
+import IconAdd from "../icons/IconAdd"
+import {canEdit} from "../../lib/session"
+import IconAdmin from "../icons/IconAdmin"
+import IconTable from "../icons/IconTable"
+import IconTab from "../icons/IconTab"
+import IconItem from "../icons/IconItem"
+import IconColumn from "../icons/IconColumn"
 
 export default function Navbar({tabs}) {
     const [session] = useSession()

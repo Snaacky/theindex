@@ -1,8 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
-import {canEdit} from "../../lib/session";
-import IconEdit from "../icons/IconEdit";
+import {canEdit} from "../../lib/session"
+import IconEdit from "../icons/IconEdit"
 import styles from "./TableCard.module.css"
 
 export default function TableCard({table}) {

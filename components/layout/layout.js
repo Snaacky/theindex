@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Link from "next/link"
 import Script from "next/script"
 import Navbar from "./navbar"
 import Footer from "./footer"

@@ -1,5 +1,5 @@
-import React from "react";
-// import {WithContext as ReactTags} from "react-tag-input";
+import React from "react"
+// import {WithContext as ReactTags} from "react-tag-input"
 
 const KeyCodes = {
     comma: 188,
@@ -10,7 +10,7 @@ const delimiters = [...KeyCodes.enter, KeyCodes.comma]
 
 export default class ArrayInput extends React.Component {
     constructor({_id, title, description, tags, suggestions, onChange}) {
-        super({_id, title, description, tags, suggestions, onChange});
+        super({_id, title, description, tags, suggestions, onChange})
 
         this.state = {
             tags,

@@ -1,10 +1,10 @@
 import Layout, {siteTitle} from "../../../components/layout/layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs";
+import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Login from "../../../components/Login";
-import {getTables} from "../../../lib/db/tables";
-import EditTab from "../../../components/edit/EditTab";
+import Login from "../../../components/Login"
+import {getTables} from "../../../lib/db/tables"
+import EditTab from "../../../components/edit/EditTab"
 import Link from "next/link"
 
 export default function EditorTab({urlId, tabs, tables}) {

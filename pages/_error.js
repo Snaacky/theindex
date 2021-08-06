@@ -1,6 +1,6 @@
-import Layout from "../components/layout/layout";
+import Layout from "../components/layout/layout"
 import Image from "next/image"
-import {getError} from "../lib/error";
+import {getError} from "../lib/error"
 
 export default function Error({statusCode, error}) {
     return <Layout error={statusCode}>

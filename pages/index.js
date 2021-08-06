@@ -2,7 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
 import Layout, {siteTitle} from "../components/layout/layout"
-import {images} from "../lib/icon";
+import {images} from "../lib/icon"
 import {getTabsWithTables} from "../lib/db/tabs"
 
 export default function Home({tabs, images}) {

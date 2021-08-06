@@ -1,11 +1,11 @@
-import React from "react";
-import FormSwitch from "./form/switch";
-import ArrayInput from "./form/array-input";
+import React from "react"
+import FormSwitch from "./form/switch"
+import ArrayInput from "./form/array-input"
 
 
 export default class ColumnFilter extends React.Component {
     constructor({columns, onChange}) {
-        super(undefined);
+        super(undefined)
 
         if (!columns) {
             console.error("No columns definition provided for ColumnFilter", columns)

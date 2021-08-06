@@ -1,8 +1,8 @@
 import Layout from "../../components/layout/layout"
-import Head from "next/head";
-import {getTabsWithTables} from "../../lib/db/tabs";
+import Head from "next/head"
+import {getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
-import Loader from "../../components/loading";
+import Loader from "../../components/loading"
 
 export default function Item({tabs, data}) {
     const router = useRouter()

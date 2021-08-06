@@ -5,10 +5,10 @@ import {getTabs, getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
-import TableCard from "../../components/cards/TableCard";
-import {canEdit} from "../../lib/session";
-import IconAdd from "../../components/icons/IconAdd";
-import IconEdit from "../../components/icons/IconEdit";
+import TableCard from "../../components/cards/TableCard"
+import {canEdit} from "../../lib/session"
+import IconAdd from "../../components/icons/IconAdd"
+import IconEdit from "../../components/icons/IconEdit"
 
 export default function Post({tabs, tab}) {
     const router = useRouter()
@@ -103,5 +103,5 @@ export async function getStaticProps({params}) {
     return {
         props: {tabs, tab},
         revalidate: 60
-    };
+    }
 }

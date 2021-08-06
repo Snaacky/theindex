@@ -1,9 +1,9 @@
-import React from "react";
-import TableRow from "../rows/TableRow";
+import React from "react"
+import TableRow from "../rows/TableRow"
 
 export default class EditTab extends React.Component {
     constructor({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables}) {
-        super({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables});
+        super({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables})
 
 
         this.tablesDatalist = tablesDatalist.sort((a, b) => a.title > b.title)
