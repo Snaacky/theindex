@@ -6,11 +6,11 @@ export default class EditTab extends React.Component {
         super({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables})
 
 
-        this.tablesDatalist = tablesDatalist.sort((a, b) => a.title > b.title)
+        this.tablesDatalist = tablesDatalist.sort((a, b) => a.title > b.title ? 1 : -1)
         this.tabsDatalist = tabs.map(t => t.title)
         this.urlDatalist = tabs.map(t => t.urlId)
 
-        const tablesNotSelected = tables ? this.tablesDatalist.filter(t_dl => !tables.some(t => t._id === t_dl._id))
+        const tablesNotSelected = tables ? this.tablesDatalist.filter(tDL => !tables.some(t => t._id === tDL._id))
             : this.tablesDatalist
         this.state = {
             _id,
@@ -23,7 +23,7 @@ export default class EditTab extends React.Component {
         }
     }
 
-    saveTable() {
+    saveTab() {
         if (this.state.title !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
@@ -95,8 +95,8 @@ export default class EditTab extends React.Component {
         this.setState({
             tables: temp,
             tablesNotSelected: this.state.tablesNotSelected.concat([
-                this.tablesDatalist.find(t_dl => t_dl._id === table._id)
-            ]).sort((a, b) => a.title > b.title)
+                this.tablesDatalist.find(tDL => tDL._id === table._id)
+            ]).sort((a, b) => a.title > b.title ? 1 : -1)
         })
     }
 
@@ -157,21 +157,21 @@ export default class EditTab extends React.Component {
             </div>
             <label className="form-label">Tables</label>
             {this.state.tables.length === 0 ? <div>
-                No tables selected
+                <kbd>No tables selected</kbd>
             </div> : <></>
             }
-            {this.state.tables.map(t => <TableRow table={this.tablesDatalist.find(t_dl => t_dl._id === t._id)}
+            {this.state.tables.map(t => <TableRow table={this.tablesDatalist.find(tDL => tDL._id === t._id)}
                                                   move={(sort) => this.moveTable(t, sort)}
                                                   remove={() => this.removeTable(t)} key={t._id}/>)}
             <hr/>
-            <label className="form-label">Table pool</label>
+            <label className="form-label">Available tables</label>
             {this.state.tablesNotSelected.length === 0 ? <div>
-                No tables available
+                <kbd>No tables available</kbd>
             </div> : <></>
             }
             {this.state.tablesNotSelected.map(t => <TableRow table={t} key={t._id} add={() => this.addTable(t)}/>)}
 
-            <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
+            <button className={"btn btn-primary"} type="button" onClick={() => this.saveTab()}>
                 {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
             </button>
         </form>
