@@ -56,10 +56,10 @@ export default function TableRow(
             <div className="col">
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
-                        <Link href={"/table/" + table.url_id}>
+                        <Link href={"/table/" + table.urlId}>
                             {table.title}
                         </Link>
-                        {canEdit(session) ? <Link href={"/edit/table/" + table.url_id}>
+                        {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
                             <a title={"Edit table"}>
                                 <IconEdit/>
                             </a>

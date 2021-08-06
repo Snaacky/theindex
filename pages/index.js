@@ -17,9 +17,9 @@ export default function Home({tabs, images}) {
                     You are searching a site with:
                 </h1>
                 <div className={"gx-4"}>
-                    {tabs.map(({url_id, title}) => {
+                    {tabs.map(({urlId, title}) => {
                         return (
-                            <Link href={"/tab/" + url_id} key={url_id}>
+                            <Link href={"/tab/" + urlId} key={urlId}>
                                 <a type={"button"} className={"btn btn-lg btn-outline-primary me-3"}>
                                     {title}
                                 </a>

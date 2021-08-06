@@ -22,8 +22,12 @@ function Auth({auth, children}) {
     const [session, loading] = useSession()
     const isUser = !!session?.user
     useEffect(() => {
-        if (loading) return // Do nothing while loading
-        if (!isUser) signIn() // If not authenticated, force log in
+        if (loading) {
+            return // Do nothing while loading
+        }
+        if (!isUser) {
+            signIn() // If not authenticated, force log in
+        }
     }, [isUser, loading])
 
     if (isUser) {

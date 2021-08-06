@@ -31,7 +31,7 @@ export default function Post({tabs, tab}) {
                 <div className={"card-title"}>
                     <h2>
                         {tab.title}
-                        {canEdit(session) ? <Link href={"/edit/tab/" + tab.url_id}>
+                        {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
                             <a title={"Edit tab"}>
                                 <IconEdit size={24}/>
                             </a>
@@ -46,7 +46,7 @@ export default function Post({tabs, tab}) {
 
         <div className={"d-flex flex-wrap"}>
             {tab.tables.map(t => {
-                return <TableCard table={t} key={t.url_id}/>
+                return <TableCard table={t} key={t.urlId}/>
             })}
             {canEdit(session) ? <div className={"card bg-2 mb-2 me-2"} style={{width: "24rem"}}>
                 <div className="row g-0">
@@ -79,7 +79,7 @@ export async function getStaticPaths() {
     const paths = tabs.map(tab => {
         return {
             params: {
-                id: tab.url_id
+                id: tab.urlId
             }
         }
     })
@@ -92,7 +92,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
-    const tab = tabs.filter(t => t.url_id === params.id)[0]
+    const tab = tabs.filter(t => t.urlId === params.id)[0]
     if (!tab) {
         return {
             notFound: true,

@@ -2,19 +2,19 @@ import React from "react";
 import TableRow from "../rows/TableRow";
 
 export default class EditTab extends React.Component {
-    constructor({tabs, tables_datalist, _id, url_id, title, nsfw, description, tables}) {
-        super({tabs, tables_datalist, _id, url_id, title, nsfw, description, tables});
+    constructor({tabs, tables_datalist, _id, urlId, title, nsfw, description, tables}) {
+        super({tabs, tables_datalist, _id, urlId, title, nsfw, description, tables});
 
 
         this.tablesDatalist = tables_datalist.sort((a, b) => a.title > b.title)
         this.tabsDatalist = tabs.map(t => t.title)
-        this.urlDatalist = tabs.map(t => t.url_id)
+        this.urlDatalist = tabs.map(t => t.urlId)
 
         const tablesNotSelected = tables ? this.tablesDatalist.filter(t_dl => !tables.some(t => t._id === t_dl._id))
             : this.tablesDatalist
         this.state = {
             _id,
-            url_id: url_id || "",
+            urlId: urlId || "",
             title: title || "",
             nsfw: nsfw || false,
             description: description || "",
@@ -25,13 +25,13 @@ export default class EditTab extends React.Component {
 
     saveTable() {
         console.log("Yippeahadkslad", this.state)
-        if (this.state.title !== "" && this.state.url_id !== "") {
-            if (this.state.url_id === "_new") {
+        if (this.state.title !== "" && this.state.urlId !== "") {
+            if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
-                url_id: this.state.url_id,
+                urlId: this.state.urlId,
                 title: this.state.title,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
@@ -125,11 +125,11 @@ export default class EditTab extends React.Component {
                     <label htmlFor={"createTabInputURL"} className={"form-label"}>
                         URL
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createTabInputURL"} value={this.state.url_id}
+                    <input type={"text"} className={"form-control"} id={"createTabInputURL"} value={this.state.urlId}
                            list={"createTabInputURLDatalist"} aria-describedby={"createTabInputURLHelp"}
                            placeholder={"Enter the url id"} required={true}
                            onChange={(input) => {
-                               this.setState({url_id: input.target.value})
+                               this.setState({urlId: input.target.value})
                            }}/>
                     <datalist id={"createTabInputURLDatalist"}>
                         {this.urlDatalist.map(t => <option value={t} key={t}/>)}

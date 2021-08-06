@@ -27,16 +27,16 @@ export default function Navbar({tabs}) {
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     {
-                        tabs.map(({url_id, title, tables}) => {
-                            return <li className="nav-item dropdown" key={url_id}>
+                        tabs.map(({urlId, title, tables}) => {
+                            return <li className="nav-item dropdown" key={urlId}>
                                 <a className={"nav-link dropdown-toggle"} role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                   id={"navDropdownLink-" + url_id}>
+                                   id={"navDropdownLink-" + urlId}>
                                     {title}
                                 </a>
-                                <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + url_id}>
+                                <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + urlId}>
                                     <li>
-                                        <Link href={"/tab/" + url_id}>
+                                        <Link href={"/tab/" + urlId}>
                                             <a className="dropdown-item">
                                                 {title}
                                             </a>
@@ -47,8 +47,8 @@ export default function Navbar({tabs}) {
                                     </li>
                                     {
                                         tables.map((table) => {
-                                            return <li key={table.url_id}>
-                                                <Link href={"/table/" + table.url_id}>
+                                            return <li key={table.urlId}>
+                                                <Link href={"/table/" + table.urlId}>
                                                     <a className="dropdown-item">
                                                         {table.title}
                                                     </a>
@@ -61,7 +61,7 @@ export default function Navbar({tabs}) {
                         })
                     }
                     {session ? <li className={"nav-item"}>
-                            <Link href={"/add/tab/_new"}>
+                            <Link href={"/edit/tab/_new"}>
                                 <a className={"nav-link"} style={{
                                     padding: 0,
                                     height: "40px",

@@ -66,7 +66,7 @@ a:not(.link-light):not(.btn):not(.navbar-brand):hover {
 }
 
 ul.dropdown-menu > li > a.dropdown-item {
-    color: white
+    color: white;
 }
 
 ul.dropdown-menu > li > a.dropdown-item:hover {
@@ -74,6 +74,6 @@ ul.dropdown-menu > li > a.dropdown-item:hover {
 }
 
 /* remove dropdown arrow from profile in navbar */
-nav.navbar li.nav-item.dropdown > a.dropdown-toggle.profile:after {
+nav.navbar li.nav-item.dropdown > a.dropdown-toggle.profile::after {
     content: none;
 }

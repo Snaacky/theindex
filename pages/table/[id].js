@@ -4,7 +4,7 @@ import {useRouter} from "next/router"
 import Loader from "../../components/loading"
 import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
 import Head from "next/head"
-import {getByURL_ID} from "../../lib/db/db"
+import {getByUrlId} from "../../lib/db/db"
 import ColumnFilter from "../../components/column-filter"
 import ItemTable from "../../components/item-table";
 
@@ -34,13 +34,13 @@ export default function Post({tabs, table}) {
                         </span>
                     <div>
                         <button className={"btn btn-outline-primary"} type={"button"}
-                                data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter-" + table.url_id}
-                                aria-expanded="false" aria-controls={"collapseFilter-" + table.url_id}>
+                                data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter-" + table.urlId}
+                                aria-expanded="false" aria-controls={"collapseFilter-" + table.urlId}>
                             Filter
                         </button>
                     </div>
                 </div>
-                <div id={"collapseFilter-" + table.url_id}
+                <div id={"collapseFilter-" + table.urlId}
                      className="collapse row g-3">
                     <ColumnFilter columns={table.columns} onChange={console.log}/>
                 </div>
@@ -55,7 +55,7 @@ export async function getStaticPaths() {
     const paths = tables.map(table => {
         return {
             params: {
-                id: table.url_id
+                id: table.urlId
             }
         }
     })
@@ -68,7 +68,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
-    const table = await getTableWithColumnsAndItems(await getByURL_ID("tables", params.id))
+    const table = await getTableWithColumnsAndItems(await getByUrlId("tables", params.id))
 
     return {
         props: {tabs, table},

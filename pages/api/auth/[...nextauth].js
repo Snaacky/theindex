@@ -1,17 +1,15 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 
-export default NextAuth({
-    // Configure one or more authentication providers
+const discord = Providers.Discord({
+    clientId: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET
+})
+const nextAuth = NextAuth({
     providers: [
-        Providers.Discord({
-            clientId: process.env.DISCORD_CLIENT_ID,
-            clientSecret: process.env.DISCORD_CLIENT_SECRET
-        }),
-        // ...add more providers here
+        discord
     ],
     callbacks: {
-        //
         async signIn(user, account, profile) {
             console.log("Sign In event:", user, account, profile)
             return true
@@ -35,3 +33,5 @@ export default NextAuth({
     // A database is optional, but required to persist accounts in a database
     database: process.env.DATABASE_URL + "/index?entityPrefix=nextauth_",
 })
+
+export default nextAuth

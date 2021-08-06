@@ -7,9 +7,8 @@ import {getTables} from "../../../lib/db/tables";
 import EditTab from "../../../components/edit/EditTab";
 import Link from "next/link"
 
-export default function EditorTab({url_id, tabs, tables}) {
+export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()
-    console.log("Muhahah", url_id, session, tabs)
 
     if (!session) {
         return <Layout tabs={tabs}>
@@ -18,8 +17,8 @@ export default function EditorTab({url_id, tabs, tables}) {
     }
 
     let tab
-    if (url_id !== "_new") {
-        tab = tabs.find(t => t.url_id === url_id)
+    if (urlId !== "_new") {
+        tab = tabs.find(t => t.urlId === urlId)
     }
     return <Layout tabs={tabs}>
         <Head>
@@ -33,7 +32,7 @@ export default function EditorTab({url_id, tabs, tables}) {
                 <div className={"card-title"}>
                     <h2>
                         {typeof tab === "undefined" ? "Create a new tab" : <>
-                            Edit tab <Link href={"/tab/" + tab.url_id}>{tab.title}</Link>
+                            Edit tab <Link href={"/tab/" + tab.urlId}>{tab.title}</Link>
                         </>}
                     </h2>
                     {typeof tab !== "undefined" ?
@@ -42,7 +41,7 @@ export default function EditorTab({url_id, tabs, tables}) {
                         </small> : <></>}
                 </div>
                 {typeof tab === "undefined" ? <EditTab tabs={tabs} tables_datalist={tables}/> :
-                    <EditTab tabs={tabs} tables_datalist={tables} _id={tab._id} url_id={tab.url_id} title={tab.title}
+                    <EditTab tabs={tabs} tables_datalist={tables} _id={tab._id} urlId={tab.urlId} title={tab.title}
                              nsfw={tab.nsfw} description={tab.description} tables={tab.tables}/>
                 }
             </div>
@@ -53,7 +52,7 @@ export default function EditorTab({url_id, tabs, tables}) {
 export async function getServerSideProps({params}) {
     return {
         props: {
-            url_id: params.id,
+            urlId: params.id,
             tabs: await getTabsWithTables(),
             tables: await getTables(),
         }
