@@ -5,6 +5,10 @@ import {useSession} from "next-auth/client"
 import IconAdd from "../icons/IconAdd";
 import {canEdit} from "../../lib/session";
 import IconAdmin from "../icons/IconAdmin";
+import IconTable from "../icons/IconTable";
+import IconTab from "../icons/IconTab";
+import IconItem from "../icons/IconItem";
+import IconColumn from "../icons/IconColumn";
 
 export default function Navbar({tabs}) {
     const [session] = useSession()
@@ -98,28 +102,28 @@ export default function Navbar({tabs}) {
                                 <li>
                                     <Link href={"/edit/tabs"}>
                                         <a className="dropdown-item">
-                                            Tabs
+                                            <IconTab/> Tabs
                                         </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href={"/edit/tables"}>
                                         <a className="dropdown-item">
-                                            Tables
+                                            <IconTable/> Tables
                                         </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href={"/edit/columns"}>
                                         <a className="dropdown-item">
-                                            Columns
+                                            <IconColumn/> Columns
                                         </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href={"/edit/items"}>
                                         <a className="dropdown-item">
-                                            Items
+                                            <IconItem/> Items
                                         </a>
                                     </Link>
                                 </li>
