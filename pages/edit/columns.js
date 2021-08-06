@@ -7,11 +7,11 @@ import Login from "../../components/Login"
 import React from "react"
 import styles from "../../components/rows/TableRow.module.css"
 import IconAdd from "../../components/icons/IconAdd"
-import {getTables} from "../../lib/db/tables"
-import TableRow from "../../components/rows/TableRow"
-import IconTable from "../../components/icons/IconTable"
+import {getColumns} from "../../lib/db/columns"
+import IconColumn from "../../components/icons/IconColumn"
+import ColumnRow from "../../components/rows/ColumnRow"
 
-export default function EditorTables({tabs, tables}) {
+export default function EditorColumns({tabs, columns}) {
     const [session] = useSession()
 
     if (!session) {
@@ -23,7 +23,7 @@ export default function EditorTables({tabs, tables}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Tables manager | " + siteTitle}
+                {"Columns manager | " + siteTitle}
             </title>
         </Head>
 
@@ -31,31 +31,31 @@ export default function EditorTables({tabs, tables}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        <IconTable size={24}/> Tables manager
+                        <IconColumn size={24}/> Columns manager
                     </h2>
                 </div>
                 <div>
-                    {tables.map(t => {
-                        return <TableRow table={t} remove={() => {
-                            if (confirm("Do you really want to delete the table '" + t.title + "'?")) {
-                                fetch("/api/delete/table", {
+                    {columns.map(c => {
+                        return <ColumnRow column={c} remove={() => {
+                            if (confirm("Do you really want to delete the column '" + c.title + "'?")) {
+                                fetch("/api/delete/column", {
                                     method: "post",
                                     headers: {"Content-Type": "application/json"},
                                     body: JSON.stringify({
-                                        _id: t._id
+                                        _id: c._id
                                     })
                                 }).then(r => {
                                     if (r.status !== 200) {
-                                        alert("Failed to delete tab '" + t.title + "'")
+                                        alert("Failed to delete tab '" + c.title + "'")
                                     }
                                 })
                             }
-                        }} key={t._id}/>
+                        }} key={c._id}/>
                     })}
                     <div className={styles.row + " card bg-2 my-2"}>
                         <div className="row g-0">
                             <div className={styles.column + " col-auto p-1"}>
-                                <Link href={"/edit/table/_new"}>
+                                <Link href={"/edit/column/_new"}>
                                     <a title={"Create a new table"} style={{
                                         width: "42px",
                                         height: "42px"
@@ -67,7 +67,7 @@ export default function EditorTables({tabs, tables}) {
                             <div className="col">
                                 <div className={"card-body"}>
                                     <h5 className={"card-title"}>
-                                        Create a new table
+                                        Create a new column
                                     </h5>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ export async function getServerSideProps() {
     return {
         props: {
             tabs: await getTabsWithTables(),
-            tables: await getTables()
+            columns: await getColumns()
         }
     }
 }

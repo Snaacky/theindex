@@ -22,7 +22,7 @@ export default function EditorTabs({tabs}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Edit tabs | " + siteTitle}
+                {"Tabs manager | " + siteTitle}
             </title>
         </Head>
 
