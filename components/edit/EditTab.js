@@ -24,7 +24,6 @@ export default class EditTab extends React.Component {
     }
 
     saveTable() {
-        console.log("Yippeahadkslad", this.state)
         if (this.state.title !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")

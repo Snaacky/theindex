@@ -7,7 +7,7 @@ import {getTabsWithTables} from "../lib/db/tabs"
 
 export default function Home({tabs, images}) {
     return (
-        <Layout home tabs={tabs}>
+        <Layout tabs={tabs}>
             <Head>
                 <title>{siteTitle}</title>
             </Head>

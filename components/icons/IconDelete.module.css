@@ -1,5 +1,7 @@
 .delete {
     color: var(--bs-danger);
+    height: 100%;
+    width: 100%;
 }
 
 .delete:hover {

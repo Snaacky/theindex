@@ -6,7 +6,7 @@ import Footer from "./footer"
 
 export const siteTitle = "/r/animepiracy Index"
 
-export default function Layout({children, error, loggedIn, home, tabs}) {
+export default function Layout({children, error, loggedIn, tabs}) {
     return (
         <div className={"d-flex"}
              style={{
@@ -54,13 +54,6 @@ export default function Layout({children, error, loggedIn, home, tabs}) {
                 </header>
             }
             <div className={"container-fluid my-2"}>
-                {home ? <></> : (
-                    <Link href={"/"}>
-                        <a className={"mb-2"}>
-                            ← go home
-                        </a>
-                    </Link>
-                )}
                 <main>{children}</main>
             </div>
             <Footer error={error}/>
