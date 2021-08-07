@@ -1,11 +1,10 @@
 import Head from "next/head"
-import Script from "next/script"
 import Navbar from "./navbar"
 import Footer from "./footer"
 
 export const siteTitle = "/r/animepiracy Index"
 
-export default function Layout({children, error, loggedIn, tabs}) {
+export default function Layout({children, error, tabs}) {
     return (
         <div className={"d-flex"}
              style={{
@@ -42,14 +41,14 @@ export default function Layout({children, error, loggedIn, tabs}) {
                 <meta name="robots" content="index, archive, follow"/>
 
                 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
                       rel="stylesheet"
-                      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+                      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
                       crossOrigin="anonymous"/>
             </Head>
             {error ? <></> :
                 <header>
-                    <Navbar tabs={tabs} loggedIn={loggedIn}/>
+                    <Navbar tabs={tabs}/>
                 </header>
             }
             <div className={"container-fluid my-2"}>
@@ -57,9 +56,10 @@ export default function Layout({children, error, loggedIn, tabs}) {
             </div>
             <Footer error={error}/>
 
-            <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
                     crossOrigin="anonymous"/>
+
         </div>
     )
 }
