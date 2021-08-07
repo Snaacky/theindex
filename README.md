@@ -9,14 +9,13 @@
 
 # [piracy.moe](https://piracy.moe) index
 
-This repository is the web-ui of /r/animepiracy index.
+The frontend, editor panel, and API of the /r/animepiracy index.
 
-If you want to just report missing or false data, please go over to our [Discord](https://discord.gg/piracy) and report
-it in `#index`.
+Please report incorrect or missing data at our [Discord server](https://discord.gg/piracy) in `#index-wiki`, not here.
 
 ## Getting started
 
-The easiest way is to use docker via:
+The easiest way is to get started is by using Docker with the following command:
 
 ```shell
 docker run -d \
@@ -68,14 +67,14 @@ You can also take a look at our provided `docker-compose.yml` file on how to set
 Warning: be aware, that we do not offer any kind of official support and every update may be with breaking changes. Be
 sure to make backups before you update
 
-To get the newest version of image from [docker-hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
+To get the newest version of the container image from [Docker Hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
 will need to run:
 
 ```shell
 docker pull ranimepiracy/index
 ```
 
-Afterwards you will need to stop and remove your current running instance and start it again.
+Afterwards, you will need to stop and remove your current running instance and start it again.
 
 ## Parameters
 
