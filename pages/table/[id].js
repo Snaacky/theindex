@@ -82,15 +82,6 @@ export default function Post({tabs, table}) {
             {table.items.map(i => {
                 return <ItemCard item={i.data} columns={table.columns} key={i._id}/>
             })}
-            {table.items.map(i => {
-                return <ItemCard item={i.data} columns={table.columns} key={i._id}/>
-            })}
-            {table.items.map(i => {
-                return <ItemCard item={i.data} columns={table.columns} key={i._id}/>
-            })}
-            {table.items.map(i => {
-                return <ItemCard item={i.data} columns={table.columns} key={i._id}/>
-            })}
         </div>
     </Layout>
 }

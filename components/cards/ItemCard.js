@@ -27,11 +27,9 @@ export default function ItemCard(
         }
     })
 
-    console.log("ItemRow:", item, columnYes, columnNo, columnUnknown, columnArray)
-
     return <div className={styles.card + " card bg-2 mb-2 me-2"}>
         <div className={"card-body" +
-        (columnYes.length > 0 || columnNo.length > 0 || columnArray.length > 0 ? " pb-1" : "")}>
+        (columnYes.length > 0 || columnUnknown.length > 0 || columnNo.length > 0 || columnArray.length > 0 ? " pb-1" : "")}>
             <h5 className={"card-title"}>
                 <Link href={"/item/" + item._id}>
                     {item.title}
@@ -53,6 +51,19 @@ export default function ItemCard(
                     return <Link href={"/column/" + c.urlId + "?v=true"} key={c._id}>
                         <a className={"me-2"} title={"View column " + c.title}>
                             <div className={"badge rounded-pill bg-success"}>
+                                {c.title}
+                            </div>
+                        </a>
+                    </Link>
+                })}
+            </div> : <></>
+        }
+        {columnUnknown.length > 0 ?
+            <div className={"d-flex flex-wrap mx-3 mb-1"}>
+                {columnUnknown.map(c => {
+                    return <Link href={"/column/" + c.urlId + "?v=unknown"} key={c._id}>
+                        <a className={"me-2"} title={"View column " + c.title}>
+                            <div className={"badge rounded-pill bg-secondary"}>
                                 {c.title}
                             </div>
                         </a>
@@ -95,7 +106,7 @@ export default function ItemCard(
                 })}
             </div> : <></>
         }
-        {columnYes.length > 0 || columnNo.length > 0 || columnArray.length > 0 ?
+        {columnYes.length > 0 || columnUnknown.length > 0 || columnNo.length > 0 || columnArray.length > 0 ?
             <div className={"mt-3"}/> : <></>
         }
     </div>
