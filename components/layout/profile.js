@@ -7,9 +7,6 @@ import {signIn as iconSignIn} from "react-icons-kit/fa/signIn"
 
 export default function Profile() {
     const [session] = useSession()
-    if (session) {
-        console.log("USER:", session.user)
-    }
 
     return <li className="nav-item dropdown">
         <a className={"nav-link dropdown-toggle profile"} role="button"

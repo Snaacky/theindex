@@ -5,7 +5,7 @@ import ArrayInput from "./form/array-input"
 
 export default class ColumnFilter extends React.Component {
     constructor({columns, onChange}) {
-        super(undefined)
+        super({columns, onChange})
 
         if (!columns) {
             console.error("No columns definition provided for ColumnFilter", columns)
@@ -20,7 +20,6 @@ export default class ColumnFilter extends React.Component {
     }
 
     adjustFilter(event) {
-
         this.onChange(this.filter)
     }
 
