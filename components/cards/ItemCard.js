@@ -3,6 +3,7 @@ import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../icons/IconEdit"
 import styles from "./TableCard.module.css"
+import IconLink from "../icons/IconLink";
 
 export default function ItemCard(
     {
@@ -32,8 +33,13 @@ export default function ItemCard(
         (columnYes.length > 0 || columnUnknown.length > 0 || columnNo.length > 0 || columnArray.length > 0 ? " pb-1" : "")}>
             <h5 className={"card-title"}>
                 <Link href={"/item/" + item._id}>
-                    {item.title}
+                    <a title={"View item " + item.title}>
+                        {item.title}
+                    </a>
                 </Link>
+                <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer" title={"Open in new tab"}>
+                    <IconLink/>
+                </a>
                 {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
                     <a title={"Edit item"}>
                         <IconEdit/>

@@ -8,6 +8,7 @@ import {Icon} from "react-icons-kit"
 import {chevronUp} from "react-icons-kit/fa/chevronUp"
 import {chevronDown} from "react-icons-kit/fa/chevronDown"
 import IconDelete from "../icons/IconDelete"
+import IconLink from "../icons/IconLink";
 
 const noop = () => {
 }
@@ -70,8 +71,13 @@ export default function ItemRow(
                 (columnYes.length > 0 || columnUnknown.length > 0 || columnNo.length > 0 || columnArray.length > 0 ? " pb-1" : "")}>
                     <h5 className={"card-title"}>
                         <Link href={"/item/" + item._id}>
-                            {item.title}
+                            <a title={"View item " + item.title}>
+                                {item.title}
+                            </a>
                         </Link>
+                        <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer" title={"Open in new tab"}>
+                            <IconLink/>
+                        </a>
                         {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
                             <a title={"Edit item"}>
                                 <IconEdit/>
