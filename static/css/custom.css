@@ -213,3 +213,12 @@ tbody > tr:hover {
 #animeTables > .row > .col {
     margin-bottom: 1em;
 }
+
+#mangaTables > .row {
+    margin-right: 0;
+    --bs-gutter-x: 0;
+}
+
+#mangaTables > .row > .col {
+    margin-bottom: 1em;
+}
