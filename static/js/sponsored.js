@@ -1,7 +1,7 @@
 window.addEventListener("load", () => {
     const sponsoredList = [
         {
-            id: "sponsored2",
+            id: "sponsored1-3",
             title: "KimAnime.com",
             url: "https://kimanime.com",
             description: 'Watch in ' +
@@ -11,8 +11,19 @@ window.addEventListener("load", () => {
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
             ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
-            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span><br><br>'
-        }
+            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
+        },
+        {
+            id: "sponsored4",
+            title: "11anime",
+            url: "https://1anime.to/",
+            description: 'Watch in ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
+            ' with <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">No Ads</span>, ' +
+            ' offering both <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
+            ' and <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span>, with a clean UI'
+        },
+
     ]
 
     if (sponsoredList && sponsoredList.length > 0) {
