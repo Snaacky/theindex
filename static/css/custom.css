@@ -222,3 +222,11 @@ tbody > tr:hover {
 #mangaTables > .row > .col {
     margin-bottom: 1em;
 }
+
+.border-grey {
+    border-color: #5f5f5f!important;
+}
+
+.hover-grey:hover {
+    background-color: rgba(95, 95, 95, .25)!important;
+}

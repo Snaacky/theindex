@@ -360,7 +360,7 @@ const generateAllTables = () => {
         })
 
         let download = '<div class="card">' +
-            '<div class="card-header">Export Table-Data</div>' +
+            '<div class="card-header">Export Table Data</div>' +
             '<div class="card-body p-0"><table class="table table-hover table-striped table-responsive table-dark mb-0"><tbody>'
         tab['tables'].forEach(t => {
             download += '<tr><td>' + t["title"] +
@@ -476,7 +476,7 @@ const generateColumnsDetails = () => {
         accordion += '<div class="col rounded hover-dark p-2">' +
             '<div class="row">' +
             '<div class="col-4">' +
-            '<div class="badge hover-blue border border-primary py-1 px-2 rounded-pill">' + column["name"] + '</div>' +
+            '<div class="badge hover-grey border border-grey py-1 px-2 rounded-pill">' + column["name"] + '</div>' +
             '</div>' +
             '<div class="col-8">' + column["description"] + '</div>' +
             '</div>' +
