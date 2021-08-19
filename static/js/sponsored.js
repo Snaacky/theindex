@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
         {
             id: "sponsored-anime-4",
             title: "11anime",
-            url: "https://1anime.to/",
+            url: "https://11anime.to/",
             description: 'Watch in ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
             ' with <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">No Ads</span>, ' +
