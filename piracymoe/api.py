@@ -138,6 +138,17 @@ def fetch_tables():
                     "type": "application"
                 }
             ]
+        },
+        {
+            "tab": "vpnTables",
+            "name": "VPN",
+            "tables": [
+                {
+                    "id": "vpnServices",
+                    "title": "VPNs",
+                    "type": "vpn"
+                }
+            ]
         }
     ])
 
@@ -258,7 +269,76 @@ def fetch_columns():
             "features": {
                 "name": "Features",
                 "description": "Available features"
-            }
+            },
+            "logsTraffic": {
+                "name": "Logs Traffic",
+                "description": "Does the VPN service log traffic"
+            },
+            "acceptsCrypto": {
+                "name": "Accepts Crypto",
+                "description": "Does the VPN service accept cryptocurrency payment"
+            },
+            "openvpn": {
+                "name": "OpenVPN",
+                "description": "Does the VPN service support the OpenVPN protocol"
+            },
+            "wireguard": {
+                "name": "WireGuard",
+                "description": "Does the VPN service support the WireGuard protocol"
+            },
+            "allowsP2P": {
+                "name": "Allows P2P",
+                "description": "Does the VPN service allow P2P (i.e BitTorrent) traffic"
+            },
+            "basedIn": {
+                "name": "Based In",
+                "description": "The country that the company operates from"
+            },
+            "logsBandwidth": {
+                "name": "Logs Bandwidth",
+                "description": "Does the VPN service log bandwidth usage"
+            },
+            "logsTimestamps": {
+                "name": "Logs Timestamps",
+                "description": "Does the VPN service log connection timestamps"
+            },
+            "logsIPAddresses": {
+                "name": "Logs IP Addresses",
+                "description": "Does the VPN service log connecting IP addresses"
+            },
+            "anonymousPayments": {
+                "name": "Anonymous Payments",
+                "description": "Does the VPN service accept at least one form of payment not requiring personal information"
+            },
+            "acceptsCash": {
+                "name": "Accepts Cash",
+                "description": "Does the VPN service accept cash payment"
+            },
+            "acceptsGiftCards": {
+                "name": "Accepts Gift Cards",
+                "description": "Does the VPN service accept gift card payment"
+            },
+            "numOfSimulConns": {
+                "name": "Simultaneous Connections",
+                "description": "The number of simultaneous connections allowed per account"
+            },
+            "freeTrial": {
+                "name": "Trial Available",
+                "description": "Does the VPN service offer a free trial"
+            },
+            "splitTunneling": {
+                "name": "Split Tunneling",
+                "description": "Does the VPN service support split tunneling"
+            },
+            "portForwarding": {
+                "name": "Port Forwarding",
+                "description": "Does the VPN service support port forwarding"
+            },
+            "killSwitch": {
+                "name": "Kill Switch",
+                "description": "Does the VPN service application have a kill switch"
+            },
+
         },
         "types": {
             "anime": [
@@ -522,6 +602,84 @@ def fetch_columns():
                     "key": "editorNotes",
                     "hidden": True
                 }
+            ],
+            "vpn": [
+                {
+                    "key": "siteName",
+                    "hidden": False
+                },
+                {
+                    "key": "basedIn",
+                    "hidden": False
+                },
+                {
+                    "key": "logsTraffic",
+                    "hidden": False
+                },
+                {
+                    "key": "logsBandwidth",
+                    "hidden": True
+                },
+                {
+                    "key": "logsTimestamps",
+                    "hidden": False
+                },
+                {
+                    "key": "logsIPAddresses",
+                    "hidden": False
+                },
+                {
+                    "key": "anonymousPayments",
+                    "hidden": True
+                },
+                {
+                    "key": "acceptsCash",
+                    "hidden": True
+                },
+                {
+                    "key": "acceptsGiftCards",
+                    "hidden": True
+                },
+                {
+                    "key": "numOfSimulConns",
+                    "hidden": False
+                },
+                {
+                    "key": "acceptsCrypto",
+                    "hidden": False
+                },
+                {
+                    "key": "openvpn",
+                    "hidden": False
+                },
+                {
+                    "key": "wireguard",
+                    "hidden": False
+                },
+                {
+                    "key": "allowsP2P",
+                    "hidden": False
+                },
+                {
+                    "key": "editorNotes",
+                    "hidden": True
+                },
+                {
+                    "key": "freeTrial",
+                    "hidden": True
+                },
+                {
+                    "key": "splitTunneling",
+                    "hidden": False
+                },
+                {
+                    "key": "portForwarding",
+                    "hidden": False
+                },
+                {
+                    "key": "killSwitch",
+                    "hidden": False
+                },
             ]
         }
     })
@@ -557,7 +715,8 @@ def fetch_tables_by_tab(tab):
         "novels": ["lightNovels", "visualNovels"],
         "applications": ["androidApplications", "browserExtensions", "iosApplications", "macOSApplications",
                          "visualNovels", "windowsApplications"],
-        "hentai": ["hentaiAnimeSites", "hentaiApplications", "hentaiDoujinshiSites", "hentaiDownloadSites"]
+        "hentai": ["hentaiAnimeSites", "hentaiApplications", "hentaiDoujinshiSites", "hentaiDownloadSites"],
+        "vpn": ["vpnServices"]
     }
 
     if tab not in tabs:
