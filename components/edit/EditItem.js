@@ -7,8 +7,8 @@ import IconDoubleArrow from "../icons/IconDoubleArrow"
 import DataCard from "../cards/DataCard";
 
 export default class EditItem extends React.Component {
-    constructor({_id, title, urls, nsfw, description, data, blacklist, columns}) {
-        super({_id, title, urls, nsfw, description, data, blacklist, columns})
+    constructor({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns}) {
+        super({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns})
 
         this.columns = columns.sort((a, b) => a.title < b.title ? -1 : 1)
 
@@ -20,6 +20,7 @@ export default class EditItem extends React.Component {
             description: description || "",
             data: data || {},
             blacklist: blacklist || false,
+            sponsor: sponsor || false,
             newURL: ""
         }
     }
@@ -32,7 +33,8 @@ export default class EditItem extends React.Component {
                 nsfw: this.state.nsfw,
                 description: this.state.description,
                 data: this.state.data,
-                blacklist: this.state.blacklist
+                blacklist: this.state.blacklist,
+                sponsor: this.state.sponsor
             }
             if (this.state._id) {
                 body._id = this.state._id
@@ -131,7 +133,7 @@ export default class EditItem extends React.Component {
                     <div className={"form-check mb-3"}>
                         <input type="checkbox" className="form-check-input" id="createItemInputBlacklist"
                                onChange={(input) => {
-                                   this.setState({nsfw: input.target.checked})
+                                   this.setState({blacklist: input.target.checked})
                                }} value={this.state.blacklist}/>
                         <label className="form-check-label" htmlFor="createItemInputBlacklist">
                             <span className={"text-danger"}>
@@ -139,6 +141,17 @@ export default class EditItem extends React.Component {
                             </span> item to <span className={"text-danger"}>
                                 hide
                             </span> it from being publicly visible
+                        </label>
+                    </div>
+                    <div className={"form-check mb-3"}>
+                        <input type="checkbox" className="form-check-input" id="createItemInputSponsored"
+                               onChange={(input) => {
+                                   this.setState({sponsor: input.target.checked})
+                               }} value={this.state.sponsor}/>
+                        <label className="form-check-label" htmlFor="createItemInputSponsored">
+                            <span className={"text-warning"}>
+                                Sponsored
+                            </span> item
                         </label>
                     </div>
                 </div>

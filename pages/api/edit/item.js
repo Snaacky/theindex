@@ -8,9 +8,9 @@ export default async function apiEditItem(req, res) {
         const d = req.body
         if (d.title !== "") {
             if (typeof d._id === "undefined") {
-                await addItem(d.title, d.urls, d.nsfw, d.description, d.data)
+                await addItem(d.title, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
             } else {
-                await updateItem(d._id, d.title, d.urls, d.nsfw, d.description, d.data)
+                await updateItem(d._id, d.title, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
             }
             res.status(200).send("Ok")
         } else {
