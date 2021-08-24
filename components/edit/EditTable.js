@@ -1,5 +1,7 @@
 import React from "react"
+import Link from "next/link"
 import ColumnRow from "../rows/ColumnRow"
+import IconDoubleArrow from "../icons/IconDoubleArrow"
 
 export default class EditTable extends React.Component {
     constructor({tables, columnsDatalist, _id, urlId, title, nsfw, description, columns}) {
@@ -49,6 +51,7 @@ export default class EditTable extends React.Component {
                     alert("Failed to save data: Error " + r.status)
                 } else {
                     alert("Changes have been saved")
+                    window.location.href = "/edit/tables"
                 }
             })
         } else {
@@ -175,6 +178,14 @@ export default class EditTable extends React.Component {
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
                 {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
             </button>
+            <span className={"float-end"}>
+                <Link href={"/edit/tables"}>
+                    <a className={"btn btn-outline-secondary"}>
+                        Table manager
+                        <IconDoubleArrow/>
+                    </a>
+                </Link>
+            </span>
         </form>
     }
 }

@@ -23,7 +23,7 @@ export default function EditorTables({tabs, tables}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Tables manager | " + siteTitle}
+                {"Table manager | " + siteTitle}
             </title>
         </Head>
 
@@ -31,7 +31,7 @@ export default function EditorTables({tabs, tables}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        <IconTable size={24}/> Tables manager
+                        <IconTable size={24}/> Table manager
                     </h2>
                 </div>
                 <div>
@@ -47,6 +47,8 @@ export default function EditorTables({tabs, tables}) {
                                 }).then(r => {
                                     if (r.status !== 200) {
                                         alert("Failed to delete tab '" + t.title + "'")
+                                    } else {
+                                        window.location.reload(true)
                                     }
                                 })
                             }

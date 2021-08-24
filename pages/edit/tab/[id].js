@@ -6,6 +6,7 @@ import Login from "../../../components/Login"
 import {getTables} from "../../../lib/db/tables"
 import EditTab from "../../../components/edit/EditTab"
 import Link from "next/link"
+import IconDoubleArrow from "../../../components/icons/IconDoubleArrow"
 
 export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()
@@ -34,6 +35,14 @@ export default function EditorTab({urlId, tabs, tables}) {
                         {typeof tab === "undefined" ? "Create a new tab" : <>
                             Edit tab <Link href={"/tab/" + tab.urlId}>{tab.title}</Link>
                         </>}
+                        <span className={"float-end"}>
+                            <Link href={"/edit/tabs"}>
+                                <a className={"btn btn-outline-secondary"}>
+                                    Tab manager
+                                    <IconDoubleArrow/>
+                                </a>
+                            </Link>
+                        </span>
                     </h2>
                     {typeof tab !== "undefined" ?
                         <small className={"text-muted"}>

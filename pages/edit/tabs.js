@@ -22,7 +22,7 @@ export default function EditorTabs({tabs}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Tabs manager | " + siteTitle}
+                {"Tab manager | " + siteTitle}
             </title>
         </Head>
 
@@ -30,7 +30,7 @@ export default function EditorTabs({tabs}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        <IconTab size={24}/> Tabs manager
+                        <IconTab size={24}/> Tab manager
                     </h2>
                 </div>
                 <Tabs tabs={tabs}/>

@@ -23,7 +23,7 @@ export default function EditorColumns({tabs, columns}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Columns manager | " + siteTitle}
+                {"Column manager | " + siteTitle}
             </title>
         </Head>
 
@@ -31,7 +31,7 @@ export default function EditorColumns({tabs, columns}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        <IconColumn size={24}/> Columns manager
+                        <IconColumn size={24}/> Column manager
                     </h2>
                 </div>
                 <div>
@@ -46,7 +46,9 @@ export default function EditorColumns({tabs, columns}) {
                                     })
                                 }).then(r => {
                                     if (r.status !== 200) {
-                                        alert("Failed to delete tab '" + c.title + "'")
+                                        alert("Failed to delete column '" + c.title + "'")
+                                    } else {
+                                        window.location.reload(true)
                                     }
                                 })
                             }
