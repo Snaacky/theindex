@@ -1,7 +1,5 @@
 import Image from "next/image"
 import {signIn, signOut, useSession} from "next-auth/client"
-import {Icon} from "react-icons-kit"
-import {userCircle} from "react-icons-kit/fa/userCircle"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function Profile() {
@@ -21,7 +19,7 @@ export default function Profile() {
                         {session.user.name}
                     </span>
                 </div>
-                : <Icon icon={userCircle}/>}
+                : <FontAwesomeIcon icon={["fas", "user-circle"]}/>}
         </a>
         <ul className="dropdown-menu dropdown-menu-end bg-4" aria-labelledby={"userNavDropdownLink"}>
             <li>
