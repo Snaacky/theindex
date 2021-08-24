@@ -9,7 +9,7 @@ import {canEdit} from "../../lib/session"
 import {getItem, getItems} from "../../lib/db/items"
 import {find} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
-import DataItem from "../../components/data/data-item"
+import DataItem from "../../components/data/DataItem"
 import IconEdit from "../../components/icons/IconEdit"
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
@@ -111,13 +111,14 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                 <div className={"d-flex flex-wrap"}>
                     {columnArray.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
                     {columnArray.map(c => {
-                        return <>
+                        return <div key={c._id}>
                             <Link href={"/column/" + c.urlId}>
                                 <a className={"me-2"} title={"View column " + c.title}>
                                     {c.title}:
                                 </a>
                             </Link>
-                            <DataItem data={item.data[c._id]} column={c} key={c._id}/></>
+                            <DataItem data={item.data[c._id]} column={c}/>
+                        </div>
                     })}
                 </div>
             </div>

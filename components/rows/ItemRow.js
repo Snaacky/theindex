@@ -36,7 +36,7 @@ export default function ItemRow(
         }
     })
 
-    return <div className={styles.row + " card bg-2 my-2"}>
+    return <div className={styles.row + " card bg-2 mb-2"}>
         <div className="row g-0">
             {canEdit(session) && move !== noop ?
                 <div className={styles.sorter + " col-auto"}>
@@ -77,7 +77,7 @@ export default function ItemRow(
                             <FontAwesomeIcon icon={["fas", "external-link-alt"]}/>
                         </a>
                         {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                            <a title={"Edit item"} className={"ms-2"}>
+                            <a title={"Edit item"}>
                                 <IconEdit/>
                             </a>
                         </Link> : ""}

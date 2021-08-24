@@ -2,7 +2,7 @@ import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import styles from "./TableCard.module.css"
-import DataItem from "../data/data-item"
+import DataItem from "../data/DataItem"
 import IconEdit from "../icons/IconEdit"
 
 const noop = () => {

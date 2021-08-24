@@ -10,7 +10,7 @@ import {canEdit} from "../../lib/session"
 import IconAdd from "../../components/icons/IconAdd"
 import IconEdit from "../../components/icons/IconEdit"
 
-export default function Post({tabs, tab}) {
+export default function Tab({tabs, tab}) {
     const router = useRouter()
     const [session] = useSession()
 

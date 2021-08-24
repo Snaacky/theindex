@@ -1,11 +1,8 @@
 import Link from "next/link"
 import DataBadge from "./DataBadge"
 
-const noop = () => {
-}
-
-export default function ArrayValue({data, column, onChange = noop}) {
-    if (onChange === noop) {
+export default function ArrayValue({data, column, onChange = null}) {
+    if (onChange === null) {
         return data.map(v => <Link href={"/column/" + column.urlId + "?v=" + v} key={v}>
             <a className={"me-2"} title={"View column " + column.title + " with value " + v}>
                 <DataBadge title={v}/>

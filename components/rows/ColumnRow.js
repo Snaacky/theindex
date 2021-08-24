@@ -13,13 +13,14 @@ const noop = () => {
 export default function ColumnRow(
     {
         column,
+        className = "bg-2",
         move = noop,
         add = noop,
         remove = noop
     }) {
     const [session] = useSession()
 
-    return <div className={styles.row + " card bg-2 my-2"}>
+    return <div className={styles.row + " card mb-2 " + className}>
         <div className="row g-0">
             {canEdit(session) && move !== noop ?
                 <div className={styles.sorter + " col-auto"}>

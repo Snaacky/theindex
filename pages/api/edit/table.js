@@ -2,7 +2,7 @@ import {getSession} from "next-auth/client"
 import {canEdit} from "../../../lib/session"
 import {addTable, updateTable} from "../../../lib/db/tables"
 
-export default async function apiEditTab(req, res) {
+export default async function apiEditTable(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body

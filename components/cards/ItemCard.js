@@ -2,20 +2,30 @@ import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import styles from "./TableCard.module.css"
-import BoolValue from "../data/bool-value"
-import ArrayValue from "../data/array-value"
+import BoolValue from "../data/BoolValue"
+import ArrayValue from "../data/ArrayValue"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconEdit from "../icons/IconEdit"
+import IconDelete from "../icons/IconDelete"
+import IconAdd from "../icons/IconAdd";
+
+const noop = () => {
+}
 
 export default function ItemCard(
     {
         item,
-        columns = []
+        columns = [],
+        add = noop,
+        remove = noop
     }) {
     const [session] = useSession()
 
     let columnYes = [], columnNo = [], columnArray = []
     columns.forEach(c => {
+        if (c.data) {
+            c = c.data
+        }
         if (c.type === "bool") {
             if (item.data[c._id] === true) {
                 columnYes.push(c)
@@ -39,11 +49,29 @@ export default function ItemCard(
                 <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer" title={"Open in new tab"}>
                     <FontAwesomeIcon icon={["fas", "external-link-alt"]}/>
                 </a>
-                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                    <a title={"Edit item"}>
-                        <IconEdit/>
-                    </a>
-                </Link> : ""}
+                {canEdit(session) ? <>
+                    <Link href={"/edit/item/" + item._id}>
+                        <a title={"Edit item"}>
+                            <IconEdit/>
+                        </a>
+                    </Link>
+                    {add !== noop ? <a title={"Add item"} className={"float-end"} onClick={add} style={{
+                        width: "2.5rem",
+                        height: "2.5rem",
+                        marginTop: "-0.5rem",
+                        marginRight: "-0.5rem"
+                    }}>
+                        <IconAdd/>
+                    </a> : <></>}
+                    {remove !== noop ? <a title={"Delete item"} className={"float-end"} onClick={remove} style={{
+                        width: "2.5rem",
+                        height: "2.5rem",
+                        marginTop: "-0.5rem",
+                        marginRight: "-0.5rem"
+                    }}>
+                        <IconDelete/>
+                    </a> : <></>}
+                </> : ""}
             </h5>
 
             <p className={styles.description + " card-text"}>

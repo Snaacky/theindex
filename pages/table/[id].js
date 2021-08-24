@@ -6,13 +6,12 @@ import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
 import Head from "next/head"
 import Link from "next/link"
 import {getByUrlId} from "../../lib/db/db"
-import ColumnFilter from "../../components/column-filter"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
-import ItemCard from "../../components/cards/ItemCard"
 import IconEdit from "../../components/icons/IconEdit"
+import ItemCardsBoard from "../../components/layout/ItemCardsBoard"
 
-export default function Post({tabs, table}) {
+export default function Table({tabs, table}) {
     const router = useRouter()
     const [session] = useSession()
 
@@ -30,7 +29,7 @@ export default function Post({tabs, table}) {
             <meta name="description" content={table.description}/>
         </Head>
 
-        <div className={"card bg-2"}>
+        <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <div className={"card-title row"}>
                     <div className={"col d-flex align-items-center"}>
@@ -62,28 +61,14 @@ export default function Post({tabs, table}) {
                                 </a>
                             </Link> : <></>
                         }
-                        <button className={"btn btn-outline-primary"} type={"button"}
-                                data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter-" + table.urlId}
-                                aria-expanded="false" aria-controls={"collapseFilter-" + table.urlId}>
-                            Filter
-                        </button>
                     </div>
                 </div>
                 <p className={"card-text"}>
                     {table.description}
                 </p>
-                <div id={"collapseFilter-" + table.urlId}
-                     className="collapse row g-3">
-                    <ColumnFilter columns={table.columns} onChange={console.log}/>
-                </div>
             </div>
         </div>
-        <div className={"d-flex flex-wrap mt-2"}>
-            {table.items.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
-            {table.items.map(i => {
-                return <ItemCard item={i} columns={table.columns} key={i._id}/>
-            })}
-        </div>
+        <ItemCardsBoard _id={table._id} items={table.items} columns={table.columns}/>
     </Layout>
 }
 

@@ -1,10 +1,7 @@
-import BoolValue from "./bool-value"
-import ArrayValue from "./array-value"
+import BoolValue from "./BoolValue"
+import ArrayValue from "./ArrayValue"
 
-const noop = () => {
-}
-
-export default function DataItem({data, column, onChange = noop}) {
+export default function DataItem({data, column, onChange = null}) {
     if (column.type === "bool") {
         return <BoolValue data={data} column={column} onChange={onChange}/>
     } else if (column.type === "array") {

@@ -10,14 +10,28 @@ import {find, getByUrlId} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
 import ItemCard from "../../components/cards/ItemCard"
 import IconEdit from "../../components/icons/IconEdit"
+import {useState} from "react";
+import DataItem from "../../components/data/DataItem"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function Column({tabs, itemsContainingColumn, column, columns}) {
     const router = useRouter()
     const [session] = useSession()
+    const initValue = column.type === "array" ? [] : (column.type === "bool" ? null : "")
+    const [filter, setFilter] = useState(initValue)
 
     if (router.isFallback) {
         return <Loader/>
     }
+
+    const filteredItems = itemsContainingColumn.filter(i => {
+        if (column.type === "array") {
+            return filter.length === 0 || filter.every(ii => i.data[column._id].includes(ii))
+        } else if (column.type === "bool") {
+            return filter === null || i.data[column._id] === filter
+        }
+        return filter === "" || i.data[column._id].toLowerCase().includes(filter.toLowerCase())
+    })
 
     return <Layout tabs={tabs}>
         <Head>
@@ -34,7 +48,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
                         <h3>
                             {column.title}
                             {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
-                                <a title={"Edit column"}>
+                                <a className={"ms-2"} title={"Edit column"}>
                                     <IconEdit/>
                                 </a>
                             </Link> : ""}
@@ -44,15 +58,20 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
                 <p className={"card-text"}>
                     {column.description}
                 </p>
-                <div className={"d-flex flex-wrap"}>
-                    Aohoajfik asjfilasjf ilsafjasll {}
+                <div>
+                    <span className={"me-2"}>
+                        <FontAwesomeIcon icon={["fas", "filter"]}/> Filter:
+                    </span>
+                    {column.type === "array" || column.type === "bool" ?
+                        <DataItem data={filter} column={column} title={column.title} onChange={setFilter}/> : <></>
+                    }
                 </div>
             </div>
         </div>
 
         <div className={"d-flex flex-wrap mt-2"}>
-            {itemsContainingColumn.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
-            {itemsContainingColumn.map(i => {
+            {filteredItems.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
+            {filteredItems.map(i => {
                 return <ItemCard item={i} columns={columns} key={i._id}/>
             })}
         </div>
@@ -81,13 +100,7 @@ export async function getStaticProps({params}) {
     const column = await getByUrlId("columns", params.id)
 
     let query = {}
-    if ('v' in params) {
-        query["data." + column._id] = params.v
-    } else if (column.type === "bool") {
-        query["data." + column._id] = true
-    } else {
-        query["data." + column._id] = {$exists: true}
-    }
+    query["data." + column._id] = {$exists: true}
     const itemsContainingColumn = await find("items", query)
 
     return {

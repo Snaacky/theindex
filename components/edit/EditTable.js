@@ -164,7 +164,8 @@ export default class EditTable extends React.Component {
                 <kbd>No columns selected</kbd>
             </div> : <></>
             }
-            {this.state.columns.map(t => <ColumnRow column={this.columnsDatalist.find(t_dl => t_dl._id === t._id)}
+            {this.state.columns.map(t => <ColumnRow className={"bg-4"}
+                                                    column={this.columnsDatalist.find(t_dl => t_dl._id === t._id)}
                                                     move={(sort) => this.moveColumn(t, sort)}
                                                     remove={() => this.removeColumn(t)} key={t._id}/>)}
             <hr/>
@@ -173,7 +174,8 @@ export default class EditTable extends React.Component {
                 <kbd>No columns available</kbd>
             </div> : <></>
             }
-            {this.state.columnsNotSelected.map(t => <ColumnRow column={t} key={t._id} add={() => this.addColumn(t)}/>)}
+            {this.state.columnsNotSelected.map(t => <ColumnRow className={"bg-4"} column={t} key={t._id}
+                                                               add={() => this.addColumn(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
