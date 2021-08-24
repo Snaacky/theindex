@@ -124,14 +124,14 @@ export class Tabs extends React.Component {
                 alert("Failed to delete tab '" + tab.title + "'")
             }
             let temp = this.state.tabs.filter(t => t._id !== tab._id)
-            temp = await temp.map(async (t, i) => {
+            temp = await Promise.all(temp.map(async (t, i) => {
                 t.order = i
                 await this.saveTab(t)
                 return t
-            })
+            }))
 
             this.setState({
-                tables: temp
+                tabs: temp
             })
         }
     }
