@@ -3,8 +3,6 @@ import logging
 import os
 import urllib3
 
-from deepdiff import DeepDiff 
-
 import dataset
 
 def _get_database():
@@ -12,7 +10,7 @@ def _get_database():
     return dataset.connect("".join(["sqlite:///", os.path.join("/config", "data.db")]))
 
 
-def _send_webhook_message(user, operation, table, after, before=None):
+def _send_webhook_message(user, operation, table, before=None, after=None):
     """
     Sends a Discord webhook if env AUDIT_WEBHOOK set.
 
@@ -30,130 +28,104 @@ def _send_webhook_message(user, operation, table, after, before=None):
     if webhook == "":
         return
 
+    # So we can get the site name regardless of the operation occuring.
+    data = before or after
+
+    # Defines the JSON used for the webhook's embed.
     embed = {
         "embeds": [
             {
-                "author": 
-                {
-                    "name": f"{user}",
-                    "icon_url": f"{user.avatar_url}"
-                },
-                "color": 2105893,            
+                "author": {"name": f"{user}", "icon_url": f"{user.avatar_url}"},
+                "color": 2105893,
                 "fields": [
-                    {
-                        "name": "Table:",
-                        "value": f"{table}",
-                        "inline": "true"
-                    },
-                    {
-                        # A stupid hack so we don't have any diffs on the first row.
-                        # I couldn't think of any other useful data to put on this line...
-                        "name": "** **",
-                        "value": f"** **",
-                        "inline": "true"
-                    },
-                    {
-                        "name": "Entry:",
-                        "value": f"{after['siteName']}",
-                        "inline": "true"
-                    },
-                    
-                ]
+                    { "name": "Table:", "value": f"{table}", "inline": "true" },
+                    # A stupid hack so we don't have any diffs on the first row.
+                    # I couldn't think of any other useful data to put on this line...
+                    { "name": "** **", "value": f"** **", "inline": "true",},
+                    { "name": "Entry:", "value": f"{data['siteName']}", "inline": "true" },
+                ],
             }
         ]
     }
-    
-    if operation == "update":
-        # Update the embed title to reflect the operation.
-        embed["embeds"][0]["title"] = f"The following entry was updated: {before['siteName']}"
-
-        # Compare the before and after dictionaries using DeepDiff so we can learn the differences.
-        # TODO: Replace this with DIY. I thought the library would be more useful than it was.
-        diff = DeepDiff(before, after)
-        logging.warn(diff)
-        for item in reversed(diff["values_changed"]):
-            # Every column name is wrapped in root['column_name'] so we need to strip that off.
-            changed = item.replace("root['", "").replace("']", "")
-
-            # Create a new field for the embed containing the column name and a diff of the changes made to the data.
-            # Build the value dynamically so we can exclude the old value if there wasn't a value there previously.
-            value = ""
-            value += "```diff\n"
-            value += f"+ {diff['values_changed'][item]['new_value']}\n"
-            if len(diff['values_changed'][item]['old_value']):
-                value += f"- {diff['values_changed'][item]['old_value']}\n"
-            value += "```"
-
-            field = {
-                "name": f"{changed}:", 
-                "value": value,
-                # A few columns entry changes are typically more lengthy so we want to give those more space than the rest.
-                "inline": "false" if changed in ["features", "siteAddresses", "editorNotes"] else "true"
-            }
-
-            # Append the newly created field to the embed.
-            embed["embeds"][0]["fields"].append(field)
-
-        for item in reversed(diff["values_changed"]):
-            # Every column name is wrapped in root['column_name'] so we need to strip that off.
-            changed = item.replace("root['", "").replace("']", "")
-
-            # Create a new field for the embed containing the column name and a diff of the changes made to the data.
-            # Build the value dynamically so we can exclude the old value if there wasn't a value there previously.
-            value = ""
-            value += "```diff\n"
-            value += f"+ {diff['values_changed'][item]['new_value']}\n"
-            if len(diff['values_changed'][item]['old_value']):
-                value += f"- {diff['values_changed'][item]['old_value']}\n"
-            value += "```"
-
-            field = {
-                "name": f"{changed}:", 
-                "value": value,
-                # A few columns entry changes are typically more lengthy so we want to give those more space than the rest.
-                "inline": "false" if changed in ["features", "siteAddresses", "editorNotes"] else "true"
-            }
-
-            # Append the newly created field to the embed.
-            embed["embeds"][0]["fields"].append(field)
-    
-    if operation == "delete":
-        embed["embeds"][0]["title"] = f"The following entry was removed: {after['siteName']}"
-
-        for column in after:
-            value = ""
-            value += "```diff\n"
-            value += f"- {after.get(column)}\n"
-            value += "```"
-            field = {
-                    "name": f"{column}:", 
-                    "value": value,
-                    # A few columns entry changes are typically more lengthy so we want to give those more space than the rest.
-                    "inline": "false" if column in ["features", "siteAddresses", "editorNotes"] else "true"
-            }
-        
-            # Append the newly created field to the embed.
-            embed["embeds"][0]["fields"].append(field)
 
     if operation == "insert":
         embed["embeds"][0]["title"] = f"The following entry was created: {after['siteName']}"
 
-        for column in after:
+        # Add all of the new key/values into diff codeblocks. 
+        for key, value in after.items():
+            block = "```diff\n"
+            block += f"+ {value}\n"
+            block += "```"
+            
+            # Insert the codeblock into the field and add it to the embed.
+            field = {
+                "name": f"{key}:", 
+                "value": block,
+                # Some entry changes are more lengthy so give them more space.
+                "inline": "false" if key in ["features", "siteAddresses", "editorNotes"] else "true"
+            }
+
+            embed["embeds"][0]["fields"].append(field)
+
+    if operation == "delete":
+        embed["embeds"][0]["title"] = f"The following entry was deleted: {before['siteName']}"
+
+        # Add all of the former key/values into diff codeblocks. 
+        for key, value in before.items():
+            block = "```diff\n"
+            block += f"- {value}\n"
+            block += "```"
+
+            # Insert the codeblock into the field and add it to the embed.
+            field = {
+                "name": f"{key}:", 
+                "value": block,
+                # Some entry changes are more lengthy so give them more space.
+                "inline": "false" if key in ["features", "siteAddresses", "editorNotes"] else "true"
+            }
+
+            embed["embeds"][0]["fields"].append(field)
+
+    if operation == "update":
+        embed["embeds"][0]["title"] = f"The following entry was updated: {before['siteName']}"
+        diff = {}
+        
+        # Searches for the difference between the two dictionaries
+        # and adds them to the diff dictionary.
+        for key in before.keys():
+            if before[key] != after[key]:
+                diff[key] = {
+                    "before": before[key],
+                    "after": after[key]
+                }
+
+        # Insert each diff into their own codeblock for the embed.
+        for item in diff:
             value = ""
             value += "```diff\n"
-            value += f"+ {after.get(column)}\n"
+            value += f"+ {diff[item]['after']}\n"
+            if diff[item]["before"]:
+                value += f"- {diff[item]['before']}\n"
+            else: 
+                value += f"- ?\n"
             value += "```"
+
+            # Insert the codeblock into the field and add it to the embed.
             field = {
-                    "name": f"{column}:", 
-                    "value": value,
-                    # A few columns entry changes are typically more lengthy so we want to give those more space than the rest.
-                    "inline": "false" if column in ["features", "siteAddresses", "editorNotes"] else "true"
+                "name": f"{item}:", 
+                "value": value,
+                # Some entry changes are more lengthy so give them more space.
+                "inline": "false" if item in ["features", "siteAddresses", "editorNotes"] else "true"
             }
-        
-            # Append the newly created field to the embed.
+
             embed["embeds"][0]["fields"].append(field)
     
-    # Didn't feel like importing two libraries for this one-off function so using the standard urllib library for POST.
+    # Post the embed JSON to the webhook.
     http = urllib3.PoolManager()
-    r = http.request('POST', webhook, body=json.dumps(embed), headers={'Content-Type': 'application/json'})
+    r = http.request(
+        method='POST', 
+        url=webhook, 
+        body=json.dumps(embed), 
+        headers={'Content-Type': 'application/json'}
+    )
     return r

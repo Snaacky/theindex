@@ -834,7 +834,7 @@ def delete_entry(table, id):
         return "id does not exist"
 
     utils._send_webhook_message(user=app.discord.fetch_user(), operation="delete",
-                                table=table.name, after=data)
+                                table=table.name, before=data)
 
     table.delete(id=id)
     db.close()
