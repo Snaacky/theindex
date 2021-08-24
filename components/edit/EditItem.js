@@ -3,8 +3,8 @@ import Link from "next/link"
 import styles from "../rows/TableRow.module.css"
 import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
-import IconDoubleArrow from "../icons/IconDoubleArrow"
-import DataCard from "../cards/DataCard";
+import DataCard from "../cards/DataCard"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditItem extends React.Component {
     constructor({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns}) {
@@ -223,13 +223,14 @@ export default class EditItem extends React.Component {
             </div>
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveItem()}>
+                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create item" : "Save changes"}
             </button>
             <span className={"float-end"}>
                 <Link href={"/edit/items"}>
                     <a className={"btn btn-outline-secondary"}>
                         Item manager
-                        <IconDoubleArrow/>
+                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>
             </span>

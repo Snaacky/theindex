@@ -2,8 +2,7 @@ import Image from "next/image"
 import {signIn, signOut, useSession} from "next-auth/client"
 import {Icon} from "react-icons-kit"
 import {userCircle} from "react-icons-kit/fa/userCircle"
-import {signOut as iconSignOut} from "react-icons-kit/fa/signOut"
-import {signIn as iconSignIn} from "react-icons-kit/fa/signIn"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function Profile() {
     const [session] = useSession()
@@ -48,7 +47,11 @@ export default function Profile() {
                         signIn("discord")
                     }
                 }}>
-                    {session ? <>Sign out <Icon icon={iconSignOut}/></> : <><Icon icon={iconSignIn}/> Sign In</>}
+                    {session ? <>
+                        Sign out <FontAwesomeIcon icon={["fas", "sign-out-alt"]}/>
+                    </> : <>
+                        <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Sign In
+                    </>}
                 </a>
             </li>
         </ul>

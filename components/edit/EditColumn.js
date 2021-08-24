@@ -3,7 +3,7 @@ import Link from "next/link"
 import styles from "../rows/TableRow.module.css"
 import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
-import IconDoubleArrow from "../icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditColumn extends React.Component {
     constructor({columns, _id, urlId, title, nsfw, description, type, values}) {
@@ -211,13 +211,14 @@ export default class EditColumn extends React.Component {
             </> : <></>}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveColumn()}>
+                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create column" : "Save changes"}
             </button>
             <span className={"float-end"}>
                 <Link href={"/edit/columns"}>
                     <a className={"btn btn-outline-secondary"}>
                         Column manager
-                        <IconDoubleArrow/>
+                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>
             </span>

@@ -1,12 +1,10 @@
 import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
-import IconEdit from "../icons/IconEdit"
 import styles from "./TableRow.module.css"
-import {Icon} from "react-icons-kit"
-import {chevronUp} from "react-icons-kit/fa/chevronUp"
-import {chevronDown} from "react-icons-kit/fa/chevronDown"
 import IconDelete from "../icons/IconDelete"
+import IconEdit from "../icons/IconEdit"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 const noop = () => {
 }
@@ -27,13 +25,13 @@ export default function TabRow(
                         cursor: "pointer"
                     }}
                        className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
-                        <Icon icon={chevronUp}/>
+                        <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
                     </a>
                     <a onClick={() => move(1)} style={{
                         cursor: "pointer"
                     }}
                        className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
-                        <Icon icon={chevronDown}/>
+                        <FontAwesomeIcon icon={["fas", "chevron-down"]}/>
                     </a>
                 </div> : <></>
             }
@@ -44,7 +42,7 @@ export default function TabRow(
                             {tab.title}
                         </Link>
                         {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
-                            <a title={"Edit tab"}>
+                            <a title={"Edit tab"} className={"ms-2"}>
                                 <IconEdit/>
                             </a>
                         </Link> : ""}

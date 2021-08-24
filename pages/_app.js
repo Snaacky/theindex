@@ -1,9 +1,14 @@
+import "@fortawesome/fontawesome-svg-core/styles.css"
 // custom css
 import "../styles/global.css"
-import "../styles/arrayInput.css"
 import {Provider, signIn, useSession} from "next-auth/client"
+import {library} from "@fortawesome/fontawesome-svg-core"
+import {fab} from "@fortawesome/free-brands-svg-icons"
+import {fas} from "@fortawesome/free-solid-svg-icons"
 import Loader from "../components/loading"
 import {useEffect} from "react"
+
+library.add(fab, fas)
 
 export default function App({Component, pageProps}) {
     return <Provider session={pageProps.session}>

@@ -5,12 +5,12 @@ import {getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
-import {canEdit} from "../../lib/session";
-import IconEdit from "../../components/icons/IconEdit";
-import {getItem, getItems} from "../../lib/db/items";
-import {find} from "../../lib/db/db";
-import {getColumns} from "../../lib/db/columns";
-import DataItem from "../../components/data/data-item";
+import {canEdit} from "../../lib/session"
+import {getItem, getItems} from "../../lib/db/items"
+import {find} from "../../lib/db/db"
+import {getColumns} from "../../lib/db/columns"
+import DataItem from "../../components/data/data-item"
+import IconEdit from "../../components/icons/IconEdit"
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
     const router = useRouter()
@@ -53,8 +53,8 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         <h3>
                             {item.title}
                             {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                                <a title={"Edit table"}>
-                                    <IconEdit size={24}/>
+                                <a title={"Edit table"} className={"ms-2"}>
+                                    <IconEdit/>
                                 </a>
                             </Link> : ""}
                         </h3>
@@ -146,7 +146,6 @@ export async function getStaticProps({params}) {
     const tablesContainingItem = await find("tables", {items: [params.id]})
     const columns = await getColumns()
     const item = await getItem(params.id)
-    console.log("Found Item:", item)
 
     return {
         props: {

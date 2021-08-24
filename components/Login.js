@@ -1,7 +1,6 @@
 import styles from "./Login.module.css"
 import {signIn} from "next-auth/client"
-import {Icon} from "react-icons-kit"
-import {signIn as iconSignIn} from "react-icons-kit/fa/signIn"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Head from "next/head"
 import Image from "next/image"
 
@@ -20,7 +19,7 @@ export default function Login() {
         <Image width={128} height={128} src={"/img/mioWAAH.gif"} alt={""}
                className={"rounded"}/>
         <button className={"btn btn-outline-success mt-5"} onClick={signIn}>
-            <Icon icon={iconSignIn}/> Sign In
+            <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Sign In
         </button>
     </div>
 }

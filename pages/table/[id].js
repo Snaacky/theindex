@@ -9,8 +9,8 @@ import {getByUrlId} from "../../lib/db/db"
 import ColumnFilter from "../../components/column-filter"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
+import ItemCard from "../../components/cards/ItemCard"
 import IconEdit from "../../components/icons/IconEdit"
-import ItemCard from "../../components/cards/ItemCard";
 
 export default function Post({tabs, table}) {
     const router = useRouter()
@@ -37,8 +37,8 @@ export default function Post({tabs, table}) {
                         <h3>
                             {table.title}
                             {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
-                                <a title={"Edit table"}>
-                                    <IconEdit size={24}/>
+                                <a title={"Edit table"} className={"ms-2"}>
+                                    <IconEdit/>
                                 </a>
                             </Link> : ""}
                         </h3>

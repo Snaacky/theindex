@@ -7,7 +7,7 @@ import {getTables} from "../../../lib/db/tables"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
-import IconDoubleArrow from "../../../components/icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function EditorTable({urlId, tabs, tables, columns}) {
     const [session] = useSession()
@@ -40,7 +40,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                             <Link href={"/edit/tables"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Table manager
-                                    <IconDoubleArrow/>
+                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>
                         </span>

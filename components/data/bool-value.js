@@ -1,12 +1,12 @@
 import Link from "next/link"
-import DataBadge from "./DataBadge";
+import DataBadge from "./DataBadge"
 
 const noop = () => {
 }
 
 export default function BoolValue({data, column, onChange = noop}) {
     if (onChange === noop) {
-        return <Link href={"/column/" + column.urlId + "?v=false"}>
+        return <Link href={"/column/" + column.urlId}>
             <a className={"me-2"} title={"View column " + column.title}>
                 <DataBadge data={data} title={column.title}/>
             </a>

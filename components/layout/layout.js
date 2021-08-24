@@ -20,17 +20,17 @@ export default function Layout({children, error, tabs}) {
                 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
                 <meta name="apple-mobile-web-app-title" content="index"/>
                 <link rel="apple-touch-icon" sizes="180x180"
-                      href="favicon/apple-touch-icon.png"/>
+                      href="/favicon/apple-touch-icon.png"/>
 
                 <link rel="icon" type="image/png" sizes="32x32"
-                      href="favicon/favicon-32x32.png"/>
+                      href="/favicon/favicon-32x32.png"/>
                 <link rel="icon" type="image/png" sizes="16x16"
-                      href="favicon/favicon-16x16.png"/>
-                <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#484848"/>
+                      href="/favicon/favicon-16x16.png"/>
+                <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#484848"/>
                 <meta name="msapplication-TileColor" content="#2b5797"/>
                 <meta name="theme-color" content="#000000"/>
 
-                <link rel="manifest" href="manifest.json"/>
+                <link rel="manifest" href="/manifest.json"/>
 
                 {error ?
                     <title>

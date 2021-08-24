@@ -1,14 +1,11 @@
 import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
-import IconEdit from "../icons/IconEdit"
 import styles from "./TableRow.module.css"
 import IconAdd from "../icons/IconAdd"
-import {Icon} from "react-icons-kit"
-import {chevronUp} from "react-icons-kit/fa/chevronUp"
-import {chevronDown} from "react-icons-kit/fa/chevronDown"
 import IconDelete from "../icons/IconDelete"
-import IconLink from "../icons/IconLink";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import IconEdit from "../icons/IconEdit"
 
 const noop = () => {
 }
@@ -47,13 +44,13 @@ export default function ItemRow(
                         cursor: "pointer"
                     }}
                        className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
-                        <Icon icon={chevronUp}/>
+                        <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
                     </a>
                     <a onClick={() => move(1)} style={{
                         cursor: "pointer"
                     }}
                        className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
-                        <Icon icon={chevronDown}/>
+                        <FontAwesomeIcon icon={["fas", "chevron-down"]}/>
                     </a>
                 </div> : <></>
             }
@@ -75,11 +72,12 @@ export default function ItemRow(
                                 {item.title}
                             </a>
                         </Link>
-                        <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer" title={"Open in new tab"}>
-                            <IconLink/>
+                        <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer"
+                           title={"Open in new tab"}>
+                            <FontAwesomeIcon icon={["fas", "external-link-alt"]}/>
                         </a>
                         {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                            <a title={"Edit item"}>
+                            <a title={"Edit item"} className={"ms-2"}>
                                 <IconEdit/>
                             </a>
                         </Link> : ""}

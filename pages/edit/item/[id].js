@@ -4,7 +4,7 @@ import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/Login"
 import Link from "next/link"
-import IconDoubleArrow from "../../../components/icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
@@ -36,7 +36,7 @@ export default function EditorColumn({_id, tabs, columns, item}) {
                             <Link href={"/edit/items"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Item manager
-                                    <IconDoubleArrow/>
+                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>
                         </span>

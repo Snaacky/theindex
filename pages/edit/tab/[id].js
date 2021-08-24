@@ -6,7 +6,7 @@ import Login from "../../../components/Login"
 import {getTables} from "../../../lib/db/tables"
 import EditTab from "../../../components/edit/EditTab"
 import Link from "next/link"
-import IconDoubleArrow from "../../../components/icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()
@@ -39,7 +39,7 @@ export default function EditorTab({urlId, tabs, tables}) {
                             <Link href={"/edit/tabs"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Tab manager
-                                    <IconDoubleArrow/>
+                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>
                         </span>

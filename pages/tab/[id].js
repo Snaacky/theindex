@@ -32,8 +32,8 @@ export default function Post({tabs, tab}) {
                     <h2>
                         {tab.title}
                         {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
-                            <a title={"Edit tab"}>
-                                <IconEdit size={24}/>
+                            <a title={"Edit tab"} className={"ms-2"}>
+                                <IconEdit/>
                             </a>
                         </Link> : ""}
                     </h2>

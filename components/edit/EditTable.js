@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import ColumnRow from "../rows/ColumnRow"
-import IconDoubleArrow from "../icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditTable extends React.Component {
     constructor({tables, columnsDatalist, _id, urlId, title, nsfw, description, columns}) {
@@ -176,13 +176,14 @@ export default class EditTable extends React.Component {
             {this.state.columnsNotSelected.map(t => <ColumnRow column={t} key={t._id} add={() => this.addColumn(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
+                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
             </button>
             <span className={"float-end"}>
                 <Link href={"/edit/tables"}>
                     <a className={"btn btn-outline-secondary"}>
                         Table manager
-                        <IconDoubleArrow/>
+                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>
             </span>

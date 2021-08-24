@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import TableRow from "../rows/TableRow"
-import IconDoubleArrow from "../icons/IconDoubleArrow"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditTab extends React.Component {
     constructor({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables}) {
@@ -175,13 +175,14 @@ export default class EditTab extends React.Component {
             {this.state.tablesNotSelected.map(t => <TableRow table={t} key={t._id} add={() => this.addTable(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTab()}>
+                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
             </button>
             <span className={"float-end"}>
                 <Link href={"/edit/tabs"}>
                     <a className={"btn btn-outline-secondary"}>
                         Tab manager
-                        <IconDoubleArrow/>
+                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>
             </span>

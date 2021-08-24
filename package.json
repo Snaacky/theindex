@@ -10,13 +10,16 @@
     "serve": "next build && NEXTAUTH_URL=$ROOT_URL next start -p 3000"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
     "mongodb": "^3.6.9",
-    "next": "^11.0.1",
-    "next-auth": "^3.27.3",
+    "next": "^11.1.0",
+    "next-auth": "^3.29.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons-kit": "^2.0.0",
-    "swr": "^0.5.6"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "eslint": "^7.29.0",

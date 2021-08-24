@@ -1,10 +1,9 @@
-import {Icon} from "react-icons-kit"
-import {trashO} from "react-icons-kit/fa/trashO"
 import styles from "./IconDelete.module.css"
 import iconStyles from "./Icon.module.css"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function IconDelete({size}) {
     return <div className={iconStyles.icon + " " + styles.delete + " rounded"}>
-        <Icon icon={trashO} size={size}/>
+        <FontAwesomeIcon icon={["fas", "trash-alt"]} size={size}/>
     </div>
 }

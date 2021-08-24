@@ -9,6 +9,7 @@ import IconTable from "../icons/IconTable"
 import IconTab from "../icons/IconTab"
 import IconItem from "../icons/IconItem"
 import IconColumn from "../icons/IconColumn"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default function Navbar({tabs}) {
     const [session] = useSession()
@@ -97,7 +98,7 @@ export default function Navbar({tabs}) {
                             <a className={"nav-link dropdown-toggle"} role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"
                                id={"navDropdownLinkAdmin"}>
-                                <IconAdmin/> Admin
+                                <IconAdmin/>
                             </a>
                             <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkAdmin"}>
                                 <li>
@@ -141,6 +142,47 @@ export default function Navbar({tabs}) {
                             </ul>
                         </li> : <></>
                         }
+                        <li className="nav-item dropdown">
+                            <a className={"nav-link dropdown-toggle"} role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               id={"navDropdownLinkCommunity"}>
+                                <FontAwesomeIcon icon={["fas", "users"]}/>
+                            </a>
+                            <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkCommunity"}>
+                                <li>
+                                    <a className={"dropdown-item"} title={"Admin settings"}>
+                                        <FontAwesomeIcon icon={["fas", "users"]}/> Community
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr className="dropdown-divider"/>
+                                </li>
+                                <li>
+                                    <a href={"https://www.reddit.com/r/animepiracy/"} className={"dropdown-item"}
+                                       target={"_blank"} rel="noreferrer">
+                                        <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={"https://discord.gg/piracy"} className="dropdown-item"
+                                       target={"_blank"} rel="noreferrer">
+                                        <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={"https://twitter.com/ranimepiracy"} className="dropdown-item"
+                                       target={"_blank"} rel="noreferrer">
+                                        <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={"https://github.com/ranimepiracy/index"} className="dropdown-item"
+                                       target={"_blank"} rel="noreferrer">
+                                        <FontAwesomeIcon icon={["fab", "github"]}/> Github
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link" href="https://wiki.piracy.moe/">
                                 <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
