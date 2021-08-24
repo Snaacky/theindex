@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import {signIn, signOut, useSession} from "next-auth/client"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
@@ -11,32 +12,24 @@ export default function Profile() {
            id={"userNavDropdownLink"}>
             {session ?
                 <div className={"d-flex"}>
-                    <div className={"me-1"}>
-                        <Image src={session.user.image} width={21} height={21}
-                               className={"rounded-circle"} alt={"Discord profile picture"}/>
-                    </div>
-                    <span className={"d-none d-lg-block"}>
-                        {session.user.name}
-                    </span>
+                    <Image src={session.user.image} width={21} height={21}
+                           className={"rounded-circle"} alt={"Discord profile picture"}/>
                 </div>
                 : <FontAwesomeIcon icon={["fas", "user-circle"]}/>}
         </a>
         <ul className="dropdown-menu dropdown-menu-end bg-4" aria-labelledby={"userNavDropdownLink"}>
-            <li>
-                <a className={"dropdown-item"}>
-                    {session ? "You are signed in as:" : "You are not logged in"}
-                </a>
-            </li>
             {session ?
-                <li>
-                    <a className="dropdown-item">
-                        {session.user.name}
-                    </a>
-                </li>
+                <>
+                    <li>
+                        <Link href={"/user/" + session.user.id}>
+                            <a className="dropdown-item">
+                                <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
+                            </a>
+                        </Link>
+                    </li>
+                    <hr className="dropdown-divider"/>
+                </>
                 : <></>}
-            <li>
-                <hr className="dropdown-divider"/>
-            </li>
             <li>
                 <a className="dropdown-item" onClick={() => {
                     if (session) {
@@ -44,11 +37,11 @@ export default function Profile() {
                     } else {
                         signIn("discord")
                     }
-                }}>
+                }} style={{cursor: "pointer"}}>
                     {session ? <>
-                        Sign out <FontAwesomeIcon icon={["fas", "sign-out-alt"]}/>
+                        Sign out <FontAwesomeIcon icon={["fas", "sign-out-alt"]} className={"text-danger"}/>
                     </> : <>
-                        <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Sign In
+                        <FontAwesomeIcon icon={["fas", "sign-in-alt"]} className={"text-success"}/> Sign In
                     </>}
                 </a>
             </li>

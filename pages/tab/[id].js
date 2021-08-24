@@ -58,7 +58,7 @@ export default function Post({tabs, tab}) {
                                 height: "128px",
                                 width: "128px",
                             }}>
-                                <IconAdd size={32}/>
+                                <IconAdd/>
                             </a>
                         </Link>
                     </div>
