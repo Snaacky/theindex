@@ -111,7 +111,13 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                 <div className={"d-flex flex-wrap"}>
                     {columnArray.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
                     {columnArray.map(c => {
-                        return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
+                        return <>
+                            <Link href={"/column/" + c.urlId}>
+                                <a className={"me-2"} title={"View column " + c.title}>
+                                    {c.title}:
+                                </a>
+                            </Link>
+                            <DataItem data={item.data[c._id]} column={c} key={c._id}/></>
                     })}
                 </div>
             </div>

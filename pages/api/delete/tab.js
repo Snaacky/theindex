@@ -10,6 +10,8 @@ export default async function apiDeleteTab(req, res) {
             // delete does not reorder!!!
             await deleteTab(d._id)
             res.status(200).send("Deleted")
+        } else {
+            res.status(400).send("Missing _id")
         }
     } else {
         // Not Signed in

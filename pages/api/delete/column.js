@@ -7,9 +7,10 @@ export default async function apiDeleteTab(req, res) {
     if (canEdit(session)) {
         const d = req.body
         if (d._id !== "") {
-            // delete does not reorder!!!
             await deleteColumn(d._id)
             res.status(200).send("Deleted")
+        } else {
+            res.status(400).send("Missing _id")
         }
     } else {
         // Not Signed in

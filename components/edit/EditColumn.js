@@ -22,7 +22,6 @@ export default class EditColumn extends React.Component {
             values: values || [],
             newValue: ""
         }
-        console.log("Got type:", type, "set in state:", this.state.type)
     }
 
     saveColumn() {
@@ -170,7 +169,7 @@ export default class EditColumn extends React.Component {
                 <div className={"mb-3"}>
                     {this.state.values.map((v, i) =>
                         <div className={"row mb-2"} key={i}>
-                            <div className={"col"}>
+                            <div className={"col pe-0"}>
                                 <input type={"text"} className={"form-control"} id={"columnValueInput-" + i} value={v}
                                        placeholder={"Enter a possible value"} required={true}
                                        onChange={(input) => {
@@ -189,7 +188,7 @@ export default class EditColumn extends React.Component {
                         </div>)}
                     {this.state.values.length > 0 ? <hr/> : <></>}
                     <div className={"row"}>
-                        <div className={"col"}>
+                        <div className={"col pe-0"}>
                             <input type={"text"} className={"form-control"} id={"columnValueInput-new"}
                                    value={this.state.newValue} placeholder={"Enter a possible value"}
                                    onChange={(input) => {

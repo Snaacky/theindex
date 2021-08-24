@@ -17,6 +17,8 @@ export default async function apiEditColumn(req, res) {
                 }
                 res.status(200).send("Ok")
             }
+        } else {
+            res.status(400).send("Missing url id or title")
         }
     } else {
         // Not Signed in

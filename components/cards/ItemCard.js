@@ -29,6 +29,7 @@ export default function ItemCard(
             columnArray.push(c)
         }
     })
+    console.log("No-array:", columnNo, "raw data:", item.data)
 
     return <div className={styles.card + " card bg-2 mb-2 me-2"}>
         <div className={"card-body" +
@@ -77,7 +78,14 @@ export default function ItemCard(
         {columnArray.length > 0 ?
             <div className={"d-flex flex-wrap mx-3 mb-1"}>
                 {columnArray.map(c => {
-                    return <ArrayValue data={item.data[c._id] || []} column={c} key={c._id}/>
+                    return <>
+                        <Link href={"/column/" + c.urlId}>
+                            <a className={"me-2"} title={"View column " + c.title}>
+                                {c.title}:
+                            </a>
+                        </Link>
+                        <ArrayValue data={item.data[c._id] || []} column={c} key={c._id}/>
+                    </>
                 })}
             </div> : <></>
         }
