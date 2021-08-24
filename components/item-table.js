@@ -1,5 +1,5 @@
-import BoolValue from "./bool-value"
-import ArrayValue from "./array-value"
+import BoolValue from "./data/bool-value"
+import ArrayValue from "./data/array-value"
 
 export default function ItemTable({columns, items}) {
     items = items.filter(i => i.show).map(i => i.data)

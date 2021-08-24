@@ -32,6 +32,12 @@ export default function Navbar({tabs}) {
             </Link>
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    {tabs.length === 0 ?
+                        <li className="nav-item">
+                            <a className="nav-link text-muted">
+                                No tabs found
+                            </a>
+                        </li> : <></>}
                     {
                         tabs.map(({urlId, title, tables}) => {
                             return <li className="nav-item dropdown" key={urlId}>
@@ -51,6 +57,11 @@ export default function Navbar({tabs}) {
                                     <li>
                                         <hr className="dropdown-divider"/>
                                     </li>
+                                    {tables.length === 0 ? <li>
+                                        <a className={"dropdown-item text-muted"}>
+                                            No tables found
+                                        </a>
+                                    </li> : <></>}
                                     {
                                         tables.map((table) => {
                                             return <li key={table.urlId}>

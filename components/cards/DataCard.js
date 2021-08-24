@@ -9,7 +9,7 @@ import ArrayValue from "../data/array-value";
 
 export default function ItemCard(
     {
-        item,
+        data,
         columns = []
     }) {
     const [session] = useSession()

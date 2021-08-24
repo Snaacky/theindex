@@ -45,6 +45,7 @@ export default function Post({tabs, tab}) {
         </div>
 
         <div className={"d-flex flex-wrap"}>
+            {tab.tables.length === 0 ? <span className={"text-muted"}>No tables found</span> : <></>}
             {tab.tables.map(t => {
                 return <TableCard table={t} key={t.urlId}/>
             })}

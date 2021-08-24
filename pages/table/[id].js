@@ -79,8 +79,9 @@ export default function Post({tabs, table}) {
             </div>
         </div>
         <div className={"d-flex flex-wrap mt-2"}>
+            {table.items.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
             {table.items.map(i => {
-                return <ItemCard item={i.data} columns={table.columns} key={i._id}/>
+                return <ItemCard item={i} columns={table.columns} key={i._id}/>
             })}
         </div>
     </Layout>

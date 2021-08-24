@@ -51,7 +51,7 @@ export default function Layout({children, error, tabs}) {
                     <Navbar tabs={tabs}/>
                 </header>
             }
-            <div className={"container-fluid my-2"}>
+            <div className={"container my-2"}>
                 <main>{children}</main>
             </div>
             <Footer error={error}/>
