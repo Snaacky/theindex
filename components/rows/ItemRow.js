@@ -14,6 +14,7 @@ export default function ItemRow(
     {
         item,
         columns = [],
+        className = "bg-2",
         move = noop,
         add = noop,
         remove = noop
@@ -36,7 +37,7 @@ export default function ItemRow(
         }
     })
 
-    return <div className={styles.row + " card bg-2 mb-2"}>
+    return <div className={styles.row + " card mb-2 " + className}>
         <div className="row g-0">
             {canEdit(session) && move !== noop ?
                 <div className={styles.sorter + " col-auto"}>

@@ -36,7 +36,7 @@ export default function EditorTables({tabs, tables}) {
                 </div>
                 <div>
                     {tables.map(t => {
-                        return <TableRow table={t} remove={() => {
+                        return <TableRow table={t} className={"bg-4"} remove={() => {
                             if (confirm("Do you really want to delete the table '" + t.title + "'?")) {
                                 fetch("/api/delete/table", {
                                     method: "post",
@@ -54,7 +54,7 @@ export default function EditorTables({tabs, tables}) {
                             }
                         }} key={t._id}/>
                     })}
-                    <div className={styles.row + " card bg-2 my-2"}>
+                    <div className={styles.row + " card bg-4 my-2"}>
                         <div className="row g-0">
                             <div className={styles.column + " col-auto p-1"}>
                                 <Link href={"/edit/table/_new"}>

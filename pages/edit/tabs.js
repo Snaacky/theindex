@@ -139,11 +139,10 @@ export class Tabs extends React.Component {
     render() {
         return <div>
             {this.state.tabs.map(t => {
-                return <TabRow tab={t} move={(sort) => this.moveTab(t, sort)}
-                               remove={() => this.removeTab(t)}
-                               key={t._id}/>
+                return <TabRow tab={t} move={(sort) => this.moveTab(t, sort)} className={"bg-4"}
+                               remove={() => this.removeTab(t)} key={t._id}/>
             })}
-            <div className={styles.row + " card bg-2 my-2"}>
+            <div className={styles.row + " card bg-4 my-2"}>
                 <div className="row g-0">
                     <div className={styles.column + " col-auto p-1"}>
                         <Link href={"/edit/tab/_new"}>

@@ -36,7 +36,7 @@ export default function EditorItems({tabs, items}) {
                 </div>
                 <div>
                     {items.map(i => {
-                        return <ItemRow item={i} remove={() => {
+                        return <ItemRow item={i} className={"bg-4"} remove={() => {
                             if (confirm("Do you really want to delete the item '" + i.title + "'?")) {
                                 fetch("/api/delete/item", {
                                     method: "post",
@@ -54,7 +54,7 @@ export default function EditorItems({tabs, items}) {
                             }
                         }} key={i._id}/>
                     })}
-                    <div className={styles.row + " card bg-2 my-2"}>
+                    <div className={styles.row + " card bg-4 my-2"}>
                         <div className="row g-0">
                             <div className={styles.column + " col-auto p-1"}>
                                 <Link href={"/edit/item/_new"}>

@@ -36,7 +36,7 @@ export default function EditorColumns({tabs, columns}) {
                 </div>
                 <div>
                     {columns.map(c => {
-                        return <ColumnRow column={c} remove={() => {
+                        return <ColumnRow column={c} className={"bg-4"} remove={() => {
                             if (confirm("Do you really want to delete the column '" + c.title + "'?")) {
                                 fetch("/api/delete/column", {
                                     method: "post",
@@ -54,7 +54,7 @@ export default function EditorColumns({tabs, columns}) {
                             }
                         }} key={c._id}/>
                     })}
-                    <div className={styles.row + " card bg-2 my-2"}>
+                    <div className={styles.row + " card bg-4 my-2"}>
                         <div className="row g-0">
                             <div className={styles.column + " col-auto p-1"}>
                                 <Link href={"/edit/column/_new"}>
