@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/layout"
+import Layout, {siteTitle} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabsWithTables} from "../../lib/db/tabs"
@@ -36,6 +36,46 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
             console.error("Unknown column type of ", c)
         }
     })
+
+    if (item.blacklist === true) {
+        return <Layout tabs={tabs}>
+            <title>
+                Blacklisted item: {item.title + " | " + siteTitle}
+            </title>
+            <meta name="robots" content="noindex, archive, follow"/>
+
+            <div className={"card bg-2"}>
+                <div className="card-body">
+                    <div className={"card-title row"}>
+                        <div className={"col d-flex align-items-center"}>
+                            <h3>
+                                {item.title}
+                                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                                    <a title={"Edit table"} className={"ms-2"}>
+                                        <IconEdit/>
+                                    </a>
+                                </Link> : ""}
+                            </h3>
+                            <div className={"mx-2"}>
+                                {tablesContainingItem.map(t => {
+                                    return <Link href={"/table/" + t.urlId} key={t._id}>
+                                        <a title={"View table " + t.title}>
+                                            <div className={"badge rounded-pill bg-primary me-2"}>
+                                                {t.title}
+                                            </div>
+                                        </a>
+                                    </Link>
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                    <p className={"card-text"}>
+                        {item.description}
+                    </p>
+                </div>
+            </div>
+        </Layout>
+    }
 
 
     return <Layout tabs={tabs}>

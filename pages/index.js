@@ -1,11 +1,9 @@
 import Head from "next/head"
 import Link from "next/link"
-import Image from "next/image"
-import Layout, {siteTitle} from "../components/layout/layout"
-import {images} from "../lib/icon"
+import Layout, {siteTitle} from "../components/layout/Layout"
 import {getTabsWithTables} from "../lib/db/tabs"
 
-export default function Home({tabs, images}) {
+export default function Home({tabs}) {
     return (
         <Layout tabs={tabs}>
             <Head>
@@ -30,22 +28,6 @@ export default function Home({tabs, images}) {
                 <div className={"my-4"}>
                     This service is still under construction, content is coming soon™
                 </div>
-                Emoji dump:
-                <div>
-                    {images.map(i =>
-                        <div className={"m-1 d-inline-flex"} key={i}>
-                            <Image width={64} height={64} src={i} alt={""}
-                                   className={"rounded"}/>
-                        </div>
-                    )}
-                </div>
-                <div className={"my-4"}>
-                    I placed the button here for now, as I have not really thought about where else to put them...
-                    <br/>
-                    <a className={"btn btn-outline-secondary"} href={"/api/export"} target={"_blank"} rel="noreferrer">
-                        Export all data
-                    </a>
-                </div>
             </div>
         </Layout>
     )
@@ -54,7 +36,7 @@ export default function Home({tabs, images}) {
 export async function getStaticProps() {
     const tabs = await getTabsWithTables()
     return {
-        props: {tabs, images: images()},
+        props: {tabs},
         revalidate: 60
     }
 }

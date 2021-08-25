@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/layout"
+import Layout, {siteTitle} from "../../components/layout/Layout"
 import {getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
 import Loader from "../../components/loading"

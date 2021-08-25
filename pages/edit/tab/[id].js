@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../../components/layout/layout"
+import Layout, {siteTitle} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
