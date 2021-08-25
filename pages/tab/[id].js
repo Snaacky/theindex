@@ -9,6 +9,7 @@ import TableCard from "../../components/cards/TableCard"
 import {canEdit} from "../../lib/session"
 import IconAdd from "../../components/icons/IconAdd"
 import IconEdit from "../../components/icons/IconEdit"
+import DataBadge from "../../components/data/DataBadge";
 
 export default function Tab({tabs, tab}) {
     const router = useRouter()
@@ -31,11 +32,14 @@ export default function Tab({tabs, tab}) {
                 <div className={"card-title"}>
                     <h2>
                         {tab.title}
-                        {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
-                            <a title={"Edit tab"} className={"ms-2"}>
-                                <IconEdit/>
-                            </a>
-                        </Link> : ""}
+                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {tab.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
+                            {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
+                                <a title={"Edit tab"} className={"ms-2"}>
+                                    <IconEdit/>
+                                </a>
+                            </Link> : <></>}
+                        </span>
                     </h2>
                 </div>
                 <p className={"card-text"}>

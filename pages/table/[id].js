@@ -11,6 +11,7 @@ import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import ItemCardsBoard from "../../components/layout/ItemCardsBoard"
 import {getItems} from "../../lib/db/items"
+import DataBadge from "../../components/data/DataBadge";
 
 export default function Table({tabs, table, items}) {
     const router = useRouter()
@@ -33,27 +34,28 @@ export default function Table({tabs, table, items}) {
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <div className={"card-title"}>
-                    <div className={"d-flex align-items-center"}>
-                        <h3>
-                            {table.title}
-                            {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
-                                <a title={"Edit table"} className={"ms-2"}>
-                                    <IconEdit/>
-                                </a>
-                            </Link> : ""}
-                        </h3>
-                        <div className={"mx-2"}>
+                    <h3>
+                        {table.title}
+                        <span style={{fontSize: "1.2rem"}}>
                             {tabsContainingTable.map(t => {
                                 return <Link href={"/tab/" + t.urlId} key={t._id}>
                                     <a title={"View tab " + t.title}>
-                                        <div className={"badge rounded-pill bg-primary me-2"}>
+                                        <div className={"badge rounded-pill bg-primary mx-2"}>
                                             {t.title}
                                         </div>
                                     </a>
                                 </Link>
                             })}
-                        </div>
-                    </div>
+                            <div className={"float-end"}>
+                                {table.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
+                                {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
+                                    <a title={"Edit table"} className={"ms-2"}>
+                                        <IconEdit/>
+                                    </a>
+                                </Link> : <></>}
+                            </div>
+                        </span>
+                    </h3>
                 </div>
                 <p className={"card-text"}>
                     {table.description}

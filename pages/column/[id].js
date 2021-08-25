@@ -13,6 +13,7 @@ import IconEdit from "../../components/icons/IconEdit"
 import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import DataBadge from "../../components/data/DataBadge";
 
 export default function Column({tabs, itemsContainingColumn, column, columns}) {
     const router = useRouter()
@@ -44,16 +45,17 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
         <div className={"card bg-2"}>
             <div className="card-body">
                 <div className={"card-title row"}>
-                    <div className={"col d-flex align-items-center"}>
-                        <h3>
-                            {column.title}
+                    <h3>
+                        {column.title}
+                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {column.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
                             {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
                                 <a className={"ms-2"} title={"Edit column"}>
                                     <IconEdit/>
                                 </a>
                             </Link> : ""}
-                        </h3>
-                    </div>
+                        </span>
+                    </h3>
                 </div>
                 <p className={"card-text"}>
                     {column.description}

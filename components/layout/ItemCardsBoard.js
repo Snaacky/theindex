@@ -13,12 +13,18 @@ export default class ItemCardsBoard extends React.Component {
     constructor({_id, items, allItems, columns}) {
         super({_id, items, allItems, columns})
 
+        let notSelectedItems = (allItems || []).filter(i => !items.some(ii => i._id === ii._id))
+        if (!Array.isArray(notSelectedItems)) {
+            notSelectedItems = []
+        }
+
         this.state = {
             _id,
             items,
             columns,
-            notSelectedItems: (allItems || []).filter(i => !items.some(ii => i._id === ii._id)) || [],
+            notSelectedItems,
             useCards: true,
+            compactView: false,
             editView: false,
             filter: []
         }
@@ -47,7 +53,7 @@ export default class ItemCardsBoard extends React.Component {
     }
 
     removeItemFromTable(item) {
-        this.updateItems(this.state.items.filter(i => i._id !== item._id), this.state.notSelectedItems.concat[item])
+        this.updateItems(this.state.items.filter(i => i._id !== item._id), this.state.notSelectedItems.concat([item]))
     }
 
     addItemToTable(item) {
@@ -69,6 +75,12 @@ export default class ItemCardsBoard extends React.Component {
                                          className={"me-2"}/>
                         {this.state.useCards ? "List" : "Grid"}
                     </button>
+                    <button className={"btn btn-outline-secondary me-2"} type={"button"}
+                            onClick={() => this.setState({compactView: !this.state.compactView})}>
+                        <FontAwesomeIcon icon={["fas", (this.state.compactView ? "expand" : "compress")]}
+                                         className={"me-2"}/>
+                        {this.state.compactView ? "More details" : "Less details"}
+                    </button>
                     <EditButton onClick={() => this.setState({editView: !this.state.editView})}
                                 editView={this.state.editView}/>
                 </div>
@@ -83,11 +95,12 @@ export default class ItemCardsBoard extends React.Component {
                 {this.state.items.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
                 {this.state.items.map(i => {
                     if (this.state.useCards) {
-                        return <ItemCard item={i} columns={this.state.editView ? [] : this.state.columns}
-                                         remove={() => this.removeItemFromTable(i)} key={i._id}/>
+                        return <ItemCard item={i} columns={this.state.compactView ? [] : this.state.columns}
+                                         remove={this.state.editView ? () => this.removeItemFromTable(i) : null}
+                                         key={i._id}/>
                     }
-                    return <ItemRow item={i} columns={this.state.editView ? [] : this.state.columns}
-                                    remove={() => this.removeItemFromTable(i)} key={i._id}/>
+                    return <ItemRow item={i} columns={this.state.compactView ? [] : this.state.columns} key={i._id}
+                                    remove={this.state.editView ? () => this.removeItemFromTable(i) : null}/>
                 })}
             </div>
             {this.state.editView ? <>
@@ -97,9 +110,12 @@ export default class ItemCardsBoard extends React.Component {
                         <span className={"text-muted"}>All existing items already added</span> : <></>}
                     {this.state.notSelectedItems.map(i => {
                         if (this.state.useCards) {
-                            return <ItemCard item={i} add={() => this.addItemToTable(i)} key={i._id}/>
+                            return <ItemCard item={i} columns={this.state.compactView ? [] : this.state.columns}
+                                             add={() => this.addItemToTable(i)}/>
                         }
-                        return <ItemRow item={i} add={() => this.addItemToTable(i)} key={i._id}/>
+                        return <ItemRow item={i} columns={this.state.compactView ? [] : this.state.columns}
+                                        add={() => this.addItemToTable(i)} remove={() => this.removeItemFromTable(i)}
+                                        key={i._id}/>
                     })}
                     <Link href={"/edit/item/_new"}>
                         <a className={"btn btn-outline-success mx-2 mb-2 p-0"}

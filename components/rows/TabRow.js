@@ -5,22 +5,20 @@ import styles from "./TableRow.module.css"
 import IconDelete from "../icons/IconDelete"
 import IconEdit from "../icons/IconEdit"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-
-const noop = () => {
-}
+import DataBadge from "../data/DataBadge";
 
 export default function TabRow(
     {
         tab,
         className = "bg-2",
-        move = noop,
-        remove = noop
+        move = null,
+        remove = null
     }) {
     const [session] = useSession()
 
     return <div className={styles.row + " card my-2 " + className}>
         <div className="row g-0">
-            {canEdit(session) && move !== noop ?
+            {canEdit(session) && move !== null ?
                 <div className={styles.sorter + " col-auto"}>
                     <a onClick={() => move(-1)} style={{
                         cursor: "pointer"
@@ -47,6 +45,11 @@ export default function TabRow(
                                 <IconEdit/>
                             </a>
                         </Link> : ""}
+                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {tab.nsfw ? <span className={"ms-2"}>
+                                <DataBadge data={false} title={"NSFW"}/>
+                            </span> : <></>}
+                        </span>
                     </h5>
 
                     <p className={styles.description + " card-text"}>
@@ -54,7 +57,7 @@ export default function TabRow(
                     </p>
                 </div>
             </div>
-            {canEdit(session) && remove !== noop ?
+            {canEdit(session) && remove !== null ?
                 <div className={styles.column + " col-auto p-1"}>
                     <a onClick={remove} title={"Remove tab"} className={"float-end"} style={{
                         width: "42px",

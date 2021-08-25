@@ -11,6 +11,7 @@ import {find} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
 import DataItem from "../../components/data/DataItem"
 import IconEdit from "../../components/icons/IconEdit"
+import DataBadge from "../../components/data/DataBadge";
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
     const router = useRouter()
@@ -37,79 +38,53 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
         }
     })
 
-    if (item.blacklist === true) {
-        return <Layout tabs={tabs}>
-            <title>
-                Blacklisted item: {item.title + " | " + siteTitle}
-            </title>
-            <meta name="robots" content="noindex, archive, follow"/>
-
-            <div className={"card bg-2"}>
-                <div className="card-body">
-                    <div className={"card-title row"}>
-                        <div className={"col d-flex align-items-center"}>
-                            <h3>
-                                {item.title}
-                                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                                    <a title={"Edit table"} className={"ms-2"}>
-                                        <IconEdit/>
-                                    </a>
-                                </Link> : ""}
-                            </h3>
-                            <div className={"mx-2"}>
-                                {tablesContainingItem.map(t => {
-                                    return <Link href={"/table/" + t.urlId} key={t._id}>
-                                        <a title={"View table " + t.title}>
-                                            <div className={"badge rounded-pill bg-primary me-2"}>
-                                                {t.title}
-                                            </div>
-                                        </a>
-                                    </Link>
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                    <p className={"card-text"}>
-                        {item.description}
-                    </p>
-                </div>
-            </div>
-        </Layout>
-    }
-
-
     return <Layout tabs={tabs}>
         <Head>
             <title>
                 {item.title + " | " + siteTitle}
             </title>
-            <meta name="description" content={item.description}/>
+            {item.blacklist ?
+                <meta name="robots" content="noindex, archive, follow"/> :
+                <meta name="description" content={item.description}/>
+            }
         </Head>
 
         <div className={"card bg-2"}>
             <div className="card-body">
-                <div className={"card-title row"}>
-                    <div className={"col d-flex align-items-center"}>
-                        <h3>
-                            {item.title}
-                            {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                                <a title={"Edit table"} className={"ms-2"}>
-                                    <IconEdit/>
-                                </a>
-                            </Link> : ""}
-                        </h3>
-                        <div className={"mx-2"}>
+                <div className={"card-title"}>
+                    <h3>
+                        {item.blacklist ? <span className={"text-danger"}>
+                            Blacklisted: <del>{item.title}</del>
+                        </span> : item.title}
+                        <span style={{fontSize: "1.2rem"}}>
                             {tablesContainingItem.map(t => {
                                 return <Link href={"/table/" + t.urlId} key={t._id}>
                                     <a title={"View table " + t.title}>
-                                        <div className={"badge rounded-pill bg-primary me-2"}>
+                                        <div className={"badge rounded-pill bg-primary mx-2"}>
                                             {t.title}
                                         </div>
                                     </a>
                                 </Link>
                             })}
-                        </div>
-                    </div>
+                            <div className={"float-end"}>
+                                {item.sponsor ? <DataBadge title={"Sponsor"} style={"warning text-dark"}/> : <></>}
+                                {item.nsfw ? <span className={"ms-2"}>
+                                    <DataBadge data={false} title={"NSFW"}/>
+                                </span> : <></>}
+                                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                                    <a title={"Edit table"} className={"ms-2"}>
+                                        <IconEdit/>
+                                    </a>
+                                </Link> : <></>}
+                            </div>
+                        </span>
+                    </h3>
+                </div>
+                <div className={"d-flex flex-wrap"}>
+                    {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
+                                             className={"me-2"}>
+                        <DataBadge title={url} style={"primary"}/>
+                    </a>)}
                 </div>
                 <p className={"card-text"}>
                     {item.description}
@@ -117,52 +92,65 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
             </div>
         </div>
 
-        <div className={"card bg-2 my-2"}>
+        {item.blacklist ? <div className={"card bg-2 my-2"}>
             <div className={"card-body"}>
-                <h5 className={"card-title"}>
-                    It has
-                </h5>
-                <div className={"d-flex flex-wrap"}>
-                    {columnYes.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                    {columnYes.map(c => {
-                        return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
-                    })}
+                <p className={"card-text"}>
+                    This item has been <span className={"text-danger"}>blacklisted</span> due to misconduct of their
+                    stuff or breaking our rules.
+                    <br/>
+                    You can apply to be un-<span className={"text-danger"}>blacklisted</span> by contacting our team on
+                    discord.
+                </p>
+            </div>
+        </div> : <></>}
+        {!item.blacklist || canEdit(session) ? <>
+            <div className={"card bg-2 my-2"}>
+                <div className={"card-body"}>
+                    <h5 className={"card-title"}>
+                        It has
+                    </h5>
+                    <div className={"d-flex flex-wrap"}>
+                        {columnYes.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {columnYes.map(c => {
+                            return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className={"card bg-2 my-2"}>
-            <div className={"card-body"}>
-                <h5 className={"card-title"}>
-                    It does <span className={"text-danger"}>not</span> have
-                </h5>
-                <div className={"d-flex flex-wrap"}>
-                    {columnNo.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                    {columnNo.map(c => {
-                        return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
-                    })}
+            <div className={"card bg-2 my-2"}>
+                <div className={"card-body"}>
+                    <h5 className={"card-title"}>
+                        It does <span className={"text-danger"}>not</span> have
+                    </h5>
+                    <div className={"d-flex flex-wrap"}>
+                        {columnNo.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {columnNo.map(c => {
+                            return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className={"card bg-2 my-2"}>
-            <div className={"card-body"}>
-                <h5 className={"card-title"}>
-                    Other features are
-                </h5>
-                <div className={"d-flex flex-wrap"}>
-                    {columnArray.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                    {columnArray.map(c => {
-                        return <div key={c._id}>
-                            <Link href={"/column/" + c.urlId}>
-                                <a className={"me-2"} title={"View column " + c.title}>
-                                    {c.title}:
-                                </a>
-                            </Link>
-                            <DataItem data={item.data[c._id]} column={c}/>
-                        </div>
-                    })}
+            <div className={"card bg-2 my-2"}>
+                <div className={"card-body"}>
+                    <h5 className={"card-title"}>
+                        Other features are
+                    </h5>
+                    <div className={"d-flex flex-wrap"}>
+                        {columnArray.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {columnArray.map(c => {
+                            return <div key={c._id}>
+                                <Link href={"/column/" + c.urlId}>
+                                    <a className={"me-2"} title={"View column " + c.title}>
+                                        {c.title}:
+                                    </a>
+                                </Link>
+                                <DataItem data={item.data[c._id]} column={c}/>
+                            </div>
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
+        </> : <></>}
     </Layout>
 }
 

@@ -4,21 +4,19 @@ import {canEdit} from "../../lib/session"
 import styles from "./TableCard.module.css"
 import BoolValue from "../data/BoolValue"
 import ArrayValue from "../data/ArrayValue"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconEdit from "../icons/IconEdit"
 import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
 import IconNewTabLink from "../icons/IconNewTabLink"
+import DataBadge from "../data/DataBadge";
 
-const noop = () => {
-}
 
 export default function ItemCard(
     {
         item,
         columns = [],
-        add = noop,
-        remove = noop
+        add = null,
+        remove = null
     }) {
     const [session] = useSession()
 
@@ -54,23 +52,32 @@ export default function ItemCard(
                             <IconEdit/>
                         </a>
                     </Link>
-                    {add !== noop ? <a title={"Add item"} className={"float-end"} onClick={add} style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        marginTop: "-0.5rem",
-                        marginRight: "-0.5rem"
-                    }}>
-                        <IconAdd/>
-                    </a> : <></>}
-                    {remove !== noop ? <a title={"Delete item"} className={"float-end"} onClick={remove} style={{
-                        width: "2.5rem",
-                        height: "2.5rem",
-                        marginTop: "-0.5rem",
-                        marginRight: "-0.5rem"
-                    }}>
-                        <IconDelete/>
-                    </a> : <></>}
                 </> : ""}
+                <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                    {item.sponsor ? <DataBadge title={"Sponsor"} style={"warning text-dark"}/> : <></>}
+                    {item.nsfw ? <span className={"ms-2"}>
+                        <DataBadge data={false} title={"NSFW"}/>
+                    </span> : <></>}
+                    {canEdit(session) ? <>
+                        {add !== null ? <a title={"Add item"} className={"float-end ms-2"} onClick={add} style={{
+                            width: "2.5rem",
+                            height: "2.5rem",
+                            marginTop: "-0.5rem",
+                            marginRight: "-0.5rem"
+                        }}>
+                            <IconAdd/>
+                        </a> : <></>}
+                        {remove !== null ?
+                            <a title={"Delete item"} className={"float-end ms-2"} onClick={remove} style={{
+                                width: "2.5rem",
+                                height: "2.5rem",
+                                marginTop: "-0.5rem",
+                                marginRight: "-0.5rem"
+                            }}>
+                                <IconDelete/>
+                            </a> : <></>}
+                    </> : ""}
+                </span>
             </h5>
 
             <p className={styles.description + " card-text"}>

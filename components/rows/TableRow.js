@@ -7,23 +7,21 @@ import IconAdd from "../icons/IconAdd"
 import IconDelete from "../icons/IconDelete"
 import IconEdit from "../icons/IconEdit"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-
-const noop = () => {
-}
+import DataBadge from "../data/DataBadge";
 
 export default function TableRow(
     {
         table,
         className = "bg-2",
-        move = noop,
-        add = noop,
-        remove = noop
+        move = null,
+        add = null,
+        remove = null
     }) {
     const [session] = useSession()
 
     return <div className={styles.row + " card my-2 " + className}>
         <div className="row g-0">
-            {canEdit(session) && move !== noop ?
+            {canEdit(session) && move !== null ?
                 <div className={styles.sorter + " col-auto"}>
                     <a onClick={() => move(-1)} style={{
                         cursor: "pointer"
@@ -39,7 +37,7 @@ export default function TableRow(
                     </a>
                 </div> : <></>
             }
-            {canEdit(session) && add !== noop ?
+            {canEdit(session) && add !== null ?
                 <div className={styles.sorter + " col-auto"}>
                     <a onClick={add} title={"Add table"} style={{
                         height: "32px"
@@ -63,6 +61,11 @@ export default function TableRow(
                                 <IconEdit/>
                             </a>
                         </Link> : ""}
+                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {table.nsfw ? <span className={"ms-2"}>
+                                <DataBadge data={false} title={"NSFW"}/>
+                            </span> : <></>}
+                        </span>
                     </h5>
 
                     <p className={styles.description + " card-text"}>
@@ -70,7 +73,7 @@ export default function TableRow(
                     </p>
                 </div>
             </div>
-            {canEdit(session) && remove !== noop ?
+            {canEdit(session) && remove !== null ?
                 <div className={styles.column + " col-auto p-1"}>
                     <a onClick={remove} title={"Remove table"} className={"float-end"} style={{
                         width: "42px",
