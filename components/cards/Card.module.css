@@ -1,0 +1,40 @@
+.card {
+    width: 24rem;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.action {
+    float: end;
+    font-size: 1.2rem;
+}
+
+.action > a.link {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: 0.5rem;
+    margin-top: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.sorter {
+    display: flex;
+    width: 32px;
+    margin: 0 0.2rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sorter > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}

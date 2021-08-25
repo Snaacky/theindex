@@ -1,76 +1,87 @@
 import Link from "next/link"
+import Image from "next/image"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import styles from "./Row.module.css"
+import IconAdd from "../icons/IconAdd"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconDelete from "../icons/IconDelete"
 import IconEdit from "../icons/IconEdit"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import DataBadge from "../data/DataBadge"
-import IconAdd from "../icons/IconAdd"
+import Loader from "../loading"
 
-export default function TabRow(
+export default function Row(
     {
-        tab,
-        className = "bg-2",
+        type,
+        content,
+        imageUrl = "",
+        bodyContent = null,
         move = null,
         add = null,
         remove = null
     }) {
-    const [session] = useSession()
 
-    return <div className={styles.row + " card mb-2 " + className}>
+    const [session] = useSession()
+    const hrefString = type + "/" + (type !== "item" ? content.urlId : content._id)
+
+    if (typeof content === "undefined") {
+        return <Loader/>
+    }
+
+    return <div className={styles.row + " card bg-2 mb-2"}>
         <div className="row g-0">
             {canEdit(session) && move !== null ?
                 <div className={styles.sorter + " col-auto"}>
-                    <a onClick={() => move(-1)} style={{
-                        cursor: "pointer"
-                    }}
-                       className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
+                    <a onClick={() => move(-1)}>
                         <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
                     </a>
-                    <a onClick={() => move(1)} style={{
-                        cursor: "pointer"
-                    }}
-                       className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
+                    <a onClick={() => move(1)}>
                         <FontAwesomeIcon icon={["fas", "chevron-down"]}/>
                     </a>
                 </div> : <></>
             }
             {canEdit(session) && add !== null ?
                 <div className={styles.sorter + " col-auto"}>
-                    <a onClick={add} title={"Add tab"} style={{
+                    <a onClick={add} title={"Add " + type} style={{
                         height: "32px"
                     }}>
                         <IconAdd/>
                     </a>
                 </div> : <></>
             }
+            {imageUrl !== "" ?
+                <div className={styles.column + " col-auto p-1"}>
+                    <Image src={imageUrl} className="img-fluid rounded-start"
+                           alt="..." width={64} height={64}/>
+                </div> : <></>}
             <div className="col">
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
-                        <Link href={"/tab/" + tab.urlId}>
-                            {tab.title}
+                        <Link href={hrefString}>
+                            {content.title}
                         </Link>
-                        {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
-                            <a title={"Edit tab"} className={"ms-2"}>
+                        {canEdit(session) ? <Link href={"/edit/" + hrefString}>
+                            <a title={"Edit " + type} className={"ms-2"}>
                                 <IconEdit/>
                             </a>
                         </Link> : ""}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {tab.nsfw ? <span className={"ms-2"}>
+                            {content.nsfw ? <span className={"ms-2"}>
                                 <DataBadge data={false} title={"NSFW"}/>
                             </span> : <></>}
                         </span>
                     </h5>
 
-                    <p className={styles.description + " card-text"}>
-                        {tab.description}
-                    </p>
+                    <span className={styles.description + " card-text"}>
+                        {content.description}
+                    </span>
+
+                    {bodyContent}
                 </div>
             </div>
             {canEdit(session) && remove !== null ?
                 <div className={styles.column + " col-auto p-1"}>
-                    <a onClick={remove} title={"Remove tab"} className={"float-end"} style={{
+                    <a onClick={remove} title={"Remove " + type} className={"float-end"} style={{
                         width: "42px",
                         height: "42px"
                     }}>

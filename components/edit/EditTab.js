@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import TableRow from "../rows/TableRow"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import TableBoard from "../boards/TableBoard"
 
 export default class EditTab extends React.Component {
     constructor({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables}) {
@@ -158,21 +159,6 @@ export default class EditTab extends React.Component {
                               this.setState({description: input.target.value})
                           }}/>
             </div>
-            <label className="form-label">Tables</label>
-            {this.state.tables.length === 0 ? <div>
-                <kbd>No tables selected</kbd>
-            </div> : <></>
-            }
-            {this.state.tables.map(t => <TableRow table={this.tablesDatalist.find(tDL => tDL._id === t._id)}
-                                                  move={(sort) => this.moveTable(t, sort)}
-                                                  remove={() => this.removeTable(t)} key={t._id}/>)}
-            <hr/>
-            <label className="form-label">Available tables</label>
-            {this.state.tablesNotSelected.length === 0 ? <div>
-                <kbd>No tables available</kbd>
-            </div> : <></>
-            }
-            {this.state.tablesNotSelected.map(t => <TableRow table={t} key={t._id} add={() => this.addTable(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTab()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>

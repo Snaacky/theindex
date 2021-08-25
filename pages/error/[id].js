@@ -25,6 +25,6 @@ export async function getStaticProps({params}) {
     const error = getError(status)
     return {
         props: {status, error},
-        revalidate: 60
+        revalidate: 20
     }
 }

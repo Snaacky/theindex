@@ -1,14 +1,7 @@
 import Link from "next/link"
-import {useSession} from "next-auth/client"
-import {canEdit} from "../../lib/session"
-import styles from "./TableCard.module.css"
 import BoolValue from "../data/BoolValue"
 import ArrayValue from "../data/ArrayValue"
-import IconEdit from "../icons/IconEdit"
-import IconDelete from "../icons/IconDelete"
-import IconAdd from "../icons/IconAdd"
-import IconNewTabLink from "../icons/IconNewTabLink"
-import DataBadge from "../data/DataBadge";
+import Card from "./Card"
 
 
 export default function ItemCard(
@@ -16,9 +9,9 @@ export default function ItemCard(
         item,
         columns = [],
         add = null,
-        remove = null
+        remove = null,
+        move = null
     }) {
-    const [session] = useSession()
 
     let columnYes = [], columnNo = [], columnArray = []
     columns.forEach(c => {
@@ -31,75 +24,24 @@ export default function ItemCard(
             } else if (item.data[c._id] === false) {
                 columnNo.push(c)
             }
-        } else if (c.type === "array") {
+        } else if (c.type === "array" && (item.data[c._id] || []).length > 0) {
             columnArray.push(c)
         }
     })
 
-    return <div className={styles.card + " card bg-2 mb-2 me-2"}>
-        <div className={"card-body" +
-        (columnYes.length > 0 || columnNo.length > 0 || columnArray.length > 0 ? " pb-1" : "")}>
-            <h5 className={"card-title"}>
-                <Link href={"/item/" + item._id}>
-                    <a title={"View item " + item.title}>
-                        {item.title}
-                    </a>
-                </Link>
-                <IconNewTabLink url={item.urls[0]}/>
-                {canEdit(session) ? <>
-                    <Link href={"/edit/item/" + item._id}>
-                        <a title={"Edit item"}>
-                            <IconEdit/>
-                        </a>
-                    </Link>
-                </> : ""}
-                <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                    {item.sponsor ? <DataBadge title={"Sponsor"} style={"warning text-dark"}/> : <></>}
-                    {item.nsfw ? <span className={"ms-2"}>
-                        <DataBadge data={false} title={"NSFW"}/>
-                    </span> : <></>}
-                    {canEdit(session) ? <>
-                        {add !== null ? <a title={"Add item"} className={"float-end ms-2"} onClick={add} style={{
-                            width: "2.5rem",
-                            height: "2.5rem",
-                            marginTop: "-0.5rem",
-                            marginRight: "-0.5rem"
-                        }}>
-                            <IconAdd/>
-                        </a> : <></>}
-                        {remove !== null ?
-                            <a title={"Delete item"} className={"float-end ms-2"} onClick={remove} style={{
-                                width: "2.5rem",
-                                height: "2.5rem",
-                                marginTop: "-0.5rem",
-                                marginRight: "-0.5rem"
-                            }}>
-                                <IconDelete/>
-                            </a> : <></>}
-                    </> : ""}
-                </span>
-            </h5>
-
-            <p className={styles.description + " card-text"}>
-                {item.description}
-            </p>
-        </div>
+    return <Card type={"item"} content={item} add={add} remove={remove} move={move} bodyContent={<>
         {columnYes.length > 0 ?
-            <div className={"d-flex flex-wrap mx-3 mb-1"}>
-                {columnYes.map(c => {
-                    return <BoolValue data={true} column={c} key={c._id}/>
-                })}
+            <div className={"d-flex flex-wrap mb-1"}>
+                {columnYes.map(c => <BoolValue data={true} column={c} key={c._id}/>)}
             </div> : <></>
         }
         {columnNo.length > 0 ?
-            <div className={"d-flex flex-wrap mx-3 mb-1"}>
-                {columnNo.map(c => {
-                    return <BoolValue data={false} column={c} key={c._id}/>
-                })}
+            <div className={"d-flex flex-wrap mb-1"}>
+                {columnNo.map(c => <BoolValue data={false} column={c} key={c._id}/>)}
             </div> : <></>
         }
         {columnArray.length > 0 ?
-            <div className={"d-flex flex-wrap mx-3 mb-1"}>
+            <div className={"d-flex flex-wrap mb-1"}>
                 {columnArray.map(c => {
                     return <div key={c._id}>
                         <Link href={"/column/" + c.urlId}>
@@ -107,13 +49,10 @@ export default function ItemCard(
                                 {c.title}:
                             </a>
                         </Link>
-                        <ArrayValue data={item.data[c._id] || []} column={c} key={c._id}/>
+                        <ArrayValue data={item.data[c._id]} column={c}/>
                     </div>
                 })}
             </div> : <></>
         }
-        {columnYes.length > 0 || columnNo.length > 0 || columnArray.length > 0 ?
-            <div className={"mt-3"}/> : <></>
-        }
-    </div>
+    </>}/>
 }

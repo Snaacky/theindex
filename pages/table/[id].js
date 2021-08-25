@@ -9,9 +9,9 @@ import {getByUrlId} from "../../lib/db/db"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
-import ItemCardsBoard from "../../components/layout/ItemCardsBoard"
 import {getItems} from "../../lib/db/items"
-import DataBadge from "../../components/data/DataBadge";
+import DataBadge from "../../components/data/DataBadge"
+import ItemBoard from "../../components/boards/ItemBoard"
 
 export default function Table({tabs, table, items}) {
     const router = useRouter()
@@ -62,7 +62,7 @@ export default function Table({tabs, table, items}) {
                 </p>
             </div>
         </div>
-        <ItemCardsBoard session={session} _id={table._id} items={table.items} allItems={items} columns={table.columns}/>
+        <ItemBoard _id={table._id} items={table.items} allItems={items} columns={table.columns}/>
     </Layout>
 }
 
@@ -93,6 +93,6 @@ export async function getStaticProps({params}) {
             table,
             items,
         },
-        revalidate: 60
+        revalidate: 20
     }
 }

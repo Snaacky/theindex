@@ -11,9 +11,9 @@ export default async function apiEditTable(req, res) {
                 res.status(400).send("Illegal url id: '_new' is forbidden!")
             } else {
                 if (typeof d._id === "undefined") {
-                    await addTable(d.urlId, d.title, d.nsfw, d.description, d.columns, d.items)
+                    await addTable(d.urlId, d.title, d.nsfw, d.description, d.items)
                 } else {
-                    await updateTable(d._id, d.urlId, d.title, d.nsfw, d.description, d.columns, d.items)
+                    await updateTable(d._id, d.urlId, d.title, d.nsfw, d.description, d.items)
                 }
                 res.status(200).send("Ok")
             }

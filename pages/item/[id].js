@@ -11,7 +11,7 @@ import {find} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
 import DataItem from "../../components/data/DataItem"
 import IconEdit from "../../components/icons/IconEdit"
-import DataBadge from "../../components/data/DataBadge";
+import DataBadge from "../../components/data/DataBadge"
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
     const router = useRouter()
@@ -183,6 +183,6 @@ export async function getStaticProps({params}) {
             columns,
             item
         },
-        revalidate: 10
+        revalidate: 20
     }
 }

@@ -13,7 +13,7 @@ import IconEdit from "../../components/icons/IconEdit"
 import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import DataBadge from "../../components/data/DataBadge";
+import DataBadge from "../../components/data/DataBadge"
 
 export default function Column({tabs, itemsContainingColumn, column, columns}) {
     const router = useRouter()
@@ -112,6 +112,6 @@ export async function getStaticProps({params}) {
             column,
             columns
         },
-        revalidate: 10
+        revalidate: 20
     }
 }

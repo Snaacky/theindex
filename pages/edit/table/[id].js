@@ -8,6 +8,7 @@ import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import ColumnBoard from "../../../components/boards/ColumnBoard"
 
 export default function EditorTable({urlId, tabs, tables, columns}) {
     const [session] = useSession()
@@ -21,7 +22,9 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
     let table
     if (urlId !== "_new") {
         table = tables.find(t => t.urlId === urlId)
+        table.columns = table.columns.map(c => columns.find(t => t._id === c))
     }
+
     return <Layout tabs={tabs}>
         <Head>
             <title>
@@ -51,12 +54,17 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                         </small> : <></>}
                 </div>
                 {typeof table === "undefined" ? <EditTable tables={tables} columnsDatalist={columns}/> :
-                    <EditTable tables={tables} columnsDatalist={columns} _id={table._id} urlId={table.urlId}
-                               title={table.title} nsfw={table.nsfw} description={table.description}
-                               columns={table.columns}/>
+                    <>
+                        <EditTable tables={tables} columnsDatalist={columns} _id={table._id} urlId={table.urlId}
+                                   title={table.title} nsfw={table.nsfw} description={table.description}
+                                   columns={table.columns}/>
+                    </>
                 }
             </div>
         </div>
+        {typeof table !== "undefined" ?
+            <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns}/> :
+            <></>}
     </Layout>
 }
 

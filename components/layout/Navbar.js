@@ -33,51 +33,86 @@ export default function Navbar({tabs}) {
             </Link>
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item dropdown">
+                        <a className={"nav-link dropdown-toggle"} role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false"
+                           id={"navDropdownLinkDatabase"}>
+                            <FontAwesomeIcon icon={["fas", "database"]}/>
+                        </a>
+                        <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkDatabase"}>
+                            <li>
+                                <Link href={"/tabs"}>
+                                    <a className="dropdown-item">
+                                        <IconTab/> Tabs
+                                    </a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={"/tables"}>
+                                    <a className="dropdown-item">
+                                        <IconTable/> Tables
+                                    </a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={"/columns"}>
+                                    <a className="dropdown-item">
+                                        <IconColumn/> Columns
+                                    </a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={"/items"}>
+                                    <a className="dropdown-item">
+                                        <IconItem/> Items
+                                    </a>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
                     {tabs.length === 0 ?
                         <li className="nav-item">
                             <a className="nav-link text-muted">
                                 No tabs found
                             </a>
                         </li> : <></>}
-                    {
-                        tabs.map(({urlId, title, tables}) => {
-                            return <li className="nav-item dropdown" key={urlId}>
-                                <a className={"nav-link dropdown-toggle"} role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false"
-                                   id={"navDropdownLink-" + urlId}>
-                                    {title}
-                                </a>
-                                <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + urlId}>
-                                    <li>
-                                        <Link href={"/tab/" + urlId}>
-                                            <a className="dropdown-item">
-                                                {title}
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <hr className="dropdown-divider"/>
-                                    </li>
-                                    {tables.length === 0 ? <li>
-                                        <a className={"dropdown-item text-muted"}>
-                                            No tables found
+                    {tabs.map(({urlId, title, tables}) => {
+                        return <li className="nav-item dropdown" key={urlId}>
+                            <a className={"nav-link dropdown-toggle"} role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               id={"navDropdownLink-" + urlId}>
+                                {title}
+                            </a>
+                            <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + urlId}>
+                                <li>
+                                    <Link href={"/tab/" + urlId}>
+                                        <a className="dropdown-item">
+                                            {title}
                                         </a>
-                                    </li> : <></>}
-                                    {
-                                        tables.map((table) => {
-                                            return <li key={table.urlId}>
-                                                <Link href={"/table/" + table.urlId}>
-                                                    <a className="dropdown-item">
-                                                        {table.title}
-                                                    </a>
-                                                </Link>
-                                            </li>
-                                        })
-                                    }
-                                </ul>
-                            </li>
-                        })
-                    }
+                                    </Link>
+                                </li>
+                                <li>
+                                    <hr className="dropdown-divider"/>
+                                </li>
+                                {tables.length === 0 ? <li>
+                                    <a className={"dropdown-item text-muted"}>
+                                        No tables found
+                                    </a>
+                                </li> : <></>}
+                                {
+                                    tables.map((table) => {
+                                        return <li key={table.urlId}>
+                                            <Link href={"/table/" + table.urlId}>
+                                                <a className="dropdown-item">
+                                                    {table.title}
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                        </li>
+                    })}
                     {canEdit(session) ? <li className={"nav-item"}>
                             <Link href={"/edit/tab/_new"}>
                                 <a className={"nav-link"} style={{
@@ -94,54 +129,13 @@ export default function Navbar({tabs}) {
                 </ul>
                 <form className="d-flex">
                     <ul className="navbar-nav">
-                        {canEdit(session) ? <li className="nav-item dropdown">
-                            <a className={"nav-link dropdown-toggle"} role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false"
-                               id={"navDropdownLinkAdmin"}>
-                                <IconAdmin/>
-                            </a>
-                            <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkAdmin"}>
-                                <li>
-                                    <Link href={"/admin"}>
-                                        <a className={"dropdown-item"} title={"Admin settings"}>
-                                            <IconAdmin/> Admin
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <hr className="dropdown-divider"/>
-                                </li>
-                                <li>
-                                    <Link href={"/edit/tabs"}>
-                                        <a className="dropdown-item">
-                                            <IconTab/> Tabs
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href={"/edit/tables"}>
-                                        <a className="dropdown-item">
-                                            <IconTable/> Tables
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href={"/edit/columns"}>
-                                        <a className="dropdown-item">
-                                            <IconColumn/> Columns
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href={"/edit/items"}>
-                                        <a className="dropdown-item">
-                                            <IconItem/> Items
-                                        </a>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li> : <></>
-                        }
+                        {canEdit(session) ? <li className="nav-item">
+                            <Link href={"/admin"}>
+                                <a className={"nav-link"} title={"Admin settings"}>
+                                    <IconAdmin/>
+                                </a>
+                            </Link>
+                        </li> : <></>}
                         <li className="nav-item dropdown">
                             <a className={"nav-link dropdown-toggle"} role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"

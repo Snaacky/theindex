@@ -5,13 +5,13 @@ import {getTabs, getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
-import TableCard from "../../components/cards/TableCard"
 import {canEdit} from "../../lib/session"
-import IconAdd from "../../components/icons/IconAdd"
 import IconEdit from "../../components/icons/IconEdit"
-import DataBadge from "../../components/data/DataBadge";
+import DataBadge from "../../components/data/DataBadge"
+import TableBoard from "../../components/boards/TableBoard"
+import {getTables} from "../../lib/db/tables"
 
-export default function Tab({tabs, tab}) {
+export default function Tab({tabs, tab, tables}) {
     const router = useRouter()
     const [session] = useSession()
 
@@ -48,34 +48,7 @@ export default function Tab({tabs, tab}) {
             </div>
         </div>
 
-        <div className={"d-flex flex-wrap"}>
-            {tab.tables.length === 0 ? <span className={"text-muted"}>No tables found</span> : <></>}
-            {tab.tables.map(t => {
-                return <TableCard table={t} key={t.urlId}/>
-            })}
-            {canEdit(session) ? <div className={"card bg-2 mb-2 me-2"} style={{width: "24rem"}}>
-                <div className="row g-0">
-                    <div className="col-auto p-1">
-                        <Link href={"/add/table"}>
-                            <a title={"Create a new table"} style={{
-                                display: "block",
-                                height: "128px",
-                                width: "128px",
-                            }}>
-                                <IconAdd/>
-                            </a>
-                        </Link>
-                    </div>
-                    <div className="col">
-                        <div className={"card-body"}>
-                            <h5 className={"card-title"}>
-                                Create new table
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            </div> : ""}
-        </div>
+        <TableBoard _id={tab._id} tables={tab.tables} allTables={tables}/>
     </Layout>
 }
 
@@ -101,12 +74,16 @@ export async function getStaticProps({params}) {
     if (!tab) {
         return {
             notFound: true,
-            revalidate: 60
+            revalidate: 20
         }
     }
 
     return {
-        props: {tabs, tab},
-        revalidate: 60
+        props: {
+            tabs,
+            tab,
+            tables: await getTables()
+        },
+        revalidate: 20
     }
 }

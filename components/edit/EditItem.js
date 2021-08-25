@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import styles from "../rows/TableRow.module.css"
+import styles from "../rows/Row.module.css"
 import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
 import DataCard from "../cards/DataCard"

@@ -4,24 +4,18 @@ import ColumnRow from "../rows/ColumnRow"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditTable extends React.Component {
-    constructor({tables, columnsDatalist, _id, urlId, title, nsfw, description, columns}) {
-        super({tables, columnsDatalist, _id, urlId, title, nsfw, description, columns})
+    constructor({tables, _id, urlId, title, nsfw, description}) {
+        super({tables, _id, urlId, title, nsfw, description})
 
-
-        this.columnsDatalist = columnsDatalist.sort((a, b) => a.title > b.title ? 1 : -1)
         this.tablesDatalist = tables.map(t => t.title)
         this.urlDatalist = tables.map(t => t.urlId)
 
-        const columnsNotSelected = columns ? this.columnsDatalist.filter(cDL => !columns.some(t => t._id === cDL._id))
-            : this.columnsDatalist
         this.state = {
             _id,
             urlId: urlId || "",
             title: title || "",
             nsfw: nsfw || false,
-            description: description || "",
-            columns: columns || [],
-            columnsNotSelected: columnsNotSelected
+            description: description || ""
         }
     }
 
@@ -35,8 +29,7 @@ export default class EditTable extends React.Component {
                 urlId: this.state.urlId,
                 title: this.state.title,
                 nsfw: this.state.nsfw,
-                description: this.state.description,
-                columns: this.state.columns
+                description: this.state.description
             }
             if (this.state._id) {
                 body._id = this.state._id
@@ -57,50 +50,6 @@ export default class EditTable extends React.Component {
         } else {
             alert("Wow, wow! Wait a minute bro, you forgot to fill in the title and url id")
         }
-    }
-
-    addColumn(column) {
-        this.setState({
-            columns: this.state.columns.concat([{
-                _id: column._id,
-                order: this.state.columns.length
-            }]),
-            columnsNotSelected: this.state.columnsNotSelected.filter(t => t._id !== column._id)
-        })
-    }
-
-    moveColumn(column, sort) {
-        let temp = this.state.columns.find(t => t._id === column._id)
-        if (temp.order + sort < 0 || temp.order + sort === this.state.columns.length) {
-            return
-        }
-
-        temp.order += sort
-        let temp2 = this.state.columns[temp.order]
-        temp2.order -= sort
-
-        let copy = this.state.columns
-        copy[temp.order] = temp
-        copy[temp2.order] = temp2
-
-        this.setState({
-            columns: copy
-        })
-    }
-
-    removeColumn(column) {
-        let temp = this.state.columns.filter(t => t._id !== column._id)
-        temp = temp.map((t, i) => {
-            t.order = i
-            return t
-        })
-
-        this.setState({
-            columns: temp,
-            columnsNotSelected: this.state.columnsNotSelected.concat([
-                this.columnsDatalist.find(t_dl => t_dl._id === column._id)
-            ]).sort((a, b) => a.title > b.title ? 1 : -1)
-        })
     }
 
     render() {
@@ -159,23 +108,6 @@ export default class EditTable extends React.Component {
                               this.setState({description: input.target.value})
                           }}/>
             </div>
-            <label className="form-label">Columns</label>
-            {this.state.columns.length === 0 ? <div>
-                <kbd>No columns selected</kbd>
-            </div> : <></>
-            }
-            {this.state.columns.map(t => <ColumnRow className={"bg-4"}
-                                                    column={this.columnsDatalist.find(t_dl => t_dl._id === t._id)}
-                                                    move={(sort) => this.moveColumn(t, sort)}
-                                                    remove={() => this.removeColumn(t)} key={t._id}/>)}
-            <hr/>
-            <label className="form-label">Available columns</label>
-            {this.state.columnsNotSelected.length === 0 ? <div>
-                <kbd>No columns available</kbd>
-            </div> : <></>
-            }
-            {this.state.columnsNotSelected.map(t => <ColumnRow className={"bg-4"} column={t} key={t._id}
-                                                               add={() => this.addColumn(t)}/>)}
 
             <button className={"btn btn-primary"} type="button" onClick={() => this.saveTable()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
