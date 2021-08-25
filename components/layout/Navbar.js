@@ -16,12 +16,6 @@ export default function Navbar({tabs}) {
 
     return <nav className="navbar navbar-expand-md navbar-dark bg-2">
         <div className="container-fluid">
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"/>
-            </button>
-
             <Link href={"/"}>
                 <a className="navbar-brand pb-0">
                     <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
@@ -31,6 +25,12 @@ export default function Navbar({tabs}) {
                     </span>
                 </a>
             </Link>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"/>
+            </button>
+            
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item dropdown">
