@@ -21,7 +21,7 @@ export default function Profile() {
             {session ?
                 <>
                     <li>
-                        <Link href={"/user/" + session.user.id}>
+                        <Link href={"/user/" + session.user.uid}>
                             <a className="dropdown-item">
                                 <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
                             </a>
