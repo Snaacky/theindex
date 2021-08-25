@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.add:hover {
+.btn:hover > .add, .btn:active > .add, .add:hover {
     color: white;
     background-color: var(--bs-success);
 }

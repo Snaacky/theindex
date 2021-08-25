@@ -5,14 +5,11 @@ import styles from "./TableCard.module.css"
 import DataItem from "../data/DataItem"
 import IconEdit from "../icons/IconEdit"
 
-const noop = () => {
-}
-
 export default function DataCard(
     {
         data,
         column,
-        onChange = noop
+        onChange = null
     }) {
     const [session] = useSession()
 
@@ -25,13 +22,13 @@ export default function DataCard(
                     </a>
                 </Link>
                 {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
-                    <a title={"Edit column"}>
+                    <a className={"ms-2"} title={"Edit column"}>
                         <IconEdit/>
                     </a>
                 </Link> : ""}
             </h5>
 
-            {onChange === noop ? <p className={styles.description + " card-text"}>
+            {onChange === null ? <p className={styles.description + " card-text"}>
                 {column.description}
             </p> : <></>}
             <DataItem data={data} column={column} onChange={onChange}/>

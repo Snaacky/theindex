@@ -5,6 +5,7 @@ import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
 import DataCard from "../cards/DataCard"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import IconNewTabLink from "../icons/IconNewTabLink"
 
 export default class EditItem extends React.Component {
     constructor({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns}) {
@@ -23,6 +24,7 @@ export default class EditItem extends React.Component {
             sponsor: sponsor || false,
             newURL: ""
         }
+        console.log("New state of item editor:", this.state)
     }
 
     saveItem() {
@@ -82,8 +84,6 @@ export default class EditItem extends React.Component {
     }
 
     dataUpdate(column, value) {
-        console.log("Updating column:", column, "with data value:", value)
-
         let temp = this.state.data
         if (value === null && typeof this.state.data[column._id] !== "undefined") {
             console.log("Deleting", column._id)
@@ -180,13 +180,18 @@ export default class EditItem extends React.Component {
                                    }}/>
                         </div>
                         <div className={styles.column + " col-auto px-1"}>
-                            <a onClick={() => this.removeURL(i)} title={"Remove url"} className={"float-end"}
-                               style={{
-                                   width: "38px",
-                                   height: "38px"
-                               }}>
-                                <IconDelete/>
-                            </a>
+                            <div className={"d-flex flex-row"}>
+                                <span style={{fontSize: "1.5rem"}}>
+                                    <IconNewTabLink url={v}/>
+                                </span>
+                                <a onClick={() => this.removeURL(i)} title={"Remove url"}
+                                   style={{
+                                       width: "38px",
+                                       height: "38px"
+                                   }}>
+                                    <IconDelete/>
+                                </a>
+                            </div>
                         </div>
                     </div>)}
                 {this.state.urls.length > 0 ? <hr/> : <></>}
@@ -194,6 +199,7 @@ export default class EditItem extends React.Component {
                     <div className={"col pe-0"}>
                         <input type={"text"} className={"form-control"} id={"itemValueInput-new"}
                                value={this.state.newURL} placeholder={"Enter a valid url"}
+                               aria-describedby={"createItemURLTitleHelp"}
                                onChange={(input) => {
                                    this.setState({
                                        newURL: input.target.value
@@ -209,6 +215,9 @@ export default class EditItem extends React.Component {
                             <IconAdd/>
                         </a>
                     </div>
+                </div>
+                <div id={"createItemURLTitleHelp"} className={"form-text"}>
+                    Official web-page url, the first listed url will be used to route users
                 </div>
             </div>
 

@@ -1,26 +1,33 @@
 import React from "react"
+import Link from "next/link"
+import {useSession} from "next-auth/client"
 import ItemCard from "../cards/ItemCard"
-import ItemRow from "../rows/ItemRow";
+import ItemRow from "../rows/ItemRow"
 import ColumnFilter from "../column-filter"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {canEdit} from "../../lib/session"
+import IconEdit from "../icons/IconEdit"
+import IconAdd from "../icons/IconAdd"
 
 export default class ItemCardsBoard extends React.Component {
-    constructor({_id, items, columns}) {
-        super({_id, items, columns})
+    constructor({_id, items, allItems, columns}) {
+        super({_id, items, allItems, columns})
 
         this.state = {
             _id,
             items,
             columns,
+            notSelectedItems: (allItems || []).filter(i => !items.some(ii => i._id === ii._id)) || [],
             useCards: true,
+            editView: false,
             filter: []
         }
     }
 
-    updateItems(items) {
+    updateItems(items, notSelectedItems) {
         let body = {
             _id: this.state._id,
-            items
+            items: items.map(i => i._id)
         }
 
         fetch("/api/edit/table/items", {
@@ -31,20 +38,20 @@ export default class ItemCardsBoard extends React.Component {
             if (r.status !== 200) {
                 alert("Failed to save data: Error " + r.status)
             } else {
-                alert("Changes have been saved")
                 this.setState({
-                    items
+                    items,
+                    notSelectedItems
                 })
             }
         })
     }
 
     removeItemFromTable(item) {
-        this.updateItems(this.state.items.filter(i => i._id !== item._id))
+        this.updateItems(this.state.items.filter(i => i._id !== item._id), this.state.notSelectedItems.concat[item])
     }
 
     addItemToTable(item) {
-        this.updateItems(this.state.items.concat([item._id]))
+        this.updateItems(this.state.items.concat([item]), this.state.notSelectedItems.filter(i => i._id !== item._id))
     }
 
     render() {
@@ -62,6 +69,8 @@ export default class ItemCardsBoard extends React.Component {
                                          className={"me-2"}/>
                         {this.state.useCards ? "List" : "Grid"}
                     </button>
+                    <EditButton onClick={() => this.setState({editView: !this.state.editView})}
+                                editView={this.state.editView}/>
                 </div>
                 <div id={"collapseFilter"} className="collapse row g-3">
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
@@ -74,13 +83,44 @@ export default class ItemCardsBoard extends React.Component {
                 {this.state.items.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
                 {this.state.items.map(i => {
                     if (this.state.useCards) {
-                        return <ItemCard item={i} columns={this.state.columns}
+                        return <ItemCard item={i} columns={this.state.editView ? [] : this.state.columns}
                                          remove={() => this.removeItemFromTable(i)} key={i._id}/>
                     }
-                    return <ItemRow item={i} columns={this.state.columns} remove={() => this.removeItemFromTable(i)}
-                                    key={i._id}/>
+                    return <ItemRow item={i} columns={this.state.editView ? [] : this.state.columns}
+                                    remove={() => this.removeItemFromTable(i)} key={i._id}/>
                 })}
             </div>
+            {this.state.editView ? <>
+                <hr/>
+                <div className={"d-flex flex-wrap"}>
+                    {this.state.notSelectedItems.length === 0 ?
+                        <span className={"text-muted"}>All existing items already added</span> : <></>}
+                    {this.state.notSelectedItems.map(i => {
+                        if (this.state.useCards) {
+                            return <ItemCard item={i} add={() => this.addItemToTable(i)} key={i._id}/>
+                        }
+                        return <ItemRow item={i} add={() => this.addItemToTable(i)} key={i._id}/>
+                    })}
+                    <Link href={"/edit/item/_new"}>
+                        <a className={"btn btn-outline-success mx-2 mb-2 p-0"}
+                           style={{width: "2.5rem", height: "2.5rem"}}>
+                            <IconAdd/>
+                        </a>
+                    </Link>
+                </div>
+            </> : <></>}
         </>
     }
+}
+
+function EditButton({onClick, editView}) {
+    const [session] = useSession()
+    if (canEdit(session)) {
+        return <div className={"float-end"}>
+            <button className={"btn btn-outline-warning"} type={"button"} onClick={onClick}>
+                {editView ? "Exit" : <><IconEdit/> Item</>} edit-mode
+            </button>
+        </div>
+    }
+    return <></>
 }

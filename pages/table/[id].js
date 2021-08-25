@@ -10,8 +10,9 @@ import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import ItemCardsBoard from "../../components/layout/ItemCardsBoard"
+import {getItems} from "../../lib/db/items"
 
-export default function Table({tabs, table}) {
+export default function Table({tabs, table, items}) {
     const router = useRouter()
     const [session] = useSession()
 
@@ -31,8 +32,8 @@ export default function Table({tabs, table}) {
 
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
-                <div className={"card-title row"}>
-                    <div className={"col d-flex align-items-center"}>
+                <div className={"card-title"}>
+                    <div className={"d-flex align-items-center"}>
                         <h3>
                             {table.title}
                             {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
@@ -53,22 +54,13 @@ export default function Table({tabs, table}) {
                             })}
                         </div>
                     </div>
-                    <div className={"col-12 col-md-auto d-flex"}>
-                        {canEdit(session) ?
-                            <Link href={"/edit/table/" + table.urlId}>
-                                <a className={"btn btn-outline-warning me-2"}>
-                                    <IconEdit/> Items
-                                </a>
-                            </Link> : <></>
-                        }
-                    </div>
                 </div>
                 <p className={"card-text"}>
                     {table.description}
                 </p>
             </div>
         </div>
-        <ItemCardsBoard _id={table._id} items={table.items} columns={table.columns}/>
+        <ItemCardsBoard session={session} _id={table._id} items={table.items} allItems={items} columns={table.columns}/>
     </Layout>
 }
 
@@ -91,9 +83,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}) {
     const tabs = await getTabsWithTables()
     const table = await getTableWithColumnsAndItems(await getByUrlId("tables", params.id))
+    const items = await getItems()
 
     return {
-        props: {tabs, table},
+        props: {
+            tabs,
+            table,
+            items,
+        },
         revalidate: 60
     }
 }

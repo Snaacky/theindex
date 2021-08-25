@@ -61,7 +61,7 @@ export async function getServerSideProps({params}) {
             _id: params.id,
             tabs: await getTabsWithTables(),
             columns: await getColumns(),
-            item: await getItem(params.id)
+            item: params.id === "_new" ? {} : await getItem(params.id)
         }
     }
 }

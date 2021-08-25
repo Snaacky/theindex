@@ -1,0 +1,7 @@
+.edit, a > .edit {
+    color: var(--bs-warning);
+}
+
+.btn:hover > .edit, .btn:active > .edit, .edit:hover {
+    color: inherit;
+}

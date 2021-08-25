@@ -7,7 +7,8 @@ import ArrayValue from "../data/ArrayValue"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconEdit from "../icons/IconEdit"
 import IconDelete from "../icons/IconDelete"
-import IconAdd from "../icons/IconAdd";
+import IconAdd from "../icons/IconAdd"
+import IconNewTabLink from "../icons/IconNewTabLink"
 
 const noop = () => {
 }
@@ -46,9 +47,7 @@ export default function ItemCard(
                         {item.title}
                     </a>
                 </Link>
-                <a className={"mx-2"} target={"_blank"} href={item.urls[0]} rel="noreferrer" title={"Open in new tab"}>
-                    <FontAwesomeIcon icon={["fas", "external-link-alt"]}/>
-                </a>
+                <IconNewTabLink url={item.urls[0]}/>
                 {canEdit(session) ? <>
                     <Link href={"/edit/item/" + item._id}>
                         <a title={"Edit item"}>

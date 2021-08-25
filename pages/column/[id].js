@@ -10,7 +10,7 @@ import {find, getByUrlId} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
 import ItemCard from "../../components/cards/ItemCard"
 import IconEdit from "../../components/icons/IconEdit"
-import {useState} from "react";
+import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
