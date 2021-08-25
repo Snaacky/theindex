@@ -17,22 +17,8 @@ export default class ColumnFilter extends React.Component {
         this.onChange = onChange
     }
 
-    adjustFilter(event) {
-        console.log("Change:", event)
-        this.onChange(this.filter)
-    }
-
-    renderColumn({_id, title, description, type, values}) {
-        return {}
-    }
 
     render() {
-        return <>
-            {this.columns.map(({_id, title, description, type, values}) =>
-                <div className="col" key={_id}>
-
-                </div>
-            )}
-        </>
+        return <></>
     }
 }
