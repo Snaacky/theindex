@@ -30,7 +30,7 @@ export default function Navbar({tabs}) {
                     aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"/>
             </button>
-            
+
             <div className="collapse navbar-collapse" id="navbarToggler">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item dropdown">
@@ -189,7 +189,14 @@ export default function Navbar({tabs}) {
                         <li className="nav-item">
                             <a className="nav-link" href="https://status.piracy.moe/">
                                 <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/uptimerobot.png"} alt={"UptimeRobot logo"}/>
+                                     src={"/icons/status.png"} alt={"Checkly logo"}/>
+                                Status
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="https://releases.moe/">
+                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                     src={"/icons/seadex.png"} alt={"Seadex logo"}/>
                                 Status
                             </a>
                         </li>
