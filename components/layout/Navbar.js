@@ -134,7 +134,8 @@ export default function Navbar({tabs}) {
                                id={"navDropdownLinkCommunity"}>
                                 <FontAwesomeIcon icon={["fas", "users"]}/>
                             </a>
-                            <ul className=" dropdown-menu dropdown-menu-end bg-4" aria-labelledby={"navDropdownLinkCommunity"}>
+                            <ul className="dropdown-menu dropdown-menu-end bg-4"
+                                aria-labelledby={"navDropdownLinkCommunity"}>
                                 <li>
                                     <Link href={"/users"}>
                                         <a className={"dropdown-item"} title={"Users"}>
@@ -142,7 +143,7 @@ export default function Navbar({tabs}) {
                                         </a>
                                     </Link>
                                 </li>
-                                <div className={"d-inline-block d-lg-none"}>
+                                <div className={"d-block d-lg-none"}>
                                     <li>
                                         <hr className="dropdown-divider"/>
                                     </li>
