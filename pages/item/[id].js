@@ -60,9 +60,7 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                             {tablesContainingItem.map(t => {
                                 return <Link href={"/table/" + t.urlId} key={t._id}>
                                     <a title={"View table " + t.title}>
-                                        <div className={"badge rounded-pill bg-primary mx-2"}>
-                                            {t.title}
-                                        </div>
+                                        <DataBadge title={t.title} style={"primary"}/>
                                     </a>
                                 </Link>
                             })}

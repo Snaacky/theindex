@@ -5,11 +5,11 @@ import {useSession} from "next-auth/client"
 import Login from "../../../components/Login"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {getItem} from "../../../lib/db/items"
-import {getColumns} from "../../../lib/db/columns"
-import EditItem from "../../../components/edit/EditItem"
+import {getUser} from "../../../lib/db/users"
+import {isAdmin} from "../../../lib/session"
+import EditUser from "../../../components/edit/EditUser"
 
-export default function EditorColumn({_id, tabs, columns, item}) {
+export default function EditorUser({uid, tabs, user}) {
     const [session] = useSession()
 
     if (!session) {
@@ -18,10 +18,18 @@ export default function EditorColumn({_id, tabs, columns, item}) {
         </Layout>
     }
 
+    if (!isAdmin(session)) {
+        return <Layout tabs={tabs}>
+            <div className={"d-flex align-items-center justify-content-center w-100 h-100"}>
+                Access forbidden. You need admin rights to access this site
+            </div>
+        </Layout>
+    }
+
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {(_id === "_new" ? "Create item" : "Edit item " + item.title) + " | " + siteTitle}
+                {"Edit user " + user.name + " | " + siteTitle}
             </title>
         </Head>
 
@@ -29,39 +37,34 @@ export default function EditorColumn({_id, tabs, columns, item}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {_id === "_new" ? "Create a new item" : <>
-                            Edit item <Link href={"/item/" + item._id}>{item.title}</Link>
-                        </>}
+                        Edit user <Link href={"/user/" + uid}>{user.name}</Link>
                         <span className={"float-end"}>
-                            <Link href={"/items"}>
+                            <Link href={"/users"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    Item manager
+                                    User manager
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>
                         </span>
                     </h2>
-                    {_id !== "_new" ?
-                        <small className={"text-muted"}>
-                            ID: <code>{item._id}</code>
-                        </small> : <></>}
+                    <small className={"text-muted"}>
+                        ID: <code>{uid}</code>
+                    </small>
                 </div>
-                {_id === "_new" ? <EditItem columns={columns}/> :
-                    <EditItem _id={item._id} title={item.title} urls={item.urls} nsfw={item.nsfw}
-                              description={item.description} data={item.data} columns={columns}/>
-                }
+                <EditUser uid={uid} accountType={user.accountType} description={user.description}/>
             </div>
         </div>
     </Layout>
 }
 
 export async function getServerSideProps({params}) {
+    const user = await getUser(params.id)
+    user.uid = user.uid.toString()
     return {
         props: {
-            _id: params.id,
+            uid: params.id,
             tabs: await getTabsWithTables(),
-            columns: await getColumns(),
-            item: params.id === "_new" ? {} : await getItem(params.id)
+            user
         }
     }
 }

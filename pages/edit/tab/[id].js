@@ -36,7 +36,7 @@ export default function EditorTab({urlId, tabs, tables}) {
                             Edit tab <Link href={"/tab/" + tab.urlId}>{tab.title}</Link>
                         </>}
                         <span className={"float-end"}>
-                            <Link href={"/edit/tabs"}>
+                            <Link href={"/tabs"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Tab manager
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>

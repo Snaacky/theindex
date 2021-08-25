@@ -40,7 +40,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                             Edit table <Link href={"/table/" + table.urlId}>{table.title}</Link>
                         </>}
                         <span className={"float-end"}>
-                            <Link href={"/edit/tables"}>
+                            <Link href={"/tables"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Table manager
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>

@@ -163,7 +163,7 @@ export default class EditTab extends React.Component {
                 {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
             </button>
             <span className={"float-end"}>
-                <Link href={"/edit/tabs"}>
+                <Link href={"/tabs"}>
                     <a className={"btn btn-outline-secondary"}>
                         Tab manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>

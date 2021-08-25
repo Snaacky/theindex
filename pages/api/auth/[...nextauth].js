@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
-import {addUser, getUser} from "../../../lib/db/users";
+import {addUser, getUser} from "../../../lib/db/users"
 
 const discord = Providers.Discord({
     clientId: process.env.DISCORD_CLIENT_ID,
@@ -32,7 +32,7 @@ const nextAuth = NextAuth({
         async session(session, user) {
             if (user) {
                 session.user.uid = user.id
-                const uData = getUser(user.id)
+                const uData = await getUser(user.id)
                 session.user.accountType = uData.accountType
                 session.user.description = uData.description
             }

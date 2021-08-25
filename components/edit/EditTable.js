@@ -43,7 +43,6 @@ export default class EditTable extends React.Component {
                     alert("Failed to save data: Error " + r.status)
                 } else {
                     alert("Changes have been saved")
-                    window.location.href = "/edit/tables"
                 }
             })
         } else {
@@ -113,7 +112,7 @@ export default class EditTable extends React.Component {
                 {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
             </button>
             <span className={"float-end"}>
-                <Link href={"/edit/tables"}>
+                <Link href={"/tables"}>
                     <a className={"btn btn-outline-secondary"}>
                         Table manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>

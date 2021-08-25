@@ -144,9 +144,11 @@ export default function Navbar({tabs}) {
                             </a>
                             <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkCommunity"}>
                                 <li>
-                                    <a className={"dropdown-item"} title={"Admin settings"}>
-                                        <FontAwesomeIcon icon={["fas", "users"]}/> Community
-                                    </a>
+                                    <Link href={"/users"}>
+                                        <a className={"dropdown-item"} title={"Users"}>
+                                            <FontAwesomeIcon icon={["fas", "users"]}/> Community
+                                        </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <hr className="dropdown-divider"/>

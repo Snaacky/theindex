@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import {useSession} from "next-auth/client"
-import {canEdit} from "../../lib/session"
+import {canEdit, isAdmin} from "../../lib/session"
 import styles from "./Card.module.css"
 import IconEdit from "../icons/IconEdit"
 import IconDelete from "../icons/IconDelete"
@@ -53,7 +53,7 @@ export default function Card(
                             </a>
                         </Link>
                         {url !== "" ? <IconNewTabLink url={url}/> : <></>}
-                        {canEdit(session) ? <>
+                        {canEdit(session) && type !== "user" || isAdmin(session) ? <>
                             <Link href={"/edit/" + hrefString}>
                                 <a title={"Edit " + type} className={"ms-2"}>
                                     <IconEdit/>
@@ -70,7 +70,7 @@ export default function Card(
                                     <DataBadge data={false} title={"NSFW"}/>
                                 </span> : <></>
                             }
-                            {canEdit(session) ? <>
+                            {canEdit(session) && type !== "user" || isAdmin(session) ? <>
                                 {add !== null ?
                                     <a title={"Add " + type} className={styles.link + " float-end"} onClick={add}>
                                         <IconAdd/>

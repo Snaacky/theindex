@@ -37,7 +37,7 @@ export default function EditorColumn({urlId, tabs, columns}) {
                             Edit column <Link href={"/column/" + column.urlId}>{column.title}</Link>
                         </>}
                         <span className={"float-end"}>
-                            <Link href={"/edit/columns"}>
+                            <Link href={"/columns"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     Column manager
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
