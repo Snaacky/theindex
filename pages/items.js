@@ -1,8 +1,6 @@
 import Layout, {siteTitle} from "../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
-import {useSession} from "next-auth/client"
-import Login from "../components/Login"
 import React from "react"
 import IconItem from "../components/icons/IconItem"
 import {getItems} from "../lib/db/items"
@@ -10,13 +8,6 @@ import ItemBoard from "../components/boards/ItemBoard"
 import {getColumns} from "../lib/db/columns"
 
 export default function EditorItems({tabs, items, columns}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
 
     return <Layout tabs={tabs}>
         <Head>

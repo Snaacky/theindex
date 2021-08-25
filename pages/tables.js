@@ -1,21 +1,12 @@
 import Layout, {siteTitle} from "../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
-import {useSession} from "next-auth/client"
-import Login from "../components/Login"
 import React from "react"
 import {getTables} from "../lib/db/tables"
 import IconTable from "../components/icons/IconTable"
 import TableBoard from "../components/boards/TableBoard"
 
 export default function EditorTables({tabs, tables}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
 
     return <Layout tabs={tabs}>
         <Head>

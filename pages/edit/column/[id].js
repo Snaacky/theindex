@@ -8,6 +8,8 @@ import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {canEdit} from "../../../lib/session";
+import NotAdmin from "../../../components/NotAdmin";
 
 export default function EditorColumn({urlId, tabs, columns}) {
     const [session] = useSession()
@@ -15,6 +17,12 @@ export default function EditorColumn({urlId, tabs, columns}) {
     if (!session) {
         return <Layout tabs={tabs}>
             <Login/>
+        </Layout>
+    }
+
+    if (!canEdit(session)) {
+        return <Layout tabs={tabs}>
+            <NotAdmin/>
         </Layout>
     }
 

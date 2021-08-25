@@ -3,8 +3,25 @@ import Image from "next/image"
 import Layout, {siteTitle} from "../components/layout/Layout"
 import {images} from "../lib/icon"
 import {getTabsWithTables} from "../lib/db/tabs"
+import Login from "../components/Login"
+import {isAdmin} from "../lib/session"
+import NotAdmin from "../components/NotAdmin"
+import {useSession} from "next-auth/client"
 
 export default function Admin({tabs, images}) {
+    const [session] = useSession()
+
+    if (!session) {
+        return <Layout tabs={tabs}>
+            <Login/>
+        </Layout>
+    }
+    if (!isAdmin(session)) {
+        return <Layout tabs={tabs}>
+            <NotAdmin/>
+        </Layout>
+    }
+
     return (
         <Layout tabs={tabs}>
             <Head>

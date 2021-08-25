@@ -9,6 +9,8 @@ import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
+import {canEdit} from "../../../lib/session";
+import NotAdmin from "../../../components/NotAdmin";
 
 export default function EditorTable({urlId, tabs, tables, columns}) {
     const [session] = useSession()
@@ -16,6 +18,12 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
     if (!session) {
         return <Layout tabs={tabs}>
             <Login/>
+        </Layout>
+    }
+
+    if (!canEdit(session)) {
+        return <Layout tabs={tabs}>
+            <NotAdmin/>
         </Layout>
     }
 
