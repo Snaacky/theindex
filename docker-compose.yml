@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:3000
     environment:
-      ROOT_URL: "https://piracy.moe"
+      NEXTAUTH_URL: "https://piracy.moe"
       # uncomment the following if you are using your own db setup
       # DATABASE_URL: "mongodb://mongo:27017"
       AUDIT_WEBHOOK: ""

@@ -21,7 +21,7 @@ The easiest way is to get started is by using Docker with the following command:
 docker run -d \
     -p <host-port>:8080 \
     -e DATABASE_URL="mongodb:///mongo:27017" \
-    -e ROOT_URL="https://piracy.moe" \
+    -e NEXTAUTH_URL="https://piracy.moe" \
     -e DISCORD_CLIENT_ID="00000000000" \
     -e DISCORD_CLIENT_SECRET="secret" \
     -e SETUP_WHITELIST_DISCORD_ID="00000000000" \
@@ -82,11 +82,11 @@ Here is a table of the possible ENV-variables with their default values. Note th
 discord and has not been tested with anything else.
 
 | Parameter | Function |
-| :----: | --- |
+| :---- | --- |
 | `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
 | `-e DISCORD_CLIENT_ID=00000000000` | OAuth2 client ID |
 | `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | OAuth2 client secret |
-| `-e ROOT_URL="https://piracy.moe"` | Your domain or IP |
+| `-e NEXTAUTH_URL="https://piracy.moe"` | Your domain or IP |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
 | `-e DATABASE_URL="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
 
