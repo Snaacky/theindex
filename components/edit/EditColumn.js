@@ -210,7 +210,7 @@ export default class EditColumn extends React.Component {
                 </div>
             </> : <></>}
 
-            <button className={"btn btn-primary"} type="button" onClick={() => this.saveColumn()}>
+            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveColumn()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create column" : "Save changes"}
             </button>

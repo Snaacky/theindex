@@ -16,6 +16,10 @@ body {
     color: white;
 }
 
+main {
+    min-height: 80vh;
+}
+
 .bg-1 {
     background-color: var(--bg-1);
     color: white;
@@ -65,11 +69,11 @@ a:not(.link-light):not(.btn):not(.navbar-brand):hover {
     color: #2a6496 !important;
 }
 
-ul.dropdown-menu > li > a.dropdown-item {
+ul.dropdown-menu li > a.dropdown-item {
     color: white;
 }
 
-ul.dropdown-menu > li > a.dropdown-item:hover {
+ul.dropdown-menu li > a.dropdown-item:hover {
     background-color: var(--bg-7);
 }
 

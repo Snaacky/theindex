@@ -2,6 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import {signIn, signOut, useSession} from "next-auth/client"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import IconAdmin from "../icons/IconAdmin"
+import {isAdmin} from "../../lib/session"
 
 export default function Profile() {
     const [session] = useSession()
@@ -27,6 +29,13 @@ export default function Profile() {
                             </a>
                         </Link>
                     </li>
+                    {isAdmin(session) ? <li>
+                        <Link href={"/admin"}>
+                            <a className={"dropdown-item"} title={"Admin settings"}>
+                                <IconAdmin/> Admin
+                            </a>
+                        </Link>
+                    </li> : <></>}
                     <hr className="dropdown-divider"/>
                 </>
                 : <></>}

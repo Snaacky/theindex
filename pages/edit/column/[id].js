@@ -8,8 +8,8 @@ import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {canEdit} from "../../../lib/session";
-import NotAdmin from "../../../components/NotAdmin";
+import {canEdit} from "../../../lib/session"
+import NotAdmin from "../../../components/NotAdmin"
 
 export default function EditorColumn({urlId, tabs, columns}) {
     const [session] = useSession()

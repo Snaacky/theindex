@@ -74,7 +74,7 @@ export default class EditUser extends React.Component {
                           }}/>
             </div>
 
-            <button className={"btn btn-primary"} type="button" onClick={() => this.saveUser()}>
+            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveUser()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 Save changes
             </button>

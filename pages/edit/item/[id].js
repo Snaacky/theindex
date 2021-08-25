@@ -8,8 +8,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
-import {canEdit} from "../../../lib/session";
-import NotAdmin from "../../../components/NotAdmin";
+import {canEdit} from "../../../lib/session"
+import NotAdmin from "../../../components/NotAdmin"
 
 export default function EditorColumn({_id, tabs, columns, item}) {
     const [session] = useSession()

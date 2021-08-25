@@ -225,13 +225,13 @@ export default class EditItem extends React.Component {
             <label className="form-label">
                 Columns
             </label>
-            <div className={"d-flex mb-3"}>
+            <div className={"d-flex flex-wrap mb-3"}>
                 {this.columns.map(c => <div key={c._id}>
                     <DataCard data={this.state.data[c._id]} column={c} onChange={(v) => this.dataUpdate(c, v)}/>
                 </div>)}
             </div>
 
-            <button className={"btn btn-primary"} type="button" onClick={() => this.saveItem()}>
+            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveItem()}>
                 <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                 {typeof this.state._id === "undefined" ? "Create item" : "Save changes"}
             </button>

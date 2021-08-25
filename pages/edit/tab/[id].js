@@ -7,8 +7,8 @@ import {getTables} from "../../../lib/db/tables"
 import EditTab from "../../../components/edit/EditTab"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {canEdit} from "../../../lib/session";
-import NotAdmin from "../../../components/NotAdmin";
+import {canEdit} from "../../../lib/session"
+import NotAdmin from "../../../components/NotAdmin"
 
 export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()

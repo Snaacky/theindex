@@ -4,7 +4,6 @@ import Profile from "./Profile"
 import {useSession} from "next-auth/client"
 import IconAdd from "../icons/IconAdd"
 import {canEdit} from "../../lib/session"
-import IconAdmin from "../icons/IconAdmin"
 import IconTable from "../icons/IconTable"
 import IconTab from "../icons/IconTab"
 import IconItem from "../icons/IconItem"
@@ -129,20 +128,13 @@ export default function Navbar({tabs}) {
                 </ul>
                 <form className="d-flex">
                     <ul className="navbar-nav">
-                        {canEdit(session) ? <li className="nav-item">
-                            <Link href={"/admin"}>
-                                <a className={"nav-link"} title={"Admin settings"}>
-                                    <IconAdmin/>
-                                </a>
-                            </Link>
-                        </li> : <></>}
                         <li className="nav-item dropdown">
                             <a className={"nav-link dropdown-toggle"} role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"
                                id={"navDropdownLinkCommunity"}>
                                 <FontAwesomeIcon icon={["fas", "users"]}/>
                             </a>
-                            <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLinkCommunity"}>
+                            <ul className=" dropdown-menu dropdown-menu-end bg-4" aria-labelledby={"navDropdownLinkCommunity"}>
                                 <li>
                                     <Link href={"/users"}>
                                         <a className={"dropdown-item"} title={"Users"}>
@@ -150,6 +142,32 @@ export default function Navbar({tabs}) {
                                         </a>
                                     </Link>
                                 </li>
+                                <div className={"d-inline-block d-lg-none"}>
+                                    <li>
+                                        <hr className="dropdown-divider"/>
+                                    </li>
+                                    <li>
+                                        <a className={"dropdown-item"} href="https://wiki.piracy.moe/">
+                                            <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                                 src={"/icons/wikijs.svg"} alt={"Wiki.js logo"}/>
+                                            Wiki
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className={"dropdown-item"} href="https://status.piracy.moe/">
+                                            <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                                 src={"/icons/status.png"} alt={"Checkly logo"}/>
+                                            Status
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a className={"dropdown-item"} href="https://releases.moe/">
+                                            <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                                 src={"/icons/seadex.png"} alt={"Seadex logo"}/>
+                                            SeaDex
+                                        </a>
+                                    </li>
+                                </div>
                                 <li>
                                     <hr className="dropdown-divider"/>
                                 </li>
@@ -179,27 +197,29 @@ export default function Navbar({tabs}) {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="https://wiki.piracy.moe/">
-                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/wikijs.svg"} alt={"Wiki.js logo"}/>
-                                Wiki
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="https://status.piracy.moe/">
-                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/status.png"} alt={"Checkly logo"}/>
-                                Status
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="https://releases.moe/">
-                                <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                     src={"/icons/seadex.png"} alt={"Seadex logo"}/>
-                                Status
-                            </a>
-                        </li>
+                        <div className={"d-none d-lg-flex"}>
+                            <li className="nav-item">
+                                <a className="nav-link" href="https://wiki.piracy.moe/">
+                                    <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                         src={"/icons/wikijs.svg"} alt={"Wiki.js logo"}/>
+                                    Wiki
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="https://status.piracy.moe/">
+                                    <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                         src={"/icons/status.png"} alt={"Checkly logo"}/>
+                                    Status
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="https://releases.moe/">
+                                    <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
+                                         src={"/icons/seadex.png"} alt={"Seadex logo"}/>
+                                    SeaDex
+                                </a>
+                            </li>
+                        </div>
                         <Profile/>
                     </ul>
                 </form>

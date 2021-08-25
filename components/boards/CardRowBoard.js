@@ -167,19 +167,19 @@ export default class CardRowBoard extends React.Component {
         return <>
             <div className={"card card-body bg-2 mb-2"}>
                 <div>
-                    <button className={"btn btn-outline-primary"} type={"button"}
+                    <button className={"btn btn-outline-primary mb-2"} type={"button"}
                             data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter"}
                             aria-expanded="false" aria-controls={"collapseFilter"}>
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter
                     </button>
-                    <button className={"btn btn-outline-secondary mx-2"} type={"button"}
+                    <button className={"btn btn-outline-secondary mx-2 mb-2"} type={"button"}
                             onClick={() => this.setState({useCards: !this.state.useCards})}>
                         <FontAwesomeIcon icon={["fas", (this.state.useCards ? "th-list" : "th-large")]}
                                          className={"me-2"}/>
                         {this.state.useCards ? "List" : "Grid"}
                     </button>
                     {this.state.columns.length > 0 ?
-                        <button className={"btn btn-outline-secondary me-2"} type={"button"}
+                        <button className={"btn btn-outline-secondary me-2 mb-2"} type={"button"}
                                 onClick={() => this.setState({compactView: !this.state.compactView})}>
                             <FontAwesomeIcon icon={["fas", (this.state.compactView ? "expand" : "compress")]}
                                              className={"me-2"}/>
