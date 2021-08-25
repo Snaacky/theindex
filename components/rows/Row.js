@@ -66,6 +66,10 @@ export default function Row(
                             </a>
                         </Link> : ""}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {content.sponsor ?
+                                <span className={"ms-2"}>
+                                    <DataBadge title={"Sponsor"} style={"warning text-dark"}/>
+                                </span> : <></>}
                             {content.nsfw ? <span className={"ms-2"}>
                                 <DataBadge data={false} title={"NSFW"}/>
                             </span> : <></>}

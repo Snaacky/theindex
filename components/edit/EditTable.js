@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import ColumnRow from "../rows/ColumnRow"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditTable extends React.Component {

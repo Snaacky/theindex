@@ -1,8 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import TableRow from "../rows/TableRow"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import TableBoard from "../boards/TableBoard"
 
 export default class EditTab extends React.Component {
     constructor({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables}) {
