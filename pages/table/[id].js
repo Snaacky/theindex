@@ -62,7 +62,7 @@ export default function Table({tabs, table, items}) {
                 </p>
             </div>
         </div>
-        <ItemBoard _id={table._id} items={table.items} allItems={items} columns={table.columns}/>
+        <ItemBoard _id={table._id} items={table.items} allItems={items} columns={table.columns} key={table._id}/>
     </Layout>
 }
 

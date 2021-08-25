@@ -48,7 +48,7 @@ export default function Tab({tabs, tab, tables}) {
             </div>
         </div>
 
-        <TableBoard _id={tab._id} tables={tab.tables} allTables={tables}/>
+        <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} key={tab._id}/>
     </Layout>
 }
 
