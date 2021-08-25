@@ -18,12 +18,16 @@ import DataBadge from "../../components/data/DataBadge"
 export default function Column({tabs, itemsContainingColumn, column, columns}) {
     const router = useRouter()
     const [session] = useSession()
-    const initValue = column.type === "array" ? [] : (column.type === "bool" ? null : "")
-    const [filter, setFilter] = useState(initValue)
+
+    const [filter, setFilter] = useState(null)
 
     if (router.isFallback) {
         return <Loader/>
     }
+
+    const initValue = column.type === "array" ? [] : (column.type === "bool" ? null : "")
+    setFilter(initValue)
+
 
     const filteredItems = itemsContainingColumn.filter(i => {
         if (column.type === "array") {
@@ -81,8 +85,8 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
 }
 
 export async function getStaticPaths() {
-    const items = await getColumns()
-    const paths = items.map(i => {
+    const columns = await getColumns() || []
+    const paths = columns.map(i => {
         return {
             params: {
                 id: i.urlId
