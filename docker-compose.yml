@@ -9,7 +9,7 @@ services:
     environment:
       NEXTAUTH_URL: "https://piracy.moe"
       # uncomment the following if you are using your own db setup
-      # DATABASE_URL: "mongodb://index-db:27017"
+      # DATABASE_URL: "mongodb://mongo:27017"
       AUDIT_WEBHOOK: ""
 
       # OAuth2
@@ -21,9 +21,9 @@ services:
       # remove once set up
       SETUP_WHITELIST_DISCORD_ID: 00000000000
     depends_on:
-      - db
+      - mongo
 
-  db:
+  mongo:
     image: mongo
     container_name: index-db
     restart: unless-stopped

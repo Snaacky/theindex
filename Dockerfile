@@ -5,7 +5,7 @@ FROM node:16.7.0-slim as react-build
 
 # Required ENV
 ENV ROOT_URL="https://piracy.moe"
-ENV DATABASE_URL="mongodb://index-db:27017"
+ENV DATABASE_URL="mongodb://mongo:27017"
 ENV AUDIT_WEBHOOK=""
 
 # ENV for OAuth2

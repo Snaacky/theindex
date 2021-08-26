@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
-import {addUser, getUser} from "../../../lib/db/users"
+import {addUser, getUser, userExists} from "../../../lib/db/users"
 import {findOne} from "../../../lib/db/db";
 
 const discord = Providers.Discord({
@@ -16,13 +16,12 @@ const nextAuth = NextAuth({
         async session(session, user) {
             if (user) {
                 session.user.uid = user.id
-                const dbUser = await getUser(user.id)
-                if (dbUser === null) {
+                if (!(await userExists(user.id))) {
                     const accountData = await findOne("nextauth_accounts", {userId: user.id})
                     const accountType = (
                         typeof process.env.SETUP_WHITELIST_DISCORD_ID !== "undefined" &&
                         process.env.SETUP_WHITELIST_DISCORD_ID !== "" &&
-                        accountData.providerAccountId === process.env.SETUP_WHITELIST_DISCORD_ID ?
+                        accountData.providerAccountId === process.env.SETUP_WHITELIST_DISCORD_ID.toString() ?
                             "admin" : "user"
                     )
                     await addUser({
