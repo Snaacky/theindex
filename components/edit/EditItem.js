@@ -8,14 +8,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../icons/IconNewTabLink"
 
 export default class EditItem extends React.Component {
-    constructor({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns}) {
-        super({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns})
+    constructor({_id, name, urls, nsfw, description, data, blacklist, sponsor, columns}) {
+        super({_id, name, urls, nsfw, description, data, blacklist, sponsor, columns})
 
         this.columns = columns.sort((a, b) => a.name < b.name ? -1 : 1)
 
         this.state = {
             _id,
-            title: title || "",
+            name: name || "",
             urls: urls || [],
             nsfw: nsfw || false,
             description: description || "",
@@ -30,7 +30,7 @@ export default class EditItem extends React.Component {
     saveItem() {
         if (this.state.name !== "") {
             let body = {
-                title: this.state.name,
+                name: this.state.name,
                 urls: this.state.urls,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
@@ -57,7 +57,7 @@ export default class EditItem extends React.Component {
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the title")
+            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name")
         }
     }
 
@@ -114,9 +114,9 @@ export default class EditItem extends React.Component {
                     </label>
                     <input type={"text"} className={"form-control"} id={"createItemInputName"}
                            value={this.state.name} aria-describedby={"createItemInputNameHelp"}
-                           placeholder={"Enter a title"} required={true}
+                           placeholder={"Enter a name"} required={true}
                            onChange={(input) => {
-                               this.setState({title: input.target.value})
+                               this.setState({name: input.target.value})
                            }}/>
                     <div id={"createItemInputNameHelp"} className={"form-text"}>
                         Shown name of item

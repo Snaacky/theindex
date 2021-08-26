@@ -53,7 +53,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
                     <h3>
                         {column.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {column.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
+                            {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                             {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
                                 <a className={"ms-2"} title={"Edit column"}>
                                     <IconEdit/>
@@ -70,7 +70,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter:
                     </span>
                     {column.type === "array" || column.type === "bool" ?
-                        <DataItem data={filter} column={column} title={column.name} onChange={setFilter}/> : <></>
+                        <DataItem data={filter} column={column} name={column.name} onChange={setFilter}/> : <></>
                     }
                 </div>
             </div>

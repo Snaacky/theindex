@@ -18,7 +18,7 @@ export default async function apiEditTab(req, res) {
                 res.status(200).send("Ok")
             }
         } else {
-            res.status(400).send("Missing url id or title")
+            res.status(400).send("Missing url id or name")
         }
     } else {
         // Not Signed in

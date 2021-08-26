@@ -58,7 +58,7 @@ export default function TabRow(
                         </Link> : ""}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {tab.nsfw ? <span className={"ms-2"}>
-                                <DataBadge data={false} title={"NSFW"}/>
+                                <DataBadge data={false} name={"NSFW"}/>
                             </span> : <></>}
                         </span>
                     </h5>

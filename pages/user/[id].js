@@ -33,7 +33,7 @@ export default function User({tabs, user}) {
                     <h3>
                         {user.name}
                         <span className={"ms-2"} style={{fontSize: "1.2rem"}}>
-                            <DataBadge title={user.accountType} style={"primary"}/>
+                            <DataBadge name={user.accountType} style={"primary"}/>
                             <div className={"float-end"}>
                                 {isAdmin(session) ? <Link href={"/edit/user/" + user.uid}>
                                     <a title={"Edit user"} className={"ms-2"}>

@@ -59,7 +59,7 @@ export default function EditorColumn({urlId, tabs, columns}) {
                         </small> : <></>}
                 </div>
                 {typeof column === "undefined" ? <EditColumn columns={columns}/> :
-                    <EditColumn columns={columns} _id={column._id} urlId={column.urlId} title={column.name}
+                    <EditColumn columns={columns} _id={column._id} urlId={column.urlId} name={column.name}
                                 nsfw={column.nsfw} description={column.description} type={column.type}
                                 values={column.values}/>
                 }

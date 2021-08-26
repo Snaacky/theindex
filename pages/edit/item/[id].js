@@ -55,7 +55,7 @@ export default function EditorColumn({_id, tabs, columns, item}) {
                         </small> : <></>}
                 </div>
                 {_id === "_new" ? <EditItem columns={columns}/> :
-                    <EditItem _id={item._id} title={item.name} urls={item.urls} nsfw={item.nsfw}
+                    <EditItem _id={item._id} name={item.name} urls={item.urls} nsfw={item.nsfw}
                               description={item.description} data={item.data} columns={columns}/>
                 }
             </div>

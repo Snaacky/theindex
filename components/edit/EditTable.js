@@ -3,8 +3,8 @@ import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditTable extends React.Component {
-    constructor({tables, _id, urlId, title, nsfw, description}) {
-        super({tables, _id, urlId, title, nsfw, description})
+    constructor({tables, _id, urlId, name, nsfw, description}) {
+        super({tables, _id, urlId, name, nsfw, description})
 
         this.tablesDatalist = tables.map(t => t.name)
         this.urlDatalist = tables.map(t => t.urlId)
@@ -12,7 +12,7 @@ export default class EditTable extends React.Component {
         this.state = {
             _id,
             urlId: urlId || "",
-            title: title || "",
+            name: name || "",
             nsfw: nsfw || false,
             description: description || ""
         }
@@ -26,7 +26,7 @@ export default class EditTable extends React.Component {
 
             let body = {
                 urlId: this.state.urlId,
-                title: this.state.name,
+                name: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description
             }
@@ -49,7 +49,7 @@ export default class EditTable extends React.Component {
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the title and url id")
+            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
         }
     }
 
@@ -63,9 +63,9 @@ export default class EditTable extends React.Component {
                     <input type={"text"} className={"form-control"} id={"createTableInputName"}
                            value={this.state.name}
                            list={"createTableInputNameDatalist"} aria-describedby={"createTableInputNameHelp"}
-                           placeholder={"Enter a title"} required={true}
+                           placeholder={"Enter a name"} required={true}
                            onChange={(input) => {
-                               this.setState({title: input.target.value})
+                               this.setState({name: input.target.value})
                            }}/>
                     <datalist id={"createTableInputNameDatalist"}>
                         {this.tablesDatalist.map(t => <option value={t} key={t}/>)}

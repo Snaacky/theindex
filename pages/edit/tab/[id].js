@@ -58,7 +58,7 @@ export default function EditorTab({urlId, tabs, tables}) {
                         </small> : <></>}
                 </div>
                 {typeof tab === "undefined" ? <EditTab tabs={tabs} tablesDatalist={tables}/> :
-                    <EditTab tabs={tabs} tablesDatalist={tables} _id={tab._id} urlId={tab.urlId} title={tab.name}
+                    <EditTab tabs={tabs} tablesDatalist={tables} _id={tab._id} urlId={tab.urlId} name={tab.name}
                              nsfw={tab.nsfw} description={tab.description} tables={tab.tables}/>
                 }
             </div>

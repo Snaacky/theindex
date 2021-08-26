@@ -64,7 +64,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                 {typeof table === "undefined" ? <EditTable tables={tables} columnsDatalist={columns}/> :
                     <>
                         <EditTable tables={tables} columnsDatalist={columns} _id={table._id} urlId={table.urlId}
-                                   title={table.name} nsfw={table.nsfw} description={table.description}
+                                   name={table.name} nsfw={table.nsfw} description={table.description}
                                    columns={table.columns}/>
                     </>
                 }
