@@ -35,6 +35,7 @@ RUN npm ci --silent
 
 # build the web app
 COPY . .
+RUN npm run build
 
 # start the node server
-CMD npm run dev
+CMD npm run start -p 3000
