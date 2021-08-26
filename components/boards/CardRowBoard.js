@@ -47,7 +47,8 @@ export default class CardRowBoard extends React.Component {
             useCards: true,
             compactView: false,
             editView: false,
-            filter: []
+            filter: [],
+            searchString: ""
         }
     }
 
@@ -188,18 +189,32 @@ export default class CardRowBoard extends React.Component {
                     <EditButton onClick={() => this.setState({editView: !this.state.editView})}
                                 editView={this.state.editView}/>
                 </div>
-                <div id={"collapseFilter"} className="collapse row g-3">
+                <div id={"collapseFilter"} className="collapse">
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
+                    <div className={"input-group mb-2"}>
+                        <span className="input-group-text" id="inputSearchStringAddon">
+                            <FontAwesomeIcon icon={["fas", "search"]}/>
+                        </span>
+                        <input value={this.state.searchString} type={"text"} className={"form-control"}
+                               onChange={(e) => this.setState({
+                                   searchString: e.target.value
+                               })} aria-label={"Search input"} placeholder={"Type something to search..."}
+                               aria-describedby={"inputSearchStringAddon"}/>
+                    </div>
                     <span className={"text-muted"}>
                         This is a placeholder text
                     </span>
                 </div>
             </div>
             <div className={"d-flex flex-wrap"}>
-                {this.state.content.length === 0 ? <span className={"text-muted"}>
+                {this.state.content.filter(c => c.title.toLowerCase()
+                    .includes(this.state.searchString.toLowerCase())
+                ).length === 0 ? <span className={"text-muted"}>
                     Nothing could be found
                 </span> : <></>}
-                {this.state.content.map(i => this.renderSingleContent(
+                {this.state.content.filter(c => c.title.toLowerCase()
+                    .includes(this.state.searchString.toLowerCase())
+                ).map(i => this.renderSingleContent(
                     i,
                     this.state.editView && this.deleteContentURL === "",
                     false,
@@ -209,11 +224,15 @@ export default class CardRowBoard extends React.Component {
             {this.state.editView ? <>
                 <hr/>
                 <div className={"d-flex flex-wrap"}>
-                    {this.state.unselectedContent.length === 0 ?
+                    {this.state.unselectedContent.filter(c => c.title.toLowerCase()
+                        .includes(this.state.searchString.toLowerCase())
+                    ).length === 0 ?
                         <span className={"text-muted"}>
                             There is nothing to be added anymore
                         </span> : <></>}
-                    {this.state.unselectedContent.map(i => this.renderSingleContent(i, false, true))}
+                    {this.state.unselectedContent.filter(c => c.title.toLowerCase()
+                        .includes(this.state.searchString.toLowerCase())
+                    ).map(i => this.renderSingleContent(i, false, true))}
                     <Link href={"/edit/" + this.type + "/_new"}>
                         <a className={"btn btn-outline-success mx-2 mb-2 p-0"}
                            style={{width: "2.5rem", height: "2.5rem"}}>

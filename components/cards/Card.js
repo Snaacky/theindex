@@ -11,7 +11,6 @@ import DataBadge from "../data/DataBadge"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Loader from "../loading"
 
-
 export default function Card(
     {
         type,
