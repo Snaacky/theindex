@@ -37,4 +37,4 @@ RUN npm ci --silent
 COPY . .
 
 # start the node server
-CMD npm run serve
+CMD npm run dev
