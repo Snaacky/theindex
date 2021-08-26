@@ -51,7 +51,9 @@ export default class EditItem extends React.Component {
                     alert("Failed to save data: Error " + r.status)
                 } else {
                     alert("Changes have been saved")
-                    window.location.href = "/edit/items"
+                    if (typeof this.state._id === "undefined") {
+                        window.location.href = "/items"
+                    }
                 }
             })
         } else {

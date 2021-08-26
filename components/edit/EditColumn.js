@@ -53,7 +53,9 @@ export default class EditColumn extends React.Component {
                     alert("Failed to save data: Error " + r.status)
                 } else {
                     alert("Changes have been saved")
-                    window.location.href = "/edit/columns"
+                    if (typeof this.state._id === "undefined") {
+                        window.location.href = "/columns"
+                    }
                 }
             })
         } else {
@@ -120,7 +122,7 @@ export default class EditColumn extends React.Component {
                         {this.urlDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createColumnInputURLHelp"} className={"form-text"}>
-                        Identifier used for the URLs, must be a string containing only <code>[a-zA-Z0-9]</code>
+                        Identifier used for the URLs, must be a string containing only <code>[a-z0-9-_]</code>
                     </div>
                 </div>
             </div>

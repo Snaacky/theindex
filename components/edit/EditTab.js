@@ -50,56 +50,14 @@ export default class EditTab extends React.Component {
                     alert("Failed to save data: Error " + r.status)
                 } else {
                     alert("Changes have been saved")
-                    window.location.href = "/edit/tabs"
+                    if (typeof this.state._id === "undefined") {
+                        window.location.href = "/tabs"
+                    }
                 }
             })
         } else {
             alert("Wow, wow! Wait a minute bro, you forgot to fill in the title and url id")
         }
-    }
-
-    addTable(table) {
-        this.setState({
-            tables: this.state.tables.concat([{
-                _id: table._id,
-                order: this.state.tables.length
-            }]),
-            tablesNotSelected: this.state.tablesNotSelected.filter(t => t._id !== table._id)
-        })
-    }
-
-    moveTable(table, sort) {
-        let temp = this.state.tables.find(t => t._id === table._id)
-        if (temp.order + sort < 0 || temp.order + sort === this.state.tables.length) {
-            return
-        }
-
-        temp.order += sort
-        let temp2 = this.state.tables[temp.order]
-        temp2.order -= sort
-
-        let copy = this.state.tables
-        copy[temp.order] = temp
-        copy[temp2.order] = temp2
-
-        this.setState({
-            tables: copy
-        })
-    }
-
-    removeTable(table) {
-        let temp = this.state.tables.filter(t => t._id !== table._id)
-        temp = temp.map((t, i) => {
-            t.order = i
-            return t
-        })
-
-        this.setState({
-            tables: temp,
-            tablesNotSelected: this.state.tablesNotSelected.concat([
-                this.tablesDatalist.find(tDL => tDL._id === table._id)
-            ]).sort((a, b) => a.title > b.title ? 1 : -1)
-        })
     }
 
     render() {
@@ -136,7 +94,7 @@ export default class EditTab extends React.Component {
                         {this.urlDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createTabInputURLHelp"} className={"form-text"}>
-                        Identifier used for the URLs, must be a string containing only <code>[a-zA-Z0-9]</code>
+                        Identifier used for the URLs, must be a string containing only <code>[a-z0-9-_]</code>
                     </div>
                 </div>
             </div>
