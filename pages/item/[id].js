@@ -12,6 +12,7 @@ import {getColumns} from "../../lib/db/columns"
 import DataItem from "../../components/data/DataItem"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
+import {splitColumnsIntoTypes} from "../../lib/item";
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
     const router = useRouter()
@@ -21,22 +22,7 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
         return <Loader/>
     }
 
-    let columnYes = [], columnNo = [], columnArray = []
-    Object.keys(item.data).forEach(key => {
-        const c = columns.find(c => c._id === key)
-
-        if (c.type === "bool") {
-            if (item.data[key] === true) {
-                columnYes.push(c)
-            } else if (item.data[key] === false) {
-                columnNo.push(c)
-            }
-        } else if (c.type === "array") {
-            columnArray.push(c)
-        } else {
-            console.error("Unknown column type of ", c)
-        }
-    })
+    const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
     return <Layout tabs={tabs}>
         <Head>
@@ -59,7 +45,7 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         <span style={{fontSize: "1.2rem"}}>
                             {tablesContainingItem.map(t => {
                                 return <Link href={"/table/" + t.urlId} key={t._id}>
-                                    <a title={"View table " + t.name}>
+                                    <a className={"ms-2"} title={"View table " + t.name}>
                                         <DataBadge name={t.name} style={"primary"}/>
                                     </a>
                                 </Link>
@@ -108,8 +94,8 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         It has
                     </h5>
                     <div className={"d-flex flex-wrap"}>
-                        {columnYes.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                        {columnYes.map(c => {
+                        {column.yes.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {column.yes.map(c => {
                             return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
                         })}
                     </div>
@@ -121,8 +107,8 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         It does <span className={"text-danger"}>not</span> have
                     </h5>
                     <div className={"d-flex flex-wrap"}>
-                        {columnNo.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                        {columnNo.map(c => {
+                        {column.no.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {column.no.map(c => {
                             return <DataItem data={item.data[c._id]} column={c} key={c._id}/>
                         })}
                     </div>
@@ -134,8 +120,8 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         Other features are
                     </h5>
                     <div className={"d-flex flex-wrap"}>
-                        {columnArray.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
-                        {columnArray.map(c => {
+                        {column.array.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}
+                        {column.array.map(c => {
                             return <div key={c._id}>
                                 <Link href={"/column/" + c.urlId}>
                                     <a className={"me-2"} title={"View column " + c.name}>
@@ -148,6 +134,17 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                     </div>
                 </div>
             </div>
+            {column.text.length > 0 ? column.text.map(c =>
+                <div className={"card bg-2 my-2"} key={c._id}>
+                    <div className={"card-body"}>
+                        <h5 className={"card-title"}>
+                            {c.name}
+                        </h5>
+                        <p className={"card-text"}>
+                            {item.data[c._id]}
+                        </p>
+                    </div>
+                </div>) : <></>}
         </> : <></>}
     </Layout>
 }

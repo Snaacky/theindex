@@ -24,7 +24,7 @@ export default class EditItem extends React.Component {
             sponsor: sponsor || false,
             newURL: ""
         }
-        console.log("New state of item editor:", this.state)
+        console.log("New state of item editor:", this.state, this.columns)
     }
 
     saveItem() {

@@ -6,8 +6,8 @@ export default function ItemBoard(
         items,
         allItems,
         columns,
-        updateURL = "/api/edit/tab",
-        updateKey = "tables",
+        updateURL = "/api/edit/table/items",
+        updateKey = "items",
         deleteURL = "",
     }) {
     return <CardRowBoard type={"item"} _id={_id} content={items} allContent={allItems} columns={columns}
