@@ -2,7 +2,7 @@ import Head from "next/head"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 
-export const siteName = "/r/animepiracy Index"
+export const siteName = "The Anime Index"
 
 export default function Layout({children, error, tabs}) {
     return (

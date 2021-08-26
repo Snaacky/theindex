@@ -20,7 +20,7 @@ export default function Navbar({tabs}) {
                     <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
                            className="d-inline-block rounded align-top"/>
                     <span className={"ms-2 d-sm-inline-block d-none align-top"}>
-                        /r/animepiracy Index
+                        The Anime Index
                     </span>
                 </a>
             </Link>
