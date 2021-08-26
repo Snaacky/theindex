@@ -10,7 +10,7 @@ export default function BoolValue({data, column, onChange = null}) {
         </Link>
     }
 
-    return <a className={""} onClick={() => {
+    return <a onClick={() => {
         if (typeof data === "boolean") {
             onChange(data ? false : null)
         } else {
