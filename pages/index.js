@@ -18,7 +18,7 @@ export default function Home({tabs}) {
                     {tabs.map(({urlId, name}) => {
                         return (
                             <Link href={"/tab/" + urlId} key={urlId}>
-                                <a type={"button"} className={"btn btn-lg btn-outline-primary me-3"}>
+                                <a className={"btn btn-lg btn-outline-primary me-3 mb-2"}>
                                     {name}
                                 </a>
                             </Link>
