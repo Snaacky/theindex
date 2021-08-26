@@ -49,7 +49,7 @@ export default class EditUser extends React.Component {
             <div className="form-floating mb-3">
                 <select className="form-select" id="userTypeInput" aria-label="Account type of user"
                         onChange={(e) => this.setState({
-                            type: e.target.value
+                            accountType: e.target.value
                         })} value={this.state.accountType}>
                     <option value="user">
                         User
