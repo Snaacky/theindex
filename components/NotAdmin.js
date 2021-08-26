@@ -22,7 +22,7 @@ export default function NotAdmin() {
             You do not seem to have enough rights to access this page
         </p>
         <Link href={"/"}>
-            <a title={"Go back"}>
+            <a className={"btn btn-outline-success"} title={"Go back"}>
                 <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Home
             </a>
         </Link>

@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getUser} from "../../../lib/db/users"
 import {isAdmin} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
+import NotAdmin from "../../../components/NotAdmin"
 
 export default function EditorUser({uid, tabs, user}) {
     const [session] = useSession()
@@ -20,9 +21,7 @@ export default function EditorUser({uid, tabs, user}) {
 
     if (!isAdmin(session)) {
         return <Layout tabs={tabs}>
-            <div className={"d-flex align-items-center justify-content-center w-100 h-100"}>
-                Access forbidden. You need admin rights to access this site
-            </div>
+            <NotAdmin/>
         </Layout>
     }
 
