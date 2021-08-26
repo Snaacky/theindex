@@ -183,7 +183,7 @@ export default class EditItem extends React.Component {
                         </div>
                         <div className={styles.column + " col-auto px-1"}>
                             <div className={"d-flex flex-row"}>
-                                <span style={{fontSize: "1.5rem"}}>
+                                <span className={"me-2"} style={{fontSize: "1.5rem"}}>
                                     <IconNewTabLink url={v}/>
                                 </span>
                                 <a onClick={() => this.removeURL(i)} title={"Remove url"}
