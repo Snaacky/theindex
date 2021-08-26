@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/Layout"
+import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabs, getTabsWithTables} from "../../lib/db/tabs"
@@ -22,7 +22,7 @@ export default function Tab({tabs, tab, tables}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {tab.title + " | " + siteTitle}
+                {tab.name + " | " + siteName}
             </title>
             <meta name="description" content={tab.description}/>
         </Head>
@@ -31,7 +31,7 @@ export default function Tab({tabs, tab, tables}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {tab.title}
+                        {tab.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {tab.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
                             {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>

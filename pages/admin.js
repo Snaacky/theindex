@@ -1,6 +1,6 @@
 import Head from "next/head"
 import Image from "next/image"
-import Layout, {siteTitle} from "../components/layout/Layout"
+import Layout, {siteName} from "../components/layout/Layout"
 import {images} from "../lib/icon"
 import {getTabsWithTables} from "../lib/db/tabs"
 import Login from "../components/Login"
@@ -25,7 +25,7 @@ export default function Admin({tabs, images}) {
     return (
         <Layout tabs={tabs}>
             <Head>
-                <title>Admin | {siteTitle}</title>
+                <title>Admin | {siteName}</title>
             </Head>
 
             <div className={"mb-4"}>

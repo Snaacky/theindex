@@ -6,14 +6,14 @@ export default async function apiEditTab(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body
-        if (d.urlId !== "" && d.title !== "") {
+        if (d.urlId !== "" && d.name !== "") {
             if (d.urlId === "_new") {
                 res.status(400).send("Illegal url id: '_new' is forbidden!")
             } else {
                 if (typeof d._id === "undefined") {
-                    await addTab(d.urlId, d.title, d.nsfw, d.description, d.tables)
+                    await addTab(d.urlId, d.name, d.nsfw, d.description, d.tables)
                 } else {
-                    await updateTab(d._id, d.urlId, d.title, d.nsfw, d.description, d.tables, d.order)
+                    await updateTab(d._id, d.urlId, d.name, d.nsfw, d.description, d.tables, d.order)
                 }
                 res.status(200).send("Ok")
             }

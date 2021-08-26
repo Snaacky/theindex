@@ -75,18 +75,18 @@ export default function Navbar({tabs}) {
                                 No tabs found
                             </a>
                         </li> : <></>}
-                    {tabs.map(({urlId, title, tables}) => {
+                    {tabs.map(({urlId, name, tables}) => {
                         return <li className="nav-item dropdown" key={urlId}>
                             <a className={"nav-link dropdown-toggle"} role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"
                                id={"navDropdownLink-" + urlId}>
-                                {title}
+                                {name}
                             </a>
                             <ul className="dropdown-menu bg-4" aria-labelledby={"navDropdownLink-" + urlId}>
                                 <li>
                                     <Link href={"/tab/" + urlId}>
                                         <a className="dropdown-item">
-                                            {title}
+                                            {name}
                                         </a>
                                     </Link>
                                 </li>
@@ -103,7 +103,7 @@ export default function Navbar({tabs}) {
                                         return <li key={table.urlId}>
                                             <Link href={"/table/" + table.urlId}>
                                                 <a className="dropdown-item">
-                                                    {table.title}
+                                                    {table.name}
                                                 </a>
                                             </Link>
                                         </li>

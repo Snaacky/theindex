@@ -1,13 +1,13 @@
 import Head from "next/head"
 import Link from "next/link"
-import Layout, {siteTitle} from "../components/layout/Layout"
+import Layout, {siteName} from "../components/layout/Layout"
 import {getTabsWithTables} from "../lib/db/tabs"
 
 export default function Home({tabs}) {
     return (
         <Layout tabs={tabs}>
             <Head>
-                <title>{siteTitle}</title>
+                <title>{siteName}</title>
             </Head>
 
             <div className={"container"}>
@@ -15,11 +15,11 @@ export default function Home({tabs}) {
                     You are searching a site with:
                 </h1>
                 <div className={"gx-4"}>
-                    {tabs.map(({urlId, title}) => {
+                    {tabs.map(({urlId, name}) => {
                         return (
                             <Link href={"/tab/" + urlId} key={urlId}>
                                 <a type={"button"} className={"btn btn-lg btn-outline-primary me-3"}>
-                                    {title}
+                                    {name}
                                 </a>
                             </Link>
                         )

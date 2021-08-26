@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../../components/layout/Layout"
+import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -36,7 +36,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {(typeof table === "undefined" ? "Create table" : "Edit table " + table.title) + " | " + siteTitle}
+                {(typeof table === "undefined" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -45,7 +45,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                 <div className={"card-title"}>
                     <h2>
                         {typeof table === "undefined" ? "Create a new table" : <>
-                            Edit table <Link href={"/table/" + table.urlId}>{table.title}</Link>
+                            Edit table <Link href={"/table/" + table.urlId}>{table.name}</Link>
                         </>}
                         <span className={"float-end"}>
                             <Link href={"/tables"}>
@@ -64,7 +64,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                 {typeof table === "undefined" ? <EditTable tables={tables} columnsDatalist={columns}/> :
                     <>
                         <EditTable tables={tables} columnsDatalist={columns} _id={table._id} urlId={table.urlId}
-                                   title={table.title} nsfw={table.nsfw} description={table.description}
+                                   title={table.name} nsfw={table.nsfw} description={table.description}
                                    columns={table.columns}/>
                     </>
                 }

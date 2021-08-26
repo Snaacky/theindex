@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/Layout"
+import Layout, {siteName} from "../../components/layout/Layout"
 import {getTabsWithTables} from "../../lib/db/tabs"
 import {useRouter} from "next/router"
 import Loader from "../../components/loading"
@@ -26,7 +26,7 @@ export default function Table({tabs, table, items}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {table.title + " | " + siteTitle}
+                {table.name + " | " + siteName}
             </title>
             <meta name="description" content={table.description}/>
         </Head>
@@ -35,19 +35,19 @@ export default function Table({tabs, table, items}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h3>
-                        {table.title}
+                        {table.name}
                         <span style={{fontSize: "1.2rem"}}>
                             {tabsContainingTable.map(t => {
                                 return <Link href={"/tab/" + t.urlId} key={t._id}>
-                                    <a title={"View tab " + t.title}>
+                                    <a title={"View tab " + t.name}>
                                         <div className={"badge rounded-pill bg-primary mx-2"}>
-                                            {t.title}
+                                            {t.name}
                                         </div>
                                     </a>
                                 </Link>
                             })}
                             <div className={"float-end"}>
-                                {table.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
+                                {table.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                                 {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
                                     <a title={"Edit table"} className={"ms-2"}>
                                         <IconEdit/>

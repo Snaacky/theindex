@@ -14,6 +14,8 @@ import TableRow from "../rows/TableRow"
 import TabRow from "../rows/TabRow"
 import ColumnCard from "../cards/ColumnCard"
 import TabCard from "../cards/TabCard"
+import UserCard from "../cards/UserCard";
+import UserRow from "../rows/UserRow";
 
 export default class CardRowBoard extends React.Component {
     constructor(
@@ -81,7 +83,7 @@ export default class CardRowBoard extends React.Component {
     removeContent(content) {
         const newContent = this.state.content.filter(i => i._id !== content._id)
         if (this.deleteContentURL !== "") {
-            if (confirm("Do you really want to delete the " + this.type + " '" + content.title + "'?")) {
+            if (confirm("Do you really want to delete the " + this.type + " '" + content.name + "'?")) {
                 fetch(this.deleteContentURL, {
                     method: "post",
                     headers: {"Content-Type": "application/json"},
@@ -159,6 +161,15 @@ export default class CardRowBoard extends React.Component {
             return <TabRow tab={content} remove={canRemove ? () => this.removeContent(content) : null}
                            add={canAdd ? () => this.addContent(content) : null}
                            move={canMove ? (m) => this.moveContent(content, m) : null}/>
+        } else if (this.type === "user") {
+            if (this.state.useCards) {
+                return <UserCard user={content} add={canAdd ? () => this.addContent(content) : null}
+                                 remove={canRemove ? () => this.removeContent(content) : null}
+                                 move={canMove ? (m) => this.moveContent(content, m) : null}/>
+            }
+            return <UserRow user={content} remove={canRemove ? () => this.removeContent(content) : null}
+                            add={canAdd ? () => this.addContent(content) : null}
+                            move={canMove ? (m) => this.moveContent(content, m) : null}/>
         } else {
             console.error("Unknown type of content:", this.type)
         }
@@ -187,7 +198,7 @@ export default class CardRowBoard extends React.Component {
                             {this.state.compactView ? "More details" : "Less details"}
                         </button> : <></>}
                     <EditButton onClick={() => this.setState({editView: !this.state.editView})}
-                                editView={this.state.editView}/>
+                                editView={this.state.editView} type={this.type}/>
                 </div>
                 <div id={"collapseFilter"} className="collapse">
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
@@ -207,12 +218,12 @@ export default class CardRowBoard extends React.Component {
                 </div>
             </div>
             <div className={"d-flex flex-wrap"}>
-                {this.state.content.filter(c => c.title.toLowerCase()
+                {this.state.content.filter(c => c.name.toLowerCase()
                     .includes(this.state.searchString.toLowerCase())
                 ).length === 0 ? <span className={"text-muted"}>
                     Nothing could be found
                 </span> : <></>}
-                {this.state.content.filter(c => c.title.toLowerCase()
+                {this.state.content.filter(c => c.name.toLowerCase()
                     .includes(this.state.searchString.toLowerCase())
                 ).map(i => this.renderSingleContent(
                     i,
@@ -224,13 +235,13 @@ export default class CardRowBoard extends React.Component {
             {this.state.editView ? <>
                 <hr/>
                 <div className={"d-flex flex-wrap"}>
-                    {this.state.unselectedContent.filter(c => c.title.toLowerCase()
+                    {this.state.unselectedContent.filter(c => c.name.toLowerCase()
                         .includes(this.state.searchString.toLowerCase())
                     ).length === 0 ?
                         <span className={"text-muted"}>
                             There is nothing to be added anymore
                         </span> : <></>}
-                    {this.state.unselectedContent.filter(c => c.title.toLowerCase()
+                    {this.state.unselectedContent.filter(c => c.name.toLowerCase()
                         .includes(this.state.searchString.toLowerCase())
                     ).map(i => this.renderSingleContent(i, false, true))}
                     <Link href={"/edit/" + this.type + "/_new"}>
@@ -245,9 +256,9 @@ export default class CardRowBoard extends React.Component {
     }
 }
 
-function EditButton({onClick, editView}) {
+function EditButton({onClick, editView, type}) {
     const [session] = useSession()
-    if (canEdit(session)) {
+    if (canEdit(session, type)) {
         return <div className={"float-end"}>
             <button className={"btn btn-outline-warning"} type={"button"} onClick={onClick}>
                 {editView ? "Exit" : <IconEdit/>} edit-mode

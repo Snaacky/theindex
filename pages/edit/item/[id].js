@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../../components/layout/Layout"
+import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -29,7 +29,7 @@ export default function EditorColumn({_id, tabs, columns, item}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {(_id === "_new" ? "Create item" : "Edit item " + item.title) + " | " + siteTitle}
+                {(_id === "_new" ? "Create item" : "Edit item " + item.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -38,7 +38,7 @@ export default function EditorColumn({_id, tabs, columns, item}) {
                 <div className={"card-title"}>
                     <h2>
                         {_id === "_new" ? "Create a new item" : <>
-                            Edit item <Link href={"/item/" + item._id}>{item.title}</Link>
+                            Edit item <Link href={"/item/" + item._id}>{item.name}</Link>
                         </>}
                         <span className={"float-end"}>
                             <Link href={"/items"}>
@@ -55,7 +55,7 @@ export default function EditorColumn({_id, tabs, columns, item}) {
                         </small> : <></>}
                 </div>
                 {_id === "_new" ? <EditItem columns={columns}/> :
-                    <EditItem _id={item._id} title={item.title} urls={item.urls} nsfw={item.nsfw}
+                    <EditItem _id={item._id} title={item.name} urls={item.urls} nsfw={item.nsfw}
                               description={item.description} data={item.data} columns={columns}/>
                 }
             </div>

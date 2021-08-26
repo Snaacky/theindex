@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/Layout"
+import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabsWithTables} from "../../lib/db/tabs"
@@ -21,7 +21,7 @@ export default function User({tabs, user}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"User " + user.name + " | " + siteTitle}
+                {"User " + user.name + " | " + siteName}
             </title>
             <meta name="robots" content="noindex, archive, follow"/>
             <meta name="description" content={user.description}/>

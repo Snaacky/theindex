@@ -6,7 +6,7 @@ export default class EditTable extends React.Component {
     constructor({tables, _id, urlId, title, nsfw, description}) {
         super({tables, _id, urlId, title, nsfw, description})
 
-        this.tablesDatalist = tables.map(t => t.title)
+        this.tablesDatalist = tables.map(t => t.name)
         this.urlDatalist = tables.map(t => t.urlId)
 
         this.state = {
@@ -19,14 +19,14 @@ export default class EditTable extends React.Component {
     }
 
     saveTable() {
-        if (this.state.title !== "" && this.state.urlId !== "") {
+        if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
                 urlId: this.state.urlId,
-                title: this.state.title,
+                title: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description
             }
@@ -57,20 +57,20 @@ export default class EditTable extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createTableInputTitle"} className={"form-label"}>
-                        Title
+                    <label htmlFor={"createTableInputName"} className={"form-label"}>
+                        Name
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createTableInputTitle"}
-                           value={this.state.title}
-                           list={"createTableInputTitleDatalist"} aria-describedby={"createTableInputTitleHelp"}
+                    <input type={"text"} className={"form-control"} id={"createTableInputName"}
+                           value={this.state.name}
+                           list={"createTableInputNameDatalist"} aria-describedby={"createTableInputNameHelp"}
                            placeholder={"Enter a title"} required={true}
                            onChange={(input) => {
                                this.setState({title: input.target.value})
                            }}/>
-                    <datalist id={"createTableInputTitleDatalist"}>
+                    <datalist id={"createTableInputNameDatalist"}>
                         {this.tablesDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
-                    <div id={"createTableInputTitleHelp"} className={"form-text"}>
+                    <div id={"createTableInputNameHelp"} className={"form-text"}>
                         Shown name of table
                     </div>
                 </div>

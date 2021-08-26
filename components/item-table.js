@@ -12,7 +12,7 @@ export default function ItemTable({columns, items}) {
                 </th>
                 {items.map(i => <th key={i._id} className={"text-center"}>
                     <a href={i.urls[0]} target={"_blank"} rel="noreferrer">
-                        {i.title}
+                        {i.name}
                     </a>
                 </th>)}
                 {items.length === 0 ? <th>
@@ -36,7 +36,7 @@ export default function ItemTable({columns, items}) {
 function tableRow(column, items) {
     return <tr>
         <th scope={"col"}>
-            {column.title}
+            {column.name}
         </th>
         {items.map(i => <td key={i._id + "-" + column._id} className={"text-center"}>
             {(

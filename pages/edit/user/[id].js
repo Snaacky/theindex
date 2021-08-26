@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../../components/layout/Layout"
+import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -28,7 +28,7 @@ export default function EditorUser({uid, tabs, user}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Edit user " + user.name + " | " + siteTitle}
+                {"Edit user " + user.name + " | " + siteName}
             </title>
         </Head>
 

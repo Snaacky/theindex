@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/Layout"
+import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabsWithTables} from "../../lib/db/tabs"
@@ -41,7 +41,7 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {item.title + " | " + siteTitle}
+                {item.name + " | " + siteName}
             </title>
             {item.blacklist ?
                 <meta name="robots" content="noindex, archive, follow"/> :
@@ -54,20 +54,20 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                 <div className={"card-title"}>
                     <h3>
                         {item.blacklist ? <span className={"text-danger"}>
-                            Blacklisted: <del>{item.title}</del>
-                        </span> : item.title}
+                            Blacklisted: <del>{item.name}</del>
+                        </span> : item.name}
                         <span style={{fontSize: "1.2rem"}}>
                             {tablesContainingItem.map(t => {
                                 return <Link href={"/table/" + t.urlId} key={t._id}>
-                                    <a title={"View table " + t.title}>
-                                        <DataBadge title={t.title} style={"primary"}/>
+                                    <a title={"View table " + t.name}>
+                                        <DataBadge name={t.name} style={"primary"}/>
                                     </a>
                                 </Link>
                             })}
                             <div className={"float-end"}>
-                                {item.sponsor ? <DataBadge title={"Sponsor"} style={"warning text-dark"}/> : <></>}
+                                {item.sponsor ? <DataBadge name={"Sponsor"} style={"warning text-dark"}/> : <></>}
                                 {item.nsfw ? <span className={"ms-2"}>
-                                    <DataBadge data={false} title={"NSFW"}/>
+                                    <DataBadge data={false} name={"NSFW"}/>
                                 </span> : <></>}
                                 {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
                                     <a title={"Edit table"} className={"ms-2"}>
@@ -81,7 +81,7 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                 <div className={"d-flex flex-wrap"}>
                     {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
                                              className={"me-2"}>
-                        <DataBadge title={url} style={"primary"}/>
+                        <DataBadge name={url} style={"primary"}/>
                     </a>)}
                 </div>
                 <p className={"card-text"}>
@@ -138,8 +138,8 @@ export default function Item({tabs, tablesContainingItem, columns, item}) {
                         {columnArray.map(c => {
                             return <div key={c._id}>
                                 <Link href={"/column/" + c.urlId}>
-                                    <a className={"me-2"} title={"View column " + c.title}>
-                                        {c.title}:
+                                    <a className={"me-2"} title={"View column " + c.name}>
+                                        {c.name}:
                                     </a>
                                 </Link>
                                 <DataItem data={item.data[c._id]} column={c}/>

@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../components/layout/Layout"
+import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabsWithTables} from "../../lib/db/tabs"
@@ -42,7 +42,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {column.title + " | " + siteTitle}
+                {column.name + " | " + siteName}
             </title>
             <meta name="description" content={column.description}/>
         </Head>
@@ -51,7 +51,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
             <div className="card-body">
                 <div className={"card-title row"}>
                     <h3>
-                        {column.title}
+                        {column.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {column.nsfw ? <DataBadge data={false} title={"NSFW"}/> : <></>}
                             {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
@@ -70,7 +70,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter:
                     </span>
                     {column.type === "array" || column.type === "bool" ?
-                        <DataItem data={filter} column={column} title={column.title} onChange={setFilter}/> : <></>
+                        <DataItem data={filter} column={column} title={column.name} onChange={setFilter}/> : <></>
                     }
                 </div>
             </div>

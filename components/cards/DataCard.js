@@ -17,8 +17,8 @@ export default function DataCard(
         <div className={"card-body"}>
             <h5 className={"card-title"}>
                 <Link href={"/column/" + column.urlId}>
-                    <a title={"View column " + column.title}>
-                        {column.title}
+                    <a title={"View column " + column.name}>
+                        {column.name}
                     </a>
                 </Link>
                 {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>

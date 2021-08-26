@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../components/layout/Layout"
+import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
 import React from "react"
@@ -11,7 +11,7 @@ export default function EditorTables({tabs, tables}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Table manager | " + siteTitle}
+                {"Table manager | " + siteName}
             </title>
         </Head>
 

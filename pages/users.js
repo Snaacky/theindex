@@ -1,17 +1,17 @@
-import Layout, {siteTitle} from "../components/layout/Layout"
+import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
 import {countUsers, getUsers} from "../lib/db/users"
-import UserCard from "../components/cards/UserCard"
 import DataBadge from "../components/data/DataBadge"
+import UserBoard from "../components/boards/UserBoard"
 
 export default function Users({tabs, users, userCount}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Users | " + siteTitle}
+                {"Users | " + siteName}
             </title>
         </Head>
 
@@ -20,15 +20,13 @@ export default function Users({tabs, users, userCount}) {
                 <h2 className={"card-title"}>
                     <FontAwesomeIcon icon={["fas", "users"]}/> The whole community
                     <div className={"float-end"} style={{fontSize: "1.2rem"}}>
-                        <DataBadge title={userCount + " registered users"} style={"primary"}/>
+                        <DataBadge name={userCount + " user" + (userCount > 1 ? "s" : "")} style={"primary"}/>
                     </div>
                 </h2>
             </div>
         </div>
 
-        <div className={"d-flex flex-wrap"}>
-            {users.map(u => <UserCard user={u} key={u.uid}/>)}
-        </div>
+        <UserBoard users={users} allUsers={users}/>
     </Layout>
 }
 

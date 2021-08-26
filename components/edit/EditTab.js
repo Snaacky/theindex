@@ -7,8 +7,8 @@ export default class EditTab extends React.Component {
         super({tabs, tablesDatalist, _id, urlId, title, nsfw, description, tables})
 
 
-        this.tablesDatalist = tablesDatalist.sort((a, b) => a.title > b.title ? 1 : -1)
-        this.tabsDatalist = tabs.map(t => t.title)
+        this.tablesDatalist = tablesDatalist.sort((a, b) => a.name > b.name ? 1 : -1)
+        this.tabsDatalist = tabs.map(t => t.name)
         this.urlDatalist = tabs.map(t => t.urlId)
 
         const tablesNotSelected = tables ? this.tablesDatalist.filter(tDL => !tables.some(t => t._id === tDL._id))
@@ -25,14 +25,14 @@ export default class EditTab extends React.Component {
     }
 
     saveTab() {
-        if (this.state.title !== "" && this.state.urlId !== "") {
+        if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
                 urlId: this.state.urlId,
-                title: this.state.title,
+                title: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
                 tables: this.state.tables
@@ -64,19 +64,19 @@ export default class EditTab extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createTabInputTitle"} className={"form-label"}>
-                        Title
+                    <label htmlFor={"createTabInputName"} className={"form-label"}>
+                        Name
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createTabInputTitle"} value={this.state.title}
-                           list={"createTabInputTitleDatalist"} aria-describedby={"createTabInputTitleHelp"}
+                    <input type={"text"} className={"form-control"} id={"createTabInputName"} value={this.state.name}
+                           list={"createTabInputNameDatalist"} aria-describedby={"createTabInputNameHelp"}
                            placeholder={"Enter a title"} required={true}
                            onChange={(input) => {
                                this.setState({title: input.target.value})
                            }}/>
-                    <datalist id={"createTabInputTitleDatalist"}>
+                    <datalist id={"createTabInputNameDatalist"}>
                         {this.tabsDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
-                    <div id={"createTabInputTitleHelp"} className={"form-text"}>
+                    <div id={"createTabInputNameHelp"} className={"form-text"}>
                         Shown name of tab
                     </div>
                 </div>

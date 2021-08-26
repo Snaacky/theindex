@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../components/layout/Layout"
+import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
 import IconTab from "../components/icons/IconTab"
@@ -10,7 +10,7 @@ export default function EditorTabs({tabs}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {"Tab manager | " + siteTitle}
+                {"Tab manager | " + siteName}
             </title>
         </Head>
 

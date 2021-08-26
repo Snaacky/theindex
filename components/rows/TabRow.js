@@ -49,7 +49,7 @@ export default function TabRow(
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
                         <Link href={"/tab/" + tab.urlId}>
-                            {tab.title}
+                            {tab.name}
                         </Link>
                         {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
                             <a title={"Edit tab"} className={"ms-2"}>

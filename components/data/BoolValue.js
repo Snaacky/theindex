@@ -4,8 +4,8 @@ import DataBadge from "./DataBadge"
 export default function BoolValue({data, column, onChange = null}) {
     if (onChange === null) {
         return <Link href={"/column/" + column.urlId}>
-            <a className={"me-2"} title={"View column " + column.title}>
-                <DataBadge data={data} title={column.title}/>
+            <a className={"me-2"} title={"View column " + column.name}>
+                <DataBadge data={data} title={column.name}/>
             </a>
         </Link>
     }
@@ -17,6 +17,6 @@ export default function BoolValue({data, column, onChange = null}) {
             onChange(true)
         }
     }}>
-        <DataBadge data={data} title={column.title}/>
+        <DataBadge data={data} title={column.name}/>
     </a>
 }

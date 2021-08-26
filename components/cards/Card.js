@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import {useSession} from "next-auth/client"
-import {canEdit, isAdmin} from "../../lib/session"
+import {canEdit} from "../../lib/session"
 import styles from "./Card.module.css"
 import IconEdit from "../icons/IconEdit"
 import IconDelete from "../icons/IconDelete"
@@ -32,7 +32,7 @@ export default function Card(
 
     return <div className={styles.card + " card bg-2 mb-2 me-2"}>
         <div className="row g-0">
-            {canEdit(session) && move !== null ? <div className={styles.sorter + " col-auto"}>
+            {canEdit(session, type) && move !== null ? <div className={styles.sorter + " col-auto"}>
                 <a onClick={() => move(-1)}>
                     <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
                 </a>
@@ -47,12 +47,12 @@ export default function Card(
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
                         <Link href={"/" + hrefString}>
-                            <a title={"View " + type + " " + content.title}>
-                                {content.title}
+                            <a title={"View " + type + " " + content.name}>
+                                {content.name}
                             </a>
                         </Link>
                         {url !== "" ? <IconNewTabLink url={url}/> : <></>}
-                        {canEdit(session) && type !== "user" || isAdmin(session) ? <>
+                        {canEdit(session, type) ? <>
                             <Link href={"/edit/" + hrefString}>
                                 <a title={"Edit " + type} className={"ms-2"}>
                                     <IconEdit/>
@@ -69,7 +69,7 @@ export default function Card(
                                     <DataBadge data={false} title={"NSFW"}/>
                                 </span> : <></>
                             }
-                            {canEdit(session) && type !== "user" || isAdmin(session) ? <>
+                            {canEdit(session, type) ? <>
                                 {add !== null ?
                                     <a title={"Add " + type} className={styles.link + " float-end"} onClick={add}>
                                         <IconAdd/>

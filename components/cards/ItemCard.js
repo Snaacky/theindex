@@ -45,8 +45,8 @@ export default function ItemCard(
                 {columnArray.map(c => {
                     return <div key={c._id}>
                         <Link href={"/column/" + c.urlId}>
-                            <a className={"me-2"} title={"View column " + c.title}>
-                                {c.title}:
+                            <a className={"me-2"} title={"View column " + c.name}>
+                                {c.name}:
                             </a>
                         </Link>
                         <ArrayValue data={item.data[c._id]} column={c}/>

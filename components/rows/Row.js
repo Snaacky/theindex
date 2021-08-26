@@ -30,7 +30,7 @@ export default function Row(
 
     return <div className={styles.row + " card bg-2 mb-2"}>
         <div className="row g-0">
-            {canEdit(session) && move !== null ?
+            {canEdit(session, type) && move !== null ?
                 <div className={styles.sorter + " col-auto"}>
                     <a onClick={() => move(-1)}>
                         <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
@@ -40,7 +40,7 @@ export default function Row(
                     </a>
                 </div> : <></>
             }
-            {canEdit(session) && add !== null ?
+            {canEdit(session, type) && add !== null ?
                 <div className={styles.sorter + " col-auto"}>
                     <a onClick={add} title={"Add " + type} style={{
                         height: "32px"
@@ -58,9 +58,9 @@ export default function Row(
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
                         <Link href={hrefString}>
-                            {content.title}
+                            {content.name}
                         </Link>
-                        {canEdit(session) ? <Link href={"/edit/" + hrefString}>
+                        {canEdit(session, type) ? <Link href={"/edit/" + hrefString}>
                             <a title={"Edit " + type} className={"ms-2"}>
                                 <IconEdit/>
                             </a>
@@ -83,7 +83,7 @@ export default function Row(
                     {bodyContent}
                 </div>
             </div>
-            {canEdit(session) && remove !== null ?
+            {canEdit(session, type) && remove !== null ?
                 <div className={styles.column + " col-auto p-1"}>
                     <a onClick={remove} title={"Remove " + type} className={"float-end"} style={{
                         width: "42px",

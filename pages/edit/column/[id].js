@@ -1,4 +1,4 @@
-import Layout, {siteTitle} from "../../../components/layout/Layout"
+import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -33,7 +33,7 @@ export default function EditorColumn({urlId, tabs, columns}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
-                {(typeof column === "undefined" ? "Create column" : "Edit column " + column.title) + " | " + siteTitle}
+                {(typeof column === "undefined" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -42,7 +42,7 @@ export default function EditorColumn({urlId, tabs, columns}) {
                 <div className={"card-title"}>
                     <h2>
                         {typeof column === "undefined" ? "Create a new column" : <>
-                            Edit column <Link href={"/column/" + column.urlId}>{column.title}</Link>
+                            Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
                         </>}
                         <span className={"float-end"}>
                             <Link href={"/columns"}>
@@ -59,7 +59,7 @@ export default function EditorColumn({urlId, tabs, columns}) {
                         </small> : <></>}
                 </div>
                 {typeof column === "undefined" ? <EditColumn columns={columns}/> :
-                    <EditColumn columns={columns} _id={column._id} urlId={column.urlId} title={column.title}
+                    <EditColumn columns={columns} _id={column._id} urlId={column.urlId} title={column.name}
                                 nsfw={column.nsfw} description={column.description} type={column.type}
                                 values={column.values}/>
                 }

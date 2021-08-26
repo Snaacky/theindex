@@ -6,11 +6,11 @@ export default async function apiEditItem(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body
-        if (d.title !== "") {
+        if (d.name !== "") {
             if (typeof d._id === "undefined") {
-                await addItem(d.title, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
+                await addItem(d.name, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
             } else {
-                await updateItem(d._id, d.title, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
+                await updateItem(d._id, d.name, d.urls, d.nsfw, d.description, d.blacklist, d.sponsor, d.data)
             }
             res.status(200).send("Ok")
         } else {

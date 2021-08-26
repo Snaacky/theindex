@@ -6,16 +6,16 @@ import IconAdd from "../icons/IconAdd"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditColumn extends React.Component {
-    constructor({columns, _id, urlId, title, nsfw, description, type, values}) {
-        super({columns, _id, urlId, title, nsfw, description, type, values})
+    constructor({columns, _id, urlId, name, nsfw, description, type, values}) {
+        super({columns, _id, urlId, name, nsfw, description, type, values})
 
-        this.columnsDatalist = columns.map(t => t.title)
+        this.columnsDatalist = columns.map(t => t.name)
         this.urlDatalist = columns.map(t => t.urlId)
 
         this.state = {
             _id,
             urlId: urlId || "",
-            title: title || "",
+            name: name || "",
             nsfw: nsfw || false,
             description: description || "",
             type: type || "bool",
@@ -25,14 +25,14 @@ export default class EditColumn extends React.Component {
     }
 
     saveColumn() {
-        if (this.state.title !== "" && this.state.urlId !== "") {
+        if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
                 urlId: this.state.urlId,
-                title: this.state.title,
+                name: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
                 type: this.state.type
@@ -59,7 +59,7 @@ export default class EditColumn extends React.Component {
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the title and url id")
+            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
         }
     }
 
@@ -91,20 +91,20 @@ export default class EditColumn extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createColumnInputTitle"} className={"form-label"}>
-                        Title
+                    <label htmlFor={"createColumnInputName"} className={"form-label"}>
+                        Name
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createColumnInputTitle"}
-                           value={this.state.title}
-                           list={"createColumnInputTitleDatalist"} aria-describedby={"createColumnInputTitleHelp"}
-                           placeholder={"Enter a title"} required={true}
+                    <input type={"text"} className={"form-control"} id={"createColumnInputName"}
+                           value={this.state.name}
+                           list={"createColumnInputNameDatalist"} aria-describedby={"createColumnInputNameHelp"}
+                           placeholder={"Enter a name"} required={true}
                            onChange={(input) => {
-                               this.setState({title: input.target.value})
+                               this.setState({name: input.target.value})
                            }}/>
-                    <datalist id={"createColumnInputTitleDatalist"}>
+                    <datalist id={"createColumnInputNameDatalist"}>
                         {this.columnsDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
-                    <div id={"createColumnInputTitleHelp"} className={"form-text"}>
+                    <div id={"createColumnInputNameHelp"} className={"form-text"}>
                         Shown name of column
                     </div>
                 </div>
@@ -179,7 +179,7 @@ export default class EditColumn extends React.Component {
                                        }}/>
                             </div>
                             <div className={styles.column + " col-auto px-1"}>
-                                <a onClick={() => this.removeValue(i)} title={"Remove value"} className={"float-end"}
+                                <a onClick={() => this.removeValue(i)} name={"Remove value"} className={"float-end"}
                                    style={{
                                        width: "38px",
                                        height: "38px"

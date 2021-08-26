@@ -11,7 +11,7 @@ export default class EditItem extends React.Component {
     constructor({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns}) {
         super({_id, title, urls, nsfw, description, data, blacklist, sponsor, columns})
 
-        this.columns = columns.sort((a, b) => a.title < b.title ? -1 : 1)
+        this.columns = columns.sort((a, b) => a.name < b.name ? -1 : 1)
 
         this.state = {
             _id,
@@ -28,9 +28,9 @@ export default class EditItem extends React.Component {
     }
 
     saveItem() {
-        if (this.state.title !== "") {
+        if (this.state.name !== "") {
             let body = {
-                title: this.state.title,
+                title: this.state.name,
                 urls: this.state.urls,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
@@ -109,16 +109,16 @@ export default class EditItem extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createItemInputTitle"} className={"form-label"}>
-                        Title
+                    <label htmlFor={"createItemInputName"} className={"form-label"}>
+                        Name
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createItemInputTitle"}
-                           value={this.state.title} aria-describedby={"createItemInputTitleHelp"}
+                    <input type={"text"} className={"form-control"} id={"createItemInputName"}
+                           value={this.state.name} aria-describedby={"createItemInputNameHelp"}
                            placeholder={"Enter a title"} required={true}
                            onChange={(input) => {
                                this.setState({title: input.target.value})
                            }}/>
-                    <div id={"createItemInputTitleHelp"} className={"form-text"}>
+                    <div id={"createItemInputNameHelp"} className={"form-text"}>
                         Shown name of item
                     </div>
                 </div>
@@ -201,7 +201,7 @@ export default class EditItem extends React.Component {
                     <div className={"col pe-0"}>
                         <input type={"text"} className={"form-control"} id={"itemValueInput-new"}
                                value={this.state.newURL} placeholder={"Enter a valid url"}
-                               aria-describedby={"createItemURLTitleHelp"}
+                               aria-describedby={"createItemURLNameHelp"}
                                onChange={(input) => {
                                    this.setState({
                                        newURL: input.target.value
@@ -218,7 +218,7 @@ export default class EditItem extends React.Component {
                         </a>
                     </div>
                 </div>
-                <div id={"createItemURLTitleHelp"} className={"form-text"}>
+                <div id={"createItemURLNameHelp"} className={"form-text"}>
                     Official web-page url, the first listed url will be used to route users
                 </div>
             </div>

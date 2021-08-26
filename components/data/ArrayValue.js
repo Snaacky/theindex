@@ -4,8 +4,8 @@ import DataBadge from "./DataBadge"
 export default function ArrayValue({data, column, onChange = null}) {
     if (onChange === null) {
         return data.map(v => <Link href={"/column/" + column.urlId + "?v=" + v} key={v}>
-            <a className={"me-2"} title={"View column " + column.title + " with value " + v}>
-                <DataBadge title={v}/>
+            <a className={"me-2"} title={"View column " + column.name + " with value " + v}>
+                <DataBadge name={v}/>
             </a>
         </Link>)
     }
@@ -17,6 +17,6 @@ export default function ArrayValue({data, column, onChange = null}) {
             onChange(data.concat([v]))
         }
     }}>
-        <DataBadge data={data.includes(v) ? true : null} title={v}/>
+        <DataBadge data={data.includes(v) ? true : null} name={v}/>
     </a>)
 }

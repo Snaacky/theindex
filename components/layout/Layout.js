@@ -2,7 +2,7 @@ import Head from "next/head"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 
-export const siteTitle = "/r/animepiracy Index"
+export const siteName = "/r/animepiracy Index"
 
 export default function Layout({children, error, tabs}) {
     return (
@@ -34,7 +34,7 @@ export default function Layout({children, error, tabs}) {
 
                 {error ?
                     <title>
-                        Error {error} | {siteTitle}
+                        Error {error} | {siteName}
                     </title> : <></>}
                 <meta name="description"
                       content="The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."/>
