@@ -22,7 +22,9 @@ export default function Users({tabs, users}) {
             </div>
         </div>
 
-        {users.map(u => <UserCard user={u} key={u.uid}/>)}
+        <div className={"d-flex flex-wrap"}>
+            {users.map(u => <UserCard user={u} key={u.uid}/>)}
+        </div>
     </Layout>
 }
 
