@@ -1,5 +1,5 @@
 import Row from "./Row"
-import DataBadge from "../data/DataBadge";
+import DataBadge from "../data/DataBadge"
 
 export default function UserRow(
     {

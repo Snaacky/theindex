@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 import {addUser, getUser, userExists} from "../../../lib/db/users"
-import {findOne} from "../../../lib/db/db";
+import {findOne} from "../../../lib/db/db"
 
 const discord = Providers.Discord({
     clientId: process.env.DISCORD_CLIENT_ID,

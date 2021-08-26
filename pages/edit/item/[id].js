@@ -10,8 +10,10 @@ import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
+import TableBoard from "../../../components/boards/TableBoard"
+import {getTables} from "../../../lib/db/tables"
 
-export default function EditorColumn({_id, tabs, columns, item}) {
+export default function EditorColumn({_id, tabs, tables, columns, item}) {
     const [session] = useSession()
 
     if (!session) {
@@ -24,6 +26,11 @@ export default function EditorColumn({_id, tabs, columns, item}) {
         return <Layout tabs={tabs}>
             <NotAdmin/>
         </Layout>
+    }
+
+    let tablesWithItem = []
+    if (_id !== "_new") {
+        tablesWithItem = tables.filter(t => t.items.some(i => i === item._id))
     }
 
     return <Layout tabs={tabs}>
@@ -60,6 +67,17 @@ export default function EditorColumn({_id, tabs, columns, item}) {
                 }
             </div>
         </div>
+
+        <h4>
+            Tables with this item
+        </h4>
+        {typeof item !== "undefined" ?
+            <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false}
+                        forceEditMode={true} updateURL={"/api/edit/item/tables"}/> :
+            <div className={"text-muted"}>
+                Table selection will be available once the tab has been created
+            </div>
+        }
     </Layout>
 }
 
@@ -68,6 +86,7 @@ export async function getServerSideProps({params}) {
         props: {
             _id: params.id,
             tabs: await getTabsWithTables(),
+            tables: await getTables(),
             columns: await getColumns(),
             item: params.id === "_new" ? {} : await getItem(params.id)
         }

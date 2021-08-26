@@ -1,4 +1,4 @@
-import CardRowBoard from "./CardRowBoard"
+import Board from "./Board"
 
 export default function UserBoard(
     {
@@ -8,7 +8,10 @@ export default function UserBoard(
         updateURL = "",
         updateKey = "",
         deleteURL = "/api/delete/user",
+        forceEditMode = false,
+        canMove = true
     }) {
-    return <CardRowBoard type={"user"} _id={_id} content={users} allContent={allUsers} updateContentURL={updateURL}
-                         updateContentKey={updateKey} deleteContentURL={deleteURL}/>
+    return <Board type={"user"} _id={_id} content={users} allContent={allUsers} updateContentURL={updateURL}
+                  updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}
+                  canMove={canMove}/>
 }

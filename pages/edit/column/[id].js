@@ -10,8 +10,9 @@ import EditColumn from "../../../components/edit/EditColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
+import TableBoard from "../../../components/boards/TableBoard"
 
-export default function EditorColumn({urlId, tabs, columns}) {
+export default function EditorColumn({urlId, tabs, tables, columns}) {
     const [session] = useSession()
 
     if (!session) {
@@ -26,9 +27,10 @@ export default function EditorColumn({urlId, tabs, columns}) {
         </Layout>
     }
 
-    let column
+    let column = [], tablesWithColumn = []
     if (urlId !== "_new") {
         column = columns.find(t => t.urlId === urlId)
+        tablesWithColumn = tables.filter(t => t.columns.some(c => c === column._id))
     }
     return <Layout tabs={tabs}>
         <Head>
@@ -63,8 +65,20 @@ export default function EditorColumn({urlId, tabs, columns}) {
                                 nsfw={column.nsfw} description={column.description} type={column.type}
                                 values={column.values}/>
                 }
+
             </div>
         </div>
+
+        <h4>
+            Tables with this column
+        </h4>
+        {typeof column !== "undefined" ?
+            <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false}
+                        updateURL={"/api/edit/column/tables"} forceEditMode={true}/> :
+            <div className={"text-muted"}>
+                Table selection will be available once the column has been created
+            </div>
+        }
     </Layout>
 }
 

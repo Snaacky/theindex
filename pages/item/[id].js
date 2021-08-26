@@ -12,7 +12,7 @@ import {getColumns} from "../../lib/db/columns"
 import DataItem from "../../components/data/DataItem"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
-import {splitColumnsIntoTypes} from "../../lib/item";
+import {splitColumnsIntoTypes} from "../../lib/item"
 
 export default function Item({tabs, tablesContainingItem, columns, item}) {
     const router = useRouter()

@@ -1,4 +1,4 @@
-import CardRowBoard from "./CardRowBoard"
+import Board from "./Board"
 
 export default function ColumnBoard(
     {
@@ -8,7 +8,10 @@ export default function ColumnBoard(
         updateURL = "/api/edit/table/columns",
         updateKey = "columns",
         deleteURL = "",
+        forceEditMode = false,
+        canMove = true
     }) {
-    return <CardRowBoard type={"column"} _id={_id} content={columns} allContent={allColumns} updateContentURL={updateURL}
-                         updateContentKey={updateKey} deleteContentURL={deleteURL}/>
+    return <Board type={"column"} _id={_id} content={columns} allContent={allColumns} updateContentURL={updateURL}
+                  updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}
+                  canMove={canMove}/>
 }

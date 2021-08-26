@@ -15,7 +15,7 @@ import TabCard from "../cards/TabCard"
 import UserCard from "../cards/UserCard"
 import UserRow from "../rows/UserRow"
 
-export default class CardRowBoard extends React.Component {
+export default class Board extends React.Component {
     constructor(
         {
             _id,
@@ -25,11 +25,15 @@ export default class CardRowBoard extends React.Component {
             updateContentURL = "",
             updateContentKey = "",
             deleteContentURL = "",
-            columns = []
+            columns = [],
+            forceEditMode = false,
+            canMove = true
         }) {
         super({_id, content, allContent, columns})
 
         this.type = type
+        this.forceEditMode = forceEditMode
+        this.canMove = canMove
         this.updateContentURL = updateContentURL
         this.updateContentKey = updateContentKey
         this.deleteContentURL = deleteContentURL
@@ -46,7 +50,7 @@ export default class CardRowBoard extends React.Component {
             columns,
             useCards: true,
             compactView: false,
-            editView: false,
+            editView: forceEditMode,
             filter: [],
             searchString: ""
         }
@@ -97,13 +101,20 @@ export default class CardRowBoard extends React.Component {
                 })
             }
         } else {
-            const newUnselectedContent = this.state.unselectedContent.concat([content])
+            let newUnselectedContent = this.state.unselectedContent.concat([content])
+            if (this.canMove) {
+                newUnselectedContent = newUnselectedContent.sort((a, b) => a.name < b.name ? -1 : 1)
+            }
             this.updateContent(newContent, newUnselectedContent)
         }
     }
 
     addContent(content) {
-        const newContent = this.state.content.concat([content])
+        let newContent = this.state.content.concat([content])
+        if (this.canMove) {
+            newContent = newContent.sort((a, b) => a.name < b.name ? -1 : 1)
+        }
+
         const newUnselectedContent = this.state.unselectedContent.filter(i => i._id !== content._id)
         this.updateContent(newContent, newUnselectedContent)
     }
@@ -174,11 +185,13 @@ export default class CardRowBoard extends React.Component {
     }
 
     render() {
+        // Hack to set unique ids of filter collapse
+        const randString = Math.random().toString(36).slice(2)
         return <>
             <div className={"card card-body bg-2 mb-2"}>
                 <div>
                     <button className={"btn btn-outline-primary mb-2"} type={"button"}
-                            data-bs-toggle={"collapse"} data-bs-target={"#collapseFilter"}
+                            data-bs-toggle={"collapse"} data-bs-target={"#collapseFilterBoard-" + randString}
                             aria-expanded="false" aria-controls={"collapseFilter"}>
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter
                     </button>
@@ -197,11 +210,13 @@ export default class CardRowBoard extends React.Component {
                         </button> : <></>}
                     <div className={"float-end"}>
                         <CreateButton type={this.type}/>
-                        <EditButton onClick={() => this.setState({editView: !this.state.editView})}
-                                    editView={this.state.editView} type={this.type}/>
+                        {this.forceEditMode ? <></> :
+                            <EditButton onClick={() => this.setState({editView: !this.state.editView})}
+                                        editView={this.state.editView} type={this.type}/>
+                        }
                     </div>
                 </div>
-                <div id={"collapseFilter"} className="collapse">
+                <div id={"collapseFilterBoard-" + randString} className="collapse">
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
                     <div className={"input-group mb-2"}>
                         <span className="input-group-text" id="inputSearchStringAddon">
@@ -228,7 +243,7 @@ export default class CardRowBoard extends React.Component {
                     .includes(this.state.searchString.toLowerCase())
                 ).map(i => this.renderSingleContent(
                     i,
-                    this.state.editView && this.updateContentURL !== "",
+                    this.canMove && this.state.editView && this.updateContentURL !== "",
                     false,
                     this.state.editView
                 ))}

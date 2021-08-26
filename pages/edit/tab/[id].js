@@ -9,6 +9,7 @@ import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
+import TableBoard from "../../../components/boards/TableBoard"
 
 export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()
@@ -63,6 +64,17 @@ export default function EditorTab({urlId, tabs, tables}) {
                 }
             </div>
         </div>
+
+        <h4>
+            Tables used in this tab
+        </h4>
+        {typeof tab !== "undefined" ?
+            <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} canMove={false}
+                        forceEditMode={true}/> :
+            <div className={"text-muted"}>
+                Table selection will be available once the tab has been created
+            </div>
+        }
     </Layout>
 }
 
