@@ -228,7 +228,7 @@ export default class CardRowBoard extends React.Component {
                     .includes(this.state.searchString.toLowerCase())
                 ).map(i => this.renderSingleContent(
                     i,
-                    this.state.editView && this.deleteContentURL === "",
+                    this.state.editView && this.updateContentURL !== "",
                     false,
                     this.state.editView
                 ))}

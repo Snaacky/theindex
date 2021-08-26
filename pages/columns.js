@@ -22,7 +22,7 @@ export default function EditorColumns({tabs, columns}) {
             </div>
         </div>
 
-        <ColumnBoard columns={columns} deleteURL={"/api/delete/column"}/>
+        <ColumnBoard columns={columns} updateURL={""} deleteURL={"/api/delete/column"}/>
     </Layout>
 }
 

@@ -23,7 +23,7 @@ export default function EditorTables({tabs, tables}) {
             </div>
         </div>
 
-        <TableBoard tables={tables} deleteURL={"/api/delete/table"}/>
+        <TableBoard tables={tables} updateURL={""} deleteURL={"/api/delete/table"}/>
     </Layout>
 }
 
