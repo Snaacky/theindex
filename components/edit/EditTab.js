@@ -116,13 +116,13 @@ export default class EditTab extends React.Component {
                           }}/>
             </div>
 
-            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveTab()}>
-                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
-            </button>
             <span className={"float-end"}>
+                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveTab()}>
+                    <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
+                    {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
+                </button>
                 <Link href={"/tabs"}>
-                    <a className={"btn btn-outline-secondary"}>
+                    <a className={"btn btn-outline-secondary mb-2"}>
                         Tab manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>

@@ -212,13 +212,13 @@ export default class EditColumn extends React.Component {
                 </div>
             </> : <></>}
 
-            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveColumn()}>
-                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                {typeof this.state._id === "undefined" ? "Create column" : "Save changes"}
-            </button>
             <span className={"float-end"}>
+                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveColumn()}>
+                    <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
+                    {typeof this.state._id === "undefined" ? "Create column" : "Save changes"}
+                </button>
                 <Link href={"/columns"}>
-                    <a className={"btn btn-outline-secondary"}>
+                    <a className={"btn btn-outline-secondary mb-2"}>
                         Column manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>

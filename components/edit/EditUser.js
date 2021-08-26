@@ -74,13 +74,13 @@ export default class EditUser extends React.Component {
                           }}/>
             </div>
 
-            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveUser()}>
-                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                Save changes
-            </button>
             <span className={"float-end"}>
+                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveUser()}>
+                    <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
+                    Save changes
+                </button>
                 <Link href={"/users"}>
-                    <a className={"btn btn-outline-secondary"}>
+                    <a className={"btn btn-outline-secondary mb-2"}>
                         User manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>

@@ -109,14 +109,13 @@ export default class EditTable extends React.Component {
                               this.setState({description: input.target.value})
                           }}/>
             </div>
-
-            <button className={"btn btn-primary mb-2"} type="button" onClick={() => this.saveTable()}>
-                <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
-            </button>
             <span className={"float-end"}>
+                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveTable()}>
+                    <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
+                    {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
+                </button>
                 <Link href={"/tables"}>
-                    <a className={"btn btn-outline-secondary"}>
+                    <a className={"btn btn-outline-secondary mb-2"}>
                         Table manager
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
