@@ -91,7 +91,7 @@ export default class CardRowBoard extends React.Component {
                         alert("Failed to save data: Error " + r.status)
                     } else {
                         this.setState({
-                            content
+                            content: newContent
                         })
                     }
                 })
