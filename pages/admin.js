@@ -3,9 +3,9 @@ import Image from "next/image"
 import Layout, {siteName} from "../components/layout/Layout"
 import {images} from "../lib/icon"
 import {getTabsWithTables} from "../lib/db/tabs"
-import Login from "../components/Login"
+import Login from "../components/layout/Login"
 import {isAdmin} from "../lib/session"
-import NotAdmin from "../components/NotAdmin"
+import NotAdmin from "../components/layout/NotAdmin"
 import {useSession} from "next-auth/client"
 
 export default function Admin({tabs, images}) {

@@ -2,7 +2,7 @@ import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Login from "../../../components/Login"
+import Login from "../../../components/layout/Login"
 import {getTables} from "../../../lib/db/tables"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
@@ -10,7 +10,7 @@ import EditTable from "../../../components/edit/EditTable"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
 import {canEdit} from "../../../lib/session"
-import NotAdmin from "../../../components/NotAdmin"
+import NotAdmin from "../../../components/layout/NotAdmin"
 
 export default function EditorTable({urlId, tabs, tables, columns}) {
     const [session] = useSession()

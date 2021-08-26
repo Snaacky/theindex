@@ -7,7 +7,6 @@ import ColumnFilter from "../column-filter"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../icons/IconEdit"
-import IconAdd from "../icons/IconAdd"
 import ColumnRow from "../rows/ColumnRow"
 import TableCard from "../cards/TableCard"
 import TableRow from "../rows/TableRow"
@@ -197,8 +196,11 @@ export default class CardRowBoard extends React.Component {
                                              className={"me-2"}/>
                             {this.state.compactView ? "More details" : "Less details"}
                         </button> : <></>}
-                    <EditButton onClick={() => this.setState({editView: !this.state.editView})}
-                                editView={this.state.editView} type={this.type}/>
+                    <div className={"float-end"}>
+                        <CreateButton type={this.type}/>
+                        <EditButton onClick={() => this.setState({editView: !this.state.editView})}
+                                    editView={this.state.editView} type={this.type}/>
+                    </div>
                 </div>
                 <div id={"collapseFilter"} className="collapse">
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
@@ -217,7 +219,7 @@ export default class CardRowBoard extends React.Component {
                     </span>
                 </div>
             </div>
-            <div className={"d-flex flex-wrap"}>
+            <div className={"d-flex flex-wrap mb-2"}>
                 {this.state.content.filter(c => c.name.toLowerCase()
                     .includes(this.state.searchString.toLowerCase())
                 ).length === 0 ? <span className={"text-muted"}>
@@ -234,7 +236,7 @@ export default class CardRowBoard extends React.Component {
             </div>
             {this.state.editView ? <>
                 <hr/>
-                <div className={"d-flex flex-wrap"}>
+                <div className={"d-flex flex-wrap mb-2"}>
                     {this.state.unselectedContent.filter(c => c.name.toLowerCase()
                         .includes(this.state.searchString.toLowerCase())
                     ).length === 0 ?
@@ -244,14 +246,9 @@ export default class CardRowBoard extends React.Component {
                     {this.state.unselectedContent.filter(c => c.name.toLowerCase()
                         .includes(this.state.searchString.toLowerCase())
                     ).map(i => this.renderSingleContent(i, false, true))}
-                    <Link href={"/edit/" + this.type + "/_new"}>
-                        <a className={"btn btn-outline-success mx-2 mb-2 p-0"}
-                           style={{width: "2.5rem", height: "2.5rem"}}>
-                            <IconAdd/>
-                        </a>
-                    </Link>
                 </div>
             </> : <></>}
+            <CreateButton type={this.type}/>
         </>
     }
 }
@@ -259,11 +256,21 @@ export default class CardRowBoard extends React.Component {
 function EditButton({onClick, editView, type}) {
     const [session] = useSession()
     if (canEdit(session, type)) {
-        return <div className={"float-end"}>
-            <button className={"btn btn-outline-warning"} type={"button"} onClick={onClick}>
-                {editView ? "Exit" : <IconEdit/>} edit-mode
-            </button>
-        </div>
+        return <button className={"btn btn-outline-warning mb-2"} type={"button"} onClick={onClick}>
+            {editView ? "Exit" : <FontAwesomeIcon icon={["fas", "edit"]}/>} edit-mode
+        </button>
+    }
+    return <></>
+}
+
+function CreateButton({type}) {
+    const [session] = useSession()
+    if (canEdit(session, type)) {
+        return <Link href={"/edit/" + type + "/_new"}>
+            <a className={"btn btn-outline-success mb-2 me-2"}>
+                <FontAwesomeIcon icon={["fas", "plus"]}/> Create a new {type}
+            </a>
+        </Link>
     }
     return <></>
 }

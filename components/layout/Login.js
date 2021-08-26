@@ -11,6 +11,7 @@ export default function Login() {
                 Access denied
             </title>
             <meta name="robots" content="noindex"/>
+            <meta name={"description"} content={"You need to login to view the site"}/>
         </Head>
         <h3 className={"mt-5 mb-3"}>
             This page is protected

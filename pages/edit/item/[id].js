@@ -2,14 +2,14 @@ import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Login from "../../../components/Login"
+import Login from "../../../components/layout/Login"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
 import {canEdit} from "../../../lib/session"
-import NotAdmin from "../../../components/NotAdmin"
+import NotAdmin from "../../../components/layout/NotAdmin"
 
 export default function EditorColumn({_id, tabs, columns, item}) {
     const [session] = useSession()

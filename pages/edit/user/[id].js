@@ -2,13 +2,13 @@ import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Login from "../../../components/Login"
+import Login from "../../../components/layout/Login"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getUser} from "../../../lib/db/users"
 import {isAdmin} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
-import NotAdmin from "../../../components/NotAdmin"
+import NotAdmin from "../../../components/layout/NotAdmin"
 
 export default function EditorUser({uid, tabs, user}) {
     const [session] = useSession()
