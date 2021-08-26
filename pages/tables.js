@@ -33,6 +33,6 @@ export async function getStaticProps() {
             tabs: await getTabsWithTables(),
             tables: await getTables()
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

@@ -3,10 +3,11 @@ import Head from "next/head"
 import {getTabsWithTables} from "../lib/db/tabs"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
-import {getUsers} from "../lib/db/users"
+import {countUsers, getUsers} from "../lib/db/users"
 import UserCard from "../components/cards/UserCard"
+import DataBadge from "../components/data/DataBadge"
 
-export default function Users({tabs, users}) {
+export default function Users({tabs, users, userCount}) {
     return <Layout tabs={tabs}>
         <Head>
             <title>
@@ -18,6 +19,9 @@ export default function Users({tabs, users}) {
             <div className="card-body">
                 <h2 className={"card-title"}>
                     <FontAwesomeIcon icon={["fas", "users"]}/> The whole community
+                    <div className={"float-end"} style={{fontSize: "1.2rem"}}>
+                        <DataBadge title={userCount + " registered users"} style={"primary"}/>
+                    </div>
                 </h2>
             </div>
         </div>
@@ -32,8 +36,9 @@ export async function getStaticProps() {
     return {
         props: {
             tabs: await getTabsWithTables(),
-            users: await getUsers()
+            users: await getUsers(),
+            userCount: await countUsers(),
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

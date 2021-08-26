@@ -32,6 +32,6 @@ export async function getStaticProps() {
             tabs: await getTabsWithTables(),
             columns: await getColumns()
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

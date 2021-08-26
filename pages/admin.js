@@ -55,6 +55,6 @@ export async function getStaticProps() {
             tabs,
             images: images()
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

@@ -74,7 +74,7 @@ export async function getStaticProps({params}) {
     if (!tab) {
         return {
             notFound: true,
-            revalidate: 20
+            revalidate: 10
         }
     }
 
@@ -84,6 +84,6 @@ export async function getStaticProps({params}) {
             tab,
             tables: await getTables()
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

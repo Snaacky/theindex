@@ -80,6 +80,6 @@ export async function getStaticProps({params}) {
             tabs,
             user
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

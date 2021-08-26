@@ -35,6 +35,6 @@ export async function getStaticProps() {
             items: await getItems(),
             columns: await getColumns()
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

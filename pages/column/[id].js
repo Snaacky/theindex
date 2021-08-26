@@ -117,6 +117,6 @@ export async function getStaticProps({params}) {
             column,
             columns
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

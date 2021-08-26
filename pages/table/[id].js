@@ -93,6 +93,6 @@ export async function getStaticProps({params}) {
             table,
             items,
         },
-        revalidate: 20
+        revalidate: 10
     }
 }

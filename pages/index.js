@@ -37,6 +37,6 @@ export async function getStaticProps() {
     const tabs = await getTabsWithTables()
     return {
         props: {tabs},
-        revalidate: 20
+        revalidate: 10
     }
 }
