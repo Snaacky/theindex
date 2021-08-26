@@ -1,15 +1,15 @@
-version: "3.8"
+version: "3.3"
 services:
-  index:
+  web:
     image: ranimepiracy/index:dev-next
-    container_name: index
+    container_name: index-web
     restart: unless-stopped
     ports:
       - 8080:3000
     environment:
       NEXTAUTH_URL: "https://piracy.moe"
       # uncomment the following if you are using your own db setup
-      # DATABASE_URL: "mongodb://mongo:27017"
+      # DATABASE_URL: "mongodb://index-db:27017"
       AUDIT_WEBHOOK: ""
 
       # OAuth2
@@ -21,14 +21,12 @@ services:
       # remove once set up
       SETUP_WHITELIST_DISCORD_ID: 00000000000
     depends_on:
-      - mongo
+      - db
 
-  mongo:
+  db:
     image: mongo
-    container_name: mongo
+    container_name: index-db
     restart: unless-stopped
-    ports:
-      - 27017:27017
     volumes:
       - ./db:/data/db
 

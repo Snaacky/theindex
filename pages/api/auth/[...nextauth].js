@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
 import {addUser, getUser} from "../../../lib/db/users"
+import {findOne} from "../../../lib/db/db";
 
 const discord = Providers.Discord({
     clientId: process.env.DISCORD_CLIENT_ID,
@@ -11,27 +12,24 @@ const nextAuth = NextAuth({
         discord
     ],
     callbacks: {
-        async signIn(user, account, profile) {
-            const dbUser = await getUser(user.id)
-            if (dbUser === null) {
-                const accountType = (
-                    typeof process.env.SETUP_WHITELIST_DISCORD_ID !== "undefined" &&
-                    process.env.SETUP_WHITELIST_DISCORD_ID !== "" &&
-                    profile.id === process.env.SETUP_WHITELIST_DISCORD_ID ?
-                        "admin" : "user"
-                )
-                await addUser({
-                    uid: user.id,
-                    accountType
-                })
-            }
-            return true
-        },
-
         // we want to access the user id
         async session(session, user) {
             if (user) {
                 session.user.uid = user.id
+                const dbUser = await getUser(user.id)
+                if (dbUser === null) {
+                    const accountData = await findOne("nextauth_accounts", {userId: user.id})
+                    const accountType = (
+                        typeof process.env.SETUP_WHITELIST_DISCORD_ID !== "undefined" &&
+                        process.env.SETUP_WHITELIST_DISCORD_ID !== "" &&
+                        accountData.providerAccountId === process.env.SETUP_WHITELIST_DISCORD_ID ?
+                            "admin" : "user"
+                    )
+                    await addUser({
+                        uid: user.id,
+                        accountType
+                    })
+                }
                 const uData = await getUser(user.id)
                 session.user.accountType = uData.accountType
                 session.user.description = uData.description
