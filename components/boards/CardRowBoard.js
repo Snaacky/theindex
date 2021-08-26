@@ -6,15 +6,14 @@ import ItemRow from "../rows/ItemRow"
 import ColumnFilter from "../column-filter"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../lib/session"
-import IconEdit from "../icons/IconEdit"
 import ColumnRow from "../rows/ColumnRow"
 import TableCard from "../cards/TableCard"
 import TableRow from "../rows/TableRow"
 import TabRow from "../rows/TabRow"
 import ColumnCard from "../cards/ColumnCard"
 import TabCard from "../cards/TabCard"
-import UserCard from "../cards/UserCard";
-import UserRow from "../rows/UserRow";
+import UserCard from "../cards/UserCard"
+import UserRow from "../rows/UserRow"
 
 export default class CardRowBoard extends React.Component {
     constructor(
