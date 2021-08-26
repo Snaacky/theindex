@@ -7,7 +7,8 @@ export default async function apiEditTableItems(req, res) {
     if (canEdit(session)) {
         const d = req.body
         if (typeof d._id !== "undefined" && Array.isArray(d.items)) {
-            await updateTableItems(d._id, d.items)
+            const items = d.items.map(t => typeof t === "string" ? t : t._id)
+            await updateTableItems(d._id, items)
             res.status(200).send("Ok")
         } else {
             res.status(400).send("Missing _id or items")
