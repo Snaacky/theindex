@@ -70,9 +70,13 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                 }
             </div>
         </div>
-        {typeof table !== "undefined" ?
-            <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns}/> :
-            <></>}
+        <h4>
+            Columns
+        </h4>
+        {typeof table !== "undefined" ? <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns}/> :
+            <div className={"text-muted"}>
+                Column selection will be available once the table has been created
+            </div>}
     </Layout>
 }
 
