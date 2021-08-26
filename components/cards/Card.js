@@ -44,7 +44,7 @@ export default function Card(
                 <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
             </div> : <></>}
             <div className="col">
-                <div className={"card-body"}>
+                <div className={"card-body p-2"}>
                     <h5 className={"card-title"}>
                         <Link href={"/" + hrefString}>
                             <a title={"View " + type + " " + content.name}>

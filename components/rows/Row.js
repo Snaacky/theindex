@@ -55,7 +55,7 @@ export default function Row(
                            alt="..." width={64} height={64}/>
                 </div> : <></>}
             <div className="col">
-                <div className={"card-body"}>
+                <div className={"card-body p-2"}>
                     <h5 className={"card-title"}>
                         <Link href={hrefString}>
                             {content.name}
