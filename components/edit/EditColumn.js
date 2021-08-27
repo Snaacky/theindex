@@ -54,7 +54,7 @@ export default class EditColumn extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = "/columns"
+                        window.location.href = escape("/columns")
                     }
                 }
             })

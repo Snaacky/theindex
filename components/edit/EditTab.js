@@ -51,7 +51,7 @@ export default class EditTab extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = "/tabs"
+                        window.location.href = escape("/tabs")
                     }
                 }
             })

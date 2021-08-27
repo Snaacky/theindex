@@ -44,7 +44,7 @@ export default class EditTable extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = "/tables"
+                        window.location.href = escape("/tables")
                     }
                 }
             })

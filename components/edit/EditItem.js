@@ -52,7 +52,7 @@ export default class EditItem extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = "/items"
+                        window.location.href = escape("/items")
                     }
                 }
             })
