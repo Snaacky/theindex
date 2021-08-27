@@ -21,7 +21,7 @@ export default function Dropdown(
            aria-expanded={show.toString()} onClick={() => toggle(!show)}>
             {toggler}
         </a>
-        <ul className={"dropdown-menu bg-4" + (show ? " show" : "") + (dropLeft ? " dropdown-menu-end" : "")}
+        <ul className={"dropdown-menu bg-4 " + (dropLeft ? styles.left + " dropdown-menu-end" : styles.right) + (show ? " show" : "")}
             aria-labelledby={"navDropdown-" + randString} data-bs-popper={"none"}>
             {head ? <>
                 <li>
