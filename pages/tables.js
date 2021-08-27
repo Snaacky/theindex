@@ -1,14 +1,21 @@
 import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../lib/db/tabs"
 import React from "react"
-import {getTables} from "../lib/db/tables"
 import IconTable from "../components/icons/IconTable"
 import TableBoard from "../components/boards/TableBoard"
+import Loader from "../components/loading"
+import useSWR from "swr"
 
-export default function EditorTables({tabs, tables}) {
+export default function EditorTables() {
+    const {data: tables, error} = useSWR("/api/tables")
+    if (error) {
+        return <div>failed to load</div>
+    }
+    if (!tables) {
+        return <Loader/>
+    }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {"Table manager | " + siteName}
@@ -29,10 +36,7 @@ export default function EditorTables({tabs, tables}) {
 
 export async function getStaticProps() {
     return {
-        props: {
-            tabs: await getTabsWithTables(),
-            tables: await getTables()
-        },
+        props: {},
         revalidate: 10
     }
 }

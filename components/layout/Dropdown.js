@@ -1,12 +1,23 @@
 import styles from "./Dropdown.module.css"
 
-export default function Dropdown({show = false, toggler, head, dropLeft = false, contentList, toggle}) {
+export default function Dropdown(
+    {
+        show = false,
+        toggler,
+        head,
+        dropLeft = false,
+        hideCavet = false,
+        contentList,
+        toggle
+    }
+) {
     // Hack to set unique ids of dropdowns
     const randString = Math.random().toString(36).slice(2)
 
-    return <li className="nav-item dropdown">
-        <a className={styles.toggler + " nav-link dropdown-toggle" + (show ? " show" : "")} role="button"
-           id={"navDropdown-" + randString}
+    return <li className={styles.dropdown + " nav-item dropdown"}>
+        <a className={
+            styles.toggler + (hideCavet ? " " + styles.cavet : "") + " nav-link dropdown-toggle" + (show ? " show" : "")
+        } role="button" id={"navDropdown-" + randString}
            aria-expanded={show.toString()} onClick={() => toggle(!show)}>
             {toggler}
         </a>

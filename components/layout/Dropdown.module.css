@@ -1,3 +1,11 @@
+.dropdown a {
+    cursor: pointer;
+}
+
+.cavet:after {
+    display: none;
+}
+
 .toggler {
     user-select: none;
 }
