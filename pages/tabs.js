@@ -1,13 +1,21 @@
 import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../lib/db/tabs"
 import IconTab from "../components/icons/IconTab"
 import React from "react"
 import TabBoard from "../components/boards/TabBoard"
+import useSWR from "swr"
+import Loader from "../components/loading"
 
-export default function EditorTabs({tabs}) {
+export default function EditorTabs() {
+    const {data: tabs, error} = useSWR("/api/tabs")
+    if (error) {
+        return <div>failed to load</div>
+    }
+    if (!tabs) {
+        return <Loader/>
+    }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {"Tab manager | " + siteName}
@@ -28,9 +36,7 @@ export default function EditorTabs({tabs}) {
 
 export async function getStaticProps() {
     return {
-        props: {
-            tabs: await getTabsWithTables()
-        },
+        props: {},
         revalidate: 10
     }
 }

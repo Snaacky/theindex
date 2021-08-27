@@ -4,7 +4,7 @@ import Footer from "./Footer"
 
 export const siteName = "The Anime Index"
 
-export default function Layout({children, error, tabs}) {
+export default function Layout({children, error}) {
     return (
         <div className={"d-flex"}
              style={{
@@ -46,11 +46,9 @@ export default function Layout({children, error, tabs}) {
                       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
                       crossOrigin="anonymous"/>
             </Head>
-            {error ? <></> :
-                <header>
-                    <Navbar tabs={tabs}/>
-                </header>
-            }
+            <header>
+                <Navbar/>
+            </header>
             <div className={"container my-2"}>
                 <main>{children}</main>
             </div>

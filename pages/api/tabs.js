@@ -1,5 +1,5 @@
-import {getTabs} from "../../lib/db/tabs"
+import {getTabsWithTables} from "../../lib/db/tabs"
 
-export default function handler(req, res) {
-    res.status(200).json(getTabs())
+export default async function handler(req, res) {
+    res.status(200).json(await getTabsWithTables())
 }

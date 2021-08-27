@@ -7,18 +7,23 @@ import {fab} from "@fortawesome/free-brands-svg-icons"
 import {fas} from "@fortawesome/free-solid-svg-icons"
 import Loader from "../components/loading"
 import {useEffect} from "react"
+import {SWRConfig} from "swr"
 
 library.add(fab, fas)
 
 export default function App({Component, pageProps}) {
     return <Provider session={pageProps.session}>
-        {Component.auth ? (
-            <Auth auth={Component.auth}>
+        <SWRConfig value={{
+            fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+        }}>
+            {Component.auth ? (
+                <Auth auth={Component.auth}>
+                    <Component {...pageProps} />
+                </Auth>
+            ) : (
                 <Component {...pageProps} />
-            </Auth>
-        ) : (
-            <Component {...pageProps} />
-        )}
+            )}
+        </SWRConfig>
     </Provider>
 }
 
