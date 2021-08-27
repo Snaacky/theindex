@@ -22,7 +22,7 @@ export default function Row(
     }) {
 
     const [session] = useSession()
-    const hrefString = type + "/" + (type !== "item" ? content.urlId : content._id)
+    const hrefString = type + "/" + (content.urlId ? content.urlId : content._id)
 
     if (typeof content === "undefined") {
         return <Loader/>
@@ -72,6 +72,9 @@ export default function Row(
                                 </span> : <></>}
                             {content.nsfw ? <span className={"ms-2"}>
                                 <DataBadge data={false} name={"NSFW"}/>
+                            </span> : <></>}
+                            {content.accountType ? <span className={"ms-2"}>
+                                <DataBadge name={content.accountType} style={"primary"}/>
                             </span> : <></>}
                         </span>
                     </h5>

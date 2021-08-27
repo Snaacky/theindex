@@ -1,5 +1,4 @@
 import Card from "./Card"
-import DataBadge from "../data/DataBadge"
 
 export default function UserCard(
     {
@@ -10,16 +9,16 @@ export default function UserCard(
     }) {
 
     const content = {
+        _id: user.uid,
         name: user.name,
-        urlId: user.uid,
-        description: user.description
+        description: user.description,
+        accountType: user.accountType
     }
     const joined = new Date(user.createdAt).toISOString().slice(0, 10)
     return <Card type={"user"} content={content} imageUrl={user.image} add={add} remove={remove} move={move}
-                 bodyContent={<div>
-                     <DataBadge name={user.accountType} style={"primary"}/>
+                 bodyContent={
                      <div className={"text-muted"}>
                          Joined <code>{joined}</code>
                      </div>
-                 </div>}/>
+                 }/>
 }

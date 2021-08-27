@@ -24,7 +24,7 @@ export default function Card(
     }) {
 
     const [session] = useSession()
-    const hrefString = type + "/" + (type !== "item" ? content.urlId : content._id)
+    const hrefString = type + "/" + (content.urlId ? content.urlId : content._id)
 
     if (typeof content === "undefined") {
         return <Loader/>
@@ -40,7 +40,7 @@ export default function Card(
                     <FontAwesomeIcon icon={["fas", "chevron-down"]}/>
                 </a>
             </div> : <></>}
-            {imageUrl !== "" ? <div className={"col-auto p-1"}>
+            {imageUrl !== "" ? <div className={"col-auto"}>
                 <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
             </div> : <></>}
             <div className="col">
@@ -67,6 +67,11 @@ export default function Card(
                             {content.nsfw ?
                                 <span className={"ms-2"}>
                                     <DataBadge data={false} name={"NSFW"}/>
+                                </span> : <></>
+                            }
+                            {content.accountType ?
+                                <span className={"ms-2"}>
+                                    <DataBadge name={content.accountType} style={"primary"}/>
                                 </span> : <></>
                             }
                             {canEdit(session, type) ? <>
