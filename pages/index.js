@@ -1,11 +1,20 @@
 import Head from "next/head"
 import Link from "next/link"
 import Layout, {siteName} from "../components/layout/Layout"
-import {getTabsWithTables} from "../lib/db/tabs"
+import Loader from "../components/loading"
+import useSWR from "swr"
+import Error from "./_error"
 
-export default function Home({tabs}) {
+export default function Home() {
+    const {data: tabs, error} = useSWR("/api/tabs")
+    if (error) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!tabs) {
+        return <Loader/>
+    }
+
     return (
-        <Layout tabs={tabs}>
+        <Layout>
             <Head>
                 <title>{siteName}</title>
             </Head>
@@ -34,9 +43,8 @@ export default function Home({tabs}) {
 }
 
 export async function getStaticProps() {
-    const tabs = await getTabsWithTables()
     return {
-        props: {tabs},
+        props: {},
         revalidate: 10
     }
 }

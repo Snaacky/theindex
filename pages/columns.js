@@ -1,13 +1,21 @@
 import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../lib/db/tabs"
 import React from "react"
-import {getColumns} from "../lib/db/columns"
 import IconColumn from "../components/icons/IconColumn"
 import ColumnBoard from "../components/boards/ColumnBoard"
+import Loader from "../components/loading"
+import useSWR from "swr"
+import Error from "./_error"
 
-export default function EditorColumns({tabs, columns}) {
-    return <Layout tabs={tabs}>
+export default function EditorColumns() {
+    const {data: columns, error} = useSWR("/api/columns")
+    if (error) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!columns) {
+        return <Loader/>
+    }
+
+    return <Layout>
         <Head>
             <title>
                 {"Column manager | " + siteName}
@@ -28,10 +36,7 @@ export default function EditorColumns({tabs, columns}) {
 
 export async function getStaticProps() {
     return {
-        props: {
-            tabs: await getTabsWithTables(),
-            columns: await getColumns()
-        },
+        props: {},
         revalidate: 10
     }
 }

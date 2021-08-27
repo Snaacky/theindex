@@ -173,19 +173,22 @@ export default function Navbar() {
                                           : <FontAwesomeIcon icon={["fas", "user-circle"]}/>
                                   }
                                   contentList={
-                                      (isAdmin(session) ? [
-                                          <Link href={"/admin"} key={"admin"}>
-                                              <a className={"dropdown-item"} title={"Admin settings"}>
-                                                  <IconAdmin/> Admin
-                                              </a>
-                                          </Link>,
-                                          <hr className="dropdown-divider" key={"divider"}/>
-                                      ] : []).concat([
+                                      (session ? [
                                           <Link href={"/user/" + session.user.uid} key={"users"}>
                                               <a className="dropdown-item">
                                                   <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
                                               </a>
-                                          </Link>,
+                                          </Link>
+                                      ] : []).concat(
+                                          isAdmin(session) ? [
+                                              <Link href={"/admin"} key={"admin"}>
+                                                  <a className={"dropdown-item"} title={"Admin settings"}>
+                                                      <IconAdmin/> Admin
+                                                  </a>
+                                              </Link>,
+                                              <hr className="dropdown-divider" key={"divider"}/>
+                                          ] : []
+                                      ).concat([
                                           <a className="dropdown-item" onClick={() => {
                                               if (session) {
                                                   signOut()

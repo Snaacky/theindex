@@ -1,25 +1,28 @@
 import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
-import {getTabs, getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from "next/router"
+import {getTabs} from "../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
 import TableBoard from "../../components/boards/TableBoard"
-import {getTables} from "../../lib/db/tables"
+import useSWR from "swr"
+import Error from "../_error"
+import {getByUrlId} from "../../lib/db/db"
 
-export default function Tab({tabs, tab, tables}) {
-    const router = useRouter()
+export default function Tab({_id}) {
     const [session] = useSession()
+    const {data: tab, error} = useSWR("/api/tab/" + _id)
 
-    if (router.isFallback) {
+    if (error) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!tab) {
         return <Loader/>
     }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {tab.name + " | " + siteName}
@@ -48,7 +51,7 @@ export default function Tab({tabs, tab, tables}) {
             </div>
         </div>
 
-        <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} key={tab._id}/>
+        <TableBoard _id={tab._id} tables={tab.tables} key={tab._id}/>
     </Layout>
 }
 
@@ -64,13 +67,12 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true,
+        fallback: "blocking",
     }
 }
 
 export async function getStaticProps({params}) {
-    const tabs = await getTabsWithTables()
-    const tab = tabs.filter(t => t.urlId === params.id)[0]
+    const tab = await getByUrlId("tabs", params.id)
     if (!tab) {
         return {
             notFound: true,
@@ -80,9 +82,7 @@ export async function getStaticProps({params}) {
 
     return {
         props: {
-            tabs,
-            tab,
-            tables: await getTables()
+            _id: tab._id
         },
         revalidate: 10
     }

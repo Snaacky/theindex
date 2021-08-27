@@ -1,29 +1,33 @@
 import Layout, {siteName} from "../../components/layout/Layout"
-import {getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from "next/router"
 import Loader from "../../components/loading"
-import {getTables, getTableWithColumnsAndItems} from "../../lib/db/tables"
+import {getTables} from "../../lib/db/tables"
 import Head from "next/head"
 import Link from "next/link"
-import {getByUrlId} from "../../lib/db/db"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
-import {getItems} from "../../lib/db/items"
 import DataBadge from "../../components/data/DataBadge"
 import ItemBoard from "../../components/boards/ItemBoard"
+import useSWR from "swr"
+import Error from "../_error"
+import {getByUrlId} from "../../lib/db/db"
 
-export default function Table({tabs, table, items}) {
-    const router = useRouter()
+export default function Table({_id}) {
     const [session] = useSession()
+    const {data: table, errorTable} = useSWR("/api/table/" + _id)
+    const {data: tabs, errorTabs} = useSWR("/api/tabs")
 
-    if (router.isFallback) {
+    if (errorTable) {
+        return <Error error={errorTable.status}/>
+    } else if (errorTabs) {
+        return <Error error={errorTabs.status}/>
+    } else if (!table || !tabs) {
         return <Loader/>
     }
 
     const tabsContainingTable = tabs.filter(tab => tab.tables.some(t => t._id === table._id))
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {table.name + " | " + siteName}
@@ -62,7 +66,7 @@ export default function Table({tabs, table, items}) {
                 </p>
             </div>
         </div>
-        <ItemBoard _id={table._id} items={table.items} allItems={items} columns={table.columns} key={table._id}/>
+        <ItemBoard _id={table._id} items={table.items} columns={table.columns} key={table._id}/>
     </Layout>
 }
 
@@ -78,20 +82,22 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true,
+        fallback: "blocking"
     }
 }
 
 export async function getStaticProps({params}) {
-    const tabs = await getTabsWithTables()
-    const table = await getTableWithColumnsAndItems(await getByUrlId("tables", params.id))
-    const items = await getItems()
+    const table = await getByUrlId("tables", params.id)
+    if (!table) {
+        return {
+            notFound: true,
+            revalidate: 10
+        }
+    }
 
     return {
         props: {
-            tabs,
-            table,
-            items,
+            _id: table._id
         },
         revalidate: 10
     }

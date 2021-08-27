@@ -5,13 +5,13 @@ import IconTable from "../components/icons/IconTable"
 import TableBoard from "../components/boards/TableBoard"
 import Loader from "../components/loading"
 import useSWR from "swr"
+import Error from "./_error"
 
 export default function EditorTables() {
     const {data: tables, error} = useSWR("/api/tables")
     if (error) {
-        return <div>failed to load</div>
-    }
-    if (!tables) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!tables) {
         return <Loader/>
     }
 

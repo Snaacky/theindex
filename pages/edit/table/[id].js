@@ -12,20 +12,15 @@ import ColumnBoard from "../../../components/boards/ColumnBoard"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TabBoard from "../../../components/boards/TabBoard"
+import {getByUrlId} from "../../../lib/db/db"
 
 export default function EditorTable({urlId, tabs, tables, columns}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
-
-    if (!canEdit(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
+        return <Login/>
+    } else if (!canEdit(session)) {
+        return <NotAdmin/>
     }
 
     let table = [], tabsWithTable = []
@@ -35,10 +30,10 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         tabsWithTable = tabs.filter(t => t.tables.some(c => c._id === table._id))
     }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
-                {(typeof table === "undefined" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
+                {(urlId === "_new" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -46,7 +41,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {typeof table === "undefined" ? "Create a new table" : <>
+                        {urlId === "_new" ? "Create a new table" : <>
                             Edit table <Link href={"/table/" + table.urlId}>{table.name}</Link>
                         </>}
                         <span className={"float-end"}>
@@ -58,17 +53,14 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                             </Link>
                         </span>
                     </h2>
-                    {typeof table !== "undefined" ?
+                    {urlId !== "_new" ?
                         <small className={"text-muted"}>
                             ID: <code>{table._id}</code>
                         </small> : <></>}
                 </div>
-                {typeof table === "undefined" ? <EditTable tables={tables} columnsDatalist={columns}/> :
-                    <>
-                        <EditTable tables={tables} columnsDatalist={columns} _id={table._id} urlId={table.urlId}
-                                   name={table.name} nsfw={table.nsfw} description={table.description}
-                                   columns={table.columns}/>
-                    </>
+                {urlId === "_new" ? <EditTable tables={tables}/> :
+                    <EditTable tables={tables} _id={table._id} urlId={table.urlId}
+                               name={table.name} nsfw={table.nsfw} description={table.description}/>
                 }
             </div>
         </div>
@@ -76,7 +68,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         <h4>
             Tabs with this table
         </h4>
-        {typeof table !== "undefined" ?
+        {urlId !== "_new" ?
             <TabBoard _id={table._id} tabs={tabsWithTable} allTabs={tabs} canMove={false}
                       updateURL={"/api/edit/table/tabs"} deleteURL={""} forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -87,7 +79,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         <h4>
             Columns used in this table
         </h4>
-        {typeof table !== "undefined" ?
+        {urlId !== "_new" ?
             <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns} canMove={false}
                          forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -98,6 +90,13 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
 }
 
 export async function getServerSideProps({params}) {
+    const table = await getByUrlId("tables", params.id)
+    if (!table && params.id !== "_new") {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             urlId: params.id,

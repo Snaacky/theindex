@@ -10,7 +10,7 @@ export default function Error({statusCode, error}) {
                        width={120} height={120}/>
             </div>
             <h1 className={"mb-4"}>
-                {error.text}
+                {error.toString()}
             </h1>
             <div className={"d-flex justify-content-center"}>
                 <a href={"/"} className={"btn btn-outline-warning"}>
@@ -25,6 +25,9 @@ export async function getStaticProps({res, err}) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : 404
     const error = getError(statusCode)
     return {
-        props: {statusCode, error}
+        props: {
+            statusCode,
+            error
+        }
     }
 }

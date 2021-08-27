@@ -1,24 +1,26 @@
 import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
-import {getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from "next/router"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
 import {isAdmin} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
 import {getUser, getUsers} from "../../lib/db/users"
+import useSWR from "swr"
+import Error from "../_error"
 
-export default function User({tabs, user}) {
-    const router = useRouter()
+export default function User({uid}) {
     const [session] = useSession()
+    const {data: user, error} = useSWR("/api/user/" + uid)
 
-    if (router.isFallback) {
+    if (error) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!user) {
         return <Loader/>
     }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {"User " + user.name + " | " + siteName}
@@ -66,19 +68,21 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true
+        fallback: "blocking"
     }
 }
 
 export async function getStaticProps({params}) {
-    const tabs = await getTabsWithTables()
     const user = await getUser(params.id)
-    user.uid = user.uid.toString()
-
+    if (!user) {
+        return {
+            notFound: true,
+            revalidate: 10
+        }
+    }
     return {
         props: {
-            tabs,
-            user
+            uid: params.id
         },
         revalidate: 10
     }

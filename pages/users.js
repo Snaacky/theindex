@@ -6,14 +6,13 @@ import DataBadge from "../components/data/DataBadge"
 import UserBoard from "../components/boards/UserBoard"
 import useSWR from "swr"
 import Loader from "../components/loading"
+import Error from "./_error"
 
 export default function Users() {
-
     const {data: users, error} = useSWR("/api/users")
     if (error) {
-        return <div>failed to load</div>
-    }
-    if (!users) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!users) {
         return <Loader/>
     }
 

@@ -10,27 +10,22 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
+import {getByUrlId} from "../../../lib/db/db"
 
 export default function EditorTab({urlId, tabs, tables}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
-
-    if (!canEdit(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
+        return <Login/>
+    } else if (!canEdit(session)) {
+        return <NotAdmin/>
     }
 
     let tab
     if (urlId !== "_new") {
         tab = tabs.find(t => t.urlId === urlId)
     }
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {(typeof tab === "undefined" ? "Create tab" : "Edit tab " + tab.name) + " | " + siteName}
@@ -79,6 +74,13 @@ export default function EditorTab({urlId, tabs, tables}) {
 }
 
 export async function getServerSideProps({params}) {
+    const tab = await getByUrlId("tabs", params.id)
+    if (!tab && params.id !== "_new") {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             urlId: params.id,

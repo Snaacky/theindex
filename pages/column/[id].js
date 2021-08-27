@@ -1,12 +1,9 @@
 import Layout, {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
-import {getTabsWithTables} from "../../lib/db/tabs"
-import {useRouter} from "next/router"
 import {useSession} from "next-auth/client"
-import Loader from "../../components/loading"
 import {canEdit} from "../../lib/session"
-import {find, getByUrlId} from "../../lib/db/db"
+import {getByUrlId} from "../../lib/db/db"
 import {getColumns} from "../../lib/db/columns"
 import ItemCard from "../../components/cards/ItemCard"
 import IconEdit from "../../components/icons/IconEdit"
@@ -14,17 +11,28 @@ import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import DataBadge from "../../components/data/DataBadge"
+import useSWR from "swr"
+import Loader from "../../components/loading"
+import Error from "../_error"
 
-export default function Column({tabs, itemsContainingColumn, column, columns}) {
-    const router = useRouter()
+export default function Column({_id}) {
     const [session] = useSession()
-
     const [filter, setFilter] = useState(null)
+    const {data: column, errorColumn} = useSWR("/api/column/" + _id)
+    const {data: columns, errorColumns} = useSWR("/api/columns")
+    const {data: items, errorItems} = useSWR("/api/items")
 
-    if (router.isFallback) {
+    if (!column || !columns || !items) {
         return <Loader/>
+    } else if (errorColumn) {
+        return <Error error={errorColumn} statusCode={errorColumn.status}/>
+    } else if (errorColumns) {
+        return <Error error={errorColumns} statusCode={errorColumns.status}/>
+    } else if (errorItems) {
+        return <Error error={errorItems} statusCode={errorItems.status}/>
     }
 
+    const itemsContainingColumn = items.filter(i => Object.keys(i.data).includes(column._id))
 
     const filteredItems = itemsContainingColumn.filter(i => {
         if (filter === null) {
@@ -39,7 +47,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
         return filter === "" || i.data[column._id].toLowerCase().includes(filter.toLowerCase())
     })
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {column.name + " | " + siteName}
@@ -86,7 +94,7 @@ export default function Column({tabs, itemsContainingColumn, column, columns}) {
 }
 
 export async function getStaticPaths() {
-    const columns = await getColumns() || []
+    const columns = await getColumns()
     const paths = columns.map(i => {
         return {
             params: {
@@ -97,25 +105,22 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true
+        fallback: "blocking"
     }
 }
 
 export async function getStaticProps({params}) {
-    const tabs = await getTabsWithTables()
-    const columns = await getColumns() || []
     const column = await getByUrlId("columns", params.id)
-
-    let query = {}
-    query["data." + column._id] = {$exists: true}
-    const itemsContainingColumn = await find("items", query) || []
+    if (!column) {
+        return {
+            notFound: true,
+            revalidate: 10
+        }
+    }
 
     return {
         props: {
-            tabs,
-            itemsContainingColumn,
-            column,
-            columns
+            _id: column._id
         },
         revalidate: 10
     }

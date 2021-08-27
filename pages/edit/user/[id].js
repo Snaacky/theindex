@@ -1,6 +1,5 @@
 import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
 import Link from "next/link"
@@ -10,22 +9,16 @@ import {isAdmin} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
 import NotAdmin from "../../../components/layout/NotAdmin"
 
-export default function EditorUser({uid, tabs, user}) {
+export default function EditorUser({uid, user}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
+        return <Login/>
+    } else if (!isAdmin(session)) {
+        return <NotAdmin/>
     }
 
-    if (!isAdmin(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
-    }
-
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {"Edit user " + user.name + " | " + siteName}
@@ -58,11 +51,16 @@ export default function EditorUser({uid, tabs, user}) {
 
 export async function getServerSideProps({params}) {
     const user = await getUser(params.id)
+    if (!user) {
+        return {
+            notFound: true
+        }
+    }
+
     user.uid = user.uid.toString()
     return {
         props: {
             uid: params.id,
-            tabs: await getTabsWithTables(),
             user
         }
     }

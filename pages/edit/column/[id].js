@@ -1,6 +1,5 @@
 import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
 import {getTables} from "../../../lib/db/tables"
@@ -11,20 +10,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
+import {getByUrlId} from "../../../lib/db/db";
 
-export default function EditorColumn({urlId, tabs, tables, columns}) {
+export default function EditorColumn({urlId, tables, columns}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
-
-    if (!canEdit(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
+        return <Login/>
+    } else if (!canEdit(session)) {
+        return <NotAdmin/>
     }
 
     let column = [], tablesWithColumn = []
@@ -32,10 +26,10 @@ export default function EditorColumn({urlId, tabs, tables, columns}) {
         column = columns.find(t => t.urlId === urlId)
         tablesWithColumn = tables.filter(t => t.columns.some(c => c === column._id))
     }
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
-                {(typeof column === "undefined" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
+                {(urlId === "_new" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -43,7 +37,7 @@ export default function EditorColumn({urlId, tabs, tables, columns}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {typeof column === "undefined" ? "Create a new column" : <>
+                        {urlId === "_new" ? "Create a new column" : <>
                             Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
                         </>}
                         <span className={"float-end"}>
@@ -55,12 +49,12 @@ export default function EditorColumn({urlId, tabs, tables, columns}) {
                             </Link>
                         </span>
                     </h2>
-                    {typeof column !== "undefined" ?
+                    {urlId !== "_new" ?
                         <small className={"text-muted"}>
                             ID: <code>{column._id}</code>
                         </small> : <></>}
                 </div>
-                {typeof column === "undefined" ? <EditColumn columns={columns}/> :
+                {urlId === "_new" ? <EditColumn columns={columns}/> :
                     <EditColumn columns={columns} _id={column._id} urlId={column.urlId} name={column.name}
                                 nsfw={column.nsfw} description={column.description} type={column.type}
                                 values={column.values}/>
@@ -72,7 +66,7 @@ export default function EditorColumn({urlId, tabs, tables, columns}) {
         <h4>
             Tables with this column
         </h4>
-        {typeof column !== "undefined" ?
+        {urlId !== "_new" ?
             <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false}
                         updateURL={"/api/edit/column/tables"} forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -83,10 +77,16 @@ export default function EditorColumn({urlId, tabs, tables, columns}) {
 }
 
 export async function getServerSideProps({params}) {
+    const column = await getByUrlId("columns", params.id)
+    if (!column && params.id !== "_new") {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             urlId: params.id,
-            tabs: await getTabsWithTables(),
             tables: await getTables(),
             columns: await getColumns()
         }

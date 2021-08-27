@@ -1,5 +1,5 @@
-export default function handler(req, res) {
-    res.status(200).json({
-        name: req.query.id
-    })
+import {getItem} from "../../../lib/db/items"
+
+export default async function handler(req, res) {
+    res.status(200).json(await getItem(req.query.id))
 }

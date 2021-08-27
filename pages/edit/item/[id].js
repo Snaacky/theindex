@@ -1,6 +1,5 @@
 import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
 import Link from "next/link"
@@ -13,19 +12,13 @@ import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
 import {getTables} from "../../../lib/db/tables"
 
-export default function EditorColumn({_id, tabs, tables, columns, item}) {
+export default function EditorColumn({_id, tables, columns, item}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
-
-    if (!canEdit(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
+        return <Login/>
+    } else if (!canEdit(session)) {
+        return <NotAdmin/>
     }
 
     let tablesWithItem = []
@@ -33,7 +26,7 @@ export default function EditorColumn({_id, tabs, tables, columns, item}) {
         tablesWithItem = tables.filter(t => t.items.some(i => i === item._id))
     }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {(_id === "_new" ? "Create item" : "Edit item " + item.name) + " | " + siteName}
@@ -82,13 +75,19 @@ export default function EditorColumn({_id, tabs, tables, columns, item}) {
 }
 
 export async function getServerSideProps({params}) {
+    const item = await getItem(params.id)
+    if (!item && params.id !== "_new") {
+        return {
+            notFound: true
+        }
+    }
+
     return {
         props: {
             _id: params.id,
-            tabs: await getTabsWithTables(),
             tables: await getTables(),
             columns: await getColumns(),
-            item: params.id === "_new" ? {} : await getItem(params.id)
+            item: params.id === "_new" ? {} : item
         }
     }
 }

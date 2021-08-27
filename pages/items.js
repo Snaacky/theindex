@@ -1,15 +1,21 @@
 import Layout, {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../lib/db/tabs"
 import React from "react"
 import IconItem from "../components/icons/IconItem"
-import {getItems} from "../lib/db/items"
 import ItemBoard from "../components/boards/ItemBoard"
-import {getColumns} from "../lib/db/columns"
+import Loader from "../components/loading"
+import useSWR from "swr"
+import Error from "./_error"
 
-export default function EditorItems({tabs, items, columns}) {
+export default function EditorItems() {
+    const {data: items, error} = useSWR("/api/items")
+    if (error) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!items) {
+        return <Loader/>
+    }
 
-    return <Layout tabs={tabs}>
+    return <Layout>
         <Head>
             <title>
                 {"Item manager | " + siteName}
@@ -24,17 +30,13 @@ export default function EditorItems({tabs, items, columns}) {
             </div>
         </div>
 
-        <ItemBoard items={items} deleteURL={"/api/delete/item"} columns={columns}/>
+        <ItemBoard items={items} deleteURL={"/api/delete/item"}/>
     </Layout>
 }
 
 export async function getStaticProps() {
     return {
-        props: {
-            tabs: await getTabsWithTables(),
-            items: await getItems(),
-            columns: await getColumns()
-        },
+        props: {},
         revalidate: 10
     }
 }

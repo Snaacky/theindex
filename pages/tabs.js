@@ -5,13 +5,13 @@ import React from "react"
 import TabBoard from "../components/boards/TabBoard"
 import useSWR from "swr"
 import Loader from "../components/loading"
+import Error from "./_error"
 
 export default function EditorTabs() {
     const {data: tabs, error} = useSWR("/api/tabs")
     if (error) {
-        return <div>failed to load</div>
-    }
-    if (!tabs) {
+        return <Error error={error} statusCode={error.status}/>
+    } else if (!tabs) {
         return <Loader/>
     }
 

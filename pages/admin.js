@@ -2,28 +2,22 @@ import Head from "next/head"
 import Image from "next/image"
 import Layout, {siteName} from "../components/layout/Layout"
 import {images} from "../lib/icon"
-import {getTabsWithTables} from "../lib/db/tabs"
 import Login from "../components/layout/Login"
 import {isAdmin} from "../lib/session"
 import NotAdmin from "../components/layout/NotAdmin"
 import {useSession} from "next-auth/client"
 
-export default function Admin({tabs, images}) {
+export default function Admin({images}) {
     const [session] = useSession()
 
     if (!session) {
-        return <Layout tabs={tabs}>
-            <Login/>
-        </Layout>
-    }
-    if (!isAdmin(session)) {
-        return <Layout tabs={tabs}>
-            <NotAdmin/>
-        </Layout>
+        return <Login/>
+    } else if (!isAdmin(session)) {
+        return <NotAdmin/>
     }
 
     return (
-        <Layout tabs={tabs}>
+        <Layout>
             <Head>
                 <title>Admin | {siteName}</title>
             </Head>
@@ -49,10 +43,8 @@ export default function Admin({tabs, images}) {
 }
 
 export async function getStaticProps() {
-    const tabs = await getTabsWithTables()
     return {
         props: {
-            tabs,
             images: images()
         },
         revalidate: 10
