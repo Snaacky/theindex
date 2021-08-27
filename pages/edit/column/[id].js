@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
-import {getByUrlId} from "../../../lib/db/db";
+import {getByUrlId} from "../../../lib/db/db"
 
 export default function EditorColumn({urlId, tables, columns}) {
     const [session] = useSession()
