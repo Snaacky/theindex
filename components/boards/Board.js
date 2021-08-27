@@ -279,7 +279,7 @@ function EditButton({onClick, editView, type}) {
 
 function CreateButton({type}) {
     const [session] = useSession()
-    if (canEdit(session, type)) {
+    if (type !== "user" && canEdit(session, type)) {
         return <Link href={"/edit/" + type + "/_new"}>
             <a className={"btn btn-outline-success mb-2 me-2"}>
                 <FontAwesomeIcon icon={["fas", "plus"]}/> Create a new {type}
