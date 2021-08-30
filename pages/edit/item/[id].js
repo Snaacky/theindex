@@ -64,7 +64,7 @@ export default function EditorColumn({_id, tables, columns, item}) {
         <h4>
             Tables with this item
         </h4>
-        {typeof item !== "undefined" ?
+        {_id !== "_new" ?
             <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false}
                         forceEditMode={true} updateURL={"/api/edit/item/tables"}/> :
             <div className={"text-muted"}>

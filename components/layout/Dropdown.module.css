@@ -9,6 +9,10 @@
     background-color: var(--bg-7);
 }
 
+.dropdown a:focus {
+    color: white;
+}
+
 .cavet:after {
     display: none;
 }
