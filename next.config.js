@@ -11,10 +11,6 @@ const nextConfig = {
                     {
                         key: "X-Content-Type-Options",
                         value: "nosniff"
-                    },
-                    {
-                        key: "Content-Security-Policy",
-                        value: "default-src 'self'; img-src *; script-src 'self' https://cdn.jsdelivr.net"
                     }
                 ]
             }
