@@ -3,6 +3,7 @@ import Image from "next/image"
 import {getError} from "../lib/error"
 
 export default function Error({statusCode, error}) {
+    const text = error.message ?? error.text ?? error
     return <Layout error={statusCode}>
         <div className={"position-absolute top-50 start-50 translate-middle"}>
             <div className={"d-flex justify-content-center"}>
@@ -10,7 +11,7 @@ export default function Error({statusCode, error}) {
                        width={120} height={120}/>
             </div>
             <h1 className={"mb-4"}>
-                {error.toString()}
+                {text.toString()}
             </h1>
             <div className={"d-flex justify-content-center"}>
                 <a href={"/"} className={"btn btn-outline-warning"}>
