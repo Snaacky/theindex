@@ -71,7 +71,7 @@ export default function Navbar() {
                               ]} toggle={(newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 0))}/>
                     {tabs.length === 0 ?
                         <li className="nav-item">
-                            <a className="nav-link text-muted">
+                            <a href={"#"} className="nav-link text-muted">
                                 No tabs found
                             </a>
                         </li> : <></>}
@@ -86,7 +86,7 @@ export default function Navbar() {
                                   }
                                   contentList={
                                       tables.length === 0 ? [
-                                          <a className={"dropdown-item text-muted"} key={"noTablesFound"}>
+                                          <a href={"#"} className={"dropdown-item text-muted"} key={"noTablesFound"}>
                                               No tables found
                                           </a>
                                       ] : tables.map((table) => {
