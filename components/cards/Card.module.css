@@ -5,7 +5,7 @@
 }
 
 .card:hover {
-    border-right-color: var(--bs-success);
+    border-right-color: var(--accent-color);
 }
 
 .description {
