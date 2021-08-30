@@ -3,7 +3,7 @@ import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
-import {getTables} from "../../../lib/db/tables"
+import {getTable, getTables} from "../../../lib/db/tables"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
@@ -12,9 +12,8 @@ import ColumnBoard from "../../../components/boards/ColumnBoard"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TabBoard from "../../../components/boards/TabBoard"
-import {getByUrlId} from "../../../lib/db/db"
 
-export default function EditorTable({urlId, tabs, tables, columns}) {
+export default function EditorTable({_id, tabs, tables, columns, table}) {
     const [session] = useSession()
 
     if (!session) {
@@ -23,9 +22,8 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         return <NotAdmin/>
     }
 
-    let table = [], tabsWithTable = []
-    if (urlId !== "_new") {
-        table = tables.find(t => t.urlId === urlId)
+    let tabsWithTable = []
+    if (_id !== "_new") {
         table.columns = table.columns.map(c => columns.find(t => t._id === c))
         tabsWithTable = tabs.filter(t => t.tables.some(c => c._id === table._id))
     }
@@ -33,7 +31,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
     return <Layout>
         <Head>
             <title>
-                {(urlId === "_new" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
+                {(_id === "_new" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -41,7 +39,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {urlId === "_new" ? "Create a new table" : <>
+                        {_id === "_new" ? "Create a new table" : <>
                             Edit table <Link href={"/table/" + table.urlId}>{table.name}</Link>
                         </>}
                         <span className={"float-end"}>
@@ -53,12 +51,12 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
                             </Link>
                         </span>
                     </h2>
-                    {urlId !== "_new" ?
+                    {_id !== "_new" ?
                         <small className={"text-muted"}>
                             ID: <code>{table._id}</code>
                         </small> : <></>}
                 </div>
-                {urlId === "_new" ? <EditTable tables={tables}/> :
+                {_id === "_new" ? <EditTable tables={tables}/> :
                     <EditTable tables={tables} _id={table._id} urlId={table.urlId}
                                name={table.name} nsfw={table.nsfw} description={table.description}/>
                 }
@@ -68,7 +66,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         <h4>
             Tabs with this table
         </h4>
-        {urlId !== "_new" ?
+        {_id !== "_new" ?
             <TabBoard _id={table._id} tabs={tabsWithTable} allTabs={tabs} canMove={false}
                       updateURL={"/api/edit/table/tabs"} deleteURL={""} forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -79,7 +77,7 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
         <h4>
             Columns used in this table
         </h4>
-        {urlId !== "_new" ?
+        {_id !== "_new" ?
             <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns} canMove={false}
                          forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -90,19 +88,23 @@ export default function EditorTable({urlId, tabs, tables, columns}) {
 }
 
 export async function getServerSideProps({params}) {
-    const table = await getByUrlId("tables", params.id)
-    if (!table && params.id !== "_new") {
-        return {
-            notFound: true
+    let table = {}
+    if (params.id !== "_new") {
+        table = await getTable(params.id)
+        if (!table) {
+            return {
+                notFound: true
+            }
         }
     }
 
     return {
         props: {
-            urlId: params.id,
+            _id: params.id,
             tabs: await getTabsWithTables(),
             tables: await getTables(),
-            columns: await getColumns()
+            columns: await getColumns(),
+            table
         }
     }
 }

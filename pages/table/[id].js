@@ -52,7 +52,7 @@ export default function Table({_id}) {
                             })}
                             <div className={"float-end"}>
                                 {table.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                                {canEdit(session) ? <Link href={"/edit/table/" + table.urlId}>
+                                {canEdit(session) ? <Link href={"/edit/table/" + table._id}>
                                     <a title={"Edit table"} className={"ms-2"}>
                                         <IconEdit/>
                                     </a>

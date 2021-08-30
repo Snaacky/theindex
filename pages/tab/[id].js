@@ -37,7 +37,7 @@ export default function Tab({_id}) {
                         {tab.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {tab.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                            {canEdit(session) ? <Link href={"/edit/tab/" + tab.urlId}>
+                            {canEdit(session) ? <Link href={"/edit/tab/" + tab._id}>
                                 <a title={"Edit tab"} className={"ms-2"}>
                                     <IconEdit/>
                                 </a>

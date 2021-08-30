@@ -24,7 +24,7 @@ export default function Card(
     }) {
 
     const [session] = useSession()
-    const hrefString = type + "/" + (content.urlId ? content.urlId : content._id)
+    const hrefString = "/" + type + "/" + content._id
 
     if (typeof content === "undefined") {
         return <Loader/>
@@ -46,14 +46,14 @@ export default function Card(
             <div className="col">
                 <div className={"card-body p-2"}>
                     <h5 className={"card-title"}>
-                        <Link href={"/" + hrefString}>
+                        <Link href={hrefString}>
                             <a title={"View " + type + " " + content.name}>
                                 {content.name}
                             </a>
                         </Link>
                         {url !== "" ? <IconNewTabLink url={url}/> : <></>}
                         {canEdit(session, type) ? <>
-                            <Link href={"/edit/" + hrefString}>
+                            <Link href={"/edit" + hrefString}>
                                 <a title={"Edit " + type} className={"ms-2"}>
                                     <IconEdit/>
                                 </a>

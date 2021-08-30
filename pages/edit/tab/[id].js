@@ -1,6 +1,6 @@
 import Layout, {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs"
+import {getTab, getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
 import {getTables} from "../../../lib/db/tables"
@@ -10,9 +10,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
-import {getByUrlId} from "../../../lib/db/db"
 
-export default function EditorTab({urlId, tabs, tables}) {
+export default function EditorTab({_id, tabs, tables, tab}) {
     const [session] = useSession()
 
     if (!session) {
@@ -21,14 +20,10 @@ export default function EditorTab({urlId, tabs, tables}) {
         return <NotAdmin/>
     }
 
-    let tab
-    if (urlId !== "_new") {
-        tab = tabs.find(t => t.urlId === urlId)
-    }
     return <Layout>
         <Head>
             <title>
-                {(typeof tab === "undefined" ? "Create tab" : "Edit tab " + tab.name) + " | " + siteName}
+                {(_id === "_new" ? "Create tab" : "Edit tab " + tab.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -36,7 +31,7 @@ export default function EditorTab({urlId, tabs, tables}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {typeof tab === "undefined" ? "Create a new tab" : <>
+                        {_id === "_new" ? "Create a new tab" : <>
                             Edit tab <Link href={"/tab/" + tab.urlId}>{tab.name}</Link>
                         </>}
                         <span className={"float-end"}>
@@ -48,12 +43,12 @@ export default function EditorTab({urlId, tabs, tables}) {
                             </Link>
                         </span>
                     </h2>
-                    {typeof tab !== "undefined" ?
+                    {_id !== "_new" ?
                         <small className={"text-muted"}>
                             ID: <code>{tab._id}</code>
                         </small> : <></>}
                 </div>
-                {typeof tab === "undefined" ? <EditTab tabs={tabs} tablesDatalist={tables}/> :
+                {_id === "_new" ? <EditTab tabs={tabs} tablesDatalist={tables}/> :
                     <EditTab tabs={tabs} tablesDatalist={tables} _id={tab._id} urlId={tab.urlId} name={tab.name}
                              nsfw={tab.nsfw} description={tab.description} tables={tab.tables}/>
                 }
@@ -63,7 +58,7 @@ export default function EditorTab({urlId, tabs, tables}) {
         <h4>
             Tables used in this tab
         </h4>
-        {typeof tab !== "undefined" ?
+        {_id !== "_new" ?
             <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} canMove={false}
                         forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -74,18 +69,22 @@ export default function EditorTab({urlId, tabs, tables}) {
 }
 
 export async function getServerSideProps({params}) {
-    const tab = await getByUrlId("tabs", params.id)
-    if (!tab && params.id !== "_new") {
-        return {
-            notFound: true
+    let tab = {}
+    if (params.id !== "_new") {
+        tab = await getTab(params.id)
+        if (!tab) {
+            return {
+                notFound: true
+            }
         }
     }
 
     return {
         props: {
-            urlId: params.id,
+            _id: params.id,
             tabs: await getTabsWithTables(),
             tables: await getTables(),
+            tab
         }
     }
 }

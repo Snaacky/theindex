@@ -1,11 +1,11 @@
 .row {
     width: 100%;
-    border-right: 3px solid var(--bs-success);
-    transition: transform ease-in-out 0.1s;
+    border-right: 3px solid var(--bg-2);
+    transition: border-right-color ease-in-out 0.1s;
 }
 
 .row:hover {
-    transform: translate(-3px, -2px);
+    border-right-color: var(--bs-success);
 }
 
 .sorter {

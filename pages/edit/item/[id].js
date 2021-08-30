@@ -75,10 +75,13 @@ export default function EditorColumn({_id, tables, columns, item}) {
 }
 
 export async function getServerSideProps({params}) {
-    const item = await getItem(params.id)
-    if (!item && params.id !== "_new") {
-        return {
-            notFound: true
+    let item = {}
+    if (params.id !== "_new") {
+        item = await getItem(params.id)
+        if (!item) {
+            return {
+                notFound: true
+            }
         }
     }
 
@@ -87,7 +90,7 @@ export async function getServerSideProps({params}) {
             _id: params.id,
             tables: await getTables(),
             columns: await getColumns(),
-            item: params.id === "_new" ? {} : item
+            item
         }
     }
 }

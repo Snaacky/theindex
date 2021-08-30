@@ -4,15 +4,14 @@ import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
 import {getTables} from "../../../lib/db/tables"
 import Link from "next/link"
-import {getColumns} from "../../../lib/db/columns"
+import {getColumn, getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {canEdit} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
-import {getByUrlId} from "../../../lib/db/db"
 
-export default function EditorColumn({urlId, tables, columns}) {
+export default function EditorColumn({_id, tables, columns, column}) {
     const [session] = useSession()
 
     if (!session) {
@@ -21,15 +20,14 @@ export default function EditorColumn({urlId, tables, columns}) {
         return <NotAdmin/>
     }
 
-    let column = [], tablesWithColumn = []
-    if (urlId !== "_new") {
-        column = columns.find(t => t.urlId === urlId)
+    let tablesWithColumn = []
+    if (_id !== "_new") {
         tablesWithColumn = tables.filter(t => t.columns.some(c => c === column._id))
     }
     return <Layout>
         <Head>
             <title>
-                {(urlId === "_new" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
+                {(_id === "_new" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -37,7 +35,7 @@ export default function EditorColumn({urlId, tables, columns}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {urlId === "_new" ? "Create a new column" : <>
+                        {_id === "_new" ? "Create a new column" : <>
                             Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
                         </>}
                         <span className={"float-end"}>
@@ -49,12 +47,12 @@ export default function EditorColumn({urlId, tables, columns}) {
                             </Link>
                         </span>
                     </h2>
-                    {urlId !== "_new" ?
+                    {_id !== "_new" ?
                         <small className={"text-muted"}>
                             ID: <code>{column._id}</code>
                         </small> : <></>}
                 </div>
-                {urlId === "_new" ? <EditColumn columns={columns}/> :
+                {_id === "_new" ? <EditColumn columns={columns}/> :
                     <EditColumn columns={columns} _id={column._id} urlId={column.urlId} name={column.name}
                                 nsfw={column.nsfw} description={column.description} type={column.type}
                                 values={column.values}/>
@@ -66,7 +64,7 @@ export default function EditorColumn({urlId, tables, columns}) {
         <h4>
             Tables with this column
         </h4>
-        {urlId !== "_new" ?
+        {_id !== "_new" ?
             <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false}
                         updateURL={"/api/edit/column/tables"} forceEditMode={true}/> :
             <div className={"text-muted"}>
@@ -77,18 +75,22 @@ export default function EditorColumn({urlId, tables, columns}) {
 }
 
 export async function getServerSideProps({params}) {
-    const column = await getByUrlId("columns", params.id)
-    if (!column && params.id !== "_new") {
-        return {
-            notFound: true
+    let column = {}
+    if (params.id !== "_new") {
+        column = await getColumn(params.id)
+        if (!column) {
+            return {
+                notFound: true
+            }
         }
     }
 
     return {
         props: {
-            urlId: params.id,
+            _id: params.id,
             tables: await getTables(),
-            columns: await getColumns()
+            columns: await getColumns(),
+            column
         }
     }
 }
