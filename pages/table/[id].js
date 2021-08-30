@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../components/layout/Layout"
+import {siteName} from "../../components/layout/Layout"
 import Loader from "../../components/loading"
 import {getTables} from "../../lib/db/tables"
 import Head from "next/head"
@@ -27,7 +27,7 @@ export default function Table({_id}) {
 
     const tabsContainingTable = tabs.filter(tab => tab.tables.some(t => t._id === table._id))
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {table.name + " | " + siteName}
@@ -67,7 +67,7 @@ export default function Table({_id}) {
             </div>
         </div>
         <ItemBoard _id={table._id} items={table.items} columns={table.columns} key={table._id}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticPaths() {

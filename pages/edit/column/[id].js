@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../../components/layout/Layout"
+import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
@@ -24,7 +24,7 @@ export default function EditorColumn({_id, tables, columns, column}) {
     if (_id !== "_new") {
         tablesWithColumn = tables.filter(t => t.columns.some(c => c === column._id))
     }
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {(_id === "_new" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
@@ -71,7 +71,7 @@ export default function EditorColumn({_id, tables, columns, column}) {
                 Table selection will be available once the column has been created
             </div>
         }
-    </Layout>
+    </>
 }
 
 export async function getServerSideProps({params}) {

@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../components/layout/Layout"
+import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -31,7 +31,7 @@ export default function Item({_id}) {
     const tablesContainingItem = tables.filter(t => t.items.includes(i => i === _id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {item.name + " | " + siteName}
@@ -153,7 +153,7 @@ export default function Item({_id}) {
                     </div>
                 </div>) : <></>}
         </> : <></>}
-    </Layout>
+    </>
 }
 
 export async function getStaticPaths() {

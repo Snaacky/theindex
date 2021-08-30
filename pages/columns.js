@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../components/layout/Layout"
+import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import IconColumn from "../components/icons/IconColumn"
@@ -15,7 +15,7 @@ export default function EditorColumns() {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Column manager | " + siteName}
@@ -31,7 +31,7 @@ export default function EditorColumns() {
         </div>
 
         <ColumnBoard columns={columns} updateURL={""} deleteURL={"/api/delete/column"}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticProps() {

@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../../components/layout/Layout"
+import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -28,7 +28,7 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
         tabsWithTable = tabs.filter(t => t.tables.some(c => c._id === table._id))
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {(_id === "_new" ? "Create table" : "Edit table " + table.name) + " | " + siteName}
@@ -84,7 +84,7 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
                 Column selection will be available once the table has been created
             </div>
         }
-    </Layout>
+    </>
 }
 
 export async function getServerSideProps({params}) {

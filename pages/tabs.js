@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../components/layout/Layout"
+import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import IconTab from "../components/icons/IconTab"
 import React from "react"
@@ -15,7 +15,7 @@ export default function EditorTabs() {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Tab manager | " + siteName}
@@ -31,7 +31,7 @@ export default function EditorTabs() {
         </div>
 
         <TabBoard tabs={tabs}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticProps() {

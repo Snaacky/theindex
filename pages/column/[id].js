@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../components/layout/Layout"
+import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -47,7 +47,7 @@ export default function Column({_id}) {
         return filter === "" || i.data[column._id].toLowerCase().includes(filter.toLowerCase())
     })
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {column.name + " | " + siteName}
@@ -62,7 +62,7 @@ export default function Column({_id}) {
                         {column.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                            {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
+                            {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
                                 <a className={"ms-2"} title={"Edit column"}>
                                     <IconEdit/>
                                 </a>
@@ -90,7 +90,7 @@ export default function Column({_id}) {
                 return <ItemCard item={i} columns={columns} key={i._id}/>
             })}
         </div>
-    </Layout>
+    </>
 }
 
 export async function getStaticPaths() {

@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../components/layout/Layout"
+import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import IconItem from "../components/icons/IconItem"
@@ -15,7 +15,7 @@ export default function EditorItems() {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Item manager | " + siteName}
@@ -31,7 +31,7 @@ export default function EditorItems() {
         </div>
 
         <ItemBoard items={items} deleteURL={"/api/delete/item"}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticProps() {

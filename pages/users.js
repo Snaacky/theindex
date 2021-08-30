@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../components/layout/Layout"
+import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
@@ -16,7 +16,7 @@ export default function Users() {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Users | " + siteName}
@@ -35,7 +35,7 @@ export default function Users() {
         </div>
 
         <UserBoard users={users} allUsers={users}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticProps() {

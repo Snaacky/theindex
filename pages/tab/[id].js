@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../components/layout/Layout"
+import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getTabs} from "../../lib/db/tabs"
@@ -22,7 +22,7 @@ export default function Tab({_id}) {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {tab.name + " | " + siteName}
@@ -52,7 +52,7 @@ export default function Tab({_id}) {
         </div>
 
         <TableBoard _id={tab._id} tables={tab.tables} key={tab._id}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticPaths() {

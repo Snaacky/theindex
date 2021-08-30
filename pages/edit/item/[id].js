@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../../components/layout/Layout"
+import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
@@ -26,7 +26,7 @@ export default function EditorColumn({_id, tables, columns, item}) {
         tablesWithItem = tables.filter(t => t.items.some(i => i === item._id))
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {(_id === "_new" ? "Create item" : "Edit item " + item.name) + " | " + siteName}
@@ -71,7 +71,7 @@ export default function EditorColumn({_id, tables, columns, item}) {
                 Table selection will be available once the tab has been created
             </div>
         }
-    </Layout>
+    </>
 }
 
 export async function getServerSideProps({params}) {

@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../../components/layout/Layout"
+import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTab, getTabsWithTables} from "../../../lib/db/tabs"
 import {useSession} from "next-auth/client"
@@ -20,7 +20,7 @@ export default function EditorTab({_id, tabs, tables, tab}) {
         return <NotAdmin/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {(_id === "_new" ? "Create tab" : "Edit tab " + tab.name) + " | " + siteName}
@@ -65,7 +65,7 @@ export default function EditorTab({_id, tabs, tables, tab}) {
                 Table selection will be available once the tab has been created
             </div>
         }
-    </Layout>
+    </>
 }
 
 export async function getServerSideProps({params}) {

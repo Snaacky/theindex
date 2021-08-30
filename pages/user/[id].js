@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../components/layout/Layout"
+import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -20,7 +20,7 @@ export default function User({uid}) {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"User " + user.name + " | " + siteName}
@@ -53,7 +53,7 @@ export default function User({uid}) {
                 </p>
             </div>
         </div>
-    </Layout>
+    </>
 }
 
 export async function getStaticPaths() {

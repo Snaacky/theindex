@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../components/layout/Layout"
+import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import IconTable from "../components/icons/IconTable"
@@ -15,7 +15,7 @@ export default function EditorTables() {
         return <Loader/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Table manager | " + siteName}
@@ -31,7 +31,7 @@ export default function EditorTables() {
         </div>
 
         <TableBoard tables={tables} updateURL={""} deleteURL={"/api/delete/table"}/>
-    </Layout>
+    </>
 }
 
 export async function getStaticProps() {

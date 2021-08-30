@@ -1,4 +1,4 @@
-import Layout, {siteName} from "../../../components/layout/Layout"
+import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
 import Login from "../../../components/layout/Login"
@@ -18,7 +18,7 @@ export default function EditorUser({uid, user}) {
         return <NotAdmin/>
     }
 
-    return <Layout>
+    return <>
         <Head>
             <title>
                 {"Edit user " + user.name + " | " + siteName}
@@ -46,7 +46,7 @@ export default function EditorUser({uid, user}) {
                 <EditUser uid={uid} accountType={user.accountType} description={user.description}/>
             </div>
         </div>
-    </Layout>
+    </>
 }
 
 export async function getServerSideProps({params}) {

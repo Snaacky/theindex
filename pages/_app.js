@@ -8,6 +8,7 @@ import {fas} from "@fortawesome/free-solid-svg-icons"
 import Loader from "../components/loading"
 import {useEffect} from "react"
 import {SWRConfig} from "swr"
+import Layout from "../components/layout/Layout"
 
 library.add(fab, fas)
 
@@ -16,13 +17,15 @@ export default function App({Component, pageProps}) {
         <SWRConfig value={{
             fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
         }}>
-            {Component.auth ? (
-                <Auth auth={Component.auth}>
+            <Layout>
+                {Component.auth ? (
+                    <Auth auth={Component.auth}>
+                        <Component {...pageProps} />
+                    </Auth>
+                ) : (
                     <Component {...pageProps} />
-                </Auth>
-            ) : (
-                <Component {...pageProps} />
-            )}
+                )}
+            </Layout>
         </SWRConfig>
     </Provider>
 }
