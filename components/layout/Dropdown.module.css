@@ -1,5 +1,12 @@
 .dropdown a {
+    color: white;
     cursor: pointer;
+}
+
+.dropdown a:hover,
+.dropdown a:active,
+.dropdown a:focus {
+    background-color: var(--bg-7);
 }
 
 .cavet:after {
@@ -16,4 +23,5 @@
 
 .toggler {
     user-select: none;
+    border-radius: 0.25rem;
 }
