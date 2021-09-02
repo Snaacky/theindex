@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
-import {addUser, getUser, updateUser, userExists} from "../../../lib/db/users"
+import {addUser, getUser, userExists} from "../../../lib/db/users"
 import {findOne} from "../../../lib/db/db"
 
 const discord = Providers.Discord({
@@ -30,13 +30,6 @@ const nextAuth = NextAuth({
                     })
                 }
                 const uData = await getUser(user.id)
-                if (!uData.image) {
-                    await updateUser(user.id, {
-                        image: user.image
-                    })
-                } else {
-                    session.user.image = uData.image
-                }
                 session.user.accountType = uData.accountType
                 session.user.description = uData.description
             }
