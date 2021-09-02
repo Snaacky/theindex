@@ -28,7 +28,7 @@ export default function Row(
         return <Loader/>
     }
 
-    return <div className={styles.row + " card bg-2 mb-2"}>
+    return <div className={styles.row + " card bg-2 mb-1"}>
         <div className="row g-0">
             {canEdit(session, type) && move !== null ?
                 <div className={styles.sorter + " col-auto"}>
