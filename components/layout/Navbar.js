@@ -9,7 +9,6 @@ import IconItem from "../icons/IconItem"
 import IconColumn from "../icons/IconColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
-import Loader from "../loading"
 import Dropdown from "./Dropdown"
 import {useState} from "react"
 import IconAdmin from "../icons/IconAdmin"
@@ -18,13 +17,11 @@ export default function Navbar() {
     const [session] = useSession()
     const [dropdowns, setDropdowns] = useState([false, false, false])
 
-    const {data: tabs, error} = useSWR("/api/tabs")
+    const {data, error} = useSWR("/api/tabs")
     if (error) {
         return <div>failed to load</div>
     }
-    if (!tabs) {
-        return <Loader/>
-    }
+    const tabs = data ?? []
 
     return <nav className="navbar navbar-expand-md navbar-dark bg-2">
         <div className="container-fluid">

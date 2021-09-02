@@ -1,4 +1,5 @@
 import styles from "./Dropdown.module.css"
+import {useEffect, useRef} from "react";
 
 export default function Dropdown(
     {
@@ -11,18 +12,33 @@ export default function Dropdown(
         toggle
     }
 ) {
-    // Hack to set unique ids of dropdowns
-    const randString = Math.random().toString(36).slice(2)
+    const ref = useRef()
 
-    return <li className={styles.dropdown + " nav-item dropdown"}>
+    useEffect(() => {
+        const checkIfClickedOutside = e => {
+            if (show) {
+                // If dropdown is open and the clicked target is not within the menu,
+                if (ref && ref.current && !ref.current.contains(e.target)) {
+                    toggle(false)
+                }
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+
+        return () => {
+            // Cleanup
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    })
+
+    return <li className={styles.dropdown + " nav-item dropdown"} ref={ref}>
         <a className={
             styles.toggler + (hideCavet ? " " + styles.cavet : "") + " nav-link dropdown-toggle" + (show ? " show" : "")
-        } role="button" id={"navDropdown-" + randString}
-           aria-expanded={show.toString()} onClick={() => toggle(!show)}>
+        } role="button" aria-expanded={show.toString()} onClick={() => toggle(!show)}>
             {toggler}
         </a>
         <ul className={"dropdown-menu bg-4 " + (dropLeft ? styles.left + " dropdown-menu-end" : styles.right) + (show ? " show" : "")}
-            aria-labelledby={"navDropdown-" + randString} data-bs-popper={"none"}>
+            data-bs-popper={"none"}>
             {head ? <>
                 <li>
                     {head}
