@@ -67,8 +67,8 @@ You can also take a look at our provided `docker-compose.yml` file on how to set
 Warning: be aware, that we do not offer any kind of official support and every update may be with breaking changes. Be
 sure to make backups before you update
 
-To get the newest version of the container image from [Docker Hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you
-will need to run:
+To get the newest version of the container image
+from [Docker Hub](https://hub.docker.com/repository/docker/ranimepiracy/index), you will need to run:
 
 ```shell
 docker pull ranimepiracy/index
@@ -84,8 +84,8 @@ discord and has not been tested with anything else.
 | Parameter | Function |
 | :---- | --- |
 | `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
-| `-e DISCORD_CLIENT_ID=00000000000` | OAuth2 client ID |
-| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | OAuth2 client secret |
+| `-e DISCORD_CLIENT_ID=00000000000` | Discord OAuth2 client ID |
+| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord OAuth2 client secret |
 | `-e NEXTAUTH_URL="https://piracy.moe"` | Your domain or IP |
 | `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
 | `-e DATABASE_URL="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
@@ -133,3 +133,30 @@ you want a certain feature or have an idea, you can always open a feature reques
 in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
 or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
+
+### Thinks we use
+
+- [next.js](https://nextjs.org/) as Webserver
+- [React](https://reactjs.org/) as JS framework
+- Styles from [bootstrap](https://getbootstrap.com/)
+- Icons from [Font Awesome](https://fontawesome.com)
+- Avatars by [DiceBear](https://avatars.dicebear.com/)
+    - [pixel-art](https://avatars.dicebear.com/styles/pixel-art) by Plastic Jam
+    - [avataaars](https://avataaars.com/) by Pablo Stanley
+- We bake everything into a [docker image](https://www.docker.com/)
+- Running on [node js](https://nodejs.org/)
+- User-authentication via [NextAuth.js](https://next-auth.js.org/)
+- [mongodb](https://www.mongodb.com) as database backend
+
+And most importantly:
+> The help of our awesome community :3
+
+### Technical debts
+
+- We use JS instead of TS
+- Multi-language support
+- Unify `Editor`-views
+- Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
+  nice...
+- Re-add static pre-generation of all public sites, where it's values are being auto-updated from swr
+- 
