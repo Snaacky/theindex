@@ -38,8 +38,8 @@ export default function User({uid, user: staticUser}) {
                         height: "40px",
                         overflow: "show"
                     }}>
-                        <Image className={"rounded"} src={image} alt={"Profile picture of " + name} width={64}
-                               height={64}/>
+                        <Image className={"rounded"} alt={"Profile picture of " + name} width={64} height={64}
+                               src={image || "https://avatars.dicebear.com/api/pixel-art/" + uid + ".svg"}/>
                     </div>
                     <div className={"col"}>
                         <h3>
@@ -58,7 +58,7 @@ export default function User({uid, user: staticUser}) {
                     </div>
                 </div>
             </div>
-            <div className={"card-body bg-6"}>
+            <div className={"card-body bg-4"}>
                 <p className={"card-text"}>
                     {description || <span className={"text-muted"}>
                         It seems quite empty here

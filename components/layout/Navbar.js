@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import {signIn, signOut, useSession} from "next-auth/client"
 import IconAdd from "../icons/IconAdd"
-import {canEdit, isAdmin} from "../../lib/session"
+import {canEdit, isAdmin, isLogin} from "../../lib/session"
 import IconTable from "../icons/IconTable"
 import IconTab from "../icons/IconTab"
 import IconItem from "../icons/IconItem"
@@ -162,7 +162,7 @@ export default function Navbar() {
                                   }/>
                         <Dropdown show={dropdowns[2]} dropLeft={true} hideCavet={true}
                                   toggler={
-                                      session ?
+                                      isLogin(session) ?
                                           <div className={"d-flex"}>
                                               <Image src={session.user.image} width={21} height={21}
                                                      className={"rounded-circle"} alt={"Discord profile picture"}/>
@@ -170,7 +170,7 @@ export default function Navbar() {
                                           : <FontAwesomeIcon icon={["fas", "user-circle"]}/>
                                   }
                                   contentList={
-                                      (session ? [
+                                      (isLogin(session) ? [
                                           <Link href={"/user/" + session.user.uid} key={"users"}>
                                               <a className="dropdown-item">
                                                   <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
