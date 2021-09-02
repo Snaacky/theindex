@@ -11,7 +11,7 @@ import NotAdmin from "../../../components/layout/NotAdmin";
 export default function EditorUser({uid, user}) {
     const [session] = useSession()
 
-    if (!isCurrentUser(session, uid) || !isAdmin(session)) {
+    if (!isCurrentUser(session, uid) && !isAdmin(session)) {
         return <NotAdmin/>
     }
 
