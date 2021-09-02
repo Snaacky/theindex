@@ -1,20 +1,17 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
-import Login from "../../../components/layout/Login"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getUser} from "../../../lib/db/users"
-import {isAdmin} from "../../../lib/session"
+import {isAdmin, isCurrentUser} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
-import NotAdmin from "../../../components/layout/NotAdmin"
+import NotAdmin from "../../../components/layout/NotAdmin";
 
 export default function EditorUser({uid, user}) {
     const [session] = useSession()
 
-    if (!session) {
-        return <Login/>
-    } else if (!isAdmin(session)) {
+    if (!isCurrentUser(session, uid) || !isAdmin(session)) {
         return <NotAdmin/>
     }
 
@@ -43,11 +40,14 @@ export default function EditorUser({uid, user}) {
                         ID: <code>{uid}</code>
                     </small>
                 </div>
-                <EditUser uid={uid} accountType={user.accountType} description={user.description}/>
+                <EditUser adminEditing={isAdmin(session)} uid={uid} accountType={user.accountType}
+                          description={user.description}/>
             </div>
         </div>
     </>
 }
+
+EditorUser.auth = {}
 
 export async function getServerSideProps({params}) {
     const user = await getUser(params.id)

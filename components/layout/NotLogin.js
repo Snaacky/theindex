@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Head from "next/head"
 import Image from "next/image"
 
-export default function Login() {
+export default function NotLogin() {
     return <div className={styles.wrapper}>
         <Head>
             <title>
@@ -19,7 +19,10 @@ export default function Login() {
 
         <Image width={128} height={128} src={"/img/mioWAAH.gif"} alt={""}
                className={"rounded"}/>
-        <button className={"btn btn-outline-success mt-5"} onClick={signIn}>
+        <p>
+            You are currently not logged in
+        </p>
+        <button className={"btn btn-outline-success"} onClick={signIn}>
             <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Sign In
         </button>
     </div>

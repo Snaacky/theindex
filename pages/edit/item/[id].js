@@ -1,25 +1,14 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {useSession} from "next-auth/client"
-import Login from "../../../components/layout/Login"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
-import {canEdit} from "../../../lib/session"
-import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
 import {getTables} from "../../../lib/db/tables"
 
-export default function EditorColumn({_id, tables, columns, item}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Login/>
-    } else if (!canEdit(session)) {
-        return <NotAdmin/>
-    }
+export default function EditorItem({_id, tables, columns, item}) {
 
     let tablesWithItem = []
     if (_id !== "_new") {
@@ -72,6 +61,10 @@ export default function EditorColumn({_id, tables, columns, item}) {
             </div>
         }
     </>
+}
+
+EditorItem.auth = {
+    requireEditor: true
 }
 
 export async function getServerSideProps({params}) {

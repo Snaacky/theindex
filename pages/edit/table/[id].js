@@ -1,27 +1,15 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTabsWithTables} from "../../../lib/db/tabs"
-import {useSession} from "next-auth/client"
-import Login from "../../../components/layout/Login"
 import {getTable, getTables} from "../../../lib/db/tables"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
-import {canEdit} from "../../../lib/session"
-import NotAdmin from "../../../components/layout/NotAdmin"
 import TabBoard from "../../../components/boards/TabBoard"
 
 export default function EditorTable({_id, tabs, tables, columns, table}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Login/>
-    } else if (!canEdit(session)) {
-        return <NotAdmin/>
-    }
-
     let tabsWithTable = []
     if (_id !== "_new") {
         table.columns = table.columns.map(c => columns.find(t => t._id === c))
@@ -85,6 +73,10 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
             </div>
         }
     </>
+}
+
+EditorTable.auth = {
+    requireEditor: true
 }
 
 export async function getServerSideProps({params}) {

@@ -1,14 +1,16 @@
 import "@fortawesome/fontawesome-svg-core/styles.css"
 // custom css
 import "../styles/global.css"
-import {Provider, signIn, useSession} from "next-auth/client"
+import {Provider, useSession} from "next-auth/client"
 import {library} from "@fortawesome/fontawesome-svg-core"
 import {fab} from "@fortawesome/free-brands-svg-icons"
 import {fas} from "@fortawesome/free-solid-svg-icons"
 import Loader from "../components/loading"
-import {useEffect} from "react"
 import {SWRConfig} from "swr"
 import Layout from "../components/layout/Layout"
+import {isAdmin, isEditor, isLogin} from "../lib/session";
+import NotAdmin from "../components/layout/NotAdmin";
+import NotLogin from "../components/layout/NotLogin";
 
 library.add(fab, fas)
 
@@ -18,13 +20,9 @@ export default function App({Component, pageProps}) {
             fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
         }}>
             <Layout>
-                {Component.auth ? (
-                    <Auth auth={Component.auth}>
-                        <Component {...pageProps} />
-                    </Auth>
-                ) : (
+                <Auth auth={Component.auth}>
                     <Component {...pageProps} />
-                )}
+                </Auth>
             </Layout>
         </SWRConfig>
     </Provider>
@@ -33,22 +31,20 @@ export default function App({Component, pageProps}) {
 // login protected pages
 function Auth({auth, children}) {
     const [session, loading] = useSession()
-    const isUser = !!session?.user
-    useEffect(() => {
-        if (loading) {
-            return // Do nothing while loading
-        }
-        if (!isUser) {
-            signIn() // If not authenticated, force log in
-        }
-    }, [isUser, loading])
-
-    if (isUser) {
-        console.log(session.user, auth)
-        return children
+    if (loading) {
+        return <Loader/>
     }
 
-    // Session is being fetched, or no user.
-    // If no user, useEffect() will redirect.
-    return <Loader/>
+    // no auth required
+    if (typeof auth === "undefined" || auth === null) {
+        return children
+    } else if (!isLogin(session)) {
+        return <NotLogin/>
+    } else if (auth.requireAdmin && !isAdmin(session)) {
+        return <NotAdmin/>
+    } else if (auth.requireEditor && !isEditor(session)) {
+        return <NotAdmin/>
+    }
+
+    return children
 }

@@ -2,20 +2,8 @@ import Head from "next/head"
 import Image from "next/image"
 import {siteName} from "../components/layout/Layout"
 import {images} from "../lib/icon"
-import Login from "../components/layout/Login"
-import {isAdmin} from "../lib/session"
-import NotAdmin from "../components/layout/NotAdmin"
-import {useSession} from "next-auth/client"
 
 export default function Admin({images}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Login/>
-    } else if (!isAdmin(session)) {
-        return <NotAdmin/>
-    }
-
     return <>
         <Head>
             <title>Admin | {siteName}</title>
@@ -38,6 +26,10 @@ export default function Admin({images}) {
             )}
         </div>
     </>
+}
+
+Admin.auth = {
+    requireAdmin: true
 }
 
 export async function getStaticProps() {

@@ -1,25 +1,13 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getTab, getTabsWithTables} from "../../../lib/db/tabs"
-import {useSession} from "next-auth/client"
-import Login from "../../../components/layout/Login"
 import {getTables} from "../../../lib/db/tables"
 import EditTab from "../../../components/edit/EditTab"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {canEdit} from "../../../lib/session"
-import NotAdmin from "../../../components/layout/NotAdmin"
 import TableBoard from "../../../components/boards/TableBoard"
 
 export default function EditorTab({_id, tabs, tables, tab}) {
-    const [session] = useSession()
-
-    if (!session) {
-        return <Login/>
-    } else if (!canEdit(session)) {
-        return <NotAdmin/>
-    }
-
     return <>
         <Head>
             <title>
@@ -66,6 +54,10 @@ export default function EditorTab({_id, tabs, tables, tab}) {
             </div>
         }
     </>
+}
+
+EditorTab.auth = {
+    requireEditor: true
 }
 
 export async function getServerSideProps({params}) {
