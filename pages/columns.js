@@ -18,7 +18,7 @@ export default function EditorColumns() {
     return <>
         <Head>
             <title>
-                {"Column manager | " + siteName}
+                {"All columns | " + siteName}
             </title>
         </Head>
 

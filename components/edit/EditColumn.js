@@ -219,7 +219,7 @@ export default class EditColumn extends React.Component {
                 </button>
                 <Link href={"/columns"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        Column manager
+                        All Columns
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

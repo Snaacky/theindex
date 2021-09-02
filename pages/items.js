@@ -18,7 +18,7 @@ export default function EditorItems() {
     return <>
         <Head>
             <title>
-                {"Item manager | " + siteName}
+                {"All items | " + siteName}
             </title>
         </Head>
 

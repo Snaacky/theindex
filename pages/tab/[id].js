@@ -45,7 +45,9 @@ export default function Tab({_id}) {
                         </span>
                     </h2>
                 </div>
-                <p className={"card-text"}>
+                <p className={"card-text"} style={{
+                    whiteSpace: "pre-line"
+                }}>
                     {tab.description}
                 </p>
             </div>

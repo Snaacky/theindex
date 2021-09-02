@@ -84,7 +84,7 @@ export default class EditUser extends React.Component {
                 </button>
                 <Link href={"/users"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        User manager
+                        All users
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

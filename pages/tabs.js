@@ -18,7 +18,7 @@ export default function EditorTabs() {
     return <>
         <Head>
             <title>
-                {"Tab manager | " + siteName}
+                {"All tabs | " + siteName}
             </title>
         </Head>
 

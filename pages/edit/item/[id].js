@@ -32,7 +32,7 @@ export default function EditorItem({_id, tables, columns, item}) {
                         <span className={"float-end"}>
                             <Link href={"/items"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    Item manager
+                                    All items
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>

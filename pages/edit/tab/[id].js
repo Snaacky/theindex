@@ -25,7 +25,7 @@ export default function EditorTab({_id, tabs, tables, tab}) {
                         <span className={"float-end"}>
                             <Link href={"/tabs"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    Tab manager
+                                    All tabs
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>

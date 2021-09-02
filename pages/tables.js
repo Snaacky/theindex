@@ -18,7 +18,7 @@ export default function EditorTables() {
     return <>
         <Head>
             <title>
-                {"Table manager | " + siteName}
+                {"All tables | " + siteName}
             </title>
         </Head>
 

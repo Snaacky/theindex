@@ -30,7 +30,7 @@ export default function EditorUser({uid, user}) {
                         <span className={"float-end"}>
                             <Link href={"/users"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    User manager
+                                    All users
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>

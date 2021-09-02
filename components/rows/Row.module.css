@@ -36,4 +36,9 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    white-space: pre-line;
+}
+
+.title {
+    margin-bottom: 0.25rem;
 }

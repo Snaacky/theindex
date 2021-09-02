@@ -10,9 +10,14 @@
 
 .description {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    white-space: pre-line;
+}
+
+.title {
+    margin-bottom: 0.25rem;
 }
 
 .action {

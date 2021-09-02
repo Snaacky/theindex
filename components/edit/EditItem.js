@@ -240,7 +240,7 @@ export default class EditItem extends React.Component {
                 </button>
                 <Link href={"/items"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        Item manager
+                        All items
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

@@ -116,7 +116,7 @@ export default class EditTable extends React.Component {
                 </button>
                 <Link href={"/tables"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        Table manager
+                        All tables
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

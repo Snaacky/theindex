@@ -59,7 +59,9 @@ export default function User({uid, user: staticUser}) {
                 </div>
             </div>
             <div className={"card-body bg-4"}>
-                <p className={"card-text"}>
+                <p className={"card-text"} style={{
+                    whiteSpace: "pre-line"
+                }}>
                     {description || <span className={"text-muted"}>
                         It seems quite empty here
                     </span>}

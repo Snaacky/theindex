@@ -17,7 +17,7 @@ export default function UserCard(
     const joined = new Date(user.createdAt).toISOString().slice(0, 10)
     return <Card type={"user"} content={content} imageUrl={user.image} add={add} remove={remove} move={move}
                  bodyContent={
-                     <div className={"text-muted"}>
+                     <div className={"text-muted mt-auto align-self-end"}>
                          Joined <code>{joined}</code>
                      </div>
                  }/>

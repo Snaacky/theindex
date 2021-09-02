@@ -123,7 +123,7 @@ export default class EditTab extends React.Component {
                 </button>
                 <Link href={"/tabs"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        Tab manager
+                        All tabs
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

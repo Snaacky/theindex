@@ -29,7 +29,7 @@ export default function EditorColumn({_id, tables, columns, column}) {
                         <span className={"float-end"}>
                             <Link href={"/columns"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    Column manager
+                                    All columns
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>

@@ -61,7 +61,9 @@ export default function Table({_id}) {
                         </span>
                     </h3>
                 </div>
-                <p className={"card-text"}>
+                <p className={"card-text"} style={{
+                    whiteSpace: "pre-line"
+                }}>
                     {table.description}
                 </p>
             </div>

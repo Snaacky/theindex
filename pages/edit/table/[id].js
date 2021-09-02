@@ -33,7 +33,7 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
                         <span className={"float-end"}>
                             <Link href={"/tables"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    Table manager
+                                    All tables
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>

@@ -70,7 +70,9 @@ export default function Column({_id}) {
                         </span>
                     </h3>
                 </div>
-                <p className={"card-text"}>
+                <p className={"card-text"} style={{
+                    whiteSpace: "pre-line"
+                }}>
                     {column.description}
                 </p>
                 <div>

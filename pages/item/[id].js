@@ -77,7 +77,9 @@ export default function Item({_id}) {
                         <DataBadge name={url} style={"primary"}/>
                     </a>)}
                 </div>
-                <p className={"card-text"}>
+                <p className={"card-text"} style={{
+                    whiteSpace: "pre-line"
+                }}>
                     {item.description}
                 </p>
             </div>
