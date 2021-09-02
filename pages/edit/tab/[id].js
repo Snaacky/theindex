@@ -47,7 +47,7 @@ export default function EditorTab({_id, tabs, tables, tab}) {
             Tables used in this tab
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} canMove={false}
+            <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} canMove={false} canEdit={true}
                         forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Table selection will be available once the tab has been created

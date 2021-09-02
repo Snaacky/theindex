@@ -6,8 +6,11 @@ import ColumnBoard from "../components/boards/ColumnBoard"
 import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
+import {useSession} from "next-auth/client"
+import {isEditor} from "../lib/session"
 
 export default function EditorColumns() {
+    const [session] = useSession()
     const {data: columns, error} = useSWR("/api/columns")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
@@ -30,7 +33,7 @@ export default function EditorColumns() {
             </div>
         </div>
 
-        <ColumnBoard columns={columns} updateURL={""} deleteURL={"/api/delete/column"}/>
+        <ColumnBoard columns={columns} updateURL={""} deleteURL={"/api/delete/column"} canEdit={isEditor(session)}/>
     </>
 }
 

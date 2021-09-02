@@ -55,7 +55,7 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
             Tabs with this table
         </h4>
         {_id !== "_new" ?
-            <TabBoard _id={table._id} tabs={tabsWithTable} allTabs={tabs} canMove={false}
+            <TabBoard _id={table._id} tabs={tabsWithTable} allTabs={tabs} canMove={false} canEdit={true}
                       updateURL={"/api/edit/table/tabs"} deleteURL={""} forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Tab selection will be available once the table has been created
@@ -66,7 +66,7 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
             Columns used in this table
         </h4>
         {_id !== "_new" ?
-            <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns} canMove={false}
+            <ColumnBoard _id={table._id} columns={table.columns} allColumns={columns} canMove={false} canEdit={true}
                          forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Column selection will be available once the table has been created

@@ -6,8 +6,11 @@ import ItemBoard from "../components/boards/ItemBoard"
 import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
+import {useSession} from "next-auth/client"
+import {isEditor} from "../lib/session"
 
 export default function EditorItems() {
+    const [session] = useSession()
     const {data: items, error} = useSWR("/api/items")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
@@ -30,7 +33,7 @@ export default function EditorItems() {
             </div>
         </div>
 
-        <ItemBoard items={items} deleteURL={"/api/delete/item"}/>
+        <ItemBoard items={items} deleteURL={"/api/delete/item"} canEdit={isEditor(session)}/>
     </>
 }
 

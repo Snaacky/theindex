@@ -53,7 +53,7 @@ export default function EditorColumn({_id, tables, columns, column}) {
             Tables with this column
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false}
+            <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false} canEdit={true}
                         updateURL={"/api/edit/column/tables"} forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Table selection will be available once the column has been created

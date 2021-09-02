@@ -7,11 +7,12 @@ export default function TableBoard(
     {
         _id,
         tables,
-        updateURL = "/api/edit/tab/tables",
+        updateURL = "/api/edit/tab",
         updateKey = "tables",
         deleteURL = "",
         forceEditMode = false,
-        canMove = true
+        canMove = true,
+        canEdit = false
     }) {
     const {data: allTables, error} = useSWR("/api/tables")
 
@@ -26,5 +27,5 @@ export default function TableBoard(
     }
     return <Board type={"table"} _id={_id} content={tables} allContent={allTables} updateContentURL={updateURL}
                   updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}
-                  canMove={canMove}/>
+                  canMove={canMove} canEdit={canEdit}/>
 }

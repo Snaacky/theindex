@@ -32,7 +32,7 @@ export default function Card(
 
     return <div className={styles.card + " card bg-2 mb-2 me-2"}>
         <div className="row g-0">
-            {canEdit(session, type) && move !== null ? <div className={styles.sorter + " col-auto"}>
+            {move !== null ? <div className={styles.sorter + " col-auto"}>
                 <a onClick={() => move(-1)}>
                     <FontAwesomeIcon icon={["fas", "chevron-up"]}/>
                 </a>
@@ -74,17 +74,15 @@ export default function Card(
                                     <DataBadge name={content.accountType} style={"primary"}/>
                                 </span> : <></>
                             }
-                            {canEdit(session, type) ? <>
-                                {add !== null ?
-                                    <a title={"Add " + type} className={styles.link + " float-end"} onClick={add}>
-                                        <IconAdd/>
-                                    </a> : <></>}
-                                {remove !== null ?
-                                    <a title={"Delete " + type} className={styles.link + " float-end"}
-                                       onClick={remove}>
-                                        <IconDelete/>
-                                    </a> : <></>}
-                            </> : ""}
+                            {add !== null ?
+                                <a title={"Add " + type} className={styles.link + " float-end"} onClick={add}>
+                                    <IconAdd/>
+                                </a> : <></>}
+                            {remove !== null ?
+                                <a title={"Delete " + type} className={styles.link + " float-end"}
+                                   onClick={remove}>
+                                    <IconDelete/>
+                                </a> : <></>}
                         </span>
                     </h5>
 

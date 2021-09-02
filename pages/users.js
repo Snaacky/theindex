@@ -28,7 +28,7 @@ export default function Users() {
                 <h2 className={"card-title"}>
                     <FontAwesomeIcon icon={["fas", "users"]}/> The whole community
                     <div className={"float-end"} style={{fontSize: "1.2rem"}}>
-                        <DataBadge name={users.length + " user" + (users.length > 1 ? "s" : "")} style={"primary"}/>
+                        <DataBadge name={users.length + " user" + (users.length !== 1 ? "s" : "")} style={"primary"}/>
                     </div>
                 </h2>
             </div>

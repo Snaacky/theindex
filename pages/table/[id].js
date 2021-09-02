@@ -1,5 +1,4 @@
 import {siteName} from "../../components/layout/Layout"
-import Loader from "../../components/loading"
 import {getTables} from "../../lib/db/tables"
 import Head from "next/head"
 import Link from "next/link"
@@ -11,19 +10,21 @@ import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
+import {getTabs} from "../../lib/db/tabs"
 
-export default function Table({_id}) {
+export default function Table({_id, table: staticTable, tabs: staticTabs}) {
     const [session] = useSession()
-    const {data: table, errorTable} = useSWR("/api/table/" + _id)
-    const {data: tabs, errorTabs} = useSWR("/api/tabs")
+    let {data: table, errorTable} = useSWR("/api/table/" + _id)
+    let {data: tabs, errorTabs} = useSWR("/api/tabs")
 
     if (errorTable) {
-        return <Error error={errorTable.status}/>
+        return <Error error={errorTable} statusCode={errorTable.status}/>
     } else if (errorTabs) {
-        return <Error error={errorTabs.status}/>
-    } else if (!table || !tabs) {
-        return <Loader/>
+        return <Error error={errorTabs} statusCode={errorTabs.status}/>
     }
+
+    table = table || staticTable
+    tabs = tabs || staticTabs
 
     const tabsContainingTable = tabs.filter(tab => tab.tables.some(t => t._id === table._id))
 
@@ -68,7 +69,8 @@ export default function Table({_id}) {
                 </p>
             </div>
         </div>
-        <ItemBoard _id={table._id} items={table.items} columns={table.columns} key={table._id}/>
+        <ItemBoard _id={table._id} items={table.items} columns={table.columns} key={table._id}
+                   canEdit={canEdit(session)}/>
     </>
 }
 
@@ -99,7 +101,9 @@ export async function getStaticProps({params}) {
 
     return {
         props: {
-            _id: table._id
+            _id: table._id,
+            table,
+            tabs: await getTabs()
         },
         revalidate: 10
     }

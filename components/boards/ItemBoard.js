@@ -7,11 +7,12 @@ export default function ItemBoard(
         _id,
         items,
         columns,
-        updateURL = "/api/edit/table/items",
+        updateURL = "/api/edit/table",
         updateKey = "items",
         deleteURL = "",
         forceEditMode = false,
-        canMove = true
+        canMove = false,
+        canEdit = false
     }) {
 
     let {data: allColumns, errorColumns} = useSWR("/api/columns")
@@ -35,5 +36,5 @@ export default function ItemBoard(
 
     return <Board type={"item"} _id={_id} content={items} allContent={allItems} columns={columns}
                   updateContentURL={updateURL} updateContentKey={updateKey} deleteContentURL={deleteURL}
-                  forceEditMode={forceEditMode} canMove={canMove}/>
+                  forceEditMode={forceEditMode} canMove={canMove} canEdit={canEdit}/>
 }

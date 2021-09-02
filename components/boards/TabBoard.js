@@ -9,9 +9,10 @@ export default function TabBoard(
         updateKey = "tabs",
         deleteURL = "/api/delete/tab",
         forceEditMode = false,
-        canMove = true
+        canMove = true,
+        canEdit = false
     }) {
     return <Board type={"tab"} _id={_id} content={tabs} allContent={allTabs} updateContentURL={updateURL}
                   updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}
-                  canMove={canMove}/>
+                  canMove={canMove} canEdit={canEdit}/>
 }

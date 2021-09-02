@@ -6,8 +6,11 @@ import TableBoard from "../components/boards/TableBoard"
 import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
+import {useSession} from "next-auth/client"
+import {isEditor} from "../lib/session"
 
-export default function EditorTables() {
+export default function Tables() {
+    const [session] = useSession()
     const {data: tables, error} = useSWR("/api/tables")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
@@ -30,7 +33,7 @@ export default function EditorTables() {
             </div>
         </div>
 
-        <TableBoard tables={tables} updateURL={""} deleteURL={"/api/delete/table"}/>
+        <TableBoard tables={tables} updateURL={""} deleteURL={"/api/delete/table"} canEdit={isEditor(session)}/>
     </>
 }
 

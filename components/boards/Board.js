@@ -1,11 +1,9 @@
 import React from "react"
 import Link from "next/link"
-import {useSession} from "next-auth/client"
 import ItemCard from "../cards/ItemCard"
 import ItemRow from "../rows/ItemRow"
 import ColumnFilter from "../column-filter"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {canEdit} from "../../lib/session"
 import ColumnRow from "../rows/ColumnRow"
 import TableCard from "../cards/TableCard"
 import TableRow from "../rows/TableRow"
@@ -14,6 +12,8 @@ import ColumnCard from "../cards/ColumnCard"
 import TabCard from "../cards/TabCard"
 import UserCard from "../cards/UserCard"
 import UserRow from "../rows/UserRow"
+import ListCard from "../cards/ListCard";
+import ListRow from "../rows/ListRow";
 
 export default class Board extends React.Component {
     constructor(
@@ -27,21 +27,20 @@ export default class Board extends React.Component {
             deleteContentURL = "",
             columns = [],
             forceEditMode = false,
-            canMove = true
+            canMove = true,
+            canEdit = false
         }) {
         super({_id, content, allContent, columns})
 
         this.type = type
         this.forceEditMode = forceEditMode
         this.canMove = canMove
+        this.canEdit = canEdit
         this.updateContentURL = updateContentURL
         this.updateContentKey = updateContentKey
         this.deleteContentURL = deleteContentURL
 
-        let unselectedContent = (allContent || []).filter(i => !content.some(ii => i._id === ii._id))
-        if (!Array.isArray(unselectedContent)) {
-            unselectedContent = []
-        }
+        let unselectedContent = (allContent || []).filter(i => !content.some(ii => i._id === ii._id)) || []
 
         this.state = {
             _id,
@@ -53,6 +52,16 @@ export default class Board extends React.Component {
             editView: forceEditMode,
             filter: [],
             searchString: ""
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.allContent !== this.props.allContent || prevProps.content !== this.props.content) {
+            this.setState({
+                unselectedContent: (this.props.allContent || []).filter(i =>
+                    !this.props.content.some(ii => i._id === ii._id)) || [],
+                content: this.props.content
+            })
         }
     }
 
@@ -134,51 +143,77 @@ export default class Board extends React.Component {
     }
 
     renderSingleContent(content, canMove = false, canAdd = false, canRemove = false) {
+        const key = (content._id ?? content.uid) + "-" + (canMove ? "move" : "") +
+            "-" + (canAdd ? "add" : "") +
+            "-" + (canRemove ? "remove" : "")
         if (this.type === "item") {
             if (this.state.useCards) {
                 return <ItemCard item={content} columns={this.state.compactView ? [] : this.state.columns}
                                  remove={canRemove ? () => this.removeContent(content) : null}
-                                 add={canAdd ? () => this.addContent(content) : null}/>
+                                 add={canAdd ? () => this.addContent(content) : null}
+                                 move={canMove ? (m) => this.moveContent(content, m) : null}
+                                 key={key}/>
             }
             return <ItemRow item={content} columns={this.state.compactView ? [] : this.state.columns}
                             remove={canRemove ? () => this.removeContent(content) : null}
-                            add={canAdd ? () => this.addContent(content) : null}/>
+                            add={canAdd ? () => this.addContent(content) : null}
+                            move={canMove ? (m) => this.moveContent(content, m) : null}
+                            key={key}/>
         } else if (this.type === "column") {
             if (this.state.useCards) {
                 return <ColumnCard column={content} add={canAdd ? () => this.addContent(content) : null}
                                    remove={canRemove ? () => this.removeContent(content) : null}
-                                   move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                                   move={canMove ? (m) => this.moveContent(content, m) : null}
+                                   key={key}/>
             }
             return <ColumnRow column={content} remove={canRemove ? () => this.removeContent(content) : null}
                               add={canAdd ? () => this.addContent(content) : null}
-                              move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                              move={canMove ? (m) => this.moveContent(content, m) : null}
+                              key={key}/>
         } else if (this.type === "table") {
             if (this.state.useCards) {
                 return <TableCard table={content} add={canAdd ? () => this.addContent(content) : null}
                                   remove={canRemove ? () => this.removeContent(content) : null}
-                                  move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                                  move={canMove ? (m) => this.moveContent(content, m) : null}
+                                  key={key}/>
             }
             return <TableRow table={content} remove={canRemove ? () => this.removeContent(content) : null}
                              add={canAdd ? () => this.addContent(content) : null}
-                             move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                             move={canMove ? (m) => this.moveContent(content, m) : null}
+                             key={key}/>
         } else if (this.type === "tab") {
             if (this.state.useCards) {
                 return <TabCard tab={content} add={canAdd ? () => this.addContent(content) : null}
                                 remove={canRemove ? () => this.removeContent(content) : null}
-                                move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                                move={canMove ? (m) => this.moveContent(content, m) : null}
+                                key={key}/>
             }
             return <TabRow tab={content} remove={canRemove ? () => this.removeContent(content) : null}
                            add={canAdd ? () => this.addContent(content) : null}
-                           move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                           move={canMove ? (m) => this.moveContent(content, m) : null}
+                           key={key}/>
         } else if (this.type === "user") {
             if (this.state.useCards) {
                 return <UserCard user={content} add={canAdd ? () => this.addContent(content) : null}
                                  remove={canRemove ? () => this.removeContent(content) : null}
-                                 move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                                 move={canMove ? (m) => this.moveContent(content, m) : null}
+                                 key={key}/>
             }
             return <UserRow user={content} remove={canRemove ? () => this.removeContent(content) : null}
                             add={canAdd ? () => this.addContent(content) : null}
-                            move={canMove ? (m) => this.moveContent(content, m) : null}/>
+                            move={canMove ? (m) => this.moveContent(content, m) : null}
+                            key={key}/>
+        } else if (this.type === "list") {
+            if (this.state.useCards) {
+                return <ListCard list={content} add={canAdd ? () => this.addContent(content) : null}
+                                 remove={canRemove ? () => this.removeContent(content) : null}
+                                 move={canMove ? (m) => this.moveContent(content, m) : null}
+                                 key={key}/>
+            }
+            return <ListRow list={content} remove={canRemove ? () => this.removeContent(content) : null}
+                            add={canAdd ? () => this.addContent(content) : null}
+                            move={canMove ? (m) => this.moveContent(content, m) : null}
+                            key={key}/>
         } else {
             console.error("Unknown type of content:", this.type)
         }
@@ -209,10 +244,16 @@ export default class Board extends React.Component {
                             {this.state.compactView ? "More details" : "Less details"}
                         </button> : <></>}
                     <div className={"float-end"}>
-                        <CreateButton type={this.type}/>
-                        {this.forceEditMode ? <></> :
-                            <EditButton onClick={() => this.setState({editView: !this.state.editView})}
-                                        editView={this.state.editView} type={this.type}/>
+                        {!this.canEdit ? <></> : <Link href={"/edit/" + this.type + "/_new"}>
+                            <a className={"btn btn-outline-success mb-2 me-2"}>
+                                <FontAwesomeIcon icon={["fas", "plus"]}/> Create a new {this.type}
+                            </a>
+                        </Link>}
+                        {this.forceEditMode || !this.canEdit ? <></> :
+                            <button className={"btn btn-outline-warning mb-2"} type={"button"}
+                                    onClick={() => this.setState({editView: !this.state.editView})}>
+                                {this.state.editView ? "Exit" : <FontAwesomeIcon icon={["fas", "edit"]}/>} edit-mode
+                            </button>
                         }
                     </div>
                 </div>
@@ -262,29 +303,11 @@ export default class Board extends React.Component {
                     ).map(i => this.renderSingleContent(i, false, true))}
                 </div>
             </> : <></>}
-            <CreateButton type={this.type}/>
+            {!this.canEdit ? <></> : <Link href={"/edit/" + this.type + "/_new"}>
+                <a className={"btn btn-outline-success mb-2 me-2"}>
+                    <FontAwesomeIcon icon={["fas", "plus"]}/> Create a new {this.type}
+                </a>
+            </Link>}
         </>
     }
-}
-
-function EditButton({onClick, editView, type}) {
-    const [session] = useSession()
-    if (canEdit(session, type)) {
-        return <button className={"btn btn-outline-warning mb-2"} type={"button"} onClick={onClick}>
-            {editView ? "Exit" : <FontAwesomeIcon icon={["fas", "edit"]}/>} edit-mode
-        </button>
-    }
-    return <></>
-}
-
-function CreateButton({type}) {
-    const [session] = useSession()
-    if (type !== "user" && canEdit(session, type)) {
-        return <Link href={"/edit/" + type + "/_new"}>
-            <a className={"btn btn-outline-success mb-2 me-2"}>
-                <FontAwesomeIcon icon={["fas", "plus"]}/> Create a new {type}
-            </a>
-        </Link>
-    }
-    return <></>
 }

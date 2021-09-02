@@ -1,5 +1,5 @@
 import styles from "./Dropdown.module.css"
-import {useEffect, useRef} from "react";
+import {useEffect, useRef} from "react"
 
 export default function Dropdown(
     {

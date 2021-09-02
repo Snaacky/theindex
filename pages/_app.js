@@ -8,9 +8,9 @@ import {fas} from "@fortawesome/free-solid-svg-icons"
 import Loader from "../components/loading"
 import {SWRConfig} from "swr"
 import Layout from "../components/layout/Layout"
-import {isAdmin, isEditor, isLogin} from "../lib/session";
-import NotAdmin from "../components/layout/NotAdmin";
-import NotLogin from "../components/layout/NotLogin";
+import {isAdmin, isEditor, isLogin} from "../lib/session"
+import NotAdmin from "../components/layout/NotAdmin"
+import NotLogin from "../components/layout/NotLogin"
 
 library.add(fab, fas)
 

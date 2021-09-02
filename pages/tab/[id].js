@@ -4,7 +4,7 @@ import Link from "next/link"
 import {getTabs} from "../../lib/db/tabs"
 import {useSession} from "next-auth/client"
 import Loader from "../../components/loading"
-import {canEdit} from "../../lib/session"
+import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
 import TableBoard from "../../components/boards/TableBoard"
@@ -53,7 +53,7 @@ export default function Tab({_id}) {
             </div>
         </div>
 
-        <TableBoard _id={tab._id} tables={tab.tables} key={tab._id}/>
+        <TableBoard _id={tab._id} tables={tab.tables} key={tab._id} canEdit={isEditor(session)}/>
     </>
 }
 

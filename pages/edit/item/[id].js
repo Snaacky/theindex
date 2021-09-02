@@ -54,7 +54,7 @@ export default function EditorItem({_id, tables, columns, item}) {
             Tables with this item
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false}
+            <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false} canEdit={true}
                         forceEditMode={true} updateURL={"/api/edit/item/tables"}/> :
             <div className={"text-muted"}>
                 Table selection will be available once the tab has been created

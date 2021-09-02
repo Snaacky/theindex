@@ -12,6 +12,7 @@ import useSWR from "swr"
 import Dropdown from "./Dropdown"
 import {useState} from "react"
 import IconAdmin from "../icons/IconAdmin"
+import IconList from "../icons/IconList"
 
 export default function Navbar() {
     const [session] = useSession()
@@ -63,6 +64,17 @@ export default function Navbar() {
                                   <Link href={"/items"} key={"items"}>
                                       <a className="dropdown-item">
                                           <IconItem/> Items
+                                      </a>
+                                  </Link>,
+                                  <hr className="dropdown-divider" key={"divider"}/>,
+                                  <Link href={"/users"} key={"users"}>
+                                      <a className={"dropdown-item"} title={"Users"}>
+                                          <FontAwesomeIcon icon={["fas", "users"]}/> Users
+                                      </a>
+                                  </Link>,
+                                  <Link href={"/lists"} key={"lists"}>
+                                      <a className={"dropdown-item"}>
+                                          <IconList/> User lists
                                       </a>
                                   </Link>
                               ]} toggle={(newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 0))}/>
@@ -116,13 +128,6 @@ export default function Navbar() {
                     <ul className="navbar-nav">
                         <Dropdown show={dropdowns[1]} toggler={<FontAwesomeIcon icon={["fas", "ellipsis-h"]}/>}
                                   dropLeft={true} hideCavet={true}
-                                  head={
-                                      <Link href={"/users"}>
-                                          <a className={"dropdown-item"} title={"Users"}>
-                                              <FontAwesomeIcon icon={["fas", "users"]}/> Users
-                                          </a>
-                                      </Link>
-                                  }
                                   contentList={[
                                       <a className={"dropdown-item"} href="https://wiki.piracy.moe/" key={"wiki"}>
                                           <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}

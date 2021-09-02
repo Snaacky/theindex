@@ -2,6 +2,7 @@ import Image from "next/image"
 import {getError} from "../lib/error"
 
 export default function Error({statusCode, error}) {
+    console.log("Error occured:", statusCode, error)
     const text = error.message ?? error.text ?? error
     return <div className={"position-absolute top-50 start-50 translate-middle"}>
         <h1 className={"text-center"}>

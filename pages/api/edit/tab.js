@@ -13,7 +13,7 @@ export default async function apiEditTab(req, res) {
                 if (typeof d._id === "undefined") {
                     await addTab(d.urlId, d.name, d.nsfw, d.description, d.tables)
                 } else {
-                    await updateTab(d._id, d.urlId, d.name, d.nsfw, d.description, d.tables, d.order)
+                    await updateTab(d._id, d)
                 }
                 res.status(200).send("Ok")
             }
