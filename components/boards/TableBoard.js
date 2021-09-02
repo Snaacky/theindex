@@ -22,7 +22,7 @@ export default function TableBoard(
     }
 
     if (tables.length > 0 && typeof tables[0] === "string") {
-        tables = tables.map(id => allTables.find(i => i._id === id))
+        tables = tables.map(id => allTables.find(i => i._id === id)).filter(t => typeof t !== "undefined")
     }
     return <Board type={"table"} _id={_id} content={tables} allContent={allTables} updateContentURL={updateURL}
                   updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}

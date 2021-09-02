@@ -40,7 +40,7 @@ export default function Dropdown(
         <ul className={"dropdown-menu bg-4 " + (dropLeft ? styles.left + " dropdown-menu-end" : styles.right) + (show ? " show" : "")}
             data-bs-popper={"none"}>
             {head ? <>
-                <li>
+                <li onClick={() => toggle(false)}>
                     {head}
                 </li>
                 <li>
@@ -49,7 +49,7 @@ export default function Dropdown(
             </> : <></>
             }
             {contentList.map((c, i) =>
-                <li key={i}>
+                <li key={i} onClick={() => toggle(false)}>
                     {c}
                 </li>
             )}

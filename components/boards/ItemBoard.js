@@ -1,5 +1,4 @@
 import Board from "./Board"
-import Loader from "../loading"
 import useSWR from "swr"
 import Error from "../../pages/_error"
 
@@ -15,23 +14,23 @@ export default function ItemBoard(
         canMove = true
     }) {
 
-    const {data: allColumns, errorColumns} = useSWR("/api/columns")
-    const {data: allItems, errorItems} = useSWR("/api/items")
+    let {data: allColumns, errorColumns} = useSWR("/api/columns")
+    let {data: allItems, errorItems} = useSWR("/api/items")
     if (errorColumns) {
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
-    } else if (!allColumns || !allItems) {
-        return <Loader/>
     } else if (errorItems) {
         return <Error error={errorItems} statusCode={errorItems.status}/>
     }
+    allColumns = allColumns || []
+    allItems = allItems || []
 
     if (!columns) {
         columns = allColumns
     } else if (columns.length > 0 && typeof columns[0] === "string") {
-        columns = columns.map(id => allColumns.find(c => c._id === id))
+        columns = columns.map(id => allColumns.find(c => c._id === id)).filter(c => typeof c !== "undefined")
     }
     if (items.length > 0 && typeof items[0] === "string") {
-        items = items.map(id => allItems.find(i => i._id === id))
+        items = items.map(id => allItems.find(i => i._id === id)).filter(i => typeof i !== "undefined")
     }
 
     return <Board type={"item"} _id={_id} content={items} allContent={allItems} columns={columns}
