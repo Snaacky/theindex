@@ -16,13 +16,13 @@ export default function ItemBoard(
         canEdit = false
     }) {
 
-    let {data: allColumns, errorColumns} = useSWR("/api/columns")
-    let {data: allItems, errorItems} = useSWR("/api/items")
+    const {data: allColumns, errorColumns} = useSWR("/api/columns")
+    const {data: allItems, errorItems} = useSWR("/api/items")
     if (errorColumns) {
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
     } else if (errorItems) {
         return <Error error={errorItems} statusCode={errorItems.status}/>
-    } else if (!allColumns || allItems) {
+    } else if (!allColumns || !allItems) {
         return <Loader/>
     }
 
