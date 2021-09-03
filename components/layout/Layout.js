@@ -50,17 +50,13 @@ export default function Layout({children, error}) {
                       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
                       crossOrigin="anonymous"/>
             </Head>
-            <div className={"align-items-stretch d-flex w-100"}>
-                <header>
-                    <Navbar/>
-                </header>
-                <div className={"w-100"}>
-                    <div className={"container my-4"}>
-                        <main>{children}</main>
-                    </div>
-                    <Footer error={error}/>
-                </div>
+            <header>
+                <Navbar/>
+            </header>
+            <div className={"container my-4"}>
+                <main>{children}</main>
             </div>
+            <Footer error={error}/>
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"

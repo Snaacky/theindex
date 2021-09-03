@@ -33,13 +33,12 @@ export default function App({Component, pageProps}) {
 // login protected pages
 function Auth({auth, children}) {
     const [session, loading] = useSession()
-    if (loading) {
-        return <Loader/>
-    }
 
     // no auth required
     if (typeof auth === "undefined" || auth === null) {
         return children
+    } else if (loading) {
+        return <Loader/>
     } else if (!isLogin(session)) {
         return <NotLogin/>
     } else if (auth.requireAdmin && !isAdmin(session)) {

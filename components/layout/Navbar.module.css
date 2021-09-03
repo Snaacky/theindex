@@ -1,31 +1,31 @@
 .navbar {
-    min-width: 200px;
-    max-width: 200px;
     background: var(--bg-2);
-    min-height: 100%;
     color: #fff;
-    transition: all 0.3s ease-in-out;
+    z-index: 1060;
 }
 
 .header {
     background-color: var(--bg-4);
-    padding: 0.6rem 0.3rem;
+    padding: 0.4rem 1rem;
     margin-bottom: 0.5rem;
 }
 
 .toggler {
-    position: fixed;
-    z-index: 1000;
-    top: 1rem;
-    right: 1rem;
     color: grey;
     background-color: var(--bg-6);
-    transition: all 0.1s ease-in-out;
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .toggler:hover {
     color: white;
     background-color: var(--bg-8);
+}
+
+.outside {
+    position: fixed;
+    z-index: 2000;
+    top: 1rem;
+    right: 1rem;
 }
 
 .navbar a {
