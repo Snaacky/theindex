@@ -104,7 +104,7 @@ export default function Navbar() {
                                 </a>
                             </li> : <></>}
                         {libraries.map(({urlId, name, collections}) =>
-                            <Dropdown key={urlId} toggler={name}
+                            <Dropdown key={urlId} toggler={name} targetId={"navbar-menu-" + urlId}
                                       head={
                                           <Link href={"/library/" + urlId}>
                                               <a className={"nav-link"}>
