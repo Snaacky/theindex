@@ -13,10 +13,11 @@ import Dropdown from "./Dropdown"
 import {useState} from "react"
 import IconAdmin from "../icons/IconAdmin"
 import IconList from "../icons/IconList"
+import styles from "./Navbar.module.css"
 
 export default function Navbar() {
     const [session] = useSession()
-    const [dropdowns, setDropdowns] = useState([false, false, false])
+    const [dropdowns, setDropdowns] = useState([false, false])
 
     const {data, error} = useSWR("/api/tabs")
     if (error) {
@@ -24,7 +25,7 @@ export default function Navbar() {
     }
     const tabs = data ?? []
 
-    return <nav className="navbar navbar-expand-lg navbar-dark bg-2">
+    return <nav className={styles.navbar + " navbar navbar-expand-lg navbar-dark bg-2"}>
         <div className="container-fluid">
             <Link href={"/"}>
                 <a className="navbar-brand pb-0">
@@ -42,7 +43,7 @@ export default function Navbar() {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarToggler">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav mb-2 mb-lg-0">
                     <Dropdown show={dropdowns[0]} toggler={<FontAwesomeIcon icon={["fas", "database"]}/>}
                               hideCavet={true}
                               contentList={[
@@ -78,14 +79,16 @@ export default function Navbar() {
                                       </a>
                                   </Link>
                               ]} toggle={(newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 0))}/>
+                </ul>
+                <ul className="navbar-nav m-auto mb-2 mb-lg-0">
                     {tabs.length === 0 ?
-                        <li className="nav-item">
+                        <li className={styles.item + " nav-item"}>
                             <a href={"#"} className="nav-link text-muted">
                                 No tabs found
                             </a>
                         </li> : <></>}
                     {tabs.map(({urlId, name, tables}, i) =>
-                        <Dropdown show={dropdowns[i + 3]} key={urlId} toggler={name}
+                        <Dropdown show={dropdowns[i + 2]} key={urlId} toggler={name}
                                   head={
                                       <Link href={"/tab/" + urlId}>
                                           <a className="dropdown-item">
@@ -107,10 +110,10 @@ export default function Navbar() {
                                       })
                                   }
                                   toggle={(newShow) => setDropdowns(
-                                      calculateDropdownStates(newShow, dropdowns, i + 3)
+                                      calculateDropdownStates(newShow, dropdowns, i + 2)
                                   )}/>
                     )}
-                    {canEdit(session) ? <li className={"nav-item"}>
+                    {canEdit(session) ? <li className={styles.item + " nav-item"}>
                             <Link href={"/edit/tab/_new"}>
                                 <a className={"nav-link"} style={{
                                     padding: 0,
@@ -125,59 +128,39 @@ export default function Navbar() {
                     }
                 </ul>
                 <form className="d-flex">
-                    <ul className="navbar-nav">
-                        <Dropdown show={dropdowns[1]} toggler={<FontAwesomeIcon icon={["fas", "ellipsis-h"]}/>}
-                                  dropLeft={true} hideCavet={true}
-                                  contentList={[
-                                      <a className={"dropdown-item"} href="https://wiki.piracy.moe/" key={"wiki"}>
-                                          <span className={"me-1"}>
-                                              <Image src={"/icons/wikijs.svg"} height={21} width={21}
-                                                     alt={"Wiki.js logo"}/>
-                                          </span>
-                                          Wiki
-                                      </a>,
-                                      <a className={"dropdown-item"} href="https://status.piracy.moe/" key={"status"}>
-                                          <span className={"me-1"}>
-                                              <Image src={"/icons/status.png"} height={21} width={21}
-                                                     alt={"Checkly logo"}/>
-                                          </span>
-                                          Status
-                                      </a>,
-                                      <a className={"dropdown-item"} href="https://releases.moe/" key={"seadex"}>
-                                          <span className={"me-1"}>
-                                              <Image src={"/icons/seadex.png"} height={21} width={21}
-                                                     alt={"Seadex logo"}/>
-                                          </span>
-                                          SeaDex
-                                      </a>,
-                                      <hr className="dropdown-divider" key={"divider"}/>,
-                                      <a href={"https://www.reddit.com/r/animepiracy/"} className={"dropdown-item"}
-                                         target={"_blank"} rel="noreferrer" key={"reddit"}>
-                                          <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
-                                      </a>,
-                                      <a href={"https://discord.gg/piracy"} className="dropdown-item"
-                                         target={"_blank"} rel="noreferrer" key={"discord"}>
-                                          <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
-                                      </a>,
-                                      <a href={"https://twitter.com/ranimepiracy"} className="dropdown-item"
-                                         target={"_blank"} rel="noreferrer" key={"twitter"}>
-                                          <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
-                                      </a>,
-                                      <a href={"https://github.com/ranimepiracy/index"} className="dropdown-item"
-                                         target={"_blank"} rel="noreferrer" key={"github"}>
-                                          <FontAwesomeIcon icon={["fab", "github"]}/> Github
-                                      </a>
-                                  ]}
-                                  toggle={
-                                      (newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 1))
-                                  }/>
-                        <Dropdown show={dropdowns[2]} dropLeft={true} hideCavet={true}
+                    <ul className="navbar-nav flex-grow-1">
+                        <li className={styles.item + " nav-item"}>
+                            <a className={"nav-link"} href="https://wiki.piracy.moe/">
+                                <span className={"me-1"}>
+                                    <Image src={"/icons/wikijs.svg"} height={21} width={21}
+                                           alt={"Wiki.js logo"}/>
+                                </span>
+                                Wiki
+                            </a>
+                        </li>
+                        <li className={styles.item + " nav-item"}>
+                            <a className={"nav-link"} href="https://status.piracy.moe/">
+                                <span className={"me-1"}>
+                                    <Image src={"/icons/status.png"} height={21} width={21}
+                                           alt={"Checkly logo"}/>
+                                </span>
+                                Status
+                            </a>
+                        </li>
+                        <li className={styles.item + " nav-item"}>
+                            <a className={"nav-link"} href="https://releases.moe/">
+                                <span className={"me-1"}>
+                                    <Image src={"/icons/seadex.png"} height={21} width={21}
+                                           alt={"Seadex logo"}/>
+                                </span>
+                                SeaDex
+                            </a>
+                        </li>
+                        <Dropdown show={dropdowns[1]} dropLeft={true} hideCavet={true}
                                   toggler={
                                       isLogin(session) ?
-                                          <div className={"d-flex"}>
-                                              <Image src={session.user.image} width={21} height={21}
-                                                     className={"rounded-circle"} alt={"Discord profile picture"}/>
-                                          </div>
+                                          <Image src={session.user.image} width={21} height={21}
+                                                 className={"rounded-circle"} alt={"Discord profile picture"}/>
                                           : <FontAwesomeIcon icon={["fas", "user-circle"]}/>
                                   }
                                   contentList={
@@ -186,7 +169,8 @@ export default function Navbar() {
                                               <a className="dropdown-item">
                                                   <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
                                               </a>
-                                          </Link>
+                                          </Link>,
+                                          <hr className="dropdown-divider" key={"divider"}/>
                                       ] : []).concat(
                                           isAdmin(session) ? [
                                               <Link href={"/admin"} key={"admin"}>
@@ -197,6 +181,23 @@ export default function Navbar() {
                                               <hr className="dropdown-divider" key={"divider"}/>
                                           ] : []
                                       ).concat([
+                                          <a href={"https://www.reddit.com/r/animepiracy/"} className={"dropdown-item"}
+                                             target={"_blank"} rel="noreferrer" key={"reddit"}>
+                                              <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
+                                          </a>,
+                                          <a href={"https://discord.gg/piracy"} className="dropdown-item"
+                                             target={"_blank"} rel="noreferrer" key={"discord"}>
+                                              <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
+                                          </a>,
+                                          <a href={"https://twitter.com/ranimepiracy"} className="dropdown-item"
+                                             target={"_blank"} rel="noreferrer" key={"twitter"}>
+                                              <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
+                                          </a>,
+                                          <a href={"https://github.com/ranimepiracy/index"} className="dropdown-item"
+                                             target={"_blank"} rel="noreferrer" key={"github"}>
+                                              <FontAwesomeIcon icon={["fab", "github"]}/> Github
+                                          </a>,
+                                          <hr className="dropdown-divider" key={"divider"}/>,
                                           <a className="dropdown-item" onClick={() => {
                                               if (session) {
                                                   signOut()
@@ -215,7 +216,7 @@ export default function Navbar() {
                                       ])
                                   }
                                   toggle={
-                                      (newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 2))
+                                      (newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 1))
                                   }/>
                     </ul>
                 </form>

@@ -1,0 +1,18 @@
+.navbar a {
+    border-radius: 0.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+
+.navbar a:hover,
+.navbar a:active,
+.navbar a:focus {
+    color: white;
+    background-color: var(--bg-7);
+}
+
+.item {
+    text-align: center;
+}
