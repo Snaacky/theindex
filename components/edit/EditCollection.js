@@ -114,12 +114,6 @@ export default class EditCollection extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create collection" : "Save changes"}
                 </button>
-                <Link href={"/collections"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All collections
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

@@ -15,14 +15,11 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
             </title>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        {_id === "_new" ? "Create a new library" : <>
-                            Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
-                        </>}
-                        <span className={"float-end"}>
+        <h2>
+            {_id === "_new" ? "Create a new library" : <>
+                Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
+            </>}
+            <span className={"float-end"}>
                             <Link href={"/libraries"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     All libraries
@@ -30,12 +27,14 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
                                 </a>
                             </Link>
                         </span>
-                    </h2>
-                    {_id !== "_new" ?
-                        <small className={"text-muted"}>
-                            ID: <code>{library._id}</code>
-                        </small> : <></>}
-                </div>
+        </h2>
+        {_id !== "_new" ?
+            <small className={"text-muted"}>
+                ID: <code>{library._id}</code>
+            </small> : <></>}
+
+        <div className={"card bg-2 mb-3"}>
+            <div className="card-body">
                 {_id === "_new" ? <EditLibrary libraries={libraries} collectionsDatalist={collections}/> :
                     <EditLibrary libraries={libraries} collectionsDatalist={collections} _id={library._id} urlId={library.urlId}
                                  name={library.name}

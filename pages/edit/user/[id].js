@@ -22,12 +22,9 @@ export default function EditorUser({uid, user}) {
             </title>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        Edit user <Link href={"/user/" + uid}>{user.name}</Link>
-                        <span className={"float-end"}>
+        <h2>
+            Edit user <Link href={"/user/" + uid}>{user.name}</Link>
+            <span className={"float-end"}>
                             <Link href={"/users"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     All users
@@ -35,11 +32,13 @@ export default function EditorUser({uid, user}) {
                                 </a>
                             </Link>
                         </span>
-                    </h2>
-                    <small className={"text-muted"}>
-                        ID: <code>{uid}</code>
-                    </small>
-                </div>
+        </h2>
+        <small className={"text-muted"}>
+            ID: <code>{uid}</code>
+        </small>
+
+        <div className={"card bg-2 mb-3"}>
+            <div className="card-body">
                 <EditUser adminEditing={isAdmin(session)} uid={uid} accountType={user.accountType}
                           description={user.description}/>
             </div>

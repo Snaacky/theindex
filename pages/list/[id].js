@@ -36,26 +36,30 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
         </Head>
 
         <h2>
-            {list.name} <small>by</small> <Link href={"/user/" + owner.uid}>
-            <a className={"text-muted"}>
-                {owner.name}
-            </a>
-        </Link>
+            {list.name}
             <span style={{fontSize: "1.2rem"}}>
-                            <div className={"float-end"}>
-                                {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                                {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
-                                    <a title={"Edit collection"} className={"ms-2"}>
-                                        <IconEdit/>
-                                    </a>
-                                </Link> : <></>}
-                            </div>
-                        </span>
+                <div className={"float-end"}>
+                    {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                    {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
+                        <a title={"Edit collection"} className={"ms-2"}>
+                            <IconEdit/>
+                        </a>
+                    </Link> : <></>}
+                </div>
+            </span>
         </h2>
         <p style={{
             whiteSpace: "pre-line"
         }}>
             {list.description}
+        </p>
+        <p>
+            Made by
+            <Link href={"/user/" + owner.uid}>
+                <a className={"ms-1"}>
+                    {owner.name}
+                </a>
+            </Link>
         </p>
 
         <ItemBoard _id={list._id} items={list.items} columns={list.columns} key={list._id} canMove={true}

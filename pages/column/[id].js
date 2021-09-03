@@ -59,26 +59,24 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
             <meta name="twitter:description" content={column.description}/>
         </Head>
 
+        <h2>
+            {column.name}
+            <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
+                    <a className={"ms-2"} title={"Edit column"}>
+                        <IconEdit/>
+                    </a>
+                </Link> : ""}
+                        </span>
+        </h2>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {column.description}
+        </p>
         <div className={"card bg-2"}>
             <div className="card-body">
-                <div className={"card-title row"}>
-                    <h3>
-                        {column.name}
-                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                            {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
-                                <a className={"ms-2"} title={"Edit column"}>
-                                    <IconEdit/>
-                                </a>
-                            </Link> : ""}
-                        </span>
-                    </h3>
-                </div>
-                <p className={"card-text"} style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {column.description}
-                </p>
                 <div>
                     <span className={"me-2"}>
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter:

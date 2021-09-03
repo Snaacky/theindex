@@ -53,33 +53,30 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
             }
         </Head>
 
-        <div className={"card bg-2"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h3>
-                        {item.blacklist ? <span className={"text-danger"}>
+        <h2>
+            {item.blacklist ? <span className={"text-danger"}>
                             Blacklisted: <del>{item.name}</del>
                         </span> : item.name}
-                        <span style={{fontSize: "1.2rem"}}>
+            <span style={{fontSize: "1.2rem"}}>
                             <IconNewTabLink url={item.urls[0]}/>
-                            {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                                <a title={"Edit item"} className={"ms-2"}>
-                                    <IconEdit/>
-                                </a>
-                            </Link> : <></>}
-                            {collectionsContainingItem.map(t => {
-                                return <Link href={"/collection/" + t.urlId} key={t._id}>
-                                    <a className={"ms-2"} title={"View collection " + t.name}>
-                                        <DataBadge name={t.name} style={"primary"}/>
-                                    </a>
-                                </Link>
-                            })}
-                            <div className={"float-end"}>
+                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                    <a title={"Edit item"} className={"ms-2"}>
+                        <IconEdit/>
+                    </a>
+                </Link> : <></>}
+                {collectionsContainingItem.map(t => {
+                    return <Link href={"/collection/" + t.urlId} key={t._id}>
+                        <a className={"ms-2"} title={"View collection " + t.name}>
+                            <DataBadge name={t.name} style={"primary"}/>
+                        </a>
+                    </Link>
+                })}
+                <div className={"float-end"}>
                                 {item.sponsor ? <DataBadge name={"Sponsor"} style={"warning text-dark"}/> : <></>}
-                                {item.nsfw ? <span className={"ms-2"}>
+                    {item.nsfw ? <span className={"ms-2"}>
                                     <DataBadge data={false} name={"NSFW"}/>
                                 </span> : <></>}
-                                <span className={"ms-2"}>
+                    <span className={"ms-2"}>
                                     <IconStar item={item}/>
                                 </span>
                                 <span className={"ms-2"}>
@@ -87,25 +84,22 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                                 </span>
                             </div>
                         </span>
-                    </h3>
-                    <small className={"text-warning"} title={item.stars + " users have starred this item"}>
-                        {item.stars}
-                        <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
-                    </small>
-                </div>
-                <div className={"d-flex flex-wrap"}>
-                    {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
-                                             className={"me-2"}>
-                        <DataBadge name={url} style={"primary"}/>
-                    </a>)}
-                </div>
-                <p className={"card-text"} style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {item.description}
-                </p>
-            </div>
+        </h2>
+        <div className={"d-flex flex-wrap mb-2"}>
+            {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
+                                     className={"me-2"}>
+                <DataBadge name={url} style={"primary"}/>
+            </a>)}
         </div>
+        <small className={"text-warning"} title={item.stars + " users have starred this item"}>
+            {item.stars}
+            <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
+        </small>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {item.description}
+        </p>
 
         {item.blacklist ? <div className={"card bg-2 my-2"}>
             <div className={"card-body"}>

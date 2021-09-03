@@ -82,12 +82,6 @@ export default class EditUser extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     Save changes
                 </button>
-                <Link href={"/users"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All users
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

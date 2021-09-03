@@ -19,14 +19,11 @@ export default function EditorColumn({_id, collections, columns, column}) {
             </title>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        {_id === "_new" ? "Create a new column" : <>
-                            Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
-                        </>}
-                        <span className={"float-end"}>
+        <h2>
+            {_id === "_new" ? "Create a new column" : <>
+                Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
+            </>}
+            <span className={"float-end"}>
                             <Link href={"/columns"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     All columns
@@ -34,12 +31,14 @@ export default function EditorColumn({_id, collections, columns, column}) {
                                 </a>
                             </Link>
                         </span>
-                    </h2>
-                    {_id !== "_new" ?
-                        <small className={"text-muted"}>
-                            ID: <code>{column._id}</code>
-                        </small> : <></>}
-                </div>
+        </h2>
+        {_id !== "_new" ?
+            <small className={"text-muted"}>
+                ID: <code>{column._id}</code>
+            </small> : <></>}
+
+        <div className={"card bg-2 mb-3"}>
+            <div className="card-body">
                 {_id === "_new" ? <EditColumn columns={columns}/> :
                     <EditColumn columns={columns} _id={column._id} urlId={column.urlId} name={column.name}
                                 nsfw={column.nsfw} description={column.description} type={column.type}

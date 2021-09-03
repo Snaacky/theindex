@@ -121,12 +121,6 @@ export default class EditLibrary extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
                 </button>
-                <Link href={"/libraries"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All libraries
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

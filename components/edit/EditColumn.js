@@ -217,12 +217,6 @@ export default class EditColumn extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create column" : "Save changes"}
                 </button>
-                <Link href={"/columns"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All Columns
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

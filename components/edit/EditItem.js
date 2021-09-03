@@ -238,12 +238,6 @@ export default class EditItem extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create item" : "Save changes"}
                 </button>
-                <Link href={"/items"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All items
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

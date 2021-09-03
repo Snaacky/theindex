@@ -28,14 +28,11 @@ export default function EditorList({_id, userLists, columns, list}) {
             </title>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        {_id === "_new" ? "Create a new list" : <>
-                            Edit list <Link href={"/list/" + list._id}>{list.name}</Link>
-                        </>}
-                        <span className={"float-end"}>
+        <h2>
+            {_id === "_new" ? "Create a new list" : <>
+                Edit list <Link href={"/list/" + list._id}>{list.name}</Link>
+            </>}
+            <span className={"float-end"}>
                             <Link href={"/lists"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     All user lists
@@ -43,12 +40,14 @@ export default function EditorList({_id, userLists, columns, list}) {
                                 </a>
                             </Link>
                         </span>
-                    </h2>
-                    {_id !== "_new" ?
-                        <small className={"text-muted"}>
-                            ID: <code>{list._id}</code>
-                        </small> : <></>}
-                </div>
+        </h2>
+        {_id !== "_new" ?
+            <small className={"text-muted"}>
+                ID: <code>{list._id}</code>
+            </small> : <></>}
+
+        <div className={"card bg-2 mb-3"}>
+            <div className="card-body">
                 {_id === "_new" ? <EditList lists={userLists} owner={session.user.uid}/> :
                     <EditList _id={list._id} name={list.name} nsfw={list.nsfw} description={list.description}
                               lists={userLists} owner={list.owner}/>

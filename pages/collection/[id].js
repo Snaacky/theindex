@@ -40,12 +40,9 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta name="twitter:image" content={collection.img}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h3>
-                        {collection.name}
-                        <span style={{fontSize: "1.2rem"}}>
+        <h2>
+            {collection.name}
+            <span style={{fontSize: "1.2rem"}}>
                             {librariesContainingCollection.map(t => {
                                 return <Link href={"/library/" + t.urlId} key={t._id}>
                                     <a title={"View library" + t.name}>
@@ -55,24 +52,22 @@ export default function Collection({_id, collection: staticCollection, libraries
                                     </a>
                                 </Link>
                             })}
-                            <div className={"float-end"}>
+                <div className={"float-end"}>
                                 {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                                {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
-                                    <a title={"Edit collection"} className={"ms-2"}>
-                                        <IconEdit/>
-                                    </a>
-                                </Link> : <></>}
+                    {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
+                        <a title={"Edit collection"} className={"ms-2"}>
+                            <IconEdit/>
+                        </a>
+                    </Link> : <></>}
                             </div>
                         </span>
-                    </h3>
-                </div>
-                <p className={"card-text"} style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {collection.description}
-                </p>
-            </div>
-        </div>
+        </h2>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {collection.description}
+        </p>
+
         <ItemBoard _id={collection._id} items={collection.items} columns={collection.columns} key={collection._id}
                    canEdit={canEdit(session)}/>
     </>

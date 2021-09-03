@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditList extends React.Component {
@@ -94,12 +93,6 @@ export default class EditList extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create list" : "Save changes"}
                 </button>
-                <Link href={"/lists"}>
-                    <a className={"btn btn-outline-secondary mb-2"}>
-                        All user lists
-                        <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                    </a>
-                </Link>
             </span>
         </form>
     }

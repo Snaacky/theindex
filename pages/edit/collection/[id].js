@@ -23,14 +23,11 @@ export default function EditorCollection({_id, libraries, collections, columns, 
             </title>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        {_id === "_new" ? "Create a new collection" : <>
-                            Edit collection <Link href={"/collection/" + collection.urlId}>{collection.name}</Link>
-                        </>}
-                        <span className={"float-end"}>
+        <h2>
+            {_id === "_new" ? "Create a new collection" : <>
+                Edit collection <Link href={"/collection/" + collection.urlId}>{collection.name}</Link>
+            </>}
+            <span className={"float-end"}>
                             <Link href={"/collections"}>
                                 <a className={"btn btn-outline-secondary"}>
                                     All collections
@@ -38,12 +35,14 @@ export default function EditorCollection({_id, libraries, collections, columns, 
                                 </a>
                             </Link>
                         </span>
-                    </h2>
-                    {_id !== "_new" ?
-                        <small className={"text-muted"}>
-                            ID: <code>{collection._id}</code>
-                        </small> : <></>}
-                </div>
+        </h2>
+        {_id !== "_new" ?
+            <small className={"text-muted"}>
+                ID: <code>{collection._id}</code>
+            </small> : <></>}
+
+        <div className={"card bg-2 mb-3"}>
+            <div className="card-body">
                 {_id === "_new" ? <EditCollection collections={collections}/> :
                     <EditCollection collections={collections} _id={collection._id} urlId={collection.urlId}
                                name={collection.name} nsfw={collection.nsfw} description={collection.description}/>

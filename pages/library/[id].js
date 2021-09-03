@@ -32,30 +32,25 @@ export default function Tab({_id, library: staticLibrary}) {
             <meta name="twitter:image" content={library.img}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h2>
-                        {library.name}
-                        <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+        <h2>
+            {library.name}
+            <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                             {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                            {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
-                                <a title={"Edit tab"} className={"ms-2"}>
-                                    <IconEdit/>
-                                </a>
-                            </Link> : <></>}
+                {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
+                    <a title={"Edit tab"} className={"ms-2"}>
+                        <IconEdit/>
+                    </a>
+                </Link> : <></>}
                         </span>
-                    </h2>
-                </div>
-                <p className={"card-text"} style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {library.description}
-                </p>
-            </div>
-        </div>
+        </h2>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {library.description}
+        </p>
 
-        <CollectionBoard _id={library._id} collections={library.collections} key={library._id} canEdit={isEditor(session)}/>
+        <CollectionBoard _id={library._id} collections={library.collections} key={library._id}
+                         canEdit={isEditor(session)}/>
     </>
 }
 
