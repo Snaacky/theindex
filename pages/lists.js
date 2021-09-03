@@ -1,7 +1,7 @@
 import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
-import IconTable from "../components/icons/IconTable"
+import IconCollection from "../components/icons/IconCollection"
 import useSWR from "swr"
 import Error from "./_error"
 import {getLists} from "../lib/db/lists"
@@ -27,7 +27,7 @@ export default function Lists({lists: staticLists}) {
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <h2 className={"card-title"}>
-                    <IconTable/> All user lists
+                    <IconCollection/> All user lists
                 </h2>
             </div>
         </div>

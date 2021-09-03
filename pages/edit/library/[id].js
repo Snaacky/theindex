@@ -1,13 +1,13 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getLibrariesWithTables, getLibrary} from "../../../lib/db/libraries"
-import {getTables} from "../../../lib/db/tables"
+import {getLibrariesWithCollections, getLibrary} from "../../../lib/db/libraries"
+import {getCollections} from "../../../lib/db/collections"
 import EditLibrary from "../../../components/edit/EditLibrary"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import TableBoard from "../../../components/boards/TableBoard"
+import CollectionBoard from "../../../components/boards/CollectionBoard"
 
-export default function EditorLibrary({_id, libraries, tables, library}) {
+export default function EditorLibrary({_id, libraries, collections, library}) {
     return <>
         <Head>
             <title>
@@ -36,22 +36,22 @@ export default function EditorLibrary({_id, libraries, tables, library}) {
                             ID: <code>{library._id}</code>
                         </small> : <></>}
                 </div>
-                {_id === "_new" ? <EditLibrary libraries={libraries} tablesDatalist={tables}/> :
-                    <EditLibrary libraries={libraries} tablesDatalist={tables} _id={library._id} urlId={library.urlId}
+                {_id === "_new" ? <EditLibrary libraries={libraries} collectionsDatalist={collections}/> :
+                    <EditLibrary libraries={libraries} collectionsDatalist={collections} _id={library._id} urlId={library.urlId}
                                  name={library.name}
-                                 nsfw={library.nsfw} description={library.description} tables={library.tables}/>
+                                 nsfw={library.nsfw} description={library.description} collections={library.collections}/>
                 }
             </div>
         </div>
 
         <h4>
-            Tables used in this library
+            Collections used in this library
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={library._id} tables={library.tables} allTables={tables} canMove={false} canEdit={true}
+            <CollectionBoard _id={library._id} collections={library.collections} allCollections={collections} canMove={false} canEdit={true}
                         forceEditMode={true}/> :
             <div className={"text-muted"}>
-                Table selection will be available once the library has been created
+                Collection selection will be available once the library has been created
             </div>
         }
     </>
@@ -75,8 +75,8 @@ export async function getServerSideProps({params}) {
     return {
         props: {
             _id: params.id,
-            libraries: await getLibrariesWithTables(),
-            tables: await getTables(),
+            libraries: await getLibrariesWithCollections(),
+            collections: await getCollections(),
             library
         }
     }

@@ -8,7 +8,7 @@ export default function ItemBoard(
         _id,
         items,
         columns,
-        updateURL = "/api/edit/table",
+        updateURL = "/api/edit/collection",
         updateKey = "items",
         deleteURL = "",
         forceEditMode = false,

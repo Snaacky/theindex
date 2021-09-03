@@ -1,10 +1,10 @@
 import BoolValue from "./data/BoolValue"
 import ArrayValue from "./data/ArrayValue"
 
-export default function ItemTable({columns, items}) {
+export default function ItemCollection({columns, items}) {
     items = items.filter(i => i.show).map(i => i.data)
-    return <div className={"table-responsive"}>
-        <table className={"table table-dark table-striped table-hover"}>
+    return <div className={"collection-responsive"}>
+        <collection className={"collection collection-dark collection-striped collection-hover"}>
             <thead>
             <tr>
                 <th scope={"col"}>
@@ -22,18 +22,18 @@ export default function ItemTable({columns, items}) {
             </thead>
 
             <tbody>
-            {columns.map(c => tableRow(c.data, items))}
+            {columns.map(c => collectionRow(c.data, items))}
             {columns.length === 0 ? <tr>
                 <th>
                     No columns found
                 </th>
             </tr> : <></>}
             </tbody>
-        </table>
+        </collection>
     </div>
 }
 
-function tableRow(column, items) {
+function collectionRow(column, items) {
     return <tr>
         <th scope={"col"}>
             {column.name}

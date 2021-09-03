@@ -2,12 +2,12 @@ import React from "react"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-export default class EditTable extends React.Component {
-    constructor({tables, _id, urlId, name, nsfw, description}) {
-        super({tables, _id, urlId, name, nsfw, description})
+export default class EditCollection extends React.Component {
+    constructor({collections, _id, urlId, name, nsfw, description}) {
+        super({collections, _id, urlId, name, nsfw, description})
 
-        this.tablesDatalist = tables.map(t => t.name)
-        this.urlDatalist = tables.map(t => t.urlId)
+        this.collectionsDatalist = collections.map(t => t.name)
+        this.urlDatalist = collections.map(t => t.urlId)
 
         this.state = {
             _id,
@@ -18,7 +18,7 @@ export default class EditTable extends React.Component {
         }
     }
 
-    saveTable() {
+    saveCollection() {
         if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
                 return alert("Illegal url id: '_new' is forbidden!")
@@ -34,7 +34,7 @@ export default class EditTable extends React.Component {
                 body._id = this.state._id
             }
 
-            fetch("/api/edit/table", {
+            fetch("/api/edit/collection", {
                 method: "post",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
@@ -44,7 +44,7 @@ export default class EditTable extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/tables")
+                        window.location.href = escape("/collections")
                     }
                 }
             })
@@ -57,66 +57,66 @@ export default class EditTable extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createTableInputName"} className={"form-label"}>
+                    <label htmlFor={"createCollectionInputName"} className={"form-label"}>
                         Name
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createTableInputName"}
+                    <input type={"text"} className={"form-control"} id={"createCollectionInputName"}
                            value={this.state.name}
-                           list={"createTableInputNameDatalist"} aria-describedby={"createTableInputNameHelp"}
+                           list={"createCollectionInputNameDatalist"} aria-describedby={"createCollectionInputNameHelp"}
                            placeholder={"Enter a name"} required={true}
                            onChange={(input) => {
                                this.setState({name: input.target.value})
                            }}/>
-                    <datalist id={"createTableInputNameDatalist"}>
-                        {this.tablesDatalist.map(t => <option value={t} key={t}/>)}
+                    <datalist id={"createCollectionInputNameDatalist"}>
+                        {this.collectionsDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
-                    <div id={"createTableInputNameHelp"} className={"form-text"}>
-                        Shown name of table
+                    <div id={"createCollectionInputNameHelp"} className={"form-text"}>
+                        Shown name of collection
                     </div>
                 </div>
                 <div className={"col-12 col-lg-6 mb-3"}>
-                    <label htmlFor={"createTableInputURL"} className={"form-label"}>
+                    <label htmlFor={"createCollectionInputURL"} className={"form-label"}>
                         URL
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createTableInputURL"} value={this.state.urlId}
-                           list={"createTableInputURLDatalist"} aria-describedby={"createTableInputURLHelp"}
+                    <input type={"text"} className={"form-control"} id={"createCollectionInputURL"} value={this.state.urlId}
+                           list={"createCollectionInputURLDatalist"} aria-describedby={"createCollectionInputURLHelp"}
                            placeholder={"Enter the url id"} required={true}
                            onChange={(input) => {
                                this.setState({urlId: input.target.value})
                            }}/>
-                    <datalist id={"createTableInputURLDatalist"}>
+                    <datalist id={"createCollectionInputURLDatalist"}>
                         {this.urlDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
-                    <div id={"createTableInputURLHelp"} className={"form-text"}>
+                    <div id={"createCollectionInputURLHelp"} className={"form-text"}>
                         Identifier used for the URLs, must be a string containing only <code>[a-z0-9-_]</code>
                     </div>
                 </div>
             </div>
             <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="createTableInputNSFW" value={this.state.nsfw}
+                <input type="checkbox" className="form-check-input" id="createCollectionInputNSFW" value={this.state.nsfw}
                        onChange={(input) => {
                            this.setState({nsfw: input.target.checked})
                        }}/>
-                <label className="form-check-label" htmlFor="createTableInputNSFW">
+                <label className="form-check-label" htmlFor="createCollectionInputNSFW">
                     NSFW: contains adult only content
                 </label>
             </div>
             <div className="mb-3">
-                <label htmlFor="createTableInputDescription" className="form-label">Description</label>
-                <textarea className="form-control" id="createTableInputDescription" rows="3"
+                <label htmlFor="createCollectionInputDescription" className="form-label">Description</label>
+                <textarea className="form-control" id="createCollectionInputDescription" rows="3"
                           placeholder={"Enter a fitting description"} value={this.state.description}
                           onChange={(input) => {
                               this.setState({description: input.target.value})
                           }}/>
             </div>
             <span className={"float-end"}>
-                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveTable()}>
+                <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveCollection()}>
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                    {typeof this.state._id === "undefined" ? "Create table" : "Save changes"}
+                    {typeof this.state._id === "undefined" ? "Create collection" : "Save changes"}
                 </button>
-                <Link href={"/tables"}>
+                <Link href={"/collections"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        All tables
+                        All collections
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

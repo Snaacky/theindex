@@ -15,26 +15,26 @@ import IconBookmark from "../../components/icons/IconBookmark"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../../components/icons/IconNewTabLink"
 import {getColumns} from "../../lib/db/columns"
-import {getTables} from "../../lib/db/tables"
+import {getCollections} from "../../lib/db/collections"
 
-export default function Item({_id, item: staticItem, columns: staticColumns, tables: staticTables}) {
+export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
     let {data: item, errorItem} = useSWR("/api/item/" + _id)
     let {data: columns, errorColumns} = useSWR("/api/columns")
-    let {data: tables, errorTables} = useSWR("/api/tables")
+    let {data: collections, errorCollections} = useSWR("/api/collections")
 
     if (errorItem) {
         return <Error error={errorItem} statusCode={errorItem.status}/>
     } else if (errorColumns) {
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
-    } else if (errorTables) {
-        return <Error error={errorTables} statusCode={errorTables.status}/>
+    } else if (errorCollections) {
+        return <Error error={errorCollections} statusCode={errorCollections.status}/>
     }
     item = item || staticItem
     columns = columns || staticColumns
-    tables = tables || staticTables
+    collections = collections || staticCollections
 
-    const tablesContainingItem = tables.filter(t => t.items.includes(_id))
+    const collectionsContainingItem = collections.filter(t => t.items.includes(_id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
     return <>
@@ -67,9 +67,9 @@ export default function Item({_id, item: staticItem, columns: staticColumns, tab
                                     <IconEdit/>
                                 </a>
                             </Link> : <></>}
-                            {tablesContainingItem.map(t => {
-                                return <Link href={"/table/" + t.urlId} key={t._id}>
-                                    <a className={"ms-2"} title={"View table " + t.name}>
+                            {collectionsContainingItem.map(t => {
+                                return <Link href={"/collection/" + t.urlId} key={t._id}>
+                                    <a className={"ms-2"} title={"View collection " + t.name}>
                                         <DataBadge name={t.name} style={"primary"}/>
                                     </a>
                                 </Link>
@@ -206,14 +206,14 @@ export async function getStaticProps({params}) {
     }
 
     const columns = await getColumns()
-    const tables = await getTables()
+    const collections = await getCollections()
 
     return {
         props: {
             _id: params.id,
             item,
             columns,
-            tables
+            collections
         },
         revalidate: 30
     }

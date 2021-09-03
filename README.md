@@ -78,7 +78,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 ## Parameters
 
-Here is a table of the possible ENV-variables with their default values. Note that OAuth2 is only functional with
+Here is a collection of the possible ENV-variables with their default values. Note that OAuth2 is only functional with
 discord and has not been tested with anything else.
 
 | Parameter | Function |

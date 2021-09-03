@@ -2,7 +2,7 @@ import {getSession} from "next-auth/client"
 import {canEdit} from "../../../../lib/session"
 import {updateLibrary} from "../../../../lib/db/libraries"
 
-export default async function apiEditTabOrder(req, res) {
+export default async function apiEditLibraryOrder(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body

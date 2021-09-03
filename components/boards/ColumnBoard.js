@@ -5,7 +5,7 @@ export default function ColumnBoard(
         _id,
         columns,
         allColumns,
-        updateURL = "/api/edit/table",
+        updateURL = "/api/edit/collection",
         updateKey = "columns",
         deleteURL = "",
         forceEditMode = false,

@@ -1,8 +1,8 @@
 import {getSession} from "next-auth/client"
 import {canEdit} from "../../../lib/session"
-import {addTable, updateTable} from "../../../lib/db/tables"
+import {addCollection, updateCollection} from "../../../lib/db/collections"
 
-export default async function apiEditTable(req, res) {
+export default async function apiEditCollection(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body
@@ -10,9 +10,9 @@ export default async function apiEditTable(req, res) {
             res.status(400).send("Illegal url id: '_new' is forbidden!")
         } else {
             if (typeof d._id === "undefined") {
-                await addTable(d.urlId, d.name, d.nsfw, d.description, d.items)
+                await addCollection(d.urlId, d.name, d.nsfw, d.description, d.items)
             } else {
-                await updateTable(d._id, d)
+                await updateCollection(d._id, d)
             }
             res.status(200).send("Ok")
         }

@@ -28,13 +28,10 @@
     background-color: var(--bg-8);
 }
 
-.navbar h4 {
-    text-align: center;
-}
-
 .navbar a {
     cursor: pointer;
     text-decoration: none;
+    user-select: none;
 }
 
 .navbar a:hover,

@@ -3,24 +3,24 @@ import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditLibrary extends React.Component {
-    constructor({libraries, tablesDatalist, _id, urlId, name, nsfw, description, tables}) {
-        super({libraries, tablesDatalist, _id, urlId, name, nsfw, description, tables})
+    constructor({libraries, collectionsDatalist, _id, urlId, name, nsfw, description, collections}) {
+        super({libraries, collectionsDatalist, _id, urlId, name, nsfw, description, collections})
 
 
-        this.tablesDatalist = tablesDatalist.sort((a, b) => a.name > b.name ? 1 : -1)
+        this.collectionsDatalist = collectionsDatalist.sort((a, b) => a.name > b.name ? 1 : -1)
         this.librariesDatalist = libraries.map(t => t.name)
         this.urlDatalist = libraries.map(t => t.urlId)
 
-        const tablesNotSelected = tables ? this.tablesDatalist.filter(tDL => !tables.some(t => t._id === tDL._id))
-            : this.tablesDatalist
+        const collectionsNotSelected = collections ? this.collectionsDatalist.filter(tDL => !collections.some(t => t._id === tDL._id))
+            : this.collectionsDatalist
         this.state = {
             _id,
             urlId: urlId || "",
             name: name || "",
             nsfw: nsfw || false,
             description: description || "",
-            tables: tables || [],
-            tablesNotSelected: tablesNotSelected
+            collections: collections || [],
+            collectionsNotSelected: collectionsNotSelected
         }
     }
 
@@ -35,7 +35,7 @@ export default class EditLibrary extends React.Component {
                 name: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description,
-                tables: this.state.tables
+                collections: this.state.collections
             }
             if (this.state._id) {
                 body._id = this.state._id

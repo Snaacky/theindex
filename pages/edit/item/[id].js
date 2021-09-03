@@ -5,14 +5,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
-import TableBoard from "../../../components/boards/TableBoard"
-import {getTables} from "../../../lib/db/tables"
+import CollectionBoard from "../../../components/boards/CollectionBoard"
+import {getCollections} from "../../../lib/db/collections"
 
-export default function EditorItem({_id, tables, columns, item}) {
+export default function EditorItem({_id, collections, columns, item}) {
 
-    let tablesWithItem = []
+    let collectionsWithItem = []
     if (_id !== "_new") {
-        tablesWithItem = tables.filter(t => t.items.some(i => i === item._id))
+        collectionsWithItem = collections.filter(t => t.items.some(i => i === item._id))
     }
 
     return <>
@@ -51,13 +51,13 @@ export default function EditorItem({_id, tables, columns, item}) {
         </div>
 
         <h4>
-            Tables with this item
+            Collections with this item
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false} canEdit={true}
-                        forceEditMode={true} updateURL={"/api/edit/item/tables"}/> :
+            <CollectionBoard _id={item._id} collections={collectionsWithItem} allCollections={collections} canMove={false} canEdit={true}
+                        forceEditMode={true} updateURL={"/api/edit/item/collections"}/> :
             <div className={"text-muted"}>
-                Table selection will be available once thelibraryhas been created
+                Collection selection will be available once thelibraryhas been created
             </div>
         }
     </>
@@ -81,7 +81,7 @@ export async function getServerSideProps({params}) {
     return {
         props: {
             _id: params.id,
-            tables: await getTables(),
+            collections: await getCollections(),
             columns: await getColumns(),
             item
         }

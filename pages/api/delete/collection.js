@@ -1,20 +1,20 @@
 import {getSession} from "next-auth/client"
 import {canEdit} from "../../../lib/session"
-import {deleteTable} from "../../../lib/db/tables"
+import {deleteCollection} from "../../../lib/db/collections"
 import {updateLibrary} from "../../../lib/db/libraries"
 import {find} from "../../../lib/db/db"
 
-export default async function apiDeleteTab(req, res) {
+export default async function apiDeleteCollection(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body
         if (d._id !== "") {
-            await deleteTable(d._id)
-            // remove table entry from libraries
-            const librariesWithTable = await find("libraries", {tables: [d._id]})
-            await Promise.all(librariesWithTable.map(
+            await deleteCollection(d._id)
+            // remove collection entry from libraries
+            const librariesWithCollection = await find("libraries", {collections: [d._id]})
+            await Promise.all(librariesWithCollection.map(
                 async library=> await updateLibrary(library._id, {
-                    tables: library.tables.filter(t => t !== d._id)
+                    collections: library.collections.filter(t => t !== d._id)
                 })
             ))
             res.status(200).send("Deleted")

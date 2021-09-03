@@ -6,7 +6,7 @@ import {useSession} from "next-auth/client"
 import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
-import TableBoard from "../../components/boards/TableBoard"
+import CollectionBoard from "../../components/boards/CollectionBoard"
 import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
@@ -55,7 +55,7 @@ export default function Tab({_id, library: staticLibrary}) {
             </div>
         </div>
 
-        <TableBoard _id={library._id} tables={library.tables} key={library._id} canEdit={isEditor(session)}/>
+        <CollectionBoard _id={library._id} collections={library.collections} key={library._id} canEdit={isEditor(session)}/>
     </>
 }
 

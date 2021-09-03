@@ -1,5 +1,5 @@
 import {siteName} from "../../components/layout/Layout"
-import {getTables} from "../../lib/db/tables"
+import {getCollections} from "../../lib/db/collections"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -12,43 +12,43 @@ import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import {getLibraries} from "../../lib/db/libraries"
 
-export default function Table({_id, table: staticTable, libraries: staticLibraries}) {
+export default function Collection({_id, collection: staticCollection, libraries: staticLibraries}) {
     const [session] = useSession()
-    let {data: table, errorTable} = useSWR("/api/table/" + _id)
+    let {data: collection, errorCollection} = useSWR("/api/collection/" + _id)
     let {data: libraries, errorLibraries} = useSWR("/api/libraries")
 
-    if (errorTable) {
-        return <Error error={errorTable} statusCode={errorTable.status}/>
+    if (errorCollection) {
+        return <Error error={errorCollection} statusCode={errorCollection.status}/>
     } else if (errorLibraries) {
         return <Error error={errorLibraries} statusCode={errorLibraries.status}/>
     }
 
-    table = table || staticTable
+    collection = collection || staticCollection
     libraries = libraries || staticLibraries
 
-    const librariesContainingTable = libraries.filter(library => library.tables.some(t => t._id === table._id))
+    const librariesContainingCollection = libraries.filter(library => library.collections.some(t => t._id === collection._id))
 
     return <>
         <Head>
             <title>
-                {table.name + " | " + siteName}
+                {collection.name + " | " + siteName}
             </title>
-            <meta name="description" content={table.description}/>
+            <meta name="description" content={collection.description}/>
             <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Table " + table.name + " on The Anime Index"}/>
-            <meta name="twitter:description" content={table.description}/>
-            <meta name="twitter:image" content={table.img}/>
+            <meta name="twitter:title" content={"Collection " + collection.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={collection.description}/>
+            <meta name="twitter:image" content={collection.img}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <div className={"card-title"}>
                     <h3>
-                        {table.name}
+                        {collection.name}
                         <span style={{fontSize: "1.2rem"}}>
-                            {librariesContainingTable.map(t => {
+                            {librariesContainingCollection.map(t => {
                                 return <Link href={"/library/" + t.urlId} key={t._id}>
-                                    <a title={"Viewlibrary" + t.name}>
+                                    <a title={"View library" + t.name}>
                                         <div className={"badge rounded-pill bg-primary mx-2"}>
                                             {t.name}
                                         </div>
@@ -56,9 +56,9 @@ export default function Table({_id, table: staticTable, libraries: staticLibrari
                                 </Link>
                             })}
                             <div className={"float-end"}>
-                                {table.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                                {canEdit(session) ? <Link href={"/edit/table/" + table._id}>
-                                    <a title={"Edit table"} className={"ms-2"}>
+                                {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                                {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
+                                    <a title={"Edit collection"} className={"ms-2"}>
                                         <IconEdit/>
                                     </a>
                                 </Link> : <></>}
@@ -69,21 +69,21 @@ export default function Table({_id, table: staticTable, libraries: staticLibrari
                 <p className={"card-text"} style={{
                     whiteSpace: "pre-line"
                 }}>
-                    {table.description}
+                    {collection.description}
                 </p>
             </div>
         </div>
-        <ItemBoard _id={table._id} items={table.items} columns={table.columns} key={table._id}
+        <ItemBoard _id={collection._id} items={collection.items} columns={collection.columns} key={collection._id}
                    canEdit={canEdit(session)}/>
     </>
 }
 
 export async function getStaticPaths() {
-    const tables = await getTables()
-    const paths = tables.map(table => {
+    const collections = await getCollections()
+    const paths = collections.map(collection => {
         return {
             params: {
-                id: table.urlId
+                id: collection.urlId
             }
         }
     })
@@ -95,8 +95,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const table = await getByUrlId("tables", params.id)
-    if (!table) {
+    const collection = await getByUrlId("collections", params.id)
+    if (!collection) {
         return {
             notFound: true,
             revalidate: 30
@@ -105,8 +105,8 @@ export async function getStaticProps({params}) {
 
     return {
         props: {
-            _id: table._id,
-            table,
+            _id: collection._id,
+            collection,
             libraries: await getLibraries()
         },
         revalidate: 30

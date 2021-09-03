@@ -48,7 +48,7 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
                             <div className={"float-end"}>
                                 {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                                 {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
-                                    <a title={"Edit table"} className={"ms-2"}>
+                                    <a title={"Edit collection"} className={"ms-2"}>
                                         <IconEdit/>
                                     </a>
                                 </Link> : <></>}

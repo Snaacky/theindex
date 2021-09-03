@@ -2,8 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import {signIn, signOut, useSession} from "next-auth/client"
 import {isAdmin, isLogin} from "../../lib/session"
-import IconTable from "../icons/IconTable"
-import IconTab from "../icons/IconLibrary"
+import IconCollection from "../icons/IconCollection"
+import IconLibrary from "../icons/IconLibrary"
 import IconItem from "../icons/IconItem"
 import IconColumn from "../icons/IconColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -78,7 +78,7 @@ export default function Navbar() {
                             No libraries found
                         </a>
                     </li> : <></>}
-                {libraries.map(({urlId, name, tables}) =>
+                {libraries.map(({urlId, name, collections}) =>
                     <Dropdown key={urlId} toggler={name}
                               head={
                                   <Link href={"/library/" + urlId}>
@@ -88,14 +88,14 @@ export default function Navbar() {
                                   </Link>
                               }
                               contentList={
-                                  tables.length === 0 ? [
-                                      <a href={"#"} className={"text-muted"} key={"noTablesFound"}>
-                                          No tables found
+                                  collections.length === 0 ? [
+                                      <a href={"#"} className={"text-muted"} key={"noCollectionsFound"}>
+                                          No collections found
                                       </a>
-                                  ] : tables.map((table) => {
-                                      return <Link href={"/table/" + table.urlId} key={table.urlId}>
+                                  ] : collections.map((collection) => {
+                                      return <Link href={"/collection/" + collection.urlId} key={collection.urlId}>
                                           <a>
-                                              {table.name}
+                                              {collection.name}
                                           </a>
                                       </Link>
                                   })
@@ -108,14 +108,14 @@ export default function Navbar() {
                 <li>
                     <Link href={"/libraries"}>
                         <a>
-                            <IconTab/> Libraries
+                            <IconLibrary/> Libraries
                         </a>
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/tables"}>
+                    <Link href={"/collections"}>
                         <a>
-                            <IconTable/> Tables
+                            <IconCollection/> Collections
                         </a>
                     </Link>
                 </li>

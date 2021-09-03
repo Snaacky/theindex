@@ -5,8 +5,8 @@ import ItemRow from "../rows/ItemRow"
 import ColumnFilter from "../column-filter"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnRow from "../rows/ColumnRow"
-import TableCard from "../cards/TableCard"
-import TableRow from "../rows/TableRow"
+import CollectionCard from "../cards/CollectionCard"
+import CollectionRow from "../rows/CollectionRow"
 import LibraryRow from "../rows/LibraryRow"
 import ColumnCard from "../cards/ColumnCard"
 import LibraryCard from "../cards/LibraryCard"
@@ -21,7 +21,7 @@ export default class Board extends React.Component {
             _id,
             content,
             allContent,
-            type, // item, column, table or tab
+            type, // item, column, collection or tab
             updateContentURL = "",
             updateContentKey = "",
             deleteContentURL = "",
@@ -170,14 +170,14 @@ export default class Board extends React.Component {
                               add={canAdd ? () => this.addContent(content) : null}
                               move={canMove ? (m) => this.moveContent(content, m) : null}
                               key={key}/>
-        } else if (this.type === "table") {
+        } else if (this.type === "collection") {
             if (this.state.useCards) {
-                return <TableCard table={content} add={canAdd ? () => this.addContent(content) : null}
+                return <CollectionCard collection={content} add={canAdd ? () => this.addContent(content) : null}
                                   remove={canRemove ? () => this.removeContent(content) : null}
                                   move={canMove ? (m) => this.moveContent(content, m) : null}
                                   key={key}/>
             }
-            return <TableRow table={content} remove={canRemove ? () => this.removeContent(content) : null}
+            return <CollectionRow collection={content} remove={canRemove ? () => this.removeContent(content) : null}
                              add={canAdd ? () => this.addContent(content) : null}
                              move={canMove ? (m) => this.moveContent(content, m) : null}
                              key={key}/>

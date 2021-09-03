@@ -3,29 +3,29 @@ import Loader from "../loading"
 import Error from "../../pages/_error"
 import useSWR from "swr"
 
-export default function TableBoard(
+export default function CollectionBoard(
     {
         _id,
-        tables,
+        collections,
         updateURL = "/api/edit/library",
-        updateKey = "tables",
+        updateKey = "collections",
         deleteURL = "",
         forceEditMode = false,
         canMove = true,
         canEdit = false
     }) {
-    const {data: allTables, error} = useSWR("/api/tables")
+    const {data: allCollections, error} = useSWR("/api/collections")
 
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!allTables) {
+    } else if (!allCollections) {
         return <Loader/>
     }
 
-    if (tables.length > 0 && typeof tables[0] === "string") {
-        tables = tables.map(id => allTables.find(i => i._id === id)).filter(t => typeof t !== "undefined")
+    if (collections.length > 0 && typeof collections[0] === "string") {
+        collections = collections.map(id => allCollections.find(i => i._id === id)).filter(t => typeof t !== "undefined")
     }
-    return <Board type={"table"} _id={_id} content={tables} allContent={allTables} updateContentURL={updateURL}
+    return <Board type={"collection"} _id={_id} content={collections} allContent={allCollections} updateContentURL={updateURL}
                   updateContentKey={updateKey} deleteContentURL={deleteURL} forceEditMode={forceEditMode}
                   canMove={canMove} canEdit={canEdit}/>
 }

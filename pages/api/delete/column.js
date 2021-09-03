@@ -2,7 +2,7 @@ import {getSession} from "next-auth/client"
 import {canEdit} from "../../../lib/session"
 import {deleteColumn} from "../../../lib/db/columns"
 
-export default async function apiDeleteTab(req, res) {
+export default async function apiDeleteColumn(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body

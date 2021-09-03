@@ -1,16 +1,16 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTables} from "../../../lib/db/tables"
+import {getCollections} from "../../../lib/db/collections"
 import Link from "next/link"
 import {getColumn, getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import TableBoard from "../../../components/boards/TableBoard"
+import CollectionBoard from "../../../components/boards/CollectionBoard"
 
-export default function EditorColumn({_id, tables, columns, column}) {
-    let tablesWithColumn = []
+export default function EditorColumn({_id, collections, columns, column}) {
+    let collectionsWithColumn = []
     if (_id !== "_new") {
-        tablesWithColumn = tables.filter(t => t.columns.some(c => c === column._id))
+        collectionsWithColumn = collections.filter(t => t.columns.some(c => c === column._id))
     }
     return <>
         <Head>
@@ -50,13 +50,13 @@ export default function EditorColumn({_id, tables, columns, column}) {
         </div>
 
         <h4>
-            Tables with this column
+            Collections with this column
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={column._id} tables={tablesWithColumn} allTables={tables} canMove={false} canEdit={true}
-                        updateURL={"/api/edit/column/tables"} forceEditMode={true}/> :
+            <CollectionBoard _id={column._id} collections={collectionsWithColumn} allCollections={collections} canMove={false} canEdit={true}
+                        updateURL={"/api/edit/column/collections"} forceEditMode={true}/> :
             <div className={"text-muted"}>
-                Table selection will be available once the column has been created
+                Collection selection will be available once the column has been created
             </div>
         }
     </>
@@ -80,7 +80,7 @@ export async function getServerSideProps({params}) {
     return {
         props: {
             _id: params.id,
-            tables: await getTables(),
+            collections: await getCollections(),
             columns: await getColumns(),
             column
         }

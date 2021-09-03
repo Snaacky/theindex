@@ -1,6 +1,6 @@
 import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import IconTab from "../components/icons/IconLibrary"
+import IconLibrary from "../components/icons/IconLibrary"
 import React from "react"
 import LibraryBoard from "../components/boards/LibraryBoard"
 import useSWR from "swr"
@@ -24,13 +24,13 @@ export default function Libraries({libraries: staticLibraries}) {
             </title>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Libraries on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all collection of tables"}/>
+            <meta name="twitter:description" content={"View all collection of collections"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <h2 className={"card-title"}>
-                    <IconTab/> All libraries
+                    <IconLibrary/> All libraries
                 </h2>
             </div>
         </div>
