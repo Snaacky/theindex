@@ -13,7 +13,7 @@
     color: white;
 }
 
-.cavet:after {
+.cavet::after {
     display: none;
 }
 
