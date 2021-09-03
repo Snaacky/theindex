@@ -1,6 +1,7 @@
 import Board from "./Board"
 import useSWR from "swr"
 import Error from "../../pages/_error"
+import Loader from "../loading"
 
 export default function ItemBoard(
     {
@@ -21,9 +22,9 @@ export default function ItemBoard(
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
     } else if (errorItems) {
         return <Error error={errorItems} statusCode={errorItems.status}/>
+    } else if (!allColumns || allItems) {
+        return <Loader/>
     }
-    allColumns = allColumns || []
-    allItems = allItems || []
 
     if (!columns) {
         columns = allColumns
