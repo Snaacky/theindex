@@ -11,7 +11,7 @@ import DataBadge from "../data/DataBadge"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconNewTabLink from "../icons/IconNewTabLink"
-import IconStar from "../icons/IconStar";
+import IconStar from "../icons/IconStar"
 
 export default function Row(
     {

@@ -8,6 +8,7 @@ import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getColumns} from "../lib/db/columns"
+import DataBadge from "../components/data/DataBadge"
 
 export default function Columns({columns: staticColumns}) {
     const [session] = useSession()
@@ -17,23 +18,29 @@ export default function Columns({columns: staticColumns}) {
     }
     columns = columns || staticColumns
 
+    const description = "Items can have different data-fields for different attributes. We call such fields columns like you use to in a table"
     return <>
         <Head>
             <title>
                 {"All columns | " + siteName}
             </title>
+            <meta name={"description"} content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
             <meta name="twitter:description" content={"View all created user lists"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <IconColumn/> All columns
-                </h2>
+
+        <h2>
+            <IconColumn/> All columns
+            <div className={"float-end"} style={{fontSize: "1.2rem"}}>
+                <DataBadge name={columns.length + " column" + (columns.length !== 1 ? "s" : "")} style={"primary"}/>
             </div>
-        </div>
+        </h2>
+        <p>
+            {description}
+        </p>
+
 
         <ColumnBoard columns={columns} updateURL={""} deleteURL={"/api/delete/column"} canEdit={isEditor(session)}/>
     </>

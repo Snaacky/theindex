@@ -12,7 +12,7 @@
 
 @media (min-width: 992px) {
     .card {
-        width: calc((960px - 2 * 0.75rem) / 3 - 0.5rem);
+        width: calc((960px - 2 * 0.75rem) / 2 - 0.5rem);
     }
 }
 
@@ -24,7 +24,7 @@
 
 @media (min-width: 1400px) {
     .card {
-        width: calc((1320px - 2 * 0.75rem) / 4 - 0.5rem);
+        width: calc((1320px - 2 * 0.75rem) / 3 - 0.5rem);
     }
 }
 
@@ -34,7 +34,7 @@
 
 .description {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     white-space: pre-line;

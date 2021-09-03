@@ -15,26 +15,27 @@ export default function Users({users: staticUsers}) {
     }
     users = users || staticUsers
 
+    const description = "Listing of all registered users"
     return <>
         <Head>
             <title>
                 {"Users | " + siteName}
             </title>
+            <meta name={"description"} content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Users on The Anime Index"}/>
             <meta name="twitter:description" content={"View all registered users"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <FontAwesomeIcon icon={["fas", "users"]}/> The whole community
-                    <div className={"float-end"} style={{fontSize: "1.2rem"}}>
-                        <DataBadge name={users.length + " user" + (users.length !== 1 ? "s" : "")} style={"primary"}/>
-                    </div>
-                </h2>
+        <h2>
+            <FontAwesomeIcon icon={["fas", "users"]}/> The whole community
+            <div className={"float-end"} style={{fontSize: "1.2rem"}}>
+                <DataBadge name={users.length + " user" + (users.length !== 1 ? "s" : "")} style={"primary"}/>
             </div>
-        </div>
+        </h2>
+        <p>
+            {description}
+        </p>
 
         <UserBoard users={users} allUsers={users}/>
     </>

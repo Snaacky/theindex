@@ -8,6 +8,7 @@ import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getItems} from "../lib/db/items"
+import DataBadge from "../components/data/DataBadge"
 
 export default function Items({items: staticItems}) {
     const [session] = useSession()
@@ -17,23 +18,28 @@ export default function Items({items: staticItems}) {
     }
     items = items || staticItems
 
+    const description = "Every item contains infos like the language or feature a site or service has"
     return <>
         <Head>
             <title>
                 {"All items | " + siteName}
             </title>
+            <meta name={"description"} content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Items on The Anime Index"}/>
             <meta name="twitter:description" content={"View all indexed sites"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <IconItem/> All items
-                </h2>
+
+        <h2>
+            <IconItem/> All items
+            <div className={"float-end"} style={{fontSize: "1.2rem"}}>
+                <DataBadge name={items.length + " item" + (items.length !== 1 ? "s" : "")} style={"primary"}/>
             </div>
-        </div>
+        </h2>
+        <p>
+            {description}
+        </p>
 
         <ItemBoard items={items} deleteURL={"/api/delete/item"} canEdit={isEditor(session)}/>
     </>

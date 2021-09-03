@@ -17,25 +17,27 @@ export default function Collections({collections: staticCollections}) {
     }
     collections = collections || staticCollections
 
+    const description = "Collections are like a curated table listing various items. Every entry is done by hand from the editor-team"
     return <>
         <Head>
             <title>
                 {"All collections | " + siteName}
             </title>
+            <meta name={"description"} content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Collections on The Anime Index"}/>
             <meta name="twitter:description" content={"View all curated collections of sites"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <IconCollection/> All collections
-                </h2>
-            </div>
-        </div>
+        <h2>
+            <IconCollection/> All collections
+        </h2>
+        <p>
+            {description}
+        </p>
 
-        <CollectionBoard collections={collections} updateURL={""} deleteURL={"/api/delete/collection"} canEdit={isEditor(session)}/>
+        <CollectionBoard collections={collections} updateURL={""} deleteURL={"/api/delete/collection"}
+                         canEdit={isEditor(session)}/>
     </>
 }
 

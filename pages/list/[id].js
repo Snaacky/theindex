@@ -35,16 +35,13 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
             <meta name="twitter:description" content={list.description}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <div className={"card-title"}>
-                    <h3>
-                        {list.name} <small>by</small> <Link href={"/user/" + owner.uid}>
-                        <a className={"text-muted"}>
-                            {owner.name}
-                        </a>
-                    </Link>
-                        <span style={{fontSize: "1.2rem"}}>
+        <h2>
+            {list.name} <small>by</small> <Link href={"/user/" + owner.uid}>
+            <a className={"text-muted"}>
+                {owner.name}
+            </a>
+        </Link>
+            <span style={{fontSize: "1.2rem"}}>
                             <div className={"float-end"}>
                                 {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                                 {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
@@ -54,15 +51,13 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
                                 </Link> : <></>}
                             </div>
                         </span>
-                    </h3>
-                </div>
-                <p className={"card-text"} style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {list.description}
-                </p>
-            </div>
-        </div>
+        </h2>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {list.description}
+        </p>
+
         <ItemBoard _id={list._id} items={list.items} columns={list.columns} key={list._id} canMove={true}
                    updateURL={"/api/edit/list"} canEdit={isCurrentUser(session, list.owner)}/>
     </>

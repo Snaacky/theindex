@@ -25,13 +25,14 @@
     position: fixed;
     z-index: 2000;
     top: 1rem;
-    right: 1rem;
+    left: 1rem;
 }
 
 .navbar a {
     cursor: pointer;
     text-decoration: none;
     user-select: none;
+    color: #c6c6c6;
 }
 
 .navbar a:hover,
@@ -40,12 +41,6 @@
     color: white;
 }
 
-.navbar ul li a {
-    display: block;
-    text-align: center;
-    width: 100%;
-    padding: 0.3rem;
-}
 
 .navbar ul li a:hover,
 .navbar ul li a:active,

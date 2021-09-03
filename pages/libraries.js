@@ -17,23 +17,24 @@ export default function Libraries({libraries: staticLibraries}) {
     }
     libraries = libraries || staticLibraries
 
+    const description = "Libraries are over-categories of a bunch of collections that fit into it's category"
     return <>
         <Head>
             <title>
                 {"All libraries | " + siteName}
             </title>
+            <meta name="description" content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Libraries on The Anime Index"}/>
             <meta name="twitter:description" content={"View all collection of collections"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <IconLibrary/> All libraries
-                </h2>
-            </div>
-        </div>
+        <h2>
+            <IconLibrary/> All libraries
+        </h2>
+        <p>
+            {description}
+        </p>
 
         <LibraryBoard libraries={libraries} canEdit={isEditor(session)}/>
     </>

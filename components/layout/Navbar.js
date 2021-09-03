@@ -9,7 +9,7 @@ import IconColumn from "../icons/IconColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
 import Dropdown from "./Dropdown"
-import {useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import IconAdmin from "../icons/IconAdmin"
 import IconList from "../icons/IconList"
 import styles from "./Navbar.module.css"
@@ -17,6 +17,22 @@ import styles from "./Navbar.module.css"
 export default function Navbar() {
     const [session] = useSession()
     const [show, setShow] = useState(false)
+    const ref = useRef()
+
+    useEffect(() => {
+        const checkIfClickedOutside = e => {
+            // If dropdown is open and the clicked target is not within the menu,
+            if (show && ref && ref.current && !ref.current.contains(e.target)) {
+                setShow(false)
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+
+        return () => {
+            // Cleanup
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    })
 
     const {data, error} = useSWR("/api/libraries")
     if (error) {
@@ -25,13 +41,15 @@ export default function Navbar() {
     const libraries = data ?? []
 
     return <>
-        <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
-                aria-label="Toggle navigation" onClick={() => setShow(!show)}>
-            <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
-        </button>
-        <div className={styles.navbar + " offcanvas offcanvas-start" + (show ? " show" : "")} id={"navbarOffcanvas"}
-             tabIndex="-1" style={{visibility: show ? "visible" : "hidden"}} aria-hidden={(!show).toString()}
-             role={"dialog"}>
+        {show ? <></> :
+            <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
+                    aria-label="Toggle navigation" onClick={() => setShow(!show)}>
+                <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+            </button>
+        }
+        <div className={styles.navbar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
+             id={"navbarOffcanvas"} tabIndex="-1" style={{visibility: show ? "visible" : "hidden"}}
+             aria-hidden={(!show).toString()} role={"dialog"}>
             <div className={styles.header + " offcanvas-header"}>
                 <Link href={"/"}>
                     <a className={"navbar-brand"}>
@@ -51,10 +69,10 @@ export default function Navbar() {
             <div className="offcanvas-body">
                 <nav role={"navigation"}>
                     {isLogin(session) ?
-                        <ul className={"list-unstyled"}>
-                            <li>
+                        <ul className={"nav nav-pills flex-column"}>
+                            <li className={"nav-item"}>
                                 <Link href={"/user/" + session.user.uid} key={"users"}>
-                                    <a>
+                                    <a className={"nav-link"}>
                                         <Image src={session.user.image} width={21} height={21}
                                                className={"rounded-circle"}
                                                alt={session.user.name + "'s profile picture"}/>
@@ -65,9 +83,9 @@ export default function Navbar() {
                                 </Link>
                             </li>
                             {isAdmin(session) ?
-                                <li>
+                                <li className={"nav-item"}>
                                     <Link href={"/admin"}>
-                                        <a title={"Admin settings"}>
+                                        <a className={"nav-link"} title={"Admin settings"}>
                                             <IconAdmin/> Admin
                                         </a>
                                     </Link>
@@ -78,10 +96,10 @@ export default function Navbar() {
                     }
 
                     <hr/>
-                    <ul className={"list-unstyled"}>
+                    <ul className={"nav nav-pills flex-column"}>
                         {libraries.length === 0 ?
-                            <li>
-                                <a href={"#"} className="text-muted">
+                            <li className={"nav-item"}>
+                                <a href={"#"} className="nav-link text-muted">
                                     No libraries found
                                 </a>
                             </li> : <></>}
@@ -89,20 +107,21 @@ export default function Navbar() {
                             <Dropdown key={urlId} toggler={name}
                                       head={
                                           <Link href={"/library/" + urlId}>
-                                              <a>
+                                              <a className={"nav-link"}>
                                                   {name}
                                               </a>
                                           </Link>
                                       }
                                       contentList={
                                           collections.length === 0 ? [
-                                              <a href={"#"} className={"text-muted"} key={"noCollectionsFound"}>
+                                              <a href={"#"} className={"nac-link text-muted"}
+                                                 key={"noCollectionsFound"}>
                                                   No collections found
                                               </a>
                                           ] : collections.map((collection) => {
                                               return <Link href={"/collection/" + collection.urlId}
                                                            key={collection.urlId}>
-                                                  <a>
+                                                  <a className={"nav-link"}>
                                                       {collection.name}
                                                   </a>
                                               </Link>
@@ -112,45 +131,45 @@ export default function Navbar() {
                     </ul>
 
                     <hr/>
-                    <ul className={"list-unstyled"}>
-                        <li>
+                    <ul className={"nav nav-pills flex-column"}>
+                        <li className={"nav-item"}>
                             <Link href={"/libraries"}>
-                                <a>
+                                <a className={"nav-link"}>
                                     <IconLibrary/> Libraries
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className={"nav-item"}>
                             <Link href={"/collections"}>
-                                <a>
+                                <a className={"nav-link"}>
                                     <IconCollection/> Collections
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className={"nav-item"}>
                             <Link href={"/columns"}>
-                                <a>
+                                <a className={"nav-link"}>
                                     <IconColumn/> Columns
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className={"nav-item"}>
                             <Link href={"/items"}>
-                                <a>
+                                <a className={"nav-link"}>
                                     <IconItem/> Items
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className={"nav-item"}>
                             <Link href={"/users"}>
-                                <a title={"Users"}>
+                                <a className={"nav-link"}>
                                     <FontAwesomeIcon icon={["fas", "users"]}/> Users
                                 </a>
                             </Link>
                         </li>
-                        <li>
+                        <li className={"nav-item"}>
                             <Link href={"/lists"}>
-                                <a>
+                                <a className={"nav-link"}>
                                     <IconList/> User lists
                                 </a>
                             </Link>
@@ -158,9 +177,9 @@ export default function Navbar() {
                     </ul>
 
                     <hr/>
-                    <ul className={"list-unstyled"}>
-                        <li>
-                            <a href="https://wiki.piracy.moe/">
+                    <ul className={"nav nav-pills flex-column"}>
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://wiki.piracy.moe/">
                     <span className={"me-1"}>
                         <Image src={"/icons/wikijs.svg"} height={21} width={21}
                                alt={"Wiki.js logo"}/>
@@ -168,8 +187,8 @@ export default function Navbar() {
                                 Wiki
                             </a>
                         </li>
-                        <li>
-                            <a href="https://status.piracy.moe/">
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://status.piracy.moe/">
                     <span className={"me-1"}>
                         <Image src={"/icons/status.png"} height={21} width={21}
                                alt={"Checkly logo"}/>
@@ -177,8 +196,8 @@ export default function Navbar() {
                                 Status
                             </a>
                         </li>
-                        <li>
-                            <a href="https://releases.moe/">
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://releases.moe/">
                     <span className={"me-1"}>
                         <Image src={"/icons/seadex.png"} height={21} width={21}
                                alt={"Seadex logo"}/>
@@ -189,27 +208,27 @@ export default function Navbar() {
                     </ul>
 
                     <hr/>
-                    <ul className={"list-unstyled"}>
-                        <li>
-                            <a href={"https://www.reddit.com/r/animepiracy/"}
+                    <ul className={"nav nav-pills flex-column"}>
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href={"https://www.reddit.com/r/animepiracy/"}
                                target={"_blank"} rel="noreferrer">
                                 <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
                             </a>
                         </li>
-                        <li>
-                            <a href={"https://discord.gg/piracy"}
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href={"https://discord.gg/piracy"}
                                target={"_blank"} rel="noreferrer">
                                 <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
                             </a>
                         </li>
-                        <li>
-                            <a href={"https://twitter.com/ranimepiracy"}
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href={"https://twitter.com/ranimepiracy"}
                                target={"_blank"} rel="noreferrer">
                                 <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
                             </a>
                         </li>
-                        <li>
-                            <a href={"https://github.com/ranimepiracy/index"}
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href={"https://github.com/ranimepiracy/index"}
                                target={"_blank"} rel="noreferrer">
                                 <FontAwesomeIcon icon={["fab", "github"]}/> Github
                             </a>

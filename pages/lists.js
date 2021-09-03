@@ -14,23 +14,24 @@ export default function Lists({lists: staticLists}) {
     }
     lists = lists || staticLists
 
+    const description = "User lists are created collections with user selected items, ranking and columns to display"
     return <>
         <Head>
             <title>
                 {"All user lists | " + siteName}
             </title>
+            <meta name={"description"} content={description}/>
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
             <meta name="twitter:description" content={"View all created user lists"}/>
         </Head>
 
-        <div className={"card bg-2 mb-3"}>
-            <div className="card-body">
-                <h2 className={"card-title"}>
-                    <IconCollection/> All user lists
-                </h2>
-            </div>
-        </div>
+        <h2>
+            <IconCollection/> All user lists
+        </h2>
+        <p>
+            {description}
+        </p>
 
         <ListBoard lists={lists}/>
     </>

@@ -13,7 +13,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import DataBadge from "../../components/data/DataBadge"
 import useSWR from "swr"
 import Error from "../_error"
-import {getItems} from "../../lib/db/items";
+import {getItems} from "../../lib/db/items"
 
 export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
     const [session] = useSession()
