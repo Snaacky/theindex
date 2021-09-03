@@ -12,8 +12,8 @@ import ColumnCard from "../cards/ColumnCard"
 import TabCard from "../cards/TabCard"
 import UserCard from "../cards/UserCard"
 import UserRow from "../rows/UserRow"
-import ListCard from "../cards/ListCard";
-import ListRow from "../rows/ListRow";
+import ListCard from "../cards/ListCard"
+import ListRow from "../rows/ListRow"
 
 export default class Board extends React.Component {
     constructor(

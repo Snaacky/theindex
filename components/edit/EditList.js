@@ -96,7 +96,7 @@ export default class EditList extends React.Component {
                 </button>
                 <Link href={"/lists"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        All lists
+                        All user lists
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

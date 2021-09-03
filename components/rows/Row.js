@@ -9,6 +9,7 @@ import IconDelete from "../icons/IconDelete"
 import IconEdit from "../icons/IconEdit"
 import DataBadge from "../data/DataBadge"
 import Loader from "../loading"
+import IconBookmark from "../icons/IconBookmark"
 
 export default function Row(
     {
@@ -75,6 +76,9 @@ export default function Row(
                             </span> : <></>}
                             {content.accountType ? <span className={"ms-2"}>
                                 <DataBadge name={content.accountType} style={"primary"}/>
+                            </span> : <></>}
+                            {type === "item" ? <span className={"ms-2"}>
+                                <IconBookmark item={content}/>
                             </span> : <></>}
                         </span>
                     </h5>

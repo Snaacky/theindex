@@ -10,7 +10,7 @@ import IconNewTabLink from "../icons/IconNewTabLink"
 import DataBadge from "../data/DataBadge"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Loader from "../loading"
-import IconBookmark from "../icons/IconBookmark";
+import IconBookmark from "../icons/IconBookmark"
 
 export default function Card(
     {
