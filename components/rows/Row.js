@@ -11,6 +11,7 @@ import DataBadge from "../data/DataBadge"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconNewTabLink from "../icons/IconNewTabLink"
+import IconStar from "../icons/IconStar";
 
 export default function Row(
     {
@@ -79,9 +80,14 @@ export default function Row(
                             {content.accountType ? <span className={"ms-2"}>
                                 <DataBadge name={content.accountType} style={"primary"}/>
                             </span> : <></>}
-                            {type === "item" ? <span className={"ms-2"}>
-                                <IconBookmark item={content}/>
-                            </span> : <></>}
+                            {type === "item" ? <>
+                                <span className={"ms-2"}>
+                                    <IconStar item={content}/>
+                                </span>
+                                <span className={"ms-2"}>
+                                    <IconBookmark item={content}/>
+                                </span>
+                            </> : <></>}
                         </span>
                     </h5>
 
