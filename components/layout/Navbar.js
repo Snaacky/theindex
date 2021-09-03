@@ -24,7 +24,7 @@ export default function Navbar() {
     }
     const tabs = data ?? []
 
-    return <nav className="navbar navbar-expand-md navbar-dark bg-2">
+    return <nav className="navbar navbar-expand-lg navbar-dark bg-2">
         <div className="container-fluid">
             <Link href={"/"}>
                 <a className="navbar-brand pb-0">

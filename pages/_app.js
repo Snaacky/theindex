@@ -18,7 +18,7 @@ library.add(fab, fas, far)
 export default function App({Component, pageProps}) {
     return <Provider session={pageProps.session}>
         <SWRConfig value={{
-            refreshInterval: 2000,
+            refreshInterval: 4000,
             fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
         }}>
             <Layout>
