@@ -1,6 +1,6 @@
 import {getSession} from "next-auth/client"
 import {canEdit} from "../../../lib/session"
-import {addTab, updateTab} from "../../../lib/db/tabs"
+import {addLibrary, updateLibrary} from "../../../lib/db/libraries"
 
 export default async function apiEditTab(req, res) {
     const session = await getSession({req})
@@ -11,9 +11,9 @@ export default async function apiEditTab(req, res) {
                 res.status(400).send("Illegal url id: '_new' is forbidden!")
             } else {
                 if (typeof d._id === "undefined") {
-                    await addTab(d.urlId, d.name, d.nsfw, d.description, d.tables)
+                    await addLibrary(d.urlId, d.name, d.nsfw, d.description, d.tables)
                 } else {
-                    await updateTab(d._id, d)
+                    await updateLibrary(d._id, d)
                 }
                 res.status(200).send("Ok")
             }

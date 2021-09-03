@@ -1,18 +1,58 @@
+.navbar {
+    min-width: 200px;
+    max-width: 200px;
+    background: var(--bg-2);
+    min-height: 100%;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.header {
+    background-color: var(--bg-4);
+    padding: 0.6rem 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.toggler {
+    position: fixed;
+    z-index: 1000;
+    top: 1rem;
+    right: 1rem;
+    color: grey;
+    background-color: var(--bg-6);
+    transition: all 0.1s ease-in-out;
+}
+
+.toggler:hover {
+    color: white;
+    background-color: var(--bg-8);
+}
+
+.navbar h4 {
+    text-align: center;
+}
+
 .navbar a {
-    border-radius: 0.25rem;
     cursor: pointer;
     text-decoration: none;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
 }
 
 .navbar a:hover,
 .navbar a:active,
 .navbar a:focus {
     color: white;
-    background-color: var(--bg-7);
 }
 
-.item {
+.navbar ul li a {
+    display: block;
     text-align: center;
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a:active,
+.navbar ul li a:focus {
+    color: white;
+    background-color: var(--bg-7);
 }

@@ -1,7 +1,7 @@
 import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
-import {getTabs} from "../../lib/db/tabs"
+import {getLibraries} from "../../lib/db/libraries"
 import {useSession} from "next-auth/client"
 import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
@@ -11,35 +11,35 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 
-export default function Tab({_id, tab: staticTab}) {
+export default function Tab({_id, library: staticLibrary}) {
     const [session] = useSession()
-    let {data: tab, error} = useSWR("/api/tab/" + _id)
+    let {data: library, error} = useSWR("/api/library/" + _id)
 
     if (error) {
         return <Error error={error} statusCode={error.status}/>
     }
-    tab = tab || staticTab
+    library = library || staticLibrary
 
     return <>
         <Head>
             <title>
-                {tab.name + " | " + siteName}
+                {library.name + " | " + siteName}
             </title>
-            <meta name="description" content={tab.description}/>
+            <meta name="description" content={library.description}/>
             <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Tab " + tab.name + " on The Anime Index"}/>
-            <meta name="twitter:description" content={tab.description}/>
-            <meta name="twitter:image" content={tab.img}/>
+            <meta name="twitter:title" content={"Tab " + library.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={library.description}/>
+            <meta name="twitter:image" content={library.img}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {tab.name}
+                        {library.name}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {tab.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                            {canEdit(session) ? <Link href={"/edit/tab/" + tab._id}>
+                            {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                            {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
                                 <a title={"Edit tab"} className={"ms-2"}>
                                     <IconEdit/>
                                 </a>
@@ -50,21 +50,21 @@ export default function Tab({_id, tab: staticTab}) {
                 <p className={"card-text"} style={{
                     whiteSpace: "pre-line"
                 }}>
-                    {tab.description}
+                    {library.description}
                 </p>
             </div>
         </div>
 
-        <TableBoard _id={tab._id} tables={tab.tables} key={tab._id} canEdit={isEditor(session)}/>
+        <TableBoard _id={library._id} tables={library.tables} key={library._id} canEdit={isEditor(session)}/>
     </>
 }
 
 export async function getStaticPaths() {
-    const tabs = await getTabs()
-    const paths = tabs.map(tab => {
+    const libraries = await getLibraries()
+    const paths = libraries.map(library => {
         return {
             params: {
-                id: tab.urlId
+                id: library.urlId
             }
         }
     })
@@ -76,8 +76,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    const tab = await getByUrlId("tabs", params.id)
-    if (!tab) {
+    const library = await getByUrlId("libraries", params.id)
+    if (!library) {
         return {
             notFound: true,
             revalidate: 30
@@ -86,8 +86,8 @@ export async function getStaticProps({params}) {
 
     return {
         props: {
-            _id: tab._id,
-            tab
+            _id: library._id,
+            library
         },
         revalidate: 30
     }

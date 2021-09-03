@@ -1,19 +1,19 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTabsWithTables} from "../../../lib/db/tabs"
+import {getLibrariesWithTables} from "../../../lib/db/libraries"
 import {getTable, getTables} from "../../../lib/db/tables"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditTable from "../../../components/edit/EditTable"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
-import TabBoard from "../../../components/boards/TabBoard"
+import LibraryBoard from "../../../components/boards/LibraryBoard"
 
-export default function EditorTable({_id, tabs, tables, columns, table}) {
-    let tabsWithTable = []
+export default function EditorTable({_id, libraries, tables, columns, table}) {
+    let librariesWithTable = []
     if (_id !== "_new") {
         table.columns = table.columns.map(c => columns.find(t => t._id === c))
-        tabsWithTable = tabs.filter(t => t.tables.some(c => c._id === table._id))
+        librariesWithTable = libraries.filter(t => t.tables.some(c => c._id === table._id))
     }
 
     return <>
@@ -52,13 +52,13 @@ export default function EditorTable({_id, tabs, tables, columns, table}) {
         </div>
 
         <h4>
-            Tabs with this table
+            Libraries with this table
         </h4>
         {_id !== "_new" ?
-            <TabBoard _id={table._id} tabs={tabsWithTable} allTabs={tabs} canMove={false} canEdit={true}
-                      updateURL={"/api/edit/table/tabs"} deleteURL={""} forceEditMode={true}/> :
+            <LibraryBoard _id={table._id} libraries={librariesWithTable} allLibraries={libraries} canMove={false} canEdit={true}
+                          updateURL={"/api/edit/table/libraries"} deleteURL={""} forceEditMode={true}/> :
             <div className={"text-muted"}>
-                Tab selection will be available once the table has been created
+               Libraryselection will be available once the table has been created
             </div>
         }
 
@@ -93,7 +93,7 @@ export async function getServerSideProps({params}) {
     return {
         props: {
             _id: params.id,
-            tabs: await getTabsWithTables(),
+            libraries: await getLibrariesWithTables(),
             tables: await getTables(),
             columns: await getColumns(),
             table

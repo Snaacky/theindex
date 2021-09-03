@@ -1,49 +1,49 @@
 import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
-import IconTab from "../components/icons/IconTab"
+import IconTab from "../components/icons/IconLibrary"
 import React from "react"
-import TabBoard from "../components/boards/TabBoard"
+import LibraryBoard from "../components/boards/LibraryBoard"
 import useSWR from "swr"
 import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
-import {getTabs} from "../lib/db/tabs"
+import {getLibraries} from "../lib/db/libraries"
 
-export default function Tabs({tabs: staticTabs}) {
+export default function Libraries({libraries: staticLibraries}) {
     const [session] = useSession()
-    let {data: tabs, error} = useSWR("/api/tabs")
+    let {data: libraries, error} = useSWR("/api/libraries")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
     }
-    tabs = tabs || staticTabs
+    libraries = libraries || staticLibraries
 
     return <>
         <Head>
             <title>
-                {"All tabs | " + siteName}
+                {"All libraries | " + siteName}
             </title>
             <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Tabs on The Anime Index"}/>
+            <meta name="twitter:title" content={"Libraries on The Anime Index"}/>
             <meta name="twitter:description" content={"View all collection of tables"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 <h2 className={"card-title"}>
-                    <IconTab/> All tabs
+                    <IconTab/> All libraries
                 </h2>
             </div>
         </div>
 
-        <TabBoard tabs={tabs} canEdit={isEditor(session)}/>
+        <LibraryBoard libraries={libraries} canEdit={isEditor(session)}/>
     </>
 }
 
 export async function getStaticProps() {
-    const tabs = await getTabs()
+    const libraries = await getLibraries()
     return {
         props: {
-            tabs
+            libraries
         },
         revalidate: 30
     }

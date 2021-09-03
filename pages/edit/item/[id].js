@@ -57,7 +57,7 @@ export default function EditorItem({_id, tables, columns, item}) {
             <TableBoard _id={item._id} tables={tablesWithItem} allTables={tables} canMove={false} canEdit={true}
                         forceEditMode={true} updateURL={"/api/edit/item/tables"}/> :
             <div className={"text-muted"}>
-                Table selection will be available once the tab has been created
+                Table selection will be available once thelibraryhas been created
             </div>
         }
     </>

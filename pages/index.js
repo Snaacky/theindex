@@ -3,14 +3,14 @@ import Link from "next/link"
 import {siteName} from "../components/layout/Layout"
 import useSWR from "swr"
 import Error from "./_error"
-import {getTabs} from "../lib/db/tabs"
+import {getLibraries} from "../lib/db/libraries"
 
-export default function Home({tabs: staticTabs}) {
-    let {data: tabs, error} = useSWR("/api/tabs")
+export default function Home({libraries: staticLibraries}) {
+    let {data: libraries, error} = useSWR("/api/libraries")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
     }
-    tabs = tabs || staticTabs
+    libraries = libraries || staticLibraries
 
     return <>
         <Head>
@@ -23,9 +23,9 @@ export default function Home({tabs: staticTabs}) {
                 You are searching a site with:
             </h1>
             <div className={"gx-4"}>
-                {tabs.map(({urlId, name}) => {
+                {libraries.map(({urlId, name}) => {
                     return (
-                        <Link href={"/tab/" + urlId} key={urlId}>
+                        <Link href={"/library/" + urlId} key={urlId}>
                             <a className={"btn btn-lg btn-outline-primary me-3 mb-2"}>
                                 {name}
                             </a>
@@ -41,10 +41,10 @@ export default function Home({tabs: staticTabs}) {
 }
 
 export async function getStaticProps() {
-    const tabs = await getTabs()
+    const libraries = await getLibraries()
     return {
         props: {
-            tabs
+            libraries
         },
         revalidate: 30
     }

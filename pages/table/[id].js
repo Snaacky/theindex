@@ -10,23 +10,23 @@ import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
-import {getTabs} from "../../lib/db/tabs"
+import {getLibraries} from "../../lib/db/libraries"
 
-export default function Table({_id, table: staticTable, tabs: staticTabs}) {
+export default function Table({_id, table: staticTable, libraries: staticLibraries}) {
     const [session] = useSession()
     let {data: table, errorTable} = useSWR("/api/table/" + _id)
-    let {data: tabs, errorTabs} = useSWR("/api/tabs")
+    let {data: libraries, errorLibraries} = useSWR("/api/libraries")
 
     if (errorTable) {
         return <Error error={errorTable} statusCode={errorTable.status}/>
-    } else if (errorTabs) {
-        return <Error error={errorTabs} statusCode={errorTabs.status}/>
+    } else if (errorLibraries) {
+        return <Error error={errorLibraries} statusCode={errorLibraries.status}/>
     }
 
     table = table || staticTable
-    tabs = tabs || staticTabs
+    libraries = libraries || staticLibraries
 
-    const tabsContainingTable = tabs.filter(tab => tab.tables.some(t => t._id === table._id))
+    const librariesContainingTable = libraries.filter(library => library.tables.some(t => t._id === table._id))
 
     return <>
         <Head>
@@ -46,9 +46,9 @@ export default function Table({_id, table: staticTable, tabs: staticTabs}) {
                     <h3>
                         {table.name}
                         <span style={{fontSize: "1.2rem"}}>
-                            {tabsContainingTable.map(t => {
-                                return <Link href={"/tab/" + t.urlId} key={t._id}>
-                                    <a title={"View tab " + t.name}>
+                            {librariesContainingTable.map(t => {
+                                return <Link href={"/library/" + t.urlId} key={t._id}>
+                                    <a title={"Viewlibrary" + t.name}>
                                         <div className={"badge rounded-pill bg-primary mx-2"}>
                                             {t.name}
                                         </div>
@@ -107,7 +107,7 @@ export async function getStaticProps({params}) {
         props: {
             _id: table._id,
             table,
-            tabs: await getTabs()
+            libraries: await getLibraries()
         },
         revalidate: 30
     }

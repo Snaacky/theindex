@@ -1,46 +1,22 @@
-import styles from "./Dropdown.module.css"
-import {useEffect, useRef} from "react"
+import {useState} from "react"
 
 export default function Dropdown(
     {
-        show = false,
         toggler,
         head,
-        dropLeft = false,
-        hideCavet = false,
-        contentList,
-        toggle
+        contentList
     }
 ) {
-    const ref = useRef()
+    const [show, setShow] = useState(false)
 
-    useEffect(() => {
-        const checkIfClickedOutside = e => {
-            if (show) {
-                // If dropdown is open and the clicked target is not within the menu,
-                if (ref && ref.current && !ref.current.contains(e.target)) {
-                    toggle(false)
-                }
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-
-        return () => {
-            // Cleanup
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-    })
-
-    return <li className={styles.dropdown + " nav-item dropdown"} ref={ref}>
-        <a className={
-            styles.toggler + (hideCavet ? " " + styles.cavet : "") + " nav-link dropdown-toggle" + (show ? " show" : "")
-        } role="button" aria-expanded={show.toString()} onClick={() => toggle(!show)}>
+    return <li>
+        <a className={"dropdown-toggle" + (show ? " show" : "")} role="button"
+           aria-expanded={show.toString()} onClick={() => setShow(!show)}>
             {toggler}
         </a>
-        <ul className={"dropdown-menu bg-4 " + (dropLeft ? styles.left + " dropdown-menu-end" : styles.right) + (show ? " show" : "")}
-            data-bs-popper={"none"}>
+        <ul className={"collapse list-unstyled bg-4 " + (show ? " show" : "")}>
             {head ? <>
-                <li onClick={() => toggle(false)}>
+                <li>
                     {head}
                 </li>
                 <li>
@@ -49,7 +25,7 @@ export default function Dropdown(
             </> : <></>
             }
             {contentList.map((c, i) =>
-                <li key={i} onClick={() => toggle(false)}>
+                <li key={i}>
                     {c}
                 </li>
             )}

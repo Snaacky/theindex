@@ -2,14 +2,14 @@ import React from "react"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-export default class EditTab extends React.Component {
-    constructor({tabs, tablesDatalist, _id, urlId, name, nsfw, description, tables}) {
-        super({tabs, tablesDatalist, _id, urlId, name, nsfw, description, tables})
+export default class EditLibrary extends React.Component {
+    constructor({libraries, tablesDatalist, _id, urlId, name, nsfw, description, tables}) {
+        super({libraries, tablesDatalist, _id, urlId, name, nsfw, description, tables})
 
 
         this.tablesDatalist = tablesDatalist.sort((a, b) => a.name > b.name ? 1 : -1)
-        this.tabsDatalist = tabs.map(t => t.name)
-        this.urlDatalist = tabs.map(t => t.urlId)
+        this.librariesDatalist = libraries.map(t => t.name)
+        this.urlDatalist = libraries.map(t => t.urlId)
 
         const tablesNotSelected = tables ? this.tablesDatalist.filter(tDL => !tables.some(t => t._id === tDL._id))
             : this.tablesDatalist
@@ -51,7 +51,7 @@ export default class EditTab extends React.Component {
                 } else {
                     alert("Changes have been saved")
                     if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/tabs")
+                        window.location.href = escape("/libraries")
                     }
                 }
             })
@@ -74,7 +74,7 @@ export default class EditTab extends React.Component {
                                this.setState({name: input.target.value})
                            }}/>
                     <datalist id={"createTabInputNameDatalist"}>
-                        {this.tabsDatalist.map(t => <option value={t} key={t}/>)}
+                        {this.librariesDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createTabInputNameHelp"} className={"form-text"}>
                         Shown name of tab
@@ -121,9 +121,9 @@ export default class EditTab extends React.Component {
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
                     {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
                 </button>
-                <Link href={"/tabs"}>
+                <Link href={"/libraries"}>
                     <a className={"btn btn-outline-secondary mb-2"}>
-                        All tabs
+                        All libraries
                         <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                     </a>
                 </Link>

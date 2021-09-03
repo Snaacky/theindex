@@ -1,21 +1,21 @@
 import {getSession} from "next-auth/client"
 import {canEdit} from "../../../../lib/session"
-import {updateTab} from "../../../../lib/db/tabs"
+import {updateLibrary} from "../../../../lib/db/libraries"
 
 export default async function apiEditTabOrder(req, res) {
     const session = await getSession({req})
     if (canEdit(session)) {
         const d = req.body
-        if (Array.isArray(d.tabs)) {
+        if (Array.isArray(d.libraries)) {
             await Promise.all(
-                d.tabs.map(
-                    async (t, i) => await updateTab(typeof t === "string" ? t : t._id, {order: i})
+                d.libraries.map(
+                    async (t, i) => await updateLibrary(typeof t === "string" ? t : t._id, {order: i})
                 )
             )
 
             res.status(200).send("Ok")
         } else {
-            res.status(400).send("Missing tabs")
+            res.status(400).send("Missing libraries")
         }
     } else {
         // Not Signed in

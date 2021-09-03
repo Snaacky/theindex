@@ -1,17 +1,17 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
-import {getTab, getTabsWithTables} from "../../../lib/db/tabs"
+import {getLibrariesWithTables, getLibrary} from "../../../lib/db/libraries"
 import {getTables} from "../../../lib/db/tables"
-import EditTab from "../../../components/edit/EditTab"
+import EditLibrary from "../../../components/edit/EditLibrary"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import TableBoard from "../../../components/boards/TableBoard"
 
-export default function EditorTab({_id, tabs, tables, tab}) {
+export default function EditorLibrary({_id, libraries, tables, library}) {
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create tab" : "Edit tab " + tab.name) + " | " + siteName}
+                {(_id === "_new" ? "Create tab" : "Editlibrary" + library.name) + " | " + siteName}
             </title>
         </Head>
 
@@ -19,13 +19,13 @@ export default function EditorTab({_id, tabs, tables, tab}) {
             <div className="card-body">
                 <div className={"card-title"}>
                     <h2>
-                        {_id === "_new" ? "Create a new tab" : <>
-                            Edit tab <Link href={"/tab/" + tab.urlId}>{tab.name}</Link>
+                        {_id === "_new" ? "Create a new library" : <>
+                            Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
                         </>}
                         <span className={"float-end"}>
-                            <Link href={"/tabs"}>
+                            <Link href={"/libraries"}>
                                 <a className={"btn btn-outline-secondary"}>
-                                    All tabs
+                                    All libraries
                                     <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
                                 </a>
                             </Link>
@@ -33,38 +33,39 @@ export default function EditorTab({_id, tabs, tables, tab}) {
                     </h2>
                     {_id !== "_new" ?
                         <small className={"text-muted"}>
-                            ID: <code>{tab._id}</code>
+                            ID: <code>{library._id}</code>
                         </small> : <></>}
                 </div>
-                {_id === "_new" ? <EditTab tabs={tabs} tablesDatalist={tables}/> :
-                    <EditTab tabs={tabs} tablesDatalist={tables} _id={tab._id} urlId={tab.urlId} name={tab.name}
-                             nsfw={tab.nsfw} description={tab.description} tables={tab.tables}/>
+                {_id === "_new" ? <EditLibrary libraries={libraries} tablesDatalist={tables}/> :
+                    <EditLibrary libraries={libraries} tablesDatalist={tables} _id={library._id} urlId={library.urlId}
+                                 name={library.name}
+                                 nsfw={library.nsfw} description={library.description} tables={library.tables}/>
                 }
             </div>
         </div>
 
         <h4>
-            Tables used in this tab
+            Tables used in this library
         </h4>
         {_id !== "_new" ?
-            <TableBoard _id={tab._id} tables={tab.tables} allTables={tables} canMove={false} canEdit={true}
+            <TableBoard _id={library._id} tables={library.tables} allTables={tables} canMove={false} canEdit={true}
                         forceEditMode={true}/> :
             <div className={"text-muted"}>
-                Table selection will be available once the tab has been created
+                Table selection will be available once the library has been created
             </div>
         }
     </>
 }
 
-EditorTab.auth = {
+EditorLibrary.auth = {
     requireEditor: true
 }
 
 export async function getServerSideProps({params}) {
-    let tab = {}
+    let library = {}
     if (params.id !== "_new") {
-        tab = await getTab(params.id)
-        if (!tab) {
+        library = await getLibrary(params.id)
+        if (!library) {
             return {
                 notFound: true
             }
@@ -74,9 +75,9 @@ export async function getServerSideProps({params}) {
     return {
         props: {
             _id: params.id,
-            tabs: await getTabsWithTables(),
+            libraries: await getLibrariesWithTables(),
             tables: await getTables(),
-            tab
+            library
         }
     }
 }

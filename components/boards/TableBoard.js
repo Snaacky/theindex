@@ -7,7 +7,7 @@ export default function TableBoard(
     {
         _id,
         tables,
-        updateURL = "/api/edit/tab",
+        updateURL = "/api/edit/library",
         updateKey = "tables",
         deleteURL = "",
         forceEditMode = false,

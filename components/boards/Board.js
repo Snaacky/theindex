@@ -7,9 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnRow from "../rows/ColumnRow"
 import TableCard from "../cards/TableCard"
 import TableRow from "../rows/TableRow"
-import TabRow from "../rows/TabRow"
+import LibraryRow from "../rows/LibraryRow"
 import ColumnCard from "../cards/ColumnCard"
-import TabCard from "../cards/TabCard"
+import LibraryCard from "../cards/LibraryCard"
 import UserCard from "../cards/UserCard"
 import UserRow from "../rows/UserRow"
 import ListCard from "../cards/ListCard"
@@ -181,17 +181,17 @@ export default class Board extends React.Component {
                              add={canAdd ? () => this.addContent(content) : null}
                              move={canMove ? (m) => this.moveContent(content, m) : null}
                              key={key}/>
-        } else if (this.type === "tab") {
+        } else if (this.type === "library") {
             if (this.state.useCards) {
-                return <TabCard tab={content} add={canAdd ? () => this.addContent(content) : null}
-                                remove={canRemove ? () => this.removeContent(content) : null}
-                                move={canMove ? (m) => this.moveContent(content, m) : null}
-                                key={key}/>
+                return <LibraryCard tab={content} add={canAdd ? () => this.addContent(content) : null}
+                                    remove={canRemove ? () => this.removeContent(content) : null}
+                                    move={canMove ? (m) => this.moveContent(content, m) : null}
+                                    key={key}/>
             }
-            return <TabRow tab={content} remove={canRemove ? () => this.removeContent(content) : null}
-                           add={canAdd ? () => this.addContent(content) : null}
-                           move={canMove ? (m) => this.moveContent(content, m) : null}
-                           key={key}/>
+            return <LibraryRow tab={content} remove={canRemove ? () => this.removeContent(content) : null}
+                               add={canAdd ? () => this.addContent(content) : null}
+                               move={canMove ? (m) => this.moveContent(content, m) : null}
+                               key={key}/>
         } else if (this.type === "user") {
             if (this.state.useCards) {
                 return <UserCard user={content} add={canAdd ? () => this.addContent(content) : null}

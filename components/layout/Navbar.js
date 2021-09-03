@@ -1,10 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import {signIn, signOut, useSession} from "next-auth/client"
-import IconAdd from "../icons/IconAdd"
-import {canEdit, isAdmin, isLogin} from "../../lib/session"
+import {isAdmin, isLogin} from "../../lib/session"
 import IconTable from "../icons/IconTable"
-import IconTab from "../icons/IconTab"
+import IconTab from "../icons/IconLibrary"
 import IconItem from "../icons/IconItem"
 import IconColumn from "../icons/IconColumn"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -17,223 +16,215 @@ import styles from "./Navbar.module.css"
 
 export default function Navbar() {
     const [session] = useSession()
-    const [dropdowns, setDropdowns] = useState([false, false])
+    const [show, setShow] = useState(true)
 
-    const {data, error} = useSWR("/api/tabs")
+    const {data, error} = useSWR("/api/libraries")
     if (error) {
         return <div>failed to load</div>
     }
-    const tabs = data ?? []
+    const libraries = data ?? []
 
-    return <nav className={styles.navbar + " navbar navbar-expand-lg navbar-dark bg-2"}>
-        <div className="container-fluid">
-            <Link href={"/"}>
-                <a className="navbar-brand pb-0">
-                    <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
-                           className="d-inline-block rounded align-top"/>
-                    <span className={"ms-2 d-sm-inline-block d-none align-top"}>
-                        The Anime Index
-                    </span>
-                </a>
-            </Link>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"/>
-            </button>
+    return <>
+        <button className={styles.toggler + " btn shadow"} type="button" aria-label="Toggle navigation"
+                onClick={() => setShow(!show)}>
+            <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+        </button>
+        <nav className={styles.navbar} role={"navigation"} style={{
+            marginLeft: show ? "0" : "-200px"
+        }}>
+            <div className={styles.header}>
+                <Link href={"/"}>
+                    <a className={"navbar-brand"}>
+                        <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
+                               className="d-inline-block rounded align-top"/>
+                        <span className={"ms-1 align-top"}>
+                            The Anime Index
+                        </span>
+                    </a>
+                </Link>
+            </div>
 
-            <div className="collapse navbar-collapse" id="navbarToggler">
-                <ul className="navbar-nav mb-2 mb-lg-0">
-                    <Dropdown show={dropdowns[0]} toggler={<FontAwesomeIcon icon={["fas", "database"]}/>}
-                              hideCavet={true}
-                              contentList={[
-                                  <Link href={"/tabs"} key={"tabs"}>
-                                      <a className="dropdown-item">
-                                          <IconTab/> Tabs
-                                      </a>
-                                  </Link>,
-                                  <Link href={"/tables"} key={"tables"}>
-                                      <a className="dropdown-item">
-                                          <IconTable/> Tables
-                                      </a>
-                                  </Link>,
-                                  <Link href={"/columns"} key={"columns"}>
-                                      <a className="dropdown-item">
-                                          <IconColumn/> Columns
-                                      </a>
-                                  </Link>,
-                                  <Link href={"/items"} key={"items"}>
-                                      <a className="dropdown-item">
-                                          <IconItem/> Items
-                                      </a>
-                                  </Link>,
-                                  <hr className="dropdown-divider" key={"divider"}/>,
-                                  <Link href={"/users"} key={"users"}>
-                                      <a className={"dropdown-item"} title={"Users"}>
-                                          <FontAwesomeIcon icon={["fas", "users"]}/> Users
-                                      </a>
-                                  </Link>,
-                                  <Link href={"/lists"} key={"lists"}>
-                                      <a className={"dropdown-item"}>
-                                          <IconList/> User lists
-                                      </a>
-                                  </Link>
-                              ]} toggle={(newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 0))}/>
-                </ul>
-                <ul className="navbar-nav m-auto mb-2 mb-lg-0">
-                    {tabs.length === 0 ?
-                        <li className={styles.item + " nav-item"}>
-                            <a href={"#"} className="nav-link text-muted">
-                                No tabs found
+            {isLogin(session) ?
+                <ul className={"list-unstyled"}>
+                    <li>
+                        <Link href={"/user/" + session.user.uid} key={"users"}>
+                            <a>
+                                <Image src={session.user.image} width={21} height={21}
+                                       className={"rounded-circle"} alt={session.user.name + "'s profile picture"}/>
+                                <span className={"ms-2"}>
+                                    {session.user.name}
+                                </span>
                             </a>
-                        </li> : <></>}
-                    {tabs.map(({urlId, name, tables}, i) =>
-                        <Dropdown show={dropdowns[i + 2]} key={urlId} toggler={name}
-                                  head={
-                                      <Link href={"/tab/" + urlId}>
-                                          <a className="dropdown-item">
-                                              {name}
-                                          </a>
-                                      </Link>
-                                  }
-                                  contentList={
-                                      tables.length === 0 ? [
-                                          <a href={"#"} className={"dropdown-item text-muted"} key={"noTablesFound"}>
-                                              No tables found
-                                          </a>
-                                      ] : tables.map((table) => {
-                                          return <Link href={"/table/" + table.urlId} key={table.urlId}>
-                                              <a className="dropdown-item">
-                                                  {table.name}
-                                              </a>
-                                          </Link>
-                                      })
-                                  }
-                                  toggle={(newShow) => setDropdowns(
-                                      calculateDropdownStates(newShow, dropdowns, i + 2)
-                                  )}/>
-                    )}
-                    {canEdit(session) ? <li className={styles.item + " nav-item"}>
-                            <Link href={"/edit/tab/_new"}>
-                                <a className={"nav-link"} style={{
-                                    padding: 0,
-                                    height: "40px",
-                                    width: "40px",
-                                }} title={"Create a new tab"}>
-                                    <IconAdd/>
+                        </Link>
+                    </li>
+                    {isAdmin(session) ?
+                        <li>
+                            <Link href={"/admin"}>
+                                <a title={"Admin settings"}>
+                                    <IconAdmin/> Admin
                                 </a>
                             </Link>
-                        </li> :
-                        <></>
+                        </li> : <></>
                     }
                 </ul>
-                <form className="d-flex">
-                    <ul className="navbar-nav flex-grow-1">
-                        <li className={styles.item + " nav-item"}>
-                            <a className={"nav-link"} href="https://wiki.piracy.moe/">
-                                <span className={"me-1"}>
-                                    <Image src={"/icons/wikijs.svg"} height={21} width={21}
-                                           alt={"Wiki.js logo"}/>
-                                </span>
-                                Wiki
-                            </a>
-                        </li>
-                        <li className={styles.item + " nav-item"}>
-                            <a className={"nav-link"} href="https://status.piracy.moe/">
-                                <span className={"me-1"}>
-                                    <Image src={"/icons/status.png"} height={21} width={21}
-                                           alt={"Checkly logo"}/>
-                                </span>
-                                Status
-                            </a>
-                        </li>
-                        <li className={styles.item + " nav-item"}>
-                            <a className={"nav-link"} href="https://releases.moe/">
-                                <span className={"me-1"}>
-                                    <Image src={"/icons/seadex.png"} height={21} width={21}
-                                           alt={"Seadex logo"}/>
-                                </span>
-                                SeaDex
-                            </a>
-                        </li>
-                        <Dropdown show={dropdowns[1]} dropLeft={true} hideCavet={true}
-                                  toggler={
-                                      isLogin(session) ?
-                                          <Image src={session.user.image} width={21} height={21}
-                                                 className={"rounded-circle"} alt={"Discord profile picture"}/>
-                                          : <FontAwesomeIcon icon={["fas", "user-circle"]}/>
-                                  }
-                                  contentList={
-                                      (isLogin(session) ? [
-                                          <Link href={"/user/" + session.user.uid} key={"users"}>
-                                              <a className="dropdown-item">
-                                                  <FontAwesomeIcon icon={["fas", "user-circle"]}/> {session.user.name}
-                                              </a>
-                                          </Link>,
-                                          <hr className="dropdown-divider" key={"divider"}/>
-                                      ] : []).concat(
-                                          isAdmin(session) ? [
-                                              <Link href={"/admin"} key={"admin"}>
-                                                  <a className={"dropdown-item"} title={"Admin settings"}>
-                                                      <IconAdmin/> Admin
-                                                  </a>
-                                              </Link>,
-                                              <hr className="dropdown-divider" key={"divider"}/>
-                                          ] : []
-                                      ).concat([
-                                          <a href={"https://www.reddit.com/r/animepiracy/"} className={"dropdown-item"}
-                                             target={"_blank"} rel="noreferrer" key={"reddit"}>
-                                              <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
-                                          </a>,
-                                          <a href={"https://discord.gg/piracy"} className="dropdown-item"
-                                             target={"_blank"} rel="noreferrer" key={"discord"}>
-                                              <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
-                                          </a>,
-                                          <a href={"https://twitter.com/ranimepiracy"} className="dropdown-item"
-                                             target={"_blank"} rel="noreferrer" key={"twitter"}>
-                                              <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
-                                          </a>,
-                                          <a href={"https://github.com/ranimepiracy/index"} className="dropdown-item"
-                                             target={"_blank"} rel="noreferrer" key={"github"}>
-                                              <FontAwesomeIcon icon={["fab", "github"]}/> Github
-                                          </a>,
-                                          <hr className="dropdown-divider" key={"divider"}/>,
-                                          <a className="dropdown-item" onClick={() => {
-                                              if (session) {
-                                                  signOut()
-                                              } else {
-                                                  signIn("discord")
-                                              }
-                                          }} key={"login-out"}>
-                                              {session ? <>
-                                                  Sign out <FontAwesomeIcon icon={["fas", "sign-out-alt"]}
-                                                                            className={"text-danger"}/>
-                                              </> : <>
-                                                  <FontAwesomeIcon icon={["fas", "sign-in-alt"]}
-                                                                   className={"text-success"}/> Sign In
-                                              </>}
-                                          </a>
-                                      ])
-                                  }
-                                  toggle={
-                                      (newShow) => setDropdowns(calculateDropdownStates(newShow, dropdowns, 1))
-                                  }/>
-                    </ul>
-                </form>
-            </div>
-        </div>
-    </nav>
-}
+                : <></>
+            }
 
-function calculateDropdownStates(newShow, dropdowns, index) {
-    let newDropdowns = []
-    if (typeof dropdowns[index] === "undefined") {
-        for (let i = 0; i < index; i++) {
-            newDropdowns[i] = false
-        }
-        newDropdowns[index] = newShow
-    } else {
-        newDropdowns = dropdowns.map((show, i) => i === index ? newShow : false)
-    }
-    return newDropdowns
+            <hr/>
+            <ul className={"list-unstyled"}>
+                {libraries.length === 0 ?
+                    <li>
+                        <a href={"#"} className="text-muted">
+                            No libraries found
+                        </a>
+                    </li> : <></>}
+                {libraries.map(({urlId, name, tables}) =>
+                    <Dropdown key={urlId} toggler={name}
+                              head={
+                                  <Link href={"/library/" + urlId}>
+                                      <a>
+                                          {name}
+                                      </a>
+                                  </Link>
+                              }
+                              contentList={
+                                  tables.length === 0 ? [
+                                      <a href={"#"} className={"text-muted"} key={"noTablesFound"}>
+                                          No tables found
+                                      </a>
+                                  ] : tables.map((table) => {
+                                      return <Link href={"/table/" + table.urlId} key={table.urlId}>
+                                          <a>
+                                              {table.name}
+                                          </a>
+                                      </Link>
+                                  })
+                              }/>
+                )}
+            </ul>
+
+            <hr/>
+            <ul className={"list-unstyled"}>
+                <li>
+                    <Link href={"/libraries"}>
+                        <a>
+                            <IconTab/> Libraries
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/tables"}>
+                        <a>
+                            <IconTable/> Tables
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/columns"}>
+                        <a>
+                            <IconColumn/> Columns
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/items"}>
+                        <a>
+                            <IconItem/> Items
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/users"}>
+                        <a title={"Users"}>
+                            <FontAwesomeIcon icon={["fas", "users"]}/> Users
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/lists"}>
+                        <a>
+                            <IconList/> User lists
+                        </a>
+                    </Link>
+                </li>
+            </ul>
+
+            <hr/>
+            <ul className={"list-unstyled"}>
+                <li>
+                    <a href="https://wiki.piracy.moe/">
+                    <span className={"me-1"}>
+                        <Image src={"/icons/wikijs.svg"} height={21} width={21}
+                               alt={"Wiki.js logo"}/>
+                    </span>
+                        Wiki
+                    </a>
+                </li>
+                <li>
+                    <a href="https://status.piracy.moe/">
+                    <span className={"me-1"}>
+                        <Image src={"/icons/status.png"} height={21} width={21}
+                               alt={"Checkly logo"}/>
+                    </span>
+                        Status
+                    </a>
+                </li>
+                <li>
+                    <a href="https://releases.moe/">
+                    <span className={"me-1"}>
+                        <Image src={"/icons/seadex.png"} height={21} width={21}
+                               alt={"Seadex logo"}/>
+                    </span>
+                        SeaDex
+                    </a>
+                </li>
+            </ul>
+
+            <hr/>
+            <ul className={"list-unstyled"}>
+                <li>
+                    <a href={"https://www.reddit.com/r/animepiracy/"}
+                       target={"_blank"} rel="noreferrer">
+                        <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
+                    </a>
+                </li>
+                <li>
+                    <a href={"https://discord.gg/piracy"}
+                       target={"_blank"} rel="noreferrer">
+                        <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
+                    </a>
+                </li>
+                <li>
+                    <a href={"https://twitter.com/ranimepiracy"}
+                       target={"_blank"} rel="noreferrer">
+                        <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
+                    </a>
+                </li>
+                <li>
+                    <a href={"https://github.com/ranimepiracy/index"}
+                       target={"_blank"} rel="noreferrer">
+                        <FontAwesomeIcon icon={["fab", "github"]}/> Github
+                    </a>
+                </li>
+            </ul>
+
+            <hr/>
+            <div className={"d-flex justify-content-center"}>
+                <button role={"button"} className={"btn btn-outline-" + (isLogin(session) ? "danger" : "success")}
+                        onClick={() => {
+                            if (isLogin(session)) {
+                                signOut()
+                            } else {
+                                signIn("discord")
+                            }
+                        }}>
+                    {isLogin(session) ? <>
+                        Sign out <FontAwesomeIcon icon={["fas", "sign-out-alt"]}/>
+                    </> : <>
+                        <FontAwesomeIcon icon={["fas", "sign-in-alt"]}/> Sign In
+                    </>}
+                </button>
+            </div>
+        </nav>
+    </>
 }
