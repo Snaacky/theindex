@@ -159,4 +159,3 @@ And most importantly:
 - Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
   nice...
 - Re-add static pre-generation of all public sites, where it's values are being auto-updated from swr
-- 
