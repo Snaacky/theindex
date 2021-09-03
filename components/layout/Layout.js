@@ -40,9 +40,9 @@ export default function Layout({children, error}) {
                 <meta name="description" content={description}/>
                 <meta name="robots" content="index, archive, follow"/>
                 <meta name="twitter:site" content="@ranimepiracy"/>
-                <meta name="twitter:title" content={"The Anime Index"}/>
+                <meta name="twitter:title" content="The Anime Index"/>
                 <meta name="twitter:description" content={description}/>
-                <meta name="twitter:image" content={"/icon/logo.png"}/>
+                <meta name="twitter:image" content="/icon/logo.png"/>
 
                 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"

@@ -27,9 +27,8 @@ export default function Tab({_id, library: staticLibrary}) {
             </title>
             <meta name="description" content={library.description}/>
             <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Tab " + library.name + " on The Anime Index"}/>
+            <meta name="twitter:title" content={"Library " + library.name + " on The Anime Index"}/>
             <meta name="twitter:description" content={library.description}/>
-            <meta name="twitter:image" content={library.img}/>
         </Head>
 
         <h2>
