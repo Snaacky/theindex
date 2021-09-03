@@ -1,0 +1,28 @@
+.modal {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    background-color: var(--bg-2);
+}
+
+.header {
+    border-bottom-color: var(--bg-8);
+}
+
+.footer {
+    border-top-color: var(--bg-8);
+}
+
+.close {
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    padding: 0.2rem;
+    margin: 0;
+}
+
+.close:hover {
+    color: grey;
+}

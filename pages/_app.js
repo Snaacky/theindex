@@ -5,6 +5,7 @@ import {Provider, useSession} from "next-auth/client"
 import {library} from "@fortawesome/fontawesome-svg-core"
 import {fab} from "@fortawesome/free-brands-svg-icons"
 import {fas} from "@fortawesome/free-solid-svg-icons"
+import {far} from "@fortawesome/free-regular-svg-icons"
 import Loader from "../components/loading"
 import {SWRConfig} from "swr"
 import Layout from "../components/layout/Layout"
@@ -12,7 +13,7 @@ import {isAdmin, isEditor, isLogin} from "../lib/session"
 import NotAdmin from "../components/layout/NotAdmin"
 import NotLogin from "../components/layout/NotLogin"
 
-library.add(fab, fas)
+library.add(fab, fas, far)
 
 export default function App({Component, pageProps}) {
     return <Provider session={pageProps.session}>

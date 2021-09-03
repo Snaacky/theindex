@@ -68,14 +68,17 @@ export default class EditList extends React.Component {
                         Shown name of list
                     </div>
                 </div>
-                <div className={"col-12 col-lg-6 mb-3 form-check"}>
-                    <input type="checkbox" className="form-check-input" id="createListInputNSFW" value={this.state.nsfw}
-                           onChange={(input) => {
-                               this.setState({nsfw: input.target.checked})
-                           }}/>
-                    <label className="form-check-label" htmlFor="createListInputNSFW">
-                        NSFW: contains adult only content
-                    </label>
+                <div className={"col-12 col-lg-6 mb-3"}>
+                    <div className={"form-check"}>
+                        <input type="checkbox" className="form-check-input" id="createListInputNSFW"
+                               value={this.state.nsfw}
+                               onChange={(input) => {
+                                   this.setState({nsfw: input.target.checked})
+                               }}/>
+                        <label className="form-check-label" htmlFor="createListInputNSFW">
+                            NSFW: contains adult only content
+                        </label>
+                    </div>
                 </div>
             </div>
             <div className="mb-3">

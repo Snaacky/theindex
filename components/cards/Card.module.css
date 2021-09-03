@@ -1,7 +1,31 @@
 .card {
-    width: 24rem;
+    width: 100%;
     border-right: 3px solid var(--bg-2);
     transition: border-right-color ease-in-out 0.1s;
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: calc(720px / 2 - 0.5rem - 0.75rem);
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        width: calc(960px / 3 - 0.5rem - (0.75rem) * 2 / 3);
+    }
+}
+
+@media (min-width: 1200px) {
+    .card {
+        width: calc(1140px / 4 - 0.5rem - 0.75rem * 2 / 4);
+    }
+}
+
+@media (min-width: 1400px) {
+    .card {
+        width: calc(1320px / 4 - 0.5rem - 0.75rem * 2 / 4);
+    }
 }
 
 .card:hover {
