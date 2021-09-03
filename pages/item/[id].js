@@ -11,6 +11,10 @@ import DataBadge from "../../components/data/DataBadge"
 import {splitColumnsIntoTypes} from "../../lib/item"
 import useSWR from "swr"
 import Error from "../_error"
+import IconStar from "../../components/icons/IconStar"
+import IconBookmark from "../../components/icons/IconBookmark"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import IconNewTabLink from "../../components/icons/IconNewTabLink";
 
 export default function Item({_id}) {
     const [session] = useSession()
@@ -28,7 +32,7 @@ export default function Item({_id}) {
         return <Error error={errorTables} statusCode={errorTables.status}/>
     }
 
-    const tablesContainingItem = tables.filter(t => t.items.includes(i => i === _id))
+    const tablesContainingItem = tables.filter(t => t.items.includes(_id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
     return <>
@@ -50,6 +54,12 @@ export default function Item({_id}) {
                             Blacklisted: <del>{item.name}</del>
                         </span> : item.name}
                         <span style={{fontSize: "1.2rem"}}>
+                            <IconNewTabLink url={item.urls[0]}/>
+                            {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                                <a title={"Edit item"} className={"ms-2"}>
+                                    <IconEdit/>
+                                </a>
+                            </Link> : <></>}
                             {tablesContainingItem.map(t => {
                                 return <Link href={"/table/" + t.urlId} key={t._id}>
                                     <a className={"ms-2"} title={"View table " + t.name}>
@@ -62,14 +72,19 @@ export default function Item({_id}) {
                                 {item.nsfw ? <span className={"ms-2"}>
                                     <DataBadge data={false} name={"NSFW"}/>
                                 </span> : <></>}
-                                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                                    <a title={"Edit table"} className={"ms-2"}>
-                                        <IconEdit/>
-                                    </a>
-                                </Link> : <></>}
+                                <span className={"ms-2"}>
+                                    <IconStar item={item}/>
+                                </span>
+                                <span className={"ms-2"}>
+                                    <IconBookmark item={item}/>
+                                </span>
                             </div>
                         </span>
                     </h3>
+                    <small className={"text-warning"} title={item.stars + " users have starred this item"}>
+                        {item.stars}
+                        <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
+                    </small>
                 </div>
                 <div className={"d-flex flex-wrap"}>
                     {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}

@@ -17,7 +17,6 @@ export default function Card(
     {
         type,
         content,
-        url = "",
         imageUrl = "",
         bodyContent = null,
         add = null,
@@ -53,7 +52,7 @@ export default function Card(
                                 {content.name}
                             </a>
                         </Link>
-                        {url !== "" ? <IconNewTabLink url={url}/> : <></>}
+                        {typeof content.urls !== "undefined" ? <IconNewTabLink url={content.urls[0]}/> : <></>}
                         {canEdit(session, type) ? <>
                             <Link href={"/edit/" + type + "/" + content._id}>
                                 <a title={"Edit " + type} className={"ms-2"}>

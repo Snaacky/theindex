@@ -12,7 +12,7 @@ export default function IconBookmark({item, size}) {
     const [show, setShow] = useState(false)
     const [isHovering, setIsHovering] = useState(false)
     return <>
-        <span className={iconStyles.icon + " " + styles.bookmark}
+        <span className={iconStyles.icon + " " + styles.bookmark} title={"Add item to list"}
               onClick={() => {
                   setShow(!show)
               }}

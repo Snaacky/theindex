@@ -10,6 +10,7 @@ import IconEdit from "../icons/IconEdit"
 import DataBadge from "../data/DataBadge"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
+import IconNewTabLink from "../icons/IconNewTabLink"
 
 export default function Row(
     {
@@ -61,6 +62,7 @@ export default function Row(
                         <Link href={hrefString}>
                             {content.name}
                         </Link>
+                        {typeof content.urls !== "undefined" ? <IconNewTabLink url={content.urls[0]}/> : <></>}
                         {canEdit(session, type) ? <Link href={"/edit/" + type + "/" + content._id}>
                             <a title={"Edit " + type} className={"ms-2"}>
                                 <IconEdit/>

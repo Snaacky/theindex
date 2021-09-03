@@ -21,7 +21,7 @@ export default function IconStar({item, size}) {
     const isFav = user.favs.includes(item._id)
 
     return <>
-        <span className={iconStyles.icon + " " + styles.star}
+        <span className={iconStyles.icon + " " + styles.star} title={"Star item"}
               onClick={() => {
                   if (isLogin(session)) {
                       user.favs = isFav ? user.favs.filter(f => f !== item._id) : user.favs.concat([item._id])
