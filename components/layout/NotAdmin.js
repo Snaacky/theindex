@@ -1,4 +1,4 @@
-import styles from "./Login.module.css"
+import styles from "./NotLogin.module.css"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Head from "next/head"
