@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export default class EditCollection extends React.Component {
@@ -78,7 +77,8 @@ export default class EditCollection extends React.Component {
                     <label htmlFor={"createCollectionInputURL"} className={"form-label"}>
                         URL
                     </label>
-                    <input type={"text"} className={"form-control"} id={"createCollectionInputURL"} value={this.state.urlId}
+                    <input type={"text"} className={"form-control"} id={"createCollectionInputURL"}
+                           value={this.state.urlId}
                            list={"createCollectionInputURLDatalist"} aria-describedby={"createCollectionInputURLHelp"}
                            placeholder={"Enter the url id"} required={true}
                            onChange={(input) => {
@@ -93,7 +93,8 @@ export default class EditCollection extends React.Component {
                 </div>
             </div>
             <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="createCollectionInputNSFW" value={this.state.nsfw}
+                <input type="checkbox" className="form-check-input" id="createCollectionInputNSFW"
+                       value={this.state.nsfw}
                        onChange={(input) => {
                            this.setState({nsfw: input.target.checked})
                        }}/>
