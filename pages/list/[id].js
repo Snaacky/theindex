@@ -30,6 +30,9 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
                 {list.name + " | " + siteName}
             </title>
             <meta name="description" content={list.description}/>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={owner.name + "'s list " + list.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={list.description}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -86,7 +89,7 @@ export async function getStaticProps({params}) {
     if (!list) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
     const owner = await getUser(list.owner)
@@ -98,6 +101,6 @@ export async function getStaticProps({params}) {
             owner,
             ownerUid: owner.uid
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

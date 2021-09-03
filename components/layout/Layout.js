@@ -5,6 +5,7 @@ import Footer from "./Footer"
 export const siteName = "The Anime Index"
 
 export default function Layout({children, error}) {
+    const description = "The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."
     return (
         <div className={"d-flex"}
              style={{
@@ -36,9 +37,12 @@ export default function Layout({children, error}) {
                     <title>
                         Error {error} | {siteName}
                     </title> : <></>}
-                <meta name="description"
-                      content="The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."/>
+                <meta name="description" content={description}/>
                 <meta name="robots" content="index, archive, follow"/>
+                <meta name="twitter:site" content="@ranimepiracy"/>
+                <meta name="twitter:title" content={"The Anime Index"}/>
+                <meta name="twitter:description" content={description}/>
+                <meta name="twitter:image" content={"/icon/logo.png"}/>
 
                 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"

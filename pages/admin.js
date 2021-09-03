@@ -32,11 +32,10 @@ Admin.auth = {
     requireAdmin: true
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     return {
         props: {
             images: images()
-        },
-        revalidate: 10
+        }
     }
 }

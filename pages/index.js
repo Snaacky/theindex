@@ -1,21 +1,21 @@
 import Head from "next/head"
 import Link from "next/link"
 import {siteName} from "../components/layout/Layout"
-import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
+import {getTabs} from "../lib/db/tabs"
 
-export default function Home() {
-    const {data: tabs, error} = useSWR("/api/tabs")
+export default function Home({tabs: staticTabs}) {
+    let {data: tabs, error} = useSWR("/api/tabs")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!tabs) {
-        return <Loader/>
     }
+    tabs = tabs || staticTabs
 
     return <>
         <Head>
             <title>{siteName}</title>
+            <meta name="twitter:card" content="summary"/>
         </Head>
 
         <div className={"container"}>
@@ -41,8 +41,11 @@ export default function Home() {
 }
 
 export async function getStaticProps() {
+    const tabs = await getTabs()
     return {
-        props: {},
-        revalidate: 10
+        props: {
+            tabs
+        },
+        revalidate: 30
     }
 }

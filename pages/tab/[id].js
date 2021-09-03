@@ -3,7 +3,6 @@ import Head from "next/head"
 import Link from "next/link"
 import {getTabs} from "../../lib/db/tabs"
 import {useSession} from "next-auth/client"
-import Loader from "../../components/loading"
 import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
@@ -12,15 +11,14 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 
-export default function Tab({_id}) {
+export default function Tab({_id, tab: staticTab}) {
     const [session] = useSession()
-    const {data: tab, error} = useSWR("/api/tab/" + _id)
+    let {data: tab, error} = useSWR("/api/tab/" + _id)
 
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!tab) {
-        return <Loader/>
     }
+    tab = tab || staticTab
 
     return <>
         <Head>
@@ -28,6 +26,10 @@ export default function Tab({_id}) {
                 {tab.name + " | " + siteName}
             </title>
             <meta name="description" content={tab.description}/>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Tab " + tab.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={tab.description}/>
+            <meta name="twitter:image" content={tab.img}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -78,14 +80,15 @@ export async function getStaticProps({params}) {
     if (!tab) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
 
     return {
         props: {
-            _id: tab._id
+            _id: tab._id,
+            tab
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

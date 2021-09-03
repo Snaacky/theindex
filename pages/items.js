@@ -3,26 +3,28 @@ import Head from "next/head"
 import React from "react"
 import IconItem from "../components/icons/IconItem"
 import ItemBoard from "../components/boards/ItemBoard"
-import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
+import {getItems} from "../lib/db/items"
 
-export default function EditorItems() {
+export default function Items({items: staticItems}) {
     const [session] = useSession()
-    const {data: items, error} = useSWR("/api/items")
+    let {data: items, error} = useSWR("/api/items")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!items) {
-        return <Loader/>
     }
+    items = items || staticItems
 
     return <>
         <Head>
             <title>
                 {"All items | " + siteName}
             </title>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Items on The Anime Index"}/>
+            <meta name="twitter:description" content={"View all indexed sites"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -38,8 +40,11 @@ export default function EditorItems() {
 }
 
 export async function getStaticProps() {
+    const items = await getItems()
     return {
-        props: {},
-        revalidate: 10
+        props: {
+            items
+        },
+        revalidate: 30
     }
 }

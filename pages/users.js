@@ -5,22 +5,24 @@ import React from "react"
 import DataBadge from "../components/data/DataBadge"
 import UserBoard from "../components/boards/UserBoard"
 import useSWR from "swr"
-import Loader from "../components/loading"
 import Error from "./_error"
+import {getUsers} from "../lib/db/users"
 
-export default function Users() {
-    const {data: users, error} = useSWR("/api/users")
+export default function Users({users: staticUsers}) {
+    let {data: users, error} = useSWR("/api/users")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!users) {
-        return <Loader/>
     }
+    users = users || staticUsers
 
     return <>
         <Head>
             <title>
                 {"Users | " + siteName}
             </title>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Users on The Anime Index"}/>
+            <meta name="twitter:description" content={"View all registered users"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -39,8 +41,11 @@ export default function Users() {
 }
 
 export async function getStaticProps() {
+    const users = await getUsers()
     return {
-        props: {},
-        revalidate: 10
+        props: {
+            users
+        },
+        revalidate: 30
     }
 }

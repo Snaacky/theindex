@@ -34,6 +34,10 @@ export default function User({uid, user: staticUser}) {
             </title>
             <meta name="robots" content="noindex, archive, follow"/>
             <meta name="description" content={description}/>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"User " + name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={description}/>
+            <meta name="twitter:image" content={image}/>
         </Head>
 
         <div className={"card bg-2"}>
@@ -159,7 +163,7 @@ export async function getStaticProps({params}) {
     if (!user) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
     return {
@@ -167,6 +171,6 @@ export async function getStaticProps({params}) {
             uid: params.id,
             user
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

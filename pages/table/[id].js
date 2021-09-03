@@ -34,6 +34,10 @@ export default function Table({_id, table: staticTable, tabs: staticTabs}) {
                 {table.name + " | " + siteName}
             </title>
             <meta name="description" content={table.description}/>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Table " + table.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={table.description}/>
+            <meta name="twitter:image" content={table.img}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -95,7 +99,7 @@ export async function getStaticProps({params}) {
     if (!table) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
 
@@ -105,6 +109,6 @@ export async function getStaticProps({params}) {
             table,
             tabs: await getTabs()
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

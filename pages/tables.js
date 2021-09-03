@@ -3,26 +3,28 @@ import Head from "next/head"
 import React from "react"
 import IconTable from "../components/icons/IconTable"
 import TableBoard from "../components/boards/TableBoard"
-import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
+import {getTables} from "../lib/db/tables"
 
-export default function Tables() {
+export default function Tables({tables: staticTables}) {
     const [session] = useSession()
-    const {data: tables, error} = useSWR("/api/tables")
+    let {data: tables, error} = useSWR("/api/tables")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!tables) {
-        return <Loader/>
     }
+    tables = tables || staticTables
 
     return <>
         <Head>
             <title>
                 {"All tables | " + siteName}
             </title>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Tables on The Anime Index"}/>
+            <meta name="twitter:description" content={"View all curated tables of sites"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -38,8 +40,11 @@ export default function Tables() {
 }
 
 export async function getStaticProps() {
+    const tables = await getTables()
     return {
-        props: {},
-        revalidate: 10
+        props: {
+            tables
+        },
+        revalidate: 30
     }
 }

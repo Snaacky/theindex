@@ -3,26 +3,28 @@ import Head from "next/head"
 import React from "react"
 import IconColumn from "../components/icons/IconColumn"
 import ColumnBoard from "../components/boards/ColumnBoard"
-import Loader from "../components/loading"
 import useSWR from "swr"
 import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
+import {getColumns} from "../lib/db/columns"
 
-export default function EditorColumns() {
+export default function Columns({columns: staticColumns}) {
     const [session] = useSession()
-    const {data: columns, error} = useSWR("/api/columns")
+    let {data: columns, error} = useSWR("/api/columns")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!columns) {
-        return <Loader/>
     }
+    columns = columns || staticColumns
 
     return <>
         <Head>
             <title>
                 {"All columns | " + siteName}
             </title>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
+            <meta name="twitter:description" content={"View all created user lists"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -38,8 +40,11 @@ export default function EditorColumns() {
 }
 
 export async function getStaticProps() {
+    const columns = await getColumns()
     return {
-        props: {},
-        revalidate: 10
+        props: {
+            columns
+        },
+        revalidate: 30
     }
 }

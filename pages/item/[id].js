@@ -2,7 +2,6 @@ import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
-import Loader from "../../components/loading"
 import {canEdit} from "../../lib/session"
 import {getItem, getItems} from "../../lib/db/items"
 import DataItem from "../../components/data/DataItem"
@@ -14,23 +13,26 @@ import Error from "../_error"
 import IconStar from "../../components/icons/IconStar"
 import IconBookmark from "../../components/icons/IconBookmark"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import IconNewTabLink from "../../components/icons/IconNewTabLink";
+import IconNewTabLink from "../../components/icons/IconNewTabLink"
+import {getColumns} from "../../lib/db/columns"
+import {getTables} from "../../lib/db/tables"
 
-export default function Item({_id}) {
+export default function Item({_id, item: staticItem, columns: staticColumns, tables: staticTables}) {
     const [session] = useSession()
-    const {data: item, errorItem} = useSWR("/api/item/" + _id)
-    const {data: columns, errorColumns} = useSWR("/api/columns")
-    const {data: tables, errorTables} = useSWR("/api/tables")
+    let {data: item, errorItem} = useSWR("/api/item/" + _id)
+    let {data: columns, errorColumns} = useSWR("/api/columns")
+    let {data: tables, errorTables} = useSWR("/api/tables")
 
-    if (!item || !columns || !tables) {
-        return <Loader/>
-    } else if (errorItem) {
+    if (errorItem) {
         return <Error error={errorItem} statusCode={errorItem.status}/>
     } else if (errorColumns) {
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
     } else if (errorTables) {
         return <Error error={errorTables} statusCode={errorTables.status}/>
     }
+    item = item || staticItem
+    columns = columns || staticColumns
+    tables = tables || staticTables
 
     const tablesContainingItem = tables.filter(t => t.items.includes(_id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
@@ -42,7 +44,12 @@ export default function Item({_id}) {
             </title>
             {item.blacklist ?
                 <meta name="robots" content="noindex, archive, follow"/> :
-                <meta name="description" content={item.description}/>
+                <>
+                    <meta name="description" content={item.description}/>
+                    <meta name="twitter:card" content="summary"/>
+                    <meta name="twitter:title" content={"Item " + item.name + " on The Anime Index"}/>
+                    <meta name="twitter:description" content={item.description}/>
+                </>
             }
         </Head>
 
@@ -194,14 +201,20 @@ export async function getStaticProps({params}) {
     if (!item) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
 
+    const columns = await getColumns()
+    const tables = await getTables()
+
     return {
         props: {
-            _id: params.id
+            _id: params.id,
+            item,
+            columns,
+            tables
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

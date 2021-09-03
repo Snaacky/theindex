@@ -19,6 +19,9 @@ export default function Lists({lists: staticLists}) {
             <title>
                 {"All user lists | " + siteName}
             </title>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
+            <meta name="twitter:description" content={"View all created user lists"}/>
         </Head>
 
         <div className={"card bg-2 mb-3"}>
@@ -39,6 +42,6 @@ export async function getStaticProps() {
         props: {
             lists
         },
-        revalidate: 10
+        revalidate: 30
     }
 }

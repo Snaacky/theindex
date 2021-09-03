@@ -12,25 +12,26 @@ import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import DataBadge from "../../components/data/DataBadge"
 import useSWR from "swr"
-import Loader from "../../components/loading"
 import Error from "../_error"
+import {getItems} from "../../lib/db/items";
 
-export default function Column({_id}) {
+export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
     const [session] = useSession()
     const [filter, setFilter] = useState(null)
-    const {data: column, errorColumn} = useSWR("/api/column/" + _id)
-    const {data: columns, errorColumns} = useSWR("/api/columns")
-    const {data: items, errorItems} = useSWR("/api/items")
+    let {data: column, errorColumn} = useSWR("/api/column/" + _id)
+    let {data: columns, errorColumns} = useSWR("/api/columns")
+    let {data: items, errorItems} = useSWR("/api/items")
 
-    if (!column || !columns || !items) {
-        return <Loader/>
-    } else if (errorColumn) {
+    if (errorColumn) {
         return <Error error={errorColumn} statusCode={errorColumn.status}/>
     } else if (errorColumns) {
         return <Error error={errorColumns} statusCode={errorColumns.status}/>
     } else if (errorItems) {
         return <Error error={errorItems} statusCode={errorItems.status}/>
     }
+    column = column || staticColumn
+    columns = columns || staticColumns
+    items = items || staticItems
 
     const itemsContainingColumn = items.filter(i => Object.keys(i.data).includes(column._id))
 
@@ -53,6 +54,9 @@ export default function Column({_id}) {
                 {column.name + " | " + siteName}
             </title>
             <meta name="description" content={column.description}/>
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content={"Column " + column.name + " on The Anime Index"}/>
+            <meta name="twitter:description" content={column.description}/>
         </Head>
 
         <div className={"card bg-2"}>
@@ -116,14 +120,19 @@ export async function getStaticProps({params}) {
     if (!column) {
         return {
             notFound: true,
-            revalidate: 10
+            revalidate: 30
         }
     }
 
+    const columns = await getColumns()
+    const items = await getItems()
     return {
         props: {
-            _id: column._id
+            _id: column._id,
+            column,
+            columns,
+            items
         },
-        revalidate: 10
+        revalidate: 30
     }
 }
