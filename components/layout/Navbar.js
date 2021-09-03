@@ -114,7 +114,7 @@ export default function Navbar() {
                                       }
                                       contentList={
                                           collections.length === 0 ? [
-                                              <a href={"#"} className={"nac-link text-muted"}
+                                              <a href={"#"} className={"nav-link text-muted"}
                                                  key={"noCollectionsFound"}>
                                                   No collections found
                                               </a>

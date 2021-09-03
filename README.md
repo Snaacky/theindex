@@ -158,5 +158,4 @@ And most importantly:
 - Unify `Editor`-views
 - Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
   nice...
-- Re-add static pre-generation of all public sites, where it's values are being auto-updated from swr
 - Move to `add`, `remove` api instead of having to send whole arrays to update lists
