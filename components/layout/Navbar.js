@@ -28,7 +28,7 @@ export default function Navbar() {
         <div className="container-fluid">
             <Link href={"/"}>
                 <a className="navbar-brand pb-0">
-                    <Image src="/img/logo.png" alt="r/animepiracy Logo" width="32" height="32"
+                    <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
                            className="d-inline-block rounded align-top"/>
                     <span className={"ms-2 d-sm-inline-block d-none align-top"}>
                         The Anime Index
@@ -130,18 +130,24 @@ export default function Navbar() {
                                   dropLeft={true} hideCavet={true}
                                   contentList={[
                                       <a className={"dropdown-item"} href="https://wiki.piracy.moe/" key={"wiki"}>
-                                          <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                               src={"/icons/wikijs.svg"} alt={"Wiki.js logo"}/>
+                                          <span className={"me-1"}>
+                                              <Image src={"/icons/wikijs.svg"} height={21} width={21}
+                                                     alt={"Wiki.js logo"}/>
+                                          </span>
                                           Wiki
                                       </a>,
                                       <a className={"dropdown-item"} href="https://status.piracy.moe/" key={"status"}>
-                                          <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                               src={"/icons/status.png"} alt={"Checkly logo"}/>
+                                          <span className={"me-1"}>
+                                              <Image src={"/icons/status.png"} height={21} width={21}
+                                                     alt={"Checkly logo"}/>
+                                          </span>
                                           Status
                                       </a>,
                                       <a className={"dropdown-item"} href="https://releases.moe/" key={"seadex"}>
-                                          <img height={21} width={21} className={"me-1"} style={{marginTop: -5}}
-                                               src={"/icons/seadex.png"} alt={"Seadex logo"}/>
+                                          <span className={"me-1"}>
+                                              <Image src={"/icons/seadex.png"} height={21} width={21}
+                                                     alt={"Seadex logo"}/>
+                                          </span>
                                           SeaDex
                                       </a>,
                                       <hr className="dropdown-divider" key={"divider"}/>,

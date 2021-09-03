@@ -11,6 +11,7 @@ import DataBadge from "../data/DataBadge"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
+import IconStar from "../icons/IconStar";
 
 export default function Card(
     {
@@ -76,8 +77,13 @@ export default function Card(
                                 </span> : <></>
                             }
                             {type === "item" ?
-                                <span className={"ms-2 float-end"}>
-                                    <IconBookmark item={content}/>
+                                <span className={"float-end"}>
+                                    <span className={"ms-2"}>
+                                        <IconStar item={content}/>
+                                    </span>
+                                    <span className={"ms-2"}>
+                                        <IconBookmark item={content}/>
+                                    </span>
                                 </span> : <></>
                             }
                             {add !== null ?

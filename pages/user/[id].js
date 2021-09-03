@@ -10,6 +10,7 @@ import {getUsers, getUserWithLists} from "../../lib/db/users"
 import useSWR from "swr"
 import Error from "../_error"
 import ListBoard from "../../components/boards/ListBoard"
+import ItemBoard from "../../components/boards/ItemBoard";
 
 export default function User({uid, user: staticUser}) {
     const [session] = useSession()
@@ -23,6 +24,7 @@ export default function User({uid, user: staticUser}) {
     const description = user ? user.description : staticUser.description
     const image = user ? user.image : staticUser.image
     const accountType = user ? user.accountType : staticUser.accountType
+    const favs = user ? user.favs : staticUser.favs
     const lists = user ? user.lists : staticUser.lists
     const followLists = user ? user.followLists : staticUser.followLists
     return <>
@@ -71,6 +73,25 @@ export default function User({uid, user: staticUser}) {
                 </p>
             </div>
         </div>
+
+        <div className={"card bg-2 mt-3 mb-2"}>
+            <div className="card-body">
+                <div className={"card-title"}>
+                    <h3>
+                        Starred items
+                        <div className={"float-end"} style={{fontSize: "1.2rem"}}>
+                            <DataBadge name={favs.length + " item" + (favs.length !== 1 ? "s" : "")}
+                                       style={"primary"}/>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        {favs.length > 0 ?
+            <ItemBoard _id={uid} items={favs} canEdit={false} updateURL={"/api/edit/user"} updateKey={"favs"}/> :
+            <p className={"text-muted"}>
+                No starred items found
+            </p>}
 
         <div className={"card bg-2 mt-3 mb-2"}>
             <div className="card-body">

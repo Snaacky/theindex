@@ -6,8 +6,8 @@ import Error from "../../pages/_error"
 import IconEdit from "../icons/IconEdit"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-export default function ItemToListModal({item, uid, close}) {
-    const {data: user, error} = useSWR("/api/user/" + uid)
+export default function ItemToListModal({item, close}) {
+    const {data: user, error} = useSWR("/api/user/me")
     const [checked, setChecked] = useState([])
     const [init, setInit] = useState(false)
 

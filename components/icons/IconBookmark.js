@@ -20,7 +20,7 @@ export default function IconBookmark({item, size}) {
             <FontAwesomeIcon icon={isHovering ? ["fas", "bookmark"] : ["far", "bookmark"]} size={size}/>
         </span>
         {show ? (
-            isLogin(session) ? <ItemToListModal item={item} uid={session.user.uid} close={() => setShow(false)}/> :
+            isLogin(session) ? <ItemToListModal item={item} close={() => setShow(false)}/> :
                 <LoginModal text={"Cannot save item to list of non existing user"}
                             close={() => setShow(false)}/>
         ) : <></>}
