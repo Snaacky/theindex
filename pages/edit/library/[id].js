@@ -6,6 +6,7 @@ import EditLibrary from "../../../components/edit/EditLibrary"
 import Link from "next/link"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
+import ViewAll from "../../../components/buttons/ViewAll"
 
 export default function EditorLibrary({_id, libraries, collections, library}) {
     return <>
@@ -20,13 +21,8 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
                 Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
             </>}
             <span className={"float-end"}>
-                            <Link href={"/libraries"}>
-                                <a className={"btn btn-outline-secondary"}>
-                                    All libraries
-                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                                </a>
-                            </Link>
-                        </span>
+                <ViewAll type={"libraries"}/>
+            </span>
         </h2>
         {_id !== "_new" ?
             <small className={"text-muted"}>

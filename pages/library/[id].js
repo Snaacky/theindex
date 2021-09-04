@@ -10,6 +10,8 @@ import CollectionBoard from "../../components/boards/CollectionBoard"
 import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
+import IconLibrary from "../../components/icons/IconLibrary"
+import ViewAll from "../../components/buttons/ViewAll"
 
 export default function Tab({_id, library: staticLibrary}) {
     const [session] = useSession()
@@ -32,15 +34,18 @@ export default function Tab({_id, library: staticLibrary}) {
         </Head>
 
         <h2>
-            {library.name}
+            <IconLibrary/> {library.name}
+            {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
+                <a title={"Edit tab"} className={"ms-2"}>
+                    <IconEdit/>
+                </a>
+            </Link> : <></>}
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
-                    <a title={"Edit tab"} className={"ms-2"}>
-                        <IconEdit/>
-                    </a>
-                </Link> : <></>}
-                        </span>
+                {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                <span className={"ms-2"}>
+                    <ViewAll type={"libraries"}/>
+                </span>
+            </span>
         </h2>
         <p style={{
             whiteSpace: "pre-line"

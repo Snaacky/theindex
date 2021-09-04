@@ -10,6 +10,8 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getList, getLists} from "../../lib/db/lists"
 import {getUser} from "../../lib/db/users"
+import IconList from "../../components/icons/IconList"
+import ViewAll from "../../components/buttons/ViewAll"
 
 export default function List({_id, list: staticList, owner: staticOwner, ownerUid}) {
     const [session] = useSession()
@@ -36,16 +38,17 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
         </Head>
 
         <h2>
-            {list.name}
-            <span style={{fontSize: "1.2rem"}}>
-                <div className={"float-end"}>
-                    {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                    {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
-                        <a title={"Edit collection"} className={"ms-2"}>
-                            <IconEdit/>
-                        </a>
-                    </Link> : <></>}
-                </div>
+            <IconList/> {list.name}
+            {canEdit(session) ? <Link href={"/edit/list/" + list._id}>
+                <a title={"Edit list"} className={"ms-2"}>
+                    <IconEdit/>
+                </a>
+            </Link> : <></>}
+            <span style={{fontSize: "1.2rem"}} className={"float-end"}>
+                {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                <span className={"ms-2"}>
+                    <ViewAll type={"lists"}/>
+                </span>
             </span>
         </h2>
         <p style={{

@@ -14,6 +14,8 @@ import DataBadge from "../../components/data/DataBadge"
 import useSWR from "swr"
 import Error from "../_error"
 import {getItems} from "../../lib/db/items"
+import ViewAll from "../../components/buttons/ViewAll"
+import IconColumn from "../../components/icons/IconColumn"
 
 export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
     const [session] = useSession()
@@ -60,15 +62,18 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
         </Head>
 
         <h2>
-            {column.name}
+            <IconColumn/> {column.name}
+            {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
+                <a className={"ms-2"} title={"Edit column"}>
+                    <IconEdit/>
+                </a>
+            </Link> : ""}
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
-                    <a className={"ms-2"} title={"Edit column"}>
-                        <IconEdit/>
-                    </a>
-                </Link> : ""}
-                        </span>
+                {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                <span className={"ms-2"}>
+                    <ViewAll type={"columns"}/>
+                </span>
+            </span>
         </h2>
         <p style={{
             whiteSpace: "pre-line"

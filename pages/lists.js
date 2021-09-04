@@ -1,11 +1,11 @@
 import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
-import IconCollection from "../components/icons/IconCollection"
 import useSWR from "swr"
 import Error from "./_error"
 import {getLists} from "../lib/db/lists"
 import ListBoard from "../components/boards/ListBoard"
+import IconList from "../components/icons/IconList"
 
 export default function Lists({lists: staticLists}) {
     let {data: lists, error} = useSWR("/api/lists")
@@ -27,7 +27,7 @@ export default function Lists({lists: staticLists}) {
         </Head>
 
         <h2>
-            <IconCollection/> All user lists
+            <IconList/> All user lists
         </h2>
         <p>
             {description}

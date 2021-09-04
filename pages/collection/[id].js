@@ -11,6 +11,8 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import {getLibraries} from "../../lib/db/libraries"
+import ViewAll from "../../components/buttons/ViewAll"
+import IconCollection from "../../components/icons/IconCollection"
 
 export default function Collection({_id, collection: staticCollection, libraries: staticLibraries}) {
     const [session] = useSession()
@@ -41,26 +43,29 @@ export default function Collection({_id, collection: staticCollection, libraries
         </Head>
 
         <h2>
-            {collection.name}
+            <IconCollection/> {collection.name}
+            {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
+                <a title={"Edit collection"} className={"ms-2"}>
+                    <IconEdit/>
+                </a>
+            </Link> : <></>}
             <span style={{fontSize: "1.2rem"}}>
-                            {librariesContainingCollection.map(t => {
-                                return <Link href={"/library/" + t.urlId} key={t._id}>
-                                    <a title={"View library" + t.name}>
-                                        <div className={"badge rounded-pill bg-primary mx-2"}>
-                                            {t.name}
-                                        </div>
-                                    </a>
-                                </Link>
-                            })}
-                <div className={"float-end"}>
-                                {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
-                    {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
-                        <a title={"Edit collection"} className={"ms-2"}>
-                            <IconEdit/>
-                        </a>
-                    </Link> : <></>}
+                {librariesContainingCollection.map(t => {
+                    return <Link href={"/library/" + t.urlId} key={t._id}>
+                        <a title={"View library" + t.name}>
+                            <div className={"badge rounded-pill bg-primary mx-2"}>
+                                {t.name}
                             </div>
-                        </span>
+                        </a>
+                    </Link>
+                })}
+                <div className={"float-end"}>
+                    {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                    <span className={"ms-2"}>
+                        <ViewAll type={"collections"}/>
+                    </span>
+                </div>
+            </span>
         </h2>
         <p style={{
             whiteSpace: "pre-line"

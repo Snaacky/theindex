@@ -5,9 +5,9 @@ import {getCollection, getCollections} from "../../../lib/db/collections"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
 import EditCollection from "../../../components/edit/EditCollection"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
 import LibraryBoard from "../../../components/boards/LibraryBoard"
+import ViewAll from "../../../components/buttons/ViewAll"
 
 export default function EditorCollection({_id, libraries, collections, columns, collection}) {
     let librariesWithCollection = []
@@ -28,13 +28,8 @@ export default function EditorCollection({_id, libraries, collections, columns, 
                 Edit collection <Link href={"/collection/" + collection.urlId}>{collection.name}</Link>
             </>}
             <span className={"float-end"}>
-                            <Link href={"/collections"}>
-                                <a className={"btn btn-outline-secondary"}>
-                                    All collections
-                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                                </a>
-                            </Link>
-                        </span>
+                <ViewAll type={"collections"}/>
+            </span>
         </h2>
         {_id !== "_new" ?
             <small className={"text-muted"}>
@@ -45,7 +40,7 @@ export default function EditorCollection({_id, libraries, collections, columns, 
             <div className="card-body">
                 {_id === "_new" ? <EditCollection collections={collections}/> :
                     <EditCollection collections={collections} _id={collection._id} urlId={collection.urlId}
-                               name={collection.name} nsfw={collection.nsfw} description={collection.description}/>
+                                    name={collection.name} nsfw={collection.nsfw} description={collection.description}/>
                 }
             </div>
         </div>
@@ -54,10 +49,11 @@ export default function EditorCollection({_id, libraries, collections, columns, 
             Libraries with this collection
         </h4>
         {_id !== "_new" ?
-            <LibraryBoard _id={collection._id} libraries={librariesWithCollection} allLibraries={libraries} canMove={false} canEdit={true}
+            <LibraryBoard _id={collection._id} libraries={librariesWithCollection} allLibraries={libraries}
+                          canMove={false} canEdit={true}
                           updateURL={"/api/edit/collection/libraries"} deleteURL={""} forceEditMode={true}/> :
             <div className={"text-muted"}>
-               Libraryselection will be available once the collection has been created
+                Libraryselection will be available once the collection has been created
             </div>
         }
 
@@ -65,7 +61,8 @@ export default function EditorCollection({_id, libraries, collections, columns, 
             Columns used in this collection
         </h4>
         {_id !== "_new" ?
-            <ColumnBoard _id={collection._id} columns={collection.columns} allColumns={columns} canMove={false} canEdit={true}
+            <ColumnBoard _id={collection._id} columns={collection.columns} allColumns={columns} canMove={false}
+                         canEdit={true}
                          forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Column selection will be available once the collection has been created

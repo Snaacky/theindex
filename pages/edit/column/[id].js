@@ -4,8 +4,8 @@ import {getCollections} from "../../../lib/db/collections"
 import Link from "next/link"
 import {getColumn, getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
+import ViewAll from "../../../components/buttons/ViewAll"
 
 export default function EditorColumn({_id, collections, columns, column}) {
     let collectionsWithColumn = []
@@ -24,13 +24,8 @@ export default function EditorColumn({_id, collections, columns, column}) {
                 Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
             </>}
             <span className={"float-end"}>
-                            <Link href={"/columns"}>
-                                <a className={"btn btn-outline-secondary"}>
-                                    All columns
-                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                                </a>
-                            </Link>
-                        </span>
+                <ViewAll type={"columns"}/>
+            </span>
         </h2>
         {_id !== "_new" ?
             <small className={"text-muted"}>
@@ -52,8 +47,9 @@ export default function EditorColumn({_id, collections, columns, column}) {
             Collections with this column
         </h4>
         {_id !== "_new" ?
-            <CollectionBoard _id={column._id} collections={collectionsWithColumn} allCollections={collections} canMove={false} canEdit={true}
-                        updateURL={"/api/edit/column/collections"} forceEditMode={true}/> :
+            <CollectionBoard _id={column._id} collections={collectionsWithColumn} allCollections={collections}
+                             canMove={false} canEdit={true}
+                             updateURL={"/api/edit/column/collections"} forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Collection selection will be available once the column has been created
             </div>

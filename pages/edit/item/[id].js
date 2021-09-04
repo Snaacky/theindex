@@ -1,12 +1,12 @@
 import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getItem} from "../../../lib/db/items"
 import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
 import {getCollections} from "../../../lib/db/collections"
+import ViewAll from "../../../components/buttons/ViewAll"
 
 export default function EditorItem({_id, collections, columns, item}) {
 
@@ -27,13 +27,8 @@ export default function EditorItem({_id, collections, columns, item}) {
                 Edit item <Link href={"/item/" + item._id}>{item.name}</Link>
             </>}
             <span className={"float-end"}>
-                            <Link href={"/items"}>
-                                <a className={"btn btn-outline-secondary"}>
-                                    All items
-                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                                </a>
-                            </Link>
-                        </span>
+                <ViewAll type={"items"}/>
+            </span>
         </h2>
         {_id !== "_new" ?
             <small className={"text-muted"}>
@@ -53,8 +48,9 @@ export default function EditorItem({_id, collections, columns, item}) {
             Collections with this item
         </h4>
         {_id !== "_new" ?
-            <CollectionBoard _id={item._id} collections={collectionsWithItem} allCollections={collections} canMove={false} canEdit={true}
-                        forceEditMode={true} updateURL={"/api/edit/item/collections"}/> :
+            <CollectionBoard _id={item._id} collections={collectionsWithItem} allCollections={collections}
+                             canMove={false} canEdit={true}
+                             forceEditMode={true} updateURL={"/api/edit/item/collections"}/> :
             <div className={"text-muted"}>
                 Collection selection will be available once thelibraryhas been created
             </div>

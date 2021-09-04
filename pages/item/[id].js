@@ -16,6 +16,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../../components/icons/IconNewTabLink"
 import {getColumns} from "../../lib/db/columns"
 import {getCollections} from "../../lib/db/collections"
+import IconAdmin from "../../components/icons/IconAdmin"
+import IconItem from "../../components/icons/IconItem"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
@@ -54,16 +56,16 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
         </Head>
 
         <h2>
-            {item.blacklist ? <span className={"text-danger"}>
+            <IconItem/> {item.blacklist ? <span className={"text-danger"}>
                             Blacklisted: <del>{item.name}</del>
                         </span> : item.name}
+            <IconNewTabLink url={item.urls[0]}/>
+            {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                <a title={"Edit item"} className={"ms-2"}>
+                    <IconEdit/>
+                </a>
+            </Link> : <></>}
             <span style={{fontSize: "1.2rem"}}>
-                            <IconNewTabLink url={item.urls[0]}/>
-                {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                    <a title={"Edit item"} className={"ms-2"}>
-                        <IconEdit/>
-                    </a>
-                </Link> : <></>}
                 {collectionsContainingItem.map(t => {
                     return <Link href={"/collection/" + t.urlId} key={t._id}>
                         <a className={"ms-2"} title={"View collection " + t.name}>
@@ -72,18 +74,20 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                     </Link>
                 })}
                 <div className={"float-end"}>
-                                {item.sponsor ? <DataBadge name={"Sponsor"} style={"warning text-dark"}/> : <></>}
-                    {item.nsfw ? <span className={"ms-2"}>
-                                    <DataBadge data={false} name={"NSFW"}/>
-                                </span> : <></>}
+                    {item.sponsor ? <DataBadge name={"Sponsor"} style={"warning text-dark"}/> : <></>}
+                    {item.nsfw ?
+                        <span className={"ms-2"}>
+                            <DataBadge data={false} name={"NSFW"}/>
+                        </span> : <></>
+                    }
                     <span className={"ms-2"}>
-                                    <IconStar item={item}/>
-                                </span>
-                                <span className={"ms-2"}>
-                                    <IconBookmark item={item}/>
-                                </span>
-                            </div>
-                        </span>
+                        <IconStar item={item}/>
+                    </span>
+                    <span className={"ms-2"}>
+                        <IconBookmark item={item}/>
+                    </span>
+                </div>
+            </span>
         </h2>
         <div className={"d-flex flex-wrap mb-2"}>
             {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}

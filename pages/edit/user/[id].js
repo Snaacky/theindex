@@ -2,11 +2,11 @@ import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
 import Link from "next/link"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {getUser} from "../../../lib/db/users"
 import {isAdmin, isCurrentUser} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
 import NotAdmin from "../../../components/layout/NotAdmin"
+import ViewAll from "../../../components/buttons/ViewAll"
 
 export default function EditorUser({uid, user}) {
     const [session] = useSession()
@@ -25,13 +25,8 @@ export default function EditorUser({uid, user}) {
         <h2>
             Edit user <Link href={"/user/" + uid}>{user.name}</Link>
             <span className={"float-end"}>
-                            <Link href={"/users"}>
-                                <a className={"btn btn-outline-secondary"}>
-                                    All users
-                                    <FontAwesomeIcon icon={["fas", "arrow-alt-circle-right"]} className={"ms-2"}/>
-                                </a>
-                            </Link>
-                        </span>
+                <ViewAll type={"users"}/>
+            </span>
         </h2>
         <small className={"text-muted"}>
             ID: <code>{uid}</code>
