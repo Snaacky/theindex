@@ -124,7 +124,36 @@ To create a ready-made docker image, just run:
 docker build . -t index
 ```
 
-You now have a local image with tag `index` that contains the build, minified distribution version of the code.
+You now have a local image with tag `index` that contains a distributable version of the code which can now be run.
+
+## Design of the web app
+
+### ISR/SSR
+
+Where possible we use [ISR](https://vercel.com/docs/next.js/incremental-static-regeneration) to pre generate all
+publicly accessible pages for caching by CDNs or proxies while validating and fetching new data
+with [SWR](https://web.dev/stale-while-revalidate/) requesting our own api.
+
+### API
+
+We serve every api request over the endpoint `/api`, the corresponding code can be viewed at [pages/api](pages/api).
+
+- `/api/auth` is reserved for [NextAuth.js](https://next-auth.js.org/).
+- `/api/edit/...` requires a logged-in user and usually (at least) editor rights and is for modifying or creating new
+  content. The `_id` keyword `_new` is reserved for creating new content.
+- `/api/delete/...` requires a logged-in user and usually (at least) editor rights and is for deleting content.
+- `/api/[content]s` are public endpoints for fetching a list of all items of a certain content.
+- `/api/[content]/...` are public endpoints for fetching information about a specific content.
+
+### Page restrictions
+
+Every page request first has to go through [_app.js](pages/_app.js), where a basic layout is being applied and if a page
+has an `auth` property, it also validates whether the user can access the given page. Valid auth attributes are:
+
+- `auth` itself is `null` or `typeof auth === "undefined"`, no restrictions. This seems to be a public page.
+- `requireLogin`, not really needed, but set it for logic reasons. User must be logged-in.
+- `requireAdmin`, only a user with admin rights can access this page.
+- `requireEditor`, only editors can view this page.
 
 ## Contribution
 
@@ -134,7 +163,7 @@ in [Issues](https://github.com/ranimepiracy/index/issues/new?assignees=&labels=e
 or report it on our [Discord](https://discord.gg/piracy) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
 
-### Thinks we use
+### Things we use
 
 - [next.js](https://nextjs.org/) as Webserver
 - [React](https://reactjs.org/) as JS framework
@@ -156,7 +185,7 @@ And most importantly:
 
 ### Technical debts
 
-- We use JS instead of TS
+- We use JS instead of TS (not needed, but type checking is still a wanted security feature)
 - Multi-language support
 - Unify `Editor`-views
 - Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
