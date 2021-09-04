@@ -16,7 +16,7 @@ import styles from "./Navbar.module.css"
 import Draggable from "react-draggable"
 
 // in px padding of drag button constrain
-const toggleButtonDragPadding = 40
+const toggleButtonDragPadding = 30
 const toggleButtonSize = 40
 
 export default function Navbar() {
@@ -65,6 +65,14 @@ export default function Navbar() {
     }
     const libraries = data ?? []
 
+    const toggleClick = () => {
+        console.log("Click-event on toggle and did drag?", dragging)
+        if (!dragging) {
+            setShow(!show)
+        } else {
+            setDragging(false)
+        }
+    }
     return <>
         {dragLocalStorageInit ?
             <Draggable position={togglePosition}
@@ -73,7 +81,7 @@ export default function Navbar() {
                        }}
                        onDrag={(e, {x, y}) => {
                            console.log("Dragging to", {x, y})
-                           setTogglePosition(adjustDragPosition({x, y}))
+                           setTogglePosition({x, y})
                            if (typeof localStorage !== "undefined") {
                                localStorage.setItem("togglePosition", JSON.stringify({x, y}))
                            }
@@ -81,17 +89,11 @@ export default function Navbar() {
                        }}
                        onStop={(e, {x, y}) => {
                            console.log("Stop dragging at", {x, y})
+                           setTogglePosition(adjustDragPosition({x, y}))
                        }}>
                 <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
                         aria-label="Toggle navigation" ref={outsideToggleRef}
-                        onClick={() => {
-                            console.log("Click-event on toggle and did drag?", dragging)
-                            if (!dragging) {
-                                setShow(!show)
-                            } else {
-                                setDragging(false)
-                            }
-                        }}>
+                        onClick={() => toggleClick()} onTouchStart={() => toggleClick()}>
                     <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
                 </button>
             </Draggable> : <></>
@@ -308,21 +310,34 @@ export default function Navbar() {
     </>
 }
 
-function adjustDragPosition({x = 0, y = 0}) {
-    // no negative values allowed
-    x = x < toggleButtonDragPadding ? toggleButtonDragPadding : x
-    y = y < toggleButtonDragPadding ? toggleButtonDragPadding : y
+function adjustDragPosition({x = toggleButtonDragPadding, y = toggleButtonDragPadding}) {
+    const dist = (a, b) => Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2))
 
-    console.log("Current boundings are: x(", toggleButtonDragPadding, ",",
-        window.innerWidth - toggleButtonDragPadding - toggleButtonSize, ") y(", toggleButtonDragPadding, ",",
-        window.innerHeight - toggleButtonDragPadding - toggleButtonSize, ")")
+    const snapPoints = [
+        { // top left
+            x: toggleButtonDragPadding,
+            y: toggleButtonDragPadding
+        },
+        { // top right
+            x: window.innerWidth - toggleButtonDragPadding - toggleButtonSize,
+            y: toggleButtonDragPadding
+        },
+        { // bottom left
+            x: toggleButtonDragPadding,
+            y: window.innerHeight - toggleButtonDragPadding - toggleButtonSize
+        },
+        { // bottom right
+            x: window.innerWidth - toggleButtonDragPadding - toggleButtonSize,
+            y: window.innerHeight - toggleButtonDragPadding - toggleButtonSize
+        }
+
+    ]
+
+    // ignore values on SSR/ISR
     if (typeof window !== "undefined") {
-        if (x > window.innerWidth - toggleButtonDragPadding - toggleButtonSize) {
-            x = window.innerWidth - toggleButtonDragPadding - toggleButtonSize
-        }
-        if (y > window.innerHeight - toggleButtonDragPadding - toggleButtonSize) {
-            y = window.innerHeight - toggleButtonDragPadding - toggleButtonSize
-        }
+        const dists = snapPoints.map(p => dist({x, y}, p))
+        return snapPoints[dists.indexOf(Math.min(...dists))]
     }
+
     return {x, y}
 }
