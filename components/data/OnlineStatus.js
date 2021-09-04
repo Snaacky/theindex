@@ -10,7 +10,7 @@ export default function OnlineStatus({url}) {
         body: JSON.stringify({
             url: url || "https://piracy.moe"
         })
-    }))
+    }).then(res => res.json()))
     const [show, setShow] = useState(false)
 
     let style = "", text = ""
@@ -39,7 +39,7 @@ export default function OnlineStatus({url}) {
     style = styles.status + " " + style
     return <>
         <span className={style} onClick={() => setShow(true)}
-              title={text + (data && url ? ", last checked " + new Date(data.time).toLocaleTimeString() : "")}/>
+              title={text + (data && url ? ", last checked " + new Date(parseInt(data.time) * 1000).toLocaleTimeString() : "")}/>
         {show ? <OnlineStatusModal url={url} style={style} text={text} data={data} close={() => setShow(false)}/>
             : <></>}
     </>

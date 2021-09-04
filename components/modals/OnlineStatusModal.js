@@ -52,7 +52,7 @@ export default function OnlineStatusModal({style, text, url, data, close}) {
         }
         footer={data && data.time ?
             <span className={"text-muted"}>
-                Checked at <kbd><code>{new Date(data.time).toLocaleTimeString()}</code></kbd>
+                Checked at <kbd><code>{new Date(parseInt(data.time) * 1000).toLocaleTimeString()}</code></kbd>
             </span> : <></>
         }
     />
