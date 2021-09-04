@@ -146,6 +146,7 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - We bake everything into a [docker image](https://www.docker.com/)
 - Running on [node js](https://nodejs.org/)
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
+- PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
 
 And most importantly:
