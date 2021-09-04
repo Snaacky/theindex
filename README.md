@@ -148,6 +148,8 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
 - PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
+- [react-in-viewport](https://github.com/roderickhsiao/react-in-viewport) for checking if components are visible or not
+- [react-draggable](https://github.com/react-grid-layout/react-draggable) for dragging components by the end user
 
 And most importantly:
 > The help of our awesome community :3
