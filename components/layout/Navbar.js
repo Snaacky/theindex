@@ -76,11 +76,7 @@ export default function Navbar() {
     return <>
         {dragLocalStorageInit ?
             <Draggable position={togglePosition}
-                       onStart={(e, {x, y}) => {
-                           console.log("Started to drag at", {x, y})
-                       }}
                        onDrag={(e, {x, y}) => {
-                           console.log("Dragging to", {x, y})
                            setTogglePosition({x, y})
                            if (typeof localStorage !== "undefined") {
                                localStorage.setItem("togglePosition", JSON.stringify({x, y}))

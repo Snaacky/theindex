@@ -42,7 +42,11 @@ export default function Card(
                 </a>
             </div> : <></>}
             {imageUrl !== "" ? <div className={"col-auto"}>
-                <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
+                <Link href={"/" + type + "/" + content._id}>
+                    <a title={"View " + type + " " + content.name}>
+                        <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
+                    </a>
+                </Link>
             </div> : <></>}
             <div className="col">
                 <div className={"card-body d-flex flex-column p-2 h-100"}>
