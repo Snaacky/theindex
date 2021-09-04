@@ -25,25 +25,27 @@ export default function Footer({error}) {
             <hr/>
             <div className="row g-2">
                 <div className="col d-flex justify-content-center icon-link-hover">
-                    <a href="https://www.reddit.com/r/animepiracy/" target="_blank" rel="noreferrer">
+                    <a href="https://www.reddit.com/r/animepiracy/" target="_blank" rel="noreferrer"
+                       aria-label={"Reddit"}>
                         <FontAwesomeIcon icon={["fab", "reddit"]} className={"me-2"}/>
                         <span className="d-none d-sm-inline-block">Reddit</span>
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center icon-link-hover">
-                    <a href="https://discord.gg/piracy" target="_blank" rel="noreferrer">
+                    <a href="https://discord.gg/piracy" target="_blank" rel="noreferrer" aria-label={"Discord"}>
                         <FontAwesomeIcon icon={["fab", "discord"]} className={"me-2"}/>
                         <span className="d-none d-sm-inline-block">Discord</span>
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center">
-                    <a href="https://twitter.com/ranimepiracy" target="_blank" rel="noreferrer">
+                    <a href="https://twitter.com/ranimepiracy" target="_blank" rel="noreferrer" aria-label={"Twitter"}>
                         <FontAwesomeIcon icon={["fab", "twitter"]} className={"me-2"}/>
                         <span className="d-none d-sm-inline-block">Twitter</span>
                     </a>
                 </div>
                 <div className="col d-flex justify-content-center">
-                    <a href="https://github.com/ranimepiracy/index" target="_blank" rel="noreferrer">
+                    <a href="https://github.com/ranimepiracy/index" target="_blank" rel="noreferrer"
+                       aria-label={"Github"}>
                         <FontAwesomeIcon icon={["fab", "github"]} className={"me-2"}/>
                         <span className="d-none d-sm-inline-block">Github</span>
                     </a>

@@ -10,6 +10,9 @@
 
 # production
 /build
+public/sw.js
+public/workbox-*.js
+public/fallback-*.js
 
 # misc
 .DS_Store
@@ -38,3 +41,4 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+

@@ -17,9 +17,10 @@ export default function Layout({children, error}) {
                 <meta content="IE=Edge" httpEquiv="X-UA-Compatible"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+                <meta name="mobile-web-app-capable" content="yes"/>
                 <meta name="apple-mobile-web-app-capable" content="yes"/>
                 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-                <meta name="apple-mobile-web-app-title" content="index"/>
+                <meta name="apple-mobile-web-app-title" content="The Anime Index"/>
                 <link rel="apple-touch-icon" sizes="180x180"
                       href="/favicon/apple-touch-icon.png"/>
 
@@ -28,6 +29,7 @@ export default function Layout({children, error}) {
                 <link rel="icon" type="image/png" sizes="16x16"
                       href="/favicon/favicon-16x16.png"/>
                 <link rel="mask-icon" href="/favicon/safari-pinned-library.svg" color="#484848"/>
+                <meta name='msapplication-config' content='/favicons/browserconfig.xml' />
                 <meta name="msapplication-TileColor" content="#2b5797"/>
                 <meta name="theme-color" content="#000000"/>
 
