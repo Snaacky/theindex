@@ -1,7 +1,17 @@
-.navbar {
+.navbar,
+.sidebar {
     background: var(--bg-2);
     color: #fff;
     z-index: 1200;
+    visibility: visible;
+}
+
+.sidebar:not(.show) {
+    opacity: 1;
+}
+
+.navbar {
+    display: none;
 }
 
 .header {
@@ -26,7 +36,8 @@
     z-index: 1100;
 }
 
-.navbar a {
+.navbar a,
+.sidebar a {
     cursor: pointer;
     text-decoration: none;
     user-select: none;
@@ -35,14 +46,32 @@
 
 .navbar a:hover,
 .navbar a:active,
-.navbar a:focus {
+.navbar a:focus,
+.sidebar a:hover,
+.sidebar a:active,
+.sidebar a:focus {
     color: white;
 }
 
 
 .navbar ul li a:hover,
 .navbar ul li a:active,
-.navbar ul li a:focus {
+.navbar ul li a:focus,
+.sidebar ul li a:hover,
+.sidebar ul li a:active,
+.sidebar ul li a:focus {
     color: white;
     background-color: var(--bg-7);
+}
+
+@media (min-width: 900px) {
+    .outside,
+    .mobile {
+        display: none;
+        box-shadow: none;
+    }
+
+    .navbar {
+        display: block;
+    }
 }

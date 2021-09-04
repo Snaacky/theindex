@@ -34,13 +34,15 @@ export default function Navbar() {
         setDragLocalStorageInit(true)
     }
 
-    const ref = useRef()
+    const sidebarRef = useRef()
+    const navbarToggleRef = useRef()
     const outsideToggleRef = useRef()
 
     useEffect(() => {
         const checkIfClickedOutside = e => {
             // If dropdown is open and the clicked target is not within the menu nor the toggle button itself
-            if (show && ref && ref.current && !ref.current.contains(e.target) &&
+            if (show && sidebarRef && sidebarRef.current && !sidebarRef.current.contains(e.target) &&
+                navbarToggleRef && navbarToggleRef.current && !navbarToggleRef.current.contains(e.target) &&
                 outsideToggleRef && outsideToggleRef.current && !outsideToggleRef.current.contains(e.target)) {
                 setShow(false)
             }
@@ -94,38 +96,63 @@ export default function Navbar() {
                 </button>
             </Draggable> : <></>
         }
-        <div className={styles.navbar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
-             id={"navbarOffcanvas"} tabIndex="-1" style={{visibility: show ? "visible" : "hidden"}}
-             aria-hidden={(!show).toString()} role={"dialog"}>
+
+        <div className={styles.navbar}>
             <div className={styles.header + " offcanvas-header"}>
-                <Link href={"/"}>
-                    <a className={"navbar-brand"}>
-                        <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
-                               className="d-inline-block rounded align-top"/>
-                        <span className={"ms-2 align-top"}>
+                <div className={"d-flex flex-row justify-content-center"}>
+                    <Link href={"/"}>
+                        <a className={"navbar-brand"}>
+                            <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
+                                   className="d-inline-block rounded align-top"/>
+                            <span className={"ms-2 align-top"}>
                             The Anime Index
                         </span>
-                    </a>
-                </Link>
+                        </a>
+                    </Link>
 
-                <button className={styles.toggler + " btn shadow"} type="button" aria-label="Close navigation"
-                        onClick={() => setShow(!show)}>
-                    <FontAwesomeIcon icon={["fas", "times"]}/>
-                </button>
-            </div>
-            <div className="offcanvas-body">
-                <nav role={"navigation"}>
+                    <ul className={"nav nav-pills"}>
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
+                                <Image src={"/icons/wikijs.svg"} height={24} width={24}
+                                       alt={"Wiki.js logo"}/>
+                                <span className={"ms-1"}>
+                                Wiki
+                            </span>
+                            </a>
+                        </li>
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://status.piracy.moe/" key={"status"}>
+                                <Image src={"/icons/status.png"} height={24} width={24}
+                                       alt={"Checkly logo"}/>
+                                <span className={"ms-1"}>
+                                Status
+                            </span>
+                            </a>
+                        </li>
+                        <li className={"nav-item"}>
+                            <a className={"nav-link"} href="https://releases.moe/" key={"seadex"}>
+                                <Image src={"/icons/seadex.png"} height={24} width={24}
+                                       alt={"Seadex logo"}/>
+                                <span className={"ms-1"}>
+                                SeaDex
+                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className={"d-flex flex-row"}>
                     {isLogin(session) ?
-                        <ul className={"nav nav-pills flex-column"}>
+                        <ul className={"nav nav-pills"}>
                             <li className={"nav-item"}>
                                 <Link href={"/user/" + session.user.uid} key={"users"}>
                                     <a className={"nav-link"}>
-                                        <Image src={session.user.image} width={21} height={21}
+                                        <Image src={session.user.image} width={24} height={24}
                                                className={"rounded-circle"}
                                                alt={session.user.name + "'s profile picture"}/>
                                         <span className={"ms-2"}>
-                                    {session.user.name}
-                                </span>
+                                            {session.user.name}
+                                        </span>
                                     </a>
                                 </Link>
                             </li>
@@ -141,8 +168,64 @@ export default function Navbar() {
                         </ul>
                         : <></>
                     }
+                    <button className={styles.toggler + " btn shadow ms-2"} type="button" aria-label="Close navigation"
+                            onClick={() => setShow(!show)} ref={navbarToggleRef}>
+                        <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                    <hr/>
+        <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={sidebarRef}
+             id={"navbarOffcanvas"} tabIndex="-1" aria-hidden={(!show).toString()} role={"dialog"}>
+            <div className={styles.header + " offcanvas-header"}>
+                <Link href={"/"}>
+                    <a className={"navbar-brand"}>
+                        <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
+                               className="d-inline-block rounded align-top"/>
+                        <span className={"ms-2 align-top"}>
+                            The Anime Index
+                        </span>
+                    </a>
+                </Link>
+
+                <button className={styles.toggler + " " + styles.mobile + " btn shadow"} type="button"
+                        aria-label="Close navigation" onClick={() => setShow(!show)}>
+                    <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+                </button>
+            </div>
+            <div className="offcanvas-body">
+                <nav role={"navigation"}>
+                    <div className={styles.mobile}>
+                        {isLogin(session) ?
+                            <ul className={"nav nav-pills flex-column"}>
+                                <li className={"nav-item"}>
+                                    <Link href={"/user/" + session.user.uid} key={"users"}>
+                                        <a className={"nav-link"}>
+                                            <Image src={session.user.image} width={16} height={16}
+                                                   className={"rounded-circle"}
+                                                   alt={session.user.name + "'s profile picture"}/>
+                                            <span className={"ms-2"}>
+                                                {session.user.name}
+                                            </span>
+                                        </a>
+                                    </Link>
+                                </li>
+                                {isAdmin(session) ?
+                                    <li className={"nav-item"}>
+                                        <Link href={"/admin"}>
+                                            <a className={"nav-link"} title={"Admin settings"}>
+                                                <IconAdmin/> Admin
+                                            </a>
+                                        </Link>
+                                    </li> : <></>
+                                }
+                            </ul>
+                            : <></>
+                        }
+                        <hr/>
+                    </div>
+
                     <ul className={"nav nav-pills flex-column"}>
                         {libraries.length === 0 ?
                             <li className={"nav-item"}>
@@ -151,29 +234,30 @@ export default function Navbar() {
                                 </a>
                             </li> : <></>}
                         {libraries.map(({urlId, name, collections}) =>
-                            <Dropdown key={urlId} toggler={name} targetId={"navbar-menu-" + urlId}
-                                      head={
-                                          <Link href={"/library/" + urlId}>
-                                              <a className={"nav-link"}>
-                                                  {name}
-                                              </a>
-                                          </Link>
-                                      }
-                                      contentList={
-                                          collections.length === 0 ? [
-                                              <a href={"#"} className={"nav-link text-muted"}
-                                                 key={"noCollectionsFound"}>
-                                                  No collections found
-                                              </a>
-                                          ] : collections.map((collection) => {
-                                              return <Link href={"/collection/" + collection.urlId}
-                                                           key={collection.urlId}>
-                                                  <a className={"nav-link"}>
-                                                      {collection.name}
-                                                  </a>
-                                              </Link>
-                                          })
-                                      }/>
+                            <Dropdown
+                                key={urlId} toggler={name} targetId={"navbar-menu-" + urlId}
+                                head={
+                                    <Link href={"/library/" + urlId}>
+                                        <a className={"nav-link"}>
+                                            {name}
+                                        </a>
+                                    </Link>
+                                }
+                                contentList={
+                                    collections.length === 0 ? [
+                                        <a href={"#"} className={"nav-link text-muted"}
+                                           key={"noCollectionsFound"}>
+                                            No collections found
+                                        </a>
+                                    ] : collections.map((collection) => {
+                                        return <Link href={"/collection/" + collection.urlId}
+                                                     key={collection.urlId}>
+                                            <a className={"nav-link"}>
+                                                {collection.name}
+                                            </a>
+                                        </Link>
+                                    })
+                                }/>
                         )}
                     </ul>
 
@@ -225,61 +309,51 @@ export default function Navbar() {
 
                     <hr/>
                     <ul className={"nav nav-pills flex-column"}>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href="https://wiki.piracy.moe/">
-                    <span className={"me-1"}>
-                        <Image src={"/icons/wikijs.svg"} height={21} width={21}
-                               alt={"Wiki.js logo"}/>
-                    </span>
-                                Wiki
-                            </a>
-                        </li>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href="https://status.piracy.moe/">
-                    <span className={"me-1"}>
-                        <Image src={"/icons/status.png"} height={21} width={21}
-                               alt={"Checkly logo"}/>
-                    </span>
-                                Status
-                            </a>
-                        </li>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href="https://releases.moe/">
-                    <span className={"me-1"}>
-                        <Image src={"/icons/seadex.png"} height={21} width={21}
-                               alt={"Seadex logo"}/>
-                    </span>
-                                SeaDex
-                            </a>
-                        </li>
-                    </ul>
-
-                    <hr/>
-                    <ul className={"nav nav-pills flex-column"}>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href={"https://www.reddit.com/r/animepiracy/"}
-                               target={"_blank"} rel="noreferrer">
-                                <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
-                            </a>
-                        </li>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href={"https://discord.gg/piracy"}
-                               target={"_blank"} rel="noreferrer">
-                                <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
-                            </a>
-                        </li>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href={"https://twitter.com/ranimepiracy"}
-                               target={"_blank"} rel="noreferrer">
-                                <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
-                            </a>
-                        </li>
-                        <li className={"nav-item"}>
-                            <a className={"nav-link"} href={"https://github.com/ranimepiracy/index"}
-                               target={"_blank"} rel="noreferrer">
-                                <FontAwesomeIcon icon={["fab", "github"]}/> Github
-                            </a>
-                        </li>
+                        <Dropdown
+                            toggler={"Other services"} targetId={"navbar-menu-services"}
+                            contentList={[
+                                <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
+                                    <Image src={"/icons/wikijs.svg"} height={16} width={16}
+                                           alt={"Wiki.js logo"}/>
+                                    <span className={"ms-1"}>
+                                        Wiki
+                                    </span>
+                                </a>,
+                                <a className={"nav-link"} href="https://status.piracy.moe/" key={"status"}>
+                                    <Image src={"/icons/status.png"} height={16} width={16}
+                                           alt={"Checkly logo"}/>
+                                    <span className={"ms-1"}>
+                                        Status
+                                    </span>
+                                </a>,
+                                <a className={"nav-link"} href="https://releases.moe/" key={"seadex"}>
+                                    <Image src={"/icons/seadex.png"} height={16} width={16}
+                                           alt={"Seadex logo"}/>
+                                    <span className={"ms-1"}>
+                                        SeaDex
+                                    </span>
+                                </a>
+                            ]}/>
+                        <Dropdown
+                            toggler={"Social media"} targetId={"navbar-menu-social-media"}
+                            contentList={[
+                                <a className={"nav-link"} href={"https://www.reddit.com/r/animepiracy/"} key={"reddit"}
+                                   target={"_blank"} rel="noreferrer">
+                                    <FontAwesomeIcon icon={["fab", "reddit"]}/> Reddit
+                                </a>,
+                                <a className={"nav-link"} href={"https://discord.gg/piracy"} key={"discord"}
+                                   target={"_blank"} rel="noreferrer">
+                                    <FontAwesomeIcon icon={["fab", "discord"]}/> Discord
+                                </a>,
+                                <a className={"nav-link"} href={"https://twitter.com/ranimepiracy"} key={"twitter"}
+                                   target={"_blank"} rel="noreferrer">
+                                    <FontAwesomeIcon icon={["fab", "twitter"]}/> Twitter
+                                </a>,
+                                <a className={"nav-link"} href={"https://github.com/ranimepiracy/index"} key={"github"}
+                                   target={"_blank"} rel="noreferrer">
+                                    <FontAwesomeIcon icon={["fab", "github"]}/> Github
+                                </a>
+                            ]}/>
                     </ul>
 
                     <hr/>

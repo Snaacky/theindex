@@ -1,6 +1,7 @@
 .toggle {
     display: flex;
     flex-direction: row;
+    user-select: none;
 }
 
 .chevron {

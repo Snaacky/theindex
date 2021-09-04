@@ -22,7 +22,7 @@ export default function Dropdown(
             {toggler}
         </a>
         <div id={targetId} className={"collapse" + (show ? " show" : "")}>
-            <ul className={"list-unstyled small rounded bg-3 ms-4"}>
+            <ul className={"list-unstyled rounded bg-3 ms-4"}>
                 {head ? <>
                     <li className={"nav-item"}>
                         {head}
