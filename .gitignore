@@ -13,6 +13,7 @@
 public/sw.js
 public/workbox-*.js
 public/fallback-*.js
+public/*.map
 
 # misc
 .DS_Store
@@ -41,4 +42,3 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-

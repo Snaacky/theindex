@@ -1,7 +1,7 @@
 .navbar {
     background: var(--bg-2);
     color: #fff;
-    z-index: 1060;
+    z-index: 1200;
 }
 
 .header {
@@ -12,20 +12,18 @@
 
 .toggler {
     color: grey;
-    background-color: var(--bg-6);
+    background-color: var(--bg-8);
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .toggler:hover {
     color: white;
-    background-color: var(--bg-8);
+    background-color: var(--accent-color);
 }
 
 .outside {
     position: fixed;
-    z-index: 2000;
-    top: 1rem;
-    left: 1rem;
+    z-index: 1100;
 }
 
 .navbar a {

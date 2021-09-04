@@ -13,24 +13,49 @@ import {useEffect, useRef, useState} from "react"
 import IconAdmin from "../icons/IconAdmin"
 import IconList from "../icons/IconList"
 import styles from "./Navbar.module.css"
+import Draggable from "react-draggable"
+
+// in px padding of drag button constrain
+const toggleButtonDragPadding = 40
+const toggleButtonSize = 40
 
 export default function Navbar() {
     const [session] = useSession()
     const [show, setShow] = useState(false)
+
+    const [togglePosition, setTogglePosition] = useState({x: toggleButtonDragPadding, y: toggleButtonDragPadding})
+    const [dragLocalStorageInit, setDragLocalStorageInit] = useState(false)
+    const [dragging, setDragging] = useState(false)
+
+    if (typeof localStorage !== "undefined" && !dragLocalStorageInit) {
+        if (localStorage.getItem("togglePosition") !== null) {
+            setTogglePosition(adjustDragPosition(JSON.parse(localStorage.getItem("togglePosition"))))
+        }
+        setDragLocalStorageInit(true)
+    }
+
     const ref = useRef()
+    const outsideToggleRef = useRef()
 
     useEffect(() => {
         const checkIfClickedOutside = e => {
-            // If dropdown is open and the clicked target is not within the menu,
-            if (show && ref && ref.current && !ref.current.contains(e.target)) {
+            // If dropdown is open and the clicked target is not within the menu nor the toggle button itself
+            if (show && ref && ref.current && !ref.current.contains(e.target) &&
+                outsideToggleRef && outsideToggleRef.current && !outsideToggleRef.current.contains(e.target)) {
                 setShow(false)
             }
         }
+        const updateToggleOnResize = () => {
+            setTogglePosition(adjustDragPosition(togglePosition))
+        }
+
         document.addEventListener("mousedown", checkIfClickedOutside)
+        window.addEventListener("resize", updateToggleOnResize)
 
         return () => {
             // Cleanup
             document.removeEventListener("mousedown", checkIfClickedOutside)
+            window.removeEventListener("resize", updateToggleOnResize)
         }
     })
 
@@ -41,11 +66,35 @@ export default function Navbar() {
     const libraries = data ?? []
 
     return <>
-        {show ? <></> :
-            <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
-                    aria-label="Toggle navigation" onClick={() => setShow(!show)}>
-                <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
-            </button>
+        {dragLocalStorageInit ?
+            <Draggable position={togglePosition}
+                       onStart={(e, {x, y}) => {
+                           console.log("Started to drag at", {x, y})
+                       }}
+                       onDrag={(e, {x, y}) => {
+                           console.log("Dragging to", {x, y})
+                           setTogglePosition(adjustDragPosition({x, y}))
+                           if (typeof localStorage !== "undefined") {
+                               localStorage.setItem("togglePosition", JSON.stringify({x, y}))
+                           }
+                           setDragging(true)
+                       }}
+                       onStop={(e, {x, y}) => {
+                           console.log("Stop dragging at", {x, y})
+                       }}>
+                <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
+                        aria-label="Toggle navigation" ref={outsideToggleRef}
+                        onClick={() => {
+                            console.log("Click-event on toggle and did drag?", dragging)
+                            if (!dragging) {
+                                setShow(!show)
+                            } else {
+                                setDragging(false)
+                            }
+                        }}>
+                    <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+                </button>
+            </Draggable> : <></>
         }
         <div className={styles.navbar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
              id={"navbarOffcanvas"} tabIndex="-1" style={{visibility: show ? "visible" : "hidden"}}
@@ -61,7 +110,7 @@ export default function Navbar() {
                     </a>
                 </Link>
 
-                <button className={styles.toggler + " btn shadow"} type="button" aria-label="Toggle navigation"
+                <button className={styles.toggler + " btn shadow"} type="button" aria-label="Close navigation"
                         onClick={() => setShow(!show)}>
                     <FontAwesomeIcon icon={["fas", "times"]}/>
                 </button>
@@ -257,4 +306,23 @@ export default function Navbar() {
             </div>
         </div>
     </>
+}
+
+function adjustDragPosition({x = 0, y = 0}) {
+    // no negative values allowed
+    x = x < toggleButtonDragPadding ? toggleButtonDragPadding : x
+    y = y < toggleButtonDragPadding ? toggleButtonDragPadding : y
+
+    console.log("Current boundings are: x(", toggleButtonDragPadding, ",",
+        window.innerWidth - toggleButtonDragPadding - toggleButtonSize, ") y(", toggleButtonDragPadding, ",",
+        window.innerHeight - toggleButtonDragPadding - toggleButtonSize, ")")
+    if (typeof window !== "undefined") {
+        if (x > window.innerWidth - toggleButtonDragPadding - toggleButtonSize) {
+            x = window.innerWidth - toggleButtonDragPadding - toggleButtonSize
+        }
+        if (y > window.innerHeight - toggleButtonDragPadding - toggleButtonSize) {
+            y = window.innerHeight - toggleButtonDragPadding - toggleButtonSize
+        }
+    }
+    return {x, y}
 }
