@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconStar from "../icons/IconStar"
+import OnlineStatus from "../data/OnlineStatus";
 
 export default function Card(
     {
@@ -51,6 +52,8 @@ export default function Card(
             <div className="col">
                 <div className={"card-body d-flex flex-column p-2 h-100"}>
                     <h5 className={styles.title + " card-title"}>
+                        {typeof content.urls !== "undefined" ?
+                            <OnlineStatus url={content.urls[0]}/> : <></>}
                         <Link href={hrefString}>
                             <a title={"View " + type + " " + content.name}>
                                 {content.name}

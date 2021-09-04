@@ -28,7 +28,7 @@ export default function ItemToListModal({item, close}) {
                   }
                   body={
                       <div className={"container-fluid"}>
-                          {user.lists.length === 0 ? <></> : <span className={"text-muted"}>
+                          {user.lists.length > 0 ? <></> : <span className={"text-muted"}>
                               You have no lists created yet
                           </span>}
                           {user.lists.map((l, i) => <div className={"form-check"} key={l._id}>

@@ -17,6 +17,7 @@ import IconNewTabLink from "../../components/icons/IconNewTabLink"
 import {getColumns} from "../../lib/db/columns"
 import {getCollections} from "../../lib/db/collections"
 import IconItem from "../../components/icons/IconItem"
+import OnlineStatus from "../../components/data/OnlineStatus";
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
@@ -94,10 +95,15 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                 <DataBadge name={url} style={"primary"}/>
             </a>)}
         </div>
-        <small className={"text-warning"} title={item.stars + " users have starred this item"}>
-            {item.stars}
-            <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
-        </small>
+        <span>
+            <small className={"text-warning me-2"} title={item.stars + " users have starred this item"}>
+                {item.stars}
+                <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
+            </small>
+            <span>
+                Status <OnlineStatus url={item.urls[0]}/>
+            </span>
+        </span>
         <p style={{
             whiteSpace: "pre-line"
         }}>

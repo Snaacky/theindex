@@ -22,9 +22,9 @@ export default function Modal({head, body, footer, close}) {
         <div className={"modal-dialog"}>
             <div className={"modal-content"} ref={ref}>
                 <div className={styles.content + " " + styles.header + " modal-header"}>
-                    <h5 className={"modal-title"}>
+                    <h4 className={"modal-title"}>
                         {head}
-                    </h5>
+                    </h4>
                     <button type={"button"} className={styles.close + " btn"} onClick={close} aria-label={"Close"}>
                         &times;
                     </button>

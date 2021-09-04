@@ -12,6 +12,7 @@ import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconNewTabLink from "../icons/IconNewTabLink"
 import IconStar from "../icons/IconStar"
+import OnlineStatus from "../data/OnlineStatus"
 
 export default function Row(
     {
@@ -64,6 +65,8 @@ export default function Row(
             <div className="col">
                 <div className={"card-body p-2"}>
                     <h5 className={styles.title + " card-title"}>
+                        {typeof content.urls !== "undefined" ?
+                            <OnlineStatus url={content.urls[0]}/> : <></>}
                         <Link href={hrefString}>
                             {content.name}
                         </Link>
