@@ -16,7 +16,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../../components/icons/IconNewTabLink"
 import {getColumns} from "../../lib/db/columns"
 import {getCollections} from "../../lib/db/collections"
-import IconAdmin from "../../components/icons/IconAdmin"
 import IconItem from "../../components/icons/IconItem"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {

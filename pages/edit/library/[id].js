@@ -4,7 +4,6 @@ import {getLibrariesWithCollections, getLibrary} from "../../../lib/db/libraries
 import {getCollections} from "../../../lib/db/collections"
 import EditLibrary from "../../../components/edit/EditLibrary"
 import Link from "next/link"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
 import ViewAll from "../../../components/buttons/ViewAll"
 
@@ -32,9 +31,11 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 {_id === "_new" ? <EditLibrary libraries={libraries} collectionsDatalist={collections}/> :
-                    <EditLibrary libraries={libraries} collectionsDatalist={collections} _id={library._id} urlId={library.urlId}
+                    <EditLibrary libraries={libraries} collectionsDatalist={collections} _id={library._id}
+                                 urlId={library.urlId}
                                  name={library.name}
-                                 nsfw={library.nsfw} description={library.description} collections={library.collections}/>
+                                 nsfw={library.nsfw} description={library.description}
+                                 collections={library.collections}/>
                 }
             </div>
         </div>
@@ -43,8 +44,9 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
             Collections used in this library
         </h4>
         {_id !== "_new" ?
-            <CollectionBoard _id={library._id} collections={library.collections} allCollections={collections} canMove={false} canEdit={true}
-                        forceEditMode={true}/> :
+            <CollectionBoard _id={library._id} collections={library.collections} allCollections={collections}
+                             canMove={false} canEdit={true}
+                             forceEditMode={true}/> :
             <div className={"text-muted"}>
                 Collection selection will be available once the library has been created
             </div>
