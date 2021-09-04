@@ -10,10 +10,6 @@
     opacity: 1;
 }
 
-.navbar {
-    display: none;
-}
-
 .header {
     background-color: var(--bg-4);
     padding: 0.4rem 1rem;
@@ -70,8 +66,10 @@
         display: none;
         box-shadow: none;
     }
+}
 
-    .navbar {
-        display: block;
+@media (max-width: 900px) {
+    .desktop {
+        display: none;
     }
 }

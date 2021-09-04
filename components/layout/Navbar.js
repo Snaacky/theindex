@@ -14,6 +14,7 @@ import IconAdmin from "../icons/IconAdmin"
 import IconList from "../icons/IconList"
 import styles from "./Navbar.module.css"
 import Draggable from "react-draggable"
+import {useInViewport} from 'react-in-viewport'
 
 // in px padding of drag button constrain
 const toggleButtonDragPadding = 30
@@ -61,6 +62,11 @@ export default function Navbar() {
         }
     })
 
+    const {inViewport} = useInViewport(navbarToggleRef, {}, {
+        disconnectOnLeave: false
+    }, {
+        onEnterViewport: () => console.log("Entered viewport")
+    })
     const {data, error} = useSWR("/api/libraries")
     if (error) {
         return <div>failed to load</div>
@@ -89,8 +95,8 @@ export default function Navbar() {
                            console.log("Stop dragging at", {x, y})
                            setTogglePosition(adjustDragPosition({x, y}))
                        }}>
-                <button className={styles.outside + " " + styles.toggler + " btn shadow"} type="button"
-                        aria-label="Toggle navigation" ref={outsideToggleRef}
+                <button className={styles.outside + " " + styles.toggler + " btn " + (inViewport ? "d-none" : "shadow")}
+                        type="button" aria-label="Toggle navigation" ref={outsideToggleRef}
                         onClick={() => toggleClick()} onTouchStart={() => toggleClick()}>
                     <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
                 </button>
@@ -110,7 +116,7 @@ export default function Navbar() {
                         </a>
                     </Link>
 
-                    <ul className={"nav nav-pills"}>
+                    <ul className={styles.desktop + " nav nav-pills"}>
                         <li className={"nav-item"}>
                             <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
                                 <Image src={"/icons/wikijs.svg"} height={24} width={24}
@@ -143,11 +149,11 @@ export default function Navbar() {
 
                 <div className={"d-flex flex-row"}>
                     {isLogin(session) ?
-                        <ul className={"nav nav-pills"}>
+                        <ul className={styles.desktop + " nav nav-pills"}>
                             <li className={"nav-item"}>
-                                <Link href={"/user/" + session.user.uid} key={"users"}>
+                                <Link href={"/user/" + session.user.uid}>
                                     <a className={"nav-link"}>
-                                        <Image src={session.user.image} width={24} height={24}
+                                        <Image src={session.user.image} width={16} height={16}
                                                className={"rounded-circle"}
                                                alt={session.user.name + "'s profile picture"}/>
                                         <span className={"ms-2"}>
