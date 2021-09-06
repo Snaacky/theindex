@@ -1,10 +1,10 @@
 import React from "react"
 import styles from "../rows/Row.module.css"
 import IconDelete from "../icons/IconDelete"
-import IconAdd from "../icons/IconAdd"
 import DataCard from "../cards/DataCard"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../icons/IconNewTabLink"
+import {isValidUrl} from "../../lib/utils"
 
 export default class EditItem extends React.Component {
     constructor({_id, name, urls, nsfw, description, data, blacklist, sponsor, columns}) {
@@ -12,25 +12,30 @@ export default class EditItem extends React.Component {
 
         this.columns = columns.sort((a, b) => a.name < b.name ? -1 : 1)
 
+        // a single empty url for inputting a real url, empty strings will be ignored in the save function
+        if (urls && urls.length === 0 || !urls) {
+            urls = [""]
+        } else if (urls) {
+            urls.push("")
+        }
+
         this.state = {
             _id,
             name: name || "",
-            urls: urls || [],
+            urls: urls,
             nsfw: nsfw || false,
             description: description || "",
             data: data || {},
             blacklist: blacklist || false,
-            sponsor: sponsor || false,
-            newURL: ""
+            sponsor: sponsor || false
         }
-        console.log("New state of item editor:", this.state, this.columns)
     }
 
     saveItem() {
         if (this.state.name !== "") {
             let body = {
                 name: this.state.name,
-                urls: this.state.urls,
+                urls: this.state.urls.filter(u => u !== ""),
                 nsfw: this.state.nsfw,
                 description: this.state.description,
                 data: this.state.data,
@@ -60,18 +65,15 @@ export default class EditItem extends React.Component {
         }
     }
 
-    addURL() {
-        if (this.state.newURL !== "") {
-            this.setState({
-                urls: this.state.urls.concat([this.state.newURL]),
-                newURL: ""
-            })
-        }
-    }
-
     updateURLs(i, newURL) {
         let temp = this.state.urls
         temp[i] = newURL
+        if (temp[temp.length - 1] !== "") {
+            temp.push("")
+        } else if (temp.length > 1 && temp[temp.length - 2] === "") {
+            temp.pop()
+        }
+
         this.setState({
             urls: temp
         })
@@ -171,54 +173,50 @@ export default class EditItem extends React.Component {
                 URLs
             </label>
             <div className={"mb-3"}>
-                {this.state.urls.map((v, i) =>
-                    <div className={"row mb-2"} key={i}>
-                        <div className={"col pe-0"}>
-                            <input type={"text"} className={"form-control"} id={"itemValueInput-" + i} value={v}
-                                   placeholder={"Enter a valid url"} required={true}
-                                   onChange={(input) => {
-                                       this.updateURLs(i, input.target.value)
-                                   }}/>
-                        </div>
-                        <div className={styles.column + " col-auto px-1"}>
-                            <div className={"d-flex flex-row"}>
-                                <span className={"me-2"} style={{fontSize: "1.5rem"}}>
-                                    <IconNewTabLink url={v}/>
-                                </span>
-                                <a onClick={() => this.removeURL(i)} title={"Remove url"}
-                                   style={{
-                                       width: "38px",
-                                       height: "38px"
-                                   }}>
-                                    <IconDelete/>
-                                </a>
+                {this.state.urls.map(
+                    (v, i) => {
+                        const isValid = isValidUrl(v)
+                        const className = v === "" ? "" : " is-" + (isValid ? "" : "in") + "valid"
+
+                        return <div className={"mb-2"} key={i}>
+                            <div className={"row"}>
+                                <div className={"col pe-0"}>
+                                    <input type={"text"} className={"form-control" + className}
+                                           id={"itemValueInput-" + i} value={v} placeholder={"Enter a valid url"}
+                                           required={true}
+                                           onChange={(input) => {
+                                               this.updateURLs(i, input.target.value)
+                                           }}/>
+                                </div>
+                                <div className={styles.column + " col-auto px-1"}>
+                                    {i < this.state.urls.length - 1 ?
+                                        <div className={"d-flex flex-row"}>
+                                            <span className={"me-2"} style={{fontSize: "1.5rem"}}>
+                                                <IconNewTabLink url={v}/>
+                                            </span>
+                                            <a onClick={() => this.removeURL(i)} title={"Remove url"}
+                                               style={{
+                                                   width: "38px",
+                                                   height: "38px"
+                                               }}>
+                                                <IconDelete/>
+                                            </a>
+                                        </div> :
+                                        <span className={"text-muted ms-2"}>
+                                            Empty url
+                                        </span>
+                                    }
+                                </div>
                             </div>
+                            {isValid || v === "" ? <></> : <div className={"invalid-feedback d-block"}>
+                                This does not look like a valid url...
+                            </div>}
                         </div>
-                    </div>)}
-                {this.state.urls.length > 0 ? <hr/> : <></>}
-                <div className={"row"}>
-                    <div className={"col pe-0"}>
-                        <input type={"text"} className={"form-control"} id={"itemValueInput-new"}
-                               value={this.state.newURL} placeholder={"Enter a valid url"}
-                               aria-describedby={"createItemURLNameHelp"}
-                               onChange={(input) => {
-                                   this.setState({
-                                       newURL: input.target.value
-                                   })
-                               }}/>
-                    </div>
-                    <div className={styles.column + " col-auto px-1"}>
-                        <a onClick={() => this.addURL()} title={"Add url"}
-                           className={"float-end"} style={{
-                            width: "38px",
-                            height: "38px"
-                        }}>
-                            <IconAdd/>
-                        </a>
-                    </div>
-                </div>
+                    }
+                )}
                 <div id={"createItemURLNameHelp"} className={"form-text"}>
-                    Official web-page url, the first listed url will be used to route users
+                    Official web-page url, the first listed url will be used to route users. Empty fields will be
+                    ignored and discarded
                 </div>
             </div>
 
