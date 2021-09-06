@@ -96,13 +96,13 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
             </a>)}
         </div>
         <span>
+            <span>
+                Status <OnlineStatus url={item.urls[0]}/>
+            </span>
             <small className={"text-warning me-2"} title={item.stars + " users have starred this item"}>
                 {item.stars}
                 <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
             </small>
-            <span>
-                Status <OnlineStatus url={item.urls[0]}/>
-            </span>
         </span>
         <p style={{
             whiteSpace: "pre-line"
