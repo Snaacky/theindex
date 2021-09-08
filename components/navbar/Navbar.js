@@ -49,14 +49,11 @@ export default function Navbar() {
                                   ref={outsideToggleRef}/>
         </div>
 
-        <div className={styles.navbar}>
-            <div className={styles.header + " offcanvas-header"}>
-                <div className={"d-flex flex-row justify-content-center"}>
-                    <NavbarBrand/>
-                </div>
-
-                <div className={"d-flex flex-row"}>
-                    <ul className={styles.desktop + " nav nav-pills"}>
+        <nav className={styles.navbar + " navbar navbar-dark navbar-expand"}>
+            <div className={"container-fluid"}>
+                <NavbarBrand/>
+                <div className={"collapse navbar-collapse"}>
+                    <ul className={styles.desktop + " nav nav-pills ms-auto"}>
                         <li className={"nav-item"}>
                             <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
                                 <Image src={"/icons/wikijs.svg"} height={16} width={16}
@@ -90,7 +87,7 @@ export default function Navbar() {
                                    className={"ms-2 " + (!show ? styles.show : "")}/>
                 </div>
             </div>
-        </div>
+        </nav>
 
         <Sidebar show={show} setShow={(v) => setShow(v)} ref={sidebarRef}/>
     </>

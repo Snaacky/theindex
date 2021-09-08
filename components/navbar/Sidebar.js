@@ -28,13 +28,15 @@ const Sidebar = React.forwardRef((
     return <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
                 id={"navbarOffcanvas"} tabIndex="-1" aria-hidden={(!show).toString()} role={"dialog"}>
         <div className={styles.header + " offcanvas-header"}>
-            <NavbarBrand/>
+            <div className={"container-fluid"}>
+                <NavbarBrand/>
 
-            <button className={styles.toggler + " btn shadow"} type="button"
-                    aria-label="Close navigation"
-                    onClick={() => setShow(!show)}>
-                <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
-            </button>
+                <button className={styles.toggler + " btn shadow"} type="button"
+                        aria-label="Close navigation"
+                        onClick={() => setShow(!show)}>
+                    <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
+                </button>
+            </div>
         </div>
 
         <div className="offcanvas-body">

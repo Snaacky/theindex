@@ -13,8 +13,7 @@
 
 .header {
     background-color: var(--bg-4);
-    padding: 0.4rem 1rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
 }
 
 .toggler {
