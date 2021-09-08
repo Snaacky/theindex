@@ -10,12 +10,12 @@ import IconEdit from "../../components/icons/IconEdit"
 import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import DataBadge from "../../components/data/DataBadge"
 import useSWR from "swr"
 import Error from "../_error"
 import {getItems} from "../../lib/db/items"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconColumn from "../../components/icons/IconColumn"
+import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
     const [session] = useSession()
@@ -69,7 +69,7 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
                 </a>
             </Link> : ""}
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                {column.nsfw ? <IconNSFW/> : <></>}
                 <span className={"ms-2"}>
                     <ViewAllButton type={"columns"}/>
                 </span>

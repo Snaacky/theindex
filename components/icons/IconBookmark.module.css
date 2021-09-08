@@ -1,3 +1,8 @@
 .bookmark {
-    color: var(--bs-success);
+    color: var(--bs-secondary);
+    transition: color 0.1s ease-in-out;
 }
+
+.bookmark:hover {
+     color: var(--bs-success);
+ }

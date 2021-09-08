@@ -5,7 +5,6 @@ import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
-import DataBadge from "../../components/data/DataBadge"
 import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
 import Error from "../_error"
@@ -13,6 +12,7 @@ import {getByUrlId} from "../../lib/db/db"
 import {getLibraries} from "../../lib/db/libraries"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconCollection from "../../components/icons/IconCollection"
+import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function Collection({_id, collection: staticCollection, libraries: staticLibraries}) {
     const [session] = useSession()
@@ -60,7 +60,7 @@ export default function Collection({_id, collection: staticCollection, libraries
                     </Link>
                 })}
                 <div className={"float-end"}>
-                    {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                    {collection.nsfw ? <IconNSFW/> : <></>}
                     <span className={"ms-2"}>
                         <ViewAllButton type={"collections"}/>
                     </span>

@@ -42,3 +42,9 @@
 .title {
     margin-bottom: 0.25rem;
 }
+
+.sponsor {
+    position: absolute;
+    top: -0.45rem;
+    left: 1.3rem;
+}

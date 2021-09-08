@@ -13,6 +13,8 @@ import IconBookmark from "../icons/IconBookmark"
 import IconNewTabLink from "../icons/IconNewTabLink"
 import IconStar from "../icons/IconStar"
 import OnlineStatus from "../data/OnlineStatus"
+import IconNSFW from "../icons/IconNSFW"
+import IconSponsor from "../icons/IconSponsor"
 
 export default function Row(
     {
@@ -33,6 +35,11 @@ export default function Row(
     }
 
     return <div className={styles.row + " card bg-2 mb-1"}>
+        {content.sponsor ?
+            <span className={styles.sponsor}>
+                <IconSponsor/>
+            </span> : <></>
+        }
         <div className="row g-0">
             {move !== null ?
                 <div className={styles.sorter + " col-auto"}>
@@ -77,12 +84,8 @@ export default function Row(
                             </a>
                         </Link> : ""}
                         <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                            {content.sponsor ?
-                                <span className={"ms-2"}>
-                                    <DataBadge name={"Sponsor"} style={"warning text-dark"}/>
-                                </span> : <></>}
                             {content.nsfw ? <span className={"ms-2"}>
-                                <DataBadge data={false} name={"NSFW"}/>
+                                <IconNSFW/>
                             </span> : <></>}
                             {content.accountType ? <span className={"ms-2"}>
                                 <DataBadge name={content.accountType} style={"primary"}/>

@@ -13,6 +13,8 @@ import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconStar from "../icons/IconStar"
 import OnlineStatus from "../data/OnlineStatus"
+import IconNSFW from "../icons/IconNSFW"
+import IconSponsor from "../icons/IconSponsor"
 
 export default function Card(
     {
@@ -33,6 +35,11 @@ export default function Card(
     }
 
     return <div className={styles.card + " card bg-2 mb-2 me-2"}>
+        {content.sponsor ?
+            <span className={styles.sponsor}>
+                <IconSponsor/>
+            </span> : <></>
+        }
         <div className="row g-0">
             {move !== null ? <div className={styles.sorter + " col-auto"}>
                 <a onClick={() => move(-1)}>
@@ -68,13 +75,9 @@ export default function Card(
                             </Link>
                         </> : ""}
                         <span className={styles.action}>
-                            {content.sponsor ?
-                                <span className={"ms-2"}>
-                                    <DataBadge name={"Sponsor"} style={"warning text-dark"}/>
-                                </span> : <></>}
                             {content.nsfw ?
                                 <span className={"ms-2"}>
-                                    <DataBadge data={false} name={"NSFW"}/>
+                                    <IconNSFW/>
                                 </span> : <></>
                             }
                             {content.accountType ?

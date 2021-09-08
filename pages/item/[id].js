@@ -18,6 +18,8 @@ import {getColumns} from "../../lib/db/columns"
 import {getCollections} from "../../lib/db/collections"
 import IconItem from "../../components/icons/IconItem"
 import OnlineStatus from "../../components/data/OnlineStatus"
+import IconNSFW from "../../components/icons/IconNSFW"
+import IconSponsor from "../../components/icons/IconSponsor"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
@@ -74,10 +76,10 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                     </Link>
                 })}
                 <div className={"float-end"}>
-                    {item.sponsor ? <DataBadge name={"Sponsor"} style={"warning text-dark"}/> : <></>}
+                    {item.sponsor ? <IconSponsor/> : <></>}
                     {item.nsfw ?
                         <span className={"ms-2"}>
-                            <DataBadge data={false} name={"NSFW"}/>
+                            <IconNSFW/>
                         </span> : <></>
                     }
                     <span className={"ms-2"}>

@@ -5,13 +5,13 @@ import {getLibraries} from "../../lib/db/libraries"
 import {useSession} from "next-auth/client"
 import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
-import DataBadge from "../../components/data/DataBadge"
 import CollectionBoard from "../../components/boards/CollectionBoard"
 import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import IconLibrary from "../../components/icons/IconLibrary"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
+import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function Tab({_id, library: staticLibrary}) {
     const [session] = useSession()
@@ -41,7 +41,7 @@ export default function Tab({_id, library: staticLibrary}) {
                 </a>
             </Link> : <></>}
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
-                {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                {library.nsfw ? <IconNSFW/> : <></>}
                 <span className={"ms-2"}>
                     <ViewAllButton type={"libraries"}/>
                 </span>

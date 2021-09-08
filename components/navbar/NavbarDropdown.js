@@ -31,6 +31,7 @@ export default function NavbarDropdown(
                     </li>
                 )}
                 {viewAllUrl ? <>
+                    <hr className={"dropdown-divider"}/>
                     <li className={"nav-item"}>
                         <Link href={viewAllUrl}>
                             <a className={"nav-link small text-end"}>

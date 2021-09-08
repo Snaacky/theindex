@@ -1,10 +1,12 @@
 .edit,
 a > .edit {
-    color: var(--bs-warning);
+    color: var(--bs-secondary);
+    transition: color 0.1s ease-in-out;
 }
 
 .edit:hover,
+a:hover > .edit,
 .btn:hover > .edit,
 .btn:active > .edit {
-    color: inherit;
+    color: var(--bs-warning);
 }

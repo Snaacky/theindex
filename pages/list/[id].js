@@ -4,7 +4,6 @@ import Link from "next/link"
 import {useSession} from "next-auth/client"
 import {canEdit, isCurrentUser} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
-import DataBadge from "../../components/data/DataBadge"
 import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
 import Error from "../_error"
@@ -12,6 +11,7 @@ import {getList, getLists} from "../../lib/db/lists"
 import {getUser} from "../../lib/db/users"
 import IconList from "../../components/icons/IconList"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
+import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function List({_id, list: staticList, owner: staticOwner, ownerUid}) {
     const [session] = useSession()
@@ -45,7 +45,7 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
                 </a>
             </Link> : <></>}
             <span style={{fontSize: "1.2rem"}} className={"float-end"}>
-                {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
+                {list.nsfw ? <IconNSFW/> : <></>}
                 <span className={"ms-2"}>
                     <ViewAllButton type={"lists"}/>
                 </span>

@@ -1,0 +1,19 @@
+.nsfw {
+    cursor: pointer;
+}
+
+.nsfw span {
+    color: var(--bs-secondary);
+    transition: color 0.1s ease-in-out;
+    font-weight: 600;
+    margin-top: -0.04rem;
+    margin-left: -0.05rem;
+}
+
+.nsfw svg {
+    color: var(--bs-danger);
+}
+
+.nsfw:hover span {
+    color: white;
+}
