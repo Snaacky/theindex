@@ -17,11 +17,6 @@ export default function Navbar() {
 
     useEffect(() => {
         const checkIfClickedOutside = e => {
-            console.log("Refs are:")
-            console.log("sidebarRef", sidebarRef)
-            console.log("navbarToggleRef", navbarToggleRef)
-            console.log("outsideToggleRef", outsideToggleRef)
-
             // If dropdown is open and the clicked target is not within the menu nor the toggle button itself
             if (show && sidebarRef && sidebarRef.current && !sidebarRef.current.contains(e.target) &&
                 navbarToggleRef && navbarToggleRef.current && !navbarToggleRef.current.contains(e.target) &&

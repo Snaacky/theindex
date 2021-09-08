@@ -127,7 +127,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
             <div className={"card bg-2 my-2"}>
                 <div className={"card-body"}>
                     <h5 className={"card-title"}>
-                        It has
+                        It <span className={"text-success"}>does</span> have
                     </h5>
                     <div className={"d-flex flex-wrap"}>
                         {column.yes.length === 0 ? <span className={"text-muted"}>No data found</span> : <></>}

@@ -11,15 +11,24 @@ import Error from "../../pages/_error"
 export default function IconStar({item, size}) {
     const [session] = useSession()
     const [show, setShow] = useState(false)
-    const [isHovering, setIsHovering] = useState(false)
+    const [isFav, setIsFav] = useState(false)
+    const [userFav, setUserFav] = useState([])
     const {data: user, error} = useSWR("/api/user/me")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
     }
-    const isFav = isLogin(session) && user && user.favs.includes(item._id)
+
+    if (user) {
+        const diff = userFav.filter(x => !user.favs.includes(x))
+            .concat(user.favs.filter(x => !userFav.includes(x)))
+        if (diff.length > 0) {
+            setUserFav(user.favs)
+            setIsFav(user.favs.includes(item._id))
+        }
+    }
 
     return <>
-        <span className={iconStyles.icon + " " + styles.star + " " + (isFav ? styles.fav : "")}
+        <span className={iconStyles.icon + " " + styles.star}
               title={(isFav ? "Un-star" : "Star") + " item"}
               onClick={() => {
                   if (isLogin(session)) {
@@ -28,7 +37,7 @@ export default function IconStar({item, size}) {
                           uid: "me",
                           favs: user.favs
                       }
-                      console.log("Saving new favs list", body)
+
                       fetch("/api/edit/user", {
                           method: "post",
                           headers: {"Content-Type": "application/json"},
@@ -36,15 +45,16 @@ export default function IconStar({item, size}) {
                       }).then(r => {
                           if (r.status !== 200) {
                               alert("Failed to save data: Error " + r.status)
+                          } else {
+                              setIsFav(!isFav)
                           }
                       })
                   } else {
                       setShow(true)
                   }
-              }}
-              onMouseOver={() => setIsHovering(true)} onMouseOut={() => setIsHovering(false)}>
+              }}>
             <FontAwesomeIcon
-                icon={isHovering && !isFav || !isHovering && isFav ? ["fas", "star"] : ["far", "star"]}
+                icon={isFav ? ["fas", "star"] : ["far", "star"]}
                 size={size}/>
         </span>
         {show ?
