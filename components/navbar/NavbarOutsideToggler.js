@@ -60,6 +60,7 @@ const NavbarOutsideToggler = React.forwardRef(({show, inViewport, onClick}, ref)
             }}>
             <div>
                 <NavbarToggler
+                    show={show}
                     className={(!show ? styles.show : "") + (inViewport ? " d-none" : "")} ref={ref}
                     onClick={() => toggleClick()}
                     onTouchStart={() => toggleClick()}/>

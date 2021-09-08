@@ -10,13 +10,14 @@ const NavbarToggler = React.forwardRef((
         className,
         onTouchStart
     }, ref) => {
-    return <button type={"button"} className={styles.toggle + " " + navStyles.toggler + " btn shadow " + className}
-                   onClick={onClick} ref={ref} aria-label={(show ? "Close" : "Open") + " navigation"}
-                   onTouchStart={() => {
-                       if (typeof onTouchStart === "function") {
-                           onTouchStart()
-                       }
-                   }}>
+    return <button
+        type={"button"} onClick={onClick} ref={ref} aria-label={(show ? "Close" : "Open") + " navigation"}
+        className={styles.toggle + " " + navStyles.toggler + " btn shadow " + className}
+        onTouchStart={() => {
+            if (typeof onTouchStart === "function") {
+                onTouchStart()
+            }
+        }}>
         <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
     </button>
 })

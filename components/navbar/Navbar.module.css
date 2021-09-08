@@ -64,11 +64,13 @@
     opacity: 1;
 }
 
+/**
+ * Hide/Show navitems in desktop-mode
+ */
 @media (min-width: 900px) {
     .outside,
     .mobile {
         display: none;
-        box-shadow: none;
     }
 }
 
@@ -76,19 +78,24 @@
     .desktop {
         display: none;
     }
+
+    .navbar .toggler {
+        margin-left: auto;
+    }
 }
 
+/**
+ * Manage toggle visibility on small screens
+ */
 @media (max-width: 600px) {
     .navbar .toggler:not(.show),
-    .toggler.outside:not(.show) {
+    .outside .toggler:not(.show) {
         display: none;
-        box-shadow: none;
     }
 }
 
 @media (min-width: 600px) {
     .sidebar .toggler {
         display: none;
-        box-shadow: none;
     }
 }

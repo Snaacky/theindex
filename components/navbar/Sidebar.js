@@ -13,6 +13,7 @@ import IconList from "../icons/IconList"
 import LoginOrOutButton from "../buttons/LoginOrOutButton"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
+import NavbarToggler from "./NavbarToggler"
 
 const Sidebar = React.forwardRef((
     {
@@ -28,14 +29,10 @@ const Sidebar = React.forwardRef((
     return <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
                 id={"navbarOffcanvas"} tabIndex="-1" aria-hidden={(!show).toString()} role={"dialog"}>
         <div className={styles.header + " offcanvas-header"}>
-            <div className={"container-fluid"}>
+            <div className={"container-fluid d-flex flex-row align-items-center"}>
                 <NavbarBrand/>
 
-                <button className={styles.toggler + " btn shadow"} type="button"
-                        aria-label="Close navigation"
-                        onClick={() => setShow(!show)}>
-                    <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
-                </button>
+                <NavbarToggler show={show} onClick={() => setShow(!show)} className={"ms-auto"}/>
             </div>
         </div>
 

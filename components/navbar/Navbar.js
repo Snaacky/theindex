@@ -6,7 +6,7 @@ import NavbarUser from "./NavbarUser"
 import NavbarBrand from "./NavbarBrand"
 import NavbarOutsideToggler from "./NavbarOutsideToggler"
 import Sidebar from "./Sidebar"
-import NavbarToggler from "./NavbarToggler";
+import NavbarToggler from "./NavbarToggler"
 
 export default function Navbar() {
     const [show, setShow] = useState(false)
@@ -52,7 +52,7 @@ export default function Navbar() {
         <nav className={styles.navbar + " navbar navbar-dark navbar-expand"}>
             <div className={"container-fluid"}>
                 <NavbarBrand/>
-                <div className={"collapse navbar-collapse"}>
+                <div className={"collapse navbar-collapse me-2"}>
                     <ul className={styles.desktop + " nav nav-pills ms-auto"}>
                         <li className={"nav-item"}>
                             <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
@@ -84,7 +84,7 @@ export default function Navbar() {
                         <NavbarUser/>
                     </ul>
                     <NavbarToggler show={show} onClick={() => setShow(!show)} ref={navbarToggleRef}
-                                   className={"ms-2 " + (!show ? styles.show : "")}/>
+                                   className={(!show ? styles.show : "")}/>
                 </div>
             </div>
         </nav>
