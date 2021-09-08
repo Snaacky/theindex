@@ -51,6 +51,7 @@ export default class Board extends React.Component {
             compactView: false,
             editView: forceEditMode,
             filter: [],
+            filterExpanded: false,
             searchString: ""
         }
     }
@@ -173,14 +174,14 @@ export default class Board extends React.Component {
         } else if (this.type === "collection") {
             if (this.state.useCards) {
                 return <CollectionCard collection={content} add={canAdd ? () => this.addContent(content) : null}
-                                  remove={canRemove ? () => this.removeContent(content) : null}
-                                  move={canMove ? (m) => this.moveContent(content, m) : null}
-                                  key={key}/>
+                                       remove={canRemove ? () => this.removeContent(content) : null}
+                                       move={canMove ? (m) => this.moveContent(content, m) : null}
+                                       key={key}/>
             }
             return <CollectionRow collection={content} remove={canRemove ? () => this.removeContent(content) : null}
-                             add={canAdd ? () => this.addContent(content) : null}
-                             move={canMove ? (m) => this.moveContent(content, m) : null}
-                             key={key}/>
+                                  add={canAdd ? () => this.addContent(content) : null}
+                                  move={canMove ? (m) => this.moveContent(content, m) : null}
+                                  key={key}/>
         } else if (this.type === "library") {
             if (this.state.useCards) {
                 return <LibraryCard tab={content} add={canAdd ? () => this.addContent(content) : null}
@@ -226,7 +227,7 @@ export default class Board extends React.Component {
             <div className={"card card-body bg-2 mb-2"}>
                 <div>
                     <button className={"btn btn-outline-primary mb-2"} type={"button"}
-                            data-bs-toggle={"collapse"} data-bs-target={"#collapseFilterBoard-" + randString}
+                            onClick={() => this.setState({filterExpanded: !this.state.filterExpanded})}
                             aria-expanded="false" aria-controls={"collapseFilter"}>
                         <FontAwesomeIcon icon={["fas", "filter"]}/> Filter
                     </button>
@@ -257,7 +258,8 @@ export default class Board extends React.Component {
                         }
                     </div>
                 </div>
-                <div id={"collapseFilterBoard-" + randString} className="collapse">
+                <div id={"collapseFilterBoard-" + randString}
+                     className={"collapse" + (this.state.filterExpanded ? " show" : "")}>
                     <ColumnFilter columns={this.state.columns} onChange={console.log}/>
                     <div className={"input-group mb-2"}>
                         <span className="input-group-text" id="inputSearchStringAddon">

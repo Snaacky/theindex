@@ -12,7 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Loader from "../loading"
 import IconBookmark from "../icons/IconBookmark"
 import IconStar from "../icons/IconStar"
-import OnlineStatus from "../data/OnlineStatus";
+import OnlineStatus from "../data/OnlineStatus"
 
 export default function Card(
     {

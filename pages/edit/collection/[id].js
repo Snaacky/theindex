@@ -7,7 +7,7 @@ import {getColumns} from "../../../lib/db/columns"
 import EditCollection from "../../../components/edit/EditCollection"
 import ColumnBoard from "../../../components/boards/ColumnBoard"
 import LibraryBoard from "../../../components/boards/LibraryBoard"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorCollection({_id, libraries, collections, columns, collection}) {
     let librariesWithCollection = []
@@ -28,7 +28,7 @@ export default function EditorCollection({_id, libraries, collections, columns, 
                 Edit collection <Link href={"/collection/" + collection.urlId}>{collection.name}</Link>
             </>}
             <span className={"float-end"}>
-                <ViewAll type={"collections"}/>
+                <ViewAllButton type={"collections"}/>
             </span>
         </h2>
         {_id !== "_new" ?

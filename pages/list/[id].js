@@ -11,7 +11,7 @@ import Error from "../_error"
 import {getList, getLists} from "../../lib/db/lists"
 import {getUser} from "../../lib/db/users"
 import IconList from "../../components/icons/IconList"
-import ViewAll from "../../components/buttons/ViewAll"
+import ViewAllButton from "../../components/buttons/ViewAllButton"
 
 export default function List({_id, list: staticList, owner: staticOwner, ownerUid}) {
     const [session] = useSession()
@@ -47,7 +47,7 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
             <span style={{fontSize: "1.2rem"}} className={"float-end"}>
                 {list.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                 <span className={"ms-2"}>
-                    <ViewAll type={"lists"}/>
+                    <ViewAllButton type={"lists"}/>
                 </span>
             </span>
         </h2>

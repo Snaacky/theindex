@@ -11,7 +11,7 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import IconLibrary from "../../components/icons/IconLibrary"
-import ViewAll from "../../components/buttons/ViewAll"
+import ViewAllButton from "../../components/buttons/ViewAllButton"
 
 export default function Tab({_id, library: staticLibrary}) {
     const [session] = useSession()
@@ -43,7 +43,7 @@ export default function Tab({_id, library: staticLibrary}) {
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                 {library.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                 <span className={"ms-2"}>
-                    <ViewAll type={"libraries"}/>
+                    <ViewAllButton type={"libraries"}/>
                 </span>
             </span>
         </h2>

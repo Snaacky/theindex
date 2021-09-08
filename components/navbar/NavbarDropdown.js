@@ -1,13 +1,14 @@
 import {useState} from "react"
-import styles from "./Dropdown.module.css"
+import Link from "next/link"
+import styles from "./NavbarDropdown.module.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
-export default function Dropdown(
+export default function NavbarDropdown(
     {
         targetId,
         toggler,
-        head,
-        contentList
+        contentList,
+        viewAllUrl
     }
 ) {
     const [show, setShow] = useState(false)
@@ -24,20 +25,21 @@ export default function Dropdown(
 
         <div id={targetId} className={"collapse" + (show ? " show" : "")}>
             <ul className={"list-unstyled rounded bg-3 ms-4"}>
-                {head ? <>
-                    <li className={"nav-item"}>
-                        {head}
-                    </li>
-                    <li className={"nav-item"}>
-                        <hr className="dropdown-divider"/>
-                    </li>
-                </> : <></>
-                }
                 {contentList.map((c, i) =>
                     <li className={"nav-item"} key={i}>
                         {c}
                     </li>
                 )}
+                {viewAllUrl ? <>
+                    <li className={"nav-item"}>
+                        <Link href={viewAllUrl}>
+                            <a className={"nav-link small text-end"}>
+                                View all
+                            </a>
+                        </Link>
+                    </li>
+                </> : <></>
+                }
             </ul>
         </div>
     </li>

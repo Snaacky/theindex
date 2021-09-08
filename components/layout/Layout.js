@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Navbar from "./Navbar"
+import Navbar from "../navbar/Navbar"
 import Footer from "./Footer"
 
 export const siteName = "The Anime Index"
@@ -55,15 +55,12 @@ export default function Layout({children, error}) {
             <header>
                 <Navbar/>
             </header>
+
             <div className={"container my-4"}>
                 <main>{children}</main>
             </div>
+
             <Footer error={error}/>
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-                    crossOrigin="anonymous"/>
-
         </div>
     )
 }

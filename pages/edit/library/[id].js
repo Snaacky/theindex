@@ -5,7 +5,7 @@ import {getCollections} from "../../../lib/db/collections"
 import EditLibrary from "../../../components/edit/EditLibrary"
 import Link from "next/link"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorLibrary({_id, libraries, collections, library}) {
     return <>
@@ -20,7 +20,7 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
                 Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
             </>}
             <span className={"float-end"}>
-                <ViewAll type={"libraries"}/>
+                <ViewAllButton type={"libraries"}/>
             </span>
         </h2>
         {_id !== "_new" ?

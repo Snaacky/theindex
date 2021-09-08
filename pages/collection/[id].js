@@ -11,7 +11,7 @@ import useSWR from "swr"
 import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import {getLibraries} from "../../lib/db/libraries"
-import ViewAll from "../../components/buttons/ViewAll"
+import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconCollection from "../../components/icons/IconCollection"
 
 export default function Collection({_id, collection: staticCollection, libraries: staticLibraries}) {
@@ -53,7 +53,7 @@ export default function Collection({_id, collection: staticCollection, libraries
                 {librariesContainingCollection.map(t => {
                     return <Link href={"/library/" + t.urlId} key={t._id}>
                         <a title={"View library" + t.name}>
-                            <div className={"badge rounded-pill bg-primary mx-2"}>
+                            <div className={"badge rounded-pill bg-primary ms-2"}>
                                 {t.name}
                             </div>
                         </a>
@@ -62,7 +62,7 @@ export default function Collection({_id, collection: staticCollection, libraries
                 <div className={"float-end"}>
                     {collection.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                     <span className={"ms-2"}>
-                        <ViewAll type={"collections"}/>
+                        <ViewAllButton type={"collections"}/>
                     </span>
                 </div>
             </span>

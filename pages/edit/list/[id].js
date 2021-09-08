@@ -8,7 +8,7 @@ import {getList} from "../../../lib/db/lists"
 import EditList from "../../../components/edit/EditList"
 import {isAdmin, isCurrentUser} from "../../../lib/session"
 import NotAdmin from "../../../components/layout/NotAdmin"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorList({_id, userLists, columns, list}) {
     const [session] = useSession()
@@ -33,7 +33,7 @@ export default function EditorList({_id, userLists, columns, list}) {
                 Edit list <Link href={"/list/" + list._id}>{list.name}</Link>
             </>}
             <span className={"float-end"}>
-                <ViewAll type={"lists"}/>
+                <ViewAllButton type={"lists"}/>
             </span>
         </h2>
         {_id !== "_new" ?

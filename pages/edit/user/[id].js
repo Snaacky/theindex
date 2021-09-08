@@ -6,7 +6,7 @@ import {getUser} from "../../../lib/db/users"
 import {isAdmin, isCurrentUser} from "../../../lib/session"
 import EditUser from "../../../components/edit/EditUser"
 import NotAdmin from "../../../components/layout/NotAdmin"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorUser({uid, user}) {
     const [session] = useSession()
@@ -25,7 +25,7 @@ export default function EditorUser({uid, user}) {
         <h2>
             Edit user <Link href={"/user/" + uid}>{user.name}</Link>
             <span className={"float-end"}>
-                <ViewAll type={"users"}/>
+                <ViewAllButton type={"users"}/>
             </span>
         </h2>
         <small className={"text-muted"}>

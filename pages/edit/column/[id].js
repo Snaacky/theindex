@@ -5,7 +5,7 @@ import Link from "next/link"
 import {getColumn, getColumns} from "../../../lib/db/columns"
 import EditColumn from "../../../components/edit/EditColumn"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorColumn({_id, collections, columns, column}) {
     let collectionsWithColumn = []
@@ -24,7 +24,7 @@ export default function EditorColumn({_id, collections, columns, column}) {
                 Edit column <Link href={"/column/" + column.urlId}>{column.name}</Link>
             </>}
             <span className={"float-end"}>
-                <ViewAll type={"columns"}/>
+                <ViewAllButton type={"columns"}/>
             </span>
         </h2>
         {_id !== "_new" ?

@@ -14,7 +14,7 @@ import DataBadge from "../../components/data/DataBadge"
 import useSWR from "swr"
 import Error from "../_error"
 import {getItems} from "../../lib/db/items"
-import ViewAll from "../../components/buttons/ViewAll"
+import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconColumn from "../../components/icons/IconColumn"
 
 export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
@@ -71,7 +71,7 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
             <span className={"float-end"} style={{fontSize: "1.2rem"}}>
                 {column.nsfw ? <DataBadge data={false} name={"NSFW"}/> : <></>}
                 <span className={"ms-2"}>
-                    <ViewAll type={"columns"}/>
+                    <ViewAllButton type={"columns"}/>
                 </span>
             </span>
         </h2>

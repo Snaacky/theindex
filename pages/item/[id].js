@@ -17,7 +17,7 @@ import IconNewTabLink from "../../components/icons/IconNewTabLink"
 import {getColumns} from "../../lib/db/columns"
 import {getCollections} from "../../lib/db/collections"
 import IconItem from "../../components/icons/IconItem"
-import OnlineStatus from "../../components/data/OnlineStatus";
+import OnlineStatus from "../../components/data/OnlineStatus"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()

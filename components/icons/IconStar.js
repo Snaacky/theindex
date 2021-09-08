@@ -15,10 +15,8 @@ export default function IconStar({item, size}) {
     const {data: user, error} = useSWR("/api/user/me")
     if (error) {
         return <Error error={error} statusCode={error.status}/>
-    } else if (!user) {
-        return <></>
     }
-    const isFav = user.favs.includes(item._id)
+    const isFav = isLogin(session) && user && user.favs.includes(item._id)
 
     return <>
         <span className={iconStyles.icon + " " + styles.star} title={"Star item"}

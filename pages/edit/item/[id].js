@@ -6,7 +6,7 @@ import {getColumns} from "../../../lib/db/columns"
 import EditItem from "../../../components/edit/EditItem"
 import CollectionBoard from "../../../components/boards/CollectionBoard"
 import {getCollections} from "../../../lib/db/collections"
-import ViewAll from "../../../components/buttons/ViewAll"
+import ViewAllButton from "../../../components/buttons/ViewAllButton"
 
 export default function EditorItem({_id, collections, columns, item}) {
 
@@ -27,7 +27,7 @@ export default function EditorItem({_id, collections, columns, item}) {
                 Edit item <Link href={"/item/" + item._id}>{item.name}</Link>
             </>}
             <span className={"float-end"}>
-                <ViewAll type={"items"}/>
+                <ViewAllButton type={"items"}/>
             </span>
         </h2>
         {_id !== "_new" ?
