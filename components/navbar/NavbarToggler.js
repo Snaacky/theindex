@@ -3,13 +3,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import styles from "./NavbarToggler.module.css"
 import navStyles from "./Navbar.module.css"
 
-const NavbarToggler = React.forwardRef((
+function NavbarToggler(
     {
         show,
         onClick,
         className,
         onTouchStart
-    }, ref) => {
+    }, ref) {
     return <button
         type={"button"} onClick={onClick} ref={ref} aria-label={(show ? "Close" : "Open") + " navigation"}
         className={styles.toggle + " " + navStyles.toggler + " btn shadow " + className}
@@ -20,6 +20,6 @@ const NavbarToggler = React.forwardRef((
         }}>
         <FontAwesomeIcon icon={["fas", show ? "times" : "bars"]}/>
     </button>
-})
+}
 
-export default NavbarToggler
+export default React.forwardRef(NavbarToggler)

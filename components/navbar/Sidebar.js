@@ -15,11 +15,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
 import NavbarToggler from "./NavbarToggler"
 
-const Sidebar = React.forwardRef((
+function Sidebar(
     {
         show,
         setShow
-    }, ref) => {
+    }, ref) {
     const {data, error} = useSWR("/api/libraries")
     if (error) {
         return <div>failed to load</div>
@@ -129,22 +129,22 @@ const Sidebar = React.forwardRef((
                                 <Image src={"/icons/wikijs.svg"} height={16} width={16}
                                        alt={"Wiki.js logo"}/>
                                 <span className={"ms-1"}>
-                                        Wiki
-                                    </span>
+                                    Wiki
+                                </span>
                             </a>,
                             <a className={"nav-link"} href="https://status.piracy.moe/" key={"status"}>
                                 <Image src={"/icons/status.png"} height={16} width={16}
                                        alt={"Checkly logo"}/>
                                 <span className={"ms-1"}>
-                                        Status
-                                    </span>
+                                    Status
+                                </span>
                             </a>,
                             <a className={"nav-link"} href="https://releases.moe/" key={"seadex"}>
                                 <Image src={"/icons/seadex.png"} height={16} width={16}
                                        alt={"Seadex logo"}/>
                                 <span className={"ms-1"}>
-                                        SeaDex
-                                    </span>
+                                    SeaDex
+                                </span>
                             </a>
                         ]}/>
                     <NavbarDropdown
@@ -176,5 +176,6 @@ const Sidebar = React.forwardRef((
             </nav>
         </div>
     </div>
-})
-export default Sidebar
+}
+
+export default React.forwardRef(Sidebar)
