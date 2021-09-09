@@ -3,14 +3,32 @@ import Link from "next/link"
 import {siteName} from "../components/layout/Layout"
 import useSWR from "swr"
 import Error from "./_error"
-import {getLibraries} from "../lib/db/libraries"
+import {getLastViews} from "../lib/db/views"
+import ItemCard from "../components/cards/ItemCard"
+import CollectionCard from "../components/cards/CollectionCard"
+import ListCard from "../components/cards/ListCard";
 
-export default function Home({libraries: staticLibraries}) {
-    let {data: libraries, error} = useSWR("/api/libraries")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
+export default function Home(
+    {
+        trendingItem: staticTrendingItem,
+        trendingCollection: staticTrendingCollection,
+        trendingList: staticTrendingList
+    }) {
+    let {data: items, itemsError} = useSWR("/api/popular/items")
+    let {data: collections, collectionsError} = useSWR("/api/popular/collections")
+    let {data: lists, listsError} = useSWR("/api/popular/lists")
+
+    if (itemsError) {
+        return <Error error={itemsError} statusCode={itemsError.status}/>
+    } else if (collectionsError) {
+        return <Error error={collectionsError} statusCode={collectionsError.status}/>
+    } else if (listsError) {
+        return <Error error={listsError} statusCode={listsError.status}/>
     }
-    libraries = libraries || staticLibraries
+
+    items = (items || staticTrendingItem).slice(0, 10)
+    collections = (collections || staticTrendingCollection).slice(0, 10)
+    lists = (lists || staticTrendingList).slice(0, 10)
 
     return <>
         <Head>
@@ -18,33 +36,75 @@ export default function Home({libraries: staticLibraries}) {
             <meta name="twitter:card" content="summary"/>
         </Head>
 
-        <div className={"container"}>
-            <h1 className={"mb-2"}>
-                You are searching a site with:
-            </h1>
-            <div className={"gx-4"}>
-                {libraries.map(({urlId, name}) => {
-                    return (
-                        <Link href={"/library/" + urlId} key={urlId}>
-                            <a className={"btn btn-lg btn-outline-primary me-3 mb-2"}>
-                                {name}
-                            </a>
-                        </Link>
-                    )
-                })}
-            </div>
-            <div className={"my-4"}>
-                This service is still under construction, content is coming soon™
-            </div>
+        <h2>
+            Currently popular <Link href={"/items"}>items</Link>
+        </h2>
+        <div className={"d-flex flex-wrap"}>
+            {items.map(item => {
+                return <ItemCard item={item} key={item._id}/>
+            })}
         </div>
+        <div className={"mb-4"}>
+            <span className={"text-muted"}>
+                According to recent view counts
+            </span>
+            <span className={"float-end me-2"}>
+                <Link href={"/items"}>
+                    View all
+                </Link>
+            </span>
+        </div>
+
+        <h2>
+            Currently popular <Link href={"/collections"}>collections</Link>
+        </h2>
+        <div className={"d-flex flex-wrap"}>
+            {collections.map(collection => {
+                return <CollectionCard collection={collection} key={collection._id}/>
+            })}
+        </div>
+        <div className={"mb-4"}>
+            <span className={"text-muted"}>
+                According to recent view counts
+            </span>
+            <span className={"float-end me-2"}>
+                <Link href={"/items"}>
+                    View all
+                </Link>
+            </span>
+        </div>
+
+        <h2>
+            Currently popular <Link href={"/lists"}>lists</Link>
+        </h2>
+        <div className={"d-flex flex-wrap"}>
+            {lists.map(list => {
+                return <ListCard list={list} key={list._id}/>
+            })}
+        </div>
+        <div className={"mb-4"}>
+            <span>
+                <Link href={"/lists"}>
+                    View all
+                </Link>
+            </span>
+            <span className={"float-end me-2 text-muted"}>
+                According to recent view counts
+            </span>
+        </div>
+
     </>
 }
 
 export async function getStaticProps() {
-    const libraries = await getLibraries()
+    const trendingItem = await getLastViews("item", 100)
+    const trendingCollection = await getLastViews("collection", 100)
+    const trendingList = await getLastViews("list", 100)
     return {
         props: {
-            libraries
+            trendingItem,
+            trendingCollection,
+            trendingList
         },
         revalidate: 30
     }

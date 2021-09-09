@@ -34,7 +34,7 @@ export default function NavbarUser() {
         </>
     }
 
-    return <li className={"nav-item"}>
+    return <li className={"nav-item mx-2"}>
         <LoginOrOutButton/>
     </li>
 }
