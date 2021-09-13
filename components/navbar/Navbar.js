@@ -79,7 +79,7 @@ export default function Navbar() {
                         <NavbarUser/>
                     </ul>
                     <NavbarToggler show={show} onClick={() => setShow(!show)} ref={navbarToggleRef}
-                                   className={(!show ? styles.show : "")}/>
+                                   className={(!show ? styles.show : "") + " ms-2"}/>
                 </div>
             </div>
         </nav>
