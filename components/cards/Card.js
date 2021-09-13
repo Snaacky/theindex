@@ -50,7 +50,7 @@ export default function Card(
                 </a>
             </div> : <></>}
             {imageUrl !== "" ? <div className={"col-auto"}>
-                <Link href={"/" + type + "/" + content._id}>
+                <Link href={hrefString}>
                     <a title={"View " + type + " " + content.name}>
                         <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
                     </a>

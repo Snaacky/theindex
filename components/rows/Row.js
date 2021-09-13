@@ -62,7 +62,7 @@ export default function Row(
             }
             {imageUrl !== "" ?
                 <div className={styles.column + " col-auto p-1"}>
-                    <Link href={"/" + type + "/" + content._id}>
+                    <Link href={hrefString}>
                         <a title={"View " + type + " " + content.name}>
                             <Image src={imageUrl} className="img-fluid rounded-start"
                                    alt="..." width={64} height={64}/>
