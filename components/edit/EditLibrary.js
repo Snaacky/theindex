@@ -40,7 +40,7 @@ export default class EditLibrary extends React.Component {
                 body._id = this.state._id
             }
 
-            fetch("/api/edit/tab", {
+            fetch("/api/edit/library", {
                 method: "post",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
@@ -76,7 +76,7 @@ export default class EditLibrary extends React.Component {
                         {this.librariesDatalist.map(t => <option value={t} key={t}/>)}
                     </datalist>
                     <div id={"createTabInputNameHelp"} className={"form-text"}>
-                        Shown name of tab
+                        Shown name of the library
                     </div>
                 </div>
                 <div className={"col-12 col-lg-6 mb-3"}>
@@ -118,7 +118,7 @@ export default class EditLibrary extends React.Component {
             <span className={"float-end"}>
                 <button className={"btn btn-primary mb-2 me-2"} type="button" onClick={() => this.saveTab()}>
                     <FontAwesomeIcon icon={["fas", "save"]} className={"me-2"}/>
-                    {typeof this.state._id === "undefined" ? "Create tab" : "Save changes"}
+                    {typeof this.state._id === "undefined" ? "Create library" : "Save changes"}
                 </button>
             </span>
         </form>
