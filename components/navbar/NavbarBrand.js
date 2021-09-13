@@ -6,8 +6,14 @@ export default function NavbarBrand() {
         <a className={"navbar-brand d-block"}>
             <Image src="/icons/logo.png" alt="r/animepiracy Logo" width="32" height="32"
                    className="d-inline-block rounded align-top"/>
-            <span className={"ms-2 align-top"}>
+            <span className={"ms-2 align-top position-relative"}>
                 The Anime Index
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                      style={{
+                          fontSize: "0.7rem"
+                      }}>
+                    Beta
+                </span>
             </span>
         </a>
     </Link>
