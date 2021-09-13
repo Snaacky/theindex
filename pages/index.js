@@ -45,13 +45,13 @@ export default function Home(
             })}
         </div>
         <div className={"mb-4"}>
-            <span className={"text-muted"}>
+            <Link href={"/items"}>
+                <a className={"btn btn-primary"}>
+                    View all items
+                </a>
+            </Link>
+            <span className={"float-end me-2 text-muted"}>
                 According to recent view counts
-            </span>
-            <span className={"float-end me-2"}>
-                <Link href={"/items"}>
-                    View all
-                </Link>
             </span>
         </div>
 
@@ -64,13 +64,13 @@ export default function Home(
             })}
         </div>
         <div className={"mb-4"}>
-            <span className={"text-muted"}>
+            <Link href={"/collections"}>
+                <a className={"btn btn-primary"}>
+                    View all collections
+                </a>
+            </Link>
+            <span className={"float-end me-2 text-muted"}>
                 According to recent view counts
-            </span>
-            <span className={"float-end me-2"}>
-                <Link href={"/items"}>
-                    View all
-                </Link>
             </span>
         </div>
 
@@ -83,11 +83,11 @@ export default function Home(
             })}
         </div>
         <div className={"mb-4"}>
-            <span>
-                <Link href={"/lists"}>
-                    View all
-                </Link>
-            </span>
+            <Link href={"/lists"}>
+                <a className={"btn btn-primary"}>
+                    View all user lists
+                </a>
+            </Link>
             <span className={"float-end me-2 text-muted"}>
                 According to recent view counts
             </span>
