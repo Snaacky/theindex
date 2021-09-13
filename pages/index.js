@@ -6,7 +6,7 @@ import Error from "./_error"
 import {getLastViews} from "../lib/db/views"
 import ItemCard from "../components/cards/ItemCard"
 import CollectionCard from "../components/cards/CollectionCard"
-import ListCard from "../components/cards/ListCard";
+import ListCard from "../components/cards/ListCard"
 
 export default function Home(
     {

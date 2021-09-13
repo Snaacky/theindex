@@ -1,7 +1,7 @@
 import {getSession} from "next-auth/client"
 import {isLogin} from "../../../lib/session"
-import {findOne} from "../../../lib/db/db";
-import {addView} from "../../../lib/db/views";
+import {findOne} from "../../../lib/db/db"
+import {addView} from "../../../lib/db/views"
 
 export default async function handler(req, res) {
     if (req.body.url && typeof req.body.url === "string") {

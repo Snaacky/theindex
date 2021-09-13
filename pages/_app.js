@@ -14,6 +14,8 @@ import Layout from "../components/layout/Layout"
 import {isAdmin, isEditor, isLogin} from "../lib/session"
 import NotAdmin from "../components/layout/NotAdmin"
 import NotLogin from "../components/layout/NotLogin"
+import NoScriptAlert from "../components/alerts/NoScriptAlert"
+import BetaAlert from "../components/alerts/BetaAlert"
 
 library.add(fab, fas, far)
 
@@ -53,6 +55,11 @@ export default function App({Component, pageProps}) {
         }}>
             <Layout>
                 <Auth auth={Component.auth}>
+                    <noscript>
+                        <NoScriptAlert/>
+                    </noscript>
+                    <BetaAlert/>
+
                     <Component {...pageProps} />
                 </Auth>
             </Layout>

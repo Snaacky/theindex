@@ -61,7 +61,7 @@ main {
     color: white;
 }
 
-a:not(.link-light):not(.btn) {
+a:not(.link-light):not(.btn):not(.alert-link) {
     color: #c6c6c6;
     text-decoration: none;
 }
