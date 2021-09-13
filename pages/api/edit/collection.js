@@ -10,7 +10,7 @@ export default async function apiEditCollection(req, res) {
             res.status(400).send("Illegal url id: '_new' is forbidden!")
         } else {
             if (typeof d._id === "undefined") {
-                await addCollection(d.urlId, d.name, d.nsfw, d.description, d.items)
+                await addCollection(d.urlId, d.img, d.name, d.nsfw, d.description, d.items)
             } else {
                 await updateCollection(d._id, d)
             }

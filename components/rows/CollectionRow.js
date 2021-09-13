@@ -9,5 +9,5 @@ export default function CollectionRow(
     }) {
 
     return <Row type={"collection"} content={collection} add={add} remove={remove} move={move}
-                imageUrl={collection.img ? collection.img : "/img/puzzled.png"}/>
+                imageUrl={collection.img ? "/img/" + collection.img : "/img/puzzled.png"}/>
 }

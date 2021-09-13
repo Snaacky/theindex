@@ -1,9 +1,11 @@
 import React from "react"
+import Image from "next/image"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import EditSelectImg from "./EditSelectImg";
 
 export default class EditCollection extends React.Component {
-    constructor({collections, _id, urlId, name, nsfw, description}) {
-        super({collections, _id, urlId, name, nsfw, description})
+    constructor({collections, _id, urlId, img, name, nsfw, description}) {
+        super({collections, _id, urlId, img, name, nsfw, description})
 
         this.collectionsDatalist = collections.map(t => t.name)
         this.urlDatalist = collections.map(t => t.urlId)
@@ -11,6 +13,7 @@ export default class EditCollection extends React.Component {
         this.state = {
             _id,
             urlId: urlId || "",
+            img: img || "puzzled.png",
             name: name || "",
             nsfw: nsfw || false,
             description: description || ""
@@ -25,6 +28,7 @@ export default class EditCollection extends React.Component {
 
             let body = {
                 urlId: this.state.urlId,
+                img: this.state.img,
                 name: this.state.name,
                 nsfw: this.state.nsfw,
                 description: this.state.description
@@ -56,6 +60,22 @@ export default class EditCollection extends React.Component {
         return <form>
             <div className={"row"}>
                 <div className={"col-12 col-lg-6 mb-3"}>
+                    <label htmlFor={"createCollectionInputImage"} className={"form-label"}>
+                        Image
+                    </label>
+                    <div className={"d-flex align-items-center p-2 rounded bg-6"}>
+                        <Image src={"/img/" + this.state.img} alt={"Image for collection"} width={"148px"}
+                               height={"148px"}/>
+                        <div className={"ms-2 d-flex flex-row w-100 justify-content-center"}>
+                            <EditSelectImg selected={this.state.img}
+                                           onChange={(i) => this.setState({img: i})}/>
+                        </div>
+                    </div>
+                    <div id={"createCollectionInputImageHelp"} className={"form-text"}>
+                        The image of the collection
+                    </div>
+                </div>
+                <div className={"col-12 col-lg-6 mb-3"}>
                     <label htmlFor={"createCollectionInputName"} className={"form-label"}>
                         Name
                     </label>
@@ -72,8 +92,6 @@ export default class EditCollection extends React.Component {
                     <div id={"createCollectionInputNameHelp"} className={"form-text"}>
                         Shown name of collection
                     </div>
-                </div>
-                <div className={"col-12 col-lg-6 mb-3"}>
                     <label htmlFor={"createCollectionInputURL"} className={"form-label"}>
                         URL
                     </label>

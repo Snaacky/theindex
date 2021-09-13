@@ -2,6 +2,7 @@ import {siteName} from "../../components/layout/Layout"
 import {getCollections} from "../../lib/db/collections"
 import Head from "next/head"
 import Link from "next/link"
+import Image from "next/image"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
@@ -42,36 +43,50 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta name="twitter:image" content={collection.img}/>
         </Head>
 
-        <h2>
-            <IconCollection/> {collection.name}
-            {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
-                <a title={"Edit collection"} className={"ms-2"}>
-                    <IconEdit/>
-                </a>
-            </Link> : <></>}
-            <span style={{fontSize: "1.2rem"}}>
-                {librariesContainingCollection.map(t => {
-                    return <Link href={"/library/" + t.urlId} key={t._id}>
-                        <a title={"View library" + t.name}>
-                            <div className={"badge rounded-pill bg-primary ms-2"}>
-                                {t.name}
-                            </div>
-                        </a>
-                    </Link>
-                })}
-                <div className={"float-end"}>
-                    {collection.nsfw ? <IconNSFW/> : <></>}
-                    <span className={"ms-2"}>
-                        <ViewAllButton type={"collections"}/>
-                    </span>
+        <div className={"row"}>
+            <div className={"col-auto"}>
+                <div className={"mb-2"}>
+                    <Image src={"/img/" + collection.img} alt={"Image of collection"} width={"148px"} height={"148px"}
+                           className={"rounded-circle bg-6"}/>
                 </div>
-            </span>
-        </h2>
-        <p style={{
-            whiteSpace: "pre-line"
-        }}>
-            {collection.description}
-        </p>
+            </div>
+            <div className={"col"}>
+                <div className={"row"}>
+                    <div className={"col"}>
+                        <h2>
+                            <IconCollection/> {collection.name}
+                            {canEdit(session) ? <Link href={"/edit/collection/" + collection._id}>
+                                <a title={"Edit collection"} className={"ms-2"}>
+                                    <IconEdit/>
+                                </a>
+                            </Link> : <></>}
+                            <span style={{fontSize: "1.2rem"}}>
+                                {librariesContainingCollection.map(t => {
+                                    return <Link href={"/library/" + t.urlId} key={t._id}>
+                                        <a title={"View library" + t.name}>
+                                            <div className={"badge rounded-pill bg-primary ms-2"}>
+                                                {t.name}
+                                            </div>
+                                        </a>
+                                    </Link>
+                                })}
+                            </span>
+                        </h2>
+                    </div>
+                    <div className={"col-auto"}>
+                        {collection.nsfw ? <IconNSFW/> : <></>}
+                        <span className={"ms-2"}>
+                            <ViewAllButton type={"collections"}/>
+                        </span>
+                    </div>
+                </div>
+                <p style={{
+                    whiteSpace: "pre-line"
+                }}>
+                    {collection.description}
+                </p>
+            </div>
+        </div>
 
         <ItemBoard _id={collection._id} items={collection.items} columns={collection.columns} key={collection._id}
                    canEdit={canEdit(session)}/>

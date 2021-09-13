@@ -40,7 +40,8 @@ export default function EditorCollection({_id, libraries, collections, columns, 
             <div className="card-body">
                 {_id === "_new" ? <EditCollection collections={collections}/> :
                     <EditCollection collections={collections} _id={collection._id} urlId={collection.urlId}
-                                    name={collection.name} nsfw={collection.nsfw} description={collection.description}/>
+                                    img={collection.img} name={collection.name} nsfw={collection.nsfw}
+                                    description={collection.description}/>
                 }
             </div>
         </div>
