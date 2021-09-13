@@ -43,9 +43,9 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta name="twitter:image" content={collection.img}/>
         </Head>
 
-        <div className={"row"}>
+        <div className={"row"} style={{marginTop: "3rem"}}>
             <div className={"col-auto"}>
-                <div className={"mb-2"}>
+                <div className={"d-absolute mb-2"} style={{marginTop: "-3.2rem"}}>
                     <Image src={"/img/" + collection.img} alt={"Image of collection"} width={"148px"} height={"148px"}
                            className={"rounded-circle bg-6"}/>
                 </div>

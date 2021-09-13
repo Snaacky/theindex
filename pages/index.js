@@ -36,61 +36,76 @@ export default function Home(
             <meta name="twitter:card" content="summary"/>
         </Head>
 
-        <h2>
-            Currently popular <Link href={"/items"}>items</Link>
-        </h2>
-        <div className={"d-flex flex-wrap"}>
+        <div className={"row"}>
+            <div className={"col"}>
+                <h2 className={"mb-0"}>
+                    Currently popular <Link href={"/items"}>items</Link>
+                </h2>
+                <div className={"mb-3 text-muted"}>
+                    According to recent view counts
+                </div>
+            </div>
+
+            <div className={"col-auto"}>
+                <Link href={"/items"}>
+                    <a className={"btn btn-primary"}>
+                        View all items
+                    </a>
+                </Link>
+            </div>
+        </div>
+        <div className={"d-flex flex-wrap mb-4"}>
             {items.map(item => {
                 return <ItemCard item={item} key={item._id}/>
             })}
         </div>
-        <div className={"mb-4"}>
-            <Link href={"/items"}>
-                <a className={"btn btn-primary"}>
-                    View all items
-                </a>
-            </Link>
-            <span className={"float-end me-2 text-muted"}>
-                According to recent view counts
-            </span>
-        </div>
 
-        <h2>
-            Currently popular <Link href={"/collections"}>collections</Link>
-        </h2>
-        <div className={"d-flex flex-wrap"}>
+        <div className={"row"}>
+            <div className={"col"}>
+                <h2 className={"mb-0"}>
+                    Currently popular <Link href={"/collections"}>collections</Link>
+                </h2>
+                <div className={"mb-3 text-muted"}>
+                    According to recent view counts
+                </div>
+            </div>
+
+            <div className={"col-auto"}>
+                <Link href={"/collections"}>
+                    <a className={"btn btn-primary"}>
+                        View all collections
+                    </a>
+                </Link>
+            </div>
+        </div>
+        <div className={"d-flex flex-wrap mb-4"}>
             {collections.map(collection => {
                 return <CollectionCard collection={collection} key={collection._id}/>
             })}
         </div>
-        <div className={"mb-4"}>
-            <Link href={"/collections"}>
-                <a className={"btn btn-primary"}>
-                    View all collections
-                </a>
-            </Link>
-            <span className={"float-end me-2 text-muted"}>
-                According to recent view counts
-            </span>
-        </div>
 
-        <h2>
-            Currently popular <Link href={"/lists"}>lists</Link>
-        </h2>
-        <div className={"d-flex flex-wrap"}>
+        <div className={"row"}>
+            <div className={"col"}>
+                <h2 className={"mb-0"}>
+                    Currently popular <Link href={"/lists"}>lists</Link>
+                </h2>
+                <div className={"mb-3 text-muted"}>
+                    According to recent view counts
+                </div>
+            </div>
+
+            <div className={"col-auto"}>
+                <Link href={"/lists"}>
+                    <a className={"btn btn-primary"}>
+                        View all user lists
+                    </a>
+                </Link>
+            </div>
+        </div>
+        <div className={"d-flex flex-wrap mb-4"}>
             {lists.map(list => {
                 return <ListCard list={list} key={list._id}/>
             })}
-        </div>
-        <div className={"mb-4"}>
-            <Link href={"/lists"}>
-                <a className={"btn btn-primary"}>
-                    View all user lists
-                </a>
-            </Link>
-            <span className={"float-end me-2 text-muted"}>
-                According to recent view counts
-            </span>
         </div>
 
     </>
