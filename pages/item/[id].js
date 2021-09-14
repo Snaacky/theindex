@@ -130,9 +130,9 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                     </div>
                 </div>
                 <Image src={"/api/item/screenshot/" + item._id} width={"1280px"} height={"720px"}
-                       layout={"responsive"} className={"rounded"}/>
+                       layout={"responsive"} className={"rounded"} alt={"Screenshot of the site " + item.name}/>
                 <div className={"text-muted float-end"}>
-                    Captured screenshot of the site
+                    Captured screenshot of the site <code>{item.urls[0]}</code>
                 </div>
             </div>
         </div>

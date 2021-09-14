@@ -1,5 +1,6 @@
 .row {
     width: 100%;
+    margin-right: 0.5rem;
     border-right: 3px solid var(--bg-2);
     transition: border-right-color ease-in-out 0.1s;
 }

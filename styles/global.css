@@ -63,8 +63,9 @@ main {
     color: white;
 }
 
-a:not(.link-light):not(.btn):not(.alert-link) {
+a:not(.btn) {
     color: var(--a-color);
+    transition: color 0.1s ease-in-out;
     text-decoration: none;
 }
 

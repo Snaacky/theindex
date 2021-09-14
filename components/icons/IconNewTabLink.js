@@ -1,9 +1,11 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {isValidUrl} from "../../lib/utils"
+import styles from "./IconNewTabLink.module.css"
 
 export default function IconNewTabLink({url, size}) {
     if (isValidUrl(url)) {
-        return <a className={"ms-2"} target={"_blank"} href={url} rel="noreferrer" title={"Open in new tab"}>
+        return <a className={styles.link + " ms-2"} target={"_blank"} href={url} rel="noreferrer"
+                  title={"Open in new tab"}>
             <FontAwesomeIcon icon={["fas", "external-link-alt"]} size={size}/>
         </a>
     }

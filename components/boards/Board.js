@@ -276,7 +276,7 @@ export default class Board extends React.Component {
                     </span>
                 </div>
             </div>
-            <div className={"d-flex flex-wrap mb-2"}>
+            <div className={"d-flex flex-wrap mb-2"}  style={{marginRight: "-0.5rem"}}>
                 {this.state.content.filter(c => c.name.toLowerCase()
                     .includes(this.state.searchString.toLowerCase())
                 ).length === 0 ? <span className={"text-muted"}>
