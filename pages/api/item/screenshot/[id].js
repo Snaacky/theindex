@@ -21,7 +21,7 @@ export default async function handler(req, res) {
             } else {
                 if (isAdmin(session)) {
                     console.log("Admin and missing screenshot, creating new")
-                    createScreenshot(item).then(() => console.log("Screenshot", item._id, "created"))
+                    createScreenshot(item._id).then(() => console.log("Screenshot", item._id, "created"))
                 }
                 fs.createReadStream("public/no-screenshot.png").pipe(res)
             }

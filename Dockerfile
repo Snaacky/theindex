@@ -51,7 +51,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Required ENV
-ENV ROOT_URL="https://piracy.moe"
+ENV NEXTAUTH_URL="https://piracy.moe"
 ENV DATABASE_URL="mongodb://mongo:27017"
 ENV AUDIT_WEBHOOK=""
 
