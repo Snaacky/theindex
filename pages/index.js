@@ -49,7 +49,7 @@ export default function Home(
             <div className={"col-auto"}>
                 <Link href={"/items"}>
                     <a className={"btn btn-primary"}>
-                        View all items
+                        View all
                     </a>
                 </Link>
             </div>
@@ -73,7 +73,7 @@ export default function Home(
             <div className={"col-auto"}>
                 <Link href={"/collections"}>
                     <a className={"btn btn-primary"}>
-                        View all collections
+                        View all
                     </a>
                 </Link>
             </div>
@@ -97,7 +97,7 @@ export default function Home(
             <div className={"col-auto"}>
                 <Link href={"/lists"}>
                     <a className={"btn btn-primary"}>
-                        View all user lists
+                        View all
                     </a>
                 </Link>
             </div>
