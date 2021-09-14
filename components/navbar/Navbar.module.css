@@ -2,7 +2,6 @@
 .sidebar {
     background: var(--bg-2);
     color: #fff;
-    z-index: 1200;
     visibility: visible;
     opacity: 1;
 }

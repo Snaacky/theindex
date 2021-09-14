@@ -60,7 +60,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
 
 
         <div className={"row"}>
-            <div className={"col-12 col-md-4"}>
+            <div className={"col-12 col-md-4 col-lg-6 col-xl-4"}>
                 <h2>
                     <IconItem/> {item.blacklist ? <span className={"text-danger"}>
                             Blacklisted: <del>{item.name}</del>
@@ -106,7 +106,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                 </p>
             </div>
 
-            <div className={"col-12 col-md-8 position-relative"}>
+            <div className={"col-12 col-md-8 col-lg-6 col-xl-8 position-relative"}>
                 <div className={"position-absolute"} style={{
                     top: 0,
                     right: "0.75rem",

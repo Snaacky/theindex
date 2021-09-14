@@ -20,8 +20,8 @@ export default function Modal({head, body, footer, close}) {
     })
     return <div className={styles.modal + " modal fade show"} tabIndex={"-1"} role={"dialog"}>
         <div className={"modal-dialog"}>
-            <div className={"modal-content"} ref={ref}>
-                <div className={styles.content + " " + styles.header + " modal-header"}>
+            <div className={styles.modalContent + " modal-content"} ref={ref}>
+                <div className={styles.header + " modal-header"}>
                     <h4 className={"modal-title"}>
                         {head}
                     </h4>
@@ -29,10 +29,10 @@ export default function Modal({head, body, footer, close}) {
                         &times;
                     </button>
                 </div>
-                <div className={styles.content + " modal-body"}>
+                <div className={"modal-body"}>
                     {body}
                 </div>
-                <div className={styles.content + " " + styles.footer + " modal-footer"}>
+                <div className={styles.footer + " modal-footer"}>
                     {footer}
                     <button type={"button"} className={"btn btn-outline-secondary"} onClick={close}>
                         Close
