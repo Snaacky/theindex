@@ -18,7 +18,7 @@ export default function IconStar({item, size}) {
         return <Error error={error} statusCode={error.status}/>
     }
 
-    if (user) {
+    if (user && user.favs) {
         const diff = userFav.filter(x => !user.favs.includes(x))
             .concat(user.favs.filter(x => !userFav.includes(x)))
         if (diff.length > 0) {
