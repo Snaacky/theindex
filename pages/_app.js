@@ -46,7 +46,7 @@ export default function App({Component, pageProps}) {
         return () => {
             router.events.off('routeChangeComplete', handleRouteChange)
         }
-    }, [])
+    })
 
     return <Provider session={pageProps.session}>
         <SWRConfig value={{
