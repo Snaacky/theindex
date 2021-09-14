@@ -111,7 +111,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                 }}>
                     <div className={"position-relative px-1 pt-1"} style={{
                         zIndex: 200,
-                        background: "rgba(0, 0, 0, 0.25)",
+                        background: "rgba(0, 0, 0, 0.5)",
                         borderBottomLeftRadius: "0.25rem"
                     }}>
                         {item.sponsor ? <span className={"me-2"}>
