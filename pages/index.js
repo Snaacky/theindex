@@ -54,7 +54,7 @@ export default function Home(
                 </Link>
             </div>
         </div>
-        <div className={"d-flex flex-wrap mb-4"}>
+        <div className={"d-flex flex-wrap mb-4"} style={{marginRight: "-0.5rem"}}>
             {items.map(item => {
                 return <ItemCard item={item} key={item._id}/>
             })}
@@ -78,7 +78,7 @@ export default function Home(
                 </Link>
             </div>
         </div>
-        <div className={"d-flex flex-wrap mb-4"}>
+        <div className={"d-flex flex-wrap mb-4"} style={{marginRight: "-0.5rem"}}>
             {collections.map(collection => {
                 return <CollectionCard collection={collection} key={collection._id}/>
             })}
@@ -102,7 +102,7 @@ export default function Home(
                 </Link>
             </div>
         </div>
-        <div className={"d-flex flex-wrap mb-4"}>
+        <div className={"d-flex flex-wrap mb-4"} style={{marginRight: "-0.5rem"}}>
             {lists.map(list => {
                 return <ListCard list={list} key={list._id}/>
             })}
