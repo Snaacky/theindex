@@ -1,6 +1,7 @@
 import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
+import Image from "next/image"
 import {useSession} from "next-auth/client"
 import {canEdit} from "../../lib/session"
 import {getItem, getItems} from "../../lib/db/items"
@@ -57,60 +58,85 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
             }
         </Head>
 
-        <h2>
-            <IconItem/> {item.blacklist ? <span className={"text-danger"}>
+
+        <div className={"row"}>
+            <div className={"col-12 col-md-4"}>
+                <h2>
+                    <IconItem/> {item.blacklist ? <span className={"text-danger"}>
                             Blacklisted: <del>{item.name}</del>
                         </span> : item.name}
-            <IconNewTabLink url={item.urls[0]}/>
-            {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
-                <a title={"Edit item"} className={"ms-2"}>
-                    <IconEdit/>
-                </a>
-            </Link> : <></>}
-            <span style={{fontSize: "1.2rem"}}>
-                {collectionsContainingItem.map(t => {
-                    return <Link href={"/collection/" + t.urlId} key={t._id}>
-                        <a className={"ms-2"} title={"View collection " + t.name}>
-                            <DataBadge name={t.name} style={"primary"}/>
+                    <IconNewTabLink url={item.urls[0]}/>
+                    {canEdit(session) ? <Link href={"/edit/item/" + item._id}>
+                        <a title={"Edit item"} className={"ms-2"}>
+                            <IconEdit/>
                         </a>
-                    </Link>
-                })}
-                <div className={"float-end"}>
-                    {item.sponsor ? <IconSponsor/> : <></>}
-                    {item.nsfw ?
-                        <span className={"ms-2"}>
-                            <IconNSFW/>
-                        </span> : <></>
-                    }
-                    <span className={"ms-2"}>
-                        <IconStar item={item}/>
+                    </Link> : <></>}
+                    <span style={{fontSize: "1.2rem"}}>
+                        {collectionsContainingItem.map(t => {
+                            return <Link href={"/collection/" + t.urlId} key={t._id}>
+                                <a className={"ms-2"} title={"View collection " + t.name}>
+                                    <DataBadge name={t.name} style={"primary"}/>
+                                </a>
+                            </Link>
+                        })}
                     </span>
-                    <span className={"ms-2"}>
-                        <IconBookmark item={item}/>
-                    </span>
+                </h2>
+
+                <div className={"d-flex flex-wrap mb-2"}>
+                    {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
+                                             className={"me-2"}>
+                        <DataBadge name={url} style={"primary"}/>
+                    </a>)}
                 </div>
-            </span>
-        </h2>
-        <div className={"d-flex flex-wrap mb-2"}>
-            {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
-                                     className={"me-2"}>
-                <DataBadge name={url} style={"primary"}/>
-            </a>)}
+
+                <div>
+                    <span>
+                        Status <OnlineStatus url={item.urls[0]}/>
+                    </span>
+                    <small className={"text-warning me-2"} title={item.stars + " users have starred this item"}>
+                        {item.stars}
+                        <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
+                    </small>
+                </div>
+
+                <p style={{
+                    whiteSpace: "pre-line"
+                }}>
+                    {item.description}
+                </p>
+            </div>
+
+            <div className={"col-12 col-md-8 position-relative"}>
+                <div className={"position-absolute"} style={{
+                    top: 0,
+                    right: "0.75rem",
+                }}>
+                    <div className={"position-relative px-1 pt-1"} style={{
+                        zIndex: 200,
+                        background: "rgba(0, 0, 0, 0.25)",
+                        borderBottomLeftRadius: "0.25rem"
+                    }}>
+                        {item.sponsor ? <span className={"me-2"}>
+                                <IconSponsor/>
+                            </span> : <></>}
+                        {item.nsfw ? <span className={"me-2"}>
+                                <IconNSFW/>
+                            </span> : <></>
+                        }
+                        <IconStar item={item}/>
+                        <span className={"ms-2"}>
+                            <IconBookmark item={item}/>
+                        </span>
+                    </div>
+                </div>
+                <Image src={"/api/item/screenshot/" + item._id} width={"1280px"} height={"720px"}
+                       layout={"responsive"} className={"rounded"}/>
+                <div className={"text-muted float-end"}>
+                    Captured screenshot of the site
+                </div>
+            </div>
         </div>
-        <span>
-            <span>
-                Status <OnlineStatus url={item.urls[0]}/>
-            </span>
-            <small className={"text-warning me-2"} title={item.stars + " users have starred this item"}>
-                {item.stars}
-                <FontAwesomeIcon icon={["fas", "star"]} className={"ms-1"}/>
-            </small>
-        </span>
-        <p style={{
-            whiteSpace: "pre-line"
-        }}>
-            {item.description}
-        </p>
+
 
         {item.blacklist ? <div className={"card bg-2 my-2"}>
             <div className={"card-body"}>

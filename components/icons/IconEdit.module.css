@@ -1,6 +1,6 @@
 .edit,
 a > .edit {
-    color: var(--bs-secondary);
+    color: var(--a-color);
     transition: color 0.1s ease-in-out;
 }
 

@@ -8,6 +8,8 @@
     --bg-7: #313131;
     --bg-8: #373737;
     --accent-color: var(--bs-primary);
+    --a-color: #c6c6c6;
+    --a-hover-color: #2a6496;
 }
 
 html,
@@ -62,10 +64,10 @@ main {
 }
 
 a:not(.link-light):not(.btn):not(.alert-link) {
-    color: #c6c6c6;
+    color: var(--a-color);
     text-decoration: none;
 }
 
 a:not(.btn):hover {
-    color: #2a6496;
+    color: var(--a-hover-color);
 }

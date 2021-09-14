@@ -1,7 +1,7 @@
 import React from "react"
 import Image from "next/image"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import EditSelectImg from "./EditSelectImg";
+import EditSelectImg from "./EditSelectImg"
 
 export default class EditCollection extends React.Component {
     constructor({collections, _id, urlId, img, name, nsfw, description}) {
