@@ -61,20 +61,24 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
             <meta name="twitter:description" content={column.description}/>
         </Head>
 
-        <h2>
-            <IconColumn/> {column.name}
-            {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
-                <a className={"ms-2"} title={"Edit column"}>
-                    <IconEdit/>
-                </a>
-            </Link> : ""}
-            <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+        <div className={"row"}>
+            <div className={"col"}>
+                <h2>
+                    <IconColumn/> {column.name}
+                    {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
+                        <a className={"ms-2"} title={"Edit column"}>
+                            <IconEdit/>
+                        </a>
+                    </Link> : ""}
+                </h2>
+            </div>
+            <div className={"mb-2 col-auto"}>
                 {column.nsfw ? <IconNSFW/> : <></>}
                 <span className={"ms-2"}>
                     <ViewAllButton type={"columns"}/>
                 </span>
-            </span>
-        </h2>
+            </div>
+        </div>
         <p style={{
             whiteSpace: "pre-line"
         }}>
@@ -93,7 +97,7 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
             </div>
         </div>
 
-        <div className={"d-flex flex-wrap mt-2"}>
+        <div className={"d-flex flex-wrap mt-2"} style={{marginRight: "-0.5rem"}}>
             {filteredItems.length === 0 ? <span className={"text-muted"}>No items found</span> : <></>}
             {filteredItems.map(i => {
                 return <ItemCard item={i} columns={columns} key={i._id}/>

@@ -21,6 +21,7 @@ import IconItem from "../../components/icons/IconItem"
 import OnlineStatus from "../../components/data/OnlineStatus"
 import IconNSFW from "../../components/icons/IconNSFW"
 import IconSponsor from "../../components/icons/IconSponsor"
+import UrlBadge from "../../components/data/UrlBadge"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
@@ -71,22 +72,19 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
                             <IconEdit/>
                         </a>
                     </Link> : <></>}
-                    <span style={{fontSize: "1.2rem"}}>
-                        {collectionsContainingItem.map(t => {
-                            return <Link href={"/collection/" + t.urlId} key={t._id}>
-                                <a className={"ms-2"} title={"View collection " + t.name}>
-                                    <DataBadge name={t.name} style={"primary"}/>
-                                </a>
-                            </Link>
-                        })}
-                    </span>
                 </h2>
+                <div className={"mb-2"}>
+                    {collectionsContainingItem.map(t => {
+                        return <Link href={"/collection/" + t.urlId} key={t._id}>
+                            <a className={"me-2 mb-2"} title={"View collection " + t.name}>
+                                <DataBadge name={t.name} style={"primary"}/>
+                            </a>
+                        </Link>
+                    })}
+                </div>
 
-                <div className={"d-flex flex-wrap mb-2"}>
-                    {item.urls.map(url => <a href={url} target={"_blank"} rel={"noreferrer"} key={url}
-                                             className={"me-2"}>
-                        <DataBadge name={url} style={"primary"}/>
-                    </a>)}
+                <div className={"d-flex flex-wrap"}>
+                    {item.urls.map(url => <UrlBadge url={url} key={url}/>)}
                 </div>
 
                 <div>

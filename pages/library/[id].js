@@ -33,20 +33,24 @@ export default function Tab({_id, library: staticLibrary}) {
             <meta name="twitter:description" content={library.description}/>
         </Head>
 
-        <h2>
-            <IconLibrary/> {library.name}
-            {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
-                <a title={"Edit tab"} className={"ms-2"}>
-                    <IconEdit/>
-                </a>
-            </Link> : <></>}
-            <span className={"float-end"} style={{fontSize: "1.2rem"}}>
+        <div className={"row"}>
+            <div className={"col"}>
+                <h2>
+                    <IconLibrary/> {library.name}
+                    {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
+                        <a title={"Edit tab"} className={"ms-2"}>
+                            <IconEdit/>
+                        </a>
+                    </Link> : <></>}
+                </h2>
+            </div>
+            <div className={"col-auto mb-2"}>
                 {library.nsfw ? <IconNSFW/> : <></>}
                 <span className={"ms-2"}>
                     <ViewAllButton type={"libraries"}/>
                 </span>
-            </span>
-        </h2>
+            </div>
+        </div>
         <p style={{
             whiteSpace: "pre-line"
         }}>

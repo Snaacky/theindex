@@ -43,7 +43,7 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta name="twitter:image" content={collection.img}/>
         </Head>
 
-        <div className={"row"} style={{marginTop: "3rem"}}>
+        <div className={"row"} style={{marginTop: "3.5rem"}}>
             <div className={"col-auto"}>
                 <div className={"d-absolute mb-2"} style={{marginTop: "-3.2rem"}}>
                     <Image src={"/img/" + collection.img} alt={"Image of collection"} width={"148px"} height={"148px"}
@@ -60,33 +60,33 @@ export default function Collection({_id, collection: staticCollection, libraries
                                     <IconEdit/>
                                 </a>
                             </Link> : <></>}
-                            <span style={{fontSize: "1.2rem"}}>
-                                {librariesContainingCollection.map(t => {
-                                    return <Link href={"/library/" + t.urlId} key={t._id}>
-                                        <a title={"View library" + t.name}>
-                                            <div className={"badge rounded-pill bg-primary ms-2"}>
-                                                {t.name}
-                                            </div>
-                                        </a>
-                                    </Link>
-                                })}
-                            </span>
                         </h2>
                     </div>
-                    <div className={"col-auto"}>
+                    <div className={"col-12 col-md-auto mb-2"}>
                         {collection.nsfw ? <IconNSFW/> : <></>}
                         <span className={"ms-2"}>
                             <ViewAllButton type={"collections"}/>
                         </span>
                     </div>
                 </div>
-                <p style={{
-                    whiteSpace: "pre-line"
-                }}>
-                    {collection.description}
-                </p>
+                <div>
+                    {librariesContainingCollection.map(t => {
+                        return <Link href={"/library/" + t.urlId} key={t._id}>
+                            <a title={"View library" + t.name}>
+                                <div className={"badge rounded-pill bg-primary mb-2 me-2"}>
+                                    {t.name}
+                                </div>
+                            </a>
+                        </Link>
+                    })}
+                </div>
             </div>
         </div>
+        <p style={{
+            whiteSpace: "pre-line"
+        }}>
+            {collection.description}
+        </p>
 
         <ItemBoard _id={collection._id} items={collection.items} columns={collection.columns} key={collection._id}
                    canEdit={canEdit(session)}/>
