@@ -33,7 +33,12 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install the dependencies
 COPY package.json .
 COPY package-lock.json .
-RUN npm ci --silent
+# we want curl for the healthcheck, wget
+RUN apt update -y && \
+    apt install --no-install-recommends -y curl && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    npm ci --silent
 
 # build the web app
 COPY . .
