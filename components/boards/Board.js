@@ -299,7 +299,7 @@ export default class Board extends React.Component {
             </div>
             {this.state.editView ? <>
                 <hr/>
-                <div className={"d-flex flex-wrap mb-2"}>
+                <div className={"d-flex flex-wrap mb-2"} style={{marginRight: "-0.5rem"}}>
                     {this.state.unselectedContent.filter(c => c.name.toLowerCase()
                         .includes(this.state.searchString.toLowerCase())
                     ).length === 0 ?
