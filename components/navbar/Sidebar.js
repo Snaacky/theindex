@@ -14,12 +14,16 @@ import LoginOrOutButton from "../buttons/LoginOrOutButton"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
 import NavbarToggler from "./NavbarToggler"
+import {isAdmin} from "../../lib/session"
+import {useSession} from "next-auth/client"
+import IconAdmin from "../icons/IconAdmin"
 
 function Sidebar(
     {
         show,
         setShow
     }, ref) {
+    const [session] = useSession()
     const {data, error} = useSWR("/api/libraries")
     if (error) {
         return <div>failed to load</div>
@@ -38,12 +42,19 @@ function Sidebar(
 
         <div className="offcanvas-body">
             <nav role={"navigation"}>
-                <div className={styles.mobile}>
-                    <ul className={"nav nav-pills flex-column"}>
-                        <NavbarUser/>
-                    </ul>
-                    <hr/>
-                </div>
+                <ul className={"nav nav-pills flex-column"}>
+                    <NavbarUser/>
+                    {isAdmin(session) ?
+                        <li className={"nav-item"}>
+                            <Link href={"/admin"}>
+                                <a className={"nav-link"} title={"Admin settings"}>
+                                    <IconAdmin/> Admin
+                                </a>
+                            </Link>
+                        </li> : <></>
+                    }
+                </ul>
+                <hr/>
 
                 <ul className={"nav nav-pills flex-column"}>
                     {libraries.length === 0 ?

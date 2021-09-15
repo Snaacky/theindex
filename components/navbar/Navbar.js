@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import {useEffect, useRef, useState} from "react"
 import styles from "./Navbar.module.css"
 import {useInViewport} from 'react-in-viewport'
@@ -7,6 +8,9 @@ import NavbarBrand from "./NavbarBrand"
 import NavbarOutsideToggler from "./NavbarOutsideToggler"
 import Sidebar from "./Sidebar"
 import NavbarToggler from "./NavbarToggler"
+import IconItem from "../icons/IconItem"
+import IconLibrary from "../icons/IconLibrary"
+import IconCollection from "../icons/IconCollection"
 
 export default function Navbar() {
     const [show, setShow] = useState(false)
@@ -48,36 +52,72 @@ export default function Navbar() {
             <div className={"container-fluid"}>
                 <NavbarBrand/>
                 <div className={"collapse navbar-collapse me-2"}>
-                    <div className={"ms-auto d-flex flex-row"}>
-                        <ul className={styles.desktop + " nav nav-pills"}>
+                    <div className={"d-flex flex-row"}>
+                        <ul className={styles.listAll + " nav nav-pills"}>
                             <li className={"nav-item"}>
-                                <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
+                                <Link href={"/libraries"}>
+                                    <a className={"nav-link"}>
+                                        <IconLibrary/>
+                                        <span className={styles.listAllText + " ms-1"}>
+                                            Libraries
+                                        </span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className={"nav-item"}>
+                                <Link href={"/items"}>
+                                    <a className={"nav-link"}>
+                                        <IconCollection/>
+                                        <span className={styles.listAllText + " ms-1"}>
+                                            Collections
+                                        </span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className={"nav-item"}>
+                                <Link href={"/items"}>
+                                    <a className={"nav-link"}>
+                                        <IconItem/>
+                                        <span className={styles.listAllText + " ms-1"}>
+                                            Items
+                                        </span>
+                                    </a>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={"ms-auto d-flex flex-row"}>
+                        <ul className={"nav nav-pills"}>
+                            <li className={styles.desktop + " nav-item"}>
+                                <a className={"nav-link"} href="https://wiki.piracy.moe/">
                                     <Image src={"/icons/wikijs.svg"} height={16} width={16}
                                            alt={"Wiki.js logo"}/>
-                                    <span className={"ms-1"}>
-                                    Wiki
-                                </span>
+                                    <span className={styles.services + " ms-1"}>
+                                        Wiki
+                                    </span>
                                 </a>
                             </li>
-                            <li className={"nav-item"}>
-                                <a className={"nav-link"} href="https://status.piracy.moe/" key={"status"}>
+                            <li className={styles.desktop + " nav-item"}>
+                                <a className={"nav-link"} href="https://status.piracy.moe/">
                                     <Image src={"/icons/status.png"} height={16} width={16}
                                            alt={"Checkly logo"}/>
-                                    <span className={"ms-1"}>
-                                    Status
-                                </span>
+                                    <span className={styles.services + " ms-1"}>
+                                        Status
+                                    </span>
                                 </a>
                             </li>
-                            <li className={"nav-item"}>
-                                <a className={"nav-link"} href="https://releases.moe/" key={"seadex"}>
+                            <li className={styles.desktop + " nav-item"}>
+                                <a className={"nav-link"} href="https://releases.moe/">
                                     <Image src={"/icons/seadex.png"} height={16} width={16}
                                            alt={"Seadex logo"}/>
-                                    <span className={"ms-1"}>
-                                    SeaDex
-                                </span>
+                                    <span className={styles.services + " ms-1"}>
+                                        SeaDex
+                                    </span>
                                 </a>
                             </li>
-                            <NavbarUser/>
+                            <span className={styles.listAll}>
+                                <NavbarUser className={styles.username}/>
+                            </span>
                         </ul>
                         <NavbarToggler show={show} onClick={() => setShow(!show)} ref={navbarToggleRef}
                                        className={(!show ? styles.show : "") + " ms-2"}/>

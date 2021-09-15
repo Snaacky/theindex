@@ -67,14 +67,14 @@
  * Hide/Show navitems in desktop-mode
  */
 @media (min-width: 900px) {
-    .outside,
-    .mobile {
+    .outside {
         display: none;
     }
 }
 
 @media (max-width: 900px) {
-    .desktop {
+    .desktop,
+    .listAllText {
         display: none;
     }
 
@@ -84,9 +84,25 @@
 }
 
 /**
+ * Hide username on smaller screens
+ */
+@media (max-width: 1200px) {
+    .username {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .services {
+        display: none;
+    }
+}
+
+/**
  * Manage toggle visibility on small screens
  */
 @media (max-width: 600px) {
+    .listAll,
     .navbar .toggler:not(.show),
     .outside .toggler:not(.show) {
         display: none;
