@@ -65,7 +65,7 @@ export default function Navbar() {
                                 </Link>
                             </li>
                             <li className={"nav-item"}>
-                                <Link href={"/items"}>
+                                <Link href={"/collections"}>
                                     <a className={"nav-link"}>
                                         <IconCollection/>
                                         <span className={styles.listAllText + " ms-1"}>
