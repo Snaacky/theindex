@@ -15,18 +15,12 @@ Please report incorrect or missing data at our [Discord server](https://discord.
 
 ## Getting started
 
-The easiest way is to get started is by using Docker with the following command:
+The easiest way is to get started is by using Docker Compose. You need to copy
+the [`docker-compose.yml`](docker-compose.yml) and [`example.env`](example.env) file from GitHub. Rename `example.env`
+to `.env` and adjust the environment variables as you need to. with the following command:
 
 ```shell
-docker run -d \
-    -p <host-port>:8080 \
-    -e DATABASE_URL="mongodb:///mongo:27017" \
-    -e NEXTAUTH_URL="https://piracy.moe" \
-    -e DISCORD_CLIENT_ID="00000000000" \
-    -e DISCORD_CLIENT_SECRET="secret" \
-    -e SETUP_WHITELIST_DISCORD_ID="00000000000" \
-    --name=index \
-    ranimepiracy/index
+docker-compose up -d
 ```
 
 You'll need to change `<host-port>` to your port of choice. The web-server is not secured via SSL/TLS, it is in your
@@ -78,19 +72,75 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 ## Parameters
 
-Here is a collection of the possible ENV-variables with their default values. Note that OAuth2 is only functional with
-discord and has not been tested with anything else.
+Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
-| Parameter | Function |
-| :---- | --- |
-| `-e AUDIT_WEBHOOK=""` | Webhook-URL for audit-log |
-| `-e DISCORD_CLIENT_ID=00000000000` | Discord OAuth2 client ID |
-| `-e DISCORD_CLIENT_SECRET="your_discord_client_secret"` | Discord OAuth2 client secret |
-| `-e NEXTAUTH_URL="https://piracy.moe"` | Your domain or IP |
-| `-e DISCORD_BOT_TOKEN="your_discord_bot_token"` | Required to access BOT resources |
-| `-e DATABASE_URL="mongodb://mongo:27017"` | take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) |
+| Parameter | Function | Default |
+| --- | --- | --- |
+| `NEXTAUTH_URL` | Your domain or IP | `"https://piracy.moe"` |
+| `DATABASE_URL` | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) | `"mongodb://mongo:27017"` |
+| `CHROME_URL` | WebSocket URL to a running chrome instance | `""ws://chrome:3300"` |
+| `AUDIT_WEBHOOK` | WebHook-URL for audit-log, leave empty to disable support | `""` |
+| `DISCORD_CLIENT_ID` | Discord OAuth2 client ID | `"your_discord_oauth_client_id"` |
+| `DISCORD_CLIENT_SECRET` | Discord OAuth2 client secret | `"your_discord_oauth_client_secret"` |
+| `DISCORD_BOT_TOKEN` | Required to access BOT resources | `"your_discord_bot_token"` |
+| `SETUP_WHITELIST_DISCORD_ID=` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop) | `"your_discord_id"` |
+| `MEILI_MASTER_KEY` | Set a random secure string, read more about [meili](https://docs.meilisearch.com/reference/features/authentication.html) | `"a_super_secret_long_randomly_generated_string_that_is_secure"` |
+
+And the following env variables are only needed when you are in dev mode and debugging the db
+
+| Parameter | Function | Default |
+| --- | --- | --- |
+| `ME_CONFIG_BASICAUTH_USERNAME` | [mongo-express](https://github.com/mongo-express/mongo-express) username | "admin" |
+| `ME_CONFIG_BASICAUTH_PASSWORD` | [mongo-express](https://github.com/mongo-express/mongo-express) password | "SUPER_SECRET" |
 
 ## Getting started to code
+
+### Setup around the web app
+
+1. Getting started isn't that straight forward. You will need to have installed the latest version
+   of [docker with docker-compose](https://docs.docker.com/get-docker/) on your machine.
+
+2. Start by cloning the repo via a git client (highly recommended) or use the cli via
+
+```shell
+git clone https://github.com/ranimepiracy/index
+```
+
+3. Copy the [`example.env`](example.env) file to `.env` and insert your data. Don't forget to replace the names in the
+   urls with localhost instead of e.g. mongo as you will not be running the nextJS app inside this compose stack
+
+4. Add the following ports to the images in the [`docker-compose.yml`](docker-compose.yml) file:
+
+| service | port-mapping |
+| :---- | --- |
+| `mongo` | `27017:27017` |
+| `meili` | `7700:7700` |
+| `chrome` | `3300:3000` |
+
+As an example, the setup for `mongo` should look similar to this:
+
+```yml
+mongo:
+  image: mongo
+  container_name: index-db
+  restart: unless-stopped
+  ports:
+    - 27017:27017
+  volumes:
+    - ./db:/data/db
+```
+
+5. Now run the command to start all the needed backend processes
+
+```shell
+docker-compose up -d mongo meili chrome mongo-express
+```
+
+Alternatively you can also just comment the index service and instead run the command
+
+```shell
+docker-compose up -d
+```
 
 ### Web service
 

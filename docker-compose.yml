@@ -5,24 +5,30 @@ services:
     container_name: index-web
     restart: unless-stopped
     ports:
-      - 8080:3000
+      - 3000:3000
     environment:
-      NEXTAUTH_URL: "https://piracy.moe"
-      # uncomment the following if you are using your own db setup
-      # DATABASE_URL: "mongodb://mongo:27017"
-      AUDIT_WEBHOOK: ""
+      # domain url for sessions
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
+
+      # provide your own url to your own db setup
+      DATABASE_URL: ${DATABASE_URL}
+
+      # pass your own running chrome instance
+      CHROME_URL: ${CHROME_URL}
+
+      AUDIT_WEBHOOK: ${AUDIT_WEBHOOK}
 
       # OAuth2
-      DISCORD_CLIENT_ID: 00000000000
-      DISCORD_CLIENT_SECRET: "secret"
-      DISCORD_BOT_TOKEN: "your_discord_bot_token"
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
 
       # Setup login whitelist
-      # remove once set up
-      SETUP_WHITELIST_DISCORD_ID: 00000000000
+      SETUP_WHITELIST_DISCORD_ID: ${SETUP_WHITELIST_DISCORD_ID}
     depends_on:
       - mongo
       - meili
+      - chrome
 
   mongo:
     image: mongo
@@ -31,23 +37,29 @@ services:
     volumes:
       - ./db:/data/db
 
+  meili:
+    image: getmeili/meilisearch
+    container_name: index-meili
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+
+  chrome:
+    image: browserless/chrome
+    container_name: index-chrome
+    restart: unless-stopped
+
+  # this will not run if not explicitly called via docker-compose --profile dev
   mongo-express:
     image: mongo-express
     container_name: mongo-express
-    restart: unless-stopped
+    profiles:
+      - "dev"
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_BASICAUTH_USERNAME: admin
-      ME_CONFIG_BASICAUTH_PASSWORD: "SUPER_SECRET"
+      ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
+      ME_CONFIG_SITE_GRIDFS_ENABLED: "true"
     depends_on:
       - mongo
-
-  meili:
-    image: getmeili/meilisearch
-    container_name: meili
-    restart: unless-stopped
-    ports:
-      - 7700:7700
-    environment:
-      MEILI_MASTER_KEY: "SUPER_SECRET"
