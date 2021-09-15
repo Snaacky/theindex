@@ -1,6 +1,8 @@
 import "@fortawesome/fontawesome-svg-core/styles.css"
+import "react-toastify/dist/ReactToastify.min.css"
 // custom css
 import "../styles/global.css"
+
 import {Provider, useSession} from "next-auth/client"
 import {library} from "@fortawesome/fontawesome-svg-core"
 import {fab} from "@fortawesome/free-brands-svg-icons"
@@ -16,6 +18,7 @@ import NotAdmin from "../components/layout/NotAdmin"
 import NotLogin from "../components/layout/NotLogin"
 import NoScriptAlert from "../components/alerts/NoScriptAlert"
 import BetaAlert from "../components/alerts/BetaAlert"
+import {toast} from "react-toastify"
 
 library.add(fab, fas, far)
 
@@ -50,8 +53,17 @@ export default function App({Component, pageProps}) {
 
     return <Provider session={pageProps.session}>
         <SWRConfig value={{
-            // refreshInterval: 4000, // try to not rely on that
-            fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+            fetcher: (resource, init) => fetch(resource, init).then(res => res.json()),
+            onError: (error, key) => {
+                toast.error(<div>
+                    <div>
+                        {error.toString()}
+                    </div>
+                    <code>
+                        {key}
+                    </code>
+                </div>)
+            }
         }}>
             <Layout>
                 <Auth auth={Component.auth}>

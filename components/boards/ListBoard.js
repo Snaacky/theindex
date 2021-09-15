@@ -1,6 +1,5 @@
 import Board from "./Board"
 import Loader from "../loading"
-import Error from "../../pages/_error"
 import useSWR from "swr"
 
 export default function ListBoard(
@@ -15,10 +14,7 @@ export default function ListBoard(
         canEdit = false
     }) {
     const {data: allLists, error} = useSWR("/api/lists")
-
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    } else if (!allLists) {
+    if (error || !allLists) {
         return <Loader/>
     }
 

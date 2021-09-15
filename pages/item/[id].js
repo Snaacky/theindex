@@ -10,7 +10,6 @@ import IconEdit from "../../components/icons/IconEdit"
 import DataBadge from "../../components/data/DataBadge"
 import {splitColumnsIntoTypes} from "../../lib/item"
 import useSWR from "swr"
-import Error from "../_error"
 import IconStar from "../../components/icons/IconStar"
 import IconBookmark from "../../components/icons/IconBookmark"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -25,17 +24,10 @@ import UrlBadge from "../../components/data/UrlBadge"
 
 export default function Item({_id, item: staticItem, columns: staticColumns, collections: staticCollections}) {
     const [session] = useSession()
-    let {data: item, errorItem} = useSWR("/api/item/" + _id)
-    let {data: columns, errorColumns} = useSWR("/api/columns")
-    let {data: collections, errorCollections} = useSWR("/api/collections")
+    let {data: item} = useSWR("/api/item/" + _id)
+    let {data: columns} = useSWR("/api/columns")
+    let {data: collections} = useSWR("/api/collections")
 
-    if (errorItem) {
-        return <Error error={errorItem} statusCode={errorItem.status}/>
-    } else if (errorColumns) {
-        return <Error error={errorColumns} statusCode={errorColumns.status}/>
-    } else if (errorCollections) {
-        return <Error error={errorCollections} statusCode={errorCollections.status}/>
-    }
     item = item || staticItem
     columns = columns || staticColumns
     collections = collections || staticCollections

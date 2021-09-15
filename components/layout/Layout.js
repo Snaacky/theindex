@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Navbar from "../navbar/Navbar"
 import Footer from "./Footer"
+import {ToastContainer} from "react-toastify"
 
 export const siteName = "The Anime Index"
 
@@ -29,7 +30,7 @@ export default function Layout({children, error}) {
                 <link rel="icon" type="image/png" sizes="16x16"
                       href="/favicon/favicon-16x16.png"/>
                 <link rel="mask-icon" href="/favicon/safari-pinned-library.svg" color="#484848"/>
-                <meta name='msapplication-config' content='/favicons/browserconfig.xml' />
+                <meta name='msapplication-config' content='/favicons/browserconfig.xml'/>
                 <meta name="msapplication-TileColor" content="#2b5797"/>
                 <meta name="theme-color" content="#000000"/>
 
@@ -60,6 +61,17 @@ export default function Layout({children, error}) {
                 <main>{children}</main>
             </div>
 
+            <ToastContainer
+                position={"bottom-right"}
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+                theme={"dark"}/>
             <Footer error={error}/>
         </div>
     )

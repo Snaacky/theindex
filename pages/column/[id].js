@@ -11,7 +11,6 @@ import {useState} from "react"
 import DataItem from "../../components/data/DataItem"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import useSWR from "swr"
-import Error from "../_error"
 import {getItems} from "../../lib/db/items"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconColumn from "../../components/icons/IconColumn"
@@ -20,17 +19,10 @@ import IconNSFW from "../../components/icons/IconNSFW"
 export default function Column({_id, column: staticColumn, columns: staticColumns, items: staticItems}) {
     const [session] = useSession()
     const [filter, setFilter] = useState(null)
-    let {data: column, errorColumn} = useSWR("/api/column/" + _id)
-    let {data: columns, errorColumns} = useSWR("/api/columns")
-    let {data: items, errorItems} = useSWR("/api/items")
+    let {data: column} = useSWR("/api/column/" + _id)
+    let {data: columns} = useSWR("/api/columns")
+    let {data: items} = useSWR("/api/items")
 
-    if (errorColumn) {
-        return <Error error={errorColumn} statusCode={errorColumn.status}/>
-    } else if (errorColumns) {
-        return <Error error={errorColumns} statusCode={errorColumns.status}/>
-    } else if (errorItems) {
-        return <Error error={errorItems} statusCode={errorItems.status}/>
-    }
     column = column || staticColumn
     columns = columns || staticColumns
     items = items || staticItems

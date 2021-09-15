@@ -4,7 +4,8 @@ import IconDelete from "../icons/IconDelete"
 import DataCard from "../cards/DataCard"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import IconNewTabLink from "../icons/IconNewTabLink"
-import {isValidUrl} from "../../lib/utils"
+import {isValidUrl, postData} from "../../lib/utils"
+import {toast} from "react-toastify"
 
 export default class EditItem extends React.Component {
     constructor({_id, name, urls, nsfw, description, data, blacklist, sponsor, columns}) {
@@ -46,22 +47,13 @@ export default class EditItem extends React.Component {
                 body._id = this.state._id
             }
 
-            fetch("/api/edit/item", {
-                method: "post",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
-            }).then(r => {
-                if (r.status !== 200) {
-                    alert("Failed to save data: Error " + r.status)
-                } else {
-                    alert("Changes have been saved")
-                    if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/items")
-                    }
+            postData("/api/edit/item", body, () => {
+                if (typeof this.state._id === "undefined") {
+                    window.location.href = escape("/items")
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name")
+            toast.warn("Wow, wow! Wait a minute bro, you forgot to fill in the name")
         }
     }
 

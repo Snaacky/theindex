@@ -7,7 +7,6 @@ import {canEdit, isEditor} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import CollectionBoard from "../../components/boards/CollectionBoard"
 import useSWR from "swr"
-import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import IconLibrary from "../../components/icons/IconLibrary"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
@@ -15,11 +14,7 @@ import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function Tab({_id, library: staticLibrary}) {
     const [session] = useSession()
-    let {data: library, error} = useSWR("/api/library/" + _id)
-
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: library} = useSWR("/api/library/" + _id)
     library = library || staticLibrary
 
     return <>

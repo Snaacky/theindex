@@ -2,6 +2,8 @@ import React from "react"
 import Image from "next/image"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import EditSelectImg from "./EditSelectImg"
+import {toast} from "react-toastify"
+import {postData} from "../../lib/utils"
 
 export default class EditCollection extends React.Component {
     constructor({collections, _id, urlId, img, name, nsfw, description}) {
@@ -23,7 +25,7 @@ export default class EditCollection extends React.Component {
     saveCollection() {
         if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
-                return alert("Illegal url id: '_new' is forbidden!")
+                return toast.error("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
@@ -37,22 +39,13 @@ export default class EditCollection extends React.Component {
                 body._id = this.state._id
             }
 
-            fetch("/api/edit/collection", {
-                method: "post",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
-            }).then(r => {
-                if (r.status !== 200) {
-                    alert("Failed to save data: Error " + r.status)
-                } else {
-                    alert("Changes have been saved")
-                    if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/collections")
-                    }
+            postData("/api/edit/collection", body, () => {
+                if (typeof this.state._id === "undefined") {
+                    window.location.href = escape("/collections")
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
+            toast.warn("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
         }
     }
 

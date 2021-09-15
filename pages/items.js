@@ -4,7 +4,6 @@ import React from "react"
 import IconItem from "../components/icons/IconItem"
 import ItemBoard from "../components/boards/ItemBoard"
 import useSWR from "swr"
-import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getItems} from "../lib/db/items"
@@ -12,10 +11,7 @@ import DataBadge from "../components/data/DataBadge"
 
 export default function Items({items: staticItems}) {
     const [session] = useSession()
-    let {data: items, error} = useSWR("/api/items")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: items} = useSWR("/api/items")
     items = items || staticItems
 
     const description = "Every item contains infos like the language or feature a site or service has"

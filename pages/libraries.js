@@ -4,17 +4,13 @@ import IconLibrary from "../components/icons/IconLibrary"
 import React from "react"
 import LibraryBoard from "../components/boards/LibraryBoard"
 import useSWR from "swr"
-import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getLibraries} from "../lib/db/libraries"
 
 export default function Libraries({libraries: staticLibraries}) {
     const [session] = useSession()
-    let {data: libraries, error} = useSWR("/api/libraries")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: libraries} = useSWR("/api/libraries")
     libraries = libraries || staticLibraries
 
     const description = "Libraries are over-categories of a bunch of collections that fit into it's category"

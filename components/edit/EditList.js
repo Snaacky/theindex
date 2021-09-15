@@ -1,5 +1,7 @@
 import React from "react"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {postData} from "../../lib/utils"
+import {toast} from "react-toastify"
 
 export default class EditList extends React.Component {
     constructor({_id, lists, owner, name, nsfw, description}) {
@@ -27,22 +29,13 @@ export default class EditList extends React.Component {
                 body._id = this.state._id
             }
 
-            fetch("/api/edit/list", {
-                method: "post",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
-            }).then(r => {
-                if (r.status !== 200) {
-                    alert("Failed to save data: Error " + r.status)
-                } else {
-                    alert("Changes have been saved")
-                    if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/lists")
-                    }
+            postData("/api/edit/list", body, () => {
+                if (typeof this.state._id === "undefined") {
+                    window.location.href = escape("/lists")
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name")
+            toast.warn("Wow, wow! Wait a minute bro, you forgot to fill in the name")
         }
     }
 

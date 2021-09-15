@@ -3,6 +3,8 @@ import styles from "../rows/Row.module.css"
 import IconDelete from "../icons/IconDelete"
 import IconAdd from "../icons/IconAdd"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {toast} from "react-toastify"
+import {postData} from "../../lib/utils"
 
 export default class EditColumn extends React.Component {
     constructor({columns, _id, urlId, name, nsfw, description, type, values}) {
@@ -26,7 +28,7 @@ export default class EditColumn extends React.Component {
     saveColumn() {
         if (this.state.name !== "" && this.state.urlId !== "") {
             if (this.state.urlId === "_new") {
-                return alert("Illegal url id: '_new' is forbidden!")
+                return toast.error("Illegal url id: '_new' is forbidden!")
             }
 
             let body = {
@@ -43,22 +45,14 @@ export default class EditColumn extends React.Component {
                 body.values = this.state.values
             }
 
-            fetch("/api/edit/column", {
-                method: "post",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body)
-            }).then(r => {
-                if (r.status !== 200) {
-                    alert("Failed to save data: Error " + r.status)
-                } else {
-                    alert("Changes have been saved")
-                    if (typeof this.state._id === "undefined") {
-                        window.location.href = escape("/columns")
-                    }
+
+            postData("/api/edit/column", body, () => {
+                if (typeof this.state._id === "undefined") {
+                    window.location.href = escape("/columns")
                 }
             })
         } else {
-            alert("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
+            toast.warn("Wow, wow! Wait a minute bro, you forgot to fill in the name and url id")
         }
     }
 

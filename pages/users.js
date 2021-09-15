@@ -5,14 +5,10 @@ import React from "react"
 import DataBadge from "../components/data/DataBadge"
 import UserBoard from "../components/boards/UserBoard"
 import useSWR from "swr"
-import Error from "./_error"
 import {getUsers} from "../lib/db/users"
 
 export default function Users({users: staticUsers}) {
-    let {data: users, error} = useSWR("/api/users")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: users} = useSWR("/api/users")
     users = users || staticUsers
 
     const description = "Listing of all registered users"

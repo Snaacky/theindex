@@ -4,17 +4,13 @@ import React from "react"
 import IconCollection from "../components/icons/IconCollection"
 import CollectionBoard from "../components/boards/CollectionBoard"
 import useSWR from "swr"
-import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getCollections} from "../lib/db/collections"
 
 export default function Collections({collections: staticCollections}) {
     const [session] = useSession()
-    let {data: collections, error} = useSWR("/api/collections")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: collections} = useSWR("/api/collections")
     collections = collections || staticCollections
 
     const description = "Collections are like a curated table listing various items. Every entry is done by hand from the editor-team"

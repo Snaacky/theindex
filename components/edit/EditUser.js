@@ -1,5 +1,7 @@
 import React from "react"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {toast} from "react-toastify"
+import {postData} from "../../lib/utils"
 
 export default class EditUser extends React.Component {
     constructor({adminEditing, uid, accountType, description}) {
@@ -29,21 +31,11 @@ export default class EditUser extends React.Component {
 
                 body.accountType = this.state.accountType
             } else {
-                return alert("Wow, wow! Wait a minute bro, you forgot to set the account type")
+                return toast.warn("Wow, wow! Wait a minute bro, you forgot to set the account type")
             }
         }
 
-        fetch("/api/edit/user", {
-            method: "post",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(body)
-        }).then(r => {
-            if (r.status !== 200) {
-                alert("Failed to save data: Error " + r.status)
-            } else {
-                alert("Changes have been saved")
-            }
-        })
+        postData("/api/edit/user", body)
     }
 
     render() {

@@ -1,6 +1,5 @@
 import Board from "./Board"
 import useSWR from "swr"
-import Error from "../../pages/_error"
 import Loader from "../loading"
 
 export default function ItemBoard(
@@ -16,13 +15,9 @@ export default function ItemBoard(
         canEdit = false
     }) {
 
-    const {data: allColumns, errorColumns} = useSWR("/api/columns")
-    const {data: allItems, errorItems} = useSWR("/api/items")
-    if (errorColumns) {
-        return <Error error={errorColumns} statusCode={errorColumns.status}/>
-    } else if (errorItems) {
-        return <Error error={errorItems} statusCode={errorItems.status}/>
-    } else if (!allColumns || !allItems) {
+    const {data: allColumns} = useSWR("/api/columns")
+    const {data: allItems} = useSWR("/api/items")
+    if (!allColumns || !allItems) {
         return <Loader/>
     }
 

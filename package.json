@@ -33,6 +33,7 @@
     "react-dom": "17.0.2",
     "react-draggable": "^4.4.4",
     "react-in-viewport": "^1.0.0-alpha.19",
+    "react-toastify": "^8.0.2",
     "sharp": "^0.29.0",
     "swr": "^0.5.6"
   },

@@ -8,17 +8,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import DataBadge from "../../components/data/DataBadge"
 import {getUsers, getUserWithLists} from "../../lib/db/users"
 import useSWR from "swr"
-import Error from "../_error"
 import ListBoard from "../../components/boards/ListBoard"
 import ItemBoard from "../../components/boards/ItemBoard"
 
 export default function User({uid, user: staticUser}) {
     const [session] = useSession()
-    const {data: user, error} = useSWR("/api/user/" + uid)
-
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    const {data: user} = useSWR("/api/user/" + uid)
 
     const name = user ? user.name : staticUser.name
     const description = user ? user.description : staticUser.description

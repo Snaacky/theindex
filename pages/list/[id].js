@@ -6,7 +6,6 @@ import {canEdit, isCurrentUser} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
-import Error from "../_error"
 import {getList, getLists} from "../../lib/db/lists"
 import {getUser} from "../../lib/db/users"
 import IconList from "../../components/icons/IconList"
@@ -15,14 +14,9 @@ import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function List({_id, list: staticList, owner: staticOwner, ownerUid}) {
     const [session] = useSession()
-    let {data: list, errorList} = useSWR("/api/list/" + _id)
-    let {data: owner, errorOwner} = useSWR("/api/user/" + ownerUid)
+    let {data: list} = useSWR("/api/list/" + _id)
+    let {data: owner} = useSWR("/api/user/" + ownerUid)
 
-    if (errorList) {
-        return <Error error={errorList} statusCode={errorList.status}/>
-    } else if (errorOwner) {
-        return <Error error={errorOwner} statusCode={errorOwner.status}/>
-    }
     list = list || staticList
     owner = owner || staticOwner
 

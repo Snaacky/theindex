@@ -4,7 +4,6 @@ import React from "react"
 import IconColumn from "../components/icons/IconColumn"
 import ColumnBoard from "../components/boards/ColumnBoard"
 import useSWR from "swr"
-import Error from "./_error"
 import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getColumns} from "../lib/db/columns"
@@ -12,10 +11,7 @@ import DataBadge from "../components/data/DataBadge"
 
 export default function Columns({columns: staticColumns}) {
     const [session] = useSession()
-    let {data: columns, error} = useSWR("/api/columns")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: columns} = useSWR("/api/columns")
     columns = columns || staticColumns
 
     const description = "Items can have different data-fields for different attributes. We call such fields columns like you use to in a table"

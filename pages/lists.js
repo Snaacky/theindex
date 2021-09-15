@@ -2,16 +2,12 @@ import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import useSWR from "swr"
-import Error from "./_error"
 import {getLists} from "../lib/db/lists"
 import ListBoard from "../components/boards/ListBoard"
 import IconList from "../components/icons/IconList"
 
 export default function Lists({lists: staticLists}) {
-    let {data: lists, error} = useSWR("/api/lists")
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    }
+    let {data: lists} = useSWR("/api/lists")
     lists = lists || staticLists
 
     const description = "User lists are created collections with user selected items, ranking and columns to display"

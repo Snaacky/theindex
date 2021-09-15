@@ -24,10 +24,7 @@ function Sidebar(
         setShow
     }, ref) {
     const [session] = useSession()
-    const {data, error} = useSWR("/api/libraries")
-    if (error) {
-        return <div>failed to load</div>
-    }
+    const {data} = useSWR("/api/libraries")
     const libraries = data ?? []
 
     return <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}

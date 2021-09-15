@@ -8,7 +8,6 @@ import {canEdit} from "../../lib/session"
 import IconEdit from "../../components/icons/IconEdit"
 import ItemBoard from "../../components/boards/ItemBoard"
 import useSWR from "swr"
-import Error from "../_error"
 import {getByUrlId} from "../../lib/db/db"
 import {getLibraries} from "../../lib/db/libraries"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
@@ -17,14 +16,8 @@ import IconNSFW from "../../components/icons/IconNSFW"
 
 export default function Collection({_id, collection: staticCollection, libraries: staticLibraries}) {
     const [session] = useSession()
-    let {data: collection, errorCollection} = useSWR("/api/collection/" + _id)
-    let {data: libraries, errorLibraries} = useSWR("/api/libraries")
-
-    if (errorCollection) {
-        return <Error error={errorCollection} statusCode={errorCollection.status}/>
-    } else if (errorLibraries) {
-        return <Error error={errorLibraries} statusCode={errorLibraries.status}/>
-    }
+    let {data: collection} = useSWR("/api/collection/" + _id)
+    let {data: libraries} = useSWR("/api/libraries")
 
     collection = collection || staticCollection
     libraries = libraries || staticLibraries

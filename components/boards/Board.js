@@ -14,6 +14,8 @@ import UserCard from "../cards/UserCard"
 import UserRow from "../rows/UserRow"
 import ListCard from "../cards/ListCard"
 import ListRow from "../rows/ListRow"
+import {toast} from "react-toastify"
+import {postData} from "../../lib/utils"
 
 export default class Board extends React.Component {
     constructor(
@@ -73,17 +75,29 @@ export default class Board extends React.Component {
         body[this.updateContentKey] = content.map(i => i._id)
 
         if (this.updateContentURL !== "" && this.updateContentKey !== "") {
+            const toastId = toast.loading("Saving changes...")
             fetch(this.updateContentURL, {
                 method: "post",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
             }).then(r => {
                 if (r.status !== 200) {
-                    alert("Failed to save data: Error " + r.status)
+                    toast.update(toastId, {
+                        render: "Failed to save changes",
+                        type: "error",
+                        isLoading: false,
+                        autoClose: 1000
+                    })
                 } else {
                     this.setState({
                         content,
                         unselectedContent
+                    })
+                    toast.update(toastId, {
+                        render: "Saved changes",
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 1000
                     })
                 }
             })
@@ -96,18 +110,10 @@ export default class Board extends React.Component {
         const newContent = this.state.content.filter(i => i._id !== content._id)
         if (this.deleteContentURL !== "") {
             if (confirm("Do you really want to delete the " + this.type + " '" + content.name + "'?")) {
-                fetch(this.deleteContentURL, {
-                    method: "post",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({_id: content._id})
-                }).then(r => {
-                    if (r.status !== 200) {
-                        alert("Failed to save data: Error " + r.status)
-                    } else {
-                        this.setState({
-                            content: newContent
-                        })
-                    }
+                postData(this.deleteContentURL, {_id: content._id}, () => {
+                    this.setState({
+                        content: newContent
+                    })
                 })
             }
         } else {
@@ -276,7 +282,7 @@ export default class Board extends React.Component {
                     </span>
                 </div>
             </div>
-            <div className={"d-flex flex-wrap mb-2"}  style={{marginRight: "-0.5rem"}}>
+            <div className={"d-flex flex-wrap mb-2"} style={{marginRight: "-0.5rem"}}>
                 {this.state.content.filter(c => c.name.toLowerCase()
                     .includes(this.state.searchString.toLowerCase())
                 ).length === 0 ? <span className={"text-muted"}>

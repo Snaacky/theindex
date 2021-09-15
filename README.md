@@ -227,8 +227,12 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
 - PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
+- [MeiliSearch](https://www.meilisearch.com/) as search engine
+- [puppeteer](https://github.com/puppeteer/puppeteer) to create screenshots of websites
+- [browserless/chrome](https://github.com/browserless/chrome) to run our chrome instance
 - [react-in-viewport](https://github.com/roderickhsiao/react-in-viewport) for checking if components are visible or not
 - [react-draggable](https://github.com/react-grid-layout/react-draggable) for dragging components by the end user
+- [react-toastify](https://github.com/fkhadra/react-toastify) for handling notifications
 
 And most importantly:
 > The help of our awesome community :3

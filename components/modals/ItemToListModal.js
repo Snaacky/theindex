@@ -2,24 +2,24 @@ import Link from "next/link"
 import Modal from "./Modal"
 import {useState} from "react"
 import useSWR from "swr"
-import Error from "../../pages/_error"
 import IconEdit from "../icons/IconEdit"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import Loader from "../loading"
+import {postData} from "../../lib/utils"
 
 export default function ItemToListModal({item, close}) {
-    const {data: user, error} = useSWR("/api/user/me")
+    const {data: user} = useSWR("/api/user/me")
     const [checked, setChecked] = useState([])
     const [init, setInit] = useState(false)
 
-    if (error) {
-        return <Error error={error} statusCode={error.status}/>
-    } else if (!user) {
-        return <></>
+    if (!user) {
+        return <Loader/>
     } else if (!init) {
         setInit(true)
         console.log("ItemToListModal", user.lists)
         setChecked(user.lists.map(l => l.items.some(it => it === item._id)))
     }
+
     return <Modal close={close}
                   head={
                       <>
@@ -43,16 +43,9 @@ export default function ItemToListModal({item, close}) {
                                              items: l.items
                                          }
 
-                                         fetch("/api/edit/list", {
-                                             method: "post",
-                                             headers: {"Content-Type": "application/json"},
-                                             body: JSON.stringify(body)
-                                         }).then(r => {
-                                             if (r.status !== 200) {
-                                                 alert("Failed to save data: Error " + r.status)
-                                             }
+                                         postData("/api/edit/list", body, () => {
+                                             setChecked(checked.map((c, ci) => ci === i ? !c : c))
                                          })
-                                         setChecked(checked.map((c, ci) => ci === i ? !c : c))
                                      }}/>
                               <label className={"form-check-label"} htmlFor={"itemToListModalCheck-" + i}>
                                   {l.name}

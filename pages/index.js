@@ -2,7 +2,6 @@ import Head from "next/head"
 import Link from "next/link"
 import {siteName} from "../components/layout/Layout"
 import useSWR from "swr"
-import Error from "./_error"
 import {getLastViews} from "../lib/db/views"
 import ItemCard from "../components/cards/ItemCard"
 import CollectionCard from "../components/cards/CollectionCard"
@@ -14,17 +13,9 @@ export default function Home(
         trendingCollection: staticTrendingCollection,
         trendingList: staticTrendingList
     }) {
-    let {data: items, itemsError} = useSWR("/api/popular/items")
-    let {data: collections, collectionsError} = useSWR("/api/popular/collections")
-    let {data: lists, listsError} = useSWR("/api/popular/lists")
-
-    if (itemsError) {
-        return <Error error={itemsError} statusCode={itemsError.status}/>
-    } else if (collectionsError) {
-        return <Error error={collectionsError} statusCode={collectionsError.status}/>
-    } else if (listsError) {
-        return <Error error={listsError} statusCode={listsError.status}/>
-    }
+    let {data: items} = useSWR("/api/popular/items")
+    let {data: collections} = useSWR("/api/popular/collections")
+    let {data: lists} = useSWR("/api/popular/lists")
 
     items = (items || staticTrendingItem).slice(0, 10)
     collections = (collections || staticTrendingCollection).slice(0, 10)
