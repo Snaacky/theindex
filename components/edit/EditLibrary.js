@@ -91,7 +91,7 @@ export default class EditLibrary extends React.Component {
                 </div>
             </div>
             <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="createTabInputNSFW" value={this.state.nsfw}
+                <input type="checkbox" className="form-check-input" id="createTabInputNSFW" checked={this.state.nsfw}
                        onChange={(input) => {
                            this.setState({nsfw: input.target.checked})
                        }}/>

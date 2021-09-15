@@ -105,7 +105,7 @@ export default class EditCollection extends React.Component {
             </div>
             <div className="mb-3 form-check">
                 <input type="checkbox" className="form-check-input" id="createCollectionInputNSFW"
-                       value={this.state.nsfw}
+                       checked={this.state.nsfw}
                        onChange={(input) => {
                            this.setState({nsfw: input.target.checked})
                        }}/>

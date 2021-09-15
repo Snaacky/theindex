@@ -120,7 +120,7 @@ export default class EditItem extends React.Component {
                         <input type="checkbox" className="form-check-input" id="createItemInputNSFW"
                                onChange={(input) => {
                                    this.setState({nsfw: input.target.checked})
-                               }} value={this.state.nsfw}/>
+                               }} checked={this.state.nsfw}/>
                         <label className="form-check-label" htmlFor="createItemInputNSFW">
                             NSFW: contains adult only content
                         </label>
@@ -129,7 +129,7 @@ export default class EditItem extends React.Component {
                         <input type="checkbox" className="form-check-input" id="createItemInputBlacklist"
                                onChange={(input) => {
                                    this.setState({blacklist: input.target.checked})
-                               }} value={this.state.blacklist}/>
+                               }} checked={this.state.blacklist}/>
                         <label className="form-check-label" htmlFor="createItemInputBlacklist">
                             <span className={"text-danger"}>
                                 Blacklist
@@ -142,7 +142,7 @@ export default class EditItem extends React.Component {
                         <input type="checkbox" className="form-check-input" id="createItemInputSponsored"
                                onChange={(input) => {
                                    this.setState({sponsor: input.target.checked})
-                               }} value={this.state.sponsor}/>
+                               }} checked={this.state.sponsor}/>
                         <label className="form-check-label" htmlFor="createItemInputSponsored">
                             <span className={"text-warning"}>
                                 Sponsored
