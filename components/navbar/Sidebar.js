@@ -44,7 +44,7 @@ function Sidebar(
                     {isAdmin(session) ?
                         <>
                             <li className={"nav-item"}>
-                                <Link href={"/users"}>
+                                <Link href={"/admin/users"}>
                                     <a className={"nav-link"}>
                                         <FontAwesomeIcon icon={["fas", "users"]}/> Users
                                     </a>

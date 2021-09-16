@@ -1,10 +1,10 @@
 import Head from "next/head"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
-import DataBadge from "../components/data/DataBadge"
-import UserBoard from "../components/boards/UserBoard"
+import DataBadge from "../../components/data/DataBadge"
+import UserBoard from "../../components/boards/UserBoard"
 import useSWR from "swr"
-import {getUsers} from "../lib/db/users"
+import {getUsers} from "../../lib/db/users"
 
 export default function Users({users: staticUsers}) {
     let {data: users} = useSWR("/api/users")
@@ -41,7 +41,6 @@ export async function getServerSideProps() {
     return {
         props: {
             users
-        },
-        revalidate: 30
+        }
     }
 }
