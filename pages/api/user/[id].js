@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         if (isLogin(session)) {
             result = await getUserWithLists(session.user.uid)
         } else {
-            return res.status(401).json({})
+            return res.status(200).json({})
         }
     } else {
         result = await getUserWithLists(req.query.id)
