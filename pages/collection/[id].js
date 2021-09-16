@@ -37,8 +37,8 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta property="og:description" content={collection.description}/>
             <meta name="twitter:description" content={collection.description}/>
 
-            <meta name="twitter:image" content={collection.img}/>
-            <meta property="og:image" content={collection.img}/>
+            <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/img/" + collection.img}/>
+            <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/img/" + collection.img}/>
         </Head>
 
         <div className={"row"} style={{marginTop: "3.5rem"}}>
