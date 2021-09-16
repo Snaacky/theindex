@@ -41,7 +41,7 @@ export default function Collection({_id, collection: staticCollection, libraries
             <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/img/" + collection.img}/>
         </Head>
 
-        <div className={"row"} style={{marginTop: "3.5rem"}}>
+        <div className={"row"} style={{marginTop: "4rem"}}>
             <div className={"col-auto"}>
                 <div className={"d-absolute mb-2"} style={{marginTop: "-3.2rem"}}>
                     <Image src={"/img/" + collection.img} alt={"Image of collection"} width={"148px"} height={"148px"}
