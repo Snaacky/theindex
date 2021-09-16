@@ -18,6 +18,7 @@ import {isAdmin} from "../../lib/session"
 import {useSession} from "next-auth/client"
 import IconAdmin from "../icons/IconAdmin"
 
+
 function Sidebar(
     {
         show,
@@ -27,19 +28,26 @@ function Sidebar(
     const {data} = useSWR("/api/libraries")
     const libraries = data ?? []
 
+    const clickFunc = () => {
+        console.log("Toggling sidebar")
+        setShow(!show)
+    }
+
     return <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
                 id={"navbarOffcanvas"} tabIndex="-1" aria-hidden={(!show).toString()} role={"dialog"}>
         <div className={styles.header + " offcanvas-header"}>
             <div className={"container-fluid d-flex flex-row align-items-center"}>
-                <NavbarBrand/>
+                <div onClick={clickFunc}>
+                    <NavbarBrand/>
+                </div>
 
-                <NavbarToggler show={show} onClick={() => setShow(!show)} className={"ms-auto"}/>
+                <NavbarToggler show={show} onClick={clickFunc} className={"ms-auto"}/>
             </div>
         </div>
 
         <div className="offcanvas-body">
             <nav role={"navigation"}>
-                <ul className={"nav nav-pills flex-column"}>
+                <ul className={"nav nav-pills flex-column"} onClick={clickFunc}>
                     <NavbarUser/>
                     {isAdmin(session) ?
                         <>
@@ -87,12 +95,12 @@ function Sidebar(
                                         </a>
                                     </Link>
                                 })
-                            }/>
+                            } onClick={() => clickFunc()}/>
                     )}
                 </ul>
 
                 <hr/>
-                <ul className={"nav nav-pills flex-column"}>
+                <ul className={"nav nav-pills flex-column"} onClick={clickFunc}>
                     <li className={"nav-item"}>
                         <Link href={"/libraries"}>
                             <a className={"nav-link"}>
@@ -156,7 +164,7 @@ function Sidebar(
                                     SeaDex
                                 </span>
                             </a>
-                        ]}/>
+                        ]} onClick={() => clickFunc()}/>
                     <NavbarDropdown
                         toggler={"Social media"} targetId={"navbar-menu-social-media"}
                         contentList={[
@@ -176,7 +184,7 @@ function Sidebar(
                                target={"_blank"} rel="noreferrer">
                                 <FontAwesomeIcon icon={["fab", "github"]}/> Github
                             </a>
-                        ]}/>
+                        ]} onClick={() => clickFunc()}/>
                 </ul>
 
                 <hr/>

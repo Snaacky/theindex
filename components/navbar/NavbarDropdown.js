@@ -8,7 +8,8 @@ export default function NavbarDropdown(
         targetId,
         toggler,
         contentList,
-        viewAllUrl
+        viewAllUrl,
+        onClick
     }
 ) {
     const [show, setShow] = useState(false)
@@ -26,13 +27,13 @@ export default function NavbarDropdown(
         <div id={targetId} className={"collapse" + (show ? " show" : "")}>
             <ul className={"list-unstyled rounded bg-3 ms-4"}>
                 {contentList.map((c, i) =>
-                    <li className={"nav-item"} key={i}>
+                    <li className={"nav-item"} onClick={onClick} key={i}>
                         {c}
                     </li>
                 )}
                 {viewAllUrl ? <>
                     <hr className={"dropdown-divider"}/>
-                    <li className={"nav-item"}>
+                    <li className={"nav-item"} onClick={onClick}>
                         <Link href={viewAllUrl}>
                             <a className={"nav-link small text-end"}>
                                 View all
