@@ -29,6 +29,9 @@ export default function Tab({_id, library: staticLibrary}) {
             <meta name="description" content={library.description}/>
             <meta property="og:description" content={library.description}/>
             <meta name="twitter:description" content={library.description}/>
+
+            <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
+            <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
         </Head>
 
         <div className={"row"}>

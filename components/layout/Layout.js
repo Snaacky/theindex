@@ -4,7 +4,6 @@ import Footer from "./Footer"
 import {ToastContainer} from "react-toastify"
 
 export default function Layout({children, error}) {
-    const description = "The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."
     return (
         <div className={"d-flex"}
              style={{
@@ -45,16 +44,6 @@ export default function Layout({children, error}) {
                 <meta name="twitter:site" content="@ranimepiracy"/>
                 <meta property="og:site_name" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
                 <meta name="twitter:card" content="summary"/>
-
-                <meta property="og:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
-                <meta name="twitter:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
-
-                <meta name="description" content={description}/>
-                <meta property="og:description" content={description}/>
-                <meta name="twitter:description" content={description}/>
-
-                <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
-                <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
             </Head>
             <header>
                 <Navbar/>

@@ -6,6 +6,8 @@ import ItemCard from "../components/cards/ItemCard"
 import CollectionCard from "../components/cards/CollectionCard"
 import ListCard from "../components/cards/ListCard"
 
+const description = "The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."
+
 export default function Home(
     {
         trendingItem: staticTrendingItem,
@@ -22,7 +24,19 @@ export default function Home(
 
     return <>
         <Head>
-            <meta name="twitter:card" content="summary"/>
+            <title>
+                {process.env.NEXT_PUBLIC_SITE_NAME}
+            </title>
+
+            <meta property="og:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
+            <meta name="twitter:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
+
+            <meta name="description" content={description}/>
+            <meta property="og:description" content={description}/>
+            <meta name="twitter:description" content={description}/>
+
+            <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
+            <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
         </Head>
 
         <div className={"row"}>

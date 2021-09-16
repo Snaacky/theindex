@@ -54,7 +54,9 @@ export default function App({Component, pageProps}) {
 
     return <Provider session={pageProps.session}>
         <SWRConfig value={{
-            fetcher: (resource, init) => fetch(resource, init).then(res => res.json()),
+            fetcher: (resource, init) => fetch(resource, init).then(res => {
+                return res.json()
+            }),
             onError: (error, key) => {
                 toast.error(<div>
                     <div>

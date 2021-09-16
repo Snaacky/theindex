@@ -28,6 +28,9 @@ export default function Items({items: staticItems}) {
             <meta name="description" content={description}/>
             <meta property="og:description" content={description}/>
             <meta name="twitter:description" content={description}/>
+
+            <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
+            <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
         </Head>
 
 
