@@ -10,9 +10,6 @@
     "serve": "next build && next start -p 3000"
   },
   "dependencies": {
-    "@dicebear/avatars": "^4.8.5",
-    "@dicebear/avatars-avataaars-sprites": "^4.8.5",
-    "@dicebear/pixel-art": "^4.8.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
