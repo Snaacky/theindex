@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -20,15 +19,22 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
     list = list || staticList
     owner = owner || staticOwner
 
+    const title = owner.name + "'s list " + list.name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {list.name + " | " + siteName}
+                {list.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={list.description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={owner.name + "'s list " + list.name + " on The Anime Index"}/>
+            <meta property="og:description" content={list.description}/>
             <meta name="twitter:description" content={list.description}/>
+
+            <meta name="twitter:image" content={owner.image}/>
+            <meta property="og:image" content={owner.image}/>
         </Head>
 
         <h2>

@@ -1,4 +1,3 @@
-import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import React from "react"
@@ -11,16 +10,11 @@ export default function Users({users: staticUsers}) {
     let {data: users} = useSWR("/api/users")
     users = users || staticUsers
 
-    const description = "Listing of all registered users"
     return <>
         <Head>
             <title>
-                {"Users | " + siteName}
+                {"Users | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
-            <meta name={"description"} content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Users on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all registered users"}/>
         </Head>
 
         <h2>
@@ -30,14 +24,19 @@ export default function Users({users: staticUsers}) {
             </div>
         </h2>
         <p>
-            {description}
+            Listing of all registered users
         </p>
 
         <UserBoard users={users} allUsers={users}/>
     </>
 }
 
-export async function getStaticProps() {
+
+Users.auth = {
+    requireAdmin: true
+}
+
+export async function getServerSideProps() {
     const users = await getUsers()
     return {
         props: {

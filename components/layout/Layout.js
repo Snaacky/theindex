@@ -3,8 +3,6 @@ import Navbar from "../navbar/Navbar"
 import Footer from "./Footer"
 import {ToastContainer} from "react-toastify"
 
-export const siteName = "The Anime Index"
-
 export default function Layout({children, error}) {
     const description = "The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps."
     return (
@@ -30,7 +28,7 @@ export default function Layout({children, error}) {
                 <link rel="icon" type="image/png" sizes="16x16"
                       href="/favicon/favicon-16x16.png"/>
                 <link rel="mask-icon" href="/favicon/safari-pinned-library.svg" color="#484848"/>
-                <meta name='msapplication-config' content='/favicons/browserconfig.xml'/>
+                <meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
                 <meta name="msapplication-TileColor" content="#2b5797"/>
                 <meta name="theme-color" content="#000000"/>
 
@@ -38,20 +36,25 @@ export default function Layout({children, error}) {
 
                 {error ?
                     <title>
-                        Error {error} | {siteName}
+                        Error {error} | {process.env.NEXT_PUBLIC_SITE_NAME}
                     </title> : <></>}
-                <meta name="description" content={description}/>
-                <meta name="robots" content="index, archive, follow"/>
-                <meta name="twitter:site" content="@ranimepiracy"/>
-                <meta name="twitter:title" content="The Anime Index"/>
-                <meta name="twitter:description" content={description}/>
-                <meta name="twitter:image" content="https://dev.piracy.moe/icon/logo.png"/>
 
-                <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-                      rel="stylesheet"
-                      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-                      crossOrigin="anonymous"/>
+                <meta name="robots" content="index, archive, follow"/>
+
+                <meta property="og:type" content="website"/>
+                <meta name="twitter:site" content="@ranimepiracy"/>
+                <meta property="og:site_name" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
+                <meta name="twitter:card" content="summary"/>
+
+                <meta property="og:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
+                <meta name="twitter:title" content={process.env.NEXT_PUBLIC_SITE_NAME}/>
+
+                <meta name="description" content={description}/>
+                <meta property="og:description" content={description}/>
+                <meta name="twitter:description" content={description}/>
+
+                <meta name="twitter:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
+                <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
             </Head>
             <header>
                 <Navbar/>

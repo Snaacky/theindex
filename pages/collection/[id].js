@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import {getCollections} from "../../lib/db/collections"
 import Head from "next/head"
 import Link from "next/link"
@@ -24,16 +23,22 @@ export default function Collection({_id, collection: staticCollection, libraries
 
     const librariesContainingCollection = libraries.filter(library => library.collections.some(t => t._id === collection._id))
 
+    const title = "Collection " + collection.name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {collection.name + " | " + siteName}
+                {collection.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={collection.description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Collection " + collection.name + " on The Anime Index"}/>
+            <meta property="og:description" content={collection.description}/>
             <meta name="twitter:description" content={collection.description}/>
+
             <meta name="twitter:image" content={collection.img}/>
+            <meta property="og:image" content={collection.img}/>
         </Head>
 
         <div className={"row"} style={{marginTop: "3.5rem"}}>

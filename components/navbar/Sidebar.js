@@ -42,13 +42,22 @@ function Sidebar(
                 <ul className={"nav nav-pills flex-column"}>
                     <NavbarUser/>
                     {isAdmin(session) ?
-                        <li className={"nav-item"}>
-                            <Link href={"/admin"}>
-                                <a className={"nav-link"} title={"Admin settings"}>
-                                    <IconAdmin/> Admin
-                                </a>
-                            </Link>
-                        </li> : <></>
+                        <>
+                            <li className={"nav-item"}>
+                                <Link href={"/users"}>
+                                    <a className={"nav-link"}>
+                                        <FontAwesomeIcon icon={["fas", "users"]}/> Users
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className={"nav-item"}>
+                                <Link href={"/admin"}>
+                                    <a className={"nav-link"} title={"Admin settings"}>
+                                        <IconAdmin/> Admin
+                                    </a>
+                                </Link>
+                            </li>
+                        </> : <></>
                     }
                 </ul>
                 <hr/>
@@ -109,13 +118,6 @@ function Sidebar(
                         <Link href={"/items"}>
                             <a className={"nav-link"}>
                                 <IconItem/> Items
-                            </a>
-                        </Link>
-                    </li>
-                    <li className={"nav-item"}>
-                        <Link href={"/users"}>
-                            <a className={"nav-link"}>
-                                <FontAwesomeIcon icon={["fas", "users"]}/> Users
                             </a>
                         </Link>
                     </li>

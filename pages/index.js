@@ -1,6 +1,5 @@
 import Head from "next/head"
 import Link from "next/link"
-import {siteName} from "../components/layout/Layout"
 import useSWR from "swr"
 import {getLastViews} from "../lib/db/views"
 import ItemCard from "../components/cards/ItemCard"
@@ -23,7 +22,6 @@ export default function Home(
 
     return <>
         <Head>
-            <title>{siteName}</title>
             <meta name="twitter:card" content="summary"/>
         </Head>
 

@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {useSession} from "next-auth/client"
 import Link from "next/link"
@@ -18,7 +17,7 @@ export default function EditorUser({uid, user}) {
     return <>
         <Head>
             <title>
-                {"Edit user " + user.name + " | " + siteName}
+                {"Edit user " + user.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

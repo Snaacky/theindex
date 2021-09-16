@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getItem} from "../../../lib/db/items"
@@ -18,7 +17,7 @@ export default function EditorItem({_id, collections, columns, item}) {
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create item" : "Edit item " + item.name) + " | " + siteName}
+                {(_id === "_new" ? "Create item" : "Edit item " + item.name) + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

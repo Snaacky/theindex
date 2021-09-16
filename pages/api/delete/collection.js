@@ -13,7 +13,7 @@ export default async function apiDeleteCollection(req, res) {
             // remove collection entry from libraries
             const librariesWithCollection = await find("libraries", {collections: [d._id]})
             await Promise.all(librariesWithCollection.map(
-                async library=> await updateLibrary(library._id, {
+                async library => await updateLibrary(library._id, {
                     collections: library.collections.filter(t => t !== d._id)
                 })
             ))

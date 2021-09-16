@@ -1,4 +1,3 @@
-import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import IconColumn from "../components/icons/IconColumn"
@@ -9,21 +8,26 @@ import {isEditor} from "../lib/session"
 import {getColumns} from "../lib/db/columns"
 import DataBadge from "../components/data/DataBadge"
 
+const title = "Custom user lists on The Anime Index"
+const description = "Items can have different data-fields for different attributes. We call such fields columns like you use to in a table"
+
 export default function Columns({columns: staticColumns}) {
     const [session] = useSession()
     let {data: columns} = useSWR("/api/columns")
     columns = columns || staticColumns
 
-    const description = "Items can have different data-fields for different attributes. We call such fields columns like you use to in a table"
     return <>
         <Head>
             <title>
-                {"All columns | " + siteName}
+                {"All columns | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
-            <meta name={"description"} content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all created user lists"}/>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
+            <meta name="description" content={description}/>
+            <meta property="og:description" content={description}/>
+            <meta name="twitter:description" content={description}/>
         </Head>
 
 

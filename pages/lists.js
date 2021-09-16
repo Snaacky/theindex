@@ -1,4 +1,3 @@
-import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import useSWR from "swr"
@@ -6,20 +5,25 @@ import {getLists} from "../lib/db/lists"
 import ListBoard from "../components/boards/ListBoard"
 import IconList from "../components/icons/IconList"
 
+const title = "All user lists on The Anime Index"
+const description = "User lists are created collections with user selected items, ranking and columns to display"
+
 export default function Lists({lists: staticLists}) {
     let {data: lists} = useSWR("/api/lists")
     lists = lists || staticLists
 
-    const description = "User lists are created collections with user selected items, ranking and columns to display"
     return <>
         <Head>
             <title>
-                {"All user lists | " + siteName}
+                {"All user lists | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
-            <meta name={"description"} content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Custom user lists on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all created user lists"}/>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
+            <meta name="description" content={description}/>
+            <meta property="og:description" content={description}/>
+            <meta name="twitter:description" content={description}/>
         </Head>
 
         <h2>

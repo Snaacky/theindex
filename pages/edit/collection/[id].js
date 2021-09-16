@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getLibrariesWithCollections} from "../../../lib/db/libraries"
 import {getCollection, getCollections} from "../../../lib/db/collections"
@@ -19,7 +18,7 @@ export default function EditorCollection({_id, libraries, collections, columns, 
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create collection" : "Edit collection " + collection.name) + " | " + siteName}
+                {(_id === "_new" ? "Create collection" : "Edit collection " + collection.name) + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

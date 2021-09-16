@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
@@ -35,18 +34,34 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
     const collectionsContainingItem = collections.filter(t => t.items.includes(_id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
+    const title = "Item " + item.name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {item.name + " | " + siteName}
+                {item.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
+            <meta name="description" content={item.description}/>
+            <meta property="og:description" content={item.description}/>
+            <meta name="twitter:description" content={item.description}/>
+
             {item.blacklist ?
-                <meta name="robots" content="noindex, archive, follow"/> :
                 <>
-                    <meta name="description" content={item.description}/>
-                    <meta name="twitter:card" content="summary"/>
-                    <meta name="twitter:title" content={"Item " + item.name + " on The Anime Index"}/>
-                    <meta name="twitter:description" content={item.description}/>
+                    <meta name="robots" content="noindex, archive, follow"/>
+
+                    <meta name="twitter:image"
+                          content={process.env.NEXT_PUBLIC_DOMAIN + "/blacklisted-screenshot.png"}/>
+                    <meta property="og:image"
+                          content={process.env.NEXT_PUBLIC_DOMAIN + "/blacklisted-screenshot.png"}/>
+                </> :
+                <>
+                    <meta name="twitter:image"
+                          content={process.env.NEXT_PUBLIC_DOMAIN + "/api/item/screenshot/" + item._id}/>
+                    <meta property="og:image"
+                          content={process.env.NEXT_PUBLIC_DOMAIN + "/api/item/screenshot/" + item._id}/>
                 </>
             }
         </Head>

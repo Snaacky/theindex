@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getLibraries} from "../../lib/db/libraries"
@@ -17,14 +16,18 @@ export default function Tab({_id, library: staticLibrary}) {
     let {data: library} = useSWR("/api/library/" + _id)
     library = library || staticLibrary
 
+    const title = "Library " + library.name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {library.name + " | " + siteName}
+                {library.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={library.description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Library " + library.name + " on The Anime Index"}/>
+            <meta property="og:description" content={library.description}/>
             <meta name="twitter:description" content={library.description}/>
         </Head>
 

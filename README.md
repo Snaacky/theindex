@@ -76,7 +76,9 @@ Here is a collection of the possible ENV-variables with their default values you
 
 | Parameter | Function | Default |
 | --- | --- | --- |
-| `NEXTAUTH_URL` | Your domain or IP | `"https://piracy.moe"` |
+| `NEXT_PUBLIC_SITE_NAME` | The name of your site | `"The Anime Index"` |
+| `NEXT_PUBLIC_DOMAIN` | Your domain or IP, remove trailing slash | `"https://piracy.moe"` |
+| `NEXTAUTH_URL` | Your domain or IP, remove trailing slash | `$NEXT_PUBLIC_DOMAIN` |
 | `DATABASE_URL` | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) | `"mongodb://mongo:27017"` |
 | `CHROME_URL` | WebSocket URL to a running chrome instance | `""ws://chrome:3300"` |
 | `AUDIT_WEBHOOK` | WebHook-URL for audit-log, leave empty to disable support | `""` |

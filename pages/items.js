@@ -1,4 +1,3 @@
-import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import React from "react"
 import IconItem from "../components/icons/IconItem"
@@ -9,21 +8,26 @@ import {isEditor} from "../lib/session"
 import {getItems} from "../lib/db/items"
 import DataBadge from "../components/data/DataBadge"
 
+const title = "Items on The Anime Index"
+const description = "Every item represents a service and contains various information like which languages it supports or feature it has"
+
 export default function Items({items: staticItems}) {
     const [session] = useSession()
     let {data: items} = useSWR("/api/items")
     items = items || staticItems
 
-    const description = "Every item contains infos like the language or feature a site or service has"
     return <>
         <Head>
             <title>
-                {"All items | " + siteName}
+                {"All items | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
-            <meta name={"description"} content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Items on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all indexed sites"}/>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
+            <meta name="description" content={description}/>
+            <meta property="og:description" content={description}/>
+            <meta name="twitter:description" content={description}/>
         </Head>
 
 

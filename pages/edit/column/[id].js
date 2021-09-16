@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getCollections} from "../../../lib/db/collections"
 import Link from "next/link"
@@ -15,7 +14,7 @@ export default function EditorColumn({_id, collections, columns, column}) {
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create column" : "Edit column " + column.name) + " | " + siteName}
+                {(_id === "_new" ? "Create column" : "Edit column " + column.name) + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

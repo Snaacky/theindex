@@ -1,4 +1,3 @@
-import {siteName} from "../components/layout/Layout"
 import Head from "next/head"
 import IconLibrary from "../components/icons/IconLibrary"
 import React from "react"
@@ -8,21 +7,26 @@ import {useSession} from "next-auth/client"
 import {isEditor} from "../lib/session"
 import {getLibraries} from "../lib/db/libraries"
 
+const title = "Libraries on The Anime Index"
+const description = "Libraries are over-categories of a bunch of collections that fit into it's category"
+
 export default function Libraries({libraries: staticLibraries}) {
     const [session] = useSession()
     let {data: libraries} = useSWR("/api/libraries")
     libraries = libraries || staticLibraries
 
-    const description = "Libraries are over-categories of a bunch of collections that fit into it's category"
     return <>
         <Head>
             <title>
-                {"All libraries | " + siteName}
+                {"All libraries | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Libraries on The Anime Index"}/>
-            <meta name="twitter:description" content={"View all collection of collections"}/>
+            <meta property="og:description" content={description}/>
+            <meta name="twitter:description" content={description}/>
         </Head>
 
         <h2>

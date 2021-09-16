@@ -1,12 +1,11 @@
 import Head from "next/head"
 import Image from "next/image"
-import {siteName} from "../components/layout/Layout"
 import {images} from "../lib/icon"
 
 export default function Admin({images}) {
     return <>
         <Head>
-            <title>Admin | {siteName}</title>
+            <title>Admin | {process.env.NEXT_PUBLIC_SITE_NAME}</title>
         </Head>
 
         <div className={"mb-4"}>

@@ -5,8 +5,12 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
 # brwoserless/chrome runs by our default on port 3300
 ENV CHROME_URL="ws://chrome:3300"
 
-# Required ENV
+# Site name
+ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
+
+# connection urls
 ENV NEXTAUTH_URL="https://piracy.moe"
+ENV NEXT_PUBLIC_DOMAIN="https://piracy.moe"
 ENV DATABASE_URL="mongodb://mongo:27017"
 ENV AUDIT_WEBHOOK=""
 

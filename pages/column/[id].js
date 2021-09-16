@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {useSession} from "next-auth/client"
@@ -42,14 +41,18 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
         return filter === "" || i.data[column._id].toLowerCase().includes(filter.toLowerCase())
     })
 
+    const title = "Column " + column.name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {column.name + " | " + siteName}
+                {column.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={column.description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"Column " + column.name + " on The Anime Index"}/>
+            <meta property="og:description" content={column.description}/>
             <meta name="twitter:description" content={column.description}/>
         </Head>
 

@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import {getColumns} from "../../../lib/db/columns"
@@ -24,7 +23,7 @@ export default function EditorList({_id, userLists, columns, list}) {
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create list" : "Edit list " + list.name) + " | " + siteName}
+                {(_id === "_new" ? "Create list" : "Edit list " + list.name) + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

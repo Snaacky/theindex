@@ -54,7 +54,7 @@ export default function Navbar() {
                 <div className={"collapse navbar-collapse me-2"}>
                     <div className={"d-flex flex-row"}>
                         <ul className={styles.listAll + " nav nav-pills"}>
-                            <li className={"nav-item"}>
+                            <li className={"nav-item ms-2"}>
                                 <Link href={"/libraries"}>
                                     <a className={"nav-link"}>
                                         <IconLibrary/>
@@ -64,7 +64,7 @@ export default function Navbar() {
                                     </a>
                                 </Link>
                             </li>
-                            <li className={"nav-item"}>
+                            <li className={"nav-item ms-1"}>
                                 <Link href={"/collections"}>
                                     <a className={"nav-link"}>
                                         <IconCollection/>
@@ -74,7 +74,7 @@ export default function Navbar() {
                                     </a>
                                 </Link>
                             </li>
-                            <li className={"nav-item"}>
+                            <li className={"nav-item ms-1"}>
                                 <Link href={"/items"}>
                                     <a className={"nav-link"}>
                                         <IconItem/>
@@ -88,7 +88,7 @@ export default function Navbar() {
                     </div>
                     <div className={"ms-auto d-flex flex-row"}>
                         <ul className={"nav nav-pills"}>
-                            <li className={styles.desktop + " nav-item"}>
+                            <li className={styles.desktop + " nav-item me-1"}>
                                 <a className={"nav-link"} href="https://wiki.piracy.moe/">
                                     <Image src={"/icons/wikijs.svg"} height={16} width={16}
                                            alt={"Wiki.js logo"}/>
@@ -97,7 +97,7 @@ export default function Navbar() {
                                     </span>
                                 </a>
                             </li>
-                            <li className={styles.desktop + " nav-item"}>
+                            <li className={styles.desktop + " nav-item me-1"}>
                                 <a className={"nav-link"} href="https://status.piracy.moe/">
                                     <Image src={"/icons/status.png"} height={16} width={16}
                                            alt={"Checkly logo"}/>
@@ -106,7 +106,7 @@ export default function Navbar() {
                                     </span>
                                 </a>
                             </li>
-                            <li className={styles.desktop + " nav-item"}>
+                            <li className={styles.desktop + " nav-item me-1"}>
                                 <a className={"nav-link"} href="https://releases.moe/">
                                     <Image src={"/icons/seadex.png"} height={16} width={16}
                                            alt={"Seadex logo"}/>

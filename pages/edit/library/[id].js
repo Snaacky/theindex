@@ -1,4 +1,3 @@
-import {siteName} from "../../../components/layout/Layout"
 import Head from "next/head"
 import {getLibrariesWithCollections, getLibrary} from "../../../lib/db/libraries"
 import {getCollections} from "../../../lib/db/collections"
@@ -11,7 +10,7 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
     return <>
         <Head>
             <title>
-                {(_id === "_new" ? "Create tab" : "Editlibrary" + library.name) + " | " + siteName}
+                {(_id === "_new" ? "Create tab" : "Editlibrary" + library.name) + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
         </Head>
 

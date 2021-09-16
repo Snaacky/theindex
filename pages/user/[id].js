@@ -1,4 +1,3 @@
-import {siteName} from "../../components/layout/Layout"
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
@@ -11,6 +10,7 @@ import useSWR from "swr"
 import ListBoard from "../../components/boards/ListBoard"
 import ItemBoard from "../../components/boards/ItemBoard"
 
+
 export default function User({uid, user: staticUser}) {
     const [session] = useSession()
     const {data: user} = useSWR("/api/user/" + uid)
@@ -22,17 +22,24 @@ export default function User({uid, user: staticUser}) {
     const favs = user ? user.favs : staticUser.favs
     const lists = user ? user.lists : staticUser.lists
     const followLists = user ? user.followLists : staticUser.followLists
+
+    const title = "User " + name + " on The Anime Index"
     return <>
         <Head>
             <title>
-                {"User " + name + " | " + siteName}
+                {"User " + name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
             <meta name="robots" content="noindex, archive, follow"/>
+
+            <meta property="og:title" content={title}/>
+            <meta name="twitter:title" content={title}/>
+
             <meta name="description" content={description}/>
-            <meta name="twitter:card" content="summary"/>
-            <meta name="twitter:title" content={"User " + name + " on The Anime Index"}/>
+            <meta property="og:description" content={description}/>
             <meta name="twitter:description" content={description}/>
+
             <meta name="twitter:image" content={image}/>
+            <meta property="og:image" content={image}/>
         </Head>
 
         <div className={"card bg-2"}>
