@@ -18,7 +18,6 @@ const nextAuth = NextAuth({
                 session.user.uid = uid
                 session.user.accountType = accountType
             }
-            console.log(session)
             return session
         },
     },
