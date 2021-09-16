@@ -40,6 +40,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
             <title>
                 {item.name + " | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+            <meta name="twitter:card" content="summary_large_image"/>
 
             <meta property="og:title" content={title}/>
             <meta name="twitter:title" content={title}/>

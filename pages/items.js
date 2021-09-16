@@ -21,7 +21,6 @@ export default function Items({items: staticItems}) {
             <title>
                 {"All items | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
-            <meta name="twitter:card" content="summary_large_image"/>
 
             <meta property="og:title" content={title}/>
             <meta name="twitter:title" content={title}/>
