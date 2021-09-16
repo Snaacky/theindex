@@ -5,7 +5,7 @@ import {getLists} from "../lib/db/lists"
 import ListBoard from "../components/boards/ListBoard"
 import IconList from "../components/icons/IconList"
 
-const title = "All user lists on The Anime Index"
+const title = "All user lists on " + process.env.NEXT_PUBLIC_SITE_NAME
 const description = "User lists are created collections with user selected items, ranking and columns to display"
 
 export default function Lists({lists: staticLists}) {

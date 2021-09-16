@@ -8,7 +8,7 @@ import {isEditor} from "../lib/session"
 import {getColumns} from "../lib/db/columns"
 import DataBadge from "../components/data/DataBadge"
 
-const title = "Custom user lists on The Anime Index"
+const title = "All columns on " + process.env.NEXT_PUBLIC_SITE_NAME
 const description = "Items can have different data-fields for different attributes. We call such fields columns like you use to in a table"
 
 export default function Columns({columns: staticColumns}) {

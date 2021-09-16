@@ -41,7 +41,7 @@ export default function Column({_id, column: staticColumn, columns: staticColumn
         return filter === "" || i.data[column._id].toLowerCase().includes(filter.toLowerCase())
     })
 
-    const title = "Column " + column.name + " on The Anime Index"
+    const title = "Column " + column.name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

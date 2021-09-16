@@ -23,7 +23,7 @@ export default function User({uid, user: staticUser}) {
     const lists = user ? user.lists : staticUser.lists
     const followLists = user ? user.followLists : staticUser.followLists
 
-    const title = "User " + name + " on The Anime Index"
+    const title = "User " + name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

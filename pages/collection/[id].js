@@ -23,7 +23,7 @@ export default function Collection({_id, collection: staticCollection, libraries
 
     const librariesContainingCollection = libraries.filter(library => library.collections.some(t => t._id === collection._id))
 
-    const title = "Collection " + collection.name + " on The Anime Index"
+    const title = "Collection " + collection.name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

@@ -34,7 +34,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
     const collectionsContainingItem = collections.filter(t => t.items.includes(_id))
     const column = splitColumnsIntoTypes(Object.keys(item.data).map(k => columns.find(c => c._id === k)), item)
 
-    const title = "Item " + item.name + " on The Anime Index"
+    const title = "Item " + item.name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

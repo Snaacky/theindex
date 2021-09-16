@@ -16,7 +16,7 @@ export default function Tab({_id, library: staticLibrary}) {
     let {data: library} = useSWR("/api/library/" + _id)
     library = library || staticLibrary
 
-    const title = "Library " + library.name + " on The Anime Index"
+    const title = "Library " + library.name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

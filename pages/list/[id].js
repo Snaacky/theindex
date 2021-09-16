@@ -19,7 +19,7 @@ export default function List({_id, list: staticList, owner: staticOwner, ownerUi
     list = list || staticList
     owner = owner || staticOwner
 
-    const title = owner.name + "'s list " + list.name + " on The Anime Index"
+    const title = owner.name + "'s list " + list.name + " on " + process.env.NEXT_PUBLIC_SITE_NAME
     return <>
         <Head>
             <title>

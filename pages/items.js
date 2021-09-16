@@ -8,7 +8,7 @@ import {isEditor} from "../lib/session"
 import {getItems} from "../lib/db/items"
 import DataBadge from "../components/data/DataBadge"
 
-const title = "Items on The Anime Index"
+const title = "Items on " + process.env.NEXT_PUBLIC_SITE_NAME
 const description = "Every item represents a service and contains various information like which languages it supports or feature it has"
 
 export default function Items({items: staticItems}) {
@@ -21,6 +21,7 @@ export default function Items({items: staticItems}) {
             <title>
                 {"All items | " + process.env.NEXT_PUBLIC_SITE_NAME}
             </title>
+            <meta name="twitter:card" content="summary_large_image"/>
 
             <meta property="og:title" content={title}/>
             <meta name="twitter:title" content={title}/>
