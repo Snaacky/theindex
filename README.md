@@ -221,9 +221,6 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - [React](https://reactjs.org/) as JS framework
 - Styles from [bootstrap](https://getbootstrap.com/)
 - Icons from [Font Awesome](https://fontawesome.com)
-- Avatars by [DiceBear](https://avatars.dicebear.com/)
-    - [pixel-art](https://avatars.dicebear.com/styles/pixel-art) by Plastic Jam
-    - [avataaars](https://avataaars.com/) by Pablo Stanley
 - We bake everything into a [docker image](https://www.docker.com/)
 - Running on [node js](https://nodejs.org/)
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
