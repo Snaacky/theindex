@@ -30,6 +30,11 @@ export default function ItemBoard(
         items = items.map(id => allItems.find(i => i._id === id)).filter(i => typeof i !== "undefined")
     }
 
+    const sponsored = items.filter(i => i.sponsor)
+    if (sponsored.length > 0) {
+        items = sponsored.concat(items.filter(i => !i.sponsor))
+    }
+
     return <Board type={"item"} _id={_id} content={items} allContent={allItems} columns={columns}
                   updateContentURL={updateURL} updateContentKey={updateKey} deleteContentURL={deleteURL}
                   forceEditMode={forceEditMode} canMove={canMove} canEdit={canEdit}/>
