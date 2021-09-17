@@ -28,10 +28,7 @@ function Sidebar(
     const {data} = useSWR("/api/libraries")
     const libraries = data ?? []
 
-    const clickFunc = () => {
-        console.log("Toggling sidebar")
-        setShow(!show)
-    }
+    const clickFunc = () => setShow(!show)
 
     return <div className={styles.sidebar + " offcanvas offcanvas-start fade" + (show ? " show" : "")} ref={ref}
                 id={"navbarOffcanvas"} tabIndex="-1" aria-hidden={(!show).toString()} role={"dialog"}>

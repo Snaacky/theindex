@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Link from "next/link"
+import Image from "next/image"
 import {getLibraries} from "../../lib/db/libraries"
 import {useSession} from "next-auth/client"
 import {canEdit, isEditor} from "../../lib/session"
@@ -11,7 +12,7 @@ import IconLibrary from "../../components/icons/IconLibrary"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconNSFW from "../../components/icons/IconNSFW"
 
-export default function Tab({_id, library: staticLibrary}) {
+export default function Library({_id, library: staticLibrary}) {
     const [session] = useSession()
     let {data: library} = useSWR("/api/library/" + _id)
     library = library || staticLibrary
@@ -34,22 +35,32 @@ export default function Tab({_id, library: staticLibrary}) {
             <meta property="og:image" content={process.env.NEXT_PUBLIC_DOMAIN + "/icons/logo.png"}/>
         </Head>
 
-        <div className={"row"}>
-            <div className={"col"}>
-                <h2>
-                    <IconLibrary/> {library.name}
-                    {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
-                        <a title={"Edit tab"} className={"ms-2"}>
-                            <IconEdit/>
-                        </a>
-                    </Link> : <></>}
-                </h2>
+        <div className={"row"} style={{marginTop: "4rem"}}>
+            <div className={"col-auto"}>
+                <div className={"d-absolute mb-2"} style={{marginTop: "-3.2rem"}}>
+                    <Image src={"/img/" + library.img} alt={"Image of collection"} width={"148px"} height={"148px"}
+                           className={"rounded-circle bg-6"}/>
+                </div>
             </div>
-            <div className={"col-auto mb-2"}>
-                {library.nsfw ? <IconNSFW/> : <></>}
-                <span className={"ms-2"}>
-                    <ViewAllButton type={"libraries"}/>
-                </span>
+            <div className={"col"}>
+                <div className={"row"}>
+                    <div className={"col"}>
+                        <h2>
+                            <IconLibrary/> {library.name}
+                            {canEdit(session) ? <Link href={"/edit/library/" + library._id}>
+                                <a title={"Edit tab"} className={"ms-2"}>
+                                    <IconEdit/>
+                                </a>
+                            </Link> : <></>}
+                        </h2>
+                    </div>
+                    <div className={"col-12 col-md-auto mb-2"}>
+                        {library.nsfw ? <IconNSFW/> : <></>}
+                        <span className={"ms-2"}>
+                            <ViewAllButton type={"libraries"}/>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <p style={{

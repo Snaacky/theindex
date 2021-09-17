@@ -190,12 +190,12 @@ export default class Board extends React.Component {
                                   key={key}/>
         } else if (this.type === "library") {
             if (this.state.useCards) {
-                return <LibraryCard tab={content} add={canAdd ? () => this.addContent(content) : null}
+                return <LibraryCard library={content} add={canAdd ? () => this.addContent(content) : null}
                                     remove={canRemove ? () => this.removeContent(content) : null}
                                     move={canMove ? (m) => this.moveContent(content, m) : null}
                                     key={key}/>
             }
-            return <LibraryRow tab={content} remove={canRemove ? () => this.removeContent(content) : null}
+            return <LibraryRow library={content} remove={canRemove ? () => this.removeContent(content) : null}
                                add={canAdd ? () => this.addContent(content) : null}
                                move={canMove ? (m) => this.moveContent(content, m) : null}
                                key={key}/>

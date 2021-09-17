@@ -11,7 +11,7 @@ export default async function apiEditLibrary(req, res) {
                 res.status(400).send("Illegal url id: '_new' is forbidden!")
             } else {
                 if (typeof d._id === "undefined") {
-                    await addLibrary(d.urlId, d.name, d.nsfw, d.description, d.collections)
+                    await addLibrary(d.urlId, d.img, d.name, d.nsfw, d.description, d.collections)
                 } else {
                     await updateLibrary(d._id, d)
                 }
