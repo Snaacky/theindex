@@ -140,21 +140,21 @@ function Sidebar(
                     <NavbarDropdown
                         toggler={"Other services"} targetId={"navbar-menu-services"}
                         contentList={[
-                            <a className={"nav-link"} href="https://wiki.piracy.moe/" key={"wiki"}>
+                            <a className={"nav-link d-flex align-items-center"} href="https://wiki.piracy.moe/" key={"wiki"}>
                                 <Image src={"/icons/wikijs.svg"} height={16} width={16}
                                        alt={"Wiki.js logo"}/>
                                 <span className={"ms-1"}>
                                     Wiki
                                 </span>
                             </a>,
-                            <a className={"nav-link"} href="https://status.piracy.moe/" key={"status"}>
+                            <a className={"nav-link d-flex align-items-center"} href="https://status.piracy.moe/" key={"status"}>
                                 <Image src={"/icons/status.png"} height={16} width={16}
                                        alt={"Checkly logo"}/>
                                 <span className={"ms-1"}>
                                     Status
                                 </span>
                             </a>,
-                            <a className={"nav-link"} href="https://releases.moe/" key={"seadex"}>
+                            <a className={"nav-link d-flex align-items-center"} href="https://releases.moe/" key={"seadex"}>
                                 <Image src={"/icons/seadex.png"} height={16} width={16}
                                        alt={"Seadex logo"}/>
                                 <span className={"ms-1"}>

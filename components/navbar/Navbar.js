@@ -89,8 +89,9 @@ export default function Navbar() {
                     <div className={"ms-auto d-flex flex-row"}>
                         <ul className={"nav nav-pills"}>
                             <li className={styles.desktop + " nav-item me-1"}>
-                                <a className={"nav-link"} href="https://wiki.piracy.moe/">
-                                    <Image src={"/icons/wikijs.svg"} height={16} width={16}
+                                <a className={"nav-link d-flex align-items-center"}
+                                   href="https://wiki.piracy.moe/" style={{lineHeight: 1}}>
+                                    <Image src={"/icons/wikijs.svg"} height={24} width={24}
                                            alt={"Wiki.js logo"}/>
                                     <span className={styles.services + " ms-1"}>
                                         Wiki
@@ -98,8 +99,9 @@ export default function Navbar() {
                                 </a>
                             </li>
                             <li className={styles.desktop + " nav-item me-1"}>
-                                <a className={"nav-link"} href="https://status.piracy.moe/">
-                                    <Image src={"/icons/status.png"} height={16} width={16}
+                                <a className={"nav-link d-flex align-items-center"}
+                                   href="https://status.piracy.moe/" style={{lineHeight: 1}}>
+                                    <Image src={"/icons/status.png"} height={24} width={24}
                                            alt={"Checkly logo"}/>
                                     <span className={styles.services + " ms-1"}>
                                         Status
@@ -107,8 +109,8 @@ export default function Navbar() {
                                 </a>
                             </li>
                             <li className={styles.desktop + " nav-item me-1"}>
-                                <a className={"nav-link"} href="https://releases.moe/">
-                                    <Image src={"/icons/seadex.png"} height={16} width={16}
+                                <a className={"nav-link d-flex align-items-center"} href="https://releases.moe/">
+                                    <Image src={"/icons/seadex.png"} height={24} width={24}
                                            alt={"Seadex logo"}/>
                                     <span className={styles.services + " ms-1"}>
                                         SeaDex

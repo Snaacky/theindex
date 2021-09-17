@@ -11,8 +11,8 @@ export default function NavbarUser({className}) {
         return <>
             <li className={"nav-item"}>
                 <Link href={"/user/" + session.user.uid}>
-                    <a className={"nav-link"}>
-                        <Image src={session.user.image || "/img/puzzled.png"} width={16} height={16}
+                    <a className={"nav-link d-flex align-items-center"}>
+                        <Image src={session.user.image || "/img/puzzled.png"} width={24} height={24}
                                className={"rounded-circle"} alt={session.user.name + "'s profile picture"}/>
                         <span className={className + " ms-1"}>
                             {session.user.name}
