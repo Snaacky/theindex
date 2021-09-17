@@ -31,10 +31,8 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
             <div className="card-body">
                 {_id === "_new" ? <EditLibrary libraries={libraries} collectionsDatalist={collections}/> :
                     <EditLibrary libraries={libraries} collectionsDatalist={collections} _id={library._id}
-                                 urlId={library.urlId}
-                                 name={library.name}
-                                 nsfw={library.nsfw} description={library.description}
-                                 collections={library.collections}/>
+                                 urlId={library.urlId} name={library.name} img={library.img} nsfw={library.nsfw}
+                                 description={library.description} collections={library.collections}/>
                 }
             </div>
         </div>

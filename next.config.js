@@ -21,8 +21,7 @@ const nextConfig = {
     },
     images: {
         domains: [
-            "cdn.discordapp.com",
-            "avatars.dicebear.com"
+            "cdn.discordapp.com"
         ]
     }
 }

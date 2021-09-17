@@ -11,8 +11,11 @@ import {getByUrlId} from "../../lib/db/db"
 import IconLibrary from "../../components/icons/IconLibrary"
 import ViewAllButton from "../../components/buttons/ViewAllButton"
 import IconNSFW from "../../components/icons/IconNSFW"
+import {getCollection} from "../../lib/db/collections"
+import {getItem} from "../../lib/db/items"
+import ItemCard from "../../components/cards/ItemCard"
 
-export default function Library({_id, library: staticLibrary}) {
+export default function Library({_id, library: staticLibrary, sponsoredItems}) {
     const [session] = useSession()
     let {data: library} = useSWR("/api/library/" + _id)
     library = library || staticLibrary
@@ -69,6 +72,12 @@ export default function Library({_id, library: staticLibrary}) {
             {library.description}
         </p>
 
+        <div className={"d-flex flex-wrap mb-2"} style={{marginRight: "-0.5rem"}}>
+            {sponsoredItems.map(item => {
+                return <ItemCard item={item} key={item._id}/>
+            })}
+        </div>
+
         <CollectionBoard _id={library._id} collections={library.collections} key={library._id}
                          canEdit={isEditor(session)}/>
     </>
@@ -99,10 +108,20 @@ export async function getStaticProps({params}) {
         }
     }
 
+    const collections = await Promise.all(library.collections.map(async collection => await getCollection(collection)))
+
+    // flatten arrays into 1d array
+    const itemIdArray = [].concat.apply([], collections.map(collection => collection.items))
+
+    const items = await Promise.all(itemIdArray.map(async item => await getItem(item)))
+    const sponsoredItems = items.filter(item => item.sponsor)
+
+
     return {
         props: {
             _id: library._id,
-            library
+            library,
+            sponsoredItems
         },
         revalidate: 30
     }
