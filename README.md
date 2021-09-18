@@ -243,4 +243,4 @@ And most importantly:
 - Unify `Editor`-views
 - Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
   nice...
-- Move to `add`, `remove` api instead of having to send whole arrays to update lists
+- Move to `add`, `remove` api instead of having to send whole arrays to update lists -> GraphQL?

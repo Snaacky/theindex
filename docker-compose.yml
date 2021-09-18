@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   web:
-    image: ranimepiracy/index:dev-next
+    image: ranimepiracy/index
     container_name: index-web
     restart: unless-stopped
     ports:
