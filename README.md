@@ -34,6 +34,8 @@ remove the env variable from your setup.
 We use [mongodb](https://github.com/mongodb/mongo) as our database server. You can deploy your own mongo setup as HA
 service or just a simple single docker container via e.g.:
 
+NOTE: The database will start empty, you have to fill the data yourself.
+
 ```shell
 docker run -d \
     --name mongo \
