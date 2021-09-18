@@ -4,11 +4,11 @@ import styles from "./OnlineStatus.module.css"
 import OnlineStatusModal from "../modals/OnlineStatusModal"
 
 export default function OnlineStatus({url}) {
-    let {data, error} = useSWR("https://ping.piracy.moe/ping", (u) => fetch(u, {
+    let {data, error} = useSWR(url, (u) => fetch("https://ping.piracy.moe/ping", {
         method: "post",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            url: url || "https://piracy.moe"
+            url: u
         })
     }).then(res => res.json()))
     const [show, setShow] = useState(false)
