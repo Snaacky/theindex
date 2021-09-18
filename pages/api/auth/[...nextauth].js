@@ -24,12 +24,12 @@ const nextAuth = NextAuth({
     },
     events: {
         async createUser(user) {
-            const {id: discord_id} = await findOne("nextauth_accounts", {userId: user.id})
-            console.log("Create new user", user.name, discord_id)
+            const {providerAccountId} = await findOne("nextauth_accounts", {userId: user.id})
+            console.log("Create new user", user.name, providerAccountId)
             const accountType = (
                 typeof process.env.SETUP_WHITELIST_DISCORD_ID !== "undefined" &&
                 process.env.SETUP_WHITELIST_DISCORD_ID !== "" &&
-                discord_id === process.env.SETUP_WHITELIST_DISCORD_ID.toString() ?
+                providerAccountId === process.env.SETUP_WHITELIST_DISCORD_ID.toString() ?
                     "admin" : "user"
             )
             await addUser({
