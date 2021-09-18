@@ -60,7 +60,7 @@ export default function Card(
                 <div className={"card-body d-flex flex-column p-2 h-100"}>
                     <h5 className={styles.title + " card-title"}>
                         {typeof content.urls !== "undefined" ?
-                            <OnlineStatus url={content.urls[0]}/> : <></>}
+                            <OnlineStatus url={content.urls[0] ?? ''}/> : <></>}
                         <Link href={hrefString}>
                             <a title={"View " + type + " " + content.name}>
                                 {content.name}

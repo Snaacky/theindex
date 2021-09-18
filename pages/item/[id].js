@@ -97,7 +97,7 @@ export default function Item({_id, item: staticItem, columns: staticColumns, col
 
                 <div>
                     <span>
-                        Status <OnlineStatus url={item.urls[0]}/>
+                        Status <OnlineStatus url={item.urls[0] ?? ''}/>
                     </span>
                     <small className={"text-warning me-2"} title={item.stars + " users have starred this item"}>
                         {item.stars}
