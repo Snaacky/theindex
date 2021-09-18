@@ -21,7 +21,7 @@ export default function DataCard(
                         {column.name}
                     </a>
                 </Link>
-                {canEdit(session) ? <Link href={"/edit/column/" + column.urlId}>
+                {canEdit(session) ? <Link href={"/edit/column/" + column._id}>
                     <a className={"ms-2"} title={"Edit column"}>
                         <IconEdit/>
                     </a>
