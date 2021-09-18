@@ -6,6 +6,12 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/ranimepiracy?label=%40ranimepiracy&logo=twitter&style=flat)](https://twitter.com/ranimepiracy)
 [![Discord](https://img.shields.io/discord/622243127435984927?label=Discord&logo=discord)](https://discord.gg/piracy)
 
+# Deprecated! Use the new main branch instead
+
+We deprecated this old version of our index and replaced it with our new one at the [main branch](https://github.com/ranimepiracy/index/tree/main).
+
+This version is no longer maintained and we strongly recommend users to switch to our new version
+
 # piracy.moe index
 
 The frontend, editor panel, and API of the /r/animepiracy index.
