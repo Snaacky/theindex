@@ -12,16 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Run tests
+      - name: Lint test
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+          npm install
+          npm run lint || exit 1
 
   # Push image to GitHub Packages and docker hub.
   # See also https://docs.docker.com/docker-hub/builds/
@@ -50,7 +47,7 @@ jobs:
           fi
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          [ "$VERSION" == "main" ] && VERSION=latest
 
           TAG="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=version::${VERSION}
