@@ -14,14 +14,16 @@ export default function EditorLibrary({_id, libraries, collections, library}) {
             </title>
         </Head>
 
+        <div className={"d-flex justify-content-between"}>
         <h2>
             {_id === "_new" ? "Create a new library" : <>
                 Edit library <Link href={"/library/" + library.urlId}>{library.name}</Link>
             </>}
-            <span className={"float-end"}>
-                <ViewAllButton type={"libraries"}/>
-            </span>
         </h2>
+        <div>
+                <ViewAllButton type={"libraries"}/>
+        </div>
+        </div>
         {_id !== "_new" ?
             <small className={"text-muted"}>
                 ID: <code>{library._id}</code>
