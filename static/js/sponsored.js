@@ -15,22 +15,24 @@ window.addEventListener("load", () => {
         },
         {
             id: "sponsored-anime-4",
-            title: "11anime",
-            url: "https://11anime.fr/",
+            title: "Zoro.to",
+            url: "https://zoro.to",
             description: 'Watch in ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
-            ' with <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">No Ads</span>, ' +
-            ' offering both <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
-            ' and <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span>, with a clean UI'
-        },
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
+            ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> '
+        }
     ]
-    
+
     const sponsoredListManga = [
         {
             id: "sponsored-manga-1",
-            title: "TodayManga",
-            url: "https://todaymanga.com",
-            description: ' A chapter a day keeps the doctors away! It doesn\'t make any sense, but we got your attention!'
+            title: "MangaReader.to",
+            url: "https://MangaReader.to",
+            description: 'Try MangaReader if you need a Free Manga site with Premium Features and Absolutely No Ads'
         }
     ]
 
