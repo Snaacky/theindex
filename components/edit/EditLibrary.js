@@ -63,11 +63,11 @@ export default class EditLibrary extends React.Component {
                     <label htmlFor={"createLibraryInputImage"} className={"form-label"}>
                         Image
                     </label>
-                    <div className={"d-flex align-items-center p-2 rounded bg-6"}>
+                    <div className={"d-flex flex-column align-items-center p-2 rounded bg-6 flex-sm-row"}>
                         <Image src={"/img/" + this.state.img} alt={"Image for collection"} width={"148px"}
                                height={"148px"}/>
                         <div className={"ms-2 d-flex flex-row w-100 justify-content-center"}>
-                            <EditSelectImg selected={this.state.img}
+                            <EditSelectImg selected={this.state.img ?? ''}
                                            onChange={(i) => this.setState({img: i})}/>
                         </div>
                     </div>
