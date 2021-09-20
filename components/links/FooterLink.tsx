@@ -38,7 +38,10 @@ const FooterLink: FC<Props> = ({
             alt={name}
           />
         )}
-        <FontAwesomeIcon icon={['fab', `${icon}`]} fixedWidth={true} />
+
+        {!customIcon && (
+          <FontAwesomeIcon icon={['fab', `${icon}`]} fixedWidth={true} />
+        )}
         <span className='ms-2'>{name}</span>
       </a>
     </div>
