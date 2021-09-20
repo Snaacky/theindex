@@ -1,0 +1,17 @@
+.footerContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.footerLink {
+  flex: 1;
+}
+
+.footerLink:nth-of-type(3) {
+  flex-grow: 2;
+}
+
+.linkGroupTitle {
+  color: white;
+  margin: 15px 0px 10px 0px
+}
