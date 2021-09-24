@@ -19,10 +19,10 @@ export default function ItemCard(
     return <Card type={"item"} content={item} add={add} remove={remove} move={move} bodyContent={<>
         {column.yes.length > 0 ?
             <div className={"d-flex flex-wrap mb-1"}>
-                {column.yes.map(c => <BoolValue data={true} column={c} key={c._id}/>)}
+                {column.yes.map(c => <BoolValue data={true} column={c} sponsor={item.sponsor} key={c._id}/>)}
             </div> : <></>
         }
-        {column.no.length > 0 ?
+        {!item.sponsor && column.no.length > 0 ?
             <div className={"d-flex flex-wrap mb-1"}>
                 {column.no.map(c => <BoolValue data={false} column={c} key={c._id}/>)}
             </div> : <></>
