@@ -8,7 +8,7 @@ export default async function apiEditLibrary(req, res) {
     const d = req.body
     if (d.urlId !== '' && d.name !== '') {
       if (d.urlId === '_new') {
-        res.status(400).send("Illegal url id: '_new' is forbidden!")
+        res.status(400).send('Illegal url id: "_new" is forbidden!')
       } else {
         let id = d._id
         if (typeof d._id === 'undefined') {

@@ -64,17 +64,15 @@ export default function List({
           {canEdit(session) && (
             <IconDelete
               className={'ms-2'}
-              title={'Delete library'}
+              title={'Delete list'}
               onClick={() => {
                 if (
                   confirm(
-                    'Do you really want to delete the library "' +
-                      library.name +
-                      '"?'
+                    'Do you really want to delete the list "' + list.name + '"?'
                   )
                 ) {
-                  postData('/api/delete/library', { _id: library._id }, () => {
-                    window.location.href = escape('/libraries')
+                  postData('/api/delete/list', { _id: list._id }, () => {
+                    window.location.href = escape('/lists')
                   })
                 }
               }}

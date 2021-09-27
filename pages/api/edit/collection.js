@@ -7,7 +7,7 @@ export default async function apiEditCollection(req, res) {
   if (canEdit(session)) {
     const d = req.body
     if (d.urlId === '_new') {
-      res.status(400).send("Illegal url id: '_new' is forbidden!")
+      res.status(400).send('Illegal url id: "_new" is forbidden!')
     } else {
       let id = d._id
       if (typeof d._id === 'undefined') {

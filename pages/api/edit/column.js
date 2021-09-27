@@ -9,7 +9,7 @@ export default async function apiEditColumn(req, res) {
     if (typeof d._id === 'undefined') {
       if (d.urlId !== '' && d.name !== '') {
         if (d.urlId === '_new') {
-          res.status(400).send("Illegal url id: '_new' is forbidden!")
+          res.status(400).send('Illegal url id: "_new" is forbidden!')
         } else {
           const id = await addColumn(
             d.urlId,

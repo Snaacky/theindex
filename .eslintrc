@@ -1,3 +1,12 @@
 {
-  "extends": "next"
+  "extends": "next",
+  "rules": {
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
+  }
 }

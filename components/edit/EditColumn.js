@@ -28,7 +28,7 @@ export default class EditColumn extends React.Component {
   saveColumn() {
     if (this.state.name !== '' && this.state.urlId !== '') {
       if (this.state.urlId === '_new') {
-        return toast.error("Illegal url id: '_new' is forbidden!")
+        return toast.error('Illegal url id: "_new" is forbidden!')
       }
 
       let body = {

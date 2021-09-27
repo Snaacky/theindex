@@ -121,9 +121,9 @@ export default class Board extends React.Component {
         confirm(
           'Do you really want to delete the ' +
             this.type +
-            " '" +
+            ' "' +
             content.name +
-            "'?"
+            '"?'
         )
       ) {
         postData(this.deleteContentURL, { _id: content._id }, () => {
