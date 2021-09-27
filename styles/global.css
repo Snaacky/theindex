@@ -20,7 +20,7 @@ body {
 }
 
 main {
-    min-height: 80vh;
+    min-height: calc(100vh - 3rem - 64px);
 }
 
 .bg-1 {

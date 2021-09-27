@@ -32,7 +32,7 @@ const FooterLink: FC<Props> = ({
       >
         {customIcon && (
           <Image
-            src={`/icons/${customIconName}.png`}
+            src={`/icons/${customIconName}`}
             height={18}
             width={18}
             alt={name}
