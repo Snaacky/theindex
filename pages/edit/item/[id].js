@@ -37,8 +37,9 @@ export default function EditorItem({_id, collections, columns, item}) {
         <div className={"card bg-2 mb-3"}>
             <div className="card-body">
                 {_id === "_new" ? <EditItem columns={columns}/> :
-                    <EditItem _id={item._id} name={item.name} urls={item.urls} nsfw={item.nsfw}
-                              description={item.description} data={item.data} columns={columns}/>
+                    <EditItem _id={item._id} name={item.name} urls={item.urls} nsfw={item.nsfw} sponsor={item.sponsor}
+                              blacklist={item.blacklist} description={item.description} data={item.data}
+                              columns={columns}/>
                 }
             </div>
         </div>
