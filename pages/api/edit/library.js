@@ -10,8 +10,9 @@ export default async function apiEditLibrary(req, res) {
       if (d.urlId === '_new') {
         res.status(400).send("Illegal url id: '_new' is forbidden!")
       } else {
+        let id = d._id
         if (typeof d._id === 'undefined') {
-          await addLibrary(
+          id = await addLibrary(
             d.urlId,
             d.img,
             d.name,
@@ -22,7 +23,7 @@ export default async function apiEditLibrary(req, res) {
         } else {
           await updateLibrary(d._id, d)
         }
-        res.status(200).send('Ok')
+        res.status(200).send(id)
       }
     } else {
       res.status(400).send('Missing url id or name')

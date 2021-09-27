@@ -40,7 +40,9 @@ export default class EditUser extends React.Component {
       }
     }
 
-    postData('/api/edit/user', body)
+    postData('/api/edit/user', body, () => {
+      window.location.href = escape('/user/' + body.uid)
+    })
   }
 
   render() {

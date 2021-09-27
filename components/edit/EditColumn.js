@@ -47,7 +47,7 @@ export default class EditColumn extends React.Component {
 
       postData('/api/edit/column', body, () => {
         if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/columns')
+          window.location.href = escape('/columns/' + body.urlId)
         }
       })
     } else {

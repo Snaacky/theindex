@@ -72,7 +72,7 @@ export default class EditLibrary extends React.Component {
 
       postData('/api/edit/library', body, () => {
         if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/libraries')
+          window.location.href = escape('/library/' + body.urlId)
         }
       })
     } else {

@@ -7,8 +7,9 @@ export default async function apiEditItem(req, res) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
+    let id = d._id
     if (typeof d._id === 'undefined') {
-      const id = await addItem(
+      id = await addItem(
         d.name,
         d.urls,
         d.nsfw,
@@ -24,7 +25,7 @@ export default async function apiEditItem(req, res) {
         console.log('Screenshot', d._id, 'created')
       )
     }
-    res.status(200).send('Ok')
+    res.status(200).send(id)
   } else {
     // Not Signed in
     res.status(401).send('Not logged in or edits are not permitted')

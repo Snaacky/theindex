@@ -11,7 +11,7 @@ export default async function apiEditUser(req, res) {
         delete d.accountType
       }
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)
-      res.status(200).send('Ok')
+      res.status(200).send(d.uid)
     } else {
       // Not Signed in
       res.status(401).send('Not logged in or edits are not permitted')

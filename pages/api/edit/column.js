@@ -11,7 +11,7 @@ export default async function apiEditColumn(req, res) {
         if (d.urlId === '_new') {
           res.status(400).send("Illegal url id: '_new' is forbidden!")
         } else {
-          await addColumn(
+          const id = await addColumn(
             d.urlId,
             d.name,
             d.nsfw,
@@ -19,14 +19,14 @@ export default async function apiEditColumn(req, res) {
             d.type,
             d.values
           )
-          res.status(200).send('Ok')
+          res.status(200).send(id)
         }
       } else {
         res.status(400).send('Missing url id or name')
       }
     } else {
       await updateColumn(d._id, d)
-      res.status(200).send('Ok')
+      res.status(200).send(d._id)
     }
   } else {
     // Not Signed in

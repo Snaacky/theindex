@@ -67,9 +67,9 @@ export default class EditItem extends React.Component {
         body._id = this.state._id
       }
 
-      postData('/api/edit/item', body, () => {
+      postData('/api/edit/item', body, (newId) => {
         if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/items')
+          window.location.href = escape('/item/' + newId)
         }
       })
     } else {

@@ -41,7 +41,7 @@ export default class EditCollection extends React.Component {
 
       postData('/api/edit/collection', body, () => {
         if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/collections')
+          window.location.href = escape('/collection/' + body.urlId)
         }
       })
     } else {

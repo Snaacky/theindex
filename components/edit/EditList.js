@@ -29,9 +29,9 @@ export default class EditList extends React.Component {
         body._id = this.state._id
       }
 
-      postData('/api/edit/list', body, () => {
+      postData('/api/edit/list', body, (newId) => {
         if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/lists')
+          window.location.href = escape('/list/' + newId)
         }
       })
     } else {

@@ -11,8 +11,14 @@ export default async function apiEditList(req, res) {
       (isCurrentUser(session, d.owner) || isAdmin(session))
     ) {
       if (d.owner !== '' && d.name !== '') {
-        await addList(d.owner, d.name, d.nsfw, d.description, d.columns)
-        res.status(200).send('Ok')
+        const id = await addList(
+          d.owner,
+          d.name,
+          d.nsfw,
+          d.description,
+          d.columns
+        )
+        res.status(200).send(id)
       } else {
         res.status(400).send('Missing owner or name')
       }
@@ -20,7 +26,7 @@ export default async function apiEditList(req, res) {
       const list = await getList(d._id)
       if (isCurrentUser(session, list.owner) || isAdmin(session)) {
         await updateList(d._id, d)
-        res.status(200).send('Ok')
+        res.status(200).send(d._id)
       } else {
         res.status(401).send('Not logged in or edits are not permitted')
       }
