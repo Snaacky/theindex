@@ -14,6 +14,8 @@ import { getItems } from '../../lib/db/items'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
+import IconDelete from '../../components/icons/IconDelete'
+import { postData } from '../../lib/utils'
 
 export default function Column({
   _id,
@@ -95,6 +97,25 @@ export default function Column({
         </div>
         <div className={'mb-2 col-auto'}>
           {column.nsfw ? <IconNSFW /> : <></>}
+          {canEdit(session) && (
+            <IconDelete
+              className={'ms-2'}
+              title={'Delete column'}
+              onClick={() => {
+                if (
+                  confirm(
+                    'Do you really want to delete the column "' +
+                      column.name +
+                      '"?'
+                  )
+                ) {
+                  postData('/api/delete/column', { _id: column._id }, () => {
+                    window.location.href = escape('/columns')
+                  })
+                }
+              }}
+            />
+          )}
           <span className={'ms-2'}>
             <ViewAllButton type={'columns'} />
           </span>

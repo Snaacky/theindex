@@ -14,6 +14,8 @@ import IconNSFW from '../../components/icons/IconNSFW'
 import { getCollection } from '../../lib/db/collections'
 import { getItem } from '../../lib/db/items'
 import ItemCard from '../../components/cards/ItemCard'
+import IconDelete from '../../components/icons/IconDelete'
+import { postData } from '../../lib/utils'
 
 export default function Library({
   _id,
@@ -79,7 +81,30 @@ export default function Library({
               </h2>
             </div>
             <div className={'col-12 col-md-auto mb-2'}>
-              {library.nsfw ? <IconNSFW /> : <></>}
+              {library.nsfw && <IconNSFW />}
+              {canEdit(session) && (
+                <IconDelete
+                  className={'ms-2'}
+                  title={'Delete library'}
+                  onClick={() => {
+                    if (
+                      confirm(
+                        'Do you really want to delete the library "' +
+                          library.name +
+                          '"?'
+                      )
+                    ) {
+                      postData(
+                        '/api/delete/library',
+                        { _id: library._id },
+                        () => {
+                          window.location.href = escape('/libraries')
+                        }
+                      )
+                    }
+                  }}
+                />
+              )}
               <span className={'ms-2'}>
                 <ViewAllButton type={'libraries'} />
               </span>

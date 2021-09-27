@@ -3,8 +3,6 @@ import React from 'react'
 import IconItem from '../components/icons/IconItem'
 import ItemBoard from '../components/boards/ItemBoard'
 import useSWR from 'swr'
-import { useSession } from 'next-auth/client'
-import { isEditor } from '../lib/session'
 import { getItems } from '../lib/db/items'
 import DataBadge from '../components/data/DataBadge'
 
@@ -13,7 +11,6 @@ const description =
   'Every item represents a service and contains various information like which languages it supports or feature it has'
 
 export default function Items({ items: staticItems }) {
-  const [session] = useSession()
   let { data: items } = useSWR('/api/items')
   items = items || staticItems
 
@@ -50,11 +47,7 @@ export default function Items({ items: staticItems }) {
       </h2>
       <p>{description}</p>
 
-      <ItemBoard
-        items={items}
-        deleteURL={'/api/delete/item'}
-        canEdit={isEditor(session)}
-      />
+      <ItemBoard items={items} deleteURL={'/api/delete/item'} canEdit={true} />
     </>
   )
 }

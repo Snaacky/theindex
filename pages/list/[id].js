@@ -10,6 +10,8 @@ import { getUser } from '../../lib/db/users'
 import IconList from '../../components/icons/IconList'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
+import IconDelete from '../../components/icons/IconDelete'
+import { postData } from '../../lib/utils'
 
 export default function List({
   _id,
@@ -58,7 +60,26 @@ export default function List({
           <></>
         )}
         <span style={{ fontSize: '1.2rem' }} className={'float-end'}>
-          {list.nsfw ? <IconNSFW /> : <></>}
+          {list.nsfw && <IconNSFW />}
+          {canEdit(session) && (
+            <IconDelete
+              className={'ms-2'}
+              title={'Delete library'}
+              onClick={() => {
+                if (
+                  confirm(
+                    'Do you really want to delete the library "' +
+                      library.name +
+                      '"?'
+                  )
+                ) {
+                  postData('/api/delete/library', { _id: library._id }, () => {
+                    window.location.href = escape('/libraries')
+                  })
+                }
+              }}
+            />
+          )}
           <span className={'ms-2'}>
             <ViewAllButton type={'lists'} />
           </span>

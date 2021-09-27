@@ -20,6 +20,8 @@ import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconSponsor from '../../components/icons/IconSponsor'
 import UrlBadge from '../../components/data/UrlBadge'
+import IconDelete from '../../components/icons/IconDelete'
+import { postData } from '../../lib/utils'
 
 export default function Item({
   _id,
@@ -109,14 +111,31 @@ export default function Item({
               item.name
             )}
             <IconNewTabLink url={item.urls[0]} />
-            {canEdit(session) ? (
+            {canEdit(session) && (
               <Link href={'/edit/item/' + item._id}>
                 <a title={'Edit item'} className={'ms-2'}>
                   <IconEdit />
                 </a>
               </Link>
-            ) : (
-              <></>
+            )}
+            {canEdit(session) && (
+              <IconDelete
+                className={'ms-2'}
+                title={'Delete item'}
+                onClick={() => {
+                  if (
+                    confirm(
+                      'Do you really want to delete the item "' +
+                        item.name +
+                        '"?'
+                    )
+                  ) {
+                    postData('/api/delete/item', { _id: item._id }, () => {
+                      window.location.href = escape('/items')
+                    })
+                  }
+                }}
+              />
             )}
           </h2>
           <div className={'mb-2'}>
@@ -178,19 +197,15 @@ export default function Item({
                 borderBottomLeftRadius: '0.25rem',
               }}
             >
-              {item.sponsor ? (
+              {item.sponsor && (
                 <span className={'me-2'}>
                   <IconSponsor />
                 </span>
-              ) : (
-                <></>
               )}
-              {item.nsfw ? (
+              {item.nsfw && (
                 <span className={'me-2'}>
                   <IconNSFW />
                 </span>
-              ) : (
-                <></>
               )}
               <IconStar item={item} />
               <span className={'ms-2'}>

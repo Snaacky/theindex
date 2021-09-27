@@ -12,6 +12,8 @@ import { getLibraries } from '../../lib/db/libraries'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconCollection from '../../components/icons/IconCollection'
 import IconNSFW from '../../components/icons/IconNSFW'
+import { postData } from '../../lib/utils'
+import IconDelete from '../../components/icons/IconDelete'
 
 export default function Collection({
   _id,
@@ -85,6 +87,29 @@ export default function Collection({
             </div>
             <div className={'col-12 col-md-auto mb-2'}>
               {collection.nsfw ? <IconNSFW /> : <></>}
+              {canEdit(session) && (
+                <IconDelete
+                  className={'ms-2'}
+                  title={'Delete collection'}
+                  onClick={() => {
+                    if (
+                      confirm(
+                        'Do you really want to delete the collection "' +
+                          collection.name +
+                          '"?'
+                      )
+                    ) {
+                      postData(
+                        '/api/delete/collection',
+                        { _id: collection._id },
+                        () => {
+                          window.location.href = escape('/collections')
+                        }
+                      )
+                    }
+                  }}
+                />
+              )}
               <span className={'ms-2'}>
                 <ViewAllButton type={'collections'} />
               </span>

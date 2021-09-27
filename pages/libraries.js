@@ -3,8 +3,6 @@ import IconLibrary from '../components/icons/IconLibrary'
 import React from 'react'
 import LibraryBoard from '../components/boards/LibraryBoard'
 import useSWR from 'swr'
-import { useSession } from 'next-auth/client'
-import { isEditor } from '../lib/session'
 import { getLibraries } from '../lib/db/libraries'
 
 const title = 'Libraries on ' + process.env.NEXT_PUBLIC_SITE_NAME
@@ -12,7 +10,6 @@ const description =
   "Libraries are over-categories of a bunch of collections that fit into it's category"
 
 export default function Libraries({ libraries: staticLibraries }) {
-  const [session] = useSession()
   let { data: libraries } = useSWR('/api/libraries')
   libraries = libraries || staticLibraries
 
@@ -43,7 +40,7 @@ export default function Libraries({ libraries: staticLibraries }) {
       </h2>
       <p>{description}</p>
 
-      <LibraryBoard libraries={libraries} canEdit={isEditor(session)} />
+      <LibraryBoard libraries={libraries} canEdit={true} />
     </>
   )
 }
