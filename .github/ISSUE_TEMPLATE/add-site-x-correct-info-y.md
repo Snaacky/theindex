@@ -4,7 +4,6 @@ about: Add a new entry to the index or update existing data
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 **This is the wrong place!!!**

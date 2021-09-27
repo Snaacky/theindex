@@ -1,5 +1,5 @@
-import {getLastViews} from "../../../lib/db/views"
+import { getLastViews } from '../../../lib/db/views'
 
 export default async function handler(req, res) {
-    res.status(200).json(await getLastViews("item", 100))
+  res.status(200).json(await getLastViews('item', 100))
 }

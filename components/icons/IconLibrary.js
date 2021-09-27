@@ -1,5 +1,5 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function IconLibrary({size}) {
-    return <FontAwesomeIcon icon={["fas", "database"]} size={size}/>
+export default function IconLibrary({ size }) {
+  return <FontAwesomeIcon icon={['fas', 'database']} size={size} />
 }

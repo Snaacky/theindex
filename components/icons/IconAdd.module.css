@@ -1,12 +1,12 @@
 .add {
-    color: var(--bs-success);
-    height: 100%;
-    width: 100%;
+  color: var(--bs-success);
+  height: 100%;
+  width: 100%;
 }
 
 .add:hover,
 .btn:hover > .add,
 .btn:active > .add {
-    color: white;
-    background-color: var(--bs-success);
+  color: white;
+  background-color: var(--bs-success);
 }

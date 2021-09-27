@@ -1,11 +1,11 @@
 .badge {
-    cursor: pointer;
-    user-select: none;
-    background-color: var(--bs-secondary);
-    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--bs-secondary);
+  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .badge:hover {
-    color: var(--a-hover-color);
-    background-color: var(--bg-2);
+  color: var(--a-hover-color);
+  background-color: var(--bg-2);
 }

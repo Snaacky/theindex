@@ -1,12 +1,12 @@
 .edit,
 a > .edit {
-    color: var(--a-color);
-    transition: color 0.1s ease-in-out;
+  color: var(--a-color);
+  transition: color 0.1s ease-in-out;
 }
 
 .edit:hover,
 a:hover > .edit,
 .btn:hover > .edit,
 .btn:active > .edit {
-    color: var(--bs-warning);
+  color: var(--bs-warning);
 }

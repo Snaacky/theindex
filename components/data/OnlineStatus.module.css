@@ -1,63 +1,62 @@
 .status {
-    display: inline-block;
-    vertical-align: -0.125em;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    transition: background-color 0.1s ease-in-out;
-    margin-right: 0.5rem;
-    cursor: pointer;
+  display: inline-block;
+  vertical-align: -0.125em;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  transition: background-color 0.1s ease-in-out;
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .status:hover {
-    filter: opacity(35%);
-    animation: none;
+  filter: opacity(35%);
+  animation: none;
 }
 
 .ping {
-    background-color: var(--bg-8);
-    animation: ping 1.2s ease-in-out infinite both;
-    cursor: wait;
+  background-color: var(--bg-8);
+  animation: ping 1.2s ease-in-out infinite both;
+  cursor: wait;
 }
 
 @keyframes ping {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.2;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-
 .down {
-    background-color: var(--bs-danger);
+  background-color: var(--bs-danger);
 }
 
 .up {
-    background-color: var(--bs-success);
+  background-color: var(--bs-success);
 }
 
 .error {
-    background-color: var(--bs-danger);
-    animation: error 0.6s ease-in-out infinite both;
+  background-color: var(--bs-danger);
+  animation: error 0.6s ease-in-out infinite both;
 }
 
 @keyframes error {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.2;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .unknown {
-    background-color: grey;
+  background-color: grey;
 }

@@ -45,7 +45,7 @@ docker run -d \
 
 For development or testing purposes it is highly recommended to
 use [mongo-express](https://github.com/mongo-express/mongo-express) for accessing, viewing and editing the current state
-of the database. If you make it publicly accessible, **don't forget** to secure it with *login credentials*.
+of the database. If you make it publicly accessible, **don't forget** to secure it with _login credentials_.
 
 To simply spin up a mongo-express docker container, run:
 
@@ -76,25 +76,25 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
-| Parameter | Function | Default |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_NAME` | The name of your site | `"The Anime Index"` |
-| `NEXT_PUBLIC_DOMAIN` | Your domain or IP, remove trailing slash | `"https://piracy.moe"` |
-| `NEXTAUTH_URL` | Your domain or IP, remove trailing slash | `$NEXT_PUBLIC_DOMAIN` |
-| `DATABASE_URL` | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/) | `"mongodb://mongo:27017"` |
-| `CHROME_URL` | WebSocket URL to a running chrome instance | `""ws://chrome:3300"` |
-| `AUDIT_WEBHOOK` | WebHook-URL for audit-log, leave empty to disable support | `""` |
-| `DISCORD_CLIENT_ID` | Discord OAuth2 client ID | `"your_discord_oauth_client_id"` |
-| `DISCORD_CLIENT_SECRET` | Discord OAuth2 client secret | `"your_discord_oauth_client_secret"` |
-| `DISCORD_BOT_TOKEN` | Required to access BOT resources | `"your_discord_bot_token"` |
-| `SETUP_WHITELIST_DISCORD_ID=` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop) | `"your_discord_id"` |
-| `MEILI_MASTER_KEY` | Set a random secure string, read more about [meili](https://docs.meilisearch.com/reference/features/authentication.html) | `"a_super_secret_long_randomly_generated_string_that_is_secure"` |
+| Parameter                     | Function                                                                                                                 | Default                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_NAME`       | The name of your site                                                                                                    | `"The Anime Index"`                                              |
+| `NEXT_PUBLIC_DOMAIN`          | Your domain or IP, remove trailing slash                                                                                 | `"https://piracy.moe"`                                           |
+| `NEXTAUTH_URL`                | Your domain or IP, remove trailing slash                                                                                 | `$NEXT_PUBLIC_DOMAIN`                                            |
+| `DATABASE_URL`                | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)                              | `"mongodb://mongo:27017"`                                        |
+| `CHROME_URL`                  | WebSocket URL to a running chrome instance                                                                               | `""ws://chrome:3300"`                                            |
+| `AUDIT_WEBHOOK`               | WebHook-URL for audit-log, leave empty to disable support                                                                | `""`                                                             |
+| `DISCORD_CLIENT_ID`           | Discord OAuth2 client ID                                                                                                 | `"your_discord_oauth_client_id"`                                 |
+| `DISCORD_CLIENT_SECRET`       | Discord OAuth2 client secret                                                                                             | `"your_discord_oauth_client_secret"`                             |
+| `DISCORD_BOT_TOKEN`           | Required to access BOT resources                                                                                         | `"your_discord_bot_token"`                                       |
+| `SETUP_WHITELIST_DISCORD_ID=` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop)                     | `"your_discord_id"`                                              |
+| `MEILI_MASTER_KEY`            | Set a random secure string, read more about [meili](https://docs.meilisearch.com/reference/features/authentication.html) | `"a_super_secret_long_randomly_generated_string_that_is_secure"` |
 
 And the following env variables are only needed when you are in dev mode and debugging the db
 
-| Parameter | Function | Default |
-| --- | --- | --- |
-| `ME_CONFIG_BASICAUTH_USERNAME` | [mongo-express](https://github.com/mongo-express/mongo-express) username | "admin" |
+| Parameter                      | Function                                                                 | Default        |
+| ------------------------------ | ------------------------------------------------------------------------ | -------------- |
+| `ME_CONFIG_BASICAUTH_USERNAME` | [mongo-express](https://github.com/mongo-express/mongo-express) username | "admin"        |
 | `ME_CONFIG_BASICAUTH_PASSWORD` | [mongo-express](https://github.com/mongo-express/mongo-express) password | "SUPER_SECRET" |
 
 ## Getting started to code
@@ -104,7 +104,7 @@ And the following env variables are only needed when you are in dev mode and deb
 1. Getting started isn't that straight forward. You will need to have installed the latest version
    of [docker with docker-compose](https://docs.docker.com/get-docker/) on your machine.
 
-2. Start by cloning the repo via a git client (highly recommended) or use the cli via
+2. Start by cloning the repo via a graphical git client (highly recommended) or use the cli via
 
 ```shell
 git clone https://github.com/ranimepiracy/index
@@ -115,11 +115,11 @@ git clone https://github.com/ranimepiracy/index
 
 4. Add the following ports to the images in the [`docker-compose.yml`](docker-compose.yml) file:
 
-| service | port-mapping |
-| :---- | --- |
-| `mongo` | `27017:27017` |
-| `meili` | `7700:7700` |
-| `chrome` | `3300:3000` |
+| service  | port-mapping  |
+| :------- | ------------- |
+| `mongo`  | `27017:27017` |
+| `meili`  | `7700:7700`   |
+| `chrome` | `3300:3000`   |
 
 As an example, the setup for `mongo` should look similar to this:
 
@@ -156,6 +156,8 @@ run once:
 npm install
 ```
 
+> Note: We decided to stick with npm instead of yarn to manage dependencies.
+
 You should now have a folder called `node_modules`, which contains all the dependencies we need. We use
 [Next.js](https://nextjs.org) as framework for our [React](https://reactjs.org) web service. To test the web service you
 will have to run a db server in the background and start the frontend via:
@@ -180,6 +182,15 @@ docker build . -t index
 
 You now have a local image with tag `index` that contains a distributable version of the code which can now be run.
 
+### Auto-formatter
+
+We use [prettier](https://prettier.io) to ensure a consistent code style across all participants. You can simply
+auto-format everything with e.g. running the command
+
+```shell
+npx prettier --write .
+```
+
 ## Design of the web app
 
 ### ISR/SSR
@@ -201,8 +212,8 @@ We serve every api request over the endpoint `/api`, the corresponding code can 
 
 ### Page restrictions
 
-Every page request first has to go through [_app.js](pages/_app.js), where a basic layout is being applied and if a page
-has an `auth` property, it also validates whether the user can access the given page. Valid auth attributes are:
+Every page request first has to go through [\_app.js](pages/_app.js), where a basic layout is being applied and if a
+page has an `auth` property, it also validates whether the user can access the given page. Valid auth attributes are:
 
 - `auth` itself is `null` or `typeof auth === "undefined"`, no restrictions. This seems to be a public page.
 - `requireLogin`, not really needed, but set it for logic reasons. User must be logged-in.
@@ -236,6 +247,7 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - [react-toastify](https://github.com/fkhadra/react-toastify) for handling notifications
 
 And most importantly:
+
 > The help of our awesome community :3
 
 ### Technical debts

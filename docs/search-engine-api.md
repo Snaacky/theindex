@@ -40,10 +40,7 @@ A single JSON object of the requested object with the format:
   "id": "unique string, e.g. your id used in your own db",
   "lastUpdate": "integer unix timestamp in seconds since last change",
   "url": "absolute url to your page",
-  "title": [
-    "name of anime/manga/novel/...",
-    "alternative name"
-  ],
+  "title": ["name of anime/manga/novel/...", "alternative name"],
   "description": "text containing description of the content",
   "type": "string of (anime|manga|novel)",
   "malId": "(optional) string of my anime list id",
@@ -79,13 +76,13 @@ A single JSON object of the requested object with the format:
 
 - `type` (required), a string describing what type of content this item actually is. Valid values are:
 
-    - `anime`
+  - `anime`
 
-    - `manga`
+  - `manga`
 
-    - `hentai`
+  - `hentai`
 
-    - `novel`
+  - `novel`
 
   Failing to return one of those values results in the item being ignored.
 
@@ -106,11 +103,11 @@ Novel z has a lot of chapters". Once you add a new sub item, remember to update 
 
 - `subItems` (optional) `array` of objects. Each object describes one sub item and has the following properties:
 
-    - `number` (required), a positive `integer` greater than 1, describes for e.g. an anime episode the episode number.
-      Passing an invalid value results in the sub item being ignored.
+  - `number` (required), a positive `integer` greater than 1, describes for e.g. an anime episode the episode number.
+    Passing an invalid value results in the sub item being ignored.
 
-    - `url` (required), absolute http(s) `url` to the content. Users will be redirected to the page provided in the
-      field. Passing an invalid value results in the sub item being ignored.
+  - `url` (required), absolute http(s) `url` to the content. Users will be redirected to the page provided in the
+    field. Passing an invalid value results in the sub item being ignored.
 
-    - `title` (optional), `string` containing the name of the sub item. If no or an invalid value has been passed, it
-      will default to `Episode {X}` for animes and hentais, `Book {X}` for mangas and `Chapter {X}` for novels
+  - `title` (optional), `string` containing the name of the sub item. If no or an invalid value has been passed, it
+    will default to `Episode {X}` for animes and hentais, `Book {X}` for mangas and `Chapter {X}` for novels

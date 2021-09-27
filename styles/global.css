@@ -1,74 +1,74 @@
 :root {
-    --bg-1: #121212;
-    --bg-2: #1d1d1d;
-    --bg-3: #222222;
-    --bg-4: #242424;
-    --bg-5: #272727;
-    --bg-6: #2c2c2c;
-    --bg-7: #313131;
-    --bg-8: #373737;
-    --accent-color: var(--bs-primary);
-    --a-color: #c6c6c6;
-    --a-hover-color: #2a6496;
+  --bg-1: #121212;
+  --bg-2: #1d1d1d;
+  --bg-3: #222222;
+  --bg-4: #242424;
+  --bg-5: #272727;
+  --bg-6: #2c2c2c;
+  --bg-7: #313131;
+  --bg-8: #373737;
+  --accent-color: var(--bs-primary);
+  --a-color: #c6c6c6;
+  --a-hover-color: #2a6496;
 }
 
 html,
 body {
-    min-height: 100vh;
-    background-color: var(--bg-1);
-    color: white;
+  min-height: 100vh;
+  background-color: var(--bg-1);
+  color: white;
 }
 
 main {
-    min-height: calc(100vh - 3rem - 64px);
+  min-height: calc(100vh - 3rem - 64px);
 }
 
 .bg-1 {
-    background-color: var(--bg-1);
-    color: white;
+  background-color: var(--bg-1);
+  color: white;
 }
 
 .bg-2 {
-    background-color: var(--bg-2);
-    color: white;
+  background-color: var(--bg-2);
+  color: white;
 }
 
 .bg-3 {
-    background-color: var(--bg-3);
-    color: white;
+  background-color: var(--bg-3);
+  color: white;
 }
 
 .bg-4 {
-    background-color: var(--bg-4);
-    color: white;
+  background-color: var(--bg-4);
+  color: white;
 }
 
 .bg-5 {
-    background-color: var(--bg-5);
-    color: white;
+  background-color: var(--bg-5);
+  color: white;
 }
 
 .bg-6 {
-    background-color: var(--bg-6);
-    color: white;
+  background-color: var(--bg-6);
+  color: white;
 }
 
 .bg-7 {
-    background-color: var(--bg-7);
-    color: white;
+  background-color: var(--bg-7);
+  color: white;
 }
 
 .bg-8 {
-    background-color: var(--bg-8);
-    color: white;
+  background-color: var(--bg-8);
+  color: white;
 }
 
 a:not(.btn) {
-    color: var(--a-color);
-    transition: color 0.1s ease-in-out;
-    text-decoration: none;
+  color: var(--a-color);
+  transition: color 0.1s ease-in-out;
+  text-decoration: none;
 }
 
 a:not(.btn):hover {
-    color: var(--a-hover-color);
+  color: var(--a-hover-color);
 }

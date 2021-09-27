@@ -1,18 +1,18 @@
-import {getUserWithLists} from "../../../lib/db/users"
-import {getSession} from "next-auth/client"
-import {isLogin} from "../../../lib/session"
+import { getUserWithLists } from '../../../lib/db/users'
+import { getSession } from 'next-auth/client'
+import { isLogin } from '../../../lib/session'
 
 export default async function handler(req, res) {
-    let result = {}
-    if (req.query.id === "me") {
-        const session = await getSession({req})
-        if (isLogin(session)) {
-            result = await getUserWithLists(session.user.uid)
-        } else {
-            return res.status(200).json({})
-        }
+  let result = {}
+  if (req.query.id === 'me') {
+    const session = await getSession({ req })
+    if (isLogin(session)) {
+      result = await getUserWithLists(session.user.uid)
     } else {
-        result = await getUserWithLists(req.query.id)
+      return res.status(200).json({})
     }
-    res.status(200).json(result)
+  } else {
+    result = await getUserWithLists(req.query.id)
+  }
+  res.status(200).json(result)
 }

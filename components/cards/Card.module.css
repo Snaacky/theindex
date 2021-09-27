@@ -1,80 +1,80 @@
 .card {
-    width: 100%;
-    border-right: 3px solid var(--bg-2);
-    transition: border-right-color ease-in-out 0.1s;
-    min-height: 69px;
+  width: 100%;
+  border-right: 3px solid var(--bg-2);
+  transition: border-right-color ease-in-out 0.1s;
+  min-height: 69px;
 }
 
 @media (min-width: 768px) {
-    .card {
-        width: calc((0.5rem + 720px - 2 * 0.75rem) / 2 - 0.5rem);
-    }
+  .card {
+    width: calc((0.5rem + 720px - 2 * 0.75rem) / 2 - 0.5rem);
+  }
 }
 
 @media (min-width: 992px) {
-    .card {
-        width: calc((0.5rem + 960px - 2 * 0.75rem) / 2 - 0.5rem);
-    }
+  .card {
+    width: calc((0.5rem + 960px - 2 * 0.75rem) / 2 - 0.5rem);
+  }
 }
 
 @media (min-width: 1200px) {
-    .card {
-        width: calc((0.5rem + 1140px - 2 * 0.75rem) / 3 - 0.5rem);
-    }
+  .card {
+    width: calc((0.5rem + 1140px - 2 * 0.75rem) / 3 - 0.5rem);
+  }
 }
 
 @media (min-width: 1400px) {
-    .card {
-        width: calc((0.5rem + 1320px - 2 * 0.75rem) / 3 - 0.5rem);
-    }
+  .card {
+    width: calc((0.5rem + 1320px - 2 * 0.75rem) / 3 - 0.5rem);
+  }
 }
 
 .card:hover {
-    border-right-color: var(--accent-color);
+  border-right-color: var(--accent-color);
 }
 
 .description {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-line;
 }
 
 .title {
-    margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .action {
-    float: end;
-    font-size: 1.2rem;
+  float: end;
+  font-size: 1.2rem;
 }
 
 .action > a.link {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-left: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 0.5rem;
 }
 
 .sorter {
-    display: flex;
-    width: 32px;
-    margin: 0 0.2rem;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  width: 32px;
+  margin: 0 0.2rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .sorter > a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 
 .sponsor {
-    position: absolute;
-    top: -0.45rem;
-    left: 1.3rem;
+  position: absolute;
+  top: -0.45rem;
+  left: 1.3rem;
 }
