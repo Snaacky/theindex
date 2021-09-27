@@ -1,11 +1,14 @@
-import styles from './IconDelete.module.css'
-import iconStyles from './Icon.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function IconDelete({ size }) {
+export default function IconDelete({ className, size, onClick, title }) {
   return (
-    <div className={iconStyles.icon + ' ' + styles.delete + ' rounded'}>
+    <button
+      className={className + ' btn btn-outline-danger'}
+      title={title}
+      type={'button'}
+      onClick={onClick}
+    >
       <FontAwesomeIcon icon={['fas', 'trash-alt']} size={size} />
-    </div>
+    </button>
   )
 }

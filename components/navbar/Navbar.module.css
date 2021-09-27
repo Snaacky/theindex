@@ -1,42 +1,42 @@
 .navbar,
 .sidebar {
-  background: var(--bg-2);
-  color: #fff;
-  visibility: visible;
-  opacity: 1;
+    background: var(--bg-2);
+    color: #fff;
+    visibility: visible;
+    opacity: 1;
 }
 
 .sidebar:not(.show) {
-  opacity: 1;
+    opacity: 1;
 }
 
 .header {
-  background-color: var(--bg-4);
-  padding: 0.5rem 0;
+    background-color: var(--bg-4);
+    padding: 0.5rem 0;
 }
 
 .toggler {
-  color: grey;
-  background-color: var(--bg-8);
-  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+    color: grey;
+    background-color: var(--bg-8);
+    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 }
 
 .toggler:hover {
-  color: white;
-  background-color: var(--accent-color);
+    color: white;
+    background-color: var(--accent-color);
 }
 
 .outside {
-  position: fixed;
-  z-index: 1100;
+    position: fixed;
+    z-index: 1100;
 }
 
 .navbar a,
 .sidebar a {
-  cursor: pointer;
-  text-decoration: none;
-  user-select: none;
-  color: #c6c6c6;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    color: #c6c6c6;
 }
 
 .navbar a:hover,
@@ -45,7 +45,7 @@
 .sidebar a:hover,
 .sidebar a:active,
 .sidebar a:focus {
-  color: white;
+    color: white;
 }
 
 .navbar ul li a:hover,
@@ -54,62 +54,63 @@
 .sidebar ul li a:hover,
 .sidebar ul li a:active,
 .sidebar ul li a:focus {
-  color: white;
-  background-color: var(--bg-7);
+    color: white;
+    background-color: var(--bg-7);
 }
 
 .show {
-  opacity: 1;
+    opacity: 1;
 }
 
 /**
  * Hide/Show navitems in desktop-mode
  */
 @media (min-width: 900px) {
-  .outside {
-    display: none;
-  }
+    .outside {
+        display: none;
+    }
 }
 
 @media (max-width: 900px) {
-  .desktop,
-  .listAllText {
-    display: none;
-  }
+    .desktop,
+    .listAllText {
+        display: none;
+    }
 
-  .navbar .toggler {
-    margin-left: auto;
-  }
+    .navbar .toggler {
+        margin-left: auto;
+    }
 }
 
 /**
  * Hide username on smaller screens
  */
 @media (max-width: 1200px) {
-  .username {
-    display: none;
-  }
+    .username,
+    .services {
+        display: none;
+    }
 }
 
 @media (max-width: 992px) {
-  .services {
-    display: none;
-  }
+    .services {
+        display: none;
+    }
 }
 
 /**
  * Manage toggle visibility on small screens
  */
 @media (max-width: 600px) {
-  .listAll,
-  .navbar .toggler:not(.show),
-  .outside .toggler:not(.show) {
-    display: none;
-  }
+    .listAll,
+    .navbar .toggler:not(.show),
+    .outside .toggler:not(.show) {
+        display: none;
+    }
 }
 
 @media (min-width: 600px) {
-  .sidebar .toggler {
-    display: none;
-  }
+    .sidebar .toggler {
+        display: none;
+    }
 }

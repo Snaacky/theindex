@@ -148,7 +148,7 @@ export default function Row({
         </div>
         {remove !== null ? (
           <div className={styles.column + ' col-auto p-1'}>
-            <a
+            <IconDelete
               onClick={remove}
               title={'Remove ' + type}
               className={'float-end'}
@@ -156,9 +156,7 @@ export default function Row({
                 width: '42px',
                 height: '42px',
               }}
-            >
-              <IconDelete />
-            </a>
+            />
           </div>
         ) : (
           ''

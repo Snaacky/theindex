@@ -139,13 +139,11 @@ export default function Card({
                   <></>
                 )}
                 {remove !== null ? (
-                  <a
+                  <IconDelete
                     title={'Delete ' + type}
                     className={styles.link + ' float-end'}
                     onClick={remove}
-                  >
-                    <IconDelete />
-                  </a>
+                  />
                 ) : (
                   <></>
                 )}

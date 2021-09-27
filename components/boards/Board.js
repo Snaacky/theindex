@@ -16,6 +16,7 @@ import ListCard from '../cards/ListCard'
 import ListRow from '../rows/ListRow'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default class Board extends React.Component {
   constructor({
@@ -369,16 +370,7 @@ export default class Board extends React.Component {
               <></>
             )}
             <div className={'float-end'}>
-              {!this.canEdit ? (
-                <></>
-              ) : (
-                <Link href={'/edit/' + this.type + '/_new'}>
-                  <a className={'btn btn-outline-success mb-2 me-2'}>
-                    <FontAwesomeIcon icon={['fas', 'plus']} /> Create a new{' '}
-                    {this.type}
-                  </a>
-                </Link>
-              )}
+              <CreateNewButton type={this.type} allowEdit={this.canEdit} />
               {this.forceEditMode || !this.canEdit ? (
                 <></>
               ) : (
@@ -483,16 +475,7 @@ export default class Board extends React.Component {
         ) : (
           <></>
         )}
-        {!this.canEdit ? (
-          <></>
-        ) : (
-          <Link href={'/edit/' + this.type + '/_new'}>
-            <a className={'btn btn-outline-success mb-2 me-2'}>
-              <FontAwesomeIcon icon={['fas', 'plus']} /> Create a new{' '}
-              {this.type}
-            </a>
-          </Link>
-        )}
+        <CreateNewButton type={this.type} allowEdit={this.canEdit} />
       </>
     )
   }
