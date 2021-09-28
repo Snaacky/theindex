@@ -40,15 +40,15 @@ export default function ValidateApi() {
       <h2>Validate your API endpoint</h2>
 
       <p>
-        {description}. Read more about the API format{' '}
+        {description}. <br />
         <a
+          className={'btn btn-primary'}
           href={
             'https://github.com/ranimepiracy/index/blob/main/docs/search-engine-api.md'
           }
         >
-          here
+          Read more about the API format
         </a>
-        .
       </p>
 
       <form
@@ -229,7 +229,9 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
     idValid && lastUpdateValid && urlValid && titleValid && descriptionValid
 
   // optional attributes
-  const subItemsValid = Array.isArray(data.subItems) && data.subItems.length > 0
+  const subItems =
+    data.subItems || data.episodes || data.chapters || data.volumes
+  const subItemsValid = Array.isArray(subItems) && subItems.length > 0
   // TODO: add api checks for existence
   const malIdValid = typeof data.malId === 'string' && data.malId !== ''
   const aniIdValid = typeof data.aniId === 'string' && data.aniId !== ''
@@ -325,12 +327,16 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
           <hr />
           <div className={'p-2'}>
             <h5>Sub-Items</h5>
+            <small className={'text-muted'}>
+              You can also use synonyms like <code>episodes</code>,{' '}
+              <code>chapters</code> or <code>volumes</code> instead of{' '}
+              <code>subItems</code>
+            </small>
             <DataRow
               attribute={'subItems'}
               body={
                 <>
-                  Count:{' '}
-                  <kbd>{(data.subItems && data.subItems.length) || 0}</kbd>
+                  Count: <kbd>{(subItems && subItems.length) || 0}</kbd>
                 </>
               }
               valid={subItemsValid}
@@ -338,7 +344,7 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
 
             {subItemsValid && (
               <div className={'ms-5'}>
-                {data.subItems.map((item, i) => {
+                {subItems.map((item, i) => {
                   return <SubItem item={item} key={i + '-' + item.number} />
                 })}
               </div>
