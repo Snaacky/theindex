@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 services:
   web:
     image: ranimepiracy/index
@@ -37,6 +37,8 @@ services:
     image: mongo
     container_name: index-db
     restart: unless-stopped
+    ports:
+      - 27017:27017
     volumes:
       - ./db:/data/db
 
@@ -44,6 +46,8 @@ services:
     image: getmeili/meilisearch
     container_name: index-meili
     restart: unless-stopped
+    ports:
+      - 7700:7700
     environment:
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
 
@@ -51,18 +55,20 @@ services:
     image: browserless/chrome
     container_name: index-chrome
     restart: unless-stopped
+    ports:
+      - 3300:3000
 
   # this will not run if not explicitly called via docker-compose --profile dev
   mongo-express:
     image: mongo-express
     container_name: mongo-express
     profiles:
-      - "dev"
+      - 'dev'
     ports:
       - 8081:8081
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
-      ME_CONFIG_SITE_GRIDFS_ENABLED: "true"
+      ME_CONFIG_SITE_GRIDFS_ENABLED: 'true'
     depends_on:
       - mongo
