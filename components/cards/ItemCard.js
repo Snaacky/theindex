@@ -1,9 +1,17 @@
-import Link from "next/link"
-import BoolValue from "../data/BoolValue"
-import ArrayValue from "../data/ArrayValue"
-import Card from "./Card"
-import {splitColumnsIntoTypes} from "../../lib/item"
+import Link from 'next/link'
+import BoolValue from '../data/BoolValue'
+import ArrayValue from '../data/ArrayValue'
+import Card from './Card'
+import { splitColumnsIntoTypes } from '../../lib/item'
 
+export default function ItemCard({
+  item,
+  columns = [],
+  add = null,
+  remove = null,
+  move = null,
+}) {
+  const column = splitColumnsIntoTypes(columns, item)
 
 export default function ItemCard(
     {

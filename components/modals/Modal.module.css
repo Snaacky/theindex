@@ -1,28 +1,28 @@
 .modal {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .modalContent {
-    background-color: var(--bg-2);
-    border: none;
+  background-color: var(--bg-2);
+  border: none;
 }
 
 .header {
-    border-bottom-color: var(--bg-8);
+  border-bottom-color: var(--bg-8);
 }
 
 .footer {
-    border-top-color: var(--bg-8);
+  border-top-color: var(--bg-8);
 }
 
 .close {
-    color: white;
-    font-size: 2rem;
-    line-height: 1;
-    padding: 0.2rem;
-    margin: 0;
+  color: white;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 0.2rem;
+  margin: 0;
 }
 
 .close:hover {
-    color: grey;
+  color: grey;
 }

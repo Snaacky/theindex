@@ -48,7 +48,6 @@
     color: white;
 }
 
-
 .navbar ul li a:hover,
 .navbar ul li a:active,
 .navbar ul li a:focus,
@@ -87,7 +86,8 @@
  * Hide username on smaller screens
  */
 @media (max-width: 1200px) {
-    .username {
+    .username,
+    .services {
         display: none;
     }
 }

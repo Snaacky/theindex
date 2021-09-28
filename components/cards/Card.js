@@ -1,34 +1,36 @@
-import Link from "next/link"
-import Image from "next/image"
-import {useSession} from "next-auth/client"
-import {canEdit} from "../../lib/session"
-import styles from "./Card.module.css"
-import IconEdit from "../icons/IconEdit"
-import IconDelete from "../icons/IconDelete"
-import IconAdd from "../icons/IconAdd"
-import IconNewTabLink from "../icons/IconNewTabLink"
-import DataBadge from "../data/DataBadge"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import Loader from "../loading"
-import IconBookmark from "../icons/IconBookmark"
-import IconStar from "../icons/IconStar"
-import OnlineStatus from "../data/OnlineStatus"
-import IconNSFW from "../icons/IconNSFW"
-import IconSponsor from "../icons/IconSponsor"
+import Link from 'next/link'
+import Image from 'next/image'
+import { useSession } from 'next-auth/client'
+import { canEdit } from '../../lib/session'
+import styles from './Card.module.css'
+import IconEdit from '../icons/IconEdit'
+import IconDelete from '../icons/IconDelete'
+import IconAdd from '../icons/IconAdd'
+import IconNewTabLink from '../icons/IconNewTabLink'
+import DataBadge from '../data/DataBadge'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Loader from '../loading'
+import IconBookmark from '../icons/IconBookmark'
+import IconStar from '../icons/IconStar'
+import OnlineStatus from '../data/OnlineStatus'
+import IconNSFW from '../icons/IconNSFW'
+import IconSponsor from '../icons/IconSponsor'
 
-export default function Card(
-    {
-        type,
-        content,
-        imageUrl = "",
-        bodyContent = null,
-        add = null,
-        remove = null,
-        move = null
-    }) {
+export default function Card({
+  type,
+  content,
+  imageUrl = '',
+  bodyContent = null,
+  add = null,
+  remove = null,
+  move = null,
+}) {
+  const [session] = useSession()
+  const hrefString = '/' + type + '/' + (content.urlId ?? content._id)
 
-    const [session] = useSession()
-    const hrefString = "/" + type + "/" + (content.urlId ?? content._id)
+  if (typeof content === 'undefined') {
+    return <Loader />
+  }
 
     if (typeof content === "undefined") {
         return <Loader/>
@@ -43,11 +45,17 @@ export default function Card(
                 <a onClick={() => move(1)}>
                     <FontAwesomeIcon icon={["fas", "chevron-down"]}/>
                 </a>
-            </div> : <></>}
-            {imageUrl !== "" ? <div className={"col-auto"}>
-                <Link href={hrefString}>
-                    <a title={"View " + type + " " + content.name}>
-                        <Image src={imageUrl} className="img-fluid rounded-start" alt="..." width={128} height={128}/>
+              </Link>
+              {typeof content.urls !== 'undefined' ? (
+                <IconNewTabLink url={content.urls[0]} />
+              ) : (
+                <></>
+              )}
+              {canEdit(session, type) ? (
+                <>
+                  <Link href={'/edit/' + type + '/' + content._id}>
+                    <a title={'Edit ' + type} className={'ms-2'}>
+                      <IconEdit />
                     </a>
                 </Link>
             </div> : <></>}
@@ -113,9 +121,43 @@ export default function Card(
                     <span className={styles.description + " card-text"}>
                         {content.description}
                     </span>
-                    {bodyContent !== null ? bodyContent : <></>}
-                </div>
-            </div>
+                    <span className={'ms-2'}>
+                      <IconBookmark item={content} />
+                    </span>
+                  </span>
+                ) : (
+                  <></>
+                )}
+                {add !== null ? (
+                  <a
+                    title={'Add ' + type}
+                    className={styles.link + ' float-end'}
+                    onClick={add}
+                  >
+                    <IconAdd />
+                  </a>
+                ) : (
+                  <></>
+                )}
+                {remove !== null ? (
+                  <IconDelete
+                    title={'Delete ' + type}
+                    className={styles.link + ' float-end'}
+                    onClick={remove}
+                  />
+                ) : (
+                  <></>
+                )}
+              </span>
+            </h5>
+
+            <span className={styles.description + ' card-text'}>
+              {content.description}
+            </span>
+            {bodyContent !== null ? bodyContent : <></>}
+          </div>
         </div>
+      </div>
     </div>
+  )
 }

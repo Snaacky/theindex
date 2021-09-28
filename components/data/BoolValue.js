@@ -1,5 +1,5 @@
-import Link from "next/link"
-import DataBadge from "./DataBadge"
+import Link from 'next/link'
+import DataBadge from './DataBadge'
 
 export default function BoolValue({data, column, sponsor = false, onChange = null}) {
     if (onChange === null) {
@@ -10,13 +10,17 @@ export default function BoolValue({data, column, sponsor = false, onChange = nul
         </Link>
     }
 
-    return <a onClick={() => {
-        if (typeof data === "boolean") {
-            onChange(data ? false : null)
+  return (
+    <a
+      onClick={() => {
+        if (typeof data === 'boolean') {
+          onChange(data ? false : null)
         } else {
-            onChange(true)
+          onChange(true)
         }
-    }}>
-        <DataBadge data={data} name={column.name}/>
+      }}
+    >
+      <DataBadge data={data} name={column.name} />
     </a>
+  )
 }

@@ -1,8 +1,8 @@
 .link {
-    color: var(--a-color);
-    transition: color 0.1s ease-in-out;
+  color: var(--a-color);
+  transition: color 0.1s ease-in-out;
 }
 
 .link:hover {
-    color: var(--a-hover-color);
+  color: var(--a-hover-color);
 }

@@ -1,8 +1,8 @@
 .star {
-    color: var(--a-color);
+  color: var(--a-color);
 }
 
 .star:hover {
-    color: var(--bs-warning);
-    transition: color 0.1s ease-in-out;
+  color: var(--bs-warning);
+  transition: color 0.1s ease-in-out;
 }

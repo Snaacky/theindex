@@ -5,7 +5,7 @@ export enum Statuses {
   unknown = 'Could not determine host up-status',
   noURL = 'No url found to ping',
   error = 'Error occurred while fetching the ping API',
-  ping = 'Still waiting for request to ping API to finish'
+  ping = 'Still waiting for request to ping API to finish',
 }
 
 export type StatusData = {

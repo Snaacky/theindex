@@ -1,9 +1,9 @@
 .type {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 768px) {
-    .type {
-        display: inline-block;
-    }
+  .type {
+    display: inline-block;
+  }
 }
