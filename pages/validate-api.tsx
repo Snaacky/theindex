@@ -51,6 +51,27 @@ export default function ValidateApi() {
         </a>
       </p>
 
+      <h4>How the search engine works</h4>
+      <p>
+        We will fetch your API endpoint in regular intervals of e.g. 10mins
+        (actual timing can vary) to get the huge list of items on your site and
+        whether or not they have been updated or not. For each listed data entry
+        we will make a separate API call to get more information about the item
+        if no data could be found in our database. Or the data simply expired
+        (lastUpdate property).
+      </p>
+      <p>
+        The provided data will be inserted into our database and used as
+        possible matches for searches via our search engine. If some related
+        database ids are provided, matches against those results will also be
+        linked to your entry.
+      </p>
+      <p>
+        As this is a server to server API, we did not add a pagination function
+        on purpose as you could just dump your entries directly to us. The
+        timeout for each request is limited to 20s (may increase or decrease).
+      </p>
+
       <form
         className={'mb-4'}
         onSubmit={(e) => {
@@ -105,8 +126,8 @@ export default function ValidateApi() {
             </div>
           )}
           <div id={'inputApiSecretHelp'} className={'form-text'}>
-            If an alphanumeric secret is provided, we will include http header
-            in each request as{' '}
+            If an alphanumeric secret is provided, we will include the following
+            http header each request:{' '}
             <kbd>
               <code>Authorization: piracy.moe ##########...</code>
             </kbd>
