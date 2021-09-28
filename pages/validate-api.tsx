@@ -219,7 +219,10 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
     data.lastUpdate > 0 &&
     data.lastUpdate * 1000 < Date.now()
   const urlValid = isValidUrl(data.url)
-  const titleValid = typeof data.title === 'string' && data.title !== ''
+  const titleValid =
+    Array.isArray(data.title) &&
+    data.title.length > 0 &&
+    data.title.every((t) => typeof t === 'string')
   const descriptionValid =
     typeof data.description === 'string' && data.description !== ''
   const typeValid =
@@ -233,10 +236,9 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
     data.subItems || data.episodes || data.chapters || data.volumes
   const subItemsValid = Array.isArray(subItems) && subItems.length > 0
   // TODO: add api checks for existence
-  const malIdValid = typeof data.malId === 'string' && data.malId !== ''
-  const aniIdValid = typeof data.aniId === 'string' && data.aniId !== ''
+  const malIdValid = typeof data.malId === 'number' && data.malId > 0
+  const aniIdValid = typeof data.aniId === 'number' && data.aniId > 0
   const kitsuIdValid = typeof data.kitsuId === 'string' && data.kitsuId !== ''
-  const simklIdValid = typeof data.simklId === 'string' && data.simklId !== ''
 
   return (
     <div>
@@ -282,7 +284,15 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
               />
               <DataRow
                 attribute={'title'}
-                body={<kbd>{data.title}</kbd>}
+                body={
+                  <>
+                    {data.title.map((t) => (
+                      <>
+                        <kbd>{data.title}</kbd>{' '}
+                      </>
+                    ))}
+                  </>
+                }
                 valid={titleValid}
               />
               <DataRow
@@ -311,11 +321,6 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
                 attribute={'kitsuId'}
                 body={<kbd>{data.kitsuId}</kbd>}
                 valid={kitsuIdValid}
-              />
-              <DataRow
-                attribute={'simklId'}
-                body={<kbd>{data.simklId}</kbd>}
-                valid={simklIdValid}
               />
             </div>
           </div>

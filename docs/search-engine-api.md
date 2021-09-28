@@ -90,13 +90,11 @@ If possible include a reference id to [My Anime List](https://myanimelist.net/),
 [Kitsu](https://kitsu.io/) or [SimKL](https://simkl.com/), so we can try to match search results from these databases
 with your owns.
 
-- `malId` (optional) `string` of the [My Anime List](https://myanimelist.net/) id
+- `malId` (optional) `int` of the [My Anime List](https://myanimelist.net/) id
 
-- `aniId` (optional) `string` of the [Anilist](https://anilist.co/) id
+- `aniId` (optional) `int` of the [Anilist](https://anilist.co/) id
 
 - `kitsuId` (optional) `string` of the [Kitsu](https://kitsu.io/) id
-
-- `simklId` (optional) `string` of the [SimKL](https://simkl.com/) id
 
 An entry usually has multiple sub-items, e.g. "Season 1 of anime x has episodes" or "Manga series y has books" and "
 Novel z has a lot of chapters". Once you add a new sub item, remember to update the value of the property `lastUpdate`.
