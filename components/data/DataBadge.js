@@ -1,6 +1,6 @@
 import styles from './DataBadge.module.css'
 
-export default function DataBadge({ data, name, style = '' }) {
+export default function DataBadge({ data, name, style = '', sponsor = false }) {
   const bgStyle =
     style !== ''
       ? style
@@ -10,7 +10,15 @@ export default function DataBadge({ data, name, style = '' }) {
       ? 'danger'
       : 'secondary'
   return (
-    <div className={styles.badge + ' badge rounded-pill bg-' + bgStyle}>
+    <div
+      className={
+        styles.badge +
+        ' badge rounded-pill bg-' +
+        bgStyle +
+        ' ' +
+        (sponsor ? styles.sponsor + ' text-dark' : '')
+      }
+    >
       {name}
     </div>
   )
