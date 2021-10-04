@@ -32,15 +32,19 @@ export default function Card({
     return <Loader />
   }
 
+  if (typeof content === 'undefined') {
+    return <Loader />
+  }
+
   return (
-    <div className={styles.card + ' card bg-2 mb-2 me-2'}>
-      {content.sponsor ? (
-        <span className={styles.sponsor}>
-          <IconSponsor />
-        </span>
-      ) : (
-        <></>
-      )}
+    <div
+      className={
+        styles.card +
+        ' ' +
+        (content.sponsor ? styles.sponsored : '') +
+        ' card bg-2 mb-2 me-2'
+      }
+    >
       <div className='row g-0'>
         {move !== null ? (
           <div className={styles.sorter + ' col-auto'}>
@@ -99,6 +103,16 @@ export default function Card({
                 </>
               ) : (
                 ''
+              )}
+              {content.sponsor ? (
+                <span className={styles.sponsorBadge + ' ms-2 float-end'}>
+                  <span className={styles.sponsorIcon}>
+                    <IconSponsor size='xs' />
+                  </span>
+                  Sponsored
+                </span>
+              ) : (
+                <></>
               )}
               <span className={styles.action}>
                 {content.nsfw ? (

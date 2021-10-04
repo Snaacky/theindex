@@ -42,3 +42,4 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+next-env.d.ts

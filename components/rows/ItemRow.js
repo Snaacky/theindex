@@ -37,13 +37,18 @@ export default function ItemRow({
           {columnYes.length > 0 ? (
             <div className={'d-flex flex-wrap mb-1'}>
               {columnYes.map((c) => (
-                <BoolValue data={true} column={c} key={c._id} />
+                <BoolValue
+                  data={true}
+                  column={c}
+                  sponsor={item.sponsor}
+                  key={c._id}
+                />
               ))}
             </div>
           ) : (
             <></>
           )}
-          {columnNo.length > 0 ? (
+          {!item.sponsor && columnNo.length > 0 ? (
             <div className={'d-flex flex-wrap mb-1'}>
               {columnNo.map((c) => (
                 <BoolValue data={false} column={c} key={c._id} />

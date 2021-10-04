@@ -33,14 +33,14 @@ export default function Row({
   }
 
   return (
-    <div className={styles.row + ' card bg-2 mb-1'}>
-      {content.sponsor ? (
-        <span className={styles.sponsor}>
-          <IconSponsor />
-        </span>
-      ) : (
-        <></>
-      )}
+    <div
+      className={
+        styles.row +
+        ' ' +
+        (content.sponsor ? styles.sponsored : '') +
+        ' card bg-2 mb-1'
+      }
+    >
       <div className='row g-0'>
         {move !== null ? (
           <div className={styles.sorter + ' col-auto'}>
@@ -108,6 +108,16 @@ export default function Row({
                 </Link>
               ) : (
                 ''
+              )}
+              {content.sponsor ? (
+                <span className={styles.sponsorBadge + ' ms-2 float-end'}>
+                  <span className={styles.sponsorIcon}>
+                    <IconSponsor size='xs' />
+                  </span>
+                  Sponsored
+                </span>
+              ) : (
+                <></>
               )}
               <span className={'float-end'} style={{ fontSize: '1.2rem' }}>
                 {content.nsfw ? (

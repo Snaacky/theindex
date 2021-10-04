@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 services:
   web:
     image: ranimepiracy/index
@@ -57,12 +57,10 @@ services:
     image: mongo-express
     container_name: mongo-express
     profiles:
-      - "dev"
-    ports:
-      - 8081:8081
+      - 'dev'
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
-      ME_CONFIG_SITE_GRIDFS_ENABLED: "true"
+      ME_CONFIG_SITE_GRIDFS_ENABLED: 'true'
     depends_on:
       - mongo

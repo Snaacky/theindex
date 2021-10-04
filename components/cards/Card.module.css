@@ -5,6 +5,10 @@
   min-height: 69px;
 }
 
+.card.sponsored {
+  border-top: 3px solid gold;
+}
+
 @media (min-width: 768px) {
   .card {
     width: calc((0.5rem + 720px - 2 * 0.75rem) / 2 - 0.5rem);
@@ -73,8 +77,14 @@
   height: 100%;
 }
 
-.sponsor {
-  position: absolute;
-  top: -0.45rem;
-  left: 1.3rem;
+.sponsorBadge {
+  color: gold;
+  background-color: var(--bg-6);
+  padding: 0.2rem 0.2rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+}
+
+.sponsorIcon {
+  margin-right: 0.3rem;
 }

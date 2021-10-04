@@ -3,3 +3,7 @@
   user-select: none;
   text-transform: capitalize;
 }
+
+.sponsor {
+  background-color: gold !important;
+}
