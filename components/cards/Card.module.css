@@ -9,12 +9,6 @@
   border-top: 3px solid gold;
 }
 
-@media (min-width: 768px) {
-  .card {
-    width: calc((0.5rem + 720px - 2 * 0.75rem) / 2 - 0.5rem);
-  }
-}
-
 @media (min-width: 992px) {
   .card {
     width: calc((0.5rem + 960px - 2 * 0.75rem) / 2 - 0.5rem);
