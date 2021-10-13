@@ -151,6 +151,19 @@ export default function Navbar() {
                     <span className={styles.services + ' ms-1'}>SeaDex</span>
                   </a>
                 </li>
+                <li className={styles.desktop + ' nav-item me-1'}>
+                  <a
+                    className={'nav-link d-flex align-items-center'}
+                    href='https://nyaa.piracy.moe/'
+                  >
+                    <Image
+                      src={'/icons/nyaa.png'}
+                      height={24}
+                      width={24}
+                      alt={'Nyaa logo'}
+                    />
+                  </a>
+                </li>
                 <span className={styles.listAll}>
                   <NavbarUser className={styles.username} />
                 </span>
