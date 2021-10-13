@@ -161,8 +161,10 @@ export default function Navbar() {
                       height={24}
                       width={24}
                       alt={'Nyaa logo'}
+                      className={'rounded'}
                     />
                   </a>
+                  <span className={styles.services + ' ms-1'}>Nyaa Mirror</span>
                 </li>
                 <span className={styles.listAll}>
                   <NavbarUser className={styles.username} />

@@ -216,6 +216,7 @@ function Sidebar({ show, setShow }, ref) {
                     height={16}
                     width={16}
                     alt={'Nyaa logo'}
+                    className={'rounded'}
                   />
                   <span className={'ms-1'}>Nyaa Mirror</span>
                 </a>,
