@@ -65,13 +65,13 @@
 /**
  * Hide/Show navitems in desktop-mode
  */
-@media (min-width: 900px) {
+@media (min-width: 990px) {
   .outside {
     display: none;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 990px) {
   .desktop,
   .listAllText {
     display: none;
@@ -85,14 +85,13 @@
 /**
  * Hide username on smaller screens
  */
-@media (max-width: 1200px) {
-  .username,
-  .services {
+@media (max-width: 1400px) {
+  .username {
     display: none;
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1220px) {
   .services {
     display: none;
   }
