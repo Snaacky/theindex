@@ -16,7 +16,8 @@ const BetaAlert = () => {
     }
   }
 
-  // just forcing a refresh if we're
+  // just forcing a refresh if we're setting the localStorage
+  // this will remove the alert without refreshing the page
   useEffect(() => {
     const getAlertState = !nextJSLocation && localStorage.getItem('alert')
     const parseLocalStorage = getAlertState && JSON.parse(getAlertState)
