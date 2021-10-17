@@ -11,7 +11,7 @@ const BetaAlert = () => {
     }
 
     if (!nextJSLocation) {
-      localStorage.setItem('alert', JSON.stringify(obj))
+      localStorage.setItem('betaAlert', JSON.stringify(obj))
       setShow(false)
     }
   }
@@ -19,7 +19,7 @@ const BetaAlert = () => {
   // just forcing a refresh if we're setting the localStorage
   // this will remove the alert without refreshing the page
   useEffect(() => {
-    const getAlertState = !nextJSLocation && localStorage.getItem('alert')
+    const getAlertState = !nextJSLocation && localStorage.getItem('betaAlert')
     const parseLocalStorage = getAlertState && JSON.parse(getAlertState)
     if (!parseLocalStorage?.value) {
       setShow(true)
