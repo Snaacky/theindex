@@ -206,19 +206,6 @@ function Sidebar({ show, setShow }, ref) {
                   />
                   <span className={'ms-1'}>SeaDex</span>
                 </a>,
-                <a
-                  className={'nav-link d-flex align-items-center'}
-                  href='https://nyaa.piracy.moe/'
-                  key={'nyaa'}
-                >
-                  <Image
-                    src={'/icons/nyaa.png'}
-                    height={16}
-                    width={16}
-                    alt={'Nyaa logo'}
-                  />
-                  <span className={'ms-1'}>Nyaa Mirror</span>
-                </a>,
               ]}
               onClick={() => clickFunc()}
             />
