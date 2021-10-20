@@ -182,19 +182,6 @@ function Sidebar({ show, setShow }, ref) {
                 </a>,
                 <a
                   className={'nav-link d-flex align-items-center'}
-                  href='https://status.piracy.moe/'
-                  key={'status'}
-                >
-                  <Image
-                    src={'/icons/status.png'}
-                    height={16}
-                    width={16}
-                    alt={'Checkly logo'}
-                  />
-                  <span className={'ms-1'}>Status</span>
-                </a>,
-                <a
-                  className={'nav-link d-flex align-items-center'}
                   href='https://releases.moe/'
                   key={'seadex'}
                 >

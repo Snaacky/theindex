@@ -125,21 +125,6 @@ export default function Navbar() {
                 <li className={styles.desktop + ' nav-item me-1'}>
                   <a
                     className={'nav-link d-flex align-items-center'}
-                    href='https://status.piracy.moe/'
-                    style={{ lineHeight: 1 }}
-                  >
-                    <Image
-                      src={'/icons/status.png'}
-                      height={24}
-                      width={24}
-                      alt={'Checkly logo'}
-                    />
-                    <span className={styles.services + ' ms-1'}>Status</span>
-                  </a>
-                </li>
-                <li className={styles.desktop + ' nav-item me-1'}>
-                  <a
-                    className={'nav-link d-flex align-items-center'}
                     href='https://releases.moe/'
                   >
                     <Image

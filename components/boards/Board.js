@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import ItemCard from '../cards/ItemCard'
 import ItemRow from '../rows/ItemRow'
 import ColumnFilter from '../column-filter'
@@ -371,9 +370,7 @@ export default class Board extends React.Component {
             )}
             <div className={'float-end'}>
               <CreateNewButton type={this.type} allowEdit={this.canEdit} />
-              {this.forceEditMode || !this.canEdit ? (
-                <></>
-              ) : (
+              {(this.forceEditMode || this.canEdit) && (
                 <button
                   className={'btn btn-outline-warning mb-2'}
                   type={'button'}
@@ -423,10 +420,8 @@ export default class Board extends React.Component {
         >
           {this.state.content.filter((c) =>
             c.name.toLowerCase().includes(this.state.searchString.toLowerCase())
-          ).length === 0 ? (
+          ).length === 0 && (
             <span className={'text-muted'}>Nothing could be found</span>
-          ) : (
-            <></>
           )}
           {this.state.content
             .filter((c) =>
@@ -456,12 +451,10 @@ export default class Board extends React.Component {
                 c.name
                   .toLowerCase()
                   .includes(this.state.searchString.toLowerCase())
-              ).length === 0 ? (
+              ).length === 0 && (
                 <span className={'text-muted'}>
                   There is nothing to be added anymore
                 </span>
-              ) : (
-                <></>
               )}
               {this.state.unselectedContent
                 .filter((c) =>

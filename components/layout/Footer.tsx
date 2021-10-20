@@ -50,11 +50,6 @@ const otherServices: OtherTypes[] = [
     icon: 'seadex.png',
   },
   {
-    name: 'Status',
-    url: 'https://status.piracy.moe/',
-    icon: 'status.png',
-  },
-  {
     name: 'Wiki',
     url: 'https://wiki.piracy.moe/',
     icon: 'wikijs.svg',
