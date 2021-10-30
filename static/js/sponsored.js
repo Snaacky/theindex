@@ -1,20 +1,7 @@
 window.addEventListener("load", () => {
     const sponsoredListAnime = [
         {
-            id: "sponsored-anime-1-3",
-            title: "KimAnime.com",
-            url: "https://kimanime.com",
-            description: 'Watch in ' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
-            ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
-            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> ' +
-            ' + <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Downloads</span>'
-        },
-        {
-            id: "sponsored-anime-4",
+            id: "sponsored-anime-1",
             title: "Zoro.to",
             url: "https://zoro.to",
             description: 'Watch in ' +
