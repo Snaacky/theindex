@@ -5,22 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import styles from './SupportBanner.module.css'
 
-const showGeo = (geo) => {
-  if (geo === null) {
-    return (
-      <kbd>
-        <code>unknown</code>
-      </kbd>
-    )
-  }
-
-  return (
-    <kbd>
-      <code>{geo.country}</code>
-    </kbd>
-  )
-}
-
 const nextJSLocation = typeof window === 'undefined'
 
 const SupportBanner: FC = () => {
@@ -50,7 +34,7 @@ const SupportBanner: FC = () => {
   }, [nextJSLocation])
 
   useEffect(() => {
-    console.log("Yo", ip)
+    console.log('Yo', ip)
     if (ip && ip.ip) {
       fetch('https://ipapi.co/' + ip.ip + '/json/')
         .then((d) => {
@@ -63,7 +47,7 @@ const SupportBanner: FC = () => {
           setIpInfo(data)
         })
         .catch((e) => {
-          console.error('Oh no failed to get IP-Info')
+          console.error('Oh no failed to get IP-Info', e)
         })
     }
   }, [ip])
@@ -75,7 +59,7 @@ const SupportBanner: FC = () => {
           Your IP{' '}
           {ip ? (
             <kbd>
-              <code>{ip.ip ?? "unknown"}</code>
+              <code>{ip.ip ?? 'unknown'}</code>
             </kbd>
           ) : (
             <div className={'d-inline-flex'}>
@@ -84,9 +68,9 @@ const SupportBanner: FC = () => {
           )}{' '}
           from{' '}
           {ipInfo ? (
-              <kbd>
-                <code>{ipInfo.org ?? "unknown"}</code>
-              </kbd>
+            <kbd>
+              <code>{ipInfo.org ?? 'unknown'}</code>
+            </kbd>
           ) : (
             <div className={'d-inline-flex'}>
               <Loader showText={false} />
