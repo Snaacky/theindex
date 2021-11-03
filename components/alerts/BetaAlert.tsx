@@ -39,7 +39,7 @@ const BetaAlert = () => {
           and contain bugs.{' '}
           <a href={'https://piracy.moe'} className={'alert-link'}>
             Click here
-          </a>
+          </a>{' '}
           to go back to the old index.
           <button
             type='button'

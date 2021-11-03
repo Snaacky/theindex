@@ -8,7 +8,9 @@ export default function LoginOrOutButton() {
   return (
     <button
       role={'button'}
-      className={'btn btn-outline-' + (isLogin(session) ? 'danger' : 'success')}
+      className={
+        'btn w-100 btn-outline-' + (isLogin(session) ? 'danger' : 'success')
+      }
       onClick={() => {
         if (isLogin(session)) {
           signOut()

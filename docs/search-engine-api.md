@@ -101,7 +101,7 @@ Novel z has a lot of chapters". Once you add a new sub item, remember to update 
 
 - `subItems` (optional) `array` of objects. Each object describes one sub item and has the following properties:
 
-  - `number` (required), a positive `integer` greater or equal than 1, describes for e.g. an anime episode the episode 
+  - `number` (required), a positive `integer` greater or equal than 1, describes for e.g. an anime episode the episode
     number. Passing an invalid value results in the sub item being ignored.
 
   - `url` (required), absolute http(s) `url` to the content. Users will be redirected to the page provided in the

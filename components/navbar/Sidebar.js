@@ -14,7 +14,7 @@ import LoginOrOutButton from '../buttons/LoginOrOutButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import NavbarToggler from './NavbarToggler'
-import { isAdmin } from '../../lib/session'
+import { isAdmin, isLogin } from '../../lib/session'
 import { useSession } from 'next-auth/client'
 import IconAdmin from '../icons/IconAdmin'
 
@@ -54,30 +54,32 @@ function Sidebar({ show, setShow }, ref) {
 
       <div className='offcanvas-body'>
         <nav role={'navigation'}>
-          <ul className={'nav nav-pills flex-column'} onClick={clickFunc}>
-            <NavbarUser />
-            {isAdmin(session) ? (
-              <>
-                <li className={'nav-item'}>
-                  <Link href={'/admin/users'}>
-                    <a className={'nav-link'}>
-                      <FontAwesomeIcon icon={['fas', 'users']} /> Users
-                    </a>
-                  </Link>
-                </li>
-                <li className={'nav-item'}>
-                  <Link href={'/admin'}>
-                    <a className={'nav-link'} title={'Admin settings'}>
-                      <IconAdmin /> Admin
-                    </a>
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <></>
-            )}
-          </ul>
-          <hr />
+          {isLogin(session) && (
+            <>
+              <ul className={'nav nav-pills flex-column'} onClick={clickFunc}>
+                <NavbarUser />
+                {isAdmin(session) && (
+                  <>
+                    <li className={'nav-item'}>
+                      <Link href={'/admin/users'}>
+                        <a className={'nav-link'}>
+                          <FontAwesomeIcon icon={['fas', 'users']} /> Users
+                        </a>
+                      </Link>
+                    </li>
+                    <li className={'nav-item'}>
+                      <Link href={'/admin'}>
+                        <a className={'nav-link'} title={'Admin settings'}>
+                          <IconAdmin /> Admin
+                        </a>
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+              <hr />
+            </>
+          )}
 
           <ul className={'nav nav-pills flex-column'}>
             {libraries.length === 0 ? (
