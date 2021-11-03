@@ -76,7 +76,7 @@ export default function IpInfo() {
           )}
         </li>
         <li>
-          Location{' '}
+          Latitude and longitude{' '}
           {ip ? (
             <kbd>
               <code>{ip.geo ? ip.geo.ll.join(', ') : 'unknown'}</code>
