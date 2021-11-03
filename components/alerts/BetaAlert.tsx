@@ -11,7 +11,7 @@ const BetaAlert = () => {
     }
 
     if (!nextJSLocation) {
-      localStorage.setItem('betaAlert', JSON.stringify(obj))
+      localStorage.setItem('hideBetaAlert', JSON.stringify(obj))
       setShow(false)
     }
   }
@@ -19,40 +19,33 @@ const BetaAlert = () => {
   // just forcing a refresh if we're setting the localStorage
   // this will remove the alert without refreshing the page
   useEffect(() => {
-    const getAlertState = !nextJSLocation && localStorage.getItem('betaAlert')
-    const parseLocalStorage = getAlertState && JSON.parse(getAlertState)
-    if (!parseLocalStorage?.value) {
-      setShow(true)
+    if (!nextJSLocation) {
+      setShow(!JSON.parse(localStorage.getItem('hideBetaAlert')))
     } else {
-      setShow(false)
+      setShow(true)
     }
-  }, [!nextJSLocation && localStorage])
+  }, [nextJSLocation])
 
-  return (
-    <>
-      {show && (
-        <div
-          className={'alert alert-dark alert-dismissible show'}
-          role={'alert'}
-        >
-          You are viewing a beta-site. Some features may not be fully functional
-          and contain bugs.{' '}
-          <a href={'https://piracy.moe'} className={'alert-link'}>
-            Click here
-          </a>{' '}
-          to go back to the old index.
-          <button
-            type='button'
-            className='btn-close'
-            aria-label='Close'
-            onClick={handleShow}
-          />
-        </div>
-      )}
+  if (show) {
+    return (
+      <div className={'alert alert-dark alert-dismissible show'} role={'alert'}>
+        You are viewing a beta-site. Some features may not be fully functional
+        and contain bugs.{' '}
+        <a href={'https://piracy.moe'} className={'alert-link'}>
+          Click here
+        </a>{' '}
+        to go back to the old index.
+        <button
+          type='button'
+          className='btn-close'
+          aria-label='Close'
+          onClick={handleShow}
+        />
+      </div>
+    )
+  }
 
-      {!show && <div></div>}
-    </>
-  )
+  return null
 }
 
 export default BetaAlert

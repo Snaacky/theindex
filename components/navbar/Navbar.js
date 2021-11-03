@@ -11,7 +11,7 @@ import NavbarToggler from './NavbarToggler'
 import IconItem from '../icons/IconItem'
 import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
-import IPBanner from './IPBanner'
+import IPBanner from '../alerts/IPBanner'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
