@@ -20,10 +20,9 @@ const showGeo = (geo) => {
   )
 }
 
-const nextJSLocation = typeof window === 'undefined'
 
 const IPBanner: FC = () => {
-  const [show, setShow] = useState<boolean>()
+  const [show, setShow] = useState<boolean>(typeof window !== 'undefined')
   let { data: ip } = useSWR('/api/ip-info')
 
   const handleShow = () => {
@@ -31,7 +30,7 @@ const IPBanner: FC = () => {
       value: true,
     }
 
-    if (!nextJSLocation) {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('hideIpAlert', JSON.stringify(obj))
       setShow(false)
     }
@@ -40,12 +39,12 @@ const IPBanner: FC = () => {
   // just forcing a refresh if we're setting the localStorage
   // this will remove the alert without refreshing the page
   useEffect(() => {
-    if (!nextJSLocation) {
+    if (typeof window !== 'undefined') {
       setShow(!JSON.parse(localStorage.getItem('hideIpAlert')))
     } else {
       setShow(true)
     }
-  }, [nextJSLocation])
+  })
 
   if (show) {
     return (

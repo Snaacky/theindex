@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 
-const nextJSLocation = typeof window === 'undefined'
-
 const BetaAlert = () => {
-  const [show, setShow] = useState<boolean>()
+  const [show, setShow] = useState<boolean>(typeof window !== 'undefined')
 
   const handleShow = () => {
     const obj = {
       value: true,
     }
 
-    if (!nextJSLocation) {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('hideBetaAlert', JSON.stringify(obj))
       setShow(false)
     }
@@ -19,12 +17,12 @@ const BetaAlert = () => {
   // just forcing a refresh if we're setting the localStorage
   // this will remove the alert without refreshing the page
   useEffect(() => {
-    if (!nextJSLocation) {
+    if (typeof window !== 'undefined') {
       setShow(!JSON.parse(localStorage.getItem('hideBetaAlert')))
     } else {
       setShow(true)
     }
-  }, [nextJSLocation])
+  })
 
   if (show) {
     return (

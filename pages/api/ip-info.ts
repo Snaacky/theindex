@@ -6,6 +6,8 @@ export default async function handler(req, res) {
     ip = ip[0]
   }
 
+  ip = ip.split(', ')[0]
+
   const geo = lookup(ip)
   res.status(200).json({
     ip,
