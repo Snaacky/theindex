@@ -54,6 +54,11 @@ const otherServices: OtherTypes[] = [
     url: 'https://wiki.piracy.moe/',
     icon: 'wikijs.svg',
   },
+  {
+    name: 'Old Index',
+    url: 'https://piracy.moe/',
+    icon: 'logo.png',
+  },
 ]
 
 type Props = {

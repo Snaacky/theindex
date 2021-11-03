@@ -18,7 +18,6 @@ import { isAdmin, isEditor, isLogin } from '../lib/session'
 import NotAdmin from '../components/layout/NotAdmin'
 import NotLogin from '../components/layout/NotLogin'
 import NoScriptAlert from '../components/alerts/NoScriptAlert'
-import BetaAlert from '../components/alerts/BetaAlert'
 import { toast } from 'react-toastify'
 
 library.add(fab, fas, far)
@@ -82,7 +81,6 @@ export default function App({ Component, pageProps }) {
             <noscript>
               <NoScriptAlert />
             </noscript>
-            <BetaAlert />
 
             <Component {...pageProps} />
           </Auth>
