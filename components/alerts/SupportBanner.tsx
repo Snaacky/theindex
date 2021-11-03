@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react'
-import Loader from '../loading'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
@@ -36,14 +35,15 @@ const SupportBanner: FC = () => {
     return (
       <div className={styles.bg}>
         <span className={'me-3'}>
+          <FontAwesomeIcon icon={['fas', 'fingerprint']} className={'me-3'} />
           Your IP{' '}
           {ip ? (
             <kbd>
               <code>{ip.ip ?? 'unknown'}</code>
             </kbd>
           ) : (
-            <div className={'d-inline-flex'}>
-              <Loader showText={false} />
+            <div className='spinner-border spinner-border-sm' role='status'>
+              <span className='visually-hidden'>Loading...</span>
             </div>
           )}{' '}
           from{' '}
@@ -52,26 +52,18 @@ const SupportBanner: FC = () => {
               <code>{ip.geo.city ?? 'unknown'}</code>
             </kbd>
           ) : (
-            <div className={'d-inline-flex'}>
-              <Loader showText={false} />
+            <div className='spinner-border spinner-border-sm' role='status'>
+              <span className='visually-hidden'>Loading...</span>
             </div>
           )}{' '}
           is exposed
         </span>
         <div>
           <Link href={'/help-ip'}>
-            <a className={'me-3 text-primary'}>
+            <a className={'me-3'}>
               Learn more <FontAwesomeIcon icon={['fas', 'chevron-right']} />
             </a>
           </Link>
-          <a
-            href={'javascript:console.log("Ok")'}
-            className={'text-primary'}
-            onClick={handleShow}
-          >
-            I&apos;m not interested{' '}
-            <FontAwesomeIcon icon={['fas', 'chevron-right']} />
-          </a>
         </div>
       </div>
     )

@@ -8,7 +8,6 @@ const description = 'See what data about your location you are exposing'
 
 export default function IpInfo() {
   let { data: ip } = useSWR('/api/ip-info')
-  console.log('Got IP data:', ip)
 
   return (
     <>
