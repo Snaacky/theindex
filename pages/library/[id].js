@@ -44,11 +44,11 @@ export default function Library({
 
         <meta
           name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
+          content={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}
         />
         <meta
           property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
+          content={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}
         />
       </Head>
 
