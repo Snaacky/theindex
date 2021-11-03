@@ -58,19 +58,23 @@ export default function App({ Component, pageProps }) {
         value={{
           fetcher: (resource, init) =>
             fetch(resource, init).then((res) => {
+              console.log('OK:', res.ok, 'Status:', res.status, res.error)
               if (res.status !== 200) {
+                toast.error(
+                  <div>
+                    <div>
+                      <code>{res.status}</code> - Error
+                    </div>
+                    <code>{key}</code>
+                  </div>
+                )
                 throw new Error('Failed to fetch api endpoint :(')
               }
 
               return res.json()
             }),
           onError: (error, key) => {
-            toast.error(
-              <div>
-                <div>{error.toString()}</div>
-                <code>{key}</code>
-              </div>
-            )
+            console.error('SWR errored:', error, 'at path', key)
           },
         }}
       >
