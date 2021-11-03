@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node ./node_modules/geoip-lite/scripts/updatedb.js license_key=GEOIP_KEY",
     "lint": "next lint",
     "start": "next start",
     "serve": "next build && next start -p 3000"
@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.1.16",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+    "geoip-lite": "^1.4.2",
     "jsdom": "^18.0.1",
     "meilisearch": "^0.22.3",
     "mongodb": "^3.7.3",
