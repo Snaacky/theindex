@@ -9,7 +9,6 @@ const nextJSLocation = typeof window === 'undefined'
 
 const SupportBanner: FC = () => {
   const [show, setShow] = useState<boolean>()
-  const [ipInfo, setIpInfo] = useState(null)
   let { data: ip } = useSWR('/api/ip-info')
 
   const handleShow = () => {
@@ -33,25 +32,6 @@ const SupportBanner: FC = () => {
     }
   }, [nextJSLocation])
 
-  useEffect(() => {
-    console.log('Yo', ip)
-    if (ip && ip.ip) {
-      fetch('https://ipapi.co/' + ip.ip + '/json/')
-        .then((d) => {
-          if (d.ok) {
-            return d.json()
-          }
-          throw Error('Request failed...' + d)
-        })
-        .then((data) => {
-          setIpInfo(data)
-        })
-        .catch((e) => {
-          console.error('Oh no failed to get IP-Info', e)
-        })
-    }
-  }, [ip])
-
   if (show) {
     return (
       <div className={styles.bg}>
@@ -67,9 +47,9 @@ const SupportBanner: FC = () => {
             </div>
           )}{' '}
           from{' '}
-          {ipInfo ? (
+          {ip && ip.geo ? (
             <kbd>
-              <code>{ipInfo.org ?? 'unknown'}</code>
+              <code>{ip.geo.city ?? 'unknown'}</code>
             </kbd>
           ) : (
             <div className={'d-inline-flex'}>
