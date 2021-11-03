@@ -5,19 +5,23 @@ import { getLastViews } from '../lib/db/views'
 import ItemCard from '../components/cards/ItemCard'
 import CollectionCard from '../components/cards/CollectionCard'
 import ListCard from '../components/cards/ListCard'
+import LibraryCard from '../components/cards/LibraryCard'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
 export default function Home({
+  trendingLibraries: staticTrendingLibraries,
   trendingItem: staticTrendingItem,
   trendingCollection: staticTrendingCollection,
   trendingList: staticTrendingList,
 }) {
+  let { data: libraries } = useSWR('/api/popular/libraries')
   let { data: items } = useSWR('/api/popular/items')
   let { data: collections } = useSWR('/api/popular/collections')
   let { data: lists } = useSWR('/api/popular/lists')
 
+  libraries = (libraries || staticTrendingLibraries).slice(0, 10)
   items = (items || staticTrendingItem).slice(0, 10)
   collections = (collections || staticTrendingCollection).slice(0, 10)
   lists = (lists || staticTrendingList).slice(0, 10)
@@ -46,6 +50,31 @@ export default function Home({
           content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
         />
       </Head>
+
+      <div className={'row'}>
+        <div className={'col'}>
+          <h2 className={'mb-0'}>
+            Currently popular <Link href={'/libraries'}>libraries</Link>
+          </h2>
+          <div className={'mb-3 text-muted'}>
+            According to recent view counts
+          </div>
+        </div>
+
+        <div className={'col-auto'}>
+          <Link href={'/libraries'}>
+            <a className={'btn btn-primary'}>View all</a>
+          </Link>
+        </div>
+      </div>
+      <div
+        className={'d-flex flex-wrap mb-4'}
+        style={{ marginRight: '-0.5rem' }}
+      >
+        {libraries.map((library) => {
+          return <LibraryCard library={library} key={library._id} />
+        })}
+      </div>
 
       <div className={'row'}>
         <div className={'col'}>
@@ -126,11 +155,13 @@ export default function Home({
 }
 
 export async function getStaticProps() {
+  const trendingLibraries = await getLastViews('library', 100)
   const trendingItem = await getLastViews('item', 100)
   const trendingCollection = await getLastViews('collection', 100)
   const trendingList = await getLastViews('list', 100)
   return {
     props: {
+      trendingLibraries,
       trendingItem,
       trendingCollection,
       trendingList,
