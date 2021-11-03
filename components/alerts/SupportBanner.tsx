@@ -3,6 +3,7 @@ import Loader from '../loading'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
+import styles from './SupportBanner.module.css'
 
 const showGeo = (geo) => {
   if (geo === null) {
@@ -22,8 +23,9 @@ const showGeo = (geo) => {
 
 const nextJSLocation = typeof window === 'undefined'
 
-const IPBanner: FC = () => {
+const SupportBanner: FC = () => {
   const [show, setShow] = useState<boolean>()
+  const [ipInfo, setIpInfo] = useState(null)
   let { data: ip } = useSWR('/api/ip-info')
 
   const handleShow = () => {
@@ -32,7 +34,7 @@ const IPBanner: FC = () => {
     }
 
     if (!nextJSLocation) {
-      localStorage.setItem('hideIpAlert', JSON.stringify(obj))
+      localStorage.setItem('hideSupportAlert', JSON.stringify(obj))
       setShow(false)
     }
   }
@@ -41,20 +43,39 @@ const IPBanner: FC = () => {
   // this will remove the alert without refreshing the page
   useEffect(() => {
     if (!nextJSLocation) {
-      setShow(!JSON.parse(localStorage.getItem('hideIpAlert')))
+      setShow(!JSON.parse(localStorage.getItem('hideSupportAlert')))
     } else {
       setShow(true)
     }
   }, [nextJSLocation])
 
+  useEffect(() => {
+    console.log("Yo", ip)
+    if (ip && ip.ip) {
+      fetch('https://ipapi.co/' + ip.ip + '/json/')
+        .then((d) => {
+          if (d.ok) {
+            return d.json()
+          }
+          throw Error('Request failed...' + d)
+        })
+        .then((data) => {
+          setIpInfo(data)
+        })
+        .catch((e) => {
+          console.error('Oh no failed to get IP-Info')
+        })
+    }
+  }, [ip])
+
   if (show) {
     return (
-      <div className={'w-100 d-flex align-items-center justify-content-center'}>
-        <div className={''}>
-          Your IP is{' '}
-          {ip && ip.ip ? (
+      <div className={styles.bg}>
+        <span className={'me-3'}>
+          Your IP{' '}
+          {ip ? (
             <kbd>
-              <code>{ip.ip}</code>
+              <code>{ip.ip ?? "unknown"}</code>
             </kbd>
           ) : (
             <div className={'d-inline-flex'}>
@@ -62,24 +83,30 @@ const IPBanner: FC = () => {
             </div>
           )}{' '}
           from{' '}
-          {ip ? (
-            showGeo(ip.geo)
+          {ipInfo ? (
+              <kbd>
+                <code>{ipInfo.org ?? "unknown"}</code>
+              </kbd>
           ) : (
             <div className={'d-inline-flex'}>
               <Loader showText={false} />
             </div>
-          )}
+          )}{' '}
+          is exposed
+        </span>
+        <div>
           <Link href={'/help-ip'}>
-            <a className={'ms-3 text-primary'}>
+            <a className={'me-3 text-primary'}>
               Learn more <FontAwesomeIcon icon={['fas', 'chevron-right']} />
             </a>
           </Link>
           <a
             href={'javascript:console.log("Ok")'}
-            className={'ms-3 text-primary'}
+            className={'text-primary'}
             onClick={handleShow}
           >
-            I know my risks <FontAwesomeIcon icon={['fas', 'chevron-right']} />
+            I'm not interested{' '}
+            <FontAwesomeIcon icon={['fas', 'chevron-right']} />
           </a>
         </div>
       </div>
@@ -89,4 +116,4 @@ const IPBanner: FC = () => {
   return null
 }
 
-export default IPBanner
+export default SupportBanner

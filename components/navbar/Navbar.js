@@ -11,7 +11,7 @@ import NavbarToggler from './NavbarToggler'
 import IconItem from '../icons/IconItem'
 import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
-import IPBanner from '../alerts/IPBanner'
+import SupportBanner from '../alerts/SupportBanner'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
@@ -151,7 +151,7 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      <IPBanner />
+      <SupportBanner />
 
       <Sidebar show={show} setShow={(v) => setShow(v)} ref={sidebarRef} />
     </>

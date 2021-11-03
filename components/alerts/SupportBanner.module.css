@@ -1,0 +1,14 @@
+.bg {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  background: rgba(121, 1, 1, 0.75);
+}
+
+@media (max-width: 600px) {
+  .bg {
+    flex-direction: column;
+  }
+}
