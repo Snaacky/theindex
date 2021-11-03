@@ -58,6 +58,7 @@ export default function App({ Component, pageProps }) {
         value={{
           fetcher: (resource, init) =>
             fetch(resource, init).then((res) => {
+              console.log('OK:', res.ok, 'Status:', res.status, res.error)
               if (res.status !== 200) {
                 toast.error(
                   <div>
