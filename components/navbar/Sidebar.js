@@ -182,32 +182,32 @@ function Sidebar({ show, setShow }, ref) {
                   />
                   <span className={'ms-1'}>Wiki</span>
                 </a>,
-                  <a
-                      className={'nav-link d-flex align-items-center'}
-                      href='https://releases.moe/'
-                      key={'seadex'}
-                  >
-                      <Image
-                          src={'/icons/seadex.png'}
-                          height={16}
-                          width={16}
-                          alt={'Seadex logo'}
-                      />
-                      <span className={'ms-1'}>SeaDex</span>
-                  </a>,
-                  <a
-                      className={'nav-link d-flex align-items-center'}
-                      href='https://piracy.moe/'
-                      key={'old-index'}
-                  >
-                      <Image
-                          src={'/icons/logo.png'}
-                          height={16}
-                          width={16}
-                          alt={'AnimePiracy Logo'}
-                      />
-                      <span className={'ms-1'}>Old Index</span>
-                  </a>,
+                <a
+                  className={'nav-link d-flex align-items-center'}
+                  href='https://releases.moe/'
+                  key={'seadex'}
+                >
+                  <Image
+                    src={'/icons/seadex.png'}
+                    height={16}
+                    width={16}
+                    alt={'Seadex logo'}
+                  />
+                  <span className={'ms-1'}>SeaDex</span>
+                </a>,
+                <a
+                  className={'nav-link d-flex align-items-center'}
+                  href='https://piracy.moe/'
+                  key={'old-index'}
+                >
+                  <Image
+                    src={'/icons/logo.png'}
+                    height={16}
+                    width={16}
+                    alt={'AnimePiracy Logo'}
+                  />
+                  <span className={'ms-1'}>Old Index</span>
+                </a>,
               ]}
               onClick={() => clickFunc()}
             />
