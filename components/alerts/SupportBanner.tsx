@@ -89,7 +89,7 @@ const SupportBanner: FC = () => {
             className={'text-primary'}
             onClick={handleShow}
           >
-            I'm not interested{' '}
+            I&apos;m not interested{' '}
             <FontAwesomeIcon icon={['fas', 'chevron-right']} />
           </a>
         </div>
