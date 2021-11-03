@@ -22,6 +22,8 @@ import IconSponsor from '../../components/icons/IconSponsor'
 import UrlBadge from '../../components/data/UrlBadge'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
+import Meta from "../../components/layout/Meta";
+import React from "react";
 
 export default function Item({
   _id,
@@ -47,56 +49,17 @@ export default function Item({
   )
 
   const title = 'Item ' + item.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
+  const image = process.env.NEXT_PUBLIC_DOMAIN + (item.blacklist ? '/blacklisted-screenshot.png' : '/api/item/screenshot/' +
+      item._id)
   return (
     <>
       <Head>
         <title>{item.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
         <meta name='twitter:card' content='summary_large_image' />
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
+        <Meta title={title} description={item.description} image={image}/>
 
-        <meta name='description' content={item.description} />
-        <meta property='og:description' content={item.description} />
-        <meta name='twitter:description' content={item.description} />
-
-        {item.blacklist ? (
-          <>
-            <meta name='robots' content='noindex, archive, follow' />
-
-            <meta
-              name='twitter:image'
-              content={
-                process.env.NEXT_PUBLIC_DOMAIN + '/blacklisted-screenshot.png'
-              }
-            />
-            <meta
-              property='og:image'
-              content={
-                process.env.NEXT_PUBLIC_DOMAIN + '/blacklisted-screenshot.png'
-              }
-            />
-          </>
-        ) : (
-          <>
-            <meta
-              name='twitter:image'
-              content={
-                process.env.NEXT_PUBLIC_DOMAIN +
-                '/api/item/screenshot/' +
-                item._id
-              }
-            />
-            <meta
-              property='og:image'
-              content={
-                process.env.NEXT_PUBLIC_DOMAIN +
-                '/api/item/screenshot/' +
-                item._id
-              }
-            />
-          </>
-        )}
+        {item.blacklist && <meta name='robots' content='noindex, archive, follow' />}
       </Head>
 
       <div className={'row'}>

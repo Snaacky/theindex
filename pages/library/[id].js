@@ -16,6 +16,8 @@ import { getItem } from '../../lib/db/items'
 import ItemCard from '../../components/cards/ItemCard'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
+import Meta from "../../components/layout/Meta";
+import React from "react";
 
 export default function Library({
   _id,
@@ -35,21 +37,7 @@ export default function Library({
           {library.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={library.description} />
-        <meta property='og:description' content={library.description} />
-        <meta name='twitter:description' content={library.description} />
-
-        <meta
-          name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}
-        />
-        <meta
-          property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}
-        />
+        <Meta title={title} description={library.description} image={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}/>
       </Head>
 
       <div className={'row'} style={{ marginTop: '4rem' }}>

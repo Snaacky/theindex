@@ -9,6 +9,8 @@ import { getUsers, getUserWithLists } from '../../lib/db/users'
 import useSWR from 'swr'
 import ListBoard from '../../components/boards/ListBoard'
 import ItemBoard from '../../components/boards/ItemBoard'
+import Meta from "../../components/layout/Meta";
+import React from "react";
 
 export default function User({ uid, user: staticUser }) {
   const [session] = useSession()
@@ -31,15 +33,7 @@ export default function User({ uid, user: staticUser }) {
         </title>
         <meta name='robots' content='noindex, archive, follow' />
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={description} />
-        <meta property='og:description' content={description} />
-        <meta name='twitter:description' content={description} />
-
-        <meta name='twitter:image' content={image} />
-        <meta property='og:image' content={image} />
+        <Meta title={title} description={description} image={image}/>
       </Head>
 
       <div className={'card bg-2'}>

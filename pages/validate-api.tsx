@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react'
 import { isValidUrl } from '../lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
+import Meta from "../components/layout/Meta";
 
 const title = 'Validate API Endpoint | ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -29,12 +30,7 @@ export default function ValidateApi() {
         <title>{title}</title>
         <meta name='robots' content='noindex, noarchive' />
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={description} />
-        <meta property='og:description' content={description} />
-        <meta name='twitter:description' content={description} />
+        <Meta title={title} description={description} />
       </Head>
 
       <h2>Validate your API endpoint</h2>

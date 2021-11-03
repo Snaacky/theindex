@@ -6,7 +6,7 @@ import { getByUrlId } from '../../lib/db/db'
 import { getColumns } from '../../lib/db/columns'
 import ItemCard from '../../components/cards/ItemCard'
 import IconEdit from '../../components/icons/IconEdit'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import DataItem from '../../components/data/DataItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
@@ -16,6 +16,7 @@ import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
+import Meta from "../../components/layout/Meta";
 
 export default function Column({
   _id,
@@ -63,21 +64,7 @@ export default function Column({
       <Head>
         <title>{column.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={column.description} />
-        <meta property='og:description' content={column.description} />
-        <meta name='twitter:description' content={column.description} />
-
-        <meta
-          name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
-        <meta
-          property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
+        <Meta title={title} description={column.description}/>
       </Head>
 
       <div className={'row'}>

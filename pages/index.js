@@ -6,6 +6,7 @@ import ItemCard from '../components/cards/ItemCard'
 import CollectionCard from '../components/cards/CollectionCard'
 import ListCard from '../components/cards/ListCard'
 import LibraryCard from '../components/cards/LibraryCard'
+import Meta from "../components/layout/Meta";
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -31,24 +32,7 @@ export default function Home({
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <meta property='og:title' content={process.env.NEXT_PUBLIC_SITE_NAME} />
-        <meta
-          name='twitter:title'
-          content={process.env.NEXT_PUBLIC_SITE_NAME}
-        />
-
-        <meta name='description' content={description} />
-        <meta property='og:description' content={description} />
-        <meta name='twitter:description' content={description} />
-
-        <meta
-          name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
-        <meta
-          property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
+        <Meta title={process.env.NEXT_PUBLIC_SITE_NAME} description={description} />
       </Head>
 
       <div className={'row'}>

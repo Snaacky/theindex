@@ -12,6 +12,8 @@ import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
+import Meta from "../../components/layout/Meta";
+import React from "react";
 
 export default function List({
   _id,
@@ -37,15 +39,7 @@ export default function List({
       <Head>
         <title>{list.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={list.description} />
-        <meta property='og:description' content={list.description} />
-        <meta name='twitter:description' content={list.description} />
-
-        <meta name='twitter:image' content={owner.image} />
-        <meta property='og:image' content={owner.image} />
+        <Meta title={title} description={list.description} image={owner.image}/>
       </Head>
 
       <h2>

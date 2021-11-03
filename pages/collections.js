@@ -5,6 +5,7 @@ import CollectionBoard from '../components/boards/CollectionBoard'
 import useSWR from 'swr'
 import { getCollections, updateCollection } from '../lib/db/collections'
 import { getItem } from '../lib/db/items'
+import Meta from "../components/layout/Meta";
 
 const title = 'Collections on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -21,21 +22,7 @@ export default function Collections({ collections: staticCollections }) {
           {'All collections | ' + process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={description} />
-        <meta property='og:description' content={description} />
-        <meta name='twitter:description' content={description} />
-
-        <meta
-          name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
-        <meta
-          property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
+        <Meta title={title} description={description} />
       </Head>
 
       <h2>

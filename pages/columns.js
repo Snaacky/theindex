@@ -5,6 +5,7 @@ import ColumnBoard from '../components/boards/ColumnBoard'
 import useSWR from 'swr'
 import { getColumns } from '../lib/db/columns'
 import DataBadge from '../components/data/DataBadge'
+import Meta from "../components/layout/Meta";
 
 const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -19,21 +20,7 @@ export default function Columns({ columns: staticColumns }) {
       <Head>
         <title>{'All columns | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <meta property='og:title' content={title} />
-        <meta name='twitter:title' content={title} />
-
-        <meta name='description' content={description} />
-        <meta property='og:description' content={description} />
-        <meta name='twitter:description' content={description} />
-
-        <meta
-          name='twitter:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
-        <meta
-          property='og:image'
-          content={process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png'}
-        />
+        <Meta title={title} description={description} />
       </Head>
 
       <h2>
