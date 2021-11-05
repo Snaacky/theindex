@@ -14,8 +14,8 @@ import IconCollection from '../../components/icons/IconCollection'
 import IconNSFW from '../../components/icons/IconNSFW'
 import { postData } from '../../lib/utils'
 import IconDelete from '../../components/icons/IconDelete'
-import Meta from "../../components/layout/Meta";
-import React from "react";
+import Meta from '../../components/layout/Meta'
+import React from 'react'
 
 export default function Collection({
   _id,
@@ -42,7 +42,11 @@ export default function Collection({
           {collection.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
 
-        <Meta title={title} description={column.description} image={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + collection.img}/>
+        <Meta
+          title={title}
+          description={column.description}
+          image={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + collection.img}
+        />
       </Head>
 
       <div className={'row'} style={{ marginTop: '4rem' }}>

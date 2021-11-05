@@ -22,8 +22,8 @@ import IconSponsor from '../../components/icons/IconSponsor'
 import UrlBadge from '../../components/data/UrlBadge'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
-import Meta from "../../components/layout/Meta";
-import React from "react";
+import Meta from '../../components/layout/Meta'
+import React from 'react'
 
 export default function Item({
   _id,
@@ -49,17 +49,22 @@ export default function Item({
   )
 
   const title = 'Item ' + item.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
-  const image = process.env.NEXT_PUBLIC_DOMAIN + (item.blacklist ? '/blacklisted-screenshot.png' : '/api/item/screenshot/' +
-      item._id)
+  const image =
+    process.env.NEXT_PUBLIC_DOMAIN +
+    (item.blacklist
+      ? '/blacklisted-screenshot.png'
+      : '/api/item/screenshot/' + item._id)
   return (
     <>
       <Head>
         <title>{item.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
         <meta name='twitter:card' content='summary_large_image' />
 
-        <Meta title={title} description={item.description} image={image}/>
+        <Meta title={title} description={item.description} image={image} />
 
-        {item.blacklist && <meta name='robots' content='noindex, archive, follow' />}
+        {item.blacklist && (
+          <meta name='robots' content='noindex, archive, follow' />
+        )}
       </Head>
 
       <div className={'row'}>

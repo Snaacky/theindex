@@ -4,7 +4,7 @@ import React from 'react'
 import LibraryBoard from '../components/boards/LibraryBoard'
 import useSWR from 'swr'
 import { getLibraries } from '../lib/db/libraries'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const title = 'Libraries on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -19,7 +19,7 @@ export default function Libraries({ libraries: staticLibraries }) {
       <Head>
         <title>{'All libraries | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-          <Meta title={title} description={description} />
+        <Meta title={title} description={description} />
       </Head>
 
       <h2>

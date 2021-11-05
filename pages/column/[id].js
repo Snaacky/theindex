@@ -16,7 +16,7 @@ import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
-import Meta from "../../components/layout/Meta";
+import Meta from '../../components/layout/Meta'
 
 export default function Column({
   _id,
@@ -64,7 +64,7 @@ export default function Column({
       <Head>
         <title>{column.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <Meta title={title} description={column.description}/>
+        <Meta title={title} description={column.description} />
       </Head>
 
       <div className={'row'}>

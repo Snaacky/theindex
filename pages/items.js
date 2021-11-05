@@ -5,7 +5,7 @@ import ItemBoard from '../components/boards/ItemBoard'
 import useSWR from 'swr'
 import { getItems } from '../lib/db/items'
 import DataBadge from '../components/data/DataBadge'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

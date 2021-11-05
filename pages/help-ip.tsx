@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import useSWR from 'swr'
 import Loader from '../components/loading'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const title = 'Your IP info | ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description = 'See what data about your location you are exposing'

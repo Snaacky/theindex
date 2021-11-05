@@ -6,7 +6,7 @@ import ItemCard from '../components/cards/ItemCard'
 import CollectionCard from '../components/cards/CollectionCard'
 import ListCard from '../components/cards/ListCard'
 import LibraryCard from '../components/cards/LibraryCard'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -22,17 +22,20 @@ export default function Home({
   let { data: collections } = useSWR('/api/popular/collections')
   let { data: lists } = useSWR('/api/popular/lists')
 
-  libraries = (libraries || staticTrendingLibraries).slice(0, 10)
-  items = (items || staticTrendingItem).slice(0, 10)
-  collections = (collections || staticTrendingCollection).slice(0, 10)
-  lists = (lists || staticTrendingList).slice(0, 10)
+  libraries = (libraries || staticTrendingLibraries).slice(0, 6)
+  items = (items || staticTrendingItem).slice(0, 6)
+  collections = (collections || staticTrendingCollection).slice(0, 6)
+  lists = (lists || staticTrendingList).slice(0, 6)
 
   return (
     <>
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <Meta title={process.env.NEXT_PUBLIC_SITE_NAME} description={description} />
+        <Meta
+          title={process.env.NEXT_PUBLIC_SITE_NAME}
+          description={description}
+        />
       </Head>
 
       <div className={'row'}>
@@ -139,10 +142,10 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  const trendingLibraries = await getLastViews('library', 100)
-  const trendingItem = await getLastViews('item', 100)
-  const trendingCollection = await getLastViews('collection', 100)
-  const trendingList = await getLastViews('list', 100)
+  const trendingLibraries = await getLastViews('library', 1000)
+  const trendingItem = await getLastViews('item', 1000)
+  const trendingCollection = await getLastViews('collection', 1000)
+  const trendingList = await getLastViews('list', 1000)
   return {
     props: {
       trendingLibraries,

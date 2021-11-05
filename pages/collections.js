@@ -5,7 +5,7 @@ import CollectionBoard from '../components/boards/CollectionBoard'
 import useSWR from 'swr'
 import { getCollections, updateCollection } from '../lib/db/collections'
 import { getItem } from '../lib/db/items'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const title = 'Collections on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

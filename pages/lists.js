@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { getLists } from '../lib/db/lists'
 import ListBoard from '../components/boards/ListBoard'
 import IconList from '../components/icons/IconList'
-import Meta from "../components/layout/Meta";
+import Meta from '../components/layout/Meta'
 
 const title = 'All user lists on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
