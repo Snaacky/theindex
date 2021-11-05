@@ -8,8 +8,8 @@ export default function NavbarBrand() {
         <Image
           src='/icons/logo.png'
           alt='r/animepiracy Logo'
-          width='32'
-          height='32'
+          width='40'
+          height='40'
           className='d-inline-block rounded align-top'
         />
         <span className={'ms-2 align-top position-relative'}>

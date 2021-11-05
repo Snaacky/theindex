@@ -28,10 +28,7 @@ export default function List({
   list = list || staticList
   owner = owner || staticOwner
 
-  const title =
-    owner.name +
-    "'s list " +
-    list.name
+  const title = owner.name + "'s list " + list.name
   return (
     <>
       <Head>
