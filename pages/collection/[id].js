@@ -33,8 +33,6 @@ export default function Collection({
     library.collections.some((t) => t._id === collection._id)
   )
 
-  const title =
-    'Collection ' + collection.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
   return (
     <>
       <Head>
@@ -43,8 +41,8 @@ export default function Collection({
         </title>
 
         <Meta
-          title={title}
-          description={column.description}
+          title={collection.name}
+          description={collection.description}
           image={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + collection.img}
         />
       </Head>

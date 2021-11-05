@@ -78,7 +78,7 @@ export default function EditorItem({ _id, collections, columns, item }) {
         />
       ) : (
         <div className={'text-muted'}>
-          Collection selection will be available once thelibraryhas been created
+          Collection selection will be available once the library has been created
         </div>
       )}
     </>

@@ -24,7 +24,6 @@ export default function User({ uid, user: staticUser }) {
   const lists = user ? user.lists : staticUser.lists
   const followLists = user ? user.followLists : staticUser.followLists
 
-  const title = 'User ' + name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
   return (
     <>
       <Head>
@@ -33,7 +32,7 @@ export default function User({ uid, user: staticUser }) {
         </title>
         <meta name='robots' content='noindex, archive, follow' />
 
-        <Meta title={title} description={description} image={image} />
+        <Meta title={'User ' + name} description={description} image={image} />
       </Head>
 
       <div className={'card bg-2'}>

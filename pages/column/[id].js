@@ -57,14 +57,12 @@ export default function Column({
     )
   })
 
-  const title =
-    'Column ' + column.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
   return (
     <>
       <Head>
         <title>{column.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <Meta title={title} description={column.description} />
+        <Meta title={column.name} description={column.description} />
       </Head>
 
       <div className={'row'}>

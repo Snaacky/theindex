@@ -31,9 +31,7 @@ export default function List({
   const title =
     owner.name +
     "'s list " +
-    list.name +
-    ' on ' +
-    process.env.NEXT_PUBLIC_SITE_NAME
+    list.name
   return (
     <>
       <Head>

@@ -48,7 +48,6 @@ export default function Item({
     item
   )
 
-  const title = 'Item ' + item.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
   const image =
     process.env.NEXT_PUBLIC_DOMAIN +
     (item.blacklist
@@ -60,7 +59,7 @@ export default function Item({
         <title>{item.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}</title>
         <meta name='twitter:card' content='summary_large_image' />
 
-        <Meta title={title} description={item.description} image={image} />
+        <Meta title={item.name} description={item.description} image={image} />
 
         {item.blacklist && (
           <meta name='robots' content='noindex, archive, follow' />

@@ -28,8 +28,6 @@ export default function Library({
   let { data: library } = useSWR('/api/library/' + _id)
   library = library || staticLibrary
 
-  const title =
-    'Library ' + library.name + ' on ' + process.env.NEXT_PUBLIC_SITE_NAME
   return (
     <>
       <Head>
@@ -38,7 +36,7 @@ export default function Library({
         </title>
 
         <Meta
-          title={title}
+          title={library.name}
           description={library.description}
           image={process.env.NEXT_PUBLIC_DOMAIN + '/img/' + library.img}
         />
