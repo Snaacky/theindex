@@ -23,9 +23,9 @@ export default function Home({
   let { data: lists } = useSWR('/api/popular/lists')
 
   libraries = (libraries || staticTrendingLibraries).slice(0, 6)
-  items = (items || staticTrendingItem).slice(0, 6)
-  collections = (collections || staticTrendingCollection).slice(0, 6)
-  lists = (lists || staticTrendingList).slice(0, 6)
+  items = (items || staticTrendingItem).slice(0, 9)
+  collections = (collections || staticTrendingCollection).slice(0, 9)
+  lists = (lists || staticTrendingList).slice(0, 9)
 
   return (
     <>
