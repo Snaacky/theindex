@@ -11,6 +11,19 @@ window.addEventListener("load", () => {
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
             ' x <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span> / ' +
             ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> '
+        },
+        {
+            id: "sponsored-anime-2",
+            title: "YugenAnime",
+            url: "https://yugen.to",
+            description: 'Watch in ' +
+            'Track, discover, share, & watch in ' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">360p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">480p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">720p</span>' +
+            ' <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">1080p</span>' +
+            ' with <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Subs</span>' +
+            ' & <span class="badge rounded-pill" style="background-color: #ffc106;color: #202020;">Dubs</span> '
         }
     ]
 
