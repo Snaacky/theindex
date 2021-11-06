@@ -1,15 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import styles from './NavbarBrand.module.css'
 
 export default function NavbarBrand() {
   return (
     <Link href={'/'}>
-      <a className={'navbar-brand d-block'}>
+      <a className={styles.link + ' navbar-brand d-block'}>
         <Image
           src='/icons/logo.png'
           alt='r/animepiracy Logo'
-          width='40'
-          height='40'
+          width='30'
+          height='30'
           className='d-inline-block rounded align-top'
         />
         <span className={'ms-2 align-top position-relative'}>

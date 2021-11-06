@@ -20,7 +20,10 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['cdn.discordapp.com'],
+    domains: [
+        'cdn.discordapp.com',
+        'localhost'
+    ],
   },
 }
 

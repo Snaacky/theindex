@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DataBadge from '../../components/data/DataBadge'
-import { getUsers, getUserWithLists } from '../../lib/db/users'
+import { getUserWithLists } from '../../lib/db/users'
 import useSWR from 'swr'
 import ListBoard from '../../components/boards/ListBoard'
 import ItemBoard from '../../components/boards/ItemBoard'
@@ -50,10 +50,7 @@ export default function User({ uid, user: staticUser }) {
                 alt={'Profile picture of ' + name}
                 width={64}
                 height={64}
-                src={
-                  image ||
-                  'https://avatars.dicebear.com/api/pixel-art/' + uid + '.svg'
-                }
+                src={image}
               />
             </div>
             <div className={'col'}>
@@ -154,28 +151,11 @@ export default function User({ uid, user: staticUser }) {
   )
 }
 
-export async function getStaticPaths() {
-  const users = await getUsers()
-  const paths = users.map((u) => {
-    return {
-      params: {
-        id: u.uid.toString(),
-      },
-    }
-  })
-
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const user = await getUserWithLists(params.id)
   if (!user) {
     return {
       notFound: true,
-      revalidate: 30,
     }
   }
   return {
@@ -183,6 +163,5 @@ export async function getStaticProps({ params }) {
       uid: params.id,
       user,
     },
-    revalidate: 30,
   }
 }
