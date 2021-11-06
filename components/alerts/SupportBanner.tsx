@@ -34,7 +34,7 @@ const SupportBanner: FC = () => {
         is exposed
       </span>
       <div>
-        <Link href={'/help-ip'}>
+        <Link href={'/library/vpns'}>
           <a className={'me-3'}>
             Learn more <FontAwesomeIcon icon={['fas', 'chevron-right']} />
           </a>
