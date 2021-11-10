@@ -22,15 +22,21 @@ export default function EditorUser({ uid, user }) {
         </title>
       </Head>
 
-      <h2>
-        Edit user <Link href={'/user/' + uid}>{user.name}</Link>
-        <span className={'float-end'}>
-          <ViewAllButton type={'users'} />
-        </span>
-      </h2>
-      <small className={'text-muted'}>
-        ID: <code>{uid}</code>
-      </small>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            Edit user <Link href={'/user/' + uid}>{user.name}</Link>
+          </h2>
+          <small className={'text-muted'}>
+            ID: <code>{uid}</code>
+          </small>
+        </div>
+        {isAdmin(session) && (
+          <div>
+            <ViewAllButton type={'users'} />
+          </div>
+        )}
+      </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>

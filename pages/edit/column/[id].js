@@ -23,26 +23,28 @@ export default function EditorColumn({ _id, collections, columns, column }) {
         </title>
       </Head>
 
-      <h2>
-        {_id === '_new' ? (
-          'Create a new column'
-        ) : (
-          <>
-            Edit column{' '}
-            <Link href={'/column/' + column.urlId}>{column.name}</Link>
-          </>
-        )}
-        <span className={'float-end'}>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            {_id === '_new' ? (
+              'Create a new column'
+            ) : (
+              <>
+                Edit column{' '}
+                <Link href={'/column/' + column.urlId}>{column.name}</Link>
+              </>
+            )}
+          </h2>
+          {_id !== '_new' && (
+            <small className={'text-muted'}>
+              ID: <code>{column._id}</code>
+            </small>
+          )}
+        </div>
+        <div>
           <ViewAllButton type={'columns'} />
-        </span>
-      </h2>
-      {_id !== '_new' ? (
-        <small className={'text-muted'}>
-          ID: <code>{column._id}</code>
-        </small>
-      ) : (
-        <></>
-      )}
+        </div>
+      </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>

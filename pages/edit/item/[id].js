@@ -25,25 +25,27 @@ export default function EditorItem({ _id, collections, columns, item }) {
         </title>
       </Head>
 
-      <h2>
-        {_id === '_new' ? (
-          'Create a new item'
-        ) : (
-          <>
-            Edit item <Link href={'/item/' + item._id}>{item.name}</Link>
-          </>
-        )}
-        <span className={'float-end'}>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            {_id === '_new' ? (
+              'Create a new item'
+            ) : (
+              <>
+                Edit item <Link href={'/item/' + item._id}>{item.name}</Link>
+              </>
+            )}
+          </h2>
+          {_id !== '_new' && (
+            <small className={'text-muted'}>
+              ID: <code>{item._id}</code>
+            </small>
+          )}
+        </div>
+        <div>
           <ViewAllButton type={'items'} />
-        </span>
-      </h2>
-      {_id !== '_new' ? (
-        <small className={'text-muted'}>
-          ID: <code>{item._id}</code>
-        </small>
-      ) : (
-        <></>
-      )}
+        </div>
+      </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>

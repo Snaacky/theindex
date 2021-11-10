@@ -131,6 +131,7 @@ export default function Collection({
       <ItemBoard
         _id={collection._id}
         items={collection.items}
+        showSponsors={true}
         columns={collection.columns}
         key={collection._id}
         canEdit={canEdit(session)}

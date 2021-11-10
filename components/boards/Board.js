@@ -12,6 +12,7 @@ const Board = ({
   _id,
   content,
   allContent,
+  sponsorContent = [],
   type, // item, column, collection or tab
   updateContentURL = '',
   updateContentKey = '',
@@ -173,6 +174,13 @@ const Board = ({
 
   return (
     <>
+      {sponsorContent.length > 0 && (
+        <div className={'d-flex mb-2'}>
+          {sponsorContent.map((c) =>
+            renderSingleContent(c, false, false, false)
+          )}
+        </div>
+      )}
       <div className={'card card-body bg-2 mb-2'}>
         <div>
           <button

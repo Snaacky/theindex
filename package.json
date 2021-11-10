@@ -21,11 +21,11 @@
     "jsdom": "^18.0.1",
     "meilisearch": "^0.22.3",
     "mongodb": "^3.7.3",
-    "next": "^12.0.2",
+    "next": "^12.0.3",
     "next-auth": "^3.29.0",
     "next-pwa": "^5.4.0",
-    "node-fetch": "^3.0.0",
-    "puppeteer": "^10.4.0",
+    "node-fetch": "^3.1.0",
+    "puppeteer": "^11.0.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-adblocker": "^2.12.0",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
@@ -33,14 +33,14 @@
     "react-dom": "17.0.2",
     "react-draggable": "^4.4.4",
     "react-in-viewport": "^1.0.0-alpha.20",
-    "react-toastify": "^8.0.3",
+    "react-toastify": "^8.1.0",
     "sharp": "^0.29.2",
     "swr": "^1.0.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.33",
+    "@types/react": "^17.0.34",
     "eslint": "^7.23.0",
-    "eslint-config-next": "^12.0.2",
+    "eslint-config-next": "^12.0.3",
     "typescript": "^4.4.4"
   }
 }

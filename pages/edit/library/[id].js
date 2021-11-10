@@ -25,40 +25,36 @@ export default function EditorLibrary({
         </title>
       </Head>
 
-      <div className={'d-flex justify-content-between'}>
-        <h2>
-          {_id === '_new' ? (
-            'Create a new library'
-          ) : (
-            <>
-              Edit library{' '}
-              <Link href={'/library/' + library.urlId}>{library.name}</Link>
-            </>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            {_id === '_new' ? (
+              'Create a new library'
+            ) : (
+              <>
+                Edit library{' '}
+                <Link href={'/library/' + library.urlId}>{library.name}</Link>
+              </>
+            )}
+          </h2>
+          {_id !== '_new' && (
+            <small className={'text-muted'}>
+              ID: <code>{library._id}</code>
+            </small>
           )}
-        </h2>
+        </div>
         <div>
           <ViewAllButton type={'libraries'} />
         </div>
       </div>
-      {_id !== '_new' ? (
-        <small className={'text-muted'}>
-          ID: <code>{library._id}</code>
-        </small>
-      ) : (
-        <></>
-      )}
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
           {_id === '_new' ? (
-            <EditLibrary
-              libraries={libraries}
-              collectionsDatalist={collections}
-            />
+            <EditLibrary libraries={libraries} />
           ) : (
             <EditLibrary
               libraries={libraries}
-              collectionsDatalist={collections}
               _id={library._id}
               urlId={library.urlId}
               name={library.name}

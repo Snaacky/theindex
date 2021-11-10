@@ -1,53 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../rows/Row.module.css'
 import IconDelete from '../icons/IconDelete'
 import IconAdd from '../icons/IconAdd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
+import { useRouter } from 'next/router'
 
-export default class EditColumn extends React.Component {
-  constructor({ columns, _id, urlId, name, nsfw, description, type, values }) {
-    super({ columns, _id, urlId, name, nsfw, description, type, values })
+export default function EditColumn({
+  columns,
+  _id,
+  urlId,
+  name,
+  nsfw,
+  description,
+  type,
+  values,
+}) {
+  const [nameState, setName] = useState(name || '')
+  const [urlIdState, setUrlId] = useState(urlId || '')
+  const [typeState, setType] = useState(type || 'bool')
+  const [valuesState, setValues] = useState(values || [])
+  const [newValue, setNewValue] = useState('')
+  const [nsfwState, setNsfw] = useState(nsfw || false)
+  const [descriptionState, setDescription] = useState(description)
 
-    this.columnsDatalist = columns.map((t) => t.name)
-    this.urlDatalist = columns.map((t) => t.urlId)
+  const [columnsDatalist, setColumnsDatalist] = useState(
+    columns.map((t) => t.name) || []
+  )
+  const [urlDatalist, setUrlDatalist] = useState(
+    columns.map((t) => t.urlId) || []
+  )
+  useEffect(() => {
+    setColumnsDatalist(columns.map((t) => t.name) || [])
+    setUrlDatalist(columns.map((t) => t.urlId) || [])
+  }, columns)
 
-    this.state = {
-      _id,
-      urlId: urlId || '',
-      name: name || '',
-      nsfw: nsfw || false,
-      description: description || '',
-      type: type || 'bool',
-      values: values || [],
-      newValue: '',
-    }
-  }
+  const router = useRouter()
 
-  saveColumn() {
-    if (this.state.name !== '' && this.state.urlId !== '') {
-      if (this.state.urlId === '_new') {
+  const saveColumn = () => {
+    if (nameState !== '' && urlIdState !== '') {
+      if (urlIdState === '_new') {
         return toast.error('Illegal url id: "_new" is forbidden!')
       }
 
       let body = {
-        urlId: this.state.urlId,
-        name: this.state.name,
-        nsfw: this.state.nsfw,
-        description: this.state.description,
-        type: this.state.type,
+        urlId: urlIdState,
+        name: nameState,
+        nsfw: nsfwState,
+        description: descriptionState,
+        type: typeState,
       }
-      if (this.state._id) {
-        body._id = this.state._id
+      if (_id) {
+        body._id = _id
       }
-      if (this.state.type === 'array') {
-        body.values = this.state.values
+      if (typeState === 'array') {
+        body.values = valuesState
       }
 
-      postData('/api/edit/column', body, () => {
-        if (typeof this.state._id === 'undefined') {
-          window.location.href = escape('/column/' + body.urlId)
+      postData('/api/edit/column', body, (newId) => {
+        if (typeof _id === 'undefined') {
+          router
+            .replace('/edit/column/' + newId)
+            .catch((e) => console.error('Failed to route', e))
         }
       })
     } else {
@@ -57,222 +72,205 @@ export default class EditColumn extends React.Component {
     }
   }
 
-  addValue() {
-    if (this.state.newValue !== '') {
-      this.setState({
-        values: this.state.values.concat([this.state.newValue]),
-        newValue: '',
-      })
+  const addValue = () => {
+    if (newValue !== '') {
+      setValues(valuesState.concat([newValue]))
+      setNewValue('')
     }
   }
 
-  updateValue(i, newValue) {
-    let temp = this.state.values
+  const updateValue = (i, newValue) => {
+    let temp = valuesState
     temp[i] = newValue
-    this.setState({
-      values: temp,
-    })
+    setValues(temp)
   }
 
-  removeValue(i) {
-    const temp = this.state.values.splice(i, 1)
-    this.setState({
-      values: temp,
-    })
+  const removeValue = (i) => {
+    setValues(valuesState.splice(i, 1))
   }
 
-  render() {
-    return (
-      <form>
-        <div className={'row'}>
-          <div className={'col-12 col-lg-6 mb-3'}>
-            <label htmlFor={'createColumnInputName'} className={'form-label'}>
-              Name
-            </label>
-            <input
-              type={'text'}
-              className={'form-control'}
-              id={'createColumnInputName'}
-              value={this.state.name}
-              list={'createColumnInputNameDatalist'}
-              aria-describedby={'createColumnInputNameHelp'}
-              placeholder={'Enter a name'}
-              required={true}
-              onChange={(input) => {
-                this.setState({ name: input.target.value })
-              }}
-            />
-            <datalist id={'createColumnInputNameDatalist'}>
-              {this.columnsDatalist.map((t) => (
-                <option value={t} key={t} />
-              ))}
-            </datalist>
-            <div id={'createColumnInputNameHelp'} className={'form-text'}>
-              Shown name of column
-            </div>
-          </div>
-          <div className={'col-12 col-lg-6 mb-3'}>
-            <label htmlFor={'createColumnInputURL'} className={'form-label'}>
-              URL
-            </label>
-            <input
-              type={'text'}
-              className={'form-control'}
-              id={'createColumnInputURL'}
-              value={this.state.urlId}
-              list={'createColumnInputURLDatalist'}
-              aria-describedby={'createColumnInputURLHelp'}
-              placeholder={'Enter the url id'}
-              required={true}
-              onChange={(input) => {
-                this.setState({ urlId: input.target.value })
-              }}
-            />
-            <datalist id={'createColumnInputURLDatalist'}>
-              {this.urlDatalist.map((t) => (
-                <option value={t} key={t} />
-              ))}
-            </datalist>
-            <div id={'createColumnInputURLHelp'} className={'form-text'}>
-              Identifier used for the URLs, must be a string containing only{' '}
-              <code>[a-z0-9-_]</code>
-            </div>
-          </div>
-        </div>
-        <div className='mb-3 form-check'>
+  return (
+    <form>
+      <div className={'row'}>
+        <div className={'col-12 col-lg-6 mb-3'}>
+          <label htmlFor={'createColumnInputName'} className={'form-label'}>
+            Name
+          </label>
           <input
-            type='checkbox'
-            className='form-check-input'
-            id='createColumnInputNSFW'
-            checked={this.state.nsfw}
+            type={'text'}
+            className={'form-control'}
+            id={'createColumnInputName'}
+            value={nameState}
+            list={'createColumnInputNameDatalist'}
+            aria-describedby={'createColumnInputNameHelp'}
+            placeholder={'Enter a name'}
+            required={true}
             onChange={(input) => {
-              this.setState({ nsfw: input.target.checked })
+              setName(input.target.value)
             }}
           />
-          <label className='form-check-label' htmlFor='createColumnInputNSFW'>
-            NSFW: contains adult only content
-          </label>
+          <datalist id={'createColumnInputNameDatalist'}>
+            {columnsDatalist.map((t) => (
+              <option value={t} key={t} />
+            ))}
+          </datalist>
+          <div id={'createColumnInputNameHelp'} className={'form-text'}>
+            Shown name of column
+          </div>
         </div>
-        <div className='mb-3'>
-          <label htmlFor='createColumnInputDescription' className='form-label'>
-            Description
+        <div className={'col-12 col-lg-6 mb-3'}>
+          <label htmlFor={'createColumnInputURL'} className={'form-label'}>
+            URL
           </label>
-          <textarea
-            className='form-control'
-            id='createColumnInputDescription'
-            rows='3'
-            placeholder={'Enter a fitting description'}
-            value={this.state.description}
+          <input
+            type={'text'}
+            className={'form-control'}
+            id={'createColumnInputURL'}
+            value={urlIdState}
+            list={'createColumnInputURLDatalist'}
+            aria-describedby={'createColumnInputURLHelp'}
+            placeholder={'Enter the url id'}
+            required={true}
             onChange={(input) => {
-              this.setState({ description: input.target.value })
+              setUrlId(input.target.value)
             }}
           />
+          <datalist id={'createColumnInputURLDatalist'}>
+            {urlDatalist.map((t) => (
+              <option value={t} key={t} />
+            ))}
+          </datalist>
+          <div id={'createColumnInputURLHelp'} className={'form-text'}>
+            Identifier used for the URLs, must be a string containing only{' '}
+            <code>[a-z0-9-_]</code>
+          </div>
         </div>
+      </div>
+      <div className='mb-3 form-check'>
+        <input
+          type='checkbox'
+          className='form-check-input'
+          id='createColumnInputNSFW'
+          checked={nsfwState}
+          onChange={(input) => {
+            setNsfw(input.target.checked)
+          }}
+        />
+        <label className='form-check-label' htmlFor='createColumnInputNSFW'>
+          NSFW: contains adult only content
+        </label>
+      </div>
+      <div className='mb-3'>
+        <label htmlFor='createColumnInputDescription' className='form-label'>
+          Description
+        </label>
+        <textarea
+          className='form-control'
+          id='createColumnInputDescription'
+          rows='3'
+          placeholder={'Enter a fitting description'}
+          value={descriptionState}
+          onChange={(input) => {
+            setDescription(input.target.value)
+          }}
+        />
+      </div>
 
-        <div className='form-floating mb-3'>
-          <select
-            className='form-select'
-            id='columnTypeInput'
-            aria-label='Type selection of column'
-            onChange={(e) =>
-              this.setState({
-                type: e.target.value,
-              })
-            }
-            value={this.state.type}
-          >
-            <option value='bool'>Boolean</option>
-            <option value='array'>Array</option>
-            <option value='text'>Text</option>
-          </select>
-          <label htmlFor='columnTypeInput' className={'text-dark'}>
-            Type of column value
-          </label>
-        </div>
-        {this.state.type === 'array' ? (
-          <>
-            <hr />
-            <label className='form-label'>Values</label>
-            <div className={'mb-3'}>
-              {this.state.values.map((v, i) => (
-                <div className={'row mb-2'} key={i}>
-                  <div className={'col pe-0'}>
-                    <input
-                      type={'text'}
-                      className={'form-control'}
-                      id={'columnValueInput-' + i}
-                      value={v}
-                      placeholder={'Enter a possible value'}
-                      required={true}
-                      onChange={(input) => {
-                        this.updateValue(i, input.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className={styles.column + ' col-auto px-1'}>
-                    <a
-                      onClick={() => this.removeValue(i)}
-                      name={'Remove value'}
-                      className={'float-end'}
-                      style={{
-                        width: '38px',
-                        height: '38px',
-                      }}
-                    >
-                      <IconDelete />
-                    </a>
-                  </div>
-                </div>
-              ))}
-              {this.state.values.length > 0 ? <hr /> : <></>}
-              <div className={'row'}>
+      <div className='form-floating mb-3'>
+        <select
+          className='form-select'
+          id='columnTypeInput'
+          aria-label='Type selection of column'
+          onChange={(e) => setType(e.target.value)}
+          value={typeState}
+        >
+          <option value='bool'>Boolean</option>
+          <option value='array'>Array</option>
+          <option value='text'>Text</option>
+        </select>
+        <label htmlFor='columnTypeInput' className={'text-dark'}>
+          Type of column value
+        </label>
+      </div>
+      {typeState === 'array' ? (
+        <>
+          <hr />
+          <label className='form-label'>Values</label>
+          <div className={'mb-3'}>
+            {valuesState.map((v, i) => (
+              <div className={'row mb-2'} key={i}>
                 <div className={'col pe-0'}>
                   <input
                     type={'text'}
                     className={'form-control'}
-                    id={'columnValueInput-new'}
-                    value={this.state.newValue}
+                    id={'columnValueInput-' + i}
+                    value={v}
                     placeholder={'Enter a possible value'}
+                    required={true}
                     onChange={(input) => {
-                      this.setState({
-                        newValue: input.target.value,
-                      })
+                      updateValue(i, input.target.value)
                     }}
                   />
                 </div>
                 <div className={styles.column + ' col-auto px-1'}>
                   <a
-                    onClick={() => this.addValue()}
-                    title={'Add value'}
+                    onClick={() => removeValue(i)}
+                    name={'Remove value'}
                     className={'float-end'}
                     style={{
                       width: '38px',
                       height: '38px',
                     }}
                   >
-                    <IconAdd />
+                    <IconDelete />
                   </a>
                 </div>
               </div>
+            ))}
+            {valuesState.length > 0 ? <hr /> : <></>}
+            <div className={'row'}>
+              <div className={'col pe-0'}>
+                <input
+                  type={'text'}
+                  className={'form-control'}
+                  id={'columnValueInput-new'}
+                  value={newValue}
+                  placeholder={'Enter a possible value'}
+                  onChange={(input) => {
+                    setNewValue(input.target.value)
+                  }}
+                />
+              </div>
+              <div className={styles.column + ' col-auto px-1'}>
+                <a
+                  onClick={() => addValue()}
+                  title={'Add value'}
+                  className={'float-end'}
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                  }}
+                >
+                  <IconAdd />
+                </a>
+              </div>
             </div>
-          </>
-        ) : (
-          <></>
-        )}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
 
-        <span className={'float-end'}>
-          <button
-            className={'btn btn-primary mb-2 me-2'}
-            type='button'
-            onClick={() => this.saveColumn()}
-          >
-            <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
-            {typeof this.state._id === 'undefined'
-              ? 'Create column'
-              : 'Save changes'}
-          </button>
-        </span>
-      </form>
-    )
-  }
+      <span className={'float-end'}>
+        <button
+          className={'btn btn-primary mb-2 me-2'}
+          type='button'
+          onClick={() => saveColumn()}
+        >
+          <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
+          {typeof _id === 'undefined' ? 'Create column' : 'Save changes'}
+        </button>
+      </span>
+    </form>
+  )
 }

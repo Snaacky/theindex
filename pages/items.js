@@ -34,7 +34,12 @@ export default function Items({ items: staticItems }) {
       </h2>
       <p>{description}</p>
 
-      <ItemBoard items={items} deleteURL={'/api/delete/item'} canEdit={true} />
+      <ItemBoard
+        items={items}
+        deleteURL={'/api/delete/item'}
+        canEdit={true}
+        showSponsors={true}
+      />
     </>
   )
 }

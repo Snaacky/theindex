@@ -12,6 +12,7 @@ export default function ItemBoard({
   forceEditMode = false,
   canMove = false,
   canEdit = false,
+  showSponsors = false,
 }) {
   const { data: allColumns } = useSWR('/api/columns')
   const { data: allItems } = useSWR('/api/items')
@@ -32,10 +33,8 @@ export default function ItemBoard({
       .filter((i) => typeof i !== 'undefined')
   }
 
-  const sponsored = items.filter((i) => i.sponsor)
-  if (sponsored.length > 0) {
-    items = sponsored.concat(items.filter((i) => !i.sponsor))
-  }
+  const sponsoredItems = showSponsors ? items.filter((i) => i.sponsor) : []
+  items = items.filter((i) => !i.sponsor)
 
   return (
     <Board
@@ -43,6 +42,7 @@ export default function ItemBoard({
       _id={_id}
       content={items}
       allContent={allItems}
+      sponsorContent={sponsoredItems}
       columns={columns}
       updateContentURL={updateURL}
       updateContentKey={updateKey}

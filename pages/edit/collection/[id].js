@@ -37,28 +37,32 @@ export default function EditorCollection({
         </title>
       </Head>
 
-      <h2>
-        {_id === '_new' ? (
-          'Create a new collection'
-        ) : (
-          <>
-            Edit collection{' '}
-            <Link href={'/collection/' + collection.urlId}>
-              {collection.name}
-            </Link>
-          </>
-        )}
-        <span className={'float-end'}>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            {_id === '_new' ? (
+              'Create a new collection'
+            ) : (
+              <>
+                Edit collection{' '}
+                <Link href={'/collection/' + collection.urlId}>
+                  {collection.name}
+                </Link>
+              </>
+            )}
+          </h2>
+          {_id !== '_new' ? (
+            <small className={'text-muted'}>
+              ID: <code>{collection._id}</code>
+            </small>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div>
           <ViewAllButton type={'collections'} />
-        </span>
-      </h2>
-      {_id !== '_new' ? (
-        <small className={'text-muted'}>
-          ID: <code>{collection._id}</code>
-        </small>
-      ) : (
-        <></>
-      )}
+        </div>
+      </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
@@ -92,7 +96,7 @@ export default function EditorCollection({
         />
       ) : (
         <div className={'text-muted'}>
-          Libraryselection will be available once the collection has been
+          Library selection will be available once the collection has been
           created
         </div>
       )}

@@ -30,25 +30,27 @@ export default function EditorList({ _id, userLists, columns, list }) {
         </title>
       </Head>
 
-      <h2>
-        {_id === '_new' ? (
-          'Create a new list'
-        ) : (
-          <>
-            Edit list <Link href={'/list/' + list._id}>{list.name}</Link>
-          </>
-        )}
-        <span className={'float-end'}>
+      <div className={'d-flex flex-row'}>
+        <div className={'flex-grow-1'}>
+          <h2>
+            {_id === '_new' ? (
+              'Create a new list'
+            ) : (
+              <>
+                Edit list <Link href={'/list/' + list._id}>{list.name}</Link>
+              </>
+            )}
+          </h2>
+          {_id !== '_new' && (
+            <small className={'text-muted'}>
+              ID: <code>{list._id}</code>
+            </small>
+          )}
+        </div>
+        <div>
           <ViewAllButton type={'lists'} />
-        </span>
-      </h2>
-      {_id !== '_new' ? (
-        <small className={'text-muted'}>
-          ID: <code>{list._id}</code>
-        </small>
-      ) : (
-        <></>
-      )}
+        </div>
+      </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
