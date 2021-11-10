@@ -12,9 +12,12 @@ import IconItem from '../icons/IconItem'
 import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
 import SupportBanner from '../alerts/SupportBanner'
+import { canEdit } from '../../lib/session'
+import { useSession } from 'next-auth/client'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
+  const [session] = useSession()
 
   const sidebarRef = useRef()
   const navbarToggleRef = useRef()
@@ -94,16 +97,18 @@ export default function Navbar() {
                     </a>
                   </Link>
                 </li>
-                <li className={'nav-item ms-1'}>
-                  <Link href={'/items'}>
-                    <a className={'nav-link'}>
-                      <IconItem />
-                      <span className={styles.listAllText + ' ms-1'}>
-                        Items
-                      </span>
-                    </a>
-                  </Link>
-                </li>
+                {canEdit(session) && (
+                  <li className={'nav-item ms-1'}>
+                    <Link href={'/items'}>
+                      <a className={'nav-link'}>
+                        <IconItem />
+                        <span className={styles.listAllText + ' ms-1'}>
+                          Items
+                        </span>
+                      </a>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             <div className={'ms-auto d-flex flex-row'}>
