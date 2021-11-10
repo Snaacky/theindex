@@ -21,12 +21,6 @@ export default function EditItem({
 }) {
   const [nameState, setName] = useState(name || '')
 
-  // a single empty url for inputting a real url, empty strings will be ignored in the save function
-  if ((urls && urls.length === 0) || !urls) {
-    urls = ['']
-  } else if (urls) {
-    urls.push('')
-  }
   const [urlsState, setUrls] = useState(urls)
   const [nsfwState, setNsfw] = useState(nsfw || false)
   const [descriptionState, setDescription] = useState(description || '')
@@ -40,6 +34,16 @@ export default function EditItem({
   useEffect(() => {
     setColumns(columns.sort((a, b) => (a.name < b.name ? -1 : 1)))
   }, columns)
+  useEffect(() => {
+    // a single empty url for inputting a real url, empty strings will be ignored in the save function
+    let initUrls = urlsState
+    if ((urlsState && urlsState.length === 0) || !urlsState) {
+      initUrls = ['']
+    } else if (urlsState) {
+      initUrls.push('')
+    }
+    setUrls(initUrls)
+  })
 
   const router = useRouter()
 
