@@ -7,6 +7,19 @@ import styles from './SupportBanner.module.css'
 const SupportBanner: FC = () => {
   let { data: ip } = useSWR('/api/ip-info')
 
+  let location = 'unknown'
+  if (ip && ip.geo) {
+    if (ip.geo.city && ip.geo.city !== '') {
+      location = ip.geo.city
+    } else if (ip.geo.country && ip.geo.country !== '') {
+      location = ip.geo.country
+    } else {
+      location = 'Where tf are you?'
+    }
+  } else if (ip) {
+    location = 'where tf are you?'
+  }
+
   return (
     <div className={styles.bg}>
       <span className={'me-3'}>
@@ -22,9 +35,9 @@ const SupportBanner: FC = () => {
           </div>
         )}{' '}
         from{' '}
-        {ip && ip.geo ? (
+        {ip ? (
           <kbd>
-            <code>{ip.geo.city ?? 'unknown'}</code>
+            <code>{location}</code>
           </kbd>
         ) : (
           <div className='spinner-border spinner-border-sm' role='status'>
