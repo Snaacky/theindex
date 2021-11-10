@@ -7,6 +7,7 @@ import IconNewTabLink from '../icons/IconNewTabLink'
 import { isValidUrl, postData } from '../../lib/utils'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default function EditItem({
   _id,
@@ -21,7 +22,9 @@ export default function EditItem({
 }) {
   const [nameState, setName] = useState(name || '')
 
-  const [urlsState, setUrls] = useState(urls)
+  const [urlsState, setUrls] = useState(
+    (urls && urls.length === 0) || !urls ? [''] : urls.concat([''])
+  )
   const [nsfwState, setNsfw] = useState(nsfw || false)
   const [descriptionState, setDescription] = useState(description || '')
   const [dataState, setData] = useState(data || {})
@@ -34,16 +37,6 @@ export default function EditItem({
   useEffect(() => {
     setColumns(columns.sort((a, b) => (a.name < b.name ? -1 : 1)))
   }, columns)
-  useEffect(() => {
-    // a single empty url for inputting a real url, empty strings will be ignored in the save function
-    let initUrls = urlsState
-    if ((urlsState && urlsState.length === 0) || !urlsState) {
-      initUrls = ['']
-    } else if (urlsState) {
-      initUrls.push('')
-    }
-    setUrls(initUrls)
-  })
 
   const router = useRouter()
 
@@ -75,8 +68,13 @@ export default function EditItem({
   }
 
   const updateURLs = (i, newURL) => {
-    let temp = urlsState
-    temp[i] = newURL
+    let temp = urlsState.map((v, index) => {
+      if (i === index) {
+        return newURL
+      }
+      return v
+    })
+
     if (temp[temp.length - 1] !== '') {
       temp.push('')
     } else if (temp.length > 1 && temp[temp.length - 2] === '') {
@@ -91,10 +89,14 @@ export default function EditItem({
   }
 
   const dataUpdate = (column, value) => {
-    let temp = dataState
     if (value === null && typeof dataState[column._id] !== 'undefined') {
+      let temp = {}
+      Object.keys(dataState).forEach((key) => {
+        if (key !== column._id) {
+          temp[key] = dataState[key]
+        }
+      })
       console.log('Deleting', column._id)
-      delete dataState[column._id]
       setData(temp)
     }
 
@@ -103,7 +105,19 @@ export default function EditItem({
       (column.type === 'array' && Array.isArray(value)) ||
       (column.type === 'text' && typeof value === 'string')
     ) {
-      temp[column._id] = value
+      let temp = {}
+      let keys = Object.keys(dataState)
+      if (!keys.includes(column._id)) {
+        keys.push(column._id)
+      }
+      keys.forEach((key) => {
+        if (key !== column._id) {
+          temp[key] = dataState[key]
+        } else {
+          temp[key] = value
+        }
+      })
+
       setData(temp)
     }
   }
@@ -246,9 +260,7 @@ export default function EditItem({
                   )}
                 </div>
               </div>
-              {isValid || v === '' ? (
-                <></>
-              ) : (
+              {!isValid && v !== '' && (
                 <div className={'invalid-feedback d-block'}>
                   This does not look like a valid url...
                 </div>
@@ -265,6 +277,9 @@ export default function EditItem({
       <hr />
       <label className='form-label'>Columns</label>
       <div className={'d-flex flex-wrap mb-3'}>
+        {columnsState.length === 0 && (
+          <div className={'text-muted'}>No columns have been created yet</div>
+        )}
         {columnsState.map((c) => (
           <div key={c._id}>
             <DataCard
@@ -275,6 +290,7 @@ export default function EditItem({
           </div>
         ))}
       </div>
+      <CreateNewButton type={'column'} allowEdit={true} />
 
       <span className={'float-end'}>
         <button

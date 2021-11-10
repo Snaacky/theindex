@@ -175,7 +175,7 @@ const Board = ({
   return (
     <>
       {sponsorContent.length > 0 && (
-        <div className={'d-flex mb-2'}>
+        <div className={'d-flex mb-2'} style={{ marginRight: '-0.5rem' }}>
           {sponsorContent.map((c) =>
             renderSingleContent(c, false, false, false)
           )}

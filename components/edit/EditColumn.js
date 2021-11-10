@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../rows/Row.module.css'
 import IconDelete from '../icons/IconDelete'
-import IconAdd from '../icons/IconAdd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
@@ -20,8 +19,9 @@ export default function EditColumn({
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
   const [typeState, setType] = useState(type || 'bool')
-  const [valuesState, setValues] = useState(values || [])
-  const [newValue, setNewValue] = useState('')
+  const [valuesState, setValues] = useState(
+    (values && values.length === 0) || !values ? [''] : values.concat([''])
+  )
   const [nsfwState, setNsfw] = useState(nsfw || false)
   const [descriptionState, setDescription] = useState(description)
 
@@ -55,7 +55,7 @@ export default function EditColumn({
         body._id = _id
       }
       if (typeState === 'array') {
-        body.values = valuesState
+        body.values = valuesState.filter((v) => v !== '')
       }
 
       postData('/api/edit/column', body, (newId) => {
@@ -72,16 +72,20 @@ export default function EditColumn({
     }
   }
 
-  const addValue = () => {
-    if (newValue !== '') {
-      setValues(valuesState.concat([newValue]))
-      setNewValue('')
-    }
-  }
+  const updateValues = (i, newValue) => {
+    let temp = valuesState.map((v, index) => {
+      if (i === index) {
+        return newValue
+      }
+      return v
+    })
 
-  const updateValue = (i, newValue) => {
-    let temp = valuesState
-    temp[i] = newValue
+    if (temp[temp.length - 1] !== '') {
+      temp.push('')
+    } else if (temp.length > 1 && temp[temp.length - 2] === '') {
+      temp.pop()
+    }
+
     setValues(temp)
   }
 
@@ -198,63 +202,42 @@ export default function EditColumn({
           <label className='form-label'>Values</label>
           <div className={'mb-3'}>
             {valuesState.map((v, i) => (
-              <div className={'row mb-2'} key={i}>
-                <div className={'col pe-0'}>
-                  <input
-                    type={'text'}
-                    className={'form-control'}
-                    id={'columnValueInput-' + i}
-                    value={v}
-                    placeholder={'Enter a possible value'}
-                    required={true}
-                    onChange={(input) => {
-                      updateValue(i, input.target.value)
-                    }}
-                  />
-                </div>
-                <div className={styles.column + ' col-auto px-1'}>
-                  <a
-                    onClick={() => removeValue(i)}
-                    name={'Remove value'}
-                    className={'float-end'}
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                    }}
-                  >
-                    <IconDelete />
-                  </a>
+              <div className={'mb-2'} key={i}>
+                <div className={'row'}>
+                  <div className={'col pe-0'}>
+                    <input
+                      type={'text'}
+                      className={'form-control'}
+                      id={'columnValueInput-' + i}
+                      value={v}
+                      placeholder={'Enter a possible value'}
+                      required={true}
+                      onChange={(input) => {
+                        updateValues(i, input.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className={styles.column + ' col-auto px-1'}>
+                    {i < valuesState.length - 1 ? (
+                      <div className={'d-flex flex-row'}>
+                        <a
+                          onClick={() => removeValue(i)}
+                          title={'Remove value'}
+                          style={{
+                            width: '38px',
+                            height: '38px',
+                          }}
+                        >
+                          <IconDelete />
+                        </a>
+                      </div>
+                    ) : (
+                      <span className={'text-muted ms-2'}>Empty</span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
-            {valuesState.length > 0 ? <hr /> : <></>}
-            <div className={'row'}>
-              <div className={'col pe-0'}>
-                <input
-                  type={'text'}
-                  className={'form-control'}
-                  id={'columnValueInput-new'}
-                  value={newValue}
-                  placeholder={'Enter a possible value'}
-                  onChange={(input) => {
-                    setNewValue(input.target.value)
-                  }}
-                />
-              </div>
-              <div className={styles.column + ' col-auto px-1'}>
-                <a
-                  onClick={() => addValue()}
-                  title={'Add value'}
-                  className={'float-end'}
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                  }}
-                >
-                  <IconAdd />
-                </a>
-              </div>
-            </div>
           </div>
         </>
       ) : (
