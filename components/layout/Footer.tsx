@@ -56,7 +56,7 @@ const otherServices: OtherTypes[] = [
   },
   {
     name: 'Old Index',
-    url: 'https://piracy.moe/',
+    url: 'https://old.piracy.moe/',
     icon: 'logo.png',
   },
 ]
