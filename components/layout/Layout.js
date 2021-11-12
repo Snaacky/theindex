@@ -95,6 +95,14 @@ export default function Layout({ children, error }) {
         theme={'dark'}
       />
       <Footer error={error} />
+      {window && window.location.hostname === 'piracy.moe' && (
+        <script
+          src={'https://stats.piracy.moe/umami.js'}
+          data-website-id={'6e4610bb-d364-413d-a371-2601b31a4c9b'}
+          async={true}
+          defer={true}
+        />
+      )}
     </div>
   )
 }
