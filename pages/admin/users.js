@@ -7,7 +7,6 @@ import useSWR from 'swr'
 import { getUsers } from '../../lib/db/users'
 
 export default function Users({ users }) {
-
   return (
     <>
       <Head>
