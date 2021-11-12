@@ -22,7 +22,7 @@ const SupportBanner: FC = () => {
 
   return (
     <div className={styles.bg}>
-      <span className={'me-3'}>
+      <span className={'me-3 text-center'}>
         <FontAwesomeIcon icon={['fas', 'fingerprint']} className={'me-3'} />
         Your IP{' '}
         {ip ? (
