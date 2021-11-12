@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { images } from '../lib/icon'
 
 export default function Admin({ images }) {
@@ -8,6 +9,9 @@ export default function Admin({ images }) {
       <Head>
         <title>Admin | {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
+      <Link href={'/admin/users'}>
+        <a className={'btn btn-outline-success'}>All users</a>
+      </Link>
       <div className={'mb-4'}>
         I placed the button here for now, as I have not really thought about
         where else to put them...
