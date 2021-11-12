@@ -95,14 +95,15 @@ export default function Layout({ children, error }) {
         theme={'dark'}
       />
       <Footer error={error} />
-      {typeof window !== 'undefined' && window.location.hostname === 'piracy.moe' && (
-        <script
-          src={'https://stats.piracy.moe/umami.js'}
-          data-website-id={'7c408638-1374-450e-a803-a08a7c3f03af'}
-          async={true}
-          defer={true}
-        />
-      )}
+      {typeof window !== 'undefined' &&
+        window.location.hostname === 'piracy.moe' && (
+          <script
+            src={'https://stats.piracy.moe/umami.js'}
+            data-website-id={'7c408638-1374-450e-a803-a08a7c3f03af'}
+            async={true}
+            defer={true}
+          />
+        )}
     </div>
   )
 }
