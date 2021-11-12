@@ -6,7 +6,6 @@ import { useSession } from 'next-auth/client'
 import { canEdit, isEditor } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import CollectionBoard from '../../components/boards/CollectionBoard'
-import useSWR from 'swr'
 import { getByUrlId } from '../../lib/db/db'
 import IconLibrary from '../../components/icons/IconLibrary'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
@@ -21,12 +20,10 @@ import React from 'react'
 
 export default function Library({
   _id,
-  library: staticLibrary,
+  library,
   sponsoredItems,
 }) {
   const [session] = useSession()
-  let { data: library } = useSWR('/api/library/' + _id)
-  library = library || staticLibrary
 
   return (
     <>
@@ -150,7 +147,7 @@ export async function getStaticProps({ params }) {
   if (!library) {
     return {
       notFound: true,
-      revalidate: 600,
+      revalidate: 120,
     }
   }
 
@@ -177,6 +174,6 @@ export async function getStaticProps({ params }) {
       library,
       sponsoredItems,
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

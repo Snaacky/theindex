@@ -2,7 +2,6 @@ import Head from 'next/head'
 import React from 'react'
 import IconColumn from '../components/icons/IconColumn'
 import ColumnBoard from '../components/boards/ColumnBoard'
-import useSWR from 'swr'
 import { getColumns } from '../lib/db/columns'
 import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
@@ -11,9 +10,7 @@ const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Items can have different data-fields for different attributes. We call such fields columns like you use to in a table'
 
-export default function Columns({ columns: staticColumns }) {
-  let { data: columns } = useSWR('/api/columns')
-  columns = columns || staticColumns
+export default function Columns({ columns }) {
 
   return (
     <>
@@ -47,11 +44,10 @@ export default function Columns({ columns: staticColumns }) {
 }
 
 export async function getStaticProps() {
-  const columns = await getColumns()
   return {
     props: {
-      columns,
+      columns: await getColumns(),
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

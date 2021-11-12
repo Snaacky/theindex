@@ -9,7 +9,6 @@ import IconEdit from '../../components/icons/IconEdit'
 import React, { useState } from 'react'
 import DataItem from '../../components/data/DataItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useSWR from 'swr'
 import { getItems } from '../../lib/db/items'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconColumn from '../../components/icons/IconColumn'
@@ -20,25 +19,14 @@ import Meta from '../../components/layout/Meta'
 
 export default function Column({
   _id,
-  column: staticColumn,
-  columns: staticColumns,
-  items: staticItems,
+  column,
+  columns,
+  items,
 }) {
   const [session] = useSession()
   const [filter, setFilter] = useState(null)
-  let { data: column } = useSWR('/api/column/' + _id)
-  let { data: columns } = useSWR('/api/columns')
-  let { data: items } = useSWR('/api/items')
 
-  column = column || staticColumn
-  columns = columns || staticColumns
-  items = items || staticItems
-
-  const itemsContainingColumn = items.filter((i) =>
-    Object.keys(i.data).includes(column._id)
-  )
-
-  const filteredItems = itemsContainingColumn.filter((i) => {
+  const filteredItems = items.filter((i) => {
     if (filter === null) {
       return true
     }
@@ -171,7 +159,7 @@ export async function getStaticProps({ params }) {
   if (!column) {
     return {
       notFound: true,
-      revalidate: 600,
+      revalidate: 120,
     }
   }
 
@@ -182,8 +170,10 @@ export async function getStaticProps({ params }) {
       _id: column._id,
       column,
       columns,
-      items,
+      items: items.filter((i) =>
+          Object.keys(i.data).includes(column._id)
+      ),
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

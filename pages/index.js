@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import useSWR from 'swr'
 import { getLastViews } from '../lib/db/views'
 import ItemCard from '../components/cards/ItemCard'
 import CollectionCard from '../components/cards/CollectionCard'
@@ -11,21 +10,13 @@ import Meta from '../components/layout/Meta'
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home({
-  trendingLibraries: staticTrendingLibraries,
-  trendingItem: staticTrendingItem,
-  trendingCollection: staticTrendingCollection,
-  trendingList: staticTrendingList,
+export default function Home(
+    {
+                                 libraries,
+                                 items,
+        collections,
+        lists,
 }) {
-  let { data: libraries } = useSWR('/api/popular/libraries')
-  let { data: items } = useSWR('/api/popular/items')
-  let { data: collections } = useSWR('/api/popular/collections')
-  let { data: lists } = useSWR('/api/popular/lists')
-
-  libraries = (libraries || staticTrendingLibraries).slice(0, 6)
-  items = (items || staticTrendingItem).slice(0, 9)
-  collections = (collections || staticTrendingCollection).slice(0, 9)
-  lists = (lists || staticTrendingList).slice(0, 9)
 
   return (
     <>
@@ -142,17 +133,13 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  const trendingLibraries = await getLastViews('library', 1000)
-  const trendingItem = await getLastViews('item', 1000)
-  const trendingCollection = await getLastViews('collection', 1000)
-  const trendingList = await getLastViews('list', 1000)
   return {
     props: {
-      trendingLibraries,
-      trendingItem,
-      trendingCollection,
-      trendingList,
+      libraries: await getLastViews('library', 1000).slice(0, 6),
+      items: await getLastViews('item', 1000).slice(0, 9),
+      collections: await getLastViews('collection', 1000).slice(0, 9),
+      lists: await getLastViews('list', 1000).slice(0, 9),
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

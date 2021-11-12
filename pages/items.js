@@ -11,9 +11,7 @@ const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Every item represents a service and contains various information like which languages it supports or feature it has'
 
-export default function Items({ items: staticItems }) {
-  let { data: items } = useSWR('/api/items')
-  items = items || staticItems
+export default function Items({ items }) {
 
   return (
     <>
@@ -45,11 +43,10 @@ export default function Items({ items: staticItems }) {
 }
 
 export async function getStaticProps() {
-  const items = await getItems()
   return {
     props: {
-      items,
+      items: await getItems(),
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

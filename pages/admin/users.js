@@ -37,10 +37,9 @@ Users.auth = {
 }
 
 export async function getServerSideProps() {
-  const users = await getUsers()
   return {
     props: {
-      users,
+      users: await getUsers(),
     },
   }
 }

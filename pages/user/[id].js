@@ -6,23 +6,13 @@ import { isAdmin, isCurrentUser } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DataBadge from '../../components/data/DataBadge'
 import { getUserWithLists } from '../../lib/db/users'
-import useSWR from 'swr'
 import ListBoard from '../../components/boards/ListBoard'
 import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 
-export default function User({ uid, user: staticUser }) {
+export default function User({ uid, user }) {
   const [session] = useSession()
-  const { data: user } = useSWR('/api/user/' + uid)
-
-  const name = user ? user.name : staticUser.name
-  const description = user ? user.description : staticUser.description
-  const image = user ? user.image : staticUser.image
-  const accountType = user ? user.accountType : staticUser.accountType
-  const favs = user ? user.favs : staticUser.favs
-  const lists = user ? user.lists : staticUser.lists
-  const followLists = user ? user.followLists : staticUser.followLists
 
   return (
     <>
@@ -32,7 +22,7 @@ export default function User({ uid, user: staticUser }) {
         </title>
         <meta name='robots' content='noindex, archive, follow' />
 
-        <Meta title={'User ' + name} description={description} image={image} />
+        <Meta title={'User ' + name} description={user.description} image={user.image} />
       </Head>
 
       <div className={'card bg-2'}>
@@ -50,14 +40,14 @@ export default function User({ uid, user: staticUser }) {
                 alt={'Profile picture of ' + name}
                 width={64}
                 height={64}
-                src={image}
+                src={user.image}
               />
             </div>
             <div className={'col'}>
               <h3>
                 {name}
                 <span className={'ms-2'} style={{ fontSize: '1.2rem' }}>
-                  <DataBadge name={accountType} style={'primary'} />
+                  <DataBadge name={user.accountType} style={'primary'} />
                   <div className={'float-end'}>
                     {isAdmin(session) || isCurrentUser(session, uid) ? (
                       <Link href={'/edit/user/' + uid}>
@@ -81,7 +71,7 @@ export default function User({ uid, user: staticUser }) {
               whiteSpace: 'pre-line',
             }}
           >
-            {description || (
+            {user.description || (
               <span className={'text-muted'}>It seems quite empty here</span>
             )}
           </p>
@@ -92,15 +82,15 @@ export default function User({ uid, user: staticUser }) {
         Starred items
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
-            name={favs.length + ' item' + (favs.length !== 1 ? 's' : '')}
+            name={user.favs.length + ' item' + (user.favs.length !== 1 ? 's' : '')}
             style={'primary'}
           />
         </div>
       </h3>
-      {favs.length > 0 ? (
+      {user.favs.length > 0 ? (
         <ItemBoard
           _id={uid}
-          items={favs}
+          items={user.favs}
           canEdit={false}
           updateURL={'/api/edit/user'}
           updateKey={'favs'}
@@ -113,15 +103,15 @@ export default function User({ uid, user: staticUser }) {
         Lists
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
-            name={lists.length + ' list' + (lists.length !== 1 ? 's' : '')}
+            name={user.lists.length + ' list' + (user.lists.length !== 1 ? 's' : '')}
             style={'primary'}
           />
         </div>
       </h3>
-      {lists.length > 0 || isCurrentUser(session, uid) ? (
+      {user.lists.length > 0 || isCurrentUser(session, uid) ? (
         <ListBoard
           uid={uid}
-          lists={lists}
+          lists={user.lists}
           canEdit={isCurrentUser(session, uid) || isAdmin(session)}
           updateURL={'/api/edit/user'}
         />
@@ -134,16 +124,16 @@ export default function User({ uid, user: staticUser }) {
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
             name={
-              followLists.length +
+              user.followLists.length +
               ' list' +
-              (followLists.length !== 1 ? 's' : '')
+              (user.followLists.length !== 1 ? 's' : '')
             }
             style={'primary'}
           />
         </div>
       </h3>
-      {followLists.length > 0 ? (
-        <ListBoard uid={uid} lists={followLists} updateURL={'/api/edit/user'} />
+      {user.followLists.length > 0 ? (
+        <ListBoard uid={uid} lists={user.followLists} updateURL={'/api/edit/user'} />
       ) : (
         <p className={'text-muted'}>User follows no other lists</p>
       )}
@@ -158,6 +148,7 @@ export async function getServerSideProps({ params }) {
       notFound: true,
     }
   }
+
   return {
     props: {
       uid: params.id,

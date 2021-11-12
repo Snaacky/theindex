@@ -2,7 +2,6 @@ import Head from 'next/head'
 import React from 'react'
 import IconCollection from '../components/icons/IconCollection'
 import CollectionBoard from '../components/boards/CollectionBoard'
-import useSWR from 'swr'
 import { getCollections, updateCollection } from '../lib/db/collections'
 import { getItem } from '../lib/db/items'
 import Meta from '../components/layout/Meta'
@@ -11,9 +10,7 @@ const title = 'Collections on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Collections are like a curated table listing various items. Every entry is done by hand from the editor-team'
 
-export default function Collections({ collections: staticCollections }) {
-  let { data: collections } = useSWR('/api/collections')
-  collections = collections || staticCollections
+export default function Collections({ collections }) {
 
   return (
     <>
@@ -60,6 +57,6 @@ export async function getStaticProps() {
     props: {
       collections,
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

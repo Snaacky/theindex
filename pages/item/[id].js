@@ -8,7 +8,6 @@ import DataItem from '../../components/data/DataItem'
 import IconEdit from '../../components/icons/IconEdit'
 import DataBadge from '../../components/data/DataBadge'
 import { splitColumnsIntoTypes } from '../../lib/item'
-import useSWR from 'swr'
 import IconStar from '../../components/icons/IconStar'
 import IconBookmark from '../../components/icons/IconBookmark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,18 +26,11 @@ import React from 'react'
 
 export default function Item({
   _id,
-  item: staticItem,
-  columns: staticColumns,
-  collections: staticCollections,
+  item,
+  columns,
+  collections,
 }) {
   const [session] = useSession()
-  let { data: item } = useSWR('/api/item/' + _id)
-  let { data: columns } = useSWR('/api/columns')
-  let { data: collections } = useSWR('/api/collections')
-
-  item = item || staticItem
-  columns = columns || staticColumns
-  collections = collections || staticCollections
 
   const collectionsContainingItem = collections.filter((t) =>
     t.items.includes(_id)
@@ -318,20 +310,17 @@ export async function getStaticProps({ params }) {
   if (!item) {
     return {
       notFound: true,
-      revalidate: 600,
+      revalidate: 120,
     }
   }
-
-  const columns = await getColumns()
-  const collections = await getCollections()
 
   return {
     props: {
       _id: params.id,
       item,
-      columns,
-      collections,
+      columns: await getColumns(),
+      collections: await getCollections(),
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }

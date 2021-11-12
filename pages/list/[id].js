@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/client'
 import { canEdit, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
-import useSWR from 'swr'
 import { getList, getLists } from '../../lib/db/lists'
 import { getUser } from '../../lib/db/users'
 import IconList from '../../components/icons/IconList'
@@ -17,16 +16,10 @@ import React from 'react'
 
 export default function List({
   _id,
-  list: staticList,
-  owner: staticOwner,
-  ownerUid,
+  list,
+  owner,
 }) {
   const [session] = useSession()
-  let { data: list } = useSWR('/api/list/' + _id)
-  let { data: owner } = useSWR('/api/user/' + ownerUid)
-
-  list = list || staticList
-  owner = owner || staticOwner
 
   const title = owner.name + "'s list " + list.name
   return (
@@ -124,7 +117,7 @@ export async function getStaticProps({ params }) {
   if (!list) {
     return {
       notFound: true,
-      revalidate: 600,
+      revalidate: 120,
     }
   }
   const owner = await getUser(list.owner)
@@ -136,6 +129,6 @@ export async function getStaticProps({ params }) {
       owner,
       ownerUid: owner.uid,
     },
-    revalidate: 600,
+    revalidate: 120,
   }
 }
