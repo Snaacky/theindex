@@ -92,28 +92,11 @@ export default function List({ _id, list, owner }) {
   )
 }
 
-export async function getStaticPaths() {
-  const lists = await getLists()
-  const paths = lists.map((list) => {
-    return {
-      params: {
-        id: list._id,
-      },
-    }
-  })
-
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const list = await getList(params.id)
   if (!list) {
     return {
       notFound: true,
-      revalidate: 20,
     }
   }
   const owner = await getUser(list.owner)
@@ -125,6 +108,5 @@ export async function getStaticProps({ params }) {
       owner,
       ownerUid: owner.uid,
     },
-    revalidate: 20,
   }
 }

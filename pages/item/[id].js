@@ -305,7 +305,7 @@ export async function getStaticProps({ params }) {
   if (!item) {
     return {
       notFound: true,
-      revalidate: 20,
+      revalidate: 60,
     }
   }
 
@@ -316,6 +316,6 @@ export async function getStaticProps({ params }) {
       columns: await getColumns(),
       collections: await getCollections(),
     },
-    revalidate: 20,
+    revalidate: 60,
   }
 }
