@@ -124,7 +124,7 @@ export async function getStaticProps({ params }) {
   if (!list) {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: 600,
     }
   }
   const owner = await getUser(list.owner)
@@ -136,6 +136,6 @@ export async function getStaticProps({ params }) {
       owner,
       ownerUid: owner.uid,
     },
-    revalidate: 30,
+    revalidate: 600,
   }
 }

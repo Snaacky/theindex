@@ -153,6 +153,6 @@ export async function getStaticProps() {
       trendingCollection,
       trendingList,
     },
-    revalidate: 30,
+    revalidate: 600,
   }
 }

@@ -171,7 +171,7 @@ export async function getStaticProps({ params }) {
   if (!column) {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: 600,
     }
   }
 
@@ -184,6 +184,6 @@ export async function getStaticProps({ params }) {
       columns,
       items,
     },
-    revalidate: 30,
+    revalidate: 600,
   }
 }

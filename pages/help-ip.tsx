@@ -101,6 +101,6 @@ export default function IpInfo() {
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 30,
+    revalidate: 600,
   }
 }

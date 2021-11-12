@@ -161,7 +161,7 @@ export async function getStaticProps({ params }) {
   if (!collection) {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: 600,
     }
   }
 
@@ -171,6 +171,6 @@ export async function getStaticProps({ params }) {
       collection,
       libraries: await getLibraries(),
     },
-    revalidate: 30,
+    revalidate: 600,
   }
 }

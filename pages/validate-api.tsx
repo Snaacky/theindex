@@ -491,6 +491,6 @@ const joinUrlAndId = (url: string, id: string) => {
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 30,
+    revalidate: 600,
   }
 }

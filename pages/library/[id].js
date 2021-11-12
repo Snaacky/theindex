@@ -150,7 +150,7 @@ export async function getStaticProps({ params }) {
   if (!library) {
     return {
       notFound: true,
-      revalidate: 30,
+      revalidate: 600,
     }
   }
 
@@ -177,6 +177,6 @@ export async function getStaticProps({ params }) {
       library,
       sponsoredItems,
     },
-    revalidate: 30,
+    revalidate: 600,
   }
 }
