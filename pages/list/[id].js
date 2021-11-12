@@ -14,11 +14,7 @@ import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 
-export default function List({
-  _id,
-  list,
-  owner,
-}) {
+export default function List({ _id, list, owner }) {
   const [session] = useSession()
 
   const title = owner.name + "'s list " + list.name

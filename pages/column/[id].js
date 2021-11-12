@@ -17,12 +17,7 @@ import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 
-export default function Column({
-  _id,
-  column,
-  columns,
-  items,
-}) {
+export default function Column({ _id, column, columns, items }) {
   const [session] = useSession()
   const [filter, setFilter] = useState(null)
 
@@ -170,9 +165,7 @@ export async function getStaticProps({ params }) {
       _id: column._id,
       column,
       columns,
-      items: items.filter((i) =>
-          Object.keys(i.data).includes(column._id)
-      ),
+      items: items.filter((i) => Object.keys(i.data).includes(column._id)),
     },
     revalidate: 120,
   }

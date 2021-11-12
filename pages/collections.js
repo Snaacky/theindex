@@ -11,7 +11,6 @@ const description =
   'Collections are like a curated table listing various items. Every entry is done by hand from the editor-team'
 
 export default function Collections({ collections }) {
-
   return (
     <>
       <Head>

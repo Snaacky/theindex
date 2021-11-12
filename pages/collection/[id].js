@@ -16,11 +16,7 @@ import IconDelete from '../../components/icons/IconDelete'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 
-export default function Collection({
-  _id,
-  collection,
-  libraries,
-}) {
+export default function Collection({ _id, collection, libraries }) {
   const [session] = useSession()
 
   const librariesContainingCollection = libraries.filter((library) =>

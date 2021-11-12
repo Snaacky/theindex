@@ -18,11 +18,7 @@ import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 
-export default function Library({
-  _id,
-  library,
-  sponsoredItems,
-}) {
+export default function Library({ _id, library, sponsoredItems }) {
   const [session] = useSession()
 
   return (

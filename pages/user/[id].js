@@ -22,7 +22,11 @@ export default function User({ uid, user }) {
         </title>
         <meta name='robots' content='noindex, archive, follow' />
 
-        <Meta title={'User ' + name} description={user.description} image={user.image} />
+        <Meta
+          title={'User ' + name}
+          description={user.description}
+          image={user.image}
+        />
       </Head>
 
       <div className={'card bg-2'}>
@@ -82,7 +86,9 @@ export default function User({ uid, user }) {
         Starred items
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
-            name={user.favs.length + ' item' + (user.favs.length !== 1 ? 's' : '')}
+            name={
+              user.favs.length + ' item' + (user.favs.length !== 1 ? 's' : '')
+            }
             style={'primary'}
           />
         </div>
@@ -103,7 +109,9 @@ export default function User({ uid, user }) {
         Lists
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
-            name={user.lists.length + ' list' + (user.lists.length !== 1 ? 's' : '')}
+            name={
+              user.lists.length + ' list' + (user.lists.length !== 1 ? 's' : '')
+            }
             style={'primary'}
           />
         </div>
@@ -133,7 +141,11 @@ export default function User({ uid, user }) {
         </div>
       </h3>
       {user.followLists.length > 0 ? (
-        <ListBoard uid={uid} lists={user.followLists} updateURL={'/api/edit/user'} />
+        <ListBoard
+          uid={uid}
+          lists={user.followLists}
+          updateURL={'/api/edit/user'}
+        />
       ) : (
         <p className={'text-muted'}>User follows no other lists</p>
       )}

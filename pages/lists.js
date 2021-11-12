@@ -10,7 +10,6 @@ const description =
   'User lists are created collections with user selected items, ranking and columns to display'
 
 export default function Lists({ lists }) {
-
   return (
     <>
       <Head>

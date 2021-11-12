@@ -24,12 +24,7 @@ import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 
-export default function Item({
-  _id,
-  item,
-  columns,
-  collections,
-}) {
+export default function Item({ _id, item, columns, collections }) {
   const [session] = useSession()
 
   const collectionsContainingItem = collections.filter((t) =>

@@ -10,14 +10,7 @@ import Meta from '../components/layout/Meta'
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home(
-    {
-                                 libraries,
-                                 items,
-        collections,
-        lists,
-}) {
-
+export default function Home({ libraries, items, collections, lists }) {
   return (
     <>
       <Head>
@@ -135,10 +128,10 @@ export default function Home(
 export async function getStaticProps() {
   return {
     props: {
-      libraries: await getLastViews('library', 1000).slice(0, 6),
-      items: await getLastViews('item', 1000).slice(0, 9),
-      collections: await getLastViews('collection', 1000).slice(0, 9),
-      lists: await getLastViews('list', 1000).slice(0, 9),
+      libraries: (await getLastViews('library', 1000)).slice(0, 6),
+      items: (await getLastViews('item', 1000)).slice(0, 9),
+      collections: (await getLastViews('collection', 1000)).slice(0, 9),
+      lists: (await getLastViews('list', 1000)).slice(0, 9),
     },
     revalidate: 120,
   }
