@@ -6,9 +6,7 @@ import UserBoard from '../../components/boards/UserBoard'
 import useSWR from 'swr'
 import { getUsers } from '../../lib/db/users'
 
-export default function Users({ users: staticUsers }) {
-  let { data: users } = useSWR('/api/users')
-  users = users || staticUsers
+export default function Users({ users }) {
 
   return (
     <>
