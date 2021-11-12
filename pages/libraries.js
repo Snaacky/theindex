@@ -33,6 +33,6 @@ export async function getStaticProps() {
     props: {
       libraries: await getLibraries(),
     },
-    revalidate: 120,
+    revalidate: 20,
   }
 }

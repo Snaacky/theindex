@@ -133,6 +133,6 @@ export async function getStaticProps() {
       collections: (await getLastViews('collection', 1000)).slice(0, 9),
       lists: (await getLastViews('list', 1000)).slice(0, 9),
     },
-    revalidate: 120,
+    revalidate: 20,
   }
 }

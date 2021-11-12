@@ -154,7 +154,7 @@ export async function getStaticProps({ params }) {
   if (!column) {
     return {
       notFound: true,
-      revalidate: 120,
+      revalidate: 20,
     }
   }
 
@@ -167,6 +167,6 @@ export async function getStaticProps({ params }) {
       columns,
       items: items.filter((i) => Object.keys(i.data).includes(column._id)),
     },
-    revalidate: 120,
+    revalidate: 20,
   }
 }

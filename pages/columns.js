@@ -47,6 +47,6 @@ export async function getStaticProps() {
     props: {
       columns: await getColumns(),
     },
-    revalidate: 120,
+    revalidate: 20,
   }
 }
