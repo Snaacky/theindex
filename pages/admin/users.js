@@ -3,10 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import DataBadge from '../../components/data/DataBadge'
 import UserBoard from '../../components/boards/UserBoard'
+import { getAllCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { getUsers } from '../../lib/db/users'
 
 export default function Users({ users }) {
+  const { data: swrUsers } = useSWR('/api/users')
+  users = swrUsers || users
   return (
     <>
       <Head>
@@ -36,7 +39,7 @@ Users.auth = {
 export async function getServerSideProps() {
   return {
     props: {
-      users: await getUsers(),
+      users: await getAllCache(Types.user),
     },
   }
 }

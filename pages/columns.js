@@ -5,6 +5,7 @@ import ColumnBoard from '../components/boards/ColumnBoard'
 import { getColumns } from '../lib/db/columns'
 import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
+import { getCache, setCache } from '../lib/db/cache'
 
 const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -43,10 +44,19 @@ export default function Columns({ columns }) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
+  const key = 'columns'
+  let cache = await getCache(key)
+  if (cache === null) {
+    cache = {
       columns: await getColumns(),
-    },
+    }
+    setCache(key, cache).then(() => {
+      console.info('Created cache for', key)
+    })
+  }
+
+  return {
+    props: cache,
     revalidate: 60,
   }
 }

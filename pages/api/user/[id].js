@@ -1,18 +1,20 @@
-import { getUserWithLists } from '../../../lib/db/users'
 import { getSession } from 'next-auth/client'
 import { isLogin } from '../../../lib/session'
+import { getSingleCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
-export default async function handler(req, res) {
+export default async function apiUser(req, res) {
   let result = {}
   if (req.query.id === 'me') {
     const session = await getSession({ req })
     if (isLogin(session)) {
-      result = await getUserWithLists(session.user.uid)
+      result = await getSingleCache(Types.user, session.user.uid, false)
     } else {
-      return res.status(200).json({})
+      return res.status(401)
     }
   } else {
-    result = await getUserWithLists(req.query.id)
+    result = await getSingleCache(Types.user, req.query.id, false)
   }
-  res.status(200).json(result)
+
+  res.status(200).send(result)
 }

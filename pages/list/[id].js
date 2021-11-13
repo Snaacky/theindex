@@ -5,7 +5,6 @@ import { canEdit, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
 import { getList } from '../../lib/db/lists'
-import { getUser } from '../../lib/db/users'
 import IconList from '../../components/icons/IconList'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -13,9 +12,17 @@ import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
+import { getSingleCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
+import useSWR from 'swr'
 
-export default function List({ _id, list, owner }) {
+export default function List({ list, owner }) {
   const [session] = useSession()
+
+  const { data: swrList } = useSWR('/api/list/' + list._id)
+  list = swrList || list
+  const { data: swrOwner } = useSWR('/api/user/' + owner._id)
+  owner = swrOwner || owner
 
   const title = owner.name + "'s list " + list.name
   return (
@@ -94,19 +101,16 @@ export default function List({ _id, list, owner }) {
 
 export async function getServerSideProps({ params }) {
   const list = await getList(params.id)
-  if (!list) {
+  if (list === null) {
     return {
       notFound: true,
     }
   }
-  const owner = await getUser(list.owner)
 
   return {
     props: {
-      _id: list._id,
       list,
-      owner,
-      ownerUid: owner.uid,
+      owner: await getSingleCache(Types.user, list.owner),
     },
   }
 }

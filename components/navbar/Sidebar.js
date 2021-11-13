@@ -20,7 +20,7 @@ import IconAdmin from '../icons/IconAdmin'
 
 function Sidebar({ show, setShow }, ref) {
   const [session] = useSession()
-  const { data } = useSWR('/api/libraries')
+  const { data } = useSWR('/api/components/sidebar')
   const libraries = data ?? []
 
   const clickFunc = () => setShow(!show)

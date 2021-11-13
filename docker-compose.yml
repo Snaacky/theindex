@@ -30,6 +30,7 @@ services:
       SETUP_WHITELIST_DISCORD_ID: ${SETUP_WHITELIST_DISCORD_ID}
     depends_on:
       - mongo
+      - redis
       - meili
       - chrome
 
@@ -40,6 +41,10 @@ services:
     volumes:
       - ./db:/data/db
 
+  redis:
+    image: redis
+    container_name: index-cache
+    restart: unless-stopped
   meili:
     image: getmeili/meilisearch
     container_name: index-meili

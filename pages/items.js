@@ -2,10 +2,10 @@ import Head from 'next/head'
 import React from 'react'
 import IconItem from '../components/icons/IconItem'
 import ItemBoard from '../components/boards/ItemBoard'
-import useSWR from 'swr'
 import { getItems } from '../lib/db/items'
 import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
+import { getCache, setCache } from '../lib/db/cache'
 
 const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -42,10 +42,19 @@ export default function Items({ items }) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
+  const key = 'items'
+  let cache = await getCache(key)
+  if (cache === null) {
+    cache = {
       items: await getItems(),
-    },
+    }
+    setCache(key, cache).then(() => {
+      console.info('Created cache for', key)
+    })
+  }
+
+  return {
+    props: cache,
     revalidate: 60,
   }
 }

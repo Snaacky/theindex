@@ -9,17 +9,26 @@ import IconEdit from '../../components/icons/IconEdit'
 import React, { useState } from 'react'
 import DataItem from '../../components/data/DataItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getItems } from '../../lib/db/items'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
+import { getAllCache } from '../../lib/db/cache'
+import useSWR from 'swr'
+import { Types } from '../../types/Components'
 
-export default function Column({ _id, column, columns, items }) {
+export default function Column({ column, columns, items }) {
   const [session] = useSession()
   const [filter, setFilter] = useState(null)
+
+  const { data: swrColumn } = useSWR('/api/column/' + column._id)
+  column = swrColumn || column
+  const { data: swrColumns } = useSWR('/api/columns')
+  columns = swrColumns || columns
+  const { data: swrItems } = useSWR('/api/items')
+  items = swrItems || items
 
   const filteredItems = items.filter((i) => {
     if (filter === null) {
@@ -158,14 +167,11 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const columns = await getColumns()
-  const items = await getItems()
   return {
     props: {
-      _id: column._id,
       column,
-      columns,
-      items: items.filter((i) => Object.keys(i.data).includes(column._id)),
+      columns: await getAllCache(Types.column),
+      items: await getAllCache(Types.item),
     },
     revalidate: 60,
   }

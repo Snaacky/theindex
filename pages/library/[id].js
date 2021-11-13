@@ -10,16 +10,34 @@ import { getByUrlId } from '../../lib/db/db'
 import IconLibrary from '../../components/icons/IconLibrary'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
-import { getCollection } from '../../lib/db/collections'
-import { getItem } from '../../lib/db/items'
 import ItemCard from '../../components/cards/ItemCard'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
+import { getAllCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
+import useSWR from 'swr'
 
-export default function Library({ _id, library, sponsoredItems }) {
+export default function Library({ library, collections, items }) {
   const [session] = useSession()
+
+  const { data: swrLibrary } = useSWR('/api/library/' + library._id)
+  library = swrLibrary || library
+  const { data: swrCollections } = useSWR('/api/collections/')
+  const collectionsItems = [].concat.apply(
+    [],
+    library.collections.map((collectionId) => {
+      return (swrCollections || collections).find(
+        (collection) => collection._id === collectionId
+      ).items
+    })
+  )
+  const { data: swrItems } = useSWR('/api/items/')
+  items = (swrItems || items).filter((i) =>
+    collectionsItems.some((item) => i._id === item)
+  )
+  const sponsoredItems = items.filter((item) => item.sponsor)
 
   return (
     <>
@@ -147,28 +165,11 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const collections = await Promise.all(
-    library.collections.map(
-      async (collection) => await getCollection(collection)
-    )
-  )
-
-  // flatten arrays into 1d array
-  const itemIdArray = [].concat.apply(
-    [],
-    collections.map((collection) => collection.items)
-  )
-
-  const items = await Promise.all(
-    itemIdArray.map(async (item) => await getItem(item))
-  )
-  const sponsoredItems = items.filter((item) => item.sponsor)
-
   return {
     props: {
-      _id: library._id,
       library,
-      sponsoredItems,
+      collections: await getAllCache(Types.collection),
+      items: await getAllCache(Types.item),
     },
     revalidate: 60,
   }

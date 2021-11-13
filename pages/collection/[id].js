@@ -7,7 +7,6 @@ import { canEdit } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
 import { getByUrlId } from '../../lib/db/db'
-import { getLibraries } from '../../lib/db/libraries'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconCollection from '../../components/icons/IconCollection'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -15,12 +14,19 @@ import { postData } from '../../lib/utils'
 import IconDelete from '../../components/icons/IconDelete'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
+import { getAllCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
+import useSWR from 'swr'
 
-export default function Collection({ _id, collection, libraries }) {
+export default function Collection({ collection, libraries }) {
   const [session] = useSession()
 
-  const librariesContainingCollection = libraries.filter((library) =>
-    library.collections.some((t) => t._id === collection._id)
+  const { data: swrCollection } = useSWR('/api/collection/' + collection._id)
+  collection = swrCollection || collection
+
+  const { data: swrLibraries } = useSWR('/api/libraries')
+  libraries = (swrLibraries || libraries).filter((library) =>
+    library.collections.some((t) => t === collection._id)
   )
 
   return (
@@ -54,19 +60,17 @@ export default function Collection({ _id, collection, libraries }) {
             <div className={'col'}>
               <h2>
                 <IconCollection /> {collection.name}
-                {canEdit(session) ? (
+                {canEdit(session) && (
                   <Link href={'/edit/collection/' + collection._id}>
                     <a title={'Edit collection'} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
-                ) : (
-                  <></>
                 )}
               </h2>
             </div>
             <div className={'col-12 col-md-auto mb-2'}>
-              {collection.nsfw ? <IconNSFW /> : <></>}
+              {collection.nsfw && <IconNSFW />}
               {canEdit(session) && (
                 <IconDelete
                   className={'ms-2'}
@@ -96,7 +100,7 @@ export default function Collection({ _id, collection, libraries }) {
             </div>
           </div>
           <div>
-            {librariesContainingCollection.map((t) => {
+            {libraries.map((t) => {
               return (
                 <Link href={'/library/' + t.urlId} key={t._id}>
                   <a title={'View library' + t.name}>
@@ -157,9 +161,8 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      _id: collection._id,
       collection,
-      libraries: await getLibraries(),
+      libraries: await getAllCache(Types.library),
     },
     revalidate: 60,
   }

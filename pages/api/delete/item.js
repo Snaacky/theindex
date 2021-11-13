@@ -8,6 +8,7 @@ export default async function apiDeleteItem(req, res) {
     const d = req.body
     if (d._id !== '') {
       await deleteItem(d._id)
+
       res.status(200).send('Deleted')
     } else {
       res.status(400).send('Missing _id')

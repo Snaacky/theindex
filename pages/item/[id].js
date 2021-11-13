@@ -12,8 +12,6 @@ import IconStar from '../../components/icons/IconStar'
 import IconBookmark from '../../components/icons/IconBookmark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconNewTabLink from '../../components/icons/IconNewTabLink'
-import { getColumns } from '../../lib/db/columns'
-import { getCollections } from '../../lib/db/collections'
 import IconItem from '../../components/icons/IconItem'
 import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -23,14 +21,27 @@ import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
+import { getAllCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
+import useSWR from 'swr'
 
-export default function Item({ _id, item, columns, collections }) {
+export default function Item({ item, columns, collections }) {
   const [session] = useSession()
 
-  const collectionsContainingItem = collections.filter((t) =>
+  const { data: swrItem } = useSWR('/api/item/' + item._id)
+  item = swrItem || item
+  const { data: swrColumns } = useSWR('/api/columns/')
+  columns = swrColumns || columns
+  const { data: swrCollections } = useSWR('/api/collections/')
+  collections = (swrCollections || collections).filter((t) =>
     t.items.includes(_id)
   )
-  const column = splitColumnsIntoTypes(
+  const {
+    yes: yesColumns,
+    no: noColumns,
+    array: arrayColumns,
+    text: textColumns,
+  } = splitColumnsIntoTypes(
     Object.keys(item.data).map((k) => columns.find((c) => c._id === k)),
     item
   )
@@ -93,7 +104,7 @@ export default function Item({ _id, item, columns, collections }) {
             )}
           </h2>
           <div className={'mb-2'}>
-            {collectionsContainingItem.map((t) => {
+            {collections.map((t) => {
               return (
                 <Link href={'/collection/' + t.urlId} key={t._id}>
                   <a
@@ -207,10 +218,10 @@ export default function Item({ _id, item, columns, collections }) {
                   It <span className={'text-success'}>does</span> have
                 </h5>
                 <div className={'d-flex flex-wrap'}>
-                  {column.yes.length === 0 && (
+                  {yesColumns.length === 0 && (
                     <span className={'text-muted'}>No data found</span>
                   )}
-                  {column.yes.map((c) => {
+                  {yesColumns.map((c) => {
                     return (
                       <DataItem
                         data={item.data[c._id]}
@@ -228,10 +239,10 @@ export default function Item({ _id, item, columns, collections }) {
                   It does <span className={'text-danger'}>not</span> have
                 </h5>
                 <div className={'d-flex flex-wrap'}>
-                  {column.no.length === 0 && (
+                  {noColumns.length === 0 && (
                     <span className={'text-muted'}>No data found</span>
                   )}
-                  {column.no.map((c) => {
+                  {noColumns.map((c) => {
                     return (
                       <DataItem
                         data={item.data[c._id]}
@@ -247,10 +258,10 @@ export default function Item({ _id, item, columns, collections }) {
               <div className={'card-body'}>
                 <h5 className={'card-title'}>Other features are</h5>
                 <div className={'d-flex flex-wrap'}>
-                  {column.array.length === 0 && (
+                  {arrayColumns.length === 0 && (
                     <span className={'text-muted'}>No data found</span>
                   )}
-                  {column.array.map((c) => {
+                  {arrayColumns.map((c) => {
                     return (
                       <div key={c._id}>
                         <Link href={'/column/' + c.urlId}>
@@ -265,8 +276,8 @@ export default function Item({ _id, item, columns, collections }) {
                 </div>
               </div>
             </div>
-            {column.text.length > 0 &&
-              column.text.map((c) => (
+            {textColumns.length > 0 &&
+              textColumns.map((c) => (
                 <div className={'card bg-2 my-2'} key={c._id}>
                   <div className={'card-body'}>
                     <h5 className={'card-title'}>{c.name}</h5>
@@ -298,7 +309,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const item = await getItem(params.id)
-  if (typeof item === 'undefined' || item === null) {
+  if (!item) {
     return {
       notFound: true,
       revalidate: 60,
@@ -307,10 +318,9 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      _id: params.id,
       item,
-      columns: await getColumns(),
-      collections: await getCollections(),
+      columns: await getAllCache(Types.column),
+      collections: await getAllCache(Types.collection),
     },
     revalidate: 60,
   }

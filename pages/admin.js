@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { images } from '../lib/icon'
+import { getCache, setCache } from '../lib/db/cache'
 
 export default function Admin({ images }) {
   return (
@@ -48,9 +49,18 @@ Admin.auth = {
 }
 
 export async function getServerSideProps() {
+  const key = 'images'
+  let cache = await getCache(key)
+  if (cache === null) {
+    cache = images()
+    setCache(key, cache).then(() => {
+      console.info('Created cache for', key)
+    })
+  }
+
   return {
     props: {
-      images: images(),
+      images: cache,
     },
   }
 }

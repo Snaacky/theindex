@@ -5,25 +5,29 @@ import { useSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DataBadge from '../../components/data/DataBadge'
-import { getUserWithLists } from '../../lib/db/users'
+import { getUser } from '../../lib/db/users'
 import ListBoard from '../../components/boards/ListBoard'
 import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
+import useSWR from 'swr'
 
-export default function User({ uid, user }) {
+export default function User({ user }) {
   const [session] = useSession()
+
+  const { data: swrUser } = useSWR('/api/user/' + user._id)
+  user = swrUser || user
 
   return (
     <>
       <Head>
         <title>
-          {'User ' + name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}
+          {'User ' + user.name + ' | ' + process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
         <meta name='robots' content='noindex, archive, follow' />
 
         <Meta
-          title={'User ' + name}
+          title={'User ' + user.name}
           description={user.description}
           image={user.image}
         />
@@ -41,7 +45,7 @@ export default function User({ uid, user }) {
             >
               <Image
                 className={'rounded'}
-                alt={'Profile picture of ' + name}
+                alt={'Profile picture of ' + user.name}
                 width={64}
                 height={64}
                 src={user.image}
@@ -49,12 +53,12 @@ export default function User({ uid, user }) {
             </div>
             <div className={'col'}>
               <h3>
-                {name}
+                {user.name}
                 <span className={'ms-2'} style={{ fontSize: '1.2rem' }}>
                   <DataBadge name={user.accountType} style={'primary'} />
                   <div className={'float-end'}>
-                    {isAdmin(session) || isCurrentUser(session, uid) ? (
-                      <Link href={'/edit/user/' + uid}>
+                    {isAdmin(session) || isCurrentUser(session, user.uid) ? (
+                      <Link href={'/edit/user/' + user.uid}>
                         <a title={'Edit user'} className={'ms-2'}>
                           <FontAwesomeIcon icon={['fas', 'cog']} />
                         </a>
@@ -95,7 +99,7 @@ export default function User({ uid, user }) {
       </h3>
       {user.favs.length > 0 ? (
         <ItemBoard
-          _id={uid}
+          _id={user.uid}
           items={user.favs}
           canEdit={false}
           updateURL={'/api/edit/user'}
@@ -116,11 +120,11 @@ export default function User({ uid, user }) {
           />
         </div>
       </h3>
-      {user.lists.length > 0 || isCurrentUser(session, uid) ? (
+      {user.lists.length > 0 || isCurrentUser(session, user.uid) ? (
         <ListBoard
-          uid={uid}
+          uid={user.uid}
           lists={user.lists}
-          canEdit={isCurrentUser(session, uid) || isAdmin(session)}
+          canEdit={isCurrentUser(session, user.uid) || isAdmin(session)}
           updateURL={'/api/edit/user'}
         />
       ) : (
@@ -142,7 +146,7 @@ export default function User({ uid, user }) {
       </h3>
       {user.followLists.length > 0 ? (
         <ListBoard
-          uid={uid}
+          uid={user.uid}
           lists={user.followLists}
           updateURL={'/api/edit/user'}
         />
@@ -154,7 +158,8 @@ export default function User({ uid, user }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const user = await getUserWithLists(params.id)
+  const user = await getUser(params.id)
+
   if (!user) {
     return {
       notFound: true,
@@ -163,7 +168,6 @@ export async function getServerSideProps({ params }) {
 
   return {
     props: {
-      uid: params.id,
       user,
     },
   }

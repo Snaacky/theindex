@@ -9,6 +9,7 @@ export default async function apiDeleteLibrary(req, res) {
     if (d._id !== '') {
       // delete does not reorder!!!
       await deleteLibrary(d._id)
+
       res.status(200).send('Deleted')
     } else {
       res.status(400).send('Missing _id')

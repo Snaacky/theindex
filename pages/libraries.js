@@ -4,6 +4,7 @@ import React from 'react'
 import LibraryBoard from '../components/boards/LibraryBoard'
 import { getLibraries } from '../lib/db/libraries'
 import Meta from '../components/layout/Meta'
+import { getCache, setCache } from '../lib/db/cache'
 
 const title = 'Libraries on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -29,10 +30,19 @@ export default function Libraries({ libraries }) {
 }
 
 export async function getStaticProps() {
-  return {
-    props: {
+  const key = 'libraries'
+  let cache = await getCache(key)
+  if (cache === null) {
+    cache = {
       libraries: await getLibraries(),
-    },
+    }
+    setCache(key, cache).then(() => {
+      console.info('Created cache for', key)
+    })
+  }
+
+  return {
+    props: cache,
     revalidate: 60,
   }
 }
