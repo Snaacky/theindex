@@ -34,7 +34,7 @@ export default function Item({ item, columns, collections }) {
   columns = swrColumns || columns
   const { data: swrCollections } = useSWR('/api/collections/')
   collections = (swrCollections || collections).filter((t) =>
-    t.items.includes(_id)
+    t.items.includes(item._id)
   )
   const {
     yes: yesColumns,

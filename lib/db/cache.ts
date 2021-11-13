@@ -3,6 +3,7 @@ import * as Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
 import { findOne, getAll, singularToPlural } from './db'
+import { getUser, getUsers } from './users'
 
 const uri =
   'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
@@ -21,8 +22,12 @@ export async function getSingleCache(
 ): Promise<string | object> {
   let data = await getCache(type + '-' + _id, parse)
   if (data === null) {
-    const search = type === Types.user ? { uid: _id } : { _id: _id }
-    data = await findOne(singularToPlural(type), search)
+    if (type === Types.user) {
+      data = await getUser(_id)
+    } else {
+      data = await findOne(singularToPlural(type), { _id: _id })
+    }
+
     if (data === null) {
       return null
     }
@@ -68,7 +73,11 @@ export async function getAllCache(
 
   let data = await getCache(plural, parse)
   if (data === null) {
-    data = await getAll(plural)
+    if (type === Types.user) {
+      data = await getUsers()
+    } else {
+      data = await getAll(plural)
+    }
     if (data === null) {
       return null
     }

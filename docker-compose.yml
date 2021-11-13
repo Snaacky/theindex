@@ -16,6 +16,9 @@ services:
       # provide your own url to your own db setup
       DATABASE_URL: ${DATABASE_URL}
 
+      # provide your own url to your own redis setup
+      CACHE_URL: ${CACHE_URL}
+
       # pass your own running chrome instance
       CHROME_URL: ${CHROME_URL}
 

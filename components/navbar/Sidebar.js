@@ -20,17 +20,17 @@ import IconAdmin from '../icons/IconAdmin'
 
 function Sidebar({ show, setShow }, ref) {
   const [session] = useSession()
-  const { data } = useSWR('/api/components/sidebar')
-  const libraries = data ?? []
+  const { data: swrLibraries } = useSWR('/api/libraries')
+  const { data: swrCollections } = useSWR('/api/collections')
+  const libraries = swrLibraries || []
+  const allCollections = swrCollections || []
 
   const clickFunc = () => setShow(!show)
 
   return (
     <div
       className={
-        styles.sidebar +
-        ' offcanvas offcanvas-start fade' +
-        (show ? ' show' : '')
+        styles.sidebar + ' offcanvas offcanvas-start fade' + (show && ' show')
       }
       ref={ref}
       id={'navbarOffcanvas'}
@@ -82,14 +82,12 @@ function Sidebar({ show, setShow }, ref) {
           )}
 
           <ul className={'nav nav-pills flex-column'}>
-            {libraries.length === 0 ? (
+            {libraries.length === 0 && (
               <li className={'nav-item'}>
                 <a href={'#'} className='nav-link text-muted'>
                   No libraries found
                 </a>
               </li>
-            ) : (
-              <></>
             )}
             {libraries.map(({ urlId, name, collections }) => (
               <NavbarDropdown
@@ -109,14 +107,20 @@ function Sidebar({ show, setShow }, ref) {
                         </a>,
                       ]
                     : collections.map((collection) => {
-                        return (
-                          <Link
-                            href={'/collection/' + collection.urlId}
-                            key={collection.urlId}
-                          >
-                            <a className={'nav-link'}>{collection.name}</a>
-                          </Link>
+                        collection = allCollections.find(
+                          (c) => c._id === collection
                         )
+                        if (collection) {
+                          return (
+                            <Link
+                              href={'/collection/' + collection.urlId}
+                              key={collection.urlId}
+                            >
+                              <a className={'nav-link'}>{collection.name}</a>
+                            </Link>
+                          )
+                        }
+                        return <></>
                       })
                 }
                 onClick={() => clickFunc()}

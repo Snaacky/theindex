@@ -21,7 +21,7 @@ export default function List({ list, owner }) {
 
   const { data: swrList } = useSWR('/api/list/' + list._id)
   list = swrList || list
-  const { data: swrOwner } = useSWR('/api/user/' + owner._id)
+  const { data: swrOwner } = useSWR('/api/user/' + owner.uid)
   owner = swrOwner || owner
 
   const title = owner.name + "'s list " + list.name

@@ -15,7 +15,7 @@ import useSWR from 'swr'
 export default function User({ user }) {
   const [session] = useSession()
 
-  const { data: swrUser } = useSWR('/api/user/' + user._id)
+  const { data: swrUser } = useSWR('/api/user/' + user.uid)
   user = swrUser || user
 
   return (

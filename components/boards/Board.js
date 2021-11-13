@@ -7,6 +7,8 @@ import CreateNewButton from '../buttons/CreateNewButton'
 import CardRowView from '../CardRowView'
 import { useSession } from 'next-auth/client'
 import { canEdit } from '../../lib/session'
+import classNames from 'classnames'
+import styles from './Board.module.css'
 
 const Board = ({
   _id,
@@ -184,7 +186,7 @@ const Board = ({
       <div className={'card card-body bg-2 mb-2'}>
         <div>
           <button
-            className={'btn btn-outline-primary mb-2'}
+            className={'btn btn-outline-primary me-2 mb-2'}
             type={'button'}
             onClick={() => setShowFilter(!showFilter)}
             aria-expanded='false'
@@ -193,7 +195,10 @@ const Board = ({
             <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
           </button>
           <button
-            className={'btn btn-outline-secondary mx-2 mb-2'}
+            className={classNames(
+              styles.gridListToggle,
+              'btn btn-outline-secondary me-2 mb-2'
+            )}
             type={'button'}
             onClick={() => setCardView(!cardView)}
           >
