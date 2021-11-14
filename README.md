@@ -56,7 +56,7 @@ docker run -d \
     mongo-express
 ```
 
-You can also take a look at our provided `docker-compose.yml` file on how to set it up.
+You can also take a look at our provided [`docker-compose`](docker-compose.yml) file on how to set it up.
 
 ## Cache-DB
 
@@ -274,6 +274,7 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
 - PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
+- [redis](https://redis.io) as cache
 - [MeiliSearch](https://www.meilisearch.com/) as search engine
 - [puppeteer](https://github.com/puppeteer/puppeteer) to create screenshots of websites
 - [browserless/chrome](https://github.com/browserless/chrome) to run our chrome instance
