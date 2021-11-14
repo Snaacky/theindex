@@ -144,7 +144,15 @@ export function setCache(key: string, data: string | object) {
   })
 }
 
-export function clearCache() {
+export async function clearSingleCache(type: Types, _id: string) {
+  return await clearCache(type + '-' + _id)
+}
+
+export async function clearCache(key: string) {
+  return await client.del(key)
+}
+
+export function clearCompleteCache() {
   return client
     .flushall()
     .catch((e) => console.error('Failed to flush cache', e))

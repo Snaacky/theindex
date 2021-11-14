@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
 import { addColumn, updateColumn } from '../../../lib/db/columns'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditColumn(req, res) {
   const session = await getSession({ req })
@@ -26,6 +28,7 @@ export default async function apiEditColumn(req, res) {
       }
     } else {
       await updateColumn(d._id, d)
+      await updateAllCache(Types.column)
       res.status(200).send(d._id)
     }
   } else {

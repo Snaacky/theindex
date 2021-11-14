@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
 import { addCollection, updateCollection } from '../../../lib/db/collections'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditCollection(req, res) {
   const session = await getSession({ req })
@@ -21,6 +23,7 @@ export default async function apiEditCollection(req, res) {
         )
       } else {
         await updateCollection(d._id, d)
+        await updateAllCache(Types.collection)
       }
       res.status(200).send(id)
     }

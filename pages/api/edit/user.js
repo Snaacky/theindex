@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import { updateUser } from '../../../lib/db/users'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditUser(req, res) {
   const session = await getSession({ req })
@@ -11,6 +13,7 @@ export default async function apiEditUser(req, res) {
         delete d.accountType
       }
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)
+      await updateAllCache(Types.user)
       res.status(200).send(d.uid)
     } else {
       // Not Signed in

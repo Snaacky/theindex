@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser, isLogin } from '../../../lib/session'
 import { addList, getList, updateList } from '../../../lib/db/lists'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditList(req, res) {
   const session = await getSession({ req })
@@ -26,6 +28,7 @@ export default async function apiEditList(req, res) {
       const list = await getList(d._id)
       if (isCurrentUser(session, list.owner) || isAdmin(session)) {
         await updateList(d._id, d)
+        await updateAllCache(Types.list)
         res.status(200).send(d._id)
       } else {
         res.status(401).send('Not logged in or edits are not permitted')

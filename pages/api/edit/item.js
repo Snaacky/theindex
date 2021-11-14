@@ -2,6 +2,8 @@ import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
 import { addItem, updateItem } from '../../../lib/db/items'
 import createScreenshot from '../../../lib/crawler/screenshot'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditItem(req, res) {
   const session = await getSession({ req })
@@ -21,6 +23,7 @@ export default async function apiEditItem(req, res) {
       createScreenshot(id).then(() => console.log('Screenshot', id, 'created'))
     } else {
       await updateItem(d._id, d)
+      await updateAllCache(Types.item)
       createScreenshot(d._id).then(() =>
         console.log('Screenshot', d._id, 'created')
       )

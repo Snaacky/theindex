@@ -1,9 +1,9 @@
-.bg {
+.banner {
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.4rem;
   font-weight: bold;
   background: #161616;
 }

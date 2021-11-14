@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
 import { addLibrary, updateLibrary } from '../../../lib/db/libraries'
+import { updateAllCache } from '../../../lib/db/cache'
+import { Types } from '../../../types/Components'
 
 export default async function apiEditLibrary(req, res) {
   const session = await getSession({ req })
@@ -22,6 +24,7 @@ export default async function apiEditLibrary(req, res) {
           )
         } else {
           await updateLibrary(d._id, d)
+          await updateAllCache(Types.library)
         }
         res.status(200).send(id)
       }
