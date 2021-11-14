@@ -94,7 +94,12 @@ export default function EditColumn({
   }
 
   return (
-    <form>
+    <form
+      onSubmitCapture={(event) => {
+        event.preventDefault()
+        saveColumn()
+      }}
+    >
       <div className={'row'}>
         <div className={'col-12 col-lg-6 mb-3'}>
           <label htmlFor={'createColumnInputName'} className={'form-label'}>
@@ -245,11 +250,7 @@ export default function EditColumn({
       )}
 
       <span className={'float-end'}>
-        <button
-          className={'btn btn-primary mb-2 me-2'}
-          type='button'
-          onClick={() => saveColumn()}
-        >
+        <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create column' : 'Save changes'}
         </button>

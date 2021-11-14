@@ -123,7 +123,12 @@ export default function EditItem({
   }
 
   return (
-    <form>
+    <form
+      onSubmitCapture={(event) => {
+        event.preventDefault()
+        saveItem()
+      }}
+    >
       <div className={'row'}>
         <div className={'col-12 col-lg-6 mb-3'}>
           <label htmlFor={'createItemInputName'} className={'form-label'}>
@@ -293,11 +298,7 @@ export default function EditItem({
       <CreateNewButton type={'column'} allowEdit={true} />
 
       <span className={'float-end'}>
-        <button
-          className={'btn btn-primary mb-2 me-2'}
-          type='button'
-          onClick={() => saveItem()}
-        >
+        <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create item' : 'Save changes'}
         </button>

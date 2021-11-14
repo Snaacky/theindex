@@ -40,7 +40,12 @@ export default function EditUser({
   }
 
   return (
-    <form>
+    <form
+      onSubmitCapture={(event) => {
+        event.preventDefault()
+        saveUser()
+      }}
+    >
       {adminEditing ? (
         <div className='form-floating mb-3'>
           <select
@@ -78,11 +83,7 @@ export default function EditUser({
       </div>
 
       <span className={'float-end'}>
-        <button
-          className={'btn btn-primary mb-2 me-2'}
-          type='button'
-          onClick={() => saveUser()}
-        >
+        <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           Save changes
         </button>

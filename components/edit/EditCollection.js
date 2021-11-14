@@ -66,7 +66,12 @@ export default function EditCollection({
   }
 
   return (
-    <form>
+    <form
+      onSubmitCapture={(event) => {
+        event.preventDefault()
+        saveCollection()
+      }}
+    >
       <div className={'row'}>
         <div className={'col-12 col-lg-6 mb-3'}>
           <label
@@ -182,11 +187,7 @@ export default function EditCollection({
         />
       </div>
       <span className={'float-end'}>
-        <button
-          className={'btn btn-primary mb-2 me-2'}
-          type='button'
-          onClick={() => saveCollection()}
-        >
+        <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create collection' : 'Save changes'}
         </button>

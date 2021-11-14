@@ -50,7 +50,12 @@ export default function EditList({
   }
 
   return (
-    <form>
+    <form
+      onSubmitCapture={(event) => {
+        event.preventDefault()
+        saveList()
+      }}
+    >
       <div className={'row'}>
         <div className={'col-12 col-lg-6 mb-3'}>
           <label htmlFor={'createListInputName'} className={'form-label'}>
@@ -111,11 +116,7 @@ export default function EditList({
         />
       </div>
       <span className={'float-end'}>
-        <button
-          className={'btn btn-primary mb-2 me-2'}
-          type='button'
-          onClick={() => saveList()}
-        >
+        <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create list' : 'Save changes'}
         </button>
