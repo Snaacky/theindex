@@ -34,7 +34,7 @@ remove the env variable from your setup.
 We use [mongodb](https://github.com/mongodb/mongo) as our database server. You can deploy your own mongo setup as HA
 service or just a simple single docker container via e.g.:
 
-NOTE: The database will start empty, you have to fill the data yourself.
+> Note: The database will start empty, you have to fill the data yourself.
 
 ```shell
 docker run -d \
@@ -57,6 +57,21 @@ docker run -d \
 ```
 
 You can also take a look at our provided `docker-compose.yml` file on how to set it up.
+
+## Cache-DB
+
+To increase performance we use [redis](https://redis.io/) to cache results from the mongoDB. The cache is being
+auto-populated on cache-misses.
+
+You can create a new instance with docker by running:
+
+```shell
+docker run -d \
+    --name redis \
+    redis
+```
+
+The redis db is already included in the example [`docker-compose`](docker-compose.yml) file
 
 ## Updating container image
 
@@ -82,7 +97,8 @@ Here is a collection of the possible ENV-variables with their default values you
 | `NEXT_PUBLIC_DOMAIN`          | Your domain or IP, remove trailing slash                                                                                 | `"https://piracy.moe"`                                           |
 | `NEXTAUTH_URL`                | Your domain or IP, remove trailing slash                                                                                 | `$NEXT_PUBLIC_DOMAIN`                                            |
 | `DATABASE_URL`                | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)                              | `"mongodb://mongo:27017"`                                        |
-| `CHROME_URL`                  | WebSocket URL to a running chrome instance                                                                               | `""ws://chrome:3300"`                                            |
+| `CACHE_URL`                   | Connection string for the redis cache database                                                                           | `"redis://redis:6379"`                                           |
+| `CHROME_URL`                  | WebSocket URL to a running chrome instance                                                                               | `"ws://chrome:3300"`                                             |
 | `AUDIT_WEBHOOK`               | WebHook-URL for audit-log, leave empty to disable support                                                                | `""`                                                             |
 | `DISCORD_CLIENT_ID`           | Discord OAuth2 client ID                                                                                                 | `"your_discord_oauth_client_id"`                                 |
 | `DISCORD_CLIENT_SECRET`       | Discord OAuth2 client secret                                                                                             | `"your_discord_oauth_client_secret"`                             |
@@ -96,6 +112,8 @@ And the following env variables are only needed when you are in dev mode and deb
 | ------------------------------ | ------------------------------------------------------------------------ | -------------- |
 | `ME_CONFIG_BASICAUTH_USERNAME` | [mongo-express](https://github.com/mongo-express/mongo-express) username | "admin"        |
 | `ME_CONFIG_BASICAUTH_PASSWORD` | [mongo-express](https://github.com/mongo-express/mongo-express) password | "SUPER_SECRET" |
+
+If you want to verify how the docker-compose file fills the envs in, use `docker-compose config`
 
 ## Getting started to code
 
@@ -115,19 +133,26 @@ git clone https://github.com/ranimepiracy/index
 ### How to fill the .env
 
 - Replace `NEXT_PUBLIC_DOMAIN` and `NEXTAUTH_URL` with `http://localhost:3000`
-- Generate a random strong string of at least 32 characters and use it for `NEXTAUTH_SECRET`. You can use generators e.g [1Password](https://1password.com/password-generator/) or create it yourself.
-- Change `DATABASE_URL` and `CHROME_URL` to use localhost instead of `mongo` and `chrome` for example: `mongodb://mongo:27017` -> becomes `mongodb://localhost:27017`
-- Go to `https://discord.com/developers` -> Create a new Application -> Go into `Auth2` inside your Application panel -> Copy the `CLIENT ID` and `CLIENT SECRET` into the `.env` file.
-- In `Redirects` in `Auth2` copy and paste the following URL needed verify your Discord login `http://localhost:3000/api/auth/callback/discord`.
+- Generate a random strong string of at least 32 characters and use it for `NEXTAUTH_SECRET`. You can use generators
+  e.g [1Password](https://1password.com/password-generator/) or create it yourself.
+- Change `DATABASE_URL`, `CACHE_URL` and `CHROME_URL` to use localhost instead of `mongo`, `redis` and `chrome` for
+  example: `mongodb://mongo:27017` -> becomes `mongodb://localhost:27017`
+- Go to `https://discord.com/developers` -> Create a new Application -> Go into `Auth2` inside your Application panel ->
+  Copy the `CLIENT ID` and `CLIENT SECRET` into the `.env` file.
+- In `Redirects` in `Auth2` copy and paste the following URL needed verify your Discord
+  login `http://localhost:3000/api/auth/callback/discord`.
 - Fill `SETUP_WHITELIST_DISCORD_ID` with your Discord ID to have an admin account when you login.
-- Generate again another random strong string of at least 32 characters and use it for `MEILI_MASTER_KEY`. You can use generators e.g [1Password](https://1password.com/password-generator/) or create it yourself.
-- Lastly if you want to change the password for mongo-express, you can do so with the last two variables, usually though none of us do while developing locally.
+- Generate again another random strong string of at least 32 characters and use it for `MEILI_MASTER_KEY`. You can use
+  generators e.g [1Password](https://1password.com/password-generator/) or create it yourself.
+- Lastly if you want to change the password for mongo-express, you can do so with the last two variables, usually though
+  none of us do while developing locally.
 
-4. Add the following ports to the images in the [`docker-compose.yml`](docker-compose.yml) file:
+4. Add the following ports to the images in the [`docker-compose`](docker-compose.yml) file:
 
 | service  | port-mapping  |
 | :------- | ------------- |
 | `mongo`  | `27017:27017` |
+| `redis`  | `6379:6379`   |
 | `meili`  | `7700:7700`   |
 | `chrome` | `3300:3000`   |
 
@@ -147,10 +172,10 @@ mongo:
 5. Now run the command to start all the needed backend processes
 
 ```shell
-docker-compose up -d mongo meili chrome mongo-express
+docker-compose up -d mongo redis meili chrome mongo-express
 ```
 
-Alternatively you can also just comment the index service and instead run the command
+Alternatively you can also just comment or remove the index service and run the command
 
 ```shell
 docker-compose up -d

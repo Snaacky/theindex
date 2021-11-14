@@ -50,7 +50,7 @@ export default function Columns({ columns }) {
 export async function getStaticProps() {
   return {
     props: {
-      columns: getAllCache(Types.column),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }

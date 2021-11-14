@@ -2,7 +2,7 @@ FROM node:16.13.0-slim
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
-# brwoserless/chrome runs by our default on port 3300
+# browserless/chrome runs by our default on port 3300
 ENV CHROME_URL="ws://chrome:3300"
 
 # Site name
@@ -12,6 +12,7 @@ ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
 ENV NEXTAUTH_URL="https://piracy.moe"
 ENV NEXT_PUBLIC_DOMAIN="https://piracy.moe"
 ENV DATABASE_URL="mongodb://mongo:27017"
+ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
 
 # ENV for OAuth2
