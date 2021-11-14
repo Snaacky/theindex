@@ -6,7 +6,7 @@ import { addView } from '../../../lib/db/views'
 export default async function handler(req, res) {
   if (req.body.url && typeof req.body.url === 'string') {
     const split = req.body.url.split('/')
-    if (split.length === 3) {
+    if (split.length === 3 && split[1] !== 'admin') {
       const type = split[1]
       const contentId = split[2]
 

@@ -3,9 +3,10 @@ import Link from 'next/link'
 import { canEdit } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from 'next-auth/client'
+import { Types } from '../../types/Components'
 
 type Props = {
-  type: string
+  type: Types
   allowEdit: boolean
 }
 

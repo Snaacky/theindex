@@ -26,12 +26,10 @@ export default function DataCard({ data, column, onChange = null }) {
           )}
         </h5>
 
-        {onChange === null ? (
+        {onChange === null && (
           <p className={styles.description + ' card-text'}>
             {column.description}
           </p>
-        ) : (
-          <></>
         )}
         <DataItem data={data} column={column} onChange={onChange} />
       </div>

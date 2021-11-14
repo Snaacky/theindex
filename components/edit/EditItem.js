@@ -237,7 +237,6 @@ export default function EditItem({
                     id={'itemValueInput-' + i}
                     value={v}
                     placeholder={'Enter a valid url'}
-                    required={true}
                     onChange={(input) => {
                       updateURLs(i, input.target.value)
                     }}
@@ -298,6 +297,9 @@ export default function EditItem({
       <CreateNewButton type={'column'} allowEdit={true} />
 
       <span className={'float-end'}>
+        {typeof _id !== 'undefined' && (
+          <CreateNewButton type={'item'} allowEdit={true} />
+        )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create item' : 'Save changes'}

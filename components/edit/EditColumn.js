@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import { useRouter } from 'next/router'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default function EditColumn({
   columns,
@@ -216,7 +217,6 @@ export default function EditColumn({
                       id={'columnValueInput-' + i}
                       value={v}
                       placeholder={'Enter a possible value'}
-                      required={true}
                       onChange={(input) => {
                         updateValues(i, input.target.value)
                       }}
@@ -250,6 +250,9 @@ export default function EditColumn({
       )}
 
       <span className={'float-end'}>
+        {typeof _id !== 'undefined' && (
+          <CreateNewButton type={'column'} allowEdit={true} />
+        )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create column' : 'Save changes'}

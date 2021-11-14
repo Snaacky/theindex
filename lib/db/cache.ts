@@ -128,7 +128,7 @@ export async function getCache(
 /**
  * only returns null if requested component does not exist
  * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
- * @param data: string | object, data to be stored as JSON formated string
+ * @param data: string | object, data to be stored as JSON formatted string
  */
 export function setCache(key: string, data: string | object) {
   if (typeof data === 'undefined' || data === null) {

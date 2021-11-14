@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import EditSelectImg from './EditSelectImg'
 import { useRouter } from 'next/router'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default function EditLibrary({
   libraries,
@@ -188,6 +189,9 @@ export default function EditLibrary({
       </div>
 
       <span className={'float-end'}>
+        {typeof _id !== 'undefined' && (
+          <CreateNewButton type={'library'} allowEdit={true} />
+        )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create library' : 'Save changes'}

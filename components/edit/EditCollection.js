@@ -5,6 +5,7 @@ import EditSelectImg from './EditSelectImg'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import { useRouter } from 'next/router'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default function EditCollection({
   collections,
@@ -187,6 +188,9 @@ export default function EditCollection({
         />
       </div>
       <span className={'float-end'}>
+        {typeof _id !== 'undefined' && (
+          <CreateNewButton type={'collection'} allowEdit={true} />
+        )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create collection' : 'Save changes'}

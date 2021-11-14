@@ -45,6 +45,15 @@ export default function Item({ item, columns, collections }) {
     Object.keys(item.data).map((k) => columns.find((c) => c._id === k)),
     item
   )
+  console.log(
+    'Cols',
+    yesColumns,
+    noColumns,
+    arrayColumns,
+    textColumns,
+    'all cols',
+    columns
+  )
 
   const image =
     process.env.NEXT_PUBLIC_DOMAIN +
@@ -209,84 +218,78 @@ export default function Item({ item, columns, collections }) {
           </div>
         </div>
       )}
-      {!item.blacklist ||
-        (canEdit(session) && (
-          <>
-            <div className={'card bg-2 my-2'}>
-              <div className={'card-body'}>
-                <h5 className={'card-title'}>
-                  It <span className={'text-success'}>does</span> have
-                </h5>
-                <div className={'d-flex flex-wrap'}>
-                  {yesColumns.length === 0 && (
-                    <span className={'text-muted'}>No data found</span>
-                  )}
-                  {yesColumns.map((c) => {
-                    return (
-                      <DataItem
-                        data={item.data[c._id]}
-                        column={c}
-                        key={c._id}
-                      />
-                    )
-                  })}
-                </div>
+      {(!item.blacklist || canEdit(session)) && (
+        <>
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body'}>
+              <h5 className={'card-title'}>
+                It <span className={'text-success'}>does</span> have
+              </h5>
+              <div className={'d-flex flex-wrap'}>
+                {yesColumns.length === 0 && (
+                  <span className={'text-muted'}>No data found</span>
+                )}
+                {yesColumns.map((c) => {
+                  return (
+                    <DataItem data={item.data[c._id]} column={c} key={c._id} />
+                  )
+                })}
               </div>
             </div>
-            <div className={'card bg-2 my-2'}>
-              <div className={'card-body'}>
-                <h5 className={'card-title'}>
-                  It does <span className={'text-danger'}>not</span> have
-                </h5>
-                <div className={'d-flex flex-wrap'}>
-                  {noColumns.length === 0 && (
-                    <span className={'text-muted'}>No data found</span>
-                  )}
-                  {noColumns.map((c) => {
-                    return (
-                      <DataItem
-                        data={item.data[c._id]}
-                        column={c}
-                        key={c._id}
-                      />
-                    )
-                  })}
-                </div>
+          </div>
+
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body'}>
+              <h5 className={'card-title'}>
+                It does <span className={'text-danger'}>not</span> have
+              </h5>
+              <div className={'d-flex flex-wrap'}>
+                {noColumns.length === 0 && (
+                  <span className={'text-muted'}>No data found</span>
+                )}
+                {noColumns.map((c) => {
+                  return (
+                    <DataItem data={item.data[c._id]} column={c} key={c._id} />
+                  )
+                })}
               </div>
             </div>
-            <div className={'card bg-2 my-2'}>
-              <div className={'card-body'}>
-                <h5 className={'card-title'}>Other features are</h5>
-                <div className={'d-flex flex-wrap'}>
-                  {arrayColumns.length === 0 && (
-                    <span className={'text-muted'}>No data found</span>
-                  )}
-                  {arrayColumns.map((c) => {
-                    return (
-                      <div key={c._id}>
-                        <Link href={'/column/' + c.urlId}>
-                          <a className={'me-2'} title={'View column ' + c.name}>
-                            {c.name}:
-                          </a>
-                        </Link>
-                        <DataItem data={item.data[c._id]} column={c} />
-                      </div>
-                    )
-                  })}
-                </div>
+          </div>
+
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body'}>
+              <h5 className={'card-title'}>Other features are</h5>
+              <div className={'d-flex flex-wrap'}>
+                {arrayColumns.length === 0 && (
+                  <span className={'text-muted'}>No data found</span>
+                )}
+                {arrayColumns.map((c) => {
+                  return (
+                    <div key={c._id}>
+                      <Link href={'/column/' + c.urlId}>
+                        <a className={'me-2'} title={'View column ' + c.name}>
+                          {c.name}:
+                        </a>
+                      </Link>
+                      <DataItem data={item.data[c._id]} column={c} />
+                    </div>
+                  )
+                })}
               </div>
             </div>
-            {textColumns.length > 0 &&
-              textColumns.map((c) => (
-                <div className={'card bg-2 my-2'} key={c._id}>
-                  <div className={'card-body'}>
-                    <h5 className={'card-title'}>{c.name}</h5>
-                    <p className={'card-text'}>{item.data[c._id]}</p>
-                  </div>
+          </div>
+
+          {textColumns.length > 0 &&
+            textColumns.map((c) => (
+              <div className={'card bg-2 my-2'} key={c._id}>
+                <div className={'card-body'}>
+                  <h5 className={'card-title'}>{c.name}</h5>
+                  <p className={'card-text'}>{item.data[c._id]}</p>
                 </div>
-              ))}
-          </>
-        ))}
+              </div>
+            ))}
+        </>
+      )}
     </>
   )
 }

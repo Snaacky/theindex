@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { postData } from '../../lib/utils'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import CreateNewButton from '../buttons/CreateNewButton'
 
 export default function EditList({
   _id,
@@ -116,6 +117,9 @@ export default function EditList({
         />
       </div>
       <span className={'float-end'}>
+        {typeof _id !== 'undefined' && (
+          <CreateNewButton type={'list'} allowEdit={true} />
+        )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create list' : 'Save changes'}

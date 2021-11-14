@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ColumnFilter from '../column-filter'
+import ColumnFilter from '../ColumnFilter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
@@ -36,6 +36,7 @@ const Board = ({
   const [cardView, setCardView] = useState(true)
   const [compactView, setCompactView] = useState(false)
   const [showFilter, setShowFilter] = useState(false)
+  const [columnFilter, setColumnFilter] = useState({})
 
   useEffect(() => {
     setUnselectedContent(
@@ -174,6 +175,51 @@ const Board = ({
     )
   }
 
+  const filterContent = (contentList) => {
+    return contentList.filter((c) => {
+      if (searchString !== '' && !c.name.toLowerCase().includes(searchString)) {
+        return false
+      }
+
+      const filter = columns
+        .filter((column) => typeof columnFilter[column._id] !== 'undefined')
+        .map((column) => {
+          console.log(
+            'Filter for column',
+            column,
+            'for content',
+            c,
+            'with filter',
+            columnFilter
+          )
+
+          if (!(column._id in c.data)) {
+            return false
+          }
+
+          if (column.type === 'array') {
+            return (
+              columnFilter.length === 0 ||
+              columnFilter[column._id].every((value) =>
+                c.data[column._id].includes(value)
+              )
+            )
+          } else if (column.type === 'bool') {
+            return c.data[column._id] === columnFilter[column._id]
+          }
+
+          return c.data[column._id]
+            .toLowerCase()
+            .includes(columnFilter[column._id].toLowerCase())
+        })
+
+      return filter.every((f) => f)
+    })
+  }
+
+  const filteredContent = filterContent(_content)
+  const filteredUnselectedContent = filterContent(unselectedContent)
+
   return (
     <>
       {sponsorContent.length > 0 && (
@@ -239,7 +285,6 @@ const Board = ({
           id={'collapseFilterBoard-' + randString}
           className={'collapse' + (showFilter ? ' show' : '')}
         >
-          <ColumnFilter columns={columns} onChange={console.log} />
           <div className={'input-group mb-2'}>
             <span className='input-group-text' id='inputSearchStringAddon'>
               <FontAwesomeIcon icon={['fas', 'search']} />
@@ -254,49 +299,48 @@ const Board = ({
               aria-describedby={'inputSearchStringAddon'}
             />
           </div>
-          <span className={'text-muted'}>This is a placeholder text</span>
+          <ColumnFilter
+            columns={columns}
+            filter={columnFilter}
+            setFilter={setColumnFilter}
+          />
         </div>
       </div>
       <div
         className={'d-flex flex-wrap mb-2'}
         style={{ marginRight: '-0.5rem' }}
       >
-        {_content.filter((c) => c.name.toLowerCase().includes(searchString))
-          .length === 0 && (
+        {filteredContent.filter((c) =>
+          c.name.toLowerCase().includes(searchString)
+        ).length === 0 && (
           <span className={'text-muted'}>Nothing could be found</span>
         )}
-        {_content
-          .filter((c) => c.name.toLowerCase().includes(searchString))
-          .map((i) =>
-            renderSingleContent(
-              i,
-              false,
-              canMove && editMode && updateContentURL !== '',
-              editMode
-            )
-          )}
+        {filteredContent.map((i) =>
+          renderSingleContent(
+            i,
+            false,
+            canMove && editMode && updateContentURL !== '',
+            editMode
+          )
+        )}
       </div>
-      {editMode ? (
+      {editMode && (
         <>
           <hr />
           <div
             className={'d-flex flex-wrap mb-2'}
             style={{ marginRight: '-0.5rem' }}
           >
-            {unselectedContent.filter((c) =>
-              c.name.toLowerCase().includes(searchString)
-            ).length === 0 && (
+            {filteredUnselectedContent.length === 0 && (
               <span className={'text-muted'}>
                 There is nothing to be added anymore
               </span>
             )}
-            {unselectedContent
+            {filteredUnselectedContent
               .filter((c) => c.name.toLowerCase().includes(searchString))
               .map((i) => renderSingleContent(i, true, false))}
           </div>
         </>
-      ) : (
-        <></>
       )}
       <CreateNewButton type={type} allowEdit={allowEdit} />
     </>
