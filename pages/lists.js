@@ -12,7 +12,7 @@ const description =
   'User lists are created collections with user selected items, ranking and columns to display'
 
 export default function Lists({ lists }) {
-  const { data: swrLists } = useSWR('/api/lists/')
+  const { data: swrLists } = useSWR('/api/lists')
   lists = swrLists || lists
 
   return (

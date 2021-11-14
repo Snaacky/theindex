@@ -3,37 +3,45 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { images } from '../lib/icon'
 import { getCache, setCache } from '../lib/db/cache'
+import useSWR from 'swr'
+import { postData } from '../lib/utils'
 
-export default function Admin({ images }) {
+export default function Admin({ images: staticImages }) {
+  const { data: swrImages } = useSWR('/api/images')
+  staticImages = swrImages || staticImages
+
   return (
     <>
       <Head>
         <title>Admin | {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
       <Link href={'/admin/users'}>
-        <a className={'btn btn-outline-success'}>All users</a>
+        <a className={'btn btn-outline-success mb-2 me-2'}>All users</a>
       </Link>
-      <div className={'mb-4'}>
-        I placed the button here for now, as I have not really thought about
-        where else to put them...
-        <br />
-        <a
-          className={'btn btn-outline-secondary'}
-          href={'/api/export'}
-          target={'_blank'}
-          rel='noreferrer'
-        >
-          Export all data
-        </a>
-      </div>
-      Emoji dump:
+      <button
+        className={'btn btn-outline-danger mb-2 me-2'}
+        onClick={() => {
+          postData('/api/admin/cache/clear', { clearCache: true })
+        }}
+      >
+        Clear cache
+      </button>
+      <a
+        className={'btn btn-outline-secondary mb-2 me-2'}
+        href={'/api/export'}
+        target={'_blank'}
+        rel='noreferrer'
+      >
+        Export all data
+      </a>
+      <h4>Emoji dump:</h4>
       <div>
-        {images.map((i) => (
+        {staticImages.map((i) => (
           <div className={'m-1 d-inline-flex'} key={i}>
             <Image
               width={64}
               height={64}
-              src={i}
+              src={'/img/' + i}
               alt={''}
               className={'rounded'}
             />

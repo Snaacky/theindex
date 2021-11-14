@@ -13,7 +13,7 @@ const description =
   'Items can have different data-fields for different attributes. We call such fields columns like you use to in a table'
 
 export default function Columns({ columns }) {
-  const { data: swrColumns } = useSWR('/api/columns/')
+  const { data: swrColumns } = useSWR('/api/columns')
   columns = swrColumns || columns
 
   return (

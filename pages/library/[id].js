@@ -24,7 +24,7 @@ export default function Library({ library, collections, items }) {
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
   library = swrLibrary || library
-  const { data: swrCollections } = useSWR('/api/collections/')
+  const { data: swrCollections } = useSWR('/api/collections')
   const collectionsItems = [].concat.apply(
     [],
     library.collections.map((collectionId) => {
@@ -33,7 +33,7 @@ export default function Library({ library, collections, items }) {
       ).items
     })
   )
-  const { data: swrItems } = useSWR('/api/items/')
+  const { data: swrItems } = useSWR('/api/items')
   items = (swrItems || items).filter((i) =>
     collectionsItems.some((item) => i._id === item)
   )

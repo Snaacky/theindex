@@ -12,7 +12,7 @@ const description =
   "Libraries are over-categories of a bunch of collections that fit into it's category"
 
 export default function Libraries({ libraries }) {
-  const { data: swrLibraries } = useSWR('/api/items/')
+  const { data: swrLibraries } = useSWR('/api/libraries')
   libraries = swrLibraries || libraries
 
   return (

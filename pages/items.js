@@ -13,7 +13,7 @@ const description =
   'Every item represents a service and contains various information like which languages it supports or feature it has'
 
 export default function Items({ items }) {
-  const { data: swrItems } = useSWR('/api/items/')
+  const { data: swrItems } = useSWR('/api/items')
   items = swrItems || items
 
   return (

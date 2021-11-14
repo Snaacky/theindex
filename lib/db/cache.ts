@@ -1,5 +1,5 @@
 // docker run --name index-cache -d -p 6379:6379 redis
-import * as Redis from 'ioredis'
+import Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
 import { findOne, getAll, singularToPlural } from './db'
@@ -142,4 +142,10 @@ export function setCache(key: string, data: string | object) {
   return client.set(key, data).then(() => {
     console.info('Created cache for', key)
   })
+}
+
+export function clearCache() {
+  return client
+    .flushall()
+    .catch((e) => console.error('Failed to flush cache', e))
 }

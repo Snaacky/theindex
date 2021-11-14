@@ -12,7 +12,7 @@ const description =
   'Collections are like a curated table listing various items. Every entry is done by hand from the editor-team'
 
 export default function Collections({ collections }) {
-  const { data: swrCollections } = useSWR('/api/collections/')
+  const { data: swrCollections } = useSWR('/api/collections')
   collections = swrCollections || collections
 
   return (

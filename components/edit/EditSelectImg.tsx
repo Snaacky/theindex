@@ -10,12 +10,12 @@ type Props = {
   onChange: (arg: string) => void
 }
 const EditSelectImg: FC<Props> = ({ selected, onChange }) => {
-  let { data: imgs } = useSWR('/api/imgs')
+  const { data: swrImages } = useSWR('/api/images')
+  const images = swrImages || [selected]
 
-  imgs = imgs || [selected]
   return (
     <div className={styles.imgItemsWrapper}>
-      {imgs.map((img, idx) => {
+      {images.map((img, idx) => {
         return (
           // eslint-disable-next-line @next/next/no-img-element
           <img
