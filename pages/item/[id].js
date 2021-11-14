@@ -45,15 +45,6 @@ export default function Item({ item, columns, collections }) {
     Object.keys(item.data).map((k) => columns.find((c) => c._id === k)),
     item
   )
-  console.log(
-    'Cols',
-    yesColumns,
-    noColumns,
-    arrayColumns,
-    textColumns,
-    'all cols',
-    columns
-  )
 
   const image =
     process.env.NEXT_PUBLIC_DOMAIN +
