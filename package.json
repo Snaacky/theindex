@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node ./node_modules/geoip-lite/scripts/updatedb.js license_key=GEOIP_KEY",
+    "build": "next build",
     "lint": "next lint",
     "start": "next start",
     "serve": "next build && next start -p 3000"

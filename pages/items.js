@@ -2,16 +2,20 @@ import Head from 'next/head'
 import React from 'react'
 import IconItem from '../components/icons/IconItem'
 import ItemBoard from '../components/boards/ItemBoard'
-import { getItems } from '../lib/db/items'
 import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
-import { getCache, setCache } from '../lib/db/cache'
+import { getAllCache } from '../lib/db/cache'
+import { Types } from '../types/Components'
+import useSWR from 'swr'
 
 const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Every item represents a service and contains various information like which languages it supports or feature it has'
 
 export default function Items({ items }) {
+  const { data: swrItems } = useSWR('/api/items/')
+  items = swrItems || items
+
   return (
     <>
       <Head>
@@ -42,19 +46,10 @@ export default function Items({ items }) {
 }
 
 export async function getStaticProps() {
-  const key = 'items'
-  let cache = await getCache(key)
-  if (cache === null) {
-    cache = {
-      items: await getItems(),
-    }
-    setCache(key, cache).then(() => {
-      console.info('Created cache for', key)
-    })
-  }
-
   return {
-    props: cache,
+    props: {
+      items: await getAllCache(Types.item),
+    },
     revalidate: 60,
   }
 }

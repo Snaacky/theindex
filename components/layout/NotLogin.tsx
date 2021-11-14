@@ -40,7 +40,7 @@ export default function NotLogin() {
         className={'rounded'}
       />
       <p>You are currently not logged in</p>
-      <button className={'btn btn-outline-success'} onClick={signIn}>
+      <button className={'btn btn-outline-success'} onClick={() => signIn}>
         <FontAwesomeIcon icon={['fas', 'sign-in-alt']} /> Sign In
       </button>
     </div>

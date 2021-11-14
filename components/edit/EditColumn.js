@@ -34,7 +34,7 @@ export default function EditColumn({
   useEffect(() => {
     setColumnsDatalist(columns.map((t) => t.name) || [])
     setUrlDatalist(columns.map((t) => t.urlId) || [])
-  }, columns)
+  }, [columns])
 
   const router = useRouter()
 

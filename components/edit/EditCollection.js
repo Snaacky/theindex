@@ -30,7 +30,7 @@ export default function EditCollection({
   useEffect(() => {
     setCollectionsDatalist(collections.map((t) => t.name) || [])
     setUrlDatalist(collections.map((t) => t.urlId) || [])
-  }, collections)
+  }, [collections])
 
   const router = useRouter()
 

@@ -2,16 +2,20 @@ import Head from 'next/head'
 import React from 'react'
 import IconColumn from '../components/icons/IconColumn'
 import ColumnBoard from '../components/boards/ColumnBoard'
-import { getColumns } from '../lib/db/columns'
 import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
-import { getCache, setCache } from '../lib/db/cache'
+import { getAllCache } from '../lib/db/cache'
+import { Types } from '../types/Components'
+import useSWR from 'swr'
 
 const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Items can have different data-fields for different attributes. We call such fields columns like you use to in a table'
 
 export default function Columns({ columns }) {
+  const { data: swrColumns } = useSWR('/api/columns/')
+  columns = swrColumns || columns
+
   return (
     <>
       <Head>
@@ -44,19 +48,10 @@ export default function Columns({ columns }) {
 }
 
 export async function getStaticProps() {
-  const key = 'columns'
-  let cache = await getCache(key)
-  if (cache === null) {
-    cache = {
-      columns: await getColumns(),
-    }
-    setCache(key, cache).then(() => {
-      console.info('Created cache for', key)
-    })
-  }
-
   return {
-    props: cache,
+    props: {
+      columns: getAllCache(Types.column),
+    },
     revalidate: 60,
   }
 }

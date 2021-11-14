@@ -36,7 +36,7 @@ export default function EditItem({
   )
   useEffect(() => {
     setColumns(columns.sort((a, b) => (a.name < b.name ? -1 : 1)))
-  }, columns)
+  }, [columns])
 
   const router = useRouter()
 
