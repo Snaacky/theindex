@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../../lib/session'
 import { updateItemCollections } from '../../../../lib/db/items'
+import { updateAllCache } from '../../../../lib/db/cache'
+import { Types } from '../../../../types/Components'
 
 export default async function apiEditColumnCollections(req, res) {
   const session = await getSession({ req })
@@ -11,6 +13,7 @@ export default async function apiEditColumnCollections(req, res) {
         typeof t === 'string' ? t : t._id
       )
       await updateItemCollections(d._id, collections)
+      await updateAllCache(Types.collection)
       res.status(200).send('Ok')
     } else {
       res.status(400).send('Missing _id or collections')

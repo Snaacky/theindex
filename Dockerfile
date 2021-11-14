@@ -38,7 +38,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install the dependencies
 COPY package.json .
 COPY package-lock.json .
-# we want curl for the healthcheck, wget
+
+# we want curl for the healthcheck
 RUN apt update -y && \
     apt install --no-install-recommends -y curl && \
     apt-get autoremove -y && \
