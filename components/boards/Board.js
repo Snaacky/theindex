@@ -177,7 +177,11 @@ const Board = ({
 
   const filterContent = (contentList) => {
     return contentList.filter((c) => {
-      if (searchString !== '' && !c.name.toLowerCase().includes(searchString)) {
+      if (
+        searchString !== '' &&
+        typeof c.name === 'string' &&
+        !c.name.toLowerCase().includes(searchString)
+      ) {
         return false
       }
 
@@ -310,9 +314,7 @@ const Board = ({
         className={'d-flex flex-wrap mb-2'}
         style={{ marginRight: '-0.5rem' }}
       >
-        {filteredContent.filter((c) =>
-          c.name.toLowerCase().includes(searchString)
-        ).length === 0 && (
+        {filteredContent.length === 0 && (
           <span className={'text-muted'}>Nothing could be found</span>
         )}
         {filteredContent.map((i) =>
@@ -336,9 +338,9 @@ const Board = ({
                 There is nothing to be added anymore
               </span>
             )}
-            {filteredUnselectedContent
-              .filter((c) => c.name.toLowerCase().includes(searchString))
-              .map((i) => renderSingleContent(i, true, false))}
+            {filteredUnselectedContent.map((i) =>
+              renderSingleContent(i, true, false)
+            )}
           </div>
         </>
       )}

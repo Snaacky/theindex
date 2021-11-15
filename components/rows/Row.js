@@ -42,7 +42,7 @@ export default function Row({
       }
     >
       <div className='row g-0'>
-        {move !== null ? (
+        {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
             <a onClick={() => move(-1)}>
               <FontAwesomeIcon icon={['fas', 'chevron-up']} />
@@ -51,10 +51,8 @@ export default function Row({
               <FontAwesomeIcon icon={['fas', 'chevron-down']} />
             </a>
           </div>
-        ) : (
-          <></>
         )}
-        {add !== null ? (
+        {add !== null && (
           <div className={styles.sorter + ' col-auto'}>
             <a
               onClick={add}
@@ -66,13 +64,11 @@ export default function Row({
               <IconAdd />
             </a>
           </div>
-        ) : (
-          <></>
         )}
-        {imageUrl !== '' ? (
+        {imageUrl !== '' && (
           <div className={styles.column + ' col-auto p-1'}>
             <Link href={hrefString}>
-              <a title={'View ' + type + ' ' + content.name}>
+              <a title={'View ' + type + ' ' + (content.name ?? '')}>
                 <Image
                   src={imageUrl}
                   className='img-fluid rounded-start'
@@ -83,58 +79,48 @@ export default function Row({
               </a>
             </Link>
           </div>
-        ) : (
-          <></>
         )}
         <div className='col'>
           <div className={'card-body p-2'}>
             <h5 className={styles.title + ' card-title'}>
-              {typeof content.urls !== 'undefined' ? (
+              {typeof content.urls !== 'undefined' && (
                 <OnlineStatus url={content.urls[0] ?? ''} />
-              ) : (
-                <></>
               )}
-              <Link href={hrefString}>{content.name}</Link>
-              {typeof content.urls !== 'undefined' ? (
+              <Link href={hrefString}>
+                <a title={'View ' + type + ' ' + (content.name ?? '')}>
+                  {content.name ?? <code>Unable to get name</code>}
+                </a>
+              </Link>
+              {typeof content.urls !== 'undefined' && (
                 <IconNewTabLink url={content.urls[0]} />
-              ) : (
-                <></>
               )}
-              {canEdit(session, type) ? (
+              {canEdit(session, type) && (
                 <Link href={'/edit/' + type + '/' + content._id}>
                   <a title={'Edit ' + type} className={'ms-2'}>
                     <IconEdit />
                   </a>
                 </Link>
-              ) : (
-                ''
               )}
-              {content.sponsor ? (
+              {content.sponsor && (
                 <span className={styles.sponsorBadge + ' ms-2 float-end'}>
                   <span className={styles.sponsorIcon}>
                     <IconSponsor size='xs' />
                   </span>
                   Sponsored
                 </span>
-              ) : (
-                <></>
               )}
               <span className={'float-end'} style={{ fontSize: '1.2rem' }}>
-                {content.nsfw ? (
+                {content.nsfw && (
                   <span className={'ms-2'}>
                     <IconNSFW />
                   </span>
-                ) : (
-                  <></>
                 )}
-                {content.accountType ? (
+                {content.accountType && (
                   <span className={'ms-2'}>
                     <DataBadge name={content.accountType} style={'primary'} />
                   </span>
-                ) : (
-                  <></>
                 )}
-                {type === 'item' ? (
+                {type === 'item' && (
                   <>
                     <span className={'ms-2'}>
                       <IconStar item={content} />
@@ -143,8 +129,6 @@ export default function Row({
                       <IconBookmark item={content} />
                     </span>
                   </>
-                ) : (
-                  <></>
                 )}
               </span>
             </h5>
@@ -156,7 +140,7 @@ export default function Row({
             {bodyContent}
           </div>
         </div>
-        {remove !== null ? (
+        {remove !== null && (
           <div className={styles.column + ' col-auto p-1'}>
             <IconDelete
               onClick={remove}
@@ -168,8 +152,6 @@ export default function Row({
               }}
             />
           </div>
-        ) : (
-          ''
         )}
       </div>
     </div>

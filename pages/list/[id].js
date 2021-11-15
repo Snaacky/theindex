@@ -82,7 +82,9 @@ export default function List({ list, owner }) {
       <p>
         Made by
         <Link href={'/user/' + owner.uid}>
-          <a className={'ms-1'}>{owner.name}</a>
+          <a className={'ms-1'} title={'View user ' + (owner.name ?? '')}>
+            {owner.name ?? <code>Unable to get name</code>}
+          </a>
         </Link>
       </p>
 

@@ -46,7 +46,7 @@ export default function Card({
       }
     >
       <div className='row g-0'>
-        {move !== null ? (
+        {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
             <a onClick={() => move(-1)}>
               <FontAwesomeIcon icon={['fas', 'chevron-up']} />
@@ -55,13 +55,11 @@ export default function Card({
               <FontAwesomeIcon icon={['fas', 'chevron-down']} />
             </a>
           </div>
-        ) : (
-          <></>
         )}
-        {imageUrl !== '' ? (
+        {imageUrl !== '' && (
           <div className={'col-auto'}>
             <Link href={hrefString}>
-              <a title={'View ' + type + ' ' + content.name}>
+              <a title={'View ' + type + ' ' + (content.name ?? '')}>
                 <Image
                   src={imageUrl}
                   className='img-fluid rounded-start'
@@ -72,26 +70,20 @@ export default function Card({
               </a>
             </Link>
           </div>
-        ) : (
-          <></>
         )}
         <div className='col'>
           <div className={'card-body d-flex flex-column p-2 h-100'}>
             <h5 className={styles.title + ' card-title'}>
-              {typeof content.urls !== 'undefined' ? (
+              {typeof content.urls !== 'undefined' && (
                 <OnlineStatus url={content.urls[0] ?? ''} />
-              ) : (
-                <></>
               )}
               <Link href={hrefString}>
-                <a title={'View ' + type + ' ' + content.name}>
-                  {content.name}
+                <a title={'View ' + type + ' ' + (content.name ?? '')}>
+                  {content.name ?? <code>Unable to get name</code>}
                 </a>
               </Link>
-              {typeof content.urls !== 'undefined' ? (
+              {typeof content.urls !== 'undefined' && (
                 <IconNewTabLink url={content.urls[0]} />
-              ) : (
-                <></>
               )}
               {canEdit(session, type) ? (
                 <>
