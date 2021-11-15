@@ -26,7 +26,8 @@ export default function Card({
   move = null,
 }) {
   const [session] = useSession()
-  const hrefString = '/' + type + '/' + (content.urlId ?? content._id)
+  const hrefString =
+    '/' + type + '/' + (content.urlId ?? content.uid ?? content._id)
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -87,7 +88,9 @@ export default function Card({
               )}
               {canEdit(session, type) ? (
                 <>
-                  <Link href={'/edit/' + type + '/' + content._id}>
+                  <Link
+                    href={'/edit/' + type + '/' + (content.uid ?? content._id)}
+                  >
                     <a title={'Edit ' + type} className={'ms-2'}>
                       <IconEdit />
                     </a>
