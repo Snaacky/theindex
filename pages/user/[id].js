@@ -11,13 +11,19 @@ import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
 import useSWR from 'swr'
+import { getAllCache } from '../../lib/db/cache'
+import { Types } from '../../types/Components'
 
-export default function User({ user }) {
+export default function User({ user, lists }) {
   const [session] = useSession()
 
   const { data: swrUser } = useSWR('/api/user/' + user.uid)
   user = swrUser || user
-
+  const { data: swrLists } = useSWR('/api/lists')
+  lists = (swrLists || lists).filter((list) => list.owner === user.uid)
+  const followLists = (swrLists || lists).filter((list) =>
+    user.followLists.includes(list._id)
+  )
   return (
     <>
       <Head>
@@ -113,17 +119,15 @@ export default function User({ user }) {
         Lists
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
-            name={
-              user.lists.length + ' list' + (user.lists.length !== 1 ? 's' : '')
-            }
+            name={lists.length + ' list' + (lists.length !== 1 ? 's' : '')}
             style={'primary'}
           />
         </div>
       </h3>
-      {user.lists.length > 0 || isCurrentUser(session, user.uid) ? (
+      {lists.length > 0 || isCurrentUser(session, user.uid) ? (
         <ListBoard
           uid={user.uid}
-          lists={user.lists}
+          lists={lists}
           canEdit={isCurrentUser(session, user.uid) || isAdmin(session)}
           updateURL={'/api/edit/user'}
         />
@@ -136,18 +140,18 @@ export default function User({ user }) {
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
             name={
-              user.followLists.length +
+              followLists.length +
               ' list' +
-              (user.followLists.length !== 1 ? 's' : '')
+              (followLists.length !== 1 ? 's' : '')
             }
             style={'primary'}
           />
         </div>
       </h3>
-      {user.followLists.length > 0 ? (
+      {followLists.length > 0 ? (
         <ListBoard
           uid={user.uid}
-          lists={user.followLists}
+          lists={followLists}
           updateURL={'/api/edit/user'}
         />
       ) : (
@@ -159,6 +163,7 @@ export default function User({ user }) {
 
 export async function getServerSideProps({ params }) {
   const user = await getUser(params.id)
+  const lists = await getAllCache(Types.list)
 
   if (!user) {
     return {
@@ -169,6 +174,7 @@ export async function getServerSideProps({ params }) {
   return {
     props: {
       user,
+      lists,
     },
   }
 }

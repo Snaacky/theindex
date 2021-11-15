@@ -9,15 +9,19 @@ import { postData } from '../../lib/utils'
 
 export default function ItemToListModal({ item, close }) {
   const { data: user } = useSWR('/api/user/me')
+  const { data: swrLists } = useSWR('/api/lists')
   const [checked, setChecked] = useState([])
   const [init, setInit] = useState(false)
 
-  if (!user) {
+  if (!user || !swrLists) {
     return <Loader />
-  } else if (!init) {
+  }
+
+  const lists = swrLists.filter((l) => user.lists.includes(l._id))
+  if (!init) {
     setInit(true)
-    console.log('ItemToListModal', user.lists)
-    setChecked(user.lists.map((l) => l.items.some((it) => it === item._id)))
+    console.log('ItemToListModal', lists)
+    setChecked(lists.map((l) => l.items.some((it) => it === item._id)))
   }
 
   return (
@@ -30,12 +34,10 @@ export default function ItemToListModal({ item, close }) {
       }
       body={
         <div className={'container-fluid'}>
-          {user.lists.length > 0 ? (
-            <></>
-          ) : (
+          {lists.length === 0 && (
             <span className={'text-muted'}>You have no lists created yet</span>
           )}
-          {user.lists.map((l, i) => (
+          {lists.map((l, i) => (
             <div className={'form-check'} key={l._id}>
               <input
                 className={'form-check-input'}
