@@ -28,7 +28,11 @@ export default function Libraries({ libraries }) {
       </h2>
       <p>{description}</p>
 
-      <LibraryBoard libraries={libraries} canEdit={true} />
+      <LibraryBoard
+        libraries={libraries}
+        allLibraries={libraries}
+        canEdit={true}
+      />
     </>
   )
 }

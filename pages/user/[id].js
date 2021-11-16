@@ -14,13 +14,19 @@ import useSWR from 'swr'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 
-export default function User({ user, lists }) {
+export default function User({ user, lists, items }) {
   const [session] = useSession()
 
   const { data: swrUser } = useSWR('/api/user/' + user.uid)
   user = swrUser || user
+  const { data: swrItem } = useSWR('/api/items')
+  items = swrItem || items
+  const userFav = user.favs.map((itemId) =>
+    items.find((item) => item._id === itemId)
+  )
   const { data: swrLists } = useSWR('/api/lists')
-  lists = (swrLists || lists).filter((list) => list.owner === user.uid)
+  lists = swrLists || lists
+  const userLists = lists.filter((list) => list.owner === user.uid)
   const followLists = (swrLists || lists).filter((list) =>
     user.followLists.includes(list._id)
   )
@@ -63,14 +69,12 @@ export default function User({ user, lists }) {
                 <span className={'ms-2'} style={{ fontSize: '1.2rem' }}>
                   <DataBadge name={user.accountType} style={'primary'} />
                   <div className={'float-end'}>
-                    {isAdmin(session) || isCurrentUser(session, user.uid) ? (
+                    {(isAdmin(session) || isCurrentUser(session, user.uid)) && (
                       <Link href={'/edit/user/' + user.uid}>
                         <a title={'Edit user'} className={'ms-2'}>
                           <FontAwesomeIcon icon={['fas', 'cog']} />
                         </a>
                       </Link>
-                    ) : (
-                      <></>
                     )}
                   </div>
                 </span>
@@ -106,7 +110,8 @@ export default function User({ user, lists }) {
       {user.favs.length > 0 ? (
         <ItemBoard
           _id={user.uid}
-          items={user.favs}
+          items={userFav}
+          allItems={items}
           canEdit={false}
           updateURL={'/api/edit/user'}
           updateKey={'favs'}
@@ -127,7 +132,8 @@ export default function User({ user, lists }) {
       {lists.length > 0 || isCurrentUser(session, user.uid) ? (
         <ListBoard
           uid={user.uid}
-          lists={lists}
+          lists={userLists}
+          allLists={userLists}
           canEdit={isCurrentUser(session, user.uid) || isAdmin(session)}
           updateURL={'/api/edit/user'}
         />
@@ -152,6 +158,7 @@ export default function User({ user, lists }) {
         <ListBoard
           uid={user.uid}
           lists={followLists}
+          allLists={lists}
           updateURL={'/api/edit/user'}
         />
       ) : (
@@ -175,6 +182,7 @@ export async function getServerSideProps({ params }) {
     props: {
       user,
       lists,
+      items: await getAllCache(Types.item),
     },
   }
 }

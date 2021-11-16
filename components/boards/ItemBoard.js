@@ -5,6 +5,7 @@ import Loader from '../loading'
 export default function ItemBoard({
   _id,
   items,
+  allItems,
   columns,
   updateURL = '/api/edit/collection',
   updateKey = 'items',
@@ -14,27 +15,10 @@ export default function ItemBoard({
   canEdit = false,
   showSponsors = false,
 }) {
-  const { data: allColumns } = useSWR('/api/columns')
-  const { data: allItems } = useSWR('/api/items')
-  if (!allColumns || !allItems) {
-    return <Loader />
-  }
-
-  if (!columns) {
-    columns = allColumns
-  } else if (columns.length > 0 && typeof columns[0] === 'string') {
-    columns = columns
-      .map((id) => allColumns.find((c) => c._id === id))
-      .filter((c) => typeof c !== 'undefined')
-  }
-  if (items.length > 0 && typeof items[0] === 'string') {
-    items = items
-      .map((id) => allItems.find((i) => i._id === id))
-      .filter((i) => typeof i !== 'undefined')
-  }
-
   const sponsoredItems = showSponsors ? items.filter((i) => i.sponsor) : []
-  items = items.filter((i) => !i.sponsor)
+  if (showSponsors) {
+    items = items.filter((i) => !i.sponsor)
+  }
 
   return (
     <Board

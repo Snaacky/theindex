@@ -39,6 +39,7 @@ export default function Columns({ columns }) {
 
       <ColumnBoard
         columns={columns}
+        allColumns={columns}
         updateURL={''}
         deleteURL={'/api/delete/column'}
         canEdit={true}

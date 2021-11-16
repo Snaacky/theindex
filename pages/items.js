@@ -37,6 +37,7 @@ export default function Items({ items }) {
 
       <ItemBoard
         items={items}
+        allItems={items}
         deleteURL={'/api/delete/item'}
         canEdit={true}
         showSponsors={true}

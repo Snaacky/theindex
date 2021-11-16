@@ -17,12 +17,20 @@ import React from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 
-export default function Collection({ collection, libraries }) {
+export default function Collection({ collection, libraries, allItems }) {
   const [session] = useSession()
+  const router = useRouter()
 
   const { data: swrCollection } = useSWR('/api/collection/' + collection._id)
   collection = swrCollection || collection
+
+  const { data: swrItems } = useSWR('/api/items')
+  allItems = swrItems || allItems
+  const items = collection.items.map((itemId) =>
+    allItems.find((item) => item._id === itemId)
+  )
 
   const { data: swrLibraries } = useSWR('/api/libraries')
   libraries = (swrLibraries || libraries).filter((library) =>
@@ -87,7 +95,11 @@ export default function Collection({ collection, libraries }) {
                         '/api/delete/collection',
                         { _id: collection._id },
                         () => {
-                          window.location.href = escape('/collections')
+                          router
+                            .push('/collections')
+                            .then(() =>
+                              console.log('Deleted collection', collection._id)
+                            )
                         }
                       )
                     }
@@ -124,10 +136,10 @@ export default function Collection({ collection, libraries }) {
 
       <ItemBoard
         _id={collection._id}
-        items={collection.items}
+        items={items}
+        allItems={allItems}
         showSponsors={true}
         columns={collection.columns}
-        key={collection._id}
         canEdit={canEdit(session)}
       />
     </>
@@ -163,6 +175,7 @@ export async function getStaticProps({ params }) {
     props: {
       collection,
       libraries: await getAllCache(Types.library),
+      allItems: await getAllCache(Types.item),
     },
     revalidate: 60,
   }

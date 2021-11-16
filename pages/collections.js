@@ -32,6 +32,7 @@ export default function Collections({ collections }) {
 
       <CollectionBoard
         collections={collections}
+        allCollections={collections}
         updateURL={''}
         deleteURL={'/api/delete/collection'}
         canEdit={true}

@@ -27,7 +27,7 @@ export default function Lists({ lists }) {
       </h2>
       <p>{description}</p>
 
-      <ListBoard lists={lists} />
+      <ListBoard lists={lists} allLists={lists} />
     </>
   )
 }

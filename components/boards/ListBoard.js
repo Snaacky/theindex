@@ -5,6 +5,7 @@ import useSWR from 'swr'
 export default function ListBoard({
   uid,
   lists,
+  allLists,
   updateURL = '',
   updateKey = 'lists',
   deleteURL = '/api/delete/list',
@@ -12,16 +13,6 @@ export default function ListBoard({
   canMove = false,
   canEdit = false,
 }) {
-  const { data: allLists, error } = useSWR('/api/lists')
-  if (error || !allLists) {
-    return <Loader />
-  }
-
-  if (lists.length > 0 && typeof lists[0] === 'string') {
-    lists = lists
-      .map((id) => allLists.find((i) => i._id === id))
-      .filter((t) => typeof t !== 'undefined')
-  }
   return (
     <Board
       type={'list'}

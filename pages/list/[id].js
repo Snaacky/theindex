@@ -12,17 +12,30 @@ import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React from 'react'
-import { getSingleCache } from '../../lib/db/cache'
+import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 
-export default function List({ list, owner }) {
+export default function List({ list, owner, allItems, allColumns }) {
   const [session] = useSession()
+  const router = useRouter()
 
   const { data: swrList } = useSWR('/api/list/' + list._id)
   list = swrList || list
   const { data: swrOwner } = useSWR('/api/user/' + owner.uid)
   owner = swrOwner || owner
+  const { data: swrItems } = useSWR('/api/items')
+  allItems = swrItems || allItems
+  const { data: swrColumns } = useSWR('/api/items')
+  allColumns = swrColumns || allColumns
+
+  const items = list.items.map((itemId) =>
+    allItems.find((item) => item._id === itemId)
+  )
+  const columns = list.columns.map((columnId) =>
+    allColumns.find((column) => column._id === columnId)
+  )
 
   const title = owner.name + "'s list " + list.name
   return (
@@ -39,14 +52,12 @@ export default function List({ list, owner }) {
 
       <h2>
         <IconList /> {list.name}
-        {canEdit(session) ? (
+        {canEdit(session) && (
           <Link href={'/edit/list/' + list._id}>
             <a title={'Edit list'} className={'ms-2'}>
               <IconEdit />
             </a>
           </Link>
-        ) : (
-          <></>
         )}
         <span style={{ fontSize: '1.2rem' }} className={'float-end'}>
           {list.nsfw && <IconNSFW />}
@@ -61,7 +72,9 @@ export default function List({ list, owner }) {
                   )
                 ) {
                   postData('/api/delete/list', { _id: list._id }, () => {
-                    window.location.href = escape('/lists')
+                    router
+                      .push('/lists')
+                      .then(() => console.log('Deleted list', list._id))
                   })
                 }
               }}
@@ -90,9 +103,9 @@ export default function List({ list, owner }) {
 
       <ItemBoard
         _id={list._id}
-        items={list.items}
-        columns={list.columns}
-        key={list._id}
+        items={items}
+        allItems={allItems}
+        columns={columns}
         canMove={true}
         updateURL={'/api/edit/list'}
         canEdit={isCurrentUser(session, list.owner)}
@@ -113,6 +126,8 @@ export async function getServerSideProps({ params }) {
     props: {
       list,
       owner: await getSingleCache(Types.user, list.owner),
+      allItems: await getAllCache(Types.item),
+      allColumns: await getAllCache(Types.column),
     },
   }
 }

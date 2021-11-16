@@ -24,9 +24,11 @@ import React from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 
 export default function Item({ item, columns, collections }) {
   const [session] = useSession()
+  const router = useRouter()
 
   const { data: swrItem } = useSWR('/api/item/' + item._id)
   item = swrItem || item
@@ -96,7 +98,9 @@ export default function Item({ item, columns, collections }) {
                     )
                   ) {
                     postData('/api/delete/item', { _id: item._id }, () => {
-                      window.location.href = escape('/items')
+                      router
+                        .push('/items')
+                        .then(() => console.log('Deleted item', item._id))
                     })
                   }
                 }}

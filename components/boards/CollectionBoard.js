@@ -5,6 +5,7 @@ import useSWR from 'swr'
 export default function CollectionBoard({
   _id,
   collections,
+  allCollections,
   updateURL = '/api/edit/library',
   updateKey = 'collections',
   deleteURL = '',
@@ -12,16 +13,6 @@ export default function CollectionBoard({
   canMove = true,
   canEdit = false,
 }) {
-  const { data: allCollections } = useSWR('/api/collections')
-  if (!allCollections) {
-    return <Loader />
-  }
-
-  if (collections.length > 0 && typeof collections[0] === 'string') {
-    collections = collections
-      .map((id) => allCollections.find((i) => i._id === id))
-      .filter((t) => typeof t !== 'undefined')
-  }
   return (
     <Board
       type={'collection'}

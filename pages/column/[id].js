@@ -18,9 +18,11 @@ import Meta from '../../components/layout/Meta'
 import { getAllCache } from '../../lib/db/cache'
 import useSWR from 'swr'
 import { Types } from '../../types/Components'
+import { useRouter } from 'next/router'
 
 export default function Column({ column, columns, items }) {
   const [session] = useSession()
+  const router = useRouter()
   const [filter, setFilter] = useState(null)
 
   const { data: swrColumn } = useSWR('/api/column/' + column._id)
@@ -61,19 +63,17 @@ export default function Column({ column, columns, items }) {
         <div className={'col'}>
           <h2>
             <IconColumn /> {column.name}
-            {canEdit(session) ? (
+            {canEdit(session) && (
               <Link href={'/edit/column/' + column._id}>
                 <a className={'ms-2'} title={'Edit column'}>
                   <IconEdit />
                 </a>
               </Link>
-            ) : (
-              ''
             )}
           </h2>
         </div>
         <div className={'mb-2 col-auto'}>
-          {column.nsfw ? <IconNSFW /> : <></>}
+          {column.nsfw && <IconNSFW />}
           {canEdit(session) && (
             <IconDelete
               className={'ms-2'}
@@ -87,7 +87,9 @@ export default function Column({ column, columns, items }) {
                   )
                 ) {
                   postData('/api/delete/column', { _id: column._id }, () => {
-                    window.location.href = escape('/columns')
+                    router
+                      .push('/columns')
+                      .then(() => console.log('Deleted column', column._id))
                   })
                 }
               }}
@@ -111,15 +113,13 @@ export default function Column({ column, columns, items }) {
             <span className={'me-2'}>
               <FontAwesomeIcon icon={['fas', 'filter']} /> Filter:
             </span>
-            {column.type === 'array' || column.type === 'bool' ? (
+            {(column.type === 'array' || column.type === 'bool') && (
               <DataItem
                 data={filter}
                 column={column}
                 name={column.name}
                 onChange={setFilter}
               />
-            ) : (
-              <></>
             )}
           </div>
         </div>
@@ -129,10 +129,8 @@ export default function Column({ column, columns, items }) {
         className={'d-flex flex-wrap mt-2'}
         style={{ marginRight: '-0.5rem' }}
       >
-        {filteredItems.length === 0 ? (
+        {filteredItems.length === 0 && (
           <span className={'text-muted'}>No items found</span>
-        ) : (
-          <></>
         )}
         {filteredItems.map((i) => {
           return <ItemCard item={i} columns={columns} key={i._id} />

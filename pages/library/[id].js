@@ -18,20 +18,22 @@ import React from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 
 export default function Library({ library, collections, items }) {
   const [session] = useSession()
+  const router = useRouter()
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
   library = swrLibrary || library
   const { data: swrCollections } = useSWR('/api/collections')
+  collections = swrCollections || collections
+  const libraryCollections = library.collections.map((collectionId) =>
+    collections.find((collection) => collection._id === collectionId)
+  )
   const collectionsItems = [].concat.apply(
     [],
-    library.collections.map((collectionId) => {
-      return (swrCollections || collections).find(
-        (collection) => collection._id === collectionId
-      ).items
-    })
+    libraryCollections.map((collection) => collection.items)
   )
   const { data: swrItems } = useSWR('/api/items')
   items = (swrItems || items).filter((i) =>
@@ -99,7 +101,11 @@ export default function Library({ library, collections, items }) {
                         '/api/delete/library',
                         { _id: library._id },
                         () => {
-                          window.location.href = escape('/libraries')
+                          router
+                            .push('/libraries')
+                            .then(() =>
+                              console.log('Deleted library', library._id)
+                            )
                         }
                       )
                     }
@@ -132,8 +138,8 @@ export default function Library({ library, collections, items }) {
 
       <CollectionBoard
         _id={library._id}
-        collections={library.collections}
-        key={library._id}
+        collections={libraryCollections}
+        allCollections={collections}
         canEdit={isEditor(session)}
       />
     </>
