@@ -75,6 +75,7 @@ export default function EditorList({ _id, userLists, columns, list }) {
           _id={list._id}
           columns={list.columns}
           allColumns={columns}
+          updateURL={'/api/edit/list'}
           canMove={false}
           canEdit={true}
           forceEditMode={true}

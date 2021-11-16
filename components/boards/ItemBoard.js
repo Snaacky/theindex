@@ -16,9 +16,6 @@ export default function ItemBoard({
   showSponsors = false,
 }) {
   const sponsoredItems = showSponsors ? items.filter((i) => i.sponsor) : []
-  if (showSponsors) {
-    items = items.filter((i) => !i.sponsor)
-  }
 
   return (
     <Board

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { getError } from '../lib/error'
 
 export default function Error({ statusCode, error }) {
@@ -19,9 +20,9 @@ export default function Error({ statusCode, error }) {
       </div>
       <p>{text.toString()}</p>
       <div className={'d-flex justify-content-center'}>
-        <a href={'/'} className={'btn btn-outline-warning'}>
-          Go back
-        </a>
+        <Link href={'/'}>
+          <a className={'btn btn-outline-warning'}>Go back</a>
+        </Link>
       </div>
     </div>
   )

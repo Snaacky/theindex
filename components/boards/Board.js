@@ -41,7 +41,7 @@ const Board = ({
   useEffect(() => {
     setUnselectedContent(
       (allContent || []).filter(
-        (i) => !content.some((ii) => i._id === ii._id)
+        (c) => !content.some((cc) => cc._id === c._id)
       ) || []
     )
     setContent(content)
@@ -221,12 +221,14 @@ const Board = ({
     })
   }
 
-  const filteredContent = filterContent(_content)
+  const filteredContent = filterContent(_content).filter(
+    (cc) => editMode || !sponsorContent.some((c) => c._id === cc._id)
+  )
   const filteredUnselectedContent = filterContent(unselectedContent)
 
   return (
     <>
-      {sponsorContent.length > 0 && (
+      {!editMode && sponsorContent.length > 0 && (
         <div className={'d-flex mb-2'} style={{ marginRight: '-0.5rem' }}>
           {sponsorContent.map((c) =>
             renderSingleContent(c, false, false, false)

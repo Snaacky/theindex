@@ -19,7 +19,12 @@ import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 
-export default function Collection({ collection, libraries, allItems }) {
+export default function Collection({
+  collection,
+  libraries,
+  allItems,
+  columns,
+}) {
   const [session] = useSession()
   const router = useRouter()
 
@@ -35,6 +40,10 @@ export default function Collection({ collection, libraries, allItems }) {
   const { data: swrLibraries } = useSWR('/api/libraries')
   libraries = (swrLibraries || libraries).filter((library) =>
     library.collections.some((t) => t === collection._id)
+  )
+  const { data: swrColumns } = useSWR('/api/columns')
+  columns = collection.columns.map((columnId) =>
+    (swrColumns || columns).find((column) => column._id === columnId)
   )
 
   return (
@@ -139,7 +148,7 @@ export default function Collection({ collection, libraries, allItems }) {
         items={items}
         allItems={allItems}
         showSponsors={true}
-        columns={collection.columns}
+        columns={columns}
         canEdit={canEdit(session)}
       />
     </>
@@ -176,6 +185,7 @@ export async function getStaticProps({ params }) {
       collection,
       libraries: await getAllCache(Types.library),
       allItems: await getAllCache(Types.item),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }

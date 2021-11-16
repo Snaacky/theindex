@@ -27,7 +27,7 @@ export default function List({ list, owner, allItems, allColumns }) {
   owner = swrOwner || owner
   const { data: swrItems } = useSWR('/api/items')
   allItems = swrItems || allItems
-  const { data: swrColumns } = useSWR('/api/items')
+  const { data: swrColumns } = useSWR('/api/columns')
   allColumns = swrColumns || allColumns
 
   const items = list.items.map((itemId) =>

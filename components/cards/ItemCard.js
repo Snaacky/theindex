@@ -22,7 +22,7 @@ export default function ItemCard({
       move={move}
       bodyContent={
         <>
-          {column.yes.length > 0 ? (
+          {column.yes.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
               {column.yes.map((c) => (
                 <BoolValue
@@ -33,19 +33,15 @@ export default function ItemCard({
                 />
               ))}
             </div>
-          ) : (
-            <></>
           )}
-          {!item.sponsor && column.no.length > 0 ? (
+          {!item.sponsor && column.no.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
               {column.no.map((c) => (
                 <BoolValue data={false} column={c} key={c._id} />
               ))}
             </div>
-          ) : (
-            <></>
           )}
-          {column.array.length > 0 ? (
+          {column.array.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
               {column.array.map((c) => {
                 return (
@@ -60,8 +56,6 @@ export default function ItemCard({
                 )
               })}
             </div>
-          ) : (
-            <></>
           )}
         </>
       }

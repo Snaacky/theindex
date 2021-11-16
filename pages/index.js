@@ -6,11 +6,20 @@ import CollectionCard from '../components/cards/CollectionCard'
 import ListCard from '../components/cards/ListCard'
 import LibraryCard from '../components/cards/LibraryCard'
 import Meta from '../components/layout/Meta'
+import { getAllCache } from '../lib/db/cache'
+import { Types } from '../types/Components'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home({ libraries, items, collections, lists }) {
+export default function Home({
+  libraries,
+  items,
+  collections,
+  lists,
+  sponsors,
+  columns,
+}) {
   return (
     <>
       <Head>
@@ -47,6 +56,20 @@ export default function Home({ libraries, items, collections, lists }) {
         })}
       </div>
 
+      {sponsors.length > 0 && (
+        <>
+          <h2>Sponsored items</h2>
+          <div
+            className={'d-flex flex-wrap mb-4'}
+            style={{ marginRight: '-0.5rem' }}
+          >
+            {sponsors.map((item) => {
+              return <ItemCard item={item} columns={columns} key={item._id} />
+            })}
+          </div>
+        </>
+      )}
+
       <div className={'row'}>
         <div className={'col'}>
           <h2 className={'mb-0'}>
@@ -68,7 +91,7 @@ export default function Home({ libraries, items, collections, lists }) {
         style={{ marginRight: '-0.5rem' }}
       >
         {items.map((item) => {
-          return <ItemCard item={item} key={item._id} />
+          return <ItemCard item={item} columns={columns} key={item._id} />
         })}
       </div>
 
@@ -129,9 +152,11 @@ export async function getStaticProps() {
   return {
     props: {
       libraries: (await getLastViews('library', 1000)).slice(0, 6),
-      items: (await getLastViews('item', 1000)).slice(0, 9),
+      items: (await getLastViews('item', 1000)).filter(item => !item.sponsor).slice(0, 9),
       collections: (await getLastViews('collection', 1000)).slice(0, 9),
       lists: (await getLastViews('list', 1000)).slice(0, 9),
+      sponsors: (await getAllCache(Types.item)).filter((item) => item.sponsor),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }

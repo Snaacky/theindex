@@ -12,9 +12,11 @@ const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
   'Every item represents a service and contains various information like which languages it supports or feature it has'
 
-export default function Items({ items }) {
+export default function Items({ items, columns }) {
   const { data: swrItems } = useSWR('/api/items')
   items = swrItems || items
+  const { data: swrColumns } = useSWR('/api/columns')
+  columns = swrColumns || columns
 
   return (
     <>
@@ -38,6 +40,7 @@ export default function Items({ items }) {
       <ItemBoard
         items={items}
         allItems={items}
+        columns={columns}
         deleteURL={'/api/delete/item'}
         canEdit={true}
         showSponsors={true}
@@ -50,6 +53,7 @@ export async function getStaticProps() {
   return {
     props: {
       items: await getAllCache(Types.item),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }
