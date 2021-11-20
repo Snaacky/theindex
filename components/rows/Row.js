@@ -42,121 +42,137 @@ export default function Row({
         ' card bg-2 mb-1'
       }
     >
-      <div className='row g-0'>
-        {move !== null && (
-          <div className={styles.sorter + ' col-auto'}>
-            <a onClick={() => move(-1)}>
-              <FontAwesomeIcon icon={['fas', 'chevron-up']} />
-            </a>
-            <a onClick={() => move(1)}>
-              <FontAwesomeIcon icon={['fas', 'chevron-down']} />
-            </a>
-          </div>
-        )}
-        {add !== null && (
-          <div className={styles.sorter + ' col-auto'}>
-            <a
-              onClick={add}
-              title={'Add ' + type}
-              style={{
-                height: '32px',
-              }}
-            >
-              <IconAdd />
-            </a>
-          </div>
-        )}
-        {imageUrl !== '' && (
-          <div className={styles.column + ' col-auto p-1'}>
-            <Link href={hrefString}>
-              <a title={'View ' + type + ' ' + (content.name ?? '')}>
-                <Image
-                  src={imageUrl}
-                  className='img-fluid rounded-start'
-                  alt='...'
-                  width={64}
-                  height={64}
-                />
-              </a>
-            </Link>
-          </div>
-        )}
-        <div className='col'>
-          <div className={'card-body p-2'}>
-            <h5 className={styles.title + ' card-title'}>
-              {typeof content.urls !== 'undefined' && (
-                <OnlineStatus url={content.urls[0] ?? ''} />
-              )}
-              <Link href={hrefString}>
-                <a title={'View ' + type + ' ' + (content.name ?? '')}>
-                  {content.name ?? <code>Unable to get name</code>}
+      <Link href={hrefString}>
+        <a className={styles.link}>
+          <div className='row g-0'>
+            {move !== null && (
+              <div className={styles.sorter + ' col-auto'}>
+                <a onClick={() => move(-1)}>
+                  <FontAwesomeIcon icon={['fas', 'chevron-up']} />
                 </a>
-              </Link>
-              {typeof content.urls !== 'undefined' && (
-                <IconNewTabLink url={content.urls[0]} />
-              )}
-              {canEdit(session, type) && (
-                <Link
-                  href={'/edit/' + type + '/' + (content.uid ?? content._id)}
+                <a onClick={() => move(1)}>
+                  <FontAwesomeIcon icon={['fas', 'chevron-down']} />
+                </a>
+              </div>
+            )}
+            {add !== null && (
+              <div className={styles.sorter + ' col-auto'}>
+                <a
+                  onClick={add}
+                  title={'Add ' + type}
+                  style={{
+                    height: '32px',
+                  }}
                 >
-                  <a title={'Edit ' + type} className={'ms-2'}>
-                    <IconEdit />
+                  <IconAdd />
+                </a>
+              </div>
+            )}
+            {imageUrl !== '' && (
+              <div className={styles.column + ' col-auto p-1'}>
+                <Link href={hrefString}>
+                  <a title={'View ' + type + ' ' + (content.name ?? '')}>
+                    <Image
+                      src={imageUrl}
+                      className='img-fluid rounded-start'
+                      alt='...'
+                      width={64}
+                      height={64}
+                    />
                   </a>
                 </Link>
-              )}
-              {content.sponsor && (
-                <span className={styles.sponsorBadge + ' ms-2 float-end'}>
-                  <span className={styles.sponsorIcon}>
-                    <IconSponsor size='xs' />
+              </div>
+            )}
+            <div className='col'>
+              <div className={'card-body p-2'}>
+                <h5 className={styles.title + ' card-title'}>
+                  {typeof content.urls !== 'undefined' && (
+                    <OnlineStatus url={content.urls[0] ?? ''} />
+                  )}
+
+                  {typeof content.urls !== 'undefined' ? (
+                    <Link href={content.urls[0]}>
+                      <a title={'Open ' + (content.name ?? '') + ' in new tab'}>
+                        {content.name ?? <code>Unable to get name</code>}
+                      </a>
+                    </Link>
+                  ) : (
+                    <Link href={hrefString}>
+                      <a title={'View ' + type + ' ' + (content.name ?? '')}>
+                        {content.name ?? <code>Unable to get name</code>}
+                      </a>
+                    </Link>
+                  )}
+
+                  {canEdit(session, type) && (
+                    <Link
+                      href={
+                        '/edit/' + type + '/' + (content.uid ?? content._id)
+                      }
+                    >
+                      <a title={'Edit ' + type} className={'ms-2'}>
+                        <IconEdit />
+                      </a>
+                    </Link>
+                  )}
+                  {content.sponsor && (
+                    <span className={styles.sponsorBadge + ' ms-2 float-end'}>
+                      <span className={styles.sponsorIcon}>
+                        <IconSponsor size='xs' />
+                      </span>
+                      Sponsored
+                    </span>
+                  )}
+                  <span className={'float-end'} style={{ fontSize: '1.2rem' }}>
+                    {content.nsfw && (
+                      <span className={'ms-2'}>
+                        <IconNSFW />
+                      </span>
+                    )}
+                    {content.accountType && (
+                      <span className={'ms-2'}>
+                        <DataBadge
+                          name={content.accountType}
+                          style={'primary'}
+                        />
+                      </span>
+                    )}
+                    {type === 'item' && (
+                      <>
+                        <span className={'ms-2'}>
+                          <IconStar item={content} />
+                        </span>
+                        <span className={'ms-2'}>
+                          <IconBookmark item={content} />
+                        </span>
+                      </>
+                    )}
                   </span>
-                  Sponsored
+                </h5>
+
+                <span className={styles.description + ' card-text'}>
+                  {content.description}
                 </span>
-              )}
-              <span className={'float-end'} style={{ fontSize: '1.2rem' }}>
-                {content.nsfw && (
-                  <span className={'ms-2'}>
-                    <IconNSFW />
-                  </span>
-                )}
-                {content.accountType && (
-                  <span className={'ms-2'}>
-                    <DataBadge name={content.accountType} style={'primary'} />
-                  </span>
-                )}
-                {type === 'item' && (
-                  <>
-                    <span className={'ms-2'}>
-                      <IconStar item={content} />
-                    </span>
-                    <span className={'ms-2'}>
-                      <IconBookmark item={content} />
-                    </span>
-                  </>
-                )}
-              </span>
-            </h5>
 
-            <span className={styles.description + ' card-text'}>
-              {content.description}
-            </span>
-
-            {bodyContent}
+                {bodyContent}
+              </div>
+            </div>
+            {remove !== null && (
+              <div className={styles.column + ' col-auto p-1'}>
+                <IconDelete
+                  onClick={remove}
+                  title={'Remove ' + type}
+                  className={'float-end'}
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                  }}
+                />
+              </div>
+            )}
           </div>
-        </div>
-        {remove !== null && (
-          <div className={styles.column + ' col-auto p-1'}>
-            <IconDelete
-              onClick={remove}
-              title={'Remove ' + type}
-              className={'float-end'}
-              style={{
-                width: '42px',
-                height: '42px',
-              }}
-            />
-          </div>
-        )}
-      </div>
+        </a>
+      </Link>
     </div>
   )
 }

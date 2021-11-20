@@ -1,12 +1,25 @@
 .card {
   width: 100%;
   border-right: 3px solid var(--bg-2);
-  transition: border-right-color ease-in-out 0.1s;
+  transition: border-right-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
   min-height: 69px;
+}
+
+.card:hover {
+  box-shadow: 0 0 3px #000;
+  border-right-color: var(--accent-color);
 }
 
 .card.sponsored {
   border-top: 3px solid gold;
+}
+
+.card a.link {
+  color: white;
+}
+
+.card a.link:hover {
+  color: white;
 }
 
 @media (min-width: 992px) {
@@ -25,10 +38,6 @@
   .card {
     width: calc((0.5rem + 1320px - 2 * 0.75rem) / 3 - 0.5rem);
   }
-}
-
-.card:hover {
-  border-right-color: var(--accent-color);
 }
 
 .description {
