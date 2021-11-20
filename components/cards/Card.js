@@ -6,7 +6,6 @@ import styles from './Card.module.css'
 import IconEdit from '../icons/IconEdit'
 import IconDelete from '../icons/IconDelete'
 import IconAdd from '../icons/IconAdd'
-import IconNewTabLink from '../icons/IconNewTabLink'
 import DataBadge from '../data/DataBadge'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '../loading'
@@ -15,6 +14,7 @@ import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
+import Title from '../text/Title'
 
 export default function Card({
   type,
@@ -77,19 +77,11 @@ export default function Card({
                     <OnlineStatus url={content.urls[0] ?? ''} />
                   )}
 
-                  {typeof content.urls !== 'undefined' ? (
-                    <Link href={content.urls[0]}>
-                      <a title={'Open ' + (content.name ?? '') + ' in new tab'}>
-                        {content.name ?? <code>Unable to get name</code>}
-                      </a>
-                    </Link>
-                  ) : (
-                    <Link href={hrefString}>
-                      <a title={'View ' + type + ' ' + (content.name ?? '')}>
-                        {content.name ?? <code>Unable to get name</code>}
-                      </a>
-                    </Link>
-                  )}
+                  <Title
+                    type={type}
+                    content={content}
+                    contentLink={hrefString}
+                  />
 
                   {canEdit(session, type) && (
                     <>

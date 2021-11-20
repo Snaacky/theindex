@@ -10,11 +10,11 @@ import IconEdit from '../icons/IconEdit'
 import DataBadge from '../data/DataBadge'
 import Loader from '../loading'
 import IconBookmark from '../icons/IconBookmark'
-import IconNewTabLink from '../icons/IconNewTabLink'
 import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
+import Title from '../text/Title'
 
 export default function Row({
   type,
@@ -39,7 +39,7 @@ export default function Row({
         styles.row +
         ' ' +
         (content.sponsor ? styles.sponsored : '') +
-        ' card bg-2 mb-1'
+        ' card bg-2 mb-2'
       }
     >
       <Link href={hrefString}>
@@ -90,19 +90,11 @@ export default function Row({
                     <OnlineStatus url={content.urls[0] ?? ''} />
                   )}
 
-                  {typeof content.urls !== 'undefined' ? (
-                    <Link href={content.urls[0]}>
-                      <a title={'Open ' + (content.name ?? '') + ' in new tab'}>
-                        {content.name ?? <code>Unable to get name</code>}
-                      </a>
-                    </Link>
-                  ) : (
-                    <Link href={hrefString}>
-                      <a title={'View ' + type + ' ' + (content.name ?? '')}>
-                        {content.name ?? <code>Unable to get name</code>}
-                      </a>
-                    </Link>
-                  )}
+                  <Title
+                    type={type}
+                    content={content}
+                    contentLink={hrefString}
+                  />
 
                   {canEdit(session, type) && (
                     <Link
