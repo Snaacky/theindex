@@ -35,6 +35,9 @@ export default function Column({ column, columns, items }) {
   const filteredItems = items.filter((i) => {
     if (filter === null) {
       return true
+    } else if (typeof i.data[column._id] === 'undefined') {
+      // item does not have data about the column
+      return false
     }
 
     if (column.type === 'array') {
