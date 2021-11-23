@@ -32,7 +32,7 @@ export async function getSingleCache(
       return null
     }
 
-    updateSingleCache(type, _id, data)
+    await updateSingleCache(type, _id, data)
     if (!parse) {
       return JSON.stringify(data)
     }
@@ -57,7 +57,7 @@ export async function updateSingleCache(
     data = await findOne(singularToPlural(type), search)
   }
 
-  setCache(type + '-' + _id, data)
+  await setCache(type + '-' + _id, data)
 }
 
 /**
@@ -82,7 +82,7 @@ export async function getAllCache(
       return null
     }
 
-    setCache(plural, data)
+    await setCache(plural, data)
     if (!parse) {
       return JSON.stringify(data)
     }
@@ -98,10 +98,14 @@ export async function getAllCache(
  */
 export async function updateAllCache(type: Types, data?: string | object) {
   if (typeof data === 'undefined') {
-    data = await getAll(singularToPlural(type))
+    if (type === Types.user) {
+      data = await getUsers()
+    } else {
+      data = await getAll(singularToPlural(type))
+    }
   }
 
-  setCache(singularToPlural(type), data)
+  await setCache(singularToPlural(type), data)
 }
 
 /**
