@@ -9,6 +9,8 @@ import { useSession } from 'next-auth/client'
 import { canEdit } from '../../lib/session'
 import classNames from 'classnames'
 import styles from './Board.module.css'
+import DataBadge from '../data/DataBadge'
+import ItemCard from '../cards/ItemCard'
 
 const Board = ({
   _id,
@@ -230,50 +232,69 @@ const Board = ({
     <>
       {!editMode && sponsorContent.length > 0 && (
         <div className={'d-flex mb-2'} style={{ marginRight: '-0.5rem' }}>
-          {sponsorContent.map((c) =>
-            renderSingleContent(c, false, false, false)
-          )}
+          {sponsorContent.map((c) => (
+            <ItemCard item={c} columns={columns} />
+          ))}
         </div>
       )}
       <div className={'card card-body bg-2 mb-2'}>
-        <div>
-          <button
-            className={'btn btn-outline-primary me-2 mb-2'}
-            type={'button'}
-            onClick={() => setShowFilter(!showFilter)}
-            aria-expanded='false'
-            aria-controls={'collapseFilter'}
-          >
-            <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
-          </button>
-          <button
-            className={classNames(
-              styles.gridListToggle,
-              'btn btn-outline-secondary me-2 mb-2'
+        <div className={'row g-2'}>
+          <div className={'col-12 col-sm-6 col-md-auto'}>
+            {columns.length > 0 && (
+              <button
+                className={'btn btn-outline-primary me-2'}
+                type={'button'}
+                onClick={() => setShowFilter(!showFilter)}
+                aria-expanded='false'
+                aria-controls={'collapseFilter'}
+              >
+                <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
+              </button>
             )}
-            type={'button'}
-            onClick={() => setCardView(!cardView)}
-          >
-            <FontAwesomeIcon
-              icon={['fas', cardView ? 'th-list' : 'th-large']}
-              className={'me-2'}
-            />
-            {cardView ? 'List' : 'Grid'}
-          </button>
-          {columns.length > 0 && (
             <button
-              className={'btn btn-outline-secondary me-2 mb-2'}
+              className={classNames(
+                styles.gridListToggle,
+                'btn btn-outline-secondary'
+              )}
               type={'button'}
-              onClick={() => setCompactView(!compactView)}
+              onClick={() => setCardView(!cardView)}
             >
               <FontAwesomeIcon
-                icon={['fas', compactView ? 'expand' : 'compress']}
-                className={'me-2'}
-              />
-              {compactView ? 'More details' : 'Less details'}
+                icon={['fas', cardView ? 'th-list' : 'th-large']}
+              />{' '}
+              {cardView ? 'List' : 'Grid'}
             </button>
-          )}
-          <div className={'float-end'}>
+            {columns.length > 0 && (
+              <button
+                className={'btn btn-outline-secondary ms-2'}
+                type={'button'}
+                onClick={() => setCompactView(!compactView)}
+              >
+                <FontAwesomeIcon
+                  icon={['fas', compactView ? 'expand' : 'compress']}
+                  className={'me-2'}
+                />
+                {compactView ? 'More details' : 'Less details'}
+              </button>
+            )}
+          </div>
+          <div className={'col-12 col-sm-6 col-md'}>
+            <div className={'input-group'}>
+              <span className='input-group-text' id='inputSearchStringAddon'>
+                <FontAwesomeIcon icon={['fas', 'search']} />
+              </span>
+              <input
+                value={searchString}
+                type={'text'}
+                className={'form-control'}
+                onChange={(e) => setSearchString(e.target.value.toLowerCase())}
+                aria-label={'Search input'}
+                placeholder={'Type something to search...'}
+                aria-describedby={'inputSearchStringAddon'}
+              />
+            </div>
+          </div>
+          <div className={'col-12 col-lg-auto'}>
             <CreateNewButton type={type} allowEdit={allowEdit} />
             {!forceEditMode && canEdit(session, type) && (
               <button
@@ -287,30 +308,27 @@ const Board = ({
             )}
           </div>
         </div>
-        <div
-          id={'collapseFilterBoard-' + randString}
-          className={'collapse' + (showFilter ? ' show' : '')}
-        >
-          <div className={'input-group mb-2'}>
-            <span className='input-group-text' id='inputSearchStringAddon'>
-              <FontAwesomeIcon icon={['fas', 'search']} />
-            </span>
-            <input
-              value={searchString}
-              type={'text'}
-              className={'form-control'}
-              onChange={(e) => setSearchString(e.target.value.toLowerCase())}
-              aria-label={'Search input'}
-              placeholder={'Type something to search...'}
-              aria-describedby={'inputSearchStringAddon'}
+
+        {columns.length > 0 && (
+          <div
+            id={'collapseFilterBoard-' + randString}
+            className={'collapse mb-2' + (showFilter ? ' show' : '')}
+          >
+            <ColumnFilter
+              columns={columns}
+              filter={columnFilter}
+              setFilter={setColumnFilter}
             />
           </div>
-          <ColumnFilter
-            columns={columns}
-            filter={columnFilter}
-            setFilter={setColumnFilter}
-          />
-        </div>
+        )}
+        {type === 'item' && (
+          <div className={''}>
+            <span className={'me-2'}>
+              <DataBadge data={true} name={'Pros'} />
+            </span>
+            <DataBadge data={false} name={'Cons'} />
+          </div>
+        )}
       </div>
       <div
         className={'d-flex flex-wrap mb-2'}

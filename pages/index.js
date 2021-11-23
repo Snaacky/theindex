@@ -152,7 +152,9 @@ export async function getStaticProps() {
   return {
     props: {
       libraries: (await getLastViews('library', 1000)).slice(0, 6),
-      items: (await getLastViews('item', 1000)).filter(item => !item.sponsor).slice(0, 9),
+      items: (await getLastViews('item', 1000))
+        .filter((item) => !item.sponsor)
+        .slice(0, 9),
       collections: (await getLastViews('collection', 1000)).slice(0, 9),
       lists: (await getLastViews('list', 1000)).slice(0, 9),
       sponsors: (await getAllCache(Types.item)).filter((item) => item.sponsor),
