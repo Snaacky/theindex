@@ -217,9 +217,7 @@ export default function Item({ item, columns, collections }) {
         <>
           <div className={'card bg-2 my-2'}>
             <div className={'card-body'}>
-              <h5 className={'card-title text-success'}>
-                Pros
-              </h5>
+              <h5 className={'card-title text-success'}>Pros</h5>
               <div className={'d-flex flex-wrap'}>
                 {yesColumns.length === 0 && (
                   <span className={'text-muted'}>No data found</span>
@@ -235,9 +233,7 @@ export default function Item({ item, columns, collections }) {
 
           <div className={'card bg-2 my-2'}>
             <div className={'card-body'}>
-              <h5 className={'card-title text-danger'}>
-                Cons
-              </h5>
+              <h5 className={'card-title text-danger'}>Cons</h5>
               <div className={'d-flex flex-wrap'}>
                 {noColumns.length === 0 && (
                   <span className={'text-muted'}>No data found</span>
