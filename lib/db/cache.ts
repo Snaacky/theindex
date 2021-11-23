@@ -53,8 +53,11 @@ export async function updateSingleCache(
   data?: string | object
 ) {
   if (typeof data === 'undefined') {
-    const search = type === Types.user ? { uid: _id } : { _id: _id }
-    data = await findOne(singularToPlural(type), search)
+    if (type === Types.user) {
+      data = await getUser(_id)
+    } else {
+      data = await findOne(singularToPlural(type), { _id: _id })
+    }
   }
 
   await setCache(type + '-' + _id, data)
