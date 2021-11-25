@@ -20,7 +20,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
           href={content.urls[0]}
           title={'Open ' + (content.name ?? '') + ' in new tab'}
           className={
-            'umami--click--' +
+            'umami--click--open-' +
             (content.sponsor ? 'sponsored-' : '') +
             content.name
           }
