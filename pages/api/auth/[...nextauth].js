@@ -17,7 +17,7 @@ const nextAuth = NextAuth({
           session.user.uid = uid
           session.user.accountType = accountType
         } catch (e) {
-          console.warn('Failed to get user uid and accountType for session', e)
+          console.warn('Failed to get user uid and accountType for user', user, e)
         }
       }
       return session
