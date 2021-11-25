@@ -16,11 +16,9 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   if (type === Types.item) {
     if (isValidUrl(content.urls[0])) {
       return (
-        <Link href={content.urls[0]}>
-          <a title={'Open ' + (content.name ?? '') + ' in new tab'}>
-            {content.name ?? <code>Unable to get name</code>}
-          </a>
-        </Link>
+        <a href={content.urls[0]} title={'Open ' + (content.name ?? '') + ' in new tab'}>
+          {content.name ?? <code>Unable to get name</code>}
+        </a>
       )
     }
 
