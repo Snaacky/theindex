@@ -12,12 +12,21 @@ const nextAuth = NextAuth({
     // we want to access the user id
     async session(session, user) {
       if (user) {
-        try {
-          const { uid, accountType } = await getUser(user.id)
-          session.user.uid = uid
-          session.user.accountType = accountType
-        } catch (e) {
-          console.warn('Failed to get user uid and accountType for user', user, e)
+        const id = user.id.toString()
+        session.user.uid = id
+
+        const userData = await getUser(id)
+        // create user account if not found
+        if (userData === null) {
+          console.log('User ', user.name, ' (', id, ')could not be found, creating new user')
+          await addUser({
+            uid: id,
+            accountType: 'user',
+          })
+
+          session.user.accountType = 'user'
+        } else {
+          session.user.accountType = userData.accountType
         }
       }
       return session
