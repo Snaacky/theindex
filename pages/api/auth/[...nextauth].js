@@ -12,9 +12,13 @@ const nextAuth = NextAuth({
     // we want to access the user id
     async session(session, user) {
       if (user) {
-        const { uid, accountType } = await getUser(user.id)
-        session.user.uid = uid
-        session.user.accountType = accountType
+        try {
+          const { uid, accountType } = await getUser(user.id)
+          session.user.uid = uid
+          session.user.accountType = accountType
+        } catch (e) {
+          console.warn('Failed to get user uid and accountType for session', e)
+        }
       }
       return session
     },
