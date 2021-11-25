@@ -16,7 +16,15 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   if (type === Types.item) {
     if (isValidUrl(content.urls[0])) {
       return (
-        <a href={content.urls[0]} title={'Open ' + (content.name ?? '') + ' in new tab'}>
+        <a
+          href={content.urls[0]}
+          title={'Open ' + (content.name ?? '') + ' in new tab'}
+          className={
+            'umami--click--' +
+            (content.sponsor ? 'sponsored-' : '') +
+            content.name
+          }
+        >
           {content.name ?? <code>Unable to get name</code>}
         </a>
       )
@@ -38,7 +46,10 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
 
   return (
     <Link href={contentLink}>
-      <a title={'View ' + type + ' ' + (content.name ?? '')}>
+      <a
+        title={'View ' + type + ' ' + (content.name ?? '')}
+        className={'umami--click--' + type + '-' + content.name}
+      >
         {content.name ?? (
           <code>
             <kbd>Unable to get name</kbd>

@@ -18,7 +18,13 @@ const nextAuth = NextAuth({
         const userData = await getUser(id)
         // create user account if not found
         if (userData === null) {
-          console.log('User ', user.name, ' (', id, ')could not be found, creating new user')
+          console.log(
+            'User ',
+            user.name,
+            ' (',
+            id,
+            ')could not be found, creating new user'
+          )
           await addUser({
             uid: id,
             accountType: 'user',

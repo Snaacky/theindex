@@ -43,7 +43,11 @@ export default function Card({
       }
     >
       <Link href={hrefString}>
-        <a className={styles.link}>
+        <a
+          className={
+            styles.link + ' umami--click--' + type + '-' + content.name
+          }
+        >
           <div className='row g-0'>
             {move !== null && (
               <div className={styles.sorter + ' col-auto'}>
@@ -58,7 +62,10 @@ export default function Card({
             {imageUrl !== '' && (
               <div className={'col-auto'}>
                 <Link href={hrefString}>
-                  <a title={'View ' + type + ' ' + (content.name ?? '')}>
+                  <a
+                    title={'View ' + type + ' ' + (content.name ?? '')}
+                    className={'umami--click--' + type + '-' + content.name}
+                  >
                     <Image
                       src={imageUrl}
                       className='img-fluid rounded-start'

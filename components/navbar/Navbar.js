@@ -79,7 +79,7 @@ export default function Navbar() {
               <ul className={styles.listAll + ' nav nav-pills'}>
                 <li className={'nav-item ms-2'}>
                   <Link href={'/libraries'}>
-                    <a className={'nav-link'}>
+                    <a className={'nav-link umami--click--navbar-libraries'}>
                       <IconLibrary />
                       <span className={styles.listAllText + ' ms-1'}>
                         Libraries
@@ -89,7 +89,7 @@ export default function Navbar() {
                 </li>
                 <li className={'nav-item ms-1'}>
                   <Link href={'/collections'}>
-                    <a className={'nav-link'}>
+                    <a className={'nav-link umami--click--navbar-collections'}>
                       <IconCollection />
                       <span className={styles.listAllText + ' ms-1'}>
                         Collections
@@ -100,7 +100,7 @@ export default function Navbar() {
                 {canEdit(session) && (
                   <li className={'nav-item ms-1'}>
                     <Link href={'/items'}>
-                      <a className={'nav-link'}>
+                      <a className={'nav-link umami--click--navbar-items'}>
                         <IconItem />
                         <span className={styles.listAllText + ' ms-1'}>
                           Items
@@ -115,7 +115,9 @@ export default function Navbar() {
               <ul className={'nav nav-pills'}>
                 <li className={styles.desktop + ' nav-item me-1'}>
                   <a
-                    className={'nav-link d-flex align-items-center'}
+                    className={
+                      'nav-link d-flex align-items-center umami--click--navbar-wiki'
+                    }
                     href='https://wiki.piracy.moe/'
                     style={{ lineHeight: 1 }}
                   >
@@ -130,7 +132,9 @@ export default function Navbar() {
                 </li>
                 <li className={styles.desktop + ' nav-item me-1'}>
                   <a
-                    className={'nav-link d-flex align-items-center'}
+                    className={
+                      'nav-link d-flex align-items-center umami--click--navbar-seadex'
+                    }
                     href='https://releases.moe/'
                   >
                     <Image

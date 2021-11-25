@@ -39,7 +39,7 @@ export default function NavbarDropdown({
               {c}
             </li>
           ))}
-          {viewAllUrl ? (
+          {viewAllUrl && (
             <>
               <hr className={'dropdown-divider'} />
               <li className={'nav-item'} onClick={onClick}>
@@ -48,8 +48,6 @@ export default function NavbarDropdown({
                 </Link>
               </li>
             </>
-          ) : (
-            <></>
           )}
         </ul>
       </div>

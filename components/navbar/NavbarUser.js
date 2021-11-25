@@ -12,7 +12,11 @@ export default function NavbarUser({ className }) {
       <>
         <li className={'nav-item'}>
           <Link href={'/user/' + session.user.uid}>
-            <a className={'nav-link d-flex align-items-center'}>
+            <a
+              className={
+                'nav-link d-flex align-items-center umami--click--navbar-profile'
+              }
+            >
               <Image
                 src={session.user.image || '/img/puzzled.png'}
                 width={24}

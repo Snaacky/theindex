@@ -116,7 +116,14 @@ function Sidebar({ show, setShow }, ref) {
                               href={'/collection/' + collection.urlId}
                               key={collection.urlId}
                             >
-                              <a className={'nav-link'}>{collection.name}</a>
+                              <a
+                                className={
+                                  'nav-link umami--click--collection-' +
+                                  collection.name
+                                }
+                              >
+                                {collection.name}
+                              </a>
                             </Link>
                           )
                         }
@@ -132,35 +139,35 @@ function Sidebar({ show, setShow }, ref) {
           <ul className={'nav nav-pills flex-column'} onClick={clickFunc}>
             <li className={'nav-item'}>
               <Link href={'/libraries'}>
-                <a className={'nav-link'}>
+                <a className={'nav-link umami--click--navbar-libraries'}>
                   <IconLibrary /> Libraries
                 </a>
               </Link>
             </li>
             <li className={'nav-item'}>
               <Link href={'/collections'}>
-                <a className={'nav-link'}>
+                <a className={'nav-link umami--click--navbar-collections'}>
                   <IconCollection /> Collections
                 </a>
               </Link>
             </li>
             <li className={'nav-item'}>
               <Link href={'/columns'}>
-                <a className={'nav-link'}>
+                <a className={'nav-link umami--click--navbar-columns'}>
                   <IconColumn /> Columns
                 </a>
               </Link>
             </li>
             <li className={'nav-item'}>
               <Link href={'/items'}>
-                <a className={'nav-link'}>
+                <a className={'nav-link umami--click--navbar-items'}>
                   <IconItem /> Items
                 </a>
               </Link>
             </li>
             <li className={'nav-item'}>
               <Link href={'/lists'}>
-                <a className={'nav-link'}>
+                <a className={'nav-link umami--click--navbar-lists'}>
                   <IconList /> User lists
                 </a>
               </Link>
@@ -174,7 +181,9 @@ function Sidebar({ show, setShow }, ref) {
               targetId={'navbar-menu-services'}
               contentList={[
                 <a
-                  className={'nav-link d-flex align-items-center'}
+                  className={
+                    'nav-link d-flex align-items-center umami--click--navbar-wiki'
+                  }
                   href='https://wiki.piracy.moe/'
                   key={'wiki'}
                 >
@@ -187,7 +196,9 @@ function Sidebar({ show, setShow }, ref) {
                   <span className={'ms-1'}>Wiki</span>
                 </a>,
                 <a
-                  className={'nav-link d-flex align-items-center'}
+                  className={
+                    'nav-link d-flex align-items-center umami--click--navbar-seadex'
+                  }
                   href='https://releases.moe/'
                   key={'seadex'}
                 >
@@ -200,7 +211,9 @@ function Sidebar({ show, setShow }, ref) {
                   <span className={'ms-1'}>SeaDex</span>
                 </a>,
                 <a
-                  className={'nav-link d-flex align-items-center'}
+                  className={
+                    'nav-link d-flex align-items-center umami--click--navbar-old-index'
+                  }
                   href='https://piracy.moe/'
                   key={'old-index'}
                 >
@@ -220,7 +233,7 @@ function Sidebar({ show, setShow }, ref) {
               targetId={'navbar-menu-social-media'}
               contentList={[
                 <a
-                  className={'nav-link'}
+                  className={'nav-link umami--click--navbar-reddit'}
                   href={'https://www.reddit.com/r/animepiracy/'}
                   key={'reddit'}
                   target={'_blank'}
@@ -229,7 +242,7 @@ function Sidebar({ show, setShow }, ref) {
                   <FontAwesomeIcon icon={['fab', 'reddit']} /> Reddit
                 </a>,
                 <a
-                  className={'nav-link'}
+                  className={'nav-link umami--click--navbar-discord'}
                   href={'https://discord.gg/piracy'}
                   key={'discord'}
                   target={'_blank'}
@@ -238,7 +251,7 @@ function Sidebar({ show, setShow }, ref) {
                   <FontAwesomeIcon icon={['fab', 'discord']} /> Discord
                 </a>,
                 <a
-                  className={'nav-link'}
+                  className={'nav-link umami--click--navbar-twitter'}
                   href={'https://twitter.com/ranimepiracy'}
                   key={'twitter'}
                   target={'_blank'}
@@ -247,7 +260,7 @@ function Sidebar({ show, setShow }, ref) {
                   <FontAwesomeIcon icon={['fab', 'twitter']} /> Twitter
                 </a>,
                 <a
-                  className={'nav-link'}
+                  className={'nav-link umami--click--navbar-github'}
                   href={'https://github.com/ranimepiracy/index'}
                   key={'github'}
                   target={'_blank'}
