@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isValidUrl } from '../../lib/utils'
 import styles from './IconNewTabLink.module.css'
 
-export default function IconNewTabLink({ url, size }) {
+export default function IconNewTabLink({ url, size, className = '' }) {
   if (isValidUrl(url)) {
     return (
       <a
-        className={styles.link + ' ms-2'}
+        className={styles.link + ' ms-2 ' + className}
         target={'_blank'}
         href={url}
         rel='noreferrer'

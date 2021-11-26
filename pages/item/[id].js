@@ -77,7 +77,10 @@ export default function Item({ item, columns, collections }) {
             ) : (
               item.name
             )}
-            <IconNewTabLink url={item.urls[0]} />
+            <IconNewTabLink
+              url={item.urls[0]}
+              className={'umami--click--open-' + item.name}
+            />
             {canEdit(session) && (
               <Link href={'/edit/item/' + item._id}>
                 <a title={'Edit item'} className={'ms-2'}>
@@ -124,7 +127,11 @@ export default function Item({ item, columns, collections }) {
 
           <div className={'d-flex flex-wrap'}>
             {item.urls.map((url) => (
-              <UrlBadge url={url} key={url} />
+              <UrlBadge
+                url={url}
+                key={url}
+                className={'umami--click--open-' + item.name}
+              />
             ))}
           </div>
 

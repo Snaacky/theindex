@@ -2,14 +2,14 @@ import styles from './UrlBadge.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isValidUrl } from '../../lib/utils'
 
-export default function UrlBadge({ url }) {
+export default function UrlBadge({ url, className = '' }) {
   if (isValidUrl(url)) {
     return (
       <a
         href={url}
         target={'_blank'}
         rel={'noreferrer'}
-        className={'me-2 mb-2'}
+        className={'me-2 mb-2 ' + className}
       >
         <div className={styles.badge + ' badge rounded-pill'}>
           {url}
