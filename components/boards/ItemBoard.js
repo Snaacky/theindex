@@ -15,6 +15,7 @@ export default function ItemBoard({
   canEdit = false,
   showSponsors = false,
 }) {
+  items = items.filter((i) => typeof i !== 'undefined' && i !== null)
   const sponsoredItems = showSponsors ? items.filter((i) => i.sponsor) : []
 
   return (
