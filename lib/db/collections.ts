@@ -2,30 +2,34 @@ import { deleteOne, find, findOne, getAll, insert, updateOne } from './db'
 import { getLibraries, updateLibrary } from './libraries'
 import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
 import { Types } from '../../types/Components'
+import { Collection, CollectionUpdate } from '../../types/Collection'
+import { Library } from '../../types/Library'
 
-export async function getCollections() {
-  const collections = await getAll('collections')
+export async function getCollections(): Promise<Collection[]> {
+  const collections = (await getAll('collections')) as Collection[]
   return collections.map((collection) => {
     collection.img = collection.img || 'puzzled.png'
     return collection
   })
 }
 
-export async function getCollection(_id) {
-  const c = await findOne('collections', { _id })
-  c.img = c.img || 'puzzled.png'
+export async function getCollection(_id: string): Promise<Collection | null> {
+  const c = (await findOne('collections', { _id })) as Collection
+  if (c !== null) {
+    c.img = c.img || 'puzzled.png'
+  }
   return c
 }
 
 export async function addCollection(
-  urlId,
-  img,
-  name,
-  nsfw,
-  description,
-  columns,
-  items
-) {
+  urlId: string,
+  img = 'puzzled.png',
+  name: string,
+  nsfw = false,
+  description = '',
+  columns: string[] = [],
+  items: string[] = []
+): Promise<string> {
   if (!urlId || !name) {
     throw Error('Adding collection and no urlId or name specified')
   }
@@ -46,24 +50,24 @@ export async function addCollection(
 }
 
 export async function updateCollection(
-  _id,
-  { urlId, img, name, nsfw, description, columns, items }
+  _id: string,
+  { urlId, img, name, nsfw, description, columns, items }: CollectionUpdate
 ) {
   if (!_id) {
     throw Error('Updating collection and no _id specified')
   }
 
-  let data = {}
-  if (urlId) {
+  let data: Record<string, any> = {}
+  if (typeof urlId === 'string') {
     data.urlId = urlId
   }
-  if (img) {
+  if (typeof img === 'string') {
     data.img = img
   }
-  if (name) {
+  if (typeof name === 'string') {
     data.name = name.trim()
   }
-  if (typeof nsfw !== 'undefined') {
+  if (typeof nsfw === 'boolean') {
     data.nsfw = nsfw
   }
   if (typeof description === 'string') {
@@ -80,7 +84,10 @@ export async function updateCollection(
   await updateSingleCache(Types.collection, _id)
 }
 
-export async function updateCollectionLibraries(_id, tLibraries) {
+export async function updateCollectionLibraries(
+  _id: string,
+  tLibraries: string[]
+) {
   if (!_id) {
     throw Error('Updating collection libraries and no _id specified')
   }
@@ -103,12 +110,12 @@ export async function updateCollectionLibraries(_id, tLibraries) {
   )
 }
 
-export async function deleteCollection(_id) {
+export async function deleteCollection(_id: string) {
   // remove collection entry from libraries
   const librariesWithCollection = (
-    await find('libraries', {
+    (await find('libraries', {
       collections: [_id],
-    })
+    })) as Library[]
   ).map((library) => {
     library.collections = library.collections.filter((t) => t !== _id)
     return library
@@ -126,7 +133,7 @@ export async function deleteCollection(_id) {
   const libraries = await getAll('libraries')
   await updateAllCache(Types.library, libraries)
   librariesWithCollection.map(async (library) => {
-    await updateSingleCache(Types.library, library)
+    await updateSingleCache(Types.library, library._id)
   })
 
   // remove collection

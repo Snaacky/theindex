@@ -1,14 +1,6 @@
 import { ObjectId } from 'mongodb'
-import {
-  count,
-  deleteOne,
-  find,
-  findOne,
-  getAll,
-  insert,
-  updateOne,
-} from './db'
-import { deleteList, getList, getLists } from './lists'
+import { count, deleteOne, findOne, getAll, insert, updateOne } from './db'
+import { deleteList, getLists } from './lists'
 import {
   clearSingleCache,
   getSingleCache,
@@ -16,12 +8,9 @@ import {
   updateSingleCache,
 } from './cache'
 import { Types } from '../../types/Components'
+import { AccountType, User, UserUpdate } from '../../types/User'
 
-export async function userExists(uid) {
-  if (typeof uid !== 'string') {
-    uid = uid.toString()
-  }
-
+export async function userExists(uid: string): Promise<boolean> {
   // manual query required as getUser does way more
   return (
     (await findOne('users', {
@@ -30,7 +19,7 @@ export async function userExists(uid) {
   )
 }
 
-async function gatherUserInfo(user) {
+async function gatherUserInfo(user: User): Promise<User> {
   if (user === null || typeof user === 'undefined') {
     console.warn(
       'Well... gathering user data of',
@@ -38,15 +27,21 @@ async function gatherUserInfo(user) {
       'is going to be difficult'
     )
     return {
+      _id: '',
+      accountType: AccountType.user,
+      description: '',
+      uid: '',
       name: '',
       image: '',
       favs: [],
       lists: [],
       followLists: [],
-    }
+    } as User
   }
 
-  const data = await findOne('nextauth_users', { _id: ObjectId(user.uid) })
+  const data = (await findOne('nextauth_users', {
+    _id: ObjectId(user.uid),
+  })) as User
   if (typeof data.name !== 'string') {
     console.warn('User has invalid name', data.name)
   }
@@ -85,21 +80,19 @@ async function gatherUserInfo(user) {
   return user
 }
 
-export async function getUsers() {
-  const users = await getAll('users')
+export async function getUsers(): Promise<User[]> {
+  const users = (await getAll('users')) as User[]
   return await Promise.all(
-    users.map(async ({ uid }) => await getSingleCache(Types.user, uid))
+    users.map(
+      async ({ uid }) => (await getSingleCache(Types.user, uid)) as User
+    )
   )
 }
 
-export async function getUser(uid) {
-  if (typeof uid !== 'string') {
-    uid = uid.toString()
-  }
-
-  const user = await findOne('users', {
+export async function getUser(uid: string): Promise<User | null> {
+  const user = (await findOne('users', {
     uid,
-  })
+  })) as User
   if (user === null) {
     return null
   }
@@ -107,7 +100,11 @@ export async function getUser(uid) {
   return await gatherUserInfo(user)
 }
 
-export async function addUser({ uid, accountType, description = '' }) {
+export async function addUser({
+  uid,
+  accountType = AccountType.user,
+  description = '',
+}) {
   if (!uid) {
     throw Error('Adding user and no uid specified')
   }
@@ -117,7 +114,7 @@ export async function addUser({ uid, accountType, description = '' }) {
   }
   await insert('users', {
     uid,
-    accountType: accountType || '',
+    accountType: accountType || AccountType.user,
     description: description || '',
     favs: [],
     lists: [],
@@ -129,18 +126,14 @@ export async function addUser({ uid, accountType, description = '' }) {
 }
 
 export async function updateUser(
-  uid,
-  { accountType, description, favs, lists, followLists }
+  uid: string,
+  { accountType, description, favs, lists, followLists }: UserUpdate
 ) {
   if (!uid) {
     throw Error('Updating user and no uid specified')
   }
 
-  if (typeof uid !== 'string') {
-    uid = uid.toString()
-  }
-
-  let data = {}
+  let data: Record<string, any> = {}
   if (accountType) {
     data.accountType = accountType
   }
@@ -160,11 +153,7 @@ export async function updateUser(
   await updateSingleCache(Types.user, uid)
 }
 
-export async function deleteUser(uid) {
-  if (typeof uid !== 'string') {
-    uid = uid.toString()
-  }
-
+export async function deleteUser(uid: string) {
   // delete list with user as owner
   const allLists = await getLists()
   await Promise.all(
@@ -180,6 +169,6 @@ export async function deleteUser(uid) {
   await updateAllCache(Types.user)
 }
 
-export async function countUsers() {
+export async function countUsers(): Promise<number> {
   return await count('users')
 }

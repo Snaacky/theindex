@@ -1,5 +1,7 @@
 // docker run --name index-db -d -p 27017:27017 mongo
 import { MongoClient, ObjectId } from 'mongodb'
+import { hasOwnProperty } from '../utils'
+import { Types } from '../../types/Components'
 
 export function getClient() {
   const uri =
@@ -9,7 +11,7 @@ export function getClient() {
   return new MongoClient(uri, { maxPoolSize: 5, useUnifiedTopology: true })
 }
 
-export async function importData(data) {
+export async function importData(data: Record<string, any>) {
   for (const [key, value] of Object.entries(data)) {
     await insertMany(key, value)
   }
@@ -26,55 +28,47 @@ export async function exportData() {
   }
 }
 
-export function cleanId(data) {
+export function cleanId(data: Record<string, any>) {
   if (typeof data !== 'undefined' && data !== null) {
     if (Array.isArray(data)) {
-      return data.map((d) => {
-        if (d._id) {
-          d._id = d._id.toString()
-        }
-        if (d.lastModified) {
-          d.lastModified = d.lastModified.toString()
-        }
-        if (d.createdAt) {
-          d.createdAt = d.createdAt.toString()
-        }
-        return d
-      })
+      return data.map((d) => cleanId(d))
     }
-    if (data._id) {
+    if (hasOwnProperty(data, '_id')) {
       data._id = data._id.toString()
     }
-    if (data.lastModified) {
+    if (hasOwnProperty(data, 'lastModified')) {
       data.lastModified = data.lastModified.toString()
     }
-    if (data.createdAt) {
+    if (hasOwnProperty(data, 'createdAt')) {
       data.createdAt = data.createdAt.toString()
     }
   }
   return data
 }
 
-export function polluteId(query) {
+export function polluteId(query: Record<string, any>) {
   if (typeof query !== 'undefined') {
-    if (query._id && typeof query._id === 'string') {
+    if (hasOwnProperty(query, '_id') && typeof query._id === 'string') {
       query._id = ObjectId(query._id)
     }
-    if (query.lastModified && typeof query.lastModified === 'string') {
+    if (
+      hasOwnProperty(query, 'lastModified') &&
+      typeof query.lastModified === 'string'
+    ) {
       query.lastModified = new Date(query.lastModified)
     }
   }
   return query
 }
 
-export async function getAll(collection) {
+export async function getAll(collection: string): Promise<object[]> {
   let data = []
   const client = getClient()
   try {
     await client.connect()
     const db = client.db('index')
     data = await db.collection(collection).find().toArray()
-    if (data.length > 0 && 'name' in data[0]) {
+    if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
       data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
     }
   } finally {
@@ -83,7 +77,10 @@ export async function getAll(collection) {
   return cleanId(data)
 }
 
-export async function find(collection, query) {
+export async function find(
+  collection: string,
+  query: Record<string, any>
+): Promise<object[]> {
   let data = []
   const client = getClient()
   try {
@@ -97,7 +94,10 @@ export async function find(collection, query) {
   return cleanId(data)
 }
 
-export async function findOne(collection, query) {
+export async function findOne(
+  collection: string,
+  query: Record<string, any>
+): Promise<object | null> {
   let data = []
   const client = getClient()
   try {
@@ -111,7 +111,10 @@ export async function findOne(collection, query) {
   return cleanId(data)
 }
 
-export async function count(collection, query) {
+export async function count(
+  collection: string,
+  query: Record<string, any> = {}
+): Promise<number> {
   const client = getClient()
   let data
   try {
@@ -125,11 +128,17 @@ export async function count(collection, query) {
   return cleanId(data)
 }
 
-export async function getByUrlId(collection, urlId) {
+export async function getByUrlId(
+  collection: string,
+  urlId: string
+): Promise<object | null> {
   return await findOne(collection, { urlId })
 }
 
-export async function insert(collection, data) {
+export async function insert(
+  collection: string,
+  data: Record<string, any>
+): Promise<string> {
   const client = getClient()
   try {
     await client.connect()
@@ -143,7 +152,10 @@ export async function insert(collection, data) {
   }
 }
 
-export async function insertMany(collection, data) {
+export async function insertMany(
+  collection: string,
+  data: Record<string, any>
+) {
   const client = getClient()
   try {
     await client.connect()
@@ -158,7 +170,11 @@ export async function insertMany(collection, data) {
   }
 }
 
-export async function updateOne(collection, query, data) {
+export async function updateOne(
+  collection: string,
+  query: Record<string, any>,
+  data: Record<string, any>
+) {
   const client = getClient()
   try {
     query = polluteId(query)
@@ -173,7 +189,10 @@ export async function updateOne(collection, query, data) {
   }
 }
 
-export async function deleteOne(collection, query) {
+export async function deleteOne(
+  collection: string,
+  query: Record<string, any>
+) {
   const client = getClient()
   try {
     query = polluteId(query)
@@ -185,18 +204,18 @@ export async function deleteOne(collection, query) {
   }
 }
 
-export function singularToPlural(type) {
-  if (type === 'item') {
+export function singularToPlural(type: Types) {
+  if (type === Types.item) {
     return 'items'
-  } else if (type === 'column') {
+  } else if (type === Types.column) {
     return 'columns'
-  } else if (type === 'collection') {
+  } else if (type === Types.collection) {
     return 'collections'
-  } else if (type === 'library') {
+  } else if (type === Types.library) {
     return 'libraries'
-  } else if (type === 'user') {
+  } else if (type === Types.user) {
     return 'users'
-  } else if (type === 'list') {
+  } else if (type === Types.list) {
     return 'lists'
   } else {
     throw 'Unknown type'

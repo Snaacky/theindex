@@ -1,20 +1,26 @@
 import { deleteOne, find, findOne, getAll, insert, updateOne } from './db'
-import { randIcon } from '../icon'
 import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
 import { Types } from '../../types/Components'
 import { getUser, updateUser } from './users'
+import { List, ListUpdate } from '../../types/List'
+import { User } from '../../types/User'
 
-export async function getLists() {
-  const lists = await getAll('lists')
-  lists.forEach((t) => (t.img = randIcon()))
-  return lists
+export async function getLists(): Promise<List[]> {
+  return (await getAll('lists')) as List[]
 }
 
-export async function getList(_id) {
-  return await findOne('lists', { _id })
+export async function getList(_id: string): Promise<List | null> {
+  return (await findOne('lists', { _id })) as List
 }
 
-export async function addList(owner, name, nsfw, description, columns, items) {
+export async function addList(
+  owner: string,
+  name: string,
+  nsfw: boolean = false,
+  description: string = '',
+  columns: string[] = [],
+  items: string[] = []
+): Promise<string> {
   if (!owner || !name) {
     throw Error('Adding list and no owner or name specified')
   }
@@ -33,17 +39,14 @@ export async function addList(owner, name, nsfw, description, columns, items) {
 }
 
 export async function updateList(
-  _id,
-  { owner, name, nsfw, description, columns, items }
+  _id: string,
+  { name, nsfw, description, columns, items }: ListUpdate
 ) {
   if (!_id) {
     throw Error('Updating list and no _id specified')
   }
 
-  let data = {}
-  if (owner) {
-    data.owner = owner
-  }
+  let data: Record<string, any> = {}
   if (name) {
     data.name = name.trim()
   }
@@ -63,7 +66,7 @@ export async function updateList(
   await updateSingleCache(Types.list, _id)
 }
 
-export async function deleteList(_id) {
+export async function deleteList(_id: string) {
   // remove list entry from owner
   const list = await getList(_id)
   const owner = await getUser(list.owner)
@@ -75,9 +78,9 @@ export async function deleteList(_id) {
 
   // remove list entry from user follows
   const usersWithFollow = (
-    await find('users', {
+    (await find('users', {
       followLists: [_id],
-    })
+    })) as User[]
   ).map((user) => {
     user.followLists = user.followLists.filter((t) => t !== _id)
     return user
@@ -91,12 +94,11 @@ export async function deleteList(_id) {
   )
 
   // update cache
-  const users = await getAll('users')
-  await updateAllCache(Types.user, users)
   await updateSingleCache(Types.user, owner.uid, owner)
   usersWithFollow.map(async (user) => {
-    await updateSingleCache(Types.user, user)
+    await updateSingleCache(Types.user, user.uid)
   })
+  await updateAllCache(Types.user)
 
   // remove list
   await deleteOne('lists', { _id })

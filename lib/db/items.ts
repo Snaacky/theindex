@@ -11,35 +11,38 @@ import { getCollections, updateCollection } from './collections'
 import { updateUser } from './users'
 import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
 import { Types } from '../../types/Components'
+import { Item, ItemUpdate } from '../../types/Item'
+import { User } from '../../types/User'
+import { List } from '../../types/List'
+import { updateList } from './lists'
+import { Collection } from '../../types/Collection'
 
-export async function getItems() {
+export async function getItems(): Promise<Item[]> {
   return await Promise.all(
-    (
-      await getAll('items')
-    ).map(async (i) => {
-      i.stars = await count('users', { favs: i._id })
+    ((await getAll('items')) as Item[]).map(async (i) => {
+      i.stars = await count('users', { favs: [i._id] })
       return i
     })
   )
 }
 
-export async function getItem(_id) {
-  const item = await findOne('items', { _id: _id })
-  if (item) {
-    item.stars = await count('users', { favs: _id })
+export async function getItem(_id: string): Promise<Item | null> {
+  const item = (await findOne('items', { _id: _id })) as Item
+  if (item !== null) {
+    item.stars = await count('users', { favs: [_id] })
   }
   return item
 }
 
 export async function addItem(
-  name,
-  urls,
-  nsfw,
-  description,
-  blacklist,
-  sponsor,
-  data
-) {
+  name: string,
+  urls: string,
+  nsfw: boolean = false,
+  description: string = '',
+  blacklist: boolean = false,
+  sponsor: boolean = false,
+  data: Record<string, boolean | string | string[]>
+): Promise<string> {
   if (!name) {
     throw Error('Adding item and no name specified')
   }
@@ -60,13 +63,13 @@ export async function addItem(
 
 export async function updateItem(
   _id,
-  { name, urls, nsfw, description, blacklist, sponsor, data }
+  { name, urls, nsfw, description, blacklist, sponsor, data }: ItemUpdate
 ) {
   if (!_id) {
     throw Error('Updating item and no _id specified')
   }
 
-  let _data = {}
+  let _data: Record<string, any> = {}
   if (name) {
     _data.name = name.trim()
   }
@@ -95,7 +98,10 @@ export async function updateItem(
   await updateSingleCache(Types.item, _id)
 }
 
-export async function updateItemCollections(_id, iCollections) {
+export async function updateItemCollections(
+  _id: string,
+  iCollections: string[]
+) {
   if (!_id) {
     throw Error('Updating item collections and no _id specified')
   }
@@ -118,12 +124,12 @@ export async function updateItemCollections(_id, iCollections) {
   )
 }
 
-export async function deleteItem(_id) {
+export async function deleteItem(_id: string) {
   // remove item entry from favs
   const usersWithFav = (
-    await find('users', {
+    (await find('users', {
       favs: [_id],
-    })
+    })) as User[]
   ).map((user) => {
     user.favs = user.favs.filter((t) => t !== _id)
     return user
@@ -139,16 +145,16 @@ export async function deleteItem(_id) {
 
   // remove item entry from user lists
   const listsWithItem = (
-    await find('lists', {
+    (await find('lists', {
       items: [_id],
-    })
+    })) as List[]
   ).map((list) => {
     list.items = list.items.filter((t) => t !== _id)
     return list
   })
   await Promise.all(
     listsWithItem.map(async (list) => {
-      await updateUser(list._id, {
+      await updateList(list._id, {
         items: list.items,
       })
     })
@@ -156,9 +162,9 @@ export async function deleteItem(_id) {
 
   // remove item entry from collections
   const collectionsWithItem = (
-    await find('collections', {
+    (await find('collections', {
       items: [_id],
-    })
+    })) as Collection[]
   ).map((collection) => {
     collection.items = collection.items.filter((t) => t !== _id)
     return collection
@@ -172,21 +178,18 @@ export async function deleteItem(_id) {
   )
 
   // update cache
-  const users = await getAll('users')
-  await updateAllCache(Types.user, users)
   usersWithFav.map(async (user) => {
-    await updateSingleCache(Types.user, user)
+    await updateSingleCache(Types.user, user.uid)
   })
-  const lists = await getAll('lists')
-  await updateAllCache(Types.list, lists)
   listsWithItem.map(async (list) => {
-    await updateSingleCache(Types.list, list)
+    await updateSingleCache(Types.list, list._id)
   })
-  const collections = await getAll('collections')
-  await updateAllCache(Types.collection, collections)
   collectionsWithItem.map(async (collection) => {
-    await updateSingleCache(Types.collection, collection)
+    await updateSingleCache(Types.collection, collection._id)
   })
+  await updateAllCache(Types.user)
+  await updateAllCache(Types.collection)
+  await updateAllCache(Types.list)
 
   // remove item
   await deleteOne('items', { _id })

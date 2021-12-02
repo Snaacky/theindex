@@ -8,7 +8,7 @@ export enum Statuses {
   ping = 'Still waiting for request to ping API to finish',
 }
 
-export type StatusData = {
+export interface StatusData {
   url: string
   time: string
   status: string
