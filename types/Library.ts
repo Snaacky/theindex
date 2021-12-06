@@ -1,4 +1,4 @@
-import {Collection} from "./Collection";
+import { Collection } from './Collection'
 
 export interface Library {
   _id: string

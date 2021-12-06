@@ -1,7 +1,11 @@
 import { count, deleteOne, findOne, getAll, insert, updateOne } from './db'
 import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
 import { Types } from '../../types/Components'
-import {Library, LibraryUpdate, LibraryWithCollection} from '../../types/Library'
+import {
+  Library,
+  LibraryUpdate,
+  LibraryWithCollection,
+} from '../../types/Library'
 
 export async function getLibraries(): Promise<Library[]> {
   return ((await getAll('libraries')) as Library[]).sort((a, b) =>
@@ -77,19 +81,21 @@ export async function updateLibrary(
   await updateSingleCache(Types.library, _id)
 }
 
-export async function getLibrariesWithCollections(): Promise<LibraryWithCollection[]> {
+export async function getLibrariesWithCollections(): Promise<
+  LibraryWithCollection[]
+> {
   const libraries = await getLibraries()
   return await Promise.all(
-      libraries.map(async (t) => {
-        // @ts-ignore
-        t.collections = await Promise.all(
-            t.collections.map(
-                async (collection) =>
-                    await findOne('collections', { _id: collection })
-            )
+    libraries.map(async (t) => {
+      // @ts-ignore
+      t.collections = await Promise.all(
+        t.collections.map(
+          async (collection) =>
+            await findOne('collections', { _id: collection })
         )
-        return t as unknown as LibraryWithCollection
-      })
+      )
+      return t as unknown as LibraryWithCollection
+    })
   )
 }
 
