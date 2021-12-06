@@ -9,10 +9,10 @@ export default async function apiAdminScreenshotClear(req, res) {
   }
 
   if (!req.body.clearScreenshot) {
-    return res.status(403).send('Are you sure you want to clear the cache?')
+    return res.status(403).send('Are you sure you want to wipe all screenshots?')
   }
 
   await clearAllScreenshots()
-  console.log('Cleared cache')
-  res.status(200).send('Cache cleared')
+  console.log('Wiped screenshots')
+  res.status(200).send('Wiped screenshots')
 }
