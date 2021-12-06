@@ -26,6 +26,14 @@ export default function Admin({ images: staticImages }) {
       >
         Clear cache
       </button>
+      <button
+        className={'btn btn-outline-danger mb-2 me-2'}
+        onClick={() => {
+          postData('/api/admin/screenshot/clear', { clearScreenshot: true })
+        }}
+      >
+        Wipe screenshots
+      </button>
       <a
         className={'btn btn-outline-secondary mb-2 me-2'}
         href={'/api/export'}
