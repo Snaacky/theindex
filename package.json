@@ -23,7 +23,7 @@
     "jsdom": "^18.1.0",
     "meilisearch": "^0.22.3",
     "mongodb": "^3.7.3",
-    "next": "^12.0.3",
+    "next": "^12.0.5",
     "next-auth": "^3.29.0",
     "next-pwa": "^5.4.0",
     "node-fetch": "^3.1.0",
