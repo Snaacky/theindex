@@ -26,10 +26,10 @@ const Board = ({
   canMove = true,
   canEdit: allowEdit = false,
 }) => {
+  allContent = allContent || content
   const [_content, setContent] = useState(content)
   const [unselectedContent, setUnselectedContent] = useState(
-    (allContent || []).filter((i) => !content.some((ii) => i._id === ii._id)) ||
-      []
+    allContent.filter((i) => !content.some((ii) => i._id === ii._id))
   )
   const [searchString, setSearchString] = useState('')
 
@@ -42,12 +42,12 @@ const Board = ({
 
   useEffect(() => {
     setUnselectedContent(
-      (allContent || []).filter(
-        (c) => !content.some((cc) => cc._id === c._id)
-      ) || []
+      allContent.filter((c) => !_content.some((cc) => cc._id === c._id))
     )
+  }, [_content, allContent])
+  useEffect(() => {
     setContent(content)
-  }, [content, allContent])
+  }, [content])
 
   const randString = Math.random().toString(36).slice(2)
 
@@ -95,6 +95,7 @@ const Board = ({
   ) => {
     return (
       <CardRowView
+        key={renderContent._id}
         cardView={cardView}
         type={type}
         content={renderContent}
@@ -187,9 +188,9 @@ const Board = ({
         return false
       }
 
-      const filter = columns
+      return columns
         .filter((column) => typeof columnFilter[column._id] !== 'undefined')
-        .map((column) => {
+        .every((column) => {
           console.log(
             'Filter for column',
             column,
@@ -218,8 +219,6 @@ const Board = ({
             .toLowerCase()
             .includes(columnFilter[column._id].toLowerCase())
         })
-
-      return filter.every((f) => f)
     })
   }
 

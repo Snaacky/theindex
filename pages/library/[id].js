@@ -14,15 +14,18 @@ import ItemCard from '../../components/cards/ItemCard'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
-import React from 'react'
+import React, { useState } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
+import ItemBoard from '../../components/boards/ItemBoard'
+import FlexRow from '../../components/flexRow/FlexRow'
 
 export default function Library({ library, collections, items }) {
   const [session] = useSession()
   const router = useRouter()
+  const [showCollections, setShowCollections] = useState(false)
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
   library = swrLibrary || library
@@ -136,12 +139,51 @@ export default function Library({ library, collections, items }) {
         })}
       </div>
 
-      <CollectionBoard
-        _id={library._id}
-        collections={libraryCollections}
-        allCollections={collections}
-        canEdit={isEditor(session)}
-      />
+      <h4>
+        Show me all{' '}
+        <div
+          className='btn-group'
+          role='group'
+          aria-label='Toggle collection/item view'
+        >
+          <button
+            type='button'
+            className={
+              'btn btn-' + (showCollections ? 'outline-' : '') + 'primary'
+            }
+            onClick={() => setShowCollections(false)}
+          >
+            Items
+          </button>
+          <button
+            type='button'
+            className={
+              'btn btn-' + (!showCollections ? 'outline-' : '') + 'primary'
+            }
+            onClick={() => setShowCollections(true)}
+          >
+            Collections
+          </button>
+        </div>
+      </h4>
+
+      {showCollections ? (
+        <CollectionBoard
+          _id={library._id}
+          collections={libraryCollections}
+          allCollections={collections}
+          canEdit={isEditor(session)}
+        />
+      ) : (
+        <>
+          <FlexRow type={Types.collection} contents={libraryCollections} />
+          <ItemBoard
+            _id={library._id}
+            items={items}
+            canEdit={isEditor(session)}
+          />
+        </>
+      )}
     </>
   )
 }
