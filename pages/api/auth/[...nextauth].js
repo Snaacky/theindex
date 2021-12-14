@@ -2,12 +2,17 @@ import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
 import { addUser, getUser } from '../../../lib/db/users'
 
+// TODO: migrate to v4 https://next-auth.js.org/getting-started/upgrade-v4
 const discord = Providers.Discord({
   clientId: process.env.DISCORD_CLIENT_ID,
   clientSecret: process.env.DISCORD_CLIENT_SECRET,
 })
 const nextAuth = NextAuth({
   providers: [discord],
+  theme: {
+    brandColor: '#0d6efd',
+    logo: 'https://piracy.moe/icons/logo.png',
+  },
   callbacks: {
     // we want to access the user id
     async session(session, user) {
