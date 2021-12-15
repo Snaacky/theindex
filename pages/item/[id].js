@@ -70,7 +70,7 @@ export default function Item({ item, columns, collections }) {
       <div className={'row'}>
         <div className={'col-12 col-md-4 col-lg-6 col-xl-4'}>
           <h2>
-            <IconItem />{' '}
+            <OnlineStatus url={item.urls[0] ?? ''} />
             {item.blacklist ? (
               <span className={'text-danger'}>
                 Blacklisted: <del>{item.name}</del>
@@ -111,37 +111,11 @@ export default function Item({ item, columns, collections }) {
               />
             )}
           </h2>
-          <div className={'mb-2'}>
-            {collections.map((t) => {
-              return (
-                <Link href={'/collection/' + t.urlId} key={t._id}>
-                  <a
-                    className={'me-2 mb-2'}
-                    title={'View collection ' + t.name}
-                  >
-                    <DataBadge name={t.name} style={'primary'} />
-                  </a>
-                </Link>
-              )
-            })}
-          </div>
 
-          <div className={'d-flex flex-wrap'}>
-            {item.urls.map((url) => (
-              <UrlBadge
-                url={url}
-                key={url}
-                className={'umami--click--open-' + item.name}
-              />
-            ))}
-          </div>
-
-          <div>
-            <span>
-              Status <OnlineStatus url={item.urls[0] ?? ''} />
-            </span>
+          <p>
+            User starred this item:{' '}
             <small
-              className={'text-warning me-2'}
+              className={'text-warning'}
               title={
                 item.stars +
                 ' user' +
@@ -152,7 +126,7 @@ export default function Item({ item, columns, collections }) {
               {item.stars}
               <FontAwesomeIcon icon={['fas', 'star']} className={'ms-1'} />
             </small>
-          </div>
+          </p>
 
           <p
             style={{
@@ -228,6 +202,41 @@ export default function Item({ item, columns, collections }) {
       )}
       {(!item.blacklist || canEdit(session)) && (
         <>
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body pb-1'}>
+              <h5 className={'card-title'}>Collections including this item</h5>
+              <div className={'d-flex flex-wrap'}>
+                {collections.map((t) => {
+                  return (
+                    <Link href={'/collection/' + t.urlId} key={t._id}>
+                      <a
+                        className={'me-2 mb-2'}
+                        title={'View collection ' + t.name}
+                      >
+                        <DataBadge name={t.name} style={'primary'} />
+                      </a>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body pb-1'}>
+              <h5 className={'card-title'}>Official links</h5>
+              <div className={'d-flex flex-wrap'}>
+                {item.urls.map((url) => (
+                  <UrlBadge
+                    url={url}
+                    key={url}
+                    className={'umami--click--open-' + item.name}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className={'card bg-2 my-2'}>
             <div className={'card-body'}>
               <h5 className={'card-title text-success'}>Pros</h5>

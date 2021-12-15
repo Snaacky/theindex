@@ -18,6 +18,7 @@ import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
+import DataBadge from '../../components/data/DataBadge'
 
 export default function Collection({
   collection,
@@ -60,9 +61,9 @@ export default function Collection({
         />
       </Head>
 
-      <div className={'row'} style={{ marginTop: '4rem' }}>
+      <div className={'row'}>
         <div className={'col-auto'}>
-          <div className={'d-absolute mb-2'} style={{ marginTop: '-3.2rem' }}>
+          <div className={'d-absolute mb-2'}>
             <Image
               src={'/img/' + collection.img}
               alt={'Image of collection'}
@@ -120,7 +121,21 @@ export default function Collection({
               </span>
             </div>
           </div>
-          <div>
+
+          <p
+            style={{
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {collection.description}
+          </p>
+        </div>
+      </div>
+
+      <div className={'card bg-2 my-2'}>
+        <div className={'card-body pb-1'}>
+          <h5 className={'card-title'}>Part of the libraries</h5>
+          <div className={'d-flex flex-wrap'}>
             {libraries.map((t) => {
               return (
                 <Link href={'/library/' + t.urlId} key={t._id}>
@@ -135,13 +150,6 @@ export default function Collection({
           </div>
         </div>
       </div>
-      <p
-        style={{
-          whiteSpace: 'pre-line',
-        }}
-      >
-        {collection.description}
-      </p>
 
       <ItemBoard
         _id={collection._id}

@@ -41,7 +41,7 @@ const OnlineStatus: FC<Props> = ({ url }) => {
       style = styles.up
       text = Statuses.up
     } else if (data.status === 'unknown') {
-      style = styles.unknownt
+      style = styles.unknown
       text = Statuses.unknown
     }
   }

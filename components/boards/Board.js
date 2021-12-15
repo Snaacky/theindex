@@ -11,6 +11,7 @@ import classNames from 'classnames'
 import styles from './Board.module.css'
 import DataBadge from '../data/DataBadge'
 import ItemCard from '../cards/ItemCard'
+import { Types } from '../../types/Components'
 
 const Board = ({
   _id,
@@ -236,7 +237,11 @@ const Board = ({
           ))}
         </div>
       )}
-      <div className={'card card-body bg-2 mb-2'}>
+      <div
+        className={
+          'card card-body bg-2 mb-2' + (type === Types.item ? ' pb-1' : '')
+        }
+      >
         <div className={'row g-2'}>
           <div className={'col-12 col-sm-6 col-md-auto'}>
             {columns.length > 0 && (
@@ -320,7 +325,7 @@ const Board = ({
             />
           </div>
         )}
-        {type === 'item' && (
+        {type === Types.item && (
           <div className={''}>
             <span className={'me-2'}>
               <DataBadge data={true} name={'Pros'} />

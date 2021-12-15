@@ -57,9 +57,9 @@ export default function Library({ library, collections, items }) {
         />
       </Head>
 
-      <div className={'row'} style={{ marginTop: '4rem' }}>
+      <div className={'row'}>
         <div className={'col-auto'}>
-          <div className={'d-absolute mb-2'} style={{ marginTop: '-3.2rem' }}>
+          <div className={'d-absolute mb-2'}>
             <Image
               src={'/img/' + library.img}
               alt={'Image of collection'}
@@ -74,14 +74,12 @@ export default function Library({ library, collections, items }) {
             <div className={'col'}>
               <h2>
                 <IconLibrary /> {library.name}
-                {canEdit(session) ? (
+                {canEdit(session) && (
                   <Link href={'/edit/library/' + library._id}>
                     <a title={'Edit tab'} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
-                ) : (
-                  <></>
                 )}
               </h2>
             </div>
@@ -119,15 +117,16 @@ export default function Library({ library, collections, items }) {
               </span>
             </div>
           </div>
+
+          <p
+            style={{
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {library.description}
+          </p>
         </div>
       </div>
-      <p
-        style={{
-          whiteSpace: 'pre-line',
-        }}
-      >
-        {library.description}
-      </p>
 
       <div
         className={'d-flex flex-wrap mb-2'}
