@@ -15,6 +15,7 @@ import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
 import Title from '../text/Title'
+import classNames from 'classnames'
 
 export default function Card({
   type,
@@ -42,7 +43,7 @@ export default function Card({
         ' card bg-2 mb-2 me-2'
       }
     >
-      <div className='row g-0'>
+      <div className='row g-0 h-100'>
         {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
             <a onClick={() => move(-1)}>
@@ -71,7 +72,7 @@ export default function Card({
             </Link>
           </div>
         )}
-        <div className='col'>
+        <div className='col h-100'>
           <div className={'card-body d-flex flex-column p-2 h-100'}>
             <h5 className={styles.title + ' card-title'}>
               {typeof content.urls !== 'undefined' && (
@@ -141,9 +142,11 @@ export default function Card({
 
             <Link href={hrefString}>
               <a
-                className={
-                  styles.link + ' umami--click--' + type + '-' + content.name
-                }
+                className={classNames(
+                  styles.link,
+                  'umami--click--' + type + '-' + content.name,
+                  'h-100'
+                )}
               >
                 <span className={styles.description + ' card-text'}>
                   {content.description}

@@ -231,7 +231,10 @@ const Board = ({
   return (
     <>
       {!editMode && sponsorContent.length > 0 && (
-        <div className={'d-flex mb-2'} style={{ marginRight: '-0.5rem' }}>
+        <div
+          className={'d-flex flex-wrap mb-2'}
+          style={{ marginRight: '-0.5rem' }}
+        >
           {sponsorContent.map((c) => (
             <ItemCard item={c} columns={columns} key={c._id} />
           ))}
