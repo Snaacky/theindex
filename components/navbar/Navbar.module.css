@@ -76,10 +76,10 @@
   .listAllText {
     display: none;
   }
-
+  /*
   .navbar .toggler {
     margin-left: auto;
-  }
+  }*/
 }
 
 /**
@@ -105,12 +105,6 @@
   .listAll,
   .navbar .toggler:not(.show),
   .outside .toggler:not(.show) {
-    display: none;
-  }
-}
-
-@media (min-width: 600px) {
-  .sidebar .toggler {
     display: none;
   }
 }

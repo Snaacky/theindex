@@ -40,15 +40,11 @@ function Sidebar({ show, setShow }, ref) {
     >
       <div className={styles.header + ' offcanvas-header'}>
         <div className={'container-fluid d-flex flex-row align-items-center'}>
-          <div onClick={clickFunc}>
+          <NavbarToggler show={show} onClick={clickFunc} />
+
+          <div onClick={clickFunc} className={'ms-2'}>
             <NavbarBrand />
           </div>
-
-          <NavbarToggler
-            show={show}
-            onClick={clickFunc}
-            className={'ms-auto'}
-          />
         </div>
       </div>
 

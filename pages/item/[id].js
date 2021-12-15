@@ -32,6 +32,7 @@ export default function Item({ item, columns, collections }) {
 
   const { data: swrItem } = useSWR('/api/item/' + item._id)
   item = swrItem || item
+  item.stars = item.stars || 0
   const { data: swrColumns } = useSWR('/api/columns')
   columns = swrColumns || columns
   const { data: swrCollections } = useSWR('/api/collections')
@@ -141,7 +142,12 @@ export default function Item({ item, columns, collections }) {
             </span>
             <small
               className={'text-warning me-2'}
-              title={item.stars + ' users have starred this item'}
+              title={
+                item.stars +
+                ' user' +
+                (item.stars === 1 ? '' : 's') +
+                ' have starred this item'
+              }
             >
               {item.stars}
               <FontAwesomeIcon icon={['fas', 'star']} className={'ms-1'} />

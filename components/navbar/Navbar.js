@@ -73,6 +73,12 @@ export default function Navbar() {
 
       <nav className={styles.navbar + ' navbar navbar-dark navbar-expand'}>
         <div className={'container-fluid'}>
+          <NavbarToggler
+            show={show}
+            onClick={() => setShow(!show)}
+            ref={navbarToggleRef}
+            className={(!show ? styles.show : '') + ' me-2'}
+          />
           <NavbarBrand />
           <div className={'collapse navbar-collapse me-2'}>
             <div className={'d-flex flex-row'}>
@@ -150,12 +156,6 @@ export default function Navbar() {
                   <NavbarUser className={styles.username} />
                 </span>
               </ul>
-              <NavbarToggler
-                show={show}
-                onClick={() => setShow(!show)}
-                ref={navbarToggleRef}
-                className={(!show ? styles.show : '') + ' ms-2'}
-              />
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './NavbarToggler.module.css'
 import navStyles from './Navbar.module.css'
+import classNames from 'classnames'
 
 function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
   return (
@@ -10,9 +11,12 @@ function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
       onClick={onClick}
       ref={ref}
       aria-label={(show ? 'Close' : 'Open') + ' navigation'}
-      className={
-        styles.toggle + ' ' + navStyles.toggler + ' btn shadow ' + className
-      }
+      className={classNames(
+        styles.toggle,
+        navStyles.toggler,
+        'btn shadow',
+        className
+      )}
       onTouchStart={() => {
         if (typeof onTouchStart === 'function') {
           onTouchStart()
