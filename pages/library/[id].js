@@ -41,7 +41,6 @@ export default function Library({ library, collections, items }) {
   items = (swrItems || items).filter((i) =>
     collectionsItems.some((item) => i._id === item)
   )
-  const sponsoredItems = items.filter((item) => item.sponsor)
 
   return (
     <>
@@ -128,19 +127,10 @@ export default function Library({ library, collections, items }) {
         </div>
       </div>
 
-      <div
-        className={'d-flex flex-wrap mb-2'}
-        style={{ marginRight: '-0.5rem' }}
-      >
-        {sponsoredItems.map((item) => {
-          return <ItemCard item={item} key={item._id} />
-        })}
-      </div>
-
-      <h4>
-        Show me all{' '}
+      <h4 className={'mb-3'}>
+        Show me all
         <div
-          className='btn-group'
+          className='btn-group ms-2'
           role='group'
           aria-label='Toggle collection/item view'
         >
@@ -176,6 +166,7 @@ export default function Library({ library, collections, items }) {
         <ItemBoard
           _id={library._id}
           items={items}
+          showSponsors={true}
           canEdit={isEditor(session)}
         />
       )}
