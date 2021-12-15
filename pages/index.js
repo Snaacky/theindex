@@ -8,7 +8,6 @@ import LibraryCard from '../components/cards/LibraryCard'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import FlexRow from '../components/flexRow/FlexRow'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -48,7 +47,14 @@ export default function Home({
           </Link>
         </div>
       </div>
-      <FlexRow type={Types.library} contents={libraries} />
+      <div
+        className={'d-flex flex-wrap mb-4'}
+        style={{ marginRight: '-0.5rem' }}
+      >
+        {libraries.map((library) => {
+          return <LibraryCard library={library} key={library._id} />
+        })}
+      </div>
 
       {sponsors.length > 0 && (
         <>
@@ -80,7 +86,14 @@ export default function Home({
           </Link>
         </div>
       </div>
-      <FlexRow type={Types.item} contents={items} />
+      <div
+        className={'d-flex flex-wrap mb-4'}
+        style={{ marginRight: '-0.5rem' }}
+      >
+        {items.map((item) => {
+          return <ItemCard item={item} columns={columns} key={item._id} />
+        })}
+      </div>
 
       <div className={'row'}>
         <div className={'col'}>
@@ -98,7 +111,14 @@ export default function Home({
           </Link>
         </div>
       </div>
-      <FlexRow type={Types.collection} contents={collections} />
+      <div
+        className={'d-flex flex-wrap mb-4'}
+        style={{ marginRight: '-0.5rem' }}
+      >
+        {collections.map((collection) => {
+          return <CollectionCard collection={collection} key={collection._id} />
+        })}
+      </div>
 
       <div className={'row'}>
         <div className={'col'}>
@@ -116,7 +136,14 @@ export default function Home({
           </Link>
         </div>
       </div>
-      <FlexRow type={Types.list} contents={lists} />
+      <div
+        className={'d-flex flex-wrap mb-4'}
+        style={{ marginRight: '-0.5rem' }}
+      >
+        {lists.map((list) => {
+          return <ListCard list={list} key={list._id} />
+        })}
+      </div>
     </>
   )
 }

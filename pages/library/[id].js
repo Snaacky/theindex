@@ -20,7 +20,6 @@ import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import ItemBoard from '../../components/boards/ItemBoard'
-import FlexRow from '../../components/flexRow/FlexRow'
 
 export default function Library({ library, collections, items }) {
   const [session] = useSession()
@@ -175,14 +174,11 @@ export default function Library({ library, collections, items }) {
           canEdit={isEditor(session)}
         />
       ) : (
-        <>
-          <FlexRow type={Types.collection} contents={libraryCollections} />
-          <ItemBoard
-            _id={library._id}
-            items={items}
-            canEdit={isEditor(session)}
-          />
-        </>
+        <ItemBoard
+          _id={library._id}
+          items={items}
+          canEdit={isEditor(session)}
+        />
       )}
     </>
   )
