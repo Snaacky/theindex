@@ -237,11 +237,7 @@ const Board = ({
           ))}
         </div>
       )}
-      <div
-        className={
-          'card card-body bg-2 mb-2' + (type === Types.item ? ' pb-1' : '')
-        }
-      >
+      <div className={'card card-body bg-2 mb-2 pb-1'}>
         <div className={'row g-2'}>
           <div className={'col-12 col-sm-6 col-md-auto'}>
             {columns.length > 0 && (
