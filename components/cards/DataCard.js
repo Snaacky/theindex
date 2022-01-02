@@ -15,14 +15,12 @@ export default function DataCard({ data, column, onChange = null }) {
           <Link href={'/column/' + column.urlId}>
             <a title={'View column ' + column.name}>{column.name}</a>
           </Link>
-          {canEdit(session) ? (
+          {canEdit(session) && (
             <Link href={'/edit/column/' + column._id}>
               <a className={'ms-2'} title={'Edit column'}>
                 <IconEdit />
               </a>
             </Link>
-          ) : (
-            ''
           )}
         </h5>
 

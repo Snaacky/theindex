@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
+import { ColumnType } from '../../types/Column'
 
 export default function EditColumn({
   columns,
@@ -19,7 +20,7 @@ export default function EditColumn({
 }) {
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
-  const [typeState, setType] = useState(type || 'bool')
+  const [typeState, setType] = useState(type || ColumnType.boolean)
   const [valuesState, setValues] = useState(
     (values && values.length === 0) || !values ? [''] : values.concat([''])
   )
@@ -194,9 +195,10 @@ export default function EditColumn({
           onChange={(e) => setType(e.target.value)}
           value={typeState}
         >
-          <option value='bool'>Boolean</option>
-          <option value='array'>Array</option>
-          <option value='text'>Text</option>
+          <option value={ColumnType.boolean}>Boolean</option>
+          <option value={ColumnType.array}>Array</option>
+          <option value={ColumnType.language}>Language</option>
+          <option value={ColumnType.text}>Text</option>
         </select>
         <label htmlFor='columnTypeInput' className={'text-dark'}>
           Type of column value

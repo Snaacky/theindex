@@ -20,6 +20,7 @@
     "classnames": "^2.3.1",
     "geoip-lite": "^1.4.2",
     "ioredis": "^4.28.2",
+    "iso-639-1": "^2.1.11",
     "jsdom": "^19.0.0",
     "meilisearch": "^0.23.0",
     "mongodb": "^3.7.3",
@@ -36,6 +37,7 @@
     "react-draggable": "^4.4.4",
     "react-in-viewport": "^1.0.0-alpha.20",
     "react-toastify": "^8.1.0",
+    "react-tooltip": "^4.2.21",
     "sharp": "^0.29.3",
     "swr": "^1.1.2"
   },

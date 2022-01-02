@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/client'
-import { canEdit } from '../../lib/session'
+import { canEdit, isAdmin } from '../../lib/session'
 import { getItem, getItems } from '../../lib/db/items'
 import DataItem from '../../components/data/DataItem'
 import IconEdit from '../../components/icons/IconEdit'
@@ -179,8 +179,22 @@ export default function Item({ item, columns, collections }) {
             loader={({ src }) => src}
             unoptimized={true}
           />
-          <div className={'text-muted float-end'}>
+          <div
+            className={
+              'text-muted float-end' + (isAdmin(session) ? ' mt-2' : '')
+            }
+          >
             Captured screenshot of the site <code>{item.urls[0]}</code>
+            {isAdmin(session) && (
+              <button
+                className={'ms-2 btn btn-sm btn-outline-warning'}
+                onClick={() => {
+                  postData('/api/admin/screenshot/create/' + item._id, {})
+                }}
+              >
+                Retake
+              </button>
+            )}
           </div>
         </div>
       </div>

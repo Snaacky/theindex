@@ -20,7 +20,7 @@ import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import ItemBoard from '../../components/boards/ItemBoard'
 
-export default function Library({ library, collections, items }) {
+export default function Library({ library, collections, items, columns }) {
   const [session] = useSession()
   const router = useRouter()
   const [showCollections, setShowCollections] = useState(false)
@@ -40,6 +40,8 @@ export default function Library({ library, collections, items }) {
   items = (swrItems || items).filter((i) =>
     collectionsItems.some((item) => i._id === item)
   )
+  const { data: swrColumns } = useSWR('/api/columns')
+  columns = swrColumns || columns
 
   return (
     <>
@@ -165,6 +167,7 @@ export default function Library({ library, collections, items }) {
         <ItemBoard
           _id={library._id}
           items={items}
+          columns={columns}
           showSponsors={true}
           canEdit={isEditor(session)}
         />
@@ -203,6 +206,7 @@ export async function getStaticProps({ params }) {
       library,
       collections: await getAllCache(Types.collection),
       items: await getAllCache(Types.item),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }

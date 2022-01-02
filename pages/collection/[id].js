@@ -43,9 +43,7 @@ export default function Collection({
     library.collections.some((t) => t === collection._id)
   )
   const { data: swrColumns } = useSWR('/api/columns')
-  columns = collection.columns.map((columnId) =>
-    (swrColumns || columns).find((column) => column._id === columnId)
-  )
+  columns = swrColumns || columns
 
   return (
     <>

@@ -17,7 +17,7 @@ import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 
-export default function List({ list, owner, allItems, allColumns }) {
+export default function List({ list, owner, allItems, columns }) {
   const [session] = useSession()
   const router = useRouter()
 
@@ -28,13 +28,10 @@ export default function List({ list, owner, allItems, allColumns }) {
   const { data: swrItems } = useSWR('/api/items')
   allItems = swrItems || allItems
   const { data: swrColumns } = useSWR('/api/columns')
-  allColumns = swrColumns || allColumns
+  columns = swrColumns || columns
 
   const items = list.items.map((itemId) =>
     allItems.find((item) => item._id === itemId)
-  )
-  const columns = list.columns.map((columnId) =>
-    allColumns.find((column) => column._id === columnId)
   )
 
   const title = owner.name + "'s list " + list.name
@@ -127,7 +124,7 @@ export async function getServerSideProps({ params }) {
       list,
       owner: await getSingleCache(Types.user, list.owner),
       allItems: await getAllCache(Types.item),
-      allColumns: await getAllCache(Types.column),
+      columns: await getAllCache(Types.column),
     },
   }
 }
