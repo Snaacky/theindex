@@ -136,22 +136,6 @@ export default function Navbar() {
                     <span className={styles.services + ' ms-1'}>Wiki</span>
                   </a>
                 </li>
-                <li className={styles.desktop + ' nav-item me-1'}>
-                  <a
-                    className={
-                      'nav-link d-flex align-items-center umami--click--navbar-seadex'
-                    }
-                    href='https://releases.moe/'
-                  >
-                    <Image
-                      src={'/icons/seadex.png'}
-                      height={24}
-                      width={24}
-                      alt={'Seadex logo'}
-                    />
-                    <span className={styles.services + ' ms-1'}>SeaDex</span>
-                  </a>
-                </li>
                 <span className={styles.listAll}>
                   <NavbarUser className={styles.username} />
                 </span>

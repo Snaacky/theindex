@@ -94,37 +94,37 @@ function Sidebar({ show, setShow }, ref) {
                 contentList={
                   collections.length === 0
                     ? [
-                        <a
-                          href={'#'}
-                          className={'nav-link text-muted'}
-                          key={'noCollectionsFound'}
-                        >
-                          No collections found
-                        </a>,
-                      ]
+                      <a
+                        href={'#'}
+                        className={'nav-link text-muted'}
+                        key={'noCollectionsFound'}
+                      >
+                        No collections found
+                      </a>,
+                    ]
                     : collections.map((collection) => {
-                        collection = allCollections.find(
-                          (c) => c._id === collection
-                        )
-                        if (collection) {
-                          return (
-                            <Link
-                              href={'/collection/' + collection.urlId}
-                              key={collection.urlId}
+                      collection = allCollections.find(
+                        (c) => c._id === collection
+                      )
+                      if (collection) {
+                        return (
+                          <Link
+                            href={'/collection/' + collection.urlId}
+                            key={collection.urlId}
+                          >
+                            <a
+                              className={
+                                'nav-link umami--click--collection-' +
+                                collection.name
+                              }
                             >
-                              <a
-                                className={
-                                  'nav-link umami--click--collection-' +
-                                  collection.name
-                                }
-                              >
-                                {collection.name}
-                              </a>
-                            </Link>
-                          )
-                        }
-                        return <></>
-                      })
+                              {collection.name}
+                            </a>
+                          </Link>
+                        )
+                      }
+                      return <></>
+                    })
                 }
                 onClick={() => clickFunc()}
               />
@@ -190,21 +190,6 @@ function Sidebar({ show, setShow }, ref) {
                     alt={'Wiki.js logo'}
                   />
                   <span className={'ms-1'}>Wiki</span>
-                </a>,
-                <a
-                  className={
-                    'nav-link d-flex align-items-center umami--click--navbar-seadex'
-                  }
-                  href='https://releases.moe/'
-                  key={'seadex'}
-                >
-                  <Image
-                    src={'/icons/seadex.png'}
-                    height={16}
-                    width={16}
-                    alt={'Seadex logo'}
-                  />
-                  <span className={'ms-1'}>SeaDex</span>
                 </a>,
                 <a
                   className={

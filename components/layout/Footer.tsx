@@ -45,11 +45,6 @@ const socials: SocialsType[] = [
 
 const otherServices: OtherTypes[] = [
   {
-    name: 'SeaDex',
-    url: 'https://www.releases.moe',
-    icon: 'seadex.png',
-  },
-  {
     name: 'Wiki',
     url: 'https://wiki.piracy.moe/',
     icon: 'wikijs.svg',
