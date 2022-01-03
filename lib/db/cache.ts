@@ -2,7 +2,7 @@
 import Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
-import { count, findOne, getAll, singularToPlural } from './db'
+import { findOne, getAll, singularToPlural } from './db'
 import { getUser, getUsers } from './users'
 import { getItem } from './items'
 

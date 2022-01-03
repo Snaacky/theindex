@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getColumns } from '../../../lib/db/columns'
 import { useSession } from 'next-auth/client'
-import ColumnBoard from '../../../components/boards/ColumnBoard'
 import { getList } from '../../../lib/db/lists'
 import EditList from '../../../components/edit/EditList'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
