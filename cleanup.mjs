@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import Mongo from 'mongodb'
 import Redis from 'ioredis'
+console.log('\nStarting cleanup process\n')
 
 const {MongoClient, ObjectId} = Mongo
 
@@ -112,8 +113,8 @@ const polluteId = (query) => {
     return query
 }
 
-const updateColumn = async (query, data) => {
-    await db.collection('columns').updateOne(polluteId(query), {
+const update = async (collection, query, data) => {
+    await db.collection(collection).updateOne(polluteId(query), {
         $set: data,
         $currentDate: {lastModified: true},
     })
@@ -121,12 +122,35 @@ const updateColumn = async (query, data) => {
 
 const fixColumn = async (column) => {
     if (column.type === 'bool') {
-        await updateColumn({_id: column._id}, {type: 'boolean'})
+        console.log('column',column._id.toString())
+        await update('columns',{_id: column._id}, {type: 'boolean'})
     }
 }
 const columns = await db.collection('columns').find().toArray()
 await Promise.all(columns.map(column => fixColumn(column)))
+console.log('Cleaned up columns\n')
+
+const fixItem = async (item) => {
+    const columnKeys = Object.keys(item.data)
+    let updateData = false
+    for (const columnId of columnKeys) {
+        const column = columns.find(column => column._id.toString() === columnId)
+        if (!column) {
+            delete item.data[columnId]
+            updateData = true
+        }
+    }
+
+    if (updateData) {
+        await update('items', {_id: item._id}, {data: item.data})
+        console.log('Deleted data of non existing column from item', item._id)
+    }
+}
+const items = await db.collection('items').find().toArray()
+await Promise.all(items.map(item => fixItem(item)))
+console.log('Cleaned up items\n')
 
 dbClient.close()
 console.log('Mongo db connection closed')
+console.log('Cleanup finished\n')
 process.exit(0)
