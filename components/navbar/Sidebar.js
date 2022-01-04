@@ -94,37 +94,37 @@ function Sidebar({ show, setShow }, ref) {
                 contentList={
                   collections.length === 0
                     ? [
-                      <a
-                        href={'#'}
-                        className={'nav-link text-muted'}
-                        key={'noCollectionsFound'}
-                      >
-                        No collections found
-                      </a>,
-                    ]
+                        <a
+                          href={'#'}
+                          className={'nav-link text-muted'}
+                          key={'noCollectionsFound'}
+                        >
+                          No collections found
+                        </a>,
+                      ]
                     : collections.map((collection) => {
-                      collection = allCollections.find(
-                        (c) => c._id === collection
-                      )
-                      if (collection) {
-                        return (
-                          <Link
-                            href={'/collection/' + collection.urlId}
-                            key={collection.urlId}
-                          >
-                            <a
-                              className={
-                                'nav-link umami--click--collection-' +
-                                collection.name
-                              }
-                            >
-                              {collection.name}
-                            </a>
-                          </Link>
+                        collection = allCollections.find(
+                          (c) => c._id === collection
                         )
-                      }
-                      return <></>
-                    })
+                        if (collection) {
+                          return (
+                            <Link
+                              href={'/collection/' + collection.urlId}
+                              key={collection.urlId}
+                            >
+                              <a
+                                className={
+                                  'nav-link umami--click--collection-' +
+                                  collection.name
+                                }
+                              >
+                                {collection.name}
+                              </a>
+                            </Link>
+                          )
+                        }
+                        return <></>
+                      })
                 }
                 onClick={() => clickFunc()}
               />

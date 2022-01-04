@@ -73,6 +73,6 @@ a:not(.btn):hover {
   color: var(--a-hover-color);
 }
 
-.__react_component_tooltip{
+.__react_component_tooltip {
   background-color: black;
 }
