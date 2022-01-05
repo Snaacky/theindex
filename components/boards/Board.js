@@ -12,6 +12,7 @@ import styles from './Board.module.css'
 import DataBadge from '../data/DataBadge'
 import ItemCard from '../cards/ItemCard'
 import { Types } from '../../types/Components'
+import { ColumnType } from '../../types/Column'
 
 const Board = ({
   _id,
@@ -208,14 +209,17 @@ const Board = ({
             return false
           }
 
-          if (column.type === 'array') {
+          if (
+            column.type === ColumnType.array ||
+            column.type === ColumnType.language
+          ) {
             return (
               columnFilter.length === 0 ||
               columnFilter[column._id].every((value) =>
                 c.data[column._id].includes(value)
               )
             )
-          } else if (column.type === 'bool') {
+          } else if (column.type === ColumnType.boolean) {
             return c.data[column._id] === columnFilter[column._id]
           }
 
