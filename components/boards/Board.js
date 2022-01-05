@@ -41,6 +41,9 @@ const Board = ({
   const [showFilter, setShowFilter] = useState(false)
   const [columnFilter, setColumnFilter] = useState({})
 
+  const [startViewIndex, setStartViewIndex] = useState(0)
+  const pageSize = 21
+
   useEffect(() => {
     setUnselectedContent(
       allContent.filter((c) => !_content.some((cc) => cc._id === c._id))
@@ -227,6 +230,14 @@ const Board = ({
     (cc) => editMode || !sponsorContent.some((c) => c._id === cc._id)
   )
   const filteredUnselectedContent = filterContent(unselectedContent)
+  const paginatedContent = filteredContent.filter(
+    (content, index) =>
+      index >= startViewIndex && index < startViewIndex + pageSize
+  )
+  const pagination = []
+  for (let i = 0; i < Math.floor(filteredContent.length / pageSize); i++) {
+    pagination.push(i)
+  }
 
   return (
     <>
@@ -340,15 +351,63 @@ const Board = ({
         {filteredContent.length === 0 && (
           <span className={'text-muted'}>Nothing could be found</span>
         )}
-        {filteredContent.map((i) =>
+        {paginatedContent.map((content) =>
           renderSingleContent(
-            i,
+            content,
             false,
             canMove && editMode && updateContentURL !== '',
             editMode
           )
         )}
       </div>
+      {filteredContent.length > pageSize && (
+        <nav className={'mb-2'} aria-label='Board navigation'>
+          <ul className='pagination'>
+            {startViewIndex > 0 && (
+              <li className='page-item'>
+                <a
+                  className='page-link'
+                  href='#'
+                  aria-label='Previous'
+                  onClick={() => setStartViewIndex(startViewIndex - pageSize)}
+                >
+                  <span aria-hidden='true'>&laquo;</span>
+                </a>
+              </li>
+            )}
+            {pagination.map((index) => (
+              <li key={index} className='page-item'>
+                <a
+                  className='page-link'
+                  href='#'
+                  onClick={() => setStartViewIndex(index * pageSize)}
+                >
+                  {index + 1}
+                </a>
+              </li>
+            ))}
+            {startViewIndex <
+              (filteredContent.length - (filteredContent.length % pageSize)) *
+                pageSize && (
+              <li className='page-item'>
+                <a
+                  className='page-link'
+                  href='#'
+                  aria-label='Previous'
+                  onClick={() => setStartViewIndex(startViewIndex + pageSize)}
+                >
+                  <span aria-hidden='true'>&laquo;</span>
+                </a>
+              </li>
+            )}
+            <li className='page-item'>
+              <a className='page-link' href='#' aria-label='Next'>
+                <span aria-hidden='true'>&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      )}
       {editMode && (
         <>
           <hr />
