@@ -235,7 +235,7 @@ const Board = ({
       index >= startViewIndex && index < startViewIndex + pageSize
   )
   const pagination = []
-  for (let i = 0; i < Math.floor(filteredContent.length / pageSize); i++) {
+  for (let i = 0; i < Math.ceil(filteredContent.length / pageSize); i++) {
     pagination.push(i)
   }
 
@@ -314,7 +314,16 @@ const Board = ({
               <button
                 className={'btn btn-outline-warning mb-2'}
                 type={'button'}
-                onClick={() => setEditMode(!editMode)}
+                onClick={() => {
+                  if (
+                    editMode &&
+                    startViewIndex >=
+                      filteredContent.length - sponsorContent.length
+                  ) {
+                    setStartViewIndex(startViewIndex - pageSize)
+                  }
+                  setEditMode(!editMode)
+                }}
               >
                 {editMode ? 'Exit' : <FontAwesomeIcon icon={['fas', 'edit']} />}{' '}
                 edit-mode
@@ -366,7 +375,7 @@ const Board = ({
             {startViewIndex > 0 && (
               <li className='page-item'>
                 <a
-                  className='page-link'
+                  className={'page-link border-dark bg-dark'}
                   href='#'
                   aria-label='Previous'
                   onClick={() => setStartViewIndex(startViewIndex - pageSize)}
@@ -376,9 +385,18 @@ const Board = ({
               </li>
             )}
             {pagination.map((index) => (
-              <li key={index} className='page-item'>
+              <li
+                key={index}
+                className={
+                  'page-item' +
+                  (index * pageSize === startViewIndex ? ' active' : '')
+                }
+              >
                 <a
-                  className='page-link'
+                  className={
+                    'page-link border-dark bg-' +
+                    (index * pageSize === startViewIndex ? 'primary' : 'dark')
+                  }
                   href='#'
                   onClick={() => setStartViewIndex(index * pageSize)}
                 >
@@ -387,24 +405,18 @@ const Board = ({
               </li>
             ))}
             {startViewIndex <
-              (filteredContent.length - (filteredContent.length % pageSize)) *
-                pageSize && (
+              Math.floor(filteredContent.length / pageSize) * pageSize && (
               <li className='page-item'>
                 <a
-                  className='page-link'
+                  className={'page-link border-dark bg-dark'}
                   href='#'
                   aria-label='Previous'
                   onClick={() => setStartViewIndex(startViewIndex + pageSize)}
                 >
-                  <span aria-hidden='true'>&laquo;</span>
+                  <span aria-hidden='true'>&raquo;</span>
                 </a>
               </li>
             )}
-            <li className='page-item'>
-              <a className='page-link' href='#' aria-label='Next'>
-                <span aria-hidden='true'>&raquo;</span>
-              </a>
-            </li>
           </ul>
         </nav>
       )}
