@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/client'
-import { canEdit, isAdmin } from '../../lib/session'
+import { canEdit, isAdmin, isEditor } from '../../lib/session'
 import { getItem, getItems } from '../../lib/db/items'
 import DataItem from '../../components/data/DataItem'
 import IconEdit from '../../components/icons/IconEdit'
@@ -12,7 +12,6 @@ import IconStar from '../../components/icons/IconStar'
 import IconBookmark from '../../components/icons/IconBookmark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconNewTabLink from '../../components/icons/IconNewTabLink'
-import IconItem from '../../components/icons/IconItem'
 import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconSponsor from '../../components/icons/IconSponsor'
@@ -185,7 +184,7 @@ export default function Item({ item, columns, collections }) {
             }
           >
             Captured screenshot of the site <code>{item.urls[0]}</code>
-            {isAdmin(session) && (
+            {isEditor(session) && (
               <button
                 className={'ms-2 btn btn-sm btn-outline-warning'}
                 onClick={() => {
