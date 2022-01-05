@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import Mongo from 'mongodb'
 import Redis from 'ioredis'
+
 console.log('\nStarting cleanup process\n')
 
 const { MongoClient, ObjectId } = Mongo
@@ -172,7 +173,8 @@ for (let i = 0; i < users.length; i++) {
   let multipleUsers = users.filter((u) => u.uid === user.uid)
   if (multipleUsers.length > 1) {
     console.warn(
-      'Multiple user account entries found for the same user',
+      multipleUsers.length,
+      'user account entries found for the same user',
       user.uid,
       userData.name
     )
@@ -225,7 +227,7 @@ for (let i = 0; i < users.length; i++) {
       }
     }
     for (let i = 1; i < multipleUsers.length; i++) {
-      // await remove('users', {_id: multipleUsers[i]._id})
+      await remove('users', {_id: multipleUsers[i]._id})
       users = users.filter((u) => u._id !== multipleUsers[i]._id)
 
       console.log(
@@ -236,7 +238,7 @@ for (let i = 0; i < users.length; i++) {
       )
     }
 
-    // await update('users', {_id: multipleUsers[0]._id}, { data })
+    await update('users', {_id: multipleUsers[0]._id}, { data })
   }
 }
 console.log('Cleaned up users\n')
