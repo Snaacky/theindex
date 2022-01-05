@@ -58,7 +58,7 @@ export default function Card({
           <div className={'col-auto'}>
             <Link href={hrefString}>
               <a
-                title={'View ' + type + ' ' + (content.name ?? '')}
+                data-tip={'View ' + type + ' ' + (content.name ?? '')}
                 className={'umami--click--' + type + '-' + content.name}
               >
                 <Image
@@ -86,7 +86,7 @@ export default function Card({
                   <Link
                     href={'/edit/' + type + '/' + (content.uid ?? content._id)}
                   >
-                    <a title={'Edit ' + type} className={'ms-2'}>
+                    <a data-tip={'Edit ' + type} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
@@ -123,7 +123,7 @@ export default function Card({
                 )}
                 {add !== null && (
                   <a
-                    title={'Add ' + type}
+                    data-tip={'Add ' + type}
                     className={styles.link + ' float-end'}
                     onClick={add}
                   >

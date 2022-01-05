@@ -229,7 +229,7 @@ export default function EditColumn({
                       <div className={'d-flex flex-row'}>
                         <a
                           onClick={() => removeValue(i)}
-                          title={'Remove value'}
+                          data-tip={'Remove value'}
                           style={{
                             width: '38px',
                             height: '38px',

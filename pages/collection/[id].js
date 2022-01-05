@@ -78,7 +78,7 @@ export default function Collection({
                 <IconCollection /> {collection.name}
                 {canEdit(session) && (
                   <Link href={'/edit/collection/' + collection._id}>
-                    <a title={'Edit collection'} className={'ms-2'}>
+                    <a data-tip={'Edit collection'} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
@@ -137,7 +137,7 @@ export default function Collection({
             {libraries.map((t) => {
               return (
                 <Link href={'/library/' + t.urlId} key={t._id}>
-                  <a title={'View library' + t.name}>
+                  <a data-tip={'View library' + t.name}>
                     <div className={'badge rounded-pill bg-primary mb-2 me-2'}>
                       {t.name}
                     </div>

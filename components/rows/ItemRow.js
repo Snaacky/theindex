@@ -63,7 +63,7 @@ export default function ItemRow({
                 return (
                   <div key={c._id}>
                     <Link href={'/column/' + c.urlId} key={c._id}>
-                      <a className={'me-2'} title={'View column ' + c.name}>
+                      <a className={'me-2'} data-tip={'View column ' + c.name}>
                         {c.name}:
                       </a>
                     </Link>

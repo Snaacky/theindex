@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Navbar from '../navbar/Navbar'
 import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
+import ReactTooltip from 'react-tooltip'
 
 export default function Layout({ children, error }) {
   return (
@@ -17,13 +18,6 @@ export default function Layout({ children, error }) {
         <meta content='IE=Edge' httpEquiv='X-UA-Compatible' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
 
-        <meta name='mobile-web-app-capable' content='yes' />
-        <meta name='apple-mobile-web-app-capable' content='yes' />
-        <meta name='apple-mobile-web-app-status-bar-style' content='black' />
-        <meta
-          name='apple-mobile-web-app-title'
-          content={process.env.NEXT_PUBLIC_SITE_NAME}
-        />
         <link
           rel='apple-touch-icon'
           sizes='180x180'
@@ -54,14 +48,10 @@ export default function Layout({ children, error }) {
         <meta name='msapplication-TileColor' content='#2b5797' />
         <meta name='theme-color' content='#000000' />
 
-        <link rel='manifest' href='/manifest.json' />
-
-        {error ? (
+        {error && (
           <title>
             Error {error} | {process.env.NEXT_PUBLIC_SITE_NAME}
           </title>
-        ) : (
-          <></>
         )}
 
         <meta name='robots' content='index, archive, follow' />
@@ -94,6 +84,7 @@ export default function Layout({ children, error }) {
         pauseOnHover
         theme={'dark'}
       />
+      <ReactTooltip place='top' type='dark' effect='solid' />
       <Footer error={error} />
       <script src={'/stats.js'} async={true} defer={true} />
     </div>

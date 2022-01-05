@@ -51,7 +51,7 @@ export default function List({ list, owner, allItems, columns }) {
         <IconList /> {list.name}
         {canEdit(session) && (
           <Link href={'/edit/list/' + list._id}>
-            <a title={'Edit list'} className={'ms-2'}>
+            <a data-tip={'Edit list'} className={'ms-2'}>
               <IconEdit />
             </a>
           </Link>
@@ -92,7 +92,7 @@ export default function List({ list, owner, allItems, columns }) {
       <p>
         Made by
         <Link href={'/user/' + owner.uid}>
-          <a className={'ms-1'} title={'View user ' + (owner.name ?? '')}>
+          <a className={'ms-1'} data-tip={'View user ' + (owner.name ?? '')}>
             {owner.name ?? <code>Unable to get name</code>}
           </a>
         </Link>

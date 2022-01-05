@@ -83,7 +83,7 @@ export default function Item({ item, columns, collections }) {
             />
             {canEdit(session) && (
               <Link href={'/edit/item/' + item._id}>
-                <a title={'Edit item'} className={'ms-2'}>
+                <a data-tip={'Edit item'} className={'ms-2'}>
                   <IconEdit />
                 </a>
               </Link>
@@ -115,7 +115,7 @@ export default function Item({ item, columns, collections }) {
             User starred this item:{' '}
             <small
               className={'text-warning'}
-              title={
+              data-tip={
                 item.stars +
                 ' user' +
                 (item.stars === 1 ? '' : 's') +
@@ -224,7 +224,7 @@ export default function Item({ item, columns, collections }) {
                     <Link href={'/collection/' + t.urlId} key={t._id}>
                       <a
                         className={'me-2 mb-2'}
-                        title={'View collection ' + t.name}
+                        data-tip={'View collection ' + t.name}
                       >
                         <DataBadge name={t.name} style={'primary'} />
                       </a>
@@ -293,7 +293,10 @@ export default function Item({ item, columns, collections }) {
                   return (
                     <div key={c._id}>
                       <Link href={'/column/' + c.urlId}>
-                        <a className={'me-2'} title={'View column ' + c.name}>
+                        <a
+                          className={'me-2'}
+                          data-tip={'View column ' + c.name}
+                        >
                           {c.name}:
                         </a>
                       </Link>

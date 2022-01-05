@@ -4,7 +4,7 @@ export default function IconDelete({ className, size, onClick, title }) {
   return (
     <button
       className={className + ' btn btn-outline-danger'}
-      title={title}
+      data-tip={title}
       type={'button'}
       onClick={onClick}
     >

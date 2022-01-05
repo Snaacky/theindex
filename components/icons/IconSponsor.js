@@ -7,7 +7,7 @@ export default function IconSponsor({ size }) {
       icon={['fas', 'star']}
       size={size}
       className={styles.sponsor}
-      title={'Sponsor'}
+      data-tip={'Sponsor'}
     />
   )
 }

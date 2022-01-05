@@ -65,7 +65,7 @@ function Sidebar({ show, setShow }, ref) {
                     </li>
                     <li className={'nav-item'}>
                       <Link href={'/admin'}>
-                        <a className={'nav-link'} title={'Admin settings'}>
+                        <a className={'nav-link'} data-tip={'Admin settings'}>
                           <IconAdmin /> Admin
                         </a>
                       </Link>

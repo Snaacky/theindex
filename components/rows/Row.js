@@ -57,7 +57,7 @@ export default function Row({
           <div className={styles.sorter + ' col-auto'}>
             <a
               onClick={add}
-              title={'Add ' + type}
+              data-tip={'Add ' + type}
               style={{
                 height: '32px',
               }}
@@ -70,7 +70,7 @@ export default function Row({
           <div className={styles.column + ' col-auto p-1'}>
             <Link href={hrefString}>
               <a
-                title={'View ' + type + ' ' + (content.name ?? '')}
+                data-tip={'View ' + type + ' ' + (content.name ?? '')}
                 className={'umami--click--' + type + '-' + content.name}
               >
                 <Image
@@ -97,7 +97,7 @@ export default function Row({
                 <Link
                   href={'/edit/' + type + '/' + (content.uid ?? content._id)}
                 >
-                  <a title={'Edit ' + type} className={'ms-2'}>
+                  <a data-tip={'Edit ' + type} className={'ms-2'}>
                     <IconEdit />
                   </a>
                 </Link>

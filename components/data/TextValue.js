@@ -1,5 +1,3 @@
-import ReactTooltip from 'react-tooltip'
-
 export default function TextValue({ data, column, onChange = null }) {
   if (onChange === null) {
     return <div>{data}</div>
@@ -9,7 +7,7 @@ export default function TextValue({ data, column, onChange = null }) {
   return (
     <>
       <textarea
-        data-tip
+        data-tip={'View column ' + column.name}
         data-for={tooltipId}
         className={'form-control'}
         rows={'3'}
@@ -17,9 +15,6 @@ export default function TextValue({ data, column, onChange = null }) {
         id={'textColumnInput-' + column._id}
         onChange={(e) => onChange(e.target.value)}
       />
-      <ReactTooltip id={tooltipId} place='top' type='dark' effect='solid'>
-        <span>View column {column.name}</span>
-      </ReactTooltip>
     </>
   )
 }

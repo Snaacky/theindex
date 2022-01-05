@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
-import ReactTooltip from 'react-tooltip'
 
 export default function BoolValue({
   data,
@@ -14,13 +13,14 @@ export default function BoolValue({
     return (
       <>
         <Link href={'/column/' + column.urlId}>
-          <a data-tip data-for={tooltipId} className={'me-2'}>
+          <a
+            data-tip={'View column ' + column.name}
+            data-for={tooltipId}
+            className={'me-2'}
+          >
             <DataBadge data={data} name={column.name} sponsor={sponsor} />
           </a>
         </Link>
-        <ReactTooltip id={tooltipId} place='top' type='dark' effect='solid'>
-          <span>View column {column.name}</span>
-        </ReactTooltip>
       </>
     )
   }
@@ -28,7 +28,7 @@ export default function BoolValue({
   return (
     <>
       <a
-        data-tip
+        data-tip={'Filter by column ' + column.name}
         data-for={tooltipId}
         onClick={() => {
           if (typeof data === 'boolean') {
@@ -38,16 +38,8 @@ export default function BoolValue({
           }
         }}
       >
-        <DataBadge
-          data={data}
-          name={column.name}
-          tooltip={'Filter by column ' + column.name}
-          sponsor={sponsor}
-        />
+        <DataBadge data={data} name={column.name} sponsor={sponsor} />
       </a>
-      <ReactTooltip id={tooltipId} place='top' type='dark' effect='solid'>
-        <span>Filter by column {column.name}</span>
-      </ReactTooltip>
     </>
   )
 }

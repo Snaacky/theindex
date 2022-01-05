@@ -252,7 +252,7 @@ export default function EditItem({
                       </span>
                       <a
                         onClick={() => removeURL(i)}
-                        title={'Remove url'}
+                        data-tip={'Remove url'}
                         style={{
                           width: '38px',
                           height: '38px',

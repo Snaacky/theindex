@@ -3,7 +3,7 @@ import styles from './IconNSFW.module.css'
 
 export default function IconNSFW({ size }) {
   return (
-    <span className={styles.nsfw + ' fa-layers fa-fw'} title={'NSFW'}>
+    <span className={styles.nsfw + ' fa-layers fa-fw'} data-tip={'NSFW'}>
       <FontAwesomeIcon icon={['fas', 'ban']} size={size} />
       <span
         className={'fa-layers-text'}

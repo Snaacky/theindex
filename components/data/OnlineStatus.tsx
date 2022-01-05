@@ -52,7 +52,7 @@ const OnlineStatus: FC<Props> = ({ url }) => {
       <span
         className={style}
         onClick={() => setShow(true)}
-        title={
+        data-tip={
           text +
           (data && url
             ? ', last checked ' +
