@@ -11,6 +11,8 @@ import classNames from 'classnames'
 import styles from './Board.module.css'
 import DataBadge from '../data/DataBadge'
 import ItemCard from '../cards/ItemCard'
+import { Types } from '../../types/Components'
+import { ColumnType } from '../../types/Column'
 
 const Board = ({
   _id,
@@ -26,10 +28,10 @@ const Board = ({
   canMove = true,
   canEdit: allowEdit = false,
 }) => {
+  allContent = allContent || content
   const [_content, setContent] = useState(content)
   const [unselectedContent, setUnselectedContent] = useState(
-    (allContent || []).filter((i) => !content.some((ii) => i._id === ii._id)) ||
-      []
+    allContent.filter((i) => !content.some((ii) => i._id === ii._id))
   )
   const [searchString, setSearchString] = useState('')
 
@@ -40,14 +42,17 @@ const Board = ({
   const [showFilter, setShowFilter] = useState(false)
   const [columnFilter, setColumnFilter] = useState({})
 
+  const [startViewIndex, setStartViewIndex] = useState(0)
+  const pageSize = 21
+
   useEffect(() => {
     setUnselectedContent(
-      (allContent || []).filter(
-        (c) => !content.some((cc) => cc._id === c._id)
-      ) || []
+      allContent.filter((c) => !_content.some((cc) => cc._id === c._id))
     )
+  }, [_content, allContent])
+  useEffect(() => {
     setContent(content)
-  }, [content, allContent])
+  }, [content])
 
   const randString = Math.random().toString(36).slice(2)
 
@@ -95,6 +100,7 @@ const Board = ({
   ) => {
     return (
       <CardRowView
+        key={renderContent._id}
         cardView={cardView}
         type={type}
         content={renderContent}
@@ -187,9 +193,9 @@ const Board = ({
         return false
       }
 
-      const filter = columns
+      return columns
         .filter((column) => typeof columnFilter[column._id] !== 'undefined')
-        .map((column) => {
+        .every((column) => {
           console.log(
             'Filter for column',
             column,
@@ -203,14 +209,17 @@ const Board = ({
             return false
           }
 
-          if (column.type === 'array') {
+          if (
+            column.type === ColumnType.array ||
+            column.type === ColumnType.language
+          ) {
             return (
               columnFilter.length === 0 ||
               columnFilter[column._id].every((value) =>
                 c.data[column._id].includes(value)
               )
             )
-          } else if (column.type === 'bool') {
+          } else if (column.type === ColumnType.boolean) {
             return c.data[column._id] === columnFilter[column._id]
           }
 
@@ -218,8 +227,6 @@ const Board = ({
             .toLowerCase()
             .includes(columnFilter[column._id].toLowerCase())
         })
-
-      return filter.every((f) => f)
     })
   }
 
@@ -227,17 +234,28 @@ const Board = ({
     (cc) => editMode || !sponsorContent.some((c) => c._id === cc._id)
   )
   const filteredUnselectedContent = filterContent(unselectedContent)
+  const paginatedContent = filteredContent.filter(
+    (content, index) =>
+      index >= startViewIndex && index < startViewIndex + pageSize
+  )
+  const pagination = []
+  for (let i = 0; i < Math.ceil(filteredContent.length / pageSize); i++) {
+    pagination.push(i)
+  }
 
   return (
     <>
       {!editMode && sponsorContent.length > 0 && (
-        <div className={'d-flex mb-2'} style={{ marginRight: '-0.5rem' }}>
+        <div
+          className={'d-flex flex-wrap mb-2'}
+          style={{ marginRight: '-0.5rem' }}
+        >
           {sponsorContent.map((c) => (
             <ItemCard item={c} columns={columns} key={c._id} />
           ))}
         </div>
       )}
-      <div className={'card card-body bg-2 mb-2'}>
+      <div className={'card card-body bg-2 mb-2 pb-1'}>
         <div className={'row g-2'}>
           <div className={'col-12 col-sm-6 col-md-auto'}>
             {columns.length > 0 && (
@@ -300,7 +318,16 @@ const Board = ({
               <button
                 className={'btn btn-outline-warning mb-2'}
                 type={'button'}
-                onClick={() => setEditMode(!editMode)}
+                onClick={() => {
+                  if (
+                    editMode &&
+                    startViewIndex >=
+                      filteredContent.length - sponsorContent.length
+                  ) {
+                    setStartViewIndex(startViewIndex - pageSize)
+                  }
+                  setEditMode(!editMode)
+                }}
               >
                 {editMode ? 'Exit' : <FontAwesomeIcon icon={['fas', 'edit']} />}{' '}
                 edit-mode
@@ -321,7 +348,7 @@ const Board = ({
             />
           </div>
         )}
-        {type === 'item' && (
+        {type === Types.item && (
           <div className={''}>
             <span className={'me-2'}>
               <DataBadge data={true} name={'Pros'} />
@@ -337,15 +364,66 @@ const Board = ({
         {filteredContent.length === 0 && (
           <span className={'text-muted'}>Nothing could be found</span>
         )}
-        {filteredContent.map((i) =>
+        {paginatedContent.map((content) =>
           renderSingleContent(
-            i,
+            content,
             false,
             canMove && editMode && updateContentURL !== '',
             editMode
           )
         )}
       </div>
+      {filteredContent.length > pageSize && (
+        <nav className={'mb-2'} aria-label='Board navigation'>
+          <ul className='pagination'>
+            {startViewIndex > 0 && (
+              <li className='page-item'>
+                <a
+                  className={'page-link border-dark bg-dark'}
+                  href='#'
+                  aria-label='Previous'
+                  onClick={() => setStartViewIndex(startViewIndex - pageSize)}
+                >
+                  <span aria-hidden='true'>&laquo;</span>
+                </a>
+              </li>
+            )}
+            {pagination.map((index) => (
+              <li
+                key={index}
+                className={
+                  'page-item' +
+                  (index * pageSize === startViewIndex ? ' active' : '')
+                }
+              >
+                <a
+                  className={
+                    'page-link border-dark bg-' +
+                    (index * pageSize === startViewIndex ? 'primary' : 'dark')
+                  }
+                  href='#'
+                  onClick={() => setStartViewIndex(index * pageSize)}
+                >
+                  {index + 1}
+                </a>
+              </li>
+            ))}
+            {startViewIndex <
+              Math.floor(filteredContent.length / pageSize) * pageSize && (
+              <li className='page-item'>
+                <a
+                  className={'page-link border-dark bg-dark'}
+                  href='#'
+                  aria-label='Previous'
+                  onClick={() => setStartViewIndex(startViewIndex + pageSize)}
+                >
+                  <span aria-hidden='true'>&raquo;</span>
+                </a>
+              </li>
+            )}
+          </ul>
+        </nav>
+      )}
       {editMode && (
         <>
           <hr />

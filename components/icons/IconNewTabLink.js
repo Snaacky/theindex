@@ -10,7 +10,7 @@ export default function IconNewTabLink({ url, size, className = '' }) {
         target={'_blank'}
         href={url}
         rel='noreferrer'
-        title={'Open in new tab'}
+        data-tip={'Open in new tab'}
       >
         <FontAwesomeIcon icon={['fas', 'external-link-alt']} size={size} />
       </a>
@@ -18,7 +18,7 @@ export default function IconNewTabLink({ url, size, className = '' }) {
   }
 
   return (
-    <span title={url && url !== '' ? 'Invalid url' : 'Missing url'}>
+    <span data-tip={url && url !== '' ? 'Invalid url' : 'Missing url'}>
       <FontAwesomeIcon
         icon={['fas', 'external-link-alt']}
         size={size}

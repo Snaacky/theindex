@@ -13,16 +13,14 @@ export default function DataCard({ data, column, onChange = null }) {
       <div className={'card-body'}>
         <h5 className={'card-title'}>
           <Link href={'/column/' + column.urlId}>
-            <a title={'View column ' + column.name}>{column.name}</a>
+            <a data-tip={'View column ' + column.name}>{column.name}</a>
           </Link>
-          {canEdit(session) ? (
+          {canEdit(session) && (
             <Link href={'/edit/column/' + column._id}>
-              <a className={'ms-2'} title={'Edit column'}>
+              <a className={'ms-2'} data-tip={'Edit column'}>
                 <IconEdit />
               </a>
             </Link>
-          ) : (
-            ''
           )}
         </h5>
 

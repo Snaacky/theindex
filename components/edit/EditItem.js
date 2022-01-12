@@ -8,6 +8,7 @@ import { isValidUrl, postData } from '../../lib/utils'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
+import { ColumnType } from '../../types/Column'
 
 export default function EditItem({
   _id,
@@ -101,9 +102,10 @@ export default function EditItem({
     }
 
     if (
-      (column.type === 'bool' && typeof value === 'boolean') ||
-      (column.type === 'array' && Array.isArray(value)) ||
-      (column.type === 'text' && typeof value === 'string')
+      (column.type === ColumnType.boolean && typeof value === 'boolean') ||
+      (column.type === ColumnType.array && Array.isArray(value)) ||
+      (column.type === ColumnType.language && Array.isArray(value)) ||
+      (column.type === ColumnType.text && typeof value === 'string')
     ) {
       let temp = {}
       let keys = Object.keys(dataState)
@@ -250,7 +252,7 @@ export default function EditItem({
                       </span>
                       <a
                         onClick={() => removeURL(i)}
-                        title={'Remove url'}
+                        data-tip={'Remove url'}
                         style={{
                           width: '38px',
                           height: '38px',

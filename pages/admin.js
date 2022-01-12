@@ -34,6 +34,25 @@ export default function Admin({ images: staticImages }) {
       >
         Export all data
       </a>
+
+      <h4>Screenshots</h4>
+      <button
+        className={'btn btn-outline-danger mb-2 me-2'}
+        onClick={() => {
+          postData('/api/admin/screenshot/clear', { clearScreenshot: true })
+        }}
+      >
+        Wipe screenshots
+      </button>
+      <button
+        className={'btn btn-outline-warning mb-2 me-2'}
+        onClick={() => {
+          postData('/api/admin/screenshot/createAll', { createAll: true })
+        }}
+      >
+        Recreate every screenshots
+      </button>
+
       <h4>Emoji dump:</h4>
       <div>
         {staticImages.map((i) => (

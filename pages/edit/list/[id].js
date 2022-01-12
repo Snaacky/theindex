@@ -1,20 +1,16 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getColumns } from '../../../lib/db/columns'
 import { useSession } from 'next-auth/client'
-import ColumnBoard from '../../../components/boards/ColumnBoard'
 import { getList } from '../../../lib/db/lists'
 import EditList from '../../../components/edit/EditList'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import NotAdmin from '../../../components/layout/NotAdmin'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 
-export default function EditorList({ _id, userLists, columns, list }) {
+export default function EditorList({ _id, userLists, list }) {
   const [session] = useSession()
 
   if (_id !== '_new') {
-    list.columns = list.columns.map((c) => columns.find((t) => t._id === c))
-
     if (!isCurrentUser(session, list.owner) && !isAdmin(session)) {
       return <NotAdmin />
     }
@@ -68,23 +64,6 @@ export default function EditorList({ _id, userLists, columns, list }) {
           )}
         </div>
       </div>
-
-      <h4>Columns used in this list</h4>
-      {_id !== '_new' ? (
-        <ColumnBoard
-          _id={list._id}
-          columns={list.columns}
-          allColumns={columns}
-          updateURL={'/api/edit/list'}
-          canMove={false}
-          canEdit={true}
-          forceEditMode={true}
-        />
-      ) : (
-        <div className={'text-muted'}>
-          Column selection will be available once the list has been created
-        </div>
-      )}
     </>
   )
 }
@@ -107,7 +86,6 @@ export async function getServerSideProps({ params }) {
   return {
     props: {
       _id: params.id,
-      columns: await getColumns(),
       list,
       userLists: [], // await getUserWithLists(list.owner).lists
     },

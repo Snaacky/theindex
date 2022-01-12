@@ -1,8 +1,8 @@
 .status {
   display: inline-block;
   vertical-align: -0.125em;
-  width: 1rem;
-  height: 1rem;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   transition: background-color 0.1s ease-in-out;
   margin-right: 0.5rem;
@@ -15,7 +15,7 @@
 }
 
 .ping {
-  background-color: var(--bg-8);
+  background-color: var(--bs-yellow);
   animation: ping 1.2s ease-in-out infinite both;
   cursor: wait;
 }

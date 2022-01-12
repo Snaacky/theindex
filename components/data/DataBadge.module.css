@@ -1,7 +1,6 @@
 .badge {
   cursor: pointer;
   user-select: none;
-  text-transform: capitalize;
 }
 
 .sponsor {

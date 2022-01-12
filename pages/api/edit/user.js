@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
-import { updateUser } from '../../../lib/db/users'
-import { updateAllCache } from '../../../lib/db/cache'
+import { getUser, updateUser } from '../../../lib/db/users'
+import { updateAllCache, updateSingleCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
 
 export default async function apiEditUser(req, res) {
@@ -12,8 +12,16 @@ export default async function apiEditUser(req, res) {
       if (!isAdmin(session) && d.accountType) {
         delete d.accountType
       }
+      const oldUser = await getUser(d.uid === 'me' ? session.user.uid : d.uid)
+
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)
       await updateAllCache(Types.user)
+      if (d.favs) {
+        d.favs
+          .filter((fav) => !oldUser.favs.includes(fav))
+          .concat(oldUser.favs.filter((fav) => !d.favs.includes(fav)))
+          .forEach((fav) => updateSingleCache(Types.item, fav))
+      }
       res.status(200).send(d.uid)
     } else {
       // Not Signed in

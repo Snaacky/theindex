@@ -40,15 +40,11 @@ function Sidebar({ show, setShow }, ref) {
     >
       <div className={styles.header + ' offcanvas-header'}>
         <div className={'container-fluid d-flex flex-row align-items-center'}>
-          <div onClick={clickFunc}>
+          <NavbarToggler show={show} onClick={clickFunc} />
+
+          <div onClick={clickFunc} className={'ms-2'}>
             <NavbarBrand />
           </div>
-
-          <NavbarToggler
-            show={show}
-            onClick={clickFunc}
-            className={'ms-auto'}
-          />
         </div>
       </div>
 
@@ -69,7 +65,7 @@ function Sidebar({ show, setShow }, ref) {
                     </li>
                     <li className={'nav-item'}>
                       <Link href={'/admin'}>
-                        <a className={'nav-link'} title={'Admin settings'}>
+                        <a className={'nav-link'} data-tip={'Admin settings'}>
                           <IconAdmin /> Admin
                         </a>
                       </Link>
@@ -194,21 +190,6 @@ function Sidebar({ show, setShow }, ref) {
                     alt={'Wiki.js logo'}
                   />
                   <span className={'ms-1'}>Wiki</span>
-                </a>,
-                <a
-                  className={
-                    'nav-link d-flex align-items-center umami--click--navbar-seadex'
-                  }
-                  href='https://releases.moe/'
-                  key={'seadex'}
-                >
-                  <Image
-                    src={'/icons/seadex.png'}
-                    height={16}
-                    width={16}
-                    alt={'Seadex logo'}
-                  />
-                  <span className={'ms-1'}>SeaDex</span>
                 </a>,
                 <a
                   className={

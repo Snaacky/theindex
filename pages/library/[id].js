@@ -10,19 +10,20 @@ import { getByUrlId } from '../../lib/db/db'
 import IconLibrary from '../../components/icons/IconLibrary'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
-import ItemCard from '../../components/cards/ItemCard'
 import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
-import React from 'react'
+import React, { useState } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
+import ItemBoard from '../../components/boards/ItemBoard'
 
-export default function Library({ library, collections, items }) {
+export default function Library({ library, collections, items, columns }) {
   const [session] = useSession()
   const router = useRouter()
+  const [showCollections, setShowCollections] = useState(false)
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
   library = swrLibrary || library
@@ -39,7 +40,8 @@ export default function Library({ library, collections, items }) {
   items = (swrItems || items).filter((i) =>
     collectionsItems.some((item) => i._id === item)
   )
-  const sponsoredItems = items.filter((item) => item.sponsor)
+  const { data: swrColumns } = useSWR('/api/columns')
+  columns = swrColumns || columns
 
   return (
     <>
@@ -55,9 +57,9 @@ export default function Library({ library, collections, items }) {
         />
       </Head>
 
-      <div className={'row'} style={{ marginTop: '4rem' }}>
+      <div className={'row'}>
         <div className={'col-auto'}>
-          <div className={'d-absolute mb-2'} style={{ marginTop: '-3.2rem' }}>
+          <div className={'d-absolute mb-2'}>
             <Image
               src={'/img/' + library.img}
               alt={'Image of collection'}
@@ -72,14 +74,12 @@ export default function Library({ library, collections, items }) {
             <div className={'col'}>
               <h2>
                 <IconLibrary /> {library.name}
-                {canEdit(session) ? (
+                {canEdit(session) && (
                   <Link href={'/edit/library/' + library._id}>
-                    <a title={'Edit tab'} className={'ms-2'}>
+                    <a data-tip={'Edit tab'} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
-                ) : (
-                  <></>
                 )}
               </h2>
             </div>
@@ -117,31 +117,61 @@ export default function Library({ library, collections, items }) {
               </span>
             </div>
           </div>
+
+          <p
+            style={{
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {library.description}
+          </p>
         </div>
       </div>
-      <p
-        style={{
-          whiteSpace: 'pre-line',
-        }}
-      >
-        {library.description}
-      </p>
 
-      <div
-        className={'d-flex flex-wrap mb-2'}
-        style={{ marginRight: '-0.5rem' }}
-      >
-        {sponsoredItems.map((item) => {
-          return <ItemCard item={item} key={item._id} />
-        })}
-      </div>
+      <h4 className={'mb-3'}>
+        Show me all
+        <div
+          className='btn-group ms-2'
+          role='group'
+          aria-label='Toggle collection/item view'
+        >
+          <button
+            type='button'
+            className={
+              'btn btn-' + (showCollections ? 'outline-' : '') + 'primary'
+            }
+            onClick={() => setShowCollections(false)}
+          >
+            Items
+          </button>
+          <button
+            type='button'
+            className={
+              'btn btn-' + (!showCollections ? 'outline-' : '') + 'primary'
+            }
+            onClick={() => setShowCollections(true)}
+          >
+            Collections
+          </button>
+        </div>
+      </h4>
 
-      <CollectionBoard
-        _id={library._id}
-        collections={libraryCollections}
-        allCollections={collections}
-        canEdit={isEditor(session)}
-      />
+      {showCollections ? (
+        <CollectionBoard
+          _id={library._id}
+          collections={libraryCollections}
+          allCollections={collections}
+          canEdit={isEditor(session)}
+        />
+      ) : (
+        <ItemBoard
+          _id={library._id}
+          items={items}
+          columns={columns}
+          showSponsors={true}
+          canEdit={isEditor(session)}
+        />
+      )}
     </>
   )
 }
@@ -176,6 +206,7 @@ export async function getStaticProps({ params }) {
       library,
       collections: await getAllCache(Types.collection),
       items: await getAllCache(Types.item),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 60,
   }

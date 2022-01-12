@@ -15,6 +15,7 @@ import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
 import Title from '../text/Title'
+import classNames from 'classnames'
 
 export default function Card({
   type,
@@ -42,127 +43,120 @@ export default function Card({
         ' card bg-2 mb-2 me-2'
       }
     >
-      <Link href={hrefString}>
-        <a
-          className={
-            styles.link + ' umami--click--' + type + '-' + content.name
-          }
-        >
-          <div className='row g-0'>
-            {move !== null && (
-              <div className={styles.sorter + ' col-auto'}>
-                <a onClick={() => move(-1)}>
-                  <FontAwesomeIcon icon={['fas', 'chevron-up']} />
-                </a>
-                <a onClick={() => move(1)}>
-                  <FontAwesomeIcon icon={['fas', 'chevron-down']} />
-                </a>
-              </div>
-            )}
-            {imageUrl !== '' && (
-              <div className={'col-auto'}>
-                <Link href={hrefString}>
-                  <a
-                    title={'View ' + type + ' ' + (content.name ?? '')}
-                    className={'umami--click--' + type + '-' + content.name}
+      <div className='row g-0 h-100'>
+        {move !== null && (
+          <div className={styles.sorter + ' col-auto'}>
+            <a onClick={() => move(-1)}>
+              <FontAwesomeIcon icon={['fas', 'chevron-up']} />
+            </a>
+            <a onClick={() => move(1)}>
+              <FontAwesomeIcon icon={['fas', 'chevron-down']} />
+            </a>
+          </div>
+        )}
+        {imageUrl !== '' && (
+          <div className={'col-auto'}>
+            <Link href={hrefString}>
+              <a
+                data-tip={'View ' + type + ' ' + (content.name ?? '')}
+                className={'umami--click--' + type + '-' + content.name}
+              >
+                <Image
+                  src={imageUrl}
+                  className='img-fluid rounded-start'
+                  alt='...'
+                  width={128}
+                  height={128}
+                />
+              </a>
+            </Link>
+          </div>
+        )}
+        <div className='col h-100'>
+          <div className={'card-body d-flex flex-column p-2 h-100'}>
+            <h5 className={styles.title + ' card-title'}>
+              {typeof content.urls !== 'undefined' && (
+                <OnlineStatus url={content.urls[0] ?? ''} />
+              )}
+
+              <Title type={type} content={content} contentLink={hrefString} />
+
+              {canEdit(session, type) && (
+                <>
+                  <Link
+                    href={'/edit/' + type + '/' + (content.uid ?? content._id)}
                   >
-                    <Image
-                      src={imageUrl}
-                      className='img-fluid rounded-start'
-                      alt='...'
-                      width={128}
-                      height={128}
-                    />
-                  </a>
-                </Link>
-              </div>
-            )}
-            <div className='col'>
-              <div className={'card-body d-flex flex-column p-2 h-100'}>
-                <h5 className={styles.title + ' card-title'}>
-                  {typeof content.urls !== 'undefined' && (
-                    <OnlineStatus url={content.urls[0] ?? ''} />
-                  )}
-
-                  <Title
-                    type={type}
-                    content={content}
-                    contentLink={hrefString}
-                  />
-
-                  {canEdit(session, type) && (
-                    <>
-                      <Link
-                        href={
-                          '/edit/' + type + '/' + (content.uid ?? content._id)
-                        }
-                      >
-                        <a title={'Edit ' + type} className={'ms-2'}>
-                          <IconEdit />
-                        </a>
-                      </Link>
-                    </>
-                  )}
-                  {content.sponsor && (
-                    <span className={styles.sponsorBadge + ' ms-2 float-end'}>
-                      <span className={styles.sponsorIcon}>
-                        <IconSponsor size='xs' />
-                      </span>
-                      Sponsored
-                    </span>
-                  )}
-                  <span className={styles.action}>
-                    {content.nsfw && (
-                      <span className={'ms-2'}>
-                        <IconNSFW />
-                      </span>
-                    )}
-                    {content.accountType && (
-                      <span className={'ms-2'}>
-                        <DataBadge
-                          name={content.accountType}
-                          style={'primary'}
-                        />
-                      </span>
-                    )}
-                    {type === 'item' && (
-                      <span className={'float-end'}>
-                        <span className={'ms-2'}>
-                          <IconStar item={content} />
-                        </span>
-                        <span className={'ms-2'}>
-                          <IconBookmark item={content} />
-                        </span>
-                      </span>
-                    )}
-                    {add !== null && (
-                      <a
-                        title={'Add ' + type}
-                        className={styles.link + ' float-end'}
-                        onClick={add}
-                      >
-                        <IconAdd />
-                      </a>
-                    )}
-                    {remove !== null && (
-                      <IconDelete
-                        title={'Delete ' + type}
-                        className={styles.link + ' float-end'}
-                        onClick={remove}
-                      />
-                    )}
+                    <a data-tip={'Edit ' + type} className={'ms-2'}>
+                      <IconEdit />
+                    </a>
+                  </Link>
+                </>
+              )}
+              {content.sponsor && (
+                <span className={styles.sponsorBadge + ' ms-2 float-end'}>
+                  <span className={styles.sponsorIcon}>
+                    <IconSponsor size='xs' />
                   </span>
-                </h5>
+                  Sponsored
+                </span>
+              )}
+              <span className={styles.action}>
+                {content.nsfw && (
+                  <span className={'ms-2'}>
+                    <IconNSFW />
+                  </span>
+                )}
+                {content.accountType && (
+                  <span className={'ms-2'}>
+                    <DataBadge name={content.accountType} style={'primary'} />
+                  </span>
+                )}
+                {type === 'item' && (
+                  <span className={'float-end'}>
+                    <span className={'ms-2'}>
+                      <IconStar item={content} />
+                    </span>
+                    <span className={'ms-2'}>
+                      <IconBookmark item={content} />
+                    </span>
+                  </span>
+                )}
+                {add !== null && (
+                  <a
+                    data-tip={'Add ' + type}
+                    className={styles.link + ' float-end'}
+                    onClick={add}
+                  >
+                    <IconAdd />
+                  </a>
+                )}
+                {remove !== null && (
+                  <IconDelete
+                    title={'Delete ' + type}
+                    className={styles.link + ' float-end'}
+                    onClick={remove}
+                  />
+                )}
+              </span>
+            </h5>
 
+            <Link href={hrefString}>
+              <a
+                className={classNames(
+                  styles.link,
+                  'umami--click--' + type + '-' + content.name,
+                  'h-100'
+                )}
+              >
                 <span className={styles.description + ' card-text'}>
                   {content.description}
                 </span>
                 {bodyContent !== null && bodyContent}
-              </div>
-            </div>
+              </a>
+            </Link>
           </div>
-        </a>
-      </Link>
+        </div>
+      </div>
     </div>
   )
 }

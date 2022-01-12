@@ -73,6 +73,12 @@ export default function Navbar() {
 
       <nav className={styles.navbar + ' navbar navbar-dark navbar-expand'}>
         <div className={'container-fluid'}>
+          <NavbarToggler
+            show={show}
+            onClick={() => setShow(!show)}
+            ref={navbarToggleRef}
+            className={(!show ? styles.show : '') + ' me-2'}
+          />
           <NavbarBrand />
           <div className={'collapse navbar-collapse me-2'}>
             <div className={'d-flex flex-row'}>
@@ -130,32 +136,10 @@ export default function Navbar() {
                     <span className={styles.services + ' ms-1'}>Wiki</span>
                   </a>
                 </li>
-                <li className={styles.desktop + ' nav-item me-1'}>
-                  <a
-                    className={
-                      'nav-link d-flex align-items-center umami--click--navbar-seadex'
-                    }
-                    href='https://releases.moe/'
-                  >
-                    <Image
-                      src={'/icons/seadex.png'}
-                      height={24}
-                      width={24}
-                      alt={'Seadex logo'}
-                    />
-                    <span className={styles.services + ' ms-1'}>SeaDex</span>
-                  </a>
-                </li>
                 <span className={styles.listAll}>
                   <NavbarUser className={styles.username} />
                 </span>
               </ul>
-              <NavbarToggler
-                show={show}
-                onClick={() => setShow(!show)}
-                ref={navbarToggleRef}
-                className={(!show ? styles.show : '') + ' ms-2'}
-              />
             </div>
           </div>
         </div>

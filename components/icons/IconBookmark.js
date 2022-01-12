@@ -15,7 +15,7 @@ export default function IconBookmark({ item, size }) {
     <>
       <span
         className={iconStyles.icon + ' ' + styles.bookmark}
-        title={'Add item to list'}
+        data-tip={'Add item to list'}
         onClick={() => {
           setShow(!show)
         }}

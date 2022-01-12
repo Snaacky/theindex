@@ -4,6 +4,7 @@ import * as process from 'process'
 import { Types } from '../../types/Components'
 import { findOne, getAll, singularToPlural } from './db'
 import { getUser, getUsers } from './users'
+import { getItem } from './items'
 
 const uri =
   'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
@@ -24,6 +25,8 @@ export async function getSingleCache(
   if (data === null) {
     if (type === Types.user) {
       data = await getUser(_id)
+    } else if (type === Types.item) {
+      data = await getItem(_id)
     } else {
       data = await findOne(singularToPlural(type), { _id: _id })
     }

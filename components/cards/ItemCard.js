@@ -47,7 +47,7 @@ export default function ItemCard({
                 return (
                   <div key={c._id}>
                     <Link href={'/column/' + c.urlId}>
-                      <a className={'me-2'} title={'View column ' + c.name}>
+                      <a className={'me-2'} data-tip={'View column ' + c.name}>
                         {c.name}:
                       </a>
                     </Link>

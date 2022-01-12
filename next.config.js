@@ -1,10 +1,4 @@
-const withPWA = require('next-pwa')
-
 const nextConfig = {
-  pwa: {
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
-  },
   async headers() {
     return [
       {
@@ -24,4 +18,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withPWA(nextConfig)
+module.exports = nextConfig

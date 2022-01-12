@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
+import { ColumnType } from '../../types/Column'
+import ISO6391 from 'iso-639-1'
 
 export default function ArrayValue({ data, column, onChange = null }) {
   if (onChange === null) {
@@ -7,7 +9,7 @@ export default function ArrayValue({ data, column, onChange = null }) {
       <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
         <a
           className={'me-2'}
-          title={'View column ' + column.name + ' with value ' + v}
+          data-tip={'View column ' + column.name + ' with value ' + v}
         >
           <DataBadge name={v} />
         </a>
@@ -15,19 +17,35 @@ export default function ArrayValue({ data, column, onChange = null }) {
     ))
   }
 
-  return column.values.map((v) => (
-    <a
-      className={'me-2'}
-      key={v}
-      onClick={() => {
-        if (data.includes(v)) {
-          onChange(data.filter((d) => d !== v))
-        } else {
-          onChange(data.concat([v]))
-        }
-      }}
-    >
-      <DataBadge data={data.includes(v) ? true : null} name={v} />
-    </a>
-  ))
+  let values = []
+  if (column.type === ColumnType.array) {
+    values = column.values
+  } else if (column.type === ColumnType.language) {
+    values = ISO6391.getAllCodes()
+  }
+
+  return values.map((v) => {
+    const tooltipId = 'tooltip-arrayBadge-' + column.name + '-' + v
+
+    return (
+      <>
+        <a
+          data-tip={
+            column.type === ColumnType.language ? ISO6391.getName(v) : v
+          }
+          className={'me-2'}
+          key={v}
+          onClick={() => {
+            if (data.includes(v)) {
+              onChange(data.filter((d) => d !== v))
+            } else {
+              onChange(data.concat([v]))
+            }
+          }}
+        >
+          <DataBadge data={data.includes(v) ? true : null} name={v} />
+        </a>
+      </>
+    )
+  })
 }

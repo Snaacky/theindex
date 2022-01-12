@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/client'
-import { canEdit } from '../../lib/session'
+import { canEdit, isAdmin, isEditor } from '../../lib/session'
 import { getItem, getItems } from '../../lib/db/items'
 import DataItem from '../../components/data/DataItem'
 import IconEdit from '../../components/icons/IconEdit'
@@ -12,7 +12,6 @@ import IconStar from '../../components/icons/IconStar'
 import IconBookmark from '../../components/icons/IconBookmark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconNewTabLink from '../../components/icons/IconNewTabLink'
-import IconItem from '../../components/icons/IconItem'
 import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconSponsor from '../../components/icons/IconSponsor'
@@ -32,6 +31,7 @@ export default function Item({ item, columns, collections }) {
 
   const { data: swrItem } = useSWR('/api/item/' + item._id)
   item = swrItem || item
+  item.stars = item.stars || 0
   const { data: swrColumns } = useSWR('/api/columns')
   columns = swrColumns || columns
   const { data: swrCollections } = useSWR('/api/collections')
@@ -69,7 +69,7 @@ export default function Item({ item, columns, collections }) {
       <div className={'row'}>
         <div className={'col-12 col-md-4 col-lg-6 col-xl-4'}>
           <h2>
-            <IconItem />{' '}
+            <OnlineStatus url={item.urls[0] ?? ''} />
             {item.blacklist ? (
               <span className={'text-danger'}>
                 Blacklisted: <del>{item.name}</del>
@@ -83,7 +83,7 @@ export default function Item({ item, columns, collections }) {
             />
             {canEdit(session) && (
               <Link href={'/edit/item/' + item._id}>
-                <a title={'Edit item'} className={'ms-2'}>
+                <a data-tip={'Edit item'} className={'ms-2'}>
                   <IconEdit />
                 </a>
               </Link>
@@ -110,43 +110,22 @@ export default function Item({ item, columns, collections }) {
               />
             )}
           </h2>
-          <div className={'mb-2'}>
-            {collections.map((t) => {
-              return (
-                <Link href={'/collection/' + t.urlId} key={t._id}>
-                  <a
-                    className={'me-2 mb-2'}
-                    title={'View collection ' + t.name}
-                  >
-                    <DataBadge name={t.name} style={'primary'} />
-                  </a>
-                </Link>
-              )
-            })}
-          </div>
 
-          <div className={'d-flex flex-wrap'}>
-            {item.urls.map((url) => (
-              <UrlBadge
-                url={url}
-                key={url}
-                className={'umami--click--open-' + item.name}
-              />
-            ))}
-          </div>
-
-          <div>
-            <span>
-              Status <OnlineStatus url={item.urls[0] ?? ''} />
-            </span>
+          <p>
+            User starred this item:{' '}
             <small
-              className={'text-warning me-2'}
-              title={item.stars + ' users have starred this item'}
+              className={'text-warning'}
+              data-tip={
+                item.stars +
+                ' user' +
+                (item.stars === 1 ? '' : 's') +
+                ' have starred this item'
+              }
             >
               {item.stars}
               <FontAwesomeIcon icon={['fas', 'star']} className={'ms-1'} />
             </small>
-          </div>
+          </p>
 
           <p
             style={{
@@ -199,8 +178,22 @@ export default function Item({ item, columns, collections }) {
             loader={({ src }) => src}
             unoptimized={true}
           />
-          <div className={'text-muted float-end'}>
+          <div
+            className={
+              'text-muted float-end' + (isAdmin(session) ? ' mt-2' : '')
+            }
+          >
             Captured screenshot of the site <code>{item.urls[0]}</code>
+            {isEditor(session) && (
+              <button
+                className={'ms-2 btn btn-sm btn-outline-warning'}
+                onClick={() => {
+                  postData('/api/admin/screenshot/create/' + item._id, {})
+                }}
+              >
+                Retake
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -222,6 +215,41 @@ export default function Item({ item, columns, collections }) {
       )}
       {(!item.blacklist || canEdit(session)) && (
         <>
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body pb-1'}>
+              <h5 className={'card-title'}>Collections including this item</h5>
+              <div className={'d-flex flex-wrap'}>
+                {collections.map((t) => {
+                  return (
+                    <Link href={'/collection/' + t.urlId} key={t._id}>
+                      <a
+                        className={'me-2 mb-2'}
+                        data-tip={'View collection ' + t.name}
+                      >
+                        <DataBadge name={t.name} style={'primary'} />
+                      </a>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body pb-1'}>
+              <h5 className={'card-title'}>Official links</h5>
+              <div className={'d-flex flex-wrap'}>
+                {item.urls.map((url) => (
+                  <UrlBadge
+                    url={url}
+                    key={url}
+                    className={'umami--click--open-' + item.name}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className={'card bg-2 my-2'}>
             <div className={'card-body'}>
               <h5 className={'card-title text-success'}>Pros</h5>
@@ -265,7 +293,10 @@ export default function Item({ item, columns, collections }) {
                   return (
                     <div key={c._id}>
                       <Link href={'/column/' + c.urlId}>
-                        <a className={'me-2'} title={'View column ' + c.name}>
+                        <a
+                          className={'me-2'}
+                          data-tip={'View column ' + c.name}
+                        >
                           {c.name}:
                         </a>
                       </Link>

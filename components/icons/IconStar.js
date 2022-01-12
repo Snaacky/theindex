@@ -29,7 +29,7 @@ export default function IconStar({ item, size }) {
     <>
       <span
         className={iconStyles.icon + ' ' + styles.star}
-        title={(isFav ? 'Un-star' : 'Star') + ' item'}
+        data-tip={(isFav ? 'Un-star' : 'Star') + ' item'}
         onClick={() => {
           if (isLogin(session)) {
             user.favs = isFav

@@ -18,7 +18,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
       return (
         <a
           href={content.urls[0]}
-          title={'Open ' + (content.name ?? '') + ' in new tab'}
+          data-tip={'Open ' + (content.name ?? '') + ' in new tab'}
           className={
             'umami--click--open-' +
             (content.sponsor ? 'sponsored-' : '') +
@@ -33,7 +33,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
     return (
       <span
         className={'text-danger'}
-        title={
+        data-tip={
           content.urls[0] && content.urls[0] !== ''
             ? 'Invalid url'
             : 'Missing url'
@@ -47,7 +47,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   return (
     <Link href={contentLink}>
       <a
-        title={'View ' + type + ' ' + (content.name ?? '')}
+        data-tip={'View ' + type + ' ' + (content.name ?? '')}
         className={'umami--click--' + type + '-' + content.name}
       >
         {content.name ?? (
