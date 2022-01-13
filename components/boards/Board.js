@@ -9,10 +9,10 @@ import { useSession } from 'next-auth/client'
 import { canEdit } from '../../lib/session'
 import classNames from 'classnames'
 import styles from './Board.module.css'
-import DataBadge from '../data/DataBadge'
 import ItemCard from '../cards/ItemCard'
-import { Types } from '../../types/Components'
 import { ColumnType } from '../../types/Column'
+import Pagination from '../data/Pagination'
+import Select from '../data/Select'
 
 const Board = ({
   _id,
@@ -56,7 +56,17 @@ const Board = ({
     },
     {
       name: 'latest',
-      sort: (a, b) => (a.createdAt < b.createdAt ? -1 : 1),
+      sort: (a, b) =>
+        new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime()
+          ? -1
+          : 1,
+    },
+    {
+      name: 'oldest',
+      sort: (a, b) =>
+        new Date(a.createdAt).getTime() < new Date(b.createdAt).getTime()
+          ? -1
+          : 1,
     },
   ]
   const [sortOption, setSortOption] = useState(sortOptions[0])
@@ -255,12 +265,6 @@ const Board = ({
       pageSize === 0 ||
       (index >= startViewIndex && index < startViewIndex + pageSize)
   )
-  const pagination = []
-  if (pageSize !== 0) {
-    for (let i = 0; i < Math.ceil(filteredContent.length / pageSize); i++) {
-      pagination.push(i)
-    }
-  }
 
   return (
     <>
@@ -280,7 +284,7 @@ const Board = ({
           <div className={'col-12 col-sm-6 col-md-auto'}>
             {columns.length > 0 && (
               <button
-                className={'btn btn-outline-primary me-2'}
+                className={'btn btn-outline-primary'}
                 type={'button'}
                 onClick={() => setShowFilter(!showFilter)}
                 aria-expanded='false'
@@ -290,10 +294,38 @@ const Board = ({
               </button>
             )}
 
+            {content.length > 1 && (
+              <div
+                className={'d-inline-block ms-2 rounded'}
+                style={{
+                  border: 'solid 1px var(--bs-secondary)',
+                  verticalAlign: 'middle',
+                }}
+              >
+                <Select
+                  options={sortOptions.map((option) => (
+                    <option key={option.name} value={option.name}>
+                      {option.name}
+                    </option>
+                  ))}
+                  hover={'Sort by'}
+                  onChange={(event) => {
+                    const newSortOption = sortOptions.find(
+                      (option) => option.name === event.target.value
+                    )
+                    console.log('Changed sorting to', newSortOption)
+                    setSortOption(newSortOption)
+                    setContent(content.sort(newSortOption.sort))
+                  }}
+                />
+              </div>
+            )}
+
             <button
               className={classNames(
                 styles.gridListToggle,
-                'btn btn-outline-secondary'
+                'btn btn-outline-secondary',
+                'ms-2'
               )}
               type={'button'}
               onClick={() => setCardView(!cardView)}
@@ -395,89 +427,15 @@ const Board = ({
         )}
       </div>
 
-      {(filteredContent.length > pageSize || content.length > pageSizes[0]) && (
-        <div className={'d-flex flex-row justify-content-center'}>
-          {filteredContent.length > pageSize && (
-            <nav aria-label='Board pagination'>
-              <ul className='pagination mb-2'>
-                {startViewIndex > 0 && (
-                  <li className='page-item'>
-                    <a
-                      className={'page-link border-dark bg-dark'}
-                      href='#'
-                      aria-label='Previous'
-                      onClick={() =>
-                        setStartViewIndex(startViewIndex - pageSize)
-                      }
-                    >
-                      <span aria-hidden='true'>&laquo;</span>
-                    </a>
-                  </li>
-                )}
-                {pagination.map((index) => (
-                  <li
-                    key={index}
-                    className={
-                      'page-item' +
-                      (index * pageSize === startViewIndex ? ' active' : '')
-                    }
-                  >
-                    <a
-                      className={
-                        'page-link border-dark bg-' +
-                        (index * pageSize === startViewIndex
-                          ? 'primary'
-                          : 'dark')
-                      }
-                      href='#'
-                      onClick={() => setStartViewIndex(index * pageSize)}
-                    >
-                      {index + 1}
-                    </a>
-                  </li>
-                ))}
-                {startViewIndex <
-                  Math.floor(filteredContent.length / pageSize) * pageSize && (
-                  <li className='page-item'>
-                    <a
-                      className={'page-link border-dark bg-dark'}
-                      href='#'
-                      aria-label='Previous'
-                      onClick={() =>
-                        setStartViewIndex(startViewIndex + pageSize)
-                      }
-                    >
-                      <span aria-hidden='true'>&raquo;</span>
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </nav>
-          )}
+      <Pagination
+        contentLength={filteredContent.length}
+        pageSize={pageSize}
+        pageSizes={pageSizes}
+        setPageSize={setPageSize}
+        startViewIndex={startViewIndex}
+        setStartViewIndex={setStartViewIndex}
+      />
 
-          {content.length > pageSizes[0] && (
-            <div className={'mb-2 ms-2'}>
-              <select
-                className={'form-select border-dark text-white bg-dark'}
-                aria-label='Pagination size'
-                onChange={(e) => {
-                  const newSize = parseInt(e.target.value)
-                  if (newSize === 0) {
-                    setStartViewIndex(0)
-                  }
-                  setPageSize(newSize)
-                }}
-              >
-                {pageSizes.map((size) => (
-                  <option key={size} selected={size === pageSize} value={size}>
-                    {size === 0 ? 'All' : size}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-        </div>
-      )}
       {editMode && (
         <>
           <hr />

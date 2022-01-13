@@ -60,7 +60,7 @@ const OnlineStatus: FC<Props> = ({ url }) => {
             : '')
         }
       />
-      {show ? (
+      {show && (
         <OnlineStatusModal
           url={url}
           style={style}
@@ -68,8 +68,6 @@ const OnlineStatus: FC<Props> = ({ url }) => {
           data={data}
           close={() => setShow(false)}
         />
-      ) : (
-        <></>
       )}
     </>
   )
