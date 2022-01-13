@@ -16,5 +16,5 @@ export default async function apiUser(req, res) {
     result = await getSingleCache(Types.user, req.query.id, false)
   }
 
-  res.status(200).send(result)
+  res.status(200).json(result)
 }

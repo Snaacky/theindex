@@ -6,7 +6,6 @@ import {
 } from '../../../../lib/db/itemScreenshots'
 import createScreenshot from '../../../../lib/crawler/screenshot'
 import { isAdmin } from '../../../../lib/session'
-import fs from 'fs'
 
 export default async function handler(req, res) {
   const session = await getSession({ req })
