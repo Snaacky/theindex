@@ -20,6 +20,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
           href={content.urls[0]}
           data-tip={'Open ' + (content.name ?? '') + ' in new tab'}
           target={'_blank'}
+          rel={'noreferrer'}
           className={
             'umami--click--open-' +
             (content.sponsor ? 'sponsored-' : '') +
