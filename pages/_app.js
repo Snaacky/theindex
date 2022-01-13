@@ -33,11 +33,15 @@ export default function App({ Component, pageProps }) {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
-      }).then(async (r) => {
-        if (r.status !== 200) {
-          console.warn('Failed to post page stat: Error ' + r.status)
-        }
       })
+        .then(async (r) => {
+          if (r.status !== 200) {
+            console.warn('Failed to post page stat: Error', r.status)
+          }
+        })
+        .catch((e) => {
+          console.warn('Failed to post page stat: Error', e)
+        })
     }
 
     // when page is loaded via direct http request, there is no route change via JS, need to manually trigger

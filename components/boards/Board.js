@@ -43,7 +43,8 @@ const Board = ({
   const [columnFilter, setColumnFilter] = useState({})
 
   const [startViewIndex, setStartViewIndex] = useState(0)
-  const pageSize = 21
+  const [pageSize, setPageSize] = useState(15)
+  const pageSizes = [15, 30, 60, 0]
 
   useEffect(() => {
     setUnselectedContent(
@@ -236,11 +237,14 @@ const Board = ({
   const filteredUnselectedContent = filterContent(unselectedContent)
   const paginatedContent = filteredContent.filter(
     (content, index) =>
-      index >= startViewIndex && index < startViewIndex + pageSize
+      pageSize === 0 ||
+      (index >= startViewIndex && index < startViewIndex + pageSize)
   )
   const pagination = []
-  for (let i = 0; i < Math.ceil(filteredContent.length / pageSize); i++) {
-    pagination.push(i)
+  if (pageSize !== 0) {
+    for (let i = 0; i < Math.ceil(filteredContent.length / pageSize); i++) {
+      pagination.push(i)
+    }
   }
 
   return (
@@ -305,7 +309,10 @@ const Board = ({
                 value={searchString}
                 type={'text'}
                 className={'form-control'}
-                onChange={(e) => setSearchString(e.target.value.toLowerCase())}
+                onChange={(e) => {
+                  setSearchString(e.target.value.toLowerCase())
+                  setStartViewIndex(0)
+                }}
                 aria-label={'Search input'}
                 placeholder={'Type something to search...'}
                 aria-describedby={'inputSearchStringAddon'}
@@ -324,7 +331,7 @@ const Board = ({
                     startViewIndex >=
                       filteredContent.length - sponsorContent.length
                   ) {
-                    setStartViewIndex(startViewIndex - pageSize)
+                    setStartViewIndex(Math.max(startViewIndex - pageSize, 0))
                   }
                   setEditMode(!editMode)
                 }}
@@ -344,7 +351,10 @@ const Board = ({
             <ColumnFilter
               columns={columns}
               filter={columnFilter}
-              setFilter={setColumnFilter}
+              setFilter={(newFilters) => {
+                setColumnFilter(newFilters)
+                setStartViewIndex(0)
+              }}
             />
           </div>
         )}
@@ -373,56 +383,88 @@ const Board = ({
           )
         )}
       </div>
-      {filteredContent.length > pageSize && (
-        <nav className={'mb-2'} aria-label='Board navigation'>
-          <ul className='pagination'>
-            {startViewIndex > 0 && (
-              <li className='page-item'>
-                <a
-                  className={'page-link border-dark bg-dark'}
-                  href='#'
-                  aria-label='Previous'
-                  onClick={() => setStartViewIndex(startViewIndex - pageSize)}
-                >
-                  <span aria-hidden='true'>&laquo;</span>
-                </a>
-              </li>
-            )}
-            {pagination.map((index) => (
-              <li
-                key={index}
-                className={
-                  'page-item' +
-                  (index * pageSize === startViewIndex ? ' active' : '')
-                }
-              >
-                <a
-                  className={
-                    'page-link border-dark bg-' +
-                    (index * pageSize === startViewIndex ? 'primary' : 'dark')
+      {(filteredContent.length > pageSize || content.length > pageSizes[0]) && (
+        <div className={'d-flex flex-row justify-content-center'}>
+          {filteredContent.length > pageSize && (
+            <nav aria-label='Board pagination'>
+              <ul className='pagination mb-2'>
+                {startViewIndex > 0 && (
+                  <li className='page-item'>
+                    <a
+                      className={'page-link border-dark bg-dark'}
+                      href='#'
+                      aria-label='Previous'
+                      onClick={() =>
+                        setStartViewIndex(startViewIndex - pageSize)
+                      }
+                    >
+                      <span aria-hidden='true'>&laquo;</span>
+                    </a>
+                  </li>
+                )}
+                {pagination.map((index) => (
+                  <li
+                    key={index}
+                    className={
+                      'page-item' +
+                      (index * pageSize === startViewIndex ? ' active' : '')
+                    }
+                  >
+                    <a
+                      className={
+                        'page-link border-dark bg-' +
+                        (index * pageSize === startViewIndex
+                          ? 'primary'
+                          : 'dark')
+                      }
+                      href='#'
+                      onClick={() => setStartViewIndex(index * pageSize)}
+                    >
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
+                {startViewIndex <
+                  Math.floor(filteredContent.length / pageSize) * pageSize && (
+                  <li className='page-item'>
+                    <a
+                      className={'page-link border-dark bg-dark'}
+                      href='#'
+                      aria-label='Previous'
+                      onClick={() =>
+                        setStartViewIndex(startViewIndex + pageSize)
+                      }
+                    >
+                      <span aria-hidden='true'>&raquo;</span>
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </nav>
+          )}
+
+          {content.length > pageSizes[0] && (
+            <div className={'mb-2 ms-2'}>
+              <select
+                className={'form-select border-dark text-white bg-dark'}
+                aria-label='Pagination size'
+                onChange={(e) => {
+                  const newSize = parseInt(e.target.value)
+                  if (newSize === 0) {
+                    setStartViewIndex(0)
                   }
-                  href='#'
-                  onClick={() => setStartViewIndex(index * pageSize)}
-                >
-                  {index + 1}
-                </a>
-              </li>
-            ))}
-            {startViewIndex <
-              Math.floor(filteredContent.length / pageSize) * pageSize && (
-              <li className='page-item'>
-                <a
-                  className={'page-link border-dark bg-dark'}
-                  href='#'
-                  aria-label='Previous'
-                  onClick={() => setStartViewIndex(startViewIndex + pageSize)}
-                >
-                  <span aria-hidden='true'>&raquo;</span>
-                </a>
-              </li>
-            )}
-          </ul>
-        </nav>
+                  setPageSize(newSize)
+                }}
+              >
+                {pageSizes.map((size) => (
+                  <option key={size} selected={size === pageSize} value={size}>
+                    {size === 0 ? 'All' : size}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
       )}
       {editMode && (
         <>
