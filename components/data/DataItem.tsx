@@ -12,16 +12,16 @@ type Props = {
 }
 
 const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
-  if (column.type === ColumnType.boolean && !Array.isArray(data)) {
+  if (column.type === ColumnType.boolean && !Array.isArray(data) && typeof data !== 'string') {
     return <BoolValue data={data} column={column} onChange={onChange} />
   } else if (column.type === ColumnType.proAndCon && !Array.isArray(data)) {
     return <ProAndConValue data={data} column={column} onChange={onChange} />
   } else if (
     (column.type === ColumnType.array || column.type === ColumnType.language) &&
-    Array.isArray(data)
+    typeof data !== 'boolean' && typeof data !== 'string'
   ) {
     return <ArrayValue data={data || []} column={column} onChange={onChange} />
-  } else if (column.type === ColumnType.text) {
+  } else if (column.type === ColumnType.text && !Array.isArray(data) && typeof data !== 'boolean') {
     return <TextValue data={data || ''} column={column} onChange={onChange} />
   }
 
