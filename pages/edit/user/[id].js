@@ -6,6 +6,7 @@ import { isAdmin, isCurrentUser } from '../../../lib/session'
 import EditUser from '../../../components/edit/EditUser'
 import NotAdmin from '../../../components/layout/NotAdmin'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorUser({ uid, user }) {
   const [session] = useSession()
@@ -33,7 +34,7 @@ export default function EditorUser({ uid, user }) {
         </div>
         {isAdmin(session) && (
           <div>
-            <ViewAllButton type={'users'} />
+            <ViewAllButton type={Types.user} />
           </div>
         )}
       </div>

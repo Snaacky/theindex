@@ -1,10 +1,17 @@
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './ViewAllButton.module.css'
+import { FC } from 'react'
+import { Types } from '../../types/Components'
+import { singularToPlural } from '../../lib/utils'
 
-export default function ViewAllButton({ type }) {
+type Props = {
+  type: Types
+}
+
+const ViewAllButton: FC<Props> = ({ type }) => {
   return (
-    <Link href={'/' + type}>
+    <Link href={'/' + singularToPlural(type)}>
       <a className={'btn btn-outline-secondary'}>
         View all <span className={styles.type}>{type}</span>
         <FontAwesomeIcon
@@ -15,3 +22,5 @@ export default function ViewAllButton({ type }) {
     </Link>
   )
 }
+
+export default ViewAllButton

@@ -20,6 +20,7 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
       setFilter(temp)
     } else if (
       (column.type === ColumnType.boolean && typeof value === 'boolean') ||
+      (column.type === ColumnType.proAndCon && typeof value === 'boolean') ||
       (column.type === ColumnType.array && Array.isArray(value)) ||
       (column.type === ColumnType.language && Array.isArray(value)) ||
       (column.type === ColumnType.text && typeof value === 'string')
@@ -44,6 +45,9 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
   const boolColumns = columns.filter(
     (column) => column.type === ColumnType.boolean
   )
+  const proAndConColumns = columns.filter(
+    (column) => column.type === ColumnType.proAndCon
+  )
   const arrayColumns = columns.filter(
     (column) => column.type === ColumnType.array
   )
@@ -55,6 +59,7 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
   )
   return (
     <div className={'d-flex flex-column'}>
+      <h5>Features</h5>
       <div className={'d-flex flex-wrap'}>
         {boolColumns.map((column) => (
           <span className={'me-2'} key={column._id}>
@@ -67,17 +72,40 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
         ))}
       </div>
 
-      {arrayColumns.length > 0 && <hr />}
-      {arrayColumns.map((column) => (
-        <div key={column._id}>
-          <span className={'me-2'}>{column.name}:</span>
-          <DataItem
-            data={filter[column._id]}
-            column={column}
-            onChange={(value) => updateFilter(column, value)}
-          />
-        </div>
-      ))}
+      {proAndConColumns.length > 0 && (
+        <>
+          <hr />
+          <h5>Pro and Cons</h5>
+          <div className={'d-flex flex-wrap'}>
+            {proAndConColumns.map((column) => (
+              <span className={'me-2'} key={column._id}>
+                <DataItem
+                  data={filter[column._id]}
+                  column={column}
+                  onChange={(value) => updateFilter(column, value)}
+                />
+              </span>
+            ))}
+          </div>
+        </>
+      )}
+
+      {arrayColumns.length > 0 && (
+        <>
+          <hr />
+          <h5>Misc.</h5>
+          {arrayColumns.map((column) => (
+            <div key={column._id}>
+              <span className={'me-2'}>{column.name}:</span>
+              <DataItem
+                data={filter[column._id]}
+                column={column}
+                onChange={(value) => updateFilter(column, value)}
+              />
+            </div>
+          ))}
+        </>
+      )}
 
       {languageColumns.length > 0 && <hr />}
       {languageColumns.map((column) => (

@@ -6,6 +6,7 @@ import EditList from '../../../components/edit/EditList'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import NotAdmin from '../../../components/layout/NotAdmin'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorList({ _id, userLists, list }) {
   const [session] = useSession()
@@ -44,7 +45,7 @@ export default function EditorList({ _id, userLists, list }) {
           )}
         </div>
         <div>
-          <ViewAllButton type={'lists'} />
+          <ViewAllButton type={Types.list} />
         </div>
       </div>
 

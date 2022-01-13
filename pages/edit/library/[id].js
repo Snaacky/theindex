@@ -8,6 +8,7 @@ import EditLibrary from '../../../components/edit/EditLibrary'
 import Link from 'next/link'
 import CollectionBoard from '../../../components/boards/CollectionBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorLibrary({
   _id,
@@ -19,7 +20,7 @@ export default function EditorLibrary({
     <>
       <Head>
         <title>
-          {(_id === '_new' ? 'Create tab' : 'Editlibrary' + library.name) +
+          {(_id === '_new' ? 'Create tab' : 'Edit library' + library.name) +
             ' | ' +
             process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
@@ -44,7 +45,7 @@ export default function EditorLibrary({
           )}
         </div>
         <div>
-          <ViewAllButton type={'libraries'} />
+          <ViewAllButton type={Types.library} />
         </div>
       </div>
 

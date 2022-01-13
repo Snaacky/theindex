@@ -2,9 +2,11 @@
 import Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
-import { findOne, getAll, singularToPlural } from './db'
+import { findOne, getAll } from './db'
+
 import { getUser, getUsers } from './users'
 import { getItem } from './items'
+import { singularToPlural } from '../utils'
 
 const uri =
   'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'

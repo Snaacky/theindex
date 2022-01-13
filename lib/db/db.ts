@@ -203,21 +203,3 @@ export async function deleteOne(
     await client.close()
   }
 }
-
-export function singularToPlural(type: Types) {
-  if (type === Types.item) {
-    return 'items'
-  } else if (type === Types.column) {
-    return 'columns'
-  } else if (type === Types.collection) {
-    return 'collections'
-  } else if (type === Types.library) {
-    return 'libraries'
-  } else if (type === Types.user) {
-    return 'users'
-  } else if (type === Types.list) {
-    return 'lists'
-  } else {
-    throw 'Unknown type'
-  }
-}

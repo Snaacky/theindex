@@ -19,6 +19,7 @@ import { getAllCache } from '../../lib/db/cache'
 import useSWR from 'swr'
 import { Types } from '../../types/Components'
 import { useRouter } from 'next/router'
+import { ColumnType } from '../../types/Column'
 
 export default function Column({ column, columns, items }) {
   const [session] = useSession()
@@ -40,12 +41,18 @@ export default function Column({ column, columns, items }) {
       return false
     }
 
-    if (column.type === 'array') {
+    if (
+      column.type === ColumnType.array ||
+      column.type === ColumnType.language
+    ) {
       return (
         filter.length === 0 ||
         filter.every((ii) => i.data[column._id].includes(ii))
       )
-    } else if (column.type === 'bool') {
+    } else if (
+      column.type === ColumnType.boolean ||
+      column.type === ColumnType.proAndCon
+    ) {
       return i.data[column._id] === filter
     }
     return (
@@ -99,7 +106,7 @@ export default function Column({ column, columns, items }) {
             />
           )}
           <span className={'ms-2'}>
-            <ViewAllButton type={'columns'} />
+            <ViewAllButton type={Types.column} />
           </span>
         </div>
       </div>
@@ -116,7 +123,7 @@ export default function Column({ column, columns, items }) {
             <span className={'me-2'}>
               <FontAwesomeIcon icon={['fas', 'filter']} /> Filter:
             </span>
-            {(column.type === 'array' || column.type === 'bool') && (
+            {column.type !== ColumnType.text && (
               <DataItem
                 data={filter}
                 column={column}

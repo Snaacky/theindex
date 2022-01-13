@@ -1,6 +1,14 @@
 import styles from './DataBadge.module.css'
+import { FC } from 'react'
 
-export default function DataBadge({ data, name, style = '', sponsor = false }) {
+type Props = {
+  data?: boolean
+  name: string
+  style?: string
+  sponsor?: boolean
+}
+
+const DataBadge: FC<Props> = ({ data, name, style = '', sponsor = false }) => {
   let bgStyle = style
   if (style === '') {
     if (data === true) {
@@ -28,3 +36,5 @@ export default function DataBadge({ data, name, style = '', sponsor = false }) {
     </>
   )
 }
+
+export default DataBadge

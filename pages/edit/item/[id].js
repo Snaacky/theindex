@@ -6,6 +6,7 @@ import EditItem from '../../../components/edit/EditItem'
 import CollectionBoard from '../../../components/boards/CollectionBoard'
 import { getCollections } from '../../../lib/db/collections'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorItem({ _id, collections, columns, item }) {
   let collectionsWithItem = []
@@ -43,7 +44,7 @@ export default function EditorItem({ _id, collections, columns, item }) {
           )}
         </div>
         <div>
-          <ViewAllButton type={'items'} />
+          <ViewAllButton type={Types.item} />
         </div>
       </div>
 

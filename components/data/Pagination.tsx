@@ -86,7 +86,7 @@ const Pagination: FC<Props> = ({
                 </a>
               </li>
             ))}
-            {startViewIndex < numPaginations * pageSize && (
+            {startViewIndex < (numPaginations - 1) * pageSize && (
               <li className='page-item'>
                 <a
                   className={'page-link border-dark bg-dark'}

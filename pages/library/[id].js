@@ -113,7 +113,7 @@ export default function Library({ library, collections, items, columns }) {
                 />
               )}
               <span className={'ms-2'}>
-                <ViewAllButton type={'libraries'} />
+                <ViewAllButton type={Types.library} />
               </span>
             </div>
           </div>

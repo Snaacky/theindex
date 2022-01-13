@@ -3,6 +3,7 @@ import BoolValue from '../data/BoolValue'
 import ArrayValue from '../data/ArrayValue'
 import Card from './Card'
 import { splitColumnsIntoTypes } from '../../lib/item'
+import ProAndConValue from '../data/ProAndConValue'
 
 export default function ItemCard({
   item,
@@ -22,10 +23,10 @@ export default function ItemCard({
       move={move}
       bodyContent={
         <>
-          {column.yes.length > 0 && (
+          {column.pro.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
-              {column.yes.map((c) => (
-                <BoolValue
+              {column.pro.map((c) => (
+                <ProAndConValue
                   data={true}
                   column={c}
                   sponsor={item.sponsor}
@@ -34,10 +35,15 @@ export default function ItemCard({
               ))}
             </div>
           )}
-          {!item.sponsor && column.no.length > 0 && (
+          {column.features.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
-              {column.no.map((c) => (
-                <BoolValue data={false} column={c} key={c._id} />
+              {column.features.map((c) => (
+                <BoolValue
+                  column={c}
+                  sponsor={item.sponsor}
+                  key={c._id}
+                  data={null}
+                />
               ))}
             </div>
           )}

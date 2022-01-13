@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify'
+import { Types } from '../types/Components'
 
 export function isValidUrl(url = '') {
   if (typeof url === 'string') {
@@ -43,4 +44,22 @@ export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
   prop: Y
 ): obj is X & Record<Y, unknown> {
   return obj.hasOwnProperty(prop)
+}
+
+export function singularToPlural(type: Types) {
+  if (type === Types.item) {
+    return 'items'
+  } else if (type === Types.column) {
+    return 'columns'
+  } else if (type === Types.collection) {
+    return 'collections'
+  } else if (type === Types.library) {
+    return 'libraries'
+  } else if (type === Types.user) {
+    return 'users'
+  } else if (type === Types.list) {
+    return 'lists'
+  } else {
+    throw 'Unknown type: ' + type
+  }
 }

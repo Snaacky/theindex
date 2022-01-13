@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
 import { ColumnType } from '../../types/Column'
+import { Types } from '../../types/Components'
 
 export default function EditItem({
   _id,
@@ -102,7 +103,9 @@ export default function EditItem({
     }
 
     if (
-      (column.type === ColumnType.boolean && typeof value === 'boolean') ||
+      ((column.type === ColumnType.boolean ||
+        column.type === ColumnType.proAndCon) &&
+        typeof value === 'boolean') ||
       (column.type === ColumnType.array && Array.isArray(value)) ||
       (column.type === ColumnType.language && Array.isArray(value)) ||
       (column.type === ColumnType.text && typeof value === 'string')
@@ -296,11 +299,11 @@ export default function EditItem({
           </div>
         ))}
       </div>
-      <CreateNewButton type={'column'} allowEdit={true} />
+      <CreateNewButton type={Types.column} allowEdit={true} />
 
       <span className={'float-end'}>
         {typeof _id !== 'undefined' && (
-          <CreateNewButton type={'item'} allowEdit={true} />
+          <CreateNewButton type={Types.item} allowEdit={true} />
         )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />

@@ -1,23 +1,26 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
+import { Column, ColumnType } from '../../types/Column'
+import { FC } from 'react'
 
-export default function BoolValue({
+type Props = {
+  data: boolean | null
+  column: Column
+  sponsor?: boolean
+  onChange?: (data: boolean | null) => void
+}
+
+const BoolValue: FC<Props> = ({
   data,
   column,
   sponsor = false,
   onChange = null,
-}) {
-  const tooltipId = 'tooltip-boolBadge-' + column.name
-
+}) => {
   if (onChange === null) {
     return (
       <>
         <Link href={'/column/' + column.urlId}>
-          <a
-            data-tip={'View column ' + column.name}
-            data-for={tooltipId}
-            className={'me-2'}
-          >
+          <a data-tip={'View column ' + column.name} className={'me-2'}>
             <DataBadge data={data} name={column.name} sponsor={sponsor} />
           </a>
         </Link>
@@ -29,7 +32,6 @@ export default function BoolValue({
     <>
       <a
         data-tip={'Filter by column ' + column.name}
-        data-for={tooltipId}
         onClick={() => {
           if (typeof data === 'boolean') {
             onChange(data ? false : null)
@@ -43,3 +45,5 @@ export default function BoolValue({
     </>
   )
 }
+
+export default BoolValue

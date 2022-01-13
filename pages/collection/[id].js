@@ -115,7 +115,7 @@ export default function Collection({
                 />
               )}
               <span className={'ms-2'}>
-                <ViewAllButton type={'collections'} />
+                <ViewAllButton type={Types.collection} />
               </span>
             </div>
           </div>

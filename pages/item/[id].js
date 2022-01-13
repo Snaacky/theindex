@@ -39,8 +39,10 @@ export default function Item({ item, columns, collections }) {
     t.items.includes(item._id)
   )
   const {
-    yes: yesColumns,
-    no: noColumns,
+    features: featuresColumns,
+    missingFeatures: missingFeaturesColumns,
+      pro: proColumns,
+      con: conColumns,
     array: arrayColumns,
     text: textColumns,
   } = splitColumnsIntoTypes(
@@ -252,14 +254,30 @@ export default function Item({ item, columns, collections }) {
 
           <div className={'card bg-2 my-2'}>
             <div className={'card-body'}>
+              <h5 className={'card-title'}>Features</h5>
+              <div className={'d-flex flex-wrap'}>
+                {featuresColumns.length === 0 && (
+                    <span className={'text-muted'}>No features found</span>
+                )}
+                {featuresColumns.map((c) => {
+                  return (
+                      <DataItem data={item.data[c._id]} column={c} key={c._id} />
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className={'card bg-2 my-2'}>
+            <div className={'card-body'}>
               <h5 className={'card-title text-success'}>Pros</h5>
               <div className={'d-flex flex-wrap'}>
-                {yesColumns.length === 0 && (
-                  <span className={'text-muted'}>No data found</span>
+                {proColumns.length === 0 && (
+                    <span className={'text-muted'}>No pros found</span>
                 )}
-                {yesColumns.map((c) => {
+                {proColumns.map((c) => {
                   return (
-                    <DataItem data={item.data[c._id]} column={c} key={c._id} />
+                      <DataItem data={item.data[c._id]} column={c} key={c._id} />
                   )
                 })}
               </div>
@@ -270,10 +288,10 @@ export default function Item({ item, columns, collections }) {
             <div className={'card-body'}>
               <h5 className={'card-title text-danger'}>Cons</h5>
               <div className={'d-flex flex-wrap'}>
-                {noColumns.length === 0 && (
-                  <span className={'text-muted'}>No data found</span>
+                {conColumns.length === 0 && (
+                  <span className={'text-muted'}>No cons found</span>
                 )}
-                {noColumns.map((c) => {
+                {conColumns.map((c) => {
                   return (
                     <DataItem data={item.data[c._id]} column={c} key={c._id} />
                   )

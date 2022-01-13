@@ -245,7 +245,10 @@ const Board = ({
                 c.data[column._id].includes(value)
               )
             )
-          } else if (column.type === ColumnType.boolean) {
+          } else if (
+            column.type === ColumnType.boolean ||
+            column.type === ColumnType.proAndCon
+          ) {
             return c.data[column._id] === columnFilter[column._id]
           }
 

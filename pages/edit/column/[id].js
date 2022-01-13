@@ -5,6 +5,7 @@ import { getColumn, getColumns } from '../../../lib/db/columns'
 import EditColumn from '../../../components/edit/EditColumn'
 import CollectionBoard from '../../../components/boards/CollectionBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorColumn({ _id, collections, columns, column }) {
   let collectionsWithColumn = []
@@ -42,7 +43,7 @@ export default function EditorColumn({ _id, collections, columns, column }) {
           )}
         </div>
         <div>
-          <ViewAllButton type={'columns'} />
+          <ViewAllButton type={Types.column} />
         </div>
       </div>
 

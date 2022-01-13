@@ -1,9 +1,16 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
-import { ColumnType } from '../../types/Column'
+import { Column, ColumnType } from '../../types/Column'
 import ISO6391 from 'iso-639-1'
+import { FC } from 'react'
 
-export default function ArrayValue({ data, column, onChange = null }) {
+type Props = {
+  data: string[]
+  column: Column
+  onChange?: (values: string[]) => void
+}
+
+const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
   if (onChange === null) {
     return data.map((v) => (
       <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
@@ -25,8 +32,6 @@ export default function ArrayValue({ data, column, onChange = null }) {
   }
 
   return values.map((v) => {
-    const tooltipId = 'tooltip-arrayBadge-' + column.name + '-' + v
-
     return (
       <>
         <a
@@ -49,3 +54,5 @@ export default function ArrayValue({ data, column, onChange = null }) {
     )
   })
 }
+
+export default ArrayValue

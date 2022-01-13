@@ -7,6 +7,7 @@ import { postData } from '../../lib/utils'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
 import { ColumnType } from '../../types/Column'
+import { Types } from '../../types/Components'
 
 export default function EditColumn({
   columns,
@@ -21,11 +22,12 @@ export default function EditColumn({
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
   const [typeState, setType] = useState(type || ColumnType.boolean)
+  const [nsfwState, setNsfw] = useState(nsfw || false)
+  const [descriptionState, setDescription] = useState(description || '')
+
   const [valuesState, setValues] = useState(
     (values && values.length === 0) || !values ? [''] : values.concat([''])
   )
-  const [nsfwState, setNsfw] = useState(nsfw || false)
-  const [descriptionState, setDescription] = useState(description)
 
   const [columnsDatalist, setColumnsDatalist] = useState(
     columns.map((t) => t.name) || []
@@ -56,8 +58,10 @@ export default function EditColumn({
       if (_id) {
         body._id = _id
       }
-      if (typeState === 'array') {
+      if (typeState === ColumnType.array) {
         body.values = valuesState.filter((v) => v !== '')
+      } else if (typeState === ColumnType.proAndCon) {
+        body.values = [valuesState[0], valuesState[1]]
       }
 
       postData('/api/edit/column', body, (newId) => {
@@ -157,6 +161,7 @@ export default function EditColumn({
           </div>
         </div>
       </div>
+
       <div className='mb-3 form-check'>
         <input
           type='checkbox'
@@ -196,6 +201,7 @@ export default function EditColumn({
           value={typeState}
         >
           <option value={ColumnType.boolean}>Boolean</option>
+          <option value={ColumnType.proAndCon}>Pro/Con</option>
           <option value={ColumnType.array}>Array</option>
           <option value={ColumnType.language}>Language</option>
           <option value={ColumnType.text}>Text</option>
@@ -204,7 +210,65 @@ export default function EditColumn({
           Type of column value
         </label>
       </div>
-      {typeState === 'array' ? (
+
+      {typeState === ColumnType.proAndCon && (
+        <div className={'row'}>
+          <div className={'col-12 col-lg-6 mb-3'}>
+            <label htmlFor={'createColumnInputPro'} className={'form-label'}>
+              Pro name
+            </label>
+            <input
+              type={'text'}
+              className={'form-control'}
+              id={'createColumnInputPro'}
+              value={valuesState[0] || ''}
+              aria-describedby={'createColumnInputProHelp'}
+              placeholder={'Text for pro state'}
+              required={true}
+              onChange={(input) => {
+                setValues(
+                  valuesState.map((value, i) =>
+                    i === 0 ? input.target.value : value
+                  )
+                )
+              }}
+            />
+            <div id={'createColumnInputProHelp'} className={'form-text'}>
+              Shown name of column when in pro state
+            </div>
+          </div>
+          <div className={'col-12 col-lg-6 mb-3'}>
+            <label htmlFor={'createColumnCon'} className={'form-label'}>
+              Contra
+            </label>
+            <input
+              type={'text'}
+              className={'form-control'}
+              id={'createColumnCon'}
+              value={valuesState[1] || ''}
+              aria-describedby={'createColumnInputConHelp'}
+              placeholder={'Enter the url id'}
+              required={true}
+              onChange={(input) => {
+                if (valuesState.length < 2) {
+                  setValues([valuesState[0], input.target.value])
+                } else {
+                  setValues(
+                    valuesState.map((value, i) =>
+                      i === 1 ? input.target.value : value
+                    )
+                  )
+                }
+              }}
+            />
+            <div id={'createColumnInputConHelp'} className={'form-text'}>
+              Shown name of column when in con state
+            </div>
+          </div>
+        </div>
+      )}
+
+      {typeState === ColumnType.array && (
         <>
           <hr />
           <label className='form-label'>Values</label>
@@ -247,13 +311,11 @@ export default function EditColumn({
             ))}
           </div>
         </>
-      ) : (
-        <></>
       )}
 
       <span className={'float-end'}>
         {typeof _id !== 'undefined' && (
-          <CreateNewButton type={'column'} allowEdit={true} />
+          <CreateNewButton type={Types.column} allowEdit={true} />
         )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import EditCollection from '../../../components/edit/EditCollection'
 import LibraryBoard from '../../../components/boards/LibraryBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
+import { Types } from '../../../types/Components'
 
 export default function EditorCollection({
   _id,
@@ -52,7 +53,7 @@ export default function EditorCollection({
           )}
         </div>
         <div>
-          <ViewAllButton type={'collections'} />
+          <ViewAllButton type={Types.collection} />
         </div>
       </div>
 

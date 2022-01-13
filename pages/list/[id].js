@@ -78,7 +78,7 @@ export default function List({ list, owner, allItems, columns }) {
             />
           )}
           <span className={'ms-2'}>
-            <ViewAllButton type={'lists'} />
+            <ViewAllButton type={Types.list} />
           </span>
         </span>
       </h2>
