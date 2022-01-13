@@ -5,7 +5,9 @@ import { ColumnType } from '../types/Column'
 export default function ColumnFilter({ columns, filter, setFilter }) {
   const updateFilter = (column, value) => {
     if (
-      (value === null || value === '' || value === []) &&
+      (value === null ||
+        value === '' ||
+        (Array.isArray(value) && value.length === 0)) &&
       typeof filter[column._id] !== 'undefined'
     ) {
       let temp = {}

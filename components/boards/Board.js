@@ -43,8 +43,23 @@ const Board = ({
   const [columnFilter, setColumnFilter] = useState({})
 
   const [startViewIndex, setStartViewIndex] = useState(0)
-  const [pageSize, setPageSize] = useState(15)
   const pageSizes = [15, 30, 60, 0]
+  const [pageSize, setPageSize] = useState(pageSizes[0])
+  const sortOptions = [
+    {
+      name: 'asc',
+      sort: (a, b) => (a.name < b.name ? -1 : 1),
+    },
+    {
+      name: 'desc',
+      sort: (a, b) => (a.name > b.name ? -1 : 1),
+    },
+    {
+      name: 'latest',
+      sort: (a, b) => (a.createdAt < b.createdAt ? -1 : 1),
+    },
+  ]
+  const [sortOption, setSortOption] = useState(sortOptions[0])
 
   useEffect(() => {
     setUnselectedContent(
@@ -56,6 +71,10 @@ const Board = ({
   }, [content])
 
   const randString = Math.random().toString(36).slice(2)
+
+  const sortContent = (newContent) => {
+    return newContent.sort(sortOption.sort)
+  }
 
   const updateContent = (newContent, newUnselectedContent) => {
     let body = {
@@ -110,9 +129,7 @@ const Board = ({
             ? () => {
                 let newContent = _content.concat([renderContent])
                 if (moveAllowed) {
-                  newContent = newContent.sort((a, b) =>
-                    a.name < b.name ? -1 : 1
-                  )
+                  newContent = sortContent(newContent)
                 }
 
                 const newUnselectedContent = unselectedContent.filter(
@@ -170,9 +187,7 @@ const Board = ({
                     renderContent,
                   ])
                   if (moveAllowed) {
-                    newUnselectedContent = newUnselectedContent.sort((a, b) =>
-                      a.name < b.name ? -1 : 1
-                    )
+                    newUnselectedContent = sortContent(newUnselectedContent)
                   }
                   updateContent(newContent, newUnselectedContent)
                 }
@@ -259,7 +274,8 @@ const Board = ({
           ))}
         </div>
       )}
-      <div className={'card card-body bg-2 mb-2 pb-1'}>
+
+      <div className={'card card-body bg-2 mb-2'}>
         <div className={'row g-2'}>
           <div className={'col-12 col-sm-6 col-md-auto'}>
             {columns.length > 0 && (
@@ -273,6 +289,7 @@ const Board = ({
                 <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
               </button>
             )}
+
             <button
               className={classNames(
                 styles.gridListToggle,
@@ -286,6 +303,7 @@ const Board = ({
               />{' '}
               {cardView ? 'List' : 'Grid'}
             </button>
+
             {columns.length > 0 && (
               <button
                 className={'btn btn-outline-secondary ms-2'}
@@ -346,7 +364,7 @@ const Board = ({
         {columns.length > 0 && (
           <div
             id={'collapseFilterBoard-' + randString}
-            className={'collapse mb-2' + (showFilter ? ' show' : '')}
+            className={'collapse mt-2' + (showFilter ? ' show' : '')}
           >
             <ColumnFilter
               columns={columns}
@@ -358,15 +376,8 @@ const Board = ({
             />
           </div>
         )}
-        {type === Types.item && (
-          <div className={''}>
-            <span className={'me-2'}>
-              <DataBadge data={true} name={'Pros'} />
-            </span>
-            <DataBadge data={false} name={'Cons'} />
-          </div>
-        )}
       </div>
+
       <div
         className={'d-flex flex-wrap mb-2'}
         style={{ marginRight: '-0.5rem' }}
@@ -383,6 +394,7 @@ const Board = ({
           )
         )}
       </div>
+
       {(filteredContent.length > pageSize || content.length > pageSizes[0]) && (
         <div className={'d-flex flex-row justify-content-center'}>
           {filteredContent.length > pageSize && (
