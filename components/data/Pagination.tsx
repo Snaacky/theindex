@@ -18,10 +18,26 @@ const Pagination: FC<Props> = ({
   setPageSize,
   setStartViewIndex,
 }) => {
+  const currentPage = Math.floor(startViewIndex / pageSize)
   const pagination = []
+  const numPaginations = Math.ceil(contentLength / pageSize)
   if (pageSize !== 0) {
-    for (let i = 0; i < Math.ceil(contentLength / pageSize); i++) {
+    if (currentPage > 4) {
+      // -1 for truncate and should be displayed as ...
+      pagination.push(-1)
+    }
+
+    for (
+      let i = Math.max(0, currentPage - 4);
+      i < Math.min(numPaginations, currentPage + 4);
+      i++
+    ) {
       pagination.push(i)
+    }
+
+    if (numPaginations - currentPage > 4) {
+      // -1 for truncate and should be displayed as ...
+      pagination.push(-1)
     }
   }
 
@@ -46,9 +62,9 @@ const Pagination: FC<Props> = ({
                 </a>
               </li>
             )}
-            {pagination.map((index) => (
+            {pagination.map((index, i) => (
               <li
-                key={index}
+                key={index + '-' + i}
                 className={
                   'page-item' +
                   (index * pageSize === startViewIndex ? ' active' : '')
@@ -60,14 +76,17 @@ const Pagination: FC<Props> = ({
                     (index * pageSize === startViewIndex ? 'primary' : 'dark')
                   }
                   href='#'
-                  onClick={() => setStartViewIndex(index * pageSize)}
+                  onClick={() => {
+                    if (index !== -1) {
+                      setStartViewIndex(index * pageSize)
+                    }
+                  }}
                 >
-                  {index + 1}
+                  {index === -1 ? '...' : index + 1}
                 </a>
               </li>
             ))}
-            {startViewIndex <
-              Math.floor(contentLength / pageSize) * pageSize && (
+            {startViewIndex < numPaginations * pageSize && (
               <li className='page-item'>
                 <a
                   className={'page-link border-dark bg-dark'}
