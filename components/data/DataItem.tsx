@@ -8,7 +8,7 @@ import { FC } from 'react'
 type Props = {
   data: boolean | string[] | null
   column: Column
-  onChange?: (data: boolean | null) => void
+  onChange?: (data: any) => void
 }
 
 const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
@@ -17,8 +17,8 @@ const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
   } else if (column.type === ColumnType.proAndCon && !Array.isArray(data)) {
     return <ProAndConValue data={data} column={column} onChange={onChange} />
   } else if (
-    column.type === ColumnType.array ||
-    column.type === ColumnType.language
+    (column.type === ColumnType.array || column.type === ColumnType.language) &&
+    Array.isArray(data)
   ) {
     return <ArrayValue data={data || []} column={column} onChange={onChange} />
   } else if (column.type === ColumnType.text) {
