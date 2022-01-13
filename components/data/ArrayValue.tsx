@@ -12,16 +12,20 @@ type Props = {
 
 const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
   if (onChange === null) {
-    return data.map((v) => (
-      <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
-        <a
-          className={'me-2'}
-          data-tip={'View column ' + column.name + ' with value ' + v}
-        >
-          <DataBadge name={v} />
-        </a>
-      </Link>
-    ))
+    return (
+      <>
+        {data.map((v) => (
+          <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
+            <a
+              className={'me-2'}
+              data-tip={'View column ' + column.name + ' with value ' + v}
+            >
+              <DataBadge name={v} />
+            </a>
+          </Link>
+        ))}
+      </>
+    )
   }
 
   let values = []
@@ -31,28 +35,30 @@ const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
     values = ISO6391.getAllCodes()
   }
 
-  return values.map((v) => {
-    return (
-      <>
-        <a
-          data-tip={
-            column.type === ColumnType.language ? ISO6391.getName(v) : v
-          }
-          className={'me-2'}
-          key={v}
-          onClick={() => {
-            if (data.includes(v)) {
-              onChange(data.filter((d) => d !== v))
-            } else {
-              onChange(data.concat([v]))
+  return (
+    <>
+      {values.map((v) => {
+        return (
+          <a
+            data-tip={
+              column.type === ColumnType.language ? ISO6391.getName(v) : v
             }
-          }}
-        >
-          <DataBadge data={data.includes(v) ? true : null} name={v} />
-        </a>
-      </>
-    )
-  })
+            className={'me-2'}
+            key={v}
+            onClick={() => {
+              if (data.includes(v)) {
+                onChange(data.filter((d) => d !== v))
+              } else {
+                onChange(data.concat([v]))
+              }
+            }}
+          >
+            <DataBadge data={data.includes(v) ? true : null} name={v} />
+          </a>
+        )
+      })}
+    </>
+  )
 }
 
 export default ArrayValue
