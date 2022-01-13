@@ -28,7 +28,7 @@ export default async function handler(req, res) {
           console.log('Admin and missing screenshot, creating new')
           await createScreenshot(item._id)
         }
-        fs.createReadStream('public/no-screenshot.png').pipe(res)
+        res.redirect('/no-screenshot.png')
       }
     } catch (e) {
       console.log('Something horribly went wrong :(', e)
