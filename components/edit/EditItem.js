@@ -103,7 +103,7 @@ export default function EditItem({
     }
 
     if (
-      ((column.type === ColumnType.boolean ||
+      ((column.type === ColumnType.feature ||
         column.type === ColumnType.proAndCon) &&
         typeof value === 'boolean') ||
       (column.type === ColumnType.array && Array.isArray(value)) ||

@@ -1,4 +1,4 @@
-import BoolValue from './BoolValue'
+import FeatureValue from './FeatureValue'
 import ArrayValue from './ArrayValue'
 import TextValue from './TextValue'
 import { Column, ColumnType } from '../../types/Column'
@@ -12,16 +12,25 @@ type Props = {
 }
 
 const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
-  if (column.type === ColumnType.boolean && !Array.isArray(data) && typeof data !== 'string') {
-    return <BoolValue data={data} column={column} onChange={onChange} />
+  if (
+    column.type === ColumnType.feature &&
+    !Array.isArray(data) &&
+    typeof data !== 'string'
+  ) {
+    return <FeatureValue data={data} column={column} onChange={onChange} />
   } else if (column.type === ColumnType.proAndCon && !Array.isArray(data)) {
     return <ProAndConValue data={data} column={column} onChange={onChange} />
   } else if (
     (column.type === ColumnType.array || column.type === ColumnType.language) &&
-    typeof data !== 'boolean' && typeof data !== 'string'
+    typeof data !== 'boolean' &&
+    typeof data !== 'string'
   ) {
     return <ArrayValue data={data || []} column={column} onChange={onChange} />
-  } else if (column.type === ColumnType.text && !Array.isArray(data) && typeof data !== 'boolean') {
+  } else if (
+    column.type === ColumnType.text &&
+    !Array.isArray(data) &&
+    typeof data !== 'boolean'
+  ) {
     return <TextValue data={data || ''} column={column} onChange={onChange} />
   }
 

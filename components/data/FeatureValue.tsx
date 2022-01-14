@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
-import { Column, ColumnType } from '../../types/Column'
+import { Column } from '../../types/Column'
 import { FC } from 'react'
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   onChange?: (data: boolean | null) => void
 }
 
-const BoolValue: FC<Props> = ({
+const FeatureValue: FC<Props> = ({
   data,
   column,
   sponsor = false,
@@ -34,7 +34,7 @@ const BoolValue: FC<Props> = ({
         data-tip={'Filter by column ' + column.name}
         onClick={() => {
           if (typeof data === 'boolean') {
-            onChange(data ? false : null)
+            onChange(null)
           } else {
             onChange(true)
           }
@@ -46,4 +46,4 @@ const BoolValue: FC<Props> = ({
   )
 }
 
-export default BoolValue
+export default FeatureValue

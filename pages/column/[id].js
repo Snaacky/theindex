@@ -50,7 +50,7 @@ export default function Column({ column, columns, items }) {
         filter.every((ii) => i.data[column._id].includes(ii))
       )
     } else if (
-      column.type === ColumnType.boolean ||
+      column.type === ColumnType.feature ||
       column.type === ColumnType.proAndCon
     ) {
       return i.data[column._id] === filter

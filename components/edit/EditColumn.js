@@ -21,7 +21,7 @@ export default function EditColumn({
 }) {
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
-  const [typeState, setType] = useState(type || ColumnType.boolean)
+  const [typeState, setType] = useState(type || ColumnType.feature)
   const [nsfwState, setNsfw] = useState(nsfw || false)
   const [descriptionState, setDescription] = useState(description || '')
 
@@ -199,8 +199,9 @@ export default function EditColumn({
           aria-label='Type selection of column'
           onChange={(e) => setType(e.target.value)}
           value={typeState}
+          defaultValue={ColumnType.feature}
         >
-          <option value={ColumnType.boolean}>Boolean</option>
+          <option value={ColumnType.feature}>Feature</option>
           <option value={ColumnType.proAndCon}>Pro/Con</option>
           <option value={ColumnType.array}>Array</option>
           <option value={ColumnType.language}>Language</option>

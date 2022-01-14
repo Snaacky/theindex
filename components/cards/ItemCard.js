@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import BoolValue from '../data/BoolValue'
+import FeatureValue from '../data/FeatureValue'
 import ArrayValue from '../data/ArrayValue'
 import Card from './Card'
 import { splitColumnsIntoTypes } from '../../lib/item'
@@ -38,7 +38,7 @@ export default function ItemCard({
           {column.features.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
               {column.features.map((c) => (
-                <BoolValue
+                <FeatureValue
                   column={c}
                   sponsor={item.sponsor}
                   key={c._id}

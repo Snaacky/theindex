@@ -19,7 +19,7 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
       console.log('Deleting', column._id)
       setFilter(temp)
     } else if (
-      (column.type === ColumnType.boolean && typeof value === 'boolean') ||
+      (column.type === ColumnType.feature && typeof value === 'boolean') ||
       (column.type === ColumnType.proAndCon && typeof value === 'boolean') ||
       (column.type === ColumnType.array && Array.isArray(value)) ||
       (column.type === ColumnType.language && Array.isArray(value)) ||
@@ -43,7 +43,7 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
   }
 
   const boolColumns = columns.filter(
-    (column) => column.type === ColumnType.boolean
+    (column) => column.type === ColumnType.feature
   )
   const proAndConColumns = columns.filter(
     (column) => column.type === ColumnType.proAndCon

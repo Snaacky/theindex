@@ -16,7 +16,7 @@ const client = new Redis(uri)
  * only returns null if requested component does not exist
  * @param type: Types, type of component
  * @param _id: string, unique _id or uid for user
- * @param parse: boolean, should the result be parsed to an object
+ * @param parse: feature, should the result be parsed to an object
  */
 export async function getSingleCache(
   type: Types,
@@ -71,7 +71,7 @@ export async function updateSingleCache(
 /**
  * only returns null if requested components do not exist or are empty
  * @param type: Types, type of component
- * @param parse: boolean, should the result be parsed to an object
+ * @param parse: feature, should the result be parsed to an object
  */
 export async function getAllCache(
   type: Types,
@@ -119,7 +119,7 @@ export async function updateAllCache(type: Types, data?: string | object) {
 /**
  * only returns null if requested component does not exist
  * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
- * @param parse: boolean, should the result be parsed to an object
+ * @param parse: feature, should the result be parsed to an object
  */
 export async function getCache(
   key: string,

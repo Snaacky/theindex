@@ -128,9 +128,9 @@ const remove = async (collection, query) => {
 const columns = await db.collection('columns').find().toArray()
 await Promise.all(
   columns.map(async (column) => {
-    if (column.type === 'bool') {
+    if (column.type === 'bool' || column.type === 'boolean') {
       console.log('column', column._id.toString())
-      await update('columns', { _id: column._id }, { type: 'boolean' })
+      await update('columns', { _id: column._id }, { type: 'feature' })
     }
   })
 )

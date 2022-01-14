@@ -1,24 +1,32 @@
 import React, { FC } from 'react'
+import styles from './Select.module.css'
+import classNames from 'classnames'
 
 type Props = {
+  id?: string
+  value: string
   options: React.ReactNode
   hover: string
   onChange: React.ChangeEventHandler<HTMLSelectElement>
-  classNames?: string
+  className?: string
 }
 
 const Select: FC<Props> = ({
+  id,
+  value,
   options,
   hover = 'Select a value',
   onChange,
-  classNames = '',
+  className = '',
 }) => {
   return (
     <select
-      className={'form-select border-dark text-white bg-dark ' + classNames}
+      id={id}
+      className={classNames(styles.select, className)}
       data-tip={hover}
       aria-label={hover}
       onChange={onChange}
+      value={value}
     >
       {options}
     </select>

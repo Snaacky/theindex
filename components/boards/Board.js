@@ -13,6 +13,7 @@ import ItemCard from '../cards/ItemCard'
 import { ColumnType } from '../../types/Column'
 import Pagination from '../data/Pagination'
 import Select from '../data/Select'
+import Button from '../buttons/Button'
 
 const Board = ({
   _id,
@@ -246,7 +247,7 @@ const Board = ({
               )
             )
           } else if (
-            column.type === ColumnType.boolean ||
+            column.type === ColumnType.feature ||
             column.type === ColumnType.proAndCon
           ) {
             return c.data[column._id] === columnFilter[column._id]
@@ -282,139 +283,131 @@ const Board = ({
         </div>
       )}
 
-      <div className={'card card-body bg-2 mb-2'}>
-        <div className={'row g-2'}>
-          <div className={'col-12 col-sm-6 col-md-auto'}>
-            {columns.length > 0 && (
-              <button
-                className={'btn btn-outline-primary'}
-                type={'button'}
-                onClick={() => setShowFilter(!showFilter)}
-                aria-expanded='false'
-                aria-controls={'collapseFilter'}
-              >
-                <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
-              </button>
-            )}
-
-            {content.length > 1 && (
-              <div
-                className={'d-inline-block ms-2 rounded'}
-                style={{
-                  border: 'solid 1px var(--bs-secondary)',
-                  verticalAlign: 'middle',
-                }}
-              >
-                <Select
-                  options={sortOptions.map((option) => (
-                    <option key={option.name} value={option.name}>
-                      {option.name}
-                    </option>
-                  ))}
-                  hover={'Sort by'}
-                  onChange={(event) => {
-                    const newSortOption = sortOptions.find(
-                      (option) => option.name === event.target.value
-                    )
-                    console.log('Changed sorting to', newSortOption)
-                    setSortOption(newSortOption)
-                    setContent(content.sort(newSortOption.sort))
-                  }}
-                />
-              </div>
-            )}
-
-            <button
-              className={classNames(
-                styles.gridListToggle,
-                'btn btn-outline-secondary',
-                'ms-2'
-              )}
-              type={'button'}
-              onClick={() => setCardView(!cardView)}
+      <div className={'row g-2'}>
+        <div className={'col-12 col-sm-6 col-md-auto'}>
+          {columns.length > 0 && (
+            <Button
+              className={'mb-2 me-2'}
+              onClick={() => setShowFilter(!showFilter)}
+              hover={(showFilter ? 'Hide' : 'Show') + ' filter options'}
             >
-              <FontAwesomeIcon
-                icon={['fas', cardView ? 'th-list' : 'th-large']}
-              />{' '}
-              {cardView ? 'List' : 'Grid'}
-            </button>
+              <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
+            </Button>
+          )}
 
-            {columns.length > 0 && (
-              <button
-                className={'btn btn-outline-secondary ms-2'}
-                type={'button'}
-                onClick={() => setCompactView(!compactView)}
-              >
-                <FontAwesomeIcon
-                  icon={['fas', compactView ? 'expand' : 'compress']}
-                  className={'me-2'}
-                />
-                {compactView ? 'More details' : 'Less details'}
-              </button>
-            )}
-          </div>
-          <div className={'col-12 col-sm-6 col-md'}>
-            <div className={'input-group'}>
-              <span className='input-group-text' id='inputSearchStringAddon'>
-                <FontAwesomeIcon icon={['fas', 'search']} />
-              </span>
-              <input
-                value={searchString}
-                type={'text'}
-                className={'form-control'}
-                onChange={(e) => {
-                  setSearchString(e.target.value.toLowerCase())
-                  setStartViewIndex(0)
-                }}
-                aria-label={'Search input'}
-                placeholder={'Type something to search...'}
-                aria-describedby={'inputSearchStringAddon'}
-              />
-            </div>
-          </div>
-          <div className={'col-12 col-lg-auto'}>
-            <CreateNewButton type={type} allowEdit={allowEdit} />
-            {!forceEditMode && canEdit(session, type) && (
-              <button
-                className={'btn btn-outline-warning mb-2'}
-                type={'button'}
-                onClick={() => {
-                  if (
-                    editMode &&
-                    startViewIndex >=
-                      filteredContent.length - sponsorContent.length
-                  ) {
-                    setStartViewIndex(Math.max(startViewIndex - pageSize, 0))
-                  }
-                  setEditMode(!editMode)
-                }}
-              >
-                {editMode ? 'Exit' : <FontAwesomeIcon icon={['fas', 'edit']} />}{' '}
-                edit-mode
-              </button>
-            )}
-          </div>
-        </div>
-
-        {columns.length > 0 && (
-          <div
-            id={'collapseFilterBoard-' + randString}
-            className={'collapse mt-2' + (showFilter ? ' show' : '')}
-          >
-            <ColumnFilter
-              columns={columns}
-              filter={columnFilter}
-              setFilter={(newFilters) => {
-                setColumnFilter(newFilters)
-                setStartViewIndex(0)
+          {content.length > 1 && (
+            <Select
+              className={'d-inline-block me-2 mb-2'}
+              value={sortOption.name}
+              options={sortOptions.map((option) => (
+                <option key={option.name} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
+              hover={'Sort by'}
+              onChange={(event) => {
+                const newSortOption = sortOptions.find(
+                  (option) => option.name === event.target.value
+                )
+                console.log('Changed sorting to', newSortOption)
+                setSortOption(newSortOption)
+                setContent(content.sort(newSortOption.sort))
               }}
             />
+          )}
+
+          <Button
+            onClick={() => setCardView(!cardView)}
+            className={classNames(
+              styles.gridListToggle,
+              'mb-2',
+              columns.length > 0 ? 'me-2' : ''
+            )}
+            hover={'Switch to ' + (cardView ? 'list' : 'grid') + ' view'}
+          >
+            <FontAwesomeIcon
+              icon={['fas', cardView ? 'th-list' : 'th-large']}
+            />{' '}
+            {cardView ? 'List' : 'Grid'}
+          </Button>
+
+          {columns.length > 0 && (
+            <Button
+              className={'mb-2'}
+              onClick={() => setCompactView(!compactView)}
+              hover={(compactView ? 'Show more' : 'Hide') + ' details'}
+            >
+              <FontAwesomeIcon
+                icon={['fas', compactView ? 'expand' : 'compress']}
+                className={'me-2'}
+              />
+              {compactView ? 'More' : 'Less'}
+            </Button>
+          )}
+        </div>
+        <div className={'col-12 col-sm-6 col-md'}>
+          <div className={'input-group'}>
+            <span className='input-group-text' id='inputSearchStringAddon'>
+              <FontAwesomeIcon icon={['fas', 'search']} />
+            </span>
+            <input
+              value={searchString}
+              type={'text'}
+              className={'form-control'}
+              onChange={(e) => {
+                setSearchString(e.target.value.toLowerCase())
+                setStartViewIndex(0)
+              }}
+              aria-label={'Search input'}
+              placeholder={'Type something to search...'}
+              aria-describedby={'inputSearchStringAddon'}
+            />
           </div>
-        )}
+        </div>
+        <div className={'col-12 col-lg-auto'}>
+          <CreateNewButton type={type} allowEdit={allowEdit} />
+          {!forceEditMode && canEdit(session, type) && (
+            <button
+              className={'btn btn-outline-warning mb-2'}
+              type={'button'}
+              onClick={() => {
+                if (
+                  editMode &&
+                  startViewIndex >=
+                    filteredContent.length - sponsorContent.length
+                ) {
+                  setStartViewIndex(Math.max(startViewIndex - pageSize, 0))
+                }
+                setEditMode(!editMode)
+              }}
+            >
+              {editMode ? 'Exit' : <FontAwesomeIcon icon={['fas', 'edit']} />}{' '}
+              edit-mode
+            </button>
+          )}
+        </div>
       </div>
 
+      {columns.length > 0 && (
+        <div
+          id={'collapseFilterBoard-' + randString}
+          className={
+            'card card-body bg-2 collapse mb-2' + (showFilter ? ' show' : '')
+          }
+        >
+          <ColumnFilter
+            columns={columns}
+            filter={columnFilter}
+            setFilter={(newFilters) => {
+              setColumnFilter(newFilters)
+              setStartViewIndex(0)
+            }}
+          />
+        </div>
+      )}
+
       <div
-        className={'d-flex flex-wrap mb-2'}
+        className={'d-flex flex-wrap my-2'}
         style={{ marginRight: '-0.5rem' }}
       >
         {filteredContent.length === 0 && (

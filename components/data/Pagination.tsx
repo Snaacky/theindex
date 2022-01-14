@@ -106,7 +106,7 @@ const Pagination: FC<Props> = ({
         <div className={'mb-2 ms-2'}>
           <Select
             options={pageSizes.map((size) => (
-              <option key={size} selected={size === pageSize} value={size}>
+              <option key={size} value={size}>
                 {size === 0 ? 'All' : size}
               </option>
             ))}
@@ -118,6 +118,7 @@ const Pagination: FC<Props> = ({
               }
               setPageSize(newSize)
             }}
+            value={pageSize.toString()}
           />
         </div>
       )}

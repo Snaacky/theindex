@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Row from './Row'
 import ArrayValue from '../data/ArrayValue'
-import BoolValue from '../data/BoolValue'
+import FeatureValue from '../data/FeatureValue'
 
 export default function ItemRow({
   item,
@@ -37,7 +37,7 @@ export default function ItemRow({
           {columnYes.length > 0 ? (
             <div className={'d-flex flex-wrap mb-1'}>
               {columnYes.map((c) => (
-                <BoolValue
+                <FeatureValue
                   data={true}
                   column={c}
                   sponsor={item.sponsor}
@@ -51,7 +51,7 @@ export default function ItemRow({
           {!item.sponsor && columnNo.length > 0 ? (
             <div className={'d-flex flex-wrap mb-1'}>
               {columnNo.map((c) => (
-                <BoolValue data={false} column={c} key={c._id} />
+                <FeatureValue data={false} column={c} key={c._id} />
               ))}
             </div>
           ) : (

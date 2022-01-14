@@ -1,4 +1,4 @@
-import BoolValue from './data/BoolValue'
+import FeatureValue from './data/FeatureValue'
 import ArrayValue from './data/ArrayValue'
 
 export default function ItemCollection({ columns, items }) {
@@ -46,7 +46,7 @@ function collectionRow(column, items) {
       {items.map((i) => (
         <td key={i._id + '-' + column._id} className={'text-center'}>
           {column.type === 'bool' ? (
-            <BoolValue value={i.data[column._id]} />
+            <FeatureValue value={i.data[column._id]} />
           ) : (
             <ArrayValue value={i.data[column._id]} />
           )}

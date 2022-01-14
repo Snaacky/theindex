@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
+import { AccountType } from '../../types/User'
+import Select from '../data/Select'
 
 export default function EditUser({
   adminEditing,
@@ -9,7 +11,9 @@ export default function EditUser({
   accountType,
   description,
 }) {
-  const [accountTypeState, setAccountType] = useState(accountType || 'user')
+  const [accountTypeState, setAccountType] = useState(
+    accountType || AccountType.user
+  )
   const [descriptionState, setDescription] = useState(description)
 
   const saveUser = () => {
@@ -20,7 +24,10 @@ export default function EditUser({
 
     if (adminEditing) {
       if (accountTypeState !== '') {
-        if (accountType === 'admin' && accountTypeState !== 'admin') {
+        if (
+          accountType === AccountType.admin &&
+          accountTypeState !== AccountType.admin
+        ) {
           if (!confirm('Do you really want to revoke admin rights?')) {
             return
           }
@@ -48,17 +55,23 @@ export default function EditUser({
     >
       {adminEditing ? (
         <div className='form-floating mb-3'>
-          <select
-            className='form-select'
-            id='userTypeInput'
-            aria-label='Account type of user'
+          <Select
+            hover={'Select account type of user'}
             onChange={(e) => setAccountType(e.target.value)}
             value={accountTypeState}
-          >
-            <option value='user'>User</option>
-            <option value='editor'>Editor</option>
-            <option value='admin'>Admin</option>
-          </select>
+            defaultValue={AccountType.user}
+            options={[
+              <option key={AccountType.user} value={AccountType.user}>
+                User
+              </option>,
+              <option key={AccountType.editor} value={AccountType.editor}>
+                Editor
+              </option>,
+              <option key={AccountType.admin} value={AccountType.admin}>
+                Admin
+              </option>,
+            ]}
+          />
           <label htmlFor='userTypeInput' className={'text-dark'}>
             Type of user account
           </label>

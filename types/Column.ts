@@ -9,7 +9,7 @@ export interface Column {
 }
 
 export enum ColumnType {
-  boolean = 'boolean',
+  feature = 'feature',
   proAndCon = 'proAndCon',
   text = 'text',
   array = 'array',

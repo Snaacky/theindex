@@ -1,0 +1,37 @@
+.select {
+  vertical-align: middle;
+  background-color: var(--bg-4);
+  border: 1px solid var(--bg-4);
+  border-radius: 0.25rem;
+  color: var(--bs-secondary);
+  transition: background-color ease-in-out 0.15s, color ease-in-out 0.15s;
+  cursor: pointer;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  -moz-padding-start: calc(0.75rem - 3px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  appearance: none;
+}
+
+.select:hover,
+.select:active {
+  color: #fff;
+  background-color: var(--bg-7);
+  border-color: var(--bg-7);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.select:focus-visible {
+  color: transparent;
+  text-shadow: 0 0 0 #212529;
+}
+
+.select:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
