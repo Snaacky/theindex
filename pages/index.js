@@ -8,6 +8,7 @@ import LibraryCard from '../components/cards/LibraryCard'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
+import ViewAllButton from '../components/buttons/ViewAllButton'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -42,9 +43,7 @@ export default function Home({
         </div>
 
         <div className={'col-auto'}>
-          <Link href={'/libraries'}>
-            <a className={'btn btn-primary'}>View all</a>
-          </Link>
+          <ViewAllButton type={Types.library} />
         </div>
       </div>
       <div
@@ -81,9 +80,7 @@ export default function Home({
         </div>
 
         <div className={'col-auto'}>
-          <Link href={'/items'}>
-            <a className={'btn btn-primary'}>View all</a>
-          </Link>
+          <ViewAllButton type={Types.item} />
         </div>
       </div>
       <div
@@ -106,9 +103,7 @@ export default function Home({
         </div>
 
         <div className={'col-auto'}>
-          <Link href={'/collections'}>
-            <a className={'btn btn-primary'}>View all</a>
-          </Link>
+          <ViewAllButton type={Types.collection} />
         </div>
       </div>
       <div
@@ -131,9 +126,7 @@ export default function Home({
         </div>
 
         <div className={'col-auto'}>
-          <Link href={'/lists'}>
-            <a className={'btn btn-primary'}>View all</a>
-          </Link>
+          <ViewAllButton type={Types.list} />
         </div>
       </div>
       <div

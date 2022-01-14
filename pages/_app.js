@@ -19,6 +19,7 @@ import NotAdmin from '../components/layout/NotAdmin'
 import NotLogin from '../components/layout/NotLogin'
 import NoScriptAlert from '../components/alerts/NoScriptAlert'
 import { toast } from 'react-toastify'
+import ReactTooltip from "react-tooltip";
 
 library.add(fab, fas, far)
 
@@ -41,7 +42,9 @@ export default function App({ Component, pageProps }) {
         })
         .catch((e) => {
           console.warn('Failed to post page stat: Error', e)
-        })
+        }).finally(() => {
+            ReactTooltip.rebuild()
+      })
     }
 
     // when page is loaded via direct http request, there is no route change via JS, need to manually trigger
