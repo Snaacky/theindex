@@ -1,10 +1,13 @@
 import { getSession } from 'next-auth/client'
 import { exportData } from '../../lib/db/db'
-import { isAdmin } from '../../lib/session'
+import { isAdmin, isLogin } from '../../lib/session'
 
 export default async function handler(req, res) {
   const session = await getSession({ req })
   if (isAdmin(session)) {
+    const d = await exportData(true)
+    res.status(200).json(d)
+  } else if (isLogin(session)) {
     const d = await exportData()
     res.status(200).json(d)
   } else {

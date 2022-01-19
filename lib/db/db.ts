@@ -17,14 +17,23 @@ export async function importData(data: Record<string, any>) {
   }
 }
 
-export async function exportData() {
+export async function exportData(isAdmin = false) {
+  if (isAdmin) {
+    return {
+      collections: await getAll('collections'),
+      columns: await getAll('columns'),
+      items: await getAll('items'),
+      libraries: await getAll('libraries'),
+      lists: await getAll('lists'),
+      users: await getAll('users'),
+    }
+  }
+
   return {
     collections: await getAll('collections'),
     columns: await getAll('columns'),
     items: await getAll('items'),
     libraries: await getAll('libraries'),
-    lists: await getAll('lists'),
-    users: await getAll('users'),
   }
 }
 
