@@ -149,6 +149,11 @@ await Promise.all(
       if (!column) {
         delete item.data[columnId]
         updateData = true
+      } else if (column.type === 'language') {
+        item.data[column._id.toString()] = item.data[column._id.toString()].map(
+          (l) => l.toLowerCase()
+        )
+        updateData = true
       }
     }
 
@@ -245,7 +250,7 @@ for (let i = 0; i < users.length; i++) {
 console.log('Cleaned up users\n')
 console.log('Cleanup finished\n')
 
-if (('DO_MIGRATE' in process.env) && process.env.DO_MIGRATE === 'TRUE') {
+if ('DO_MIGRATE' in process.env && process.env.DO_MIGRATE === 'TRUE') {
   console.log('\nStarting migration script')
 
   console.log(
