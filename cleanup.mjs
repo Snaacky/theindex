@@ -368,7 +368,7 @@ if (('DO_MIGRATE' in process.env) && process.env.DO_MIGRATE === 'TRUE') {
       return
     }
 
-    if (column.type !== 'feature' || column.type !== 'array') {
+    if (column.type !== 'feature' && column.type !== 'array') {
       console.error(
         'Cannot migrate column',
         column.name,
