@@ -1,6 +1,0 @@
-User-agent: *
-Disallow: /api
-Allow: /api/item/screenshot
-Disallow: /search
-Disallow: /admin
-Disallow: /edit

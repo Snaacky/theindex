@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import Mongo from 'mongodb'
 import Redis from 'ioredis'
+import ISO6391 from 'iso-639-1'
 
 console.log('\nStarting cleanup process\n')
 
@@ -136,7 +137,7 @@ await Promise.all(
 )
 console.log('Cleaned up columns\n')
 
-const items = await db.collection('items').find().toArray()
+let items = await db.collection('items').find().toArray()
 await Promise.all(
   items.map(async (item) => {
     const columnKeys = Object.keys(item.data)
@@ -242,8 +243,293 @@ for (let i = 0; i < users.length; i++) {
   }
 }
 console.log('Cleaned up users\n')
+console.log('Cleanup finished\n')
+
+console.log('\nStarting migration script')
+
+console.log(
+  'All columns are:',
+  columns.map((column) => column.name)
+)
+
+const renameColumn = async (column, newName) => {
+  if (column) {
+    await db.collection('columns').updateOne(
+      {
+        _id: column._id,
+      },
+      {
+        $set: {
+          name: newName,
+        },
+        $currentDate: { lastModified: true },
+      }
+    )
+  }
+}
+
+const migrateToProCon = async (column, values) => {
+  if (typeof column === 'undefined' || column === null) {
+    return
+  }
+
+  console.log('Migrating column', column.name, 'to type Pro/Con')
+  if (column.type === 'proAndCon') {
+    console.log('Already proAndCon, nothing to do')
+    return
+  }
+
+  if (column.type !== 'feature') {
+    console.error(
+      'Cannot migrate column',
+      column.name,
+      'to type Pro/Con as type is',
+      column.type
+    )
+    process.exit(1)
+  }
+
+  if (values.length !== 2) {
+    console.error('Cannot migrate column', column.name, 'as values is', values)
+    process.exit(1)
+  }
+
+  await db.collection('columns').updateOne(
+    {
+      _id: column._id,
+    },
+    {
+      $set: {
+        type: 'proAndCon',
+        values: values,
+      },
+      $currentDate: { lastModified: true },
+    }
+  )
+}
+
+await migrateToProCon(
+  columns.find((column) => column.name === 'Ads'),
+  ['No Ads', 'Ads']
+)
+await migrateToProCon(
+  columns.find((column) => column.name === 'Anti-Adblock'),
+  ['No Anti-Adblock', 'Anti-Adblock']
+)
+await migrateToProCon(
+  columns.find((column) => column.name === 'Watermark'),
+  ['No Watermark', 'Watermark']
+)
+
+const convertToArray = async (column, values) => {
+  if (typeof column === 'undefined' || column === null) {
+    return
+  }
+
+  console.log(
+    'Converting column',
+    column.name,
+    'to type array with values',
+    values
+  )
+  if (column.type === 'array') {
+    console.log('Already array, nothing to do')
+    return
+  }
+
+  await db.collection('columns').updateOne(
+    {
+      _id: column._id,
+    },
+    {
+      $set: {
+        type: 'array',
+        values: values,
+      },
+      $currentDate: { lastModified: true },
+    }
+  )
+}
+
+const migrateToLanguage = async (column, items) => {
+  if (typeof column === 'undefined' || column === null) {
+    return
+  }
+
+  console.log('Migrating column', column.name, 'to type Language')
+  if (column.type === 'language') {
+    console.log('Already lanugage, nothing to do')
+    return
+  }
+
+  if (column.type !== 'feature' || column.type !== 'array') {
+    console.error(
+      'Cannot migrate column',
+      column.name,
+      'to type Language as type is',
+      column.type
+    )
+    process.exit(1)
+  }
+
+  await db.collection('columns').updateOne(
+    {
+      _id: column._id,
+    },
+    {
+      $set: {
+        type: 'language',
+        values: [],
+      },
+      $currentDate: { lastModified: true },
+    }
+  )
+  const affectedItems = items.filter((item) =>
+    Object.keys(item.data).includes(column._id.toString())
+  )
+  console.log(affectedItems.length, 'items are affected')
+  await Promise.all(
+    affectedItems.map(async (item) => {
+      let data = item.data
+      console.log('Converting data', data, 'of item', item._id)
+
+      if (Array.isArray(data[column._id.toString()])) {
+        const codes = ISO6391.getAllCodes()
+        data[column._id.toString()] = data[column._id.toString()].filter((d) =>
+          codes.includes(d.toLowerCase())
+        )
+      } else if (typeof data[column._id.toString()] === 'boolean') {
+        data[column._id.toString()] = []
+      }
+      await db.collection('items').updateOne(
+        {
+          _id: item._id,
+        },
+        {
+          $set: {
+            data: data,
+          },
+          $currentDate: { lastModified: true },
+        }
+      )
+    })
+  )
+}
+
+items = await db.collection('items').find().toArray()
+let languageColumn = columns.find((column) => column.name === 'Languages')
+await migrateToLanguage(languageColumn, items)
+await renameColumn(languageColumn, 'Site')
+
+items = await db.collection('items').find().toArray()
+let subColumn = columns.find((column) => column.name === 'Subs')
+await migrateToLanguage(subColumn, items)
+await renameColumn(subColumn, 'Sub')
+
+items = await db.collection('items').find().toArray()
+let dubColumn = columns.find((column) => column.name === 'Dubs')
+await migrateToLanguage(dubColumn, items)
+await renameColumn(dubColumn, 'Dub')
+
+items = await db.collection('items').find().toArray()
+let p360 = columns.find((column) => column.name === '360p')
+let p480 = columns.find((column) => column.name === '480p')
+let p720 = columns.find((column) => column.name === '720p')
+let p1080 = columns.find((column) => column.name === '1080p')
+
+const resolutions = [p360, p480, p720, p1080].filter(
+  (res) => typeof res !== 'undefined' && res !== null
+)
+
+let video = columns.find((column) => column.name === 'Video')
+
+if (
+  resolutions.length > 0 &&
+  !resolutions.some((res) => res.type !== 'feature')
+) {
+  const affectedItems = items.filter((item) =>
+    resolutions
+      .map((res) => res._id.toString())
+      .some((res) => Object.keys(item.data).includes(res))
+  )
+  console.log(
+    'Affected items are: ',
+    affectedItems.map((item) => item.name)
+  )
+
+  if (typeof video === 'undefined' || video === null) {
+    await renameColumn(resolutions[0], 'Video')
+    video = resolutions[0]
+  }
+  if (video.type !== 'array') {
+    await convertToArray(video, ['360p', '480p', '720p', '1080p'])
+  }
+
+  await Promise.all(
+    affectedItems.map(async (item) => {
+      let values = []
+      let data = item.data
+
+      if (p360 && Object.keys(item.data).includes(p360._id.toString())) {
+        values.push('360p')
+        delete data[p360._id.toString()]
+      }
+      if (p480 && Object.keys(item.data).includes(p480._id.toString())) {
+        values.push('480p')
+        delete data[p480._id.toString()]
+      }
+      if (p720 && Object.keys(item.data).includes(p720._id.toString())) {
+        values.push('720p')
+        delete data[p720._id.toString()]
+      }
+      if (p1080 && Object.keys(item.data).includes(p1080._id.toString())) {
+        values.push('1080p')
+        delete data[p1080._id.toString()]
+      }
+
+      data[video._id.toString()] = values
+      await db.collection('items').updateOne(
+        {
+          _id: item._id,
+        },
+        {
+          $set: {
+            data: data,
+          },
+          $currentDate: { lastModified: true },
+        }
+      )
+    })
+  )
+}
+
+/*
+Features: (all feature columns would get grouped here together automatically)
+DL
+Batch DL
+Comments
+Disqus
+MAL-Sync
+Mobile Responsive
+Schedule
+Shared Playback (w2g feature)
+
+Arrays:
+Video: 1080p, 360p, 480p, 720p
+
+Language:
+Site Language
+Dub
+Sub
+Text (for manga?)
+
+Pro/Cons:
+Ads/No Ads
+Anti-Adblock/No Anti-Adblock
+Watermark/No Watermark
+*/
 
 dbClient.close()
-console.log('Mongo db connection closed')
-console.log('Cleanup finished\n')
+console.log('\nMongo db connection closed')
+
 process.exit(0)
