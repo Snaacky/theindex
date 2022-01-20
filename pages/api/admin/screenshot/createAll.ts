@@ -2,6 +2,7 @@ import { getSession } from 'next-auth/client'
 import { isAdmin } from '../../../../lib/session'
 import createScreenshot from '../../../../lib/crawler/screenshot'
 import { getItems } from '../../../../lib/db/items'
+import { screenshotExists } from '../../../../lib/db/itemScreenshots'
 
 export default async function apiAdminScreenshotCreateAll(req, res) {
   const session = await getSession({ req })
@@ -17,7 +18,9 @@ export default async function apiAdminScreenshotCreateAll(req, res) {
 
   const items = await getItems()
   for (let item of items) {
-    await createScreenshot(item._id)
+    if (!(await screenshotExists(item._id))) {
+      await createScreenshot(item._id)
+    }
   }
 
   console.log('Created all screenshots')

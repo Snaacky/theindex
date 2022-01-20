@@ -1,3 +1,5 @@
+const withPreact = require('next-plugin-preact')
+
 const nextConfig = {
   async headers() {
     return [
@@ -18,4 +20,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withPreact(nextConfig)

@@ -2,6 +2,9 @@ import Link from 'next/link'
 import Row from './Row'
 import ArrayValue from '../data/ArrayValue'
 import FeatureValue from '../data/FeatureValue'
+import { splitColumnsIntoTypes } from '../../lib/item'
+import ProAndConValue from '../data/ProAndConValue'
+import { Types } from '../../types/Components'
 
 export default function ItemRow({
   item,
@@ -10,34 +13,21 @@ export default function ItemRow({
   remove = null,
   move = null,
 }) {
-  let columnYes = [],
-    columnNo = [],
-    columnArray = []
-  columns.forEach((c) => {
-    if (c.type === 'bool') {
-      if (item.data[c._id] === true) {
-        columnYes.push(c)
-      } else if (item.data[c._id] === false) {
-        columnNo.push(c)
-      }
-    } else if (c.type === 'array' && (item.data[c._id] || []).length > 0) {
-      columnArray.push(c)
-    }
-  })
+  const column = splitColumnsIntoTypes(columns, item.data)
 
   return (
     <Row
-      type={'item'}
+      type={Types.item}
       content={item}
       add={add}
       remove={remove}
       move={move}
       bodyContent={
         <>
-          {columnYes.length > 0 ? (
+          {column.pro.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
-              {columnYes.map((c) => (
-                <FeatureValue
+              {column.pro.map((c) => (
+                <ProAndConValue
                   data={true}
                   column={c}
                   sponsor={item.sponsor}
@@ -45,24 +35,25 @@ export default function ItemRow({
                 />
               ))}
             </div>
-          ) : (
-            <></>
           )}
-          {!item.sponsor && columnNo.length > 0 ? (
+          {column.features.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
-              {columnNo.map((c) => (
-                <FeatureValue data={false} column={c} key={c._id} />
+              {column.features.map((c) => (
+                <FeatureValue
+                  column={c}
+                  sponsor={item.sponsor}
+                  key={c._id}
+                  data={null}
+                />
               ))}
             </div>
-          ) : (
-            <></>
           )}
-          {columnArray.length > 0 ? (
+          {column.array.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
-              {columnArray.map((c) => {
+              {column.array.map((c) => {
                 return (
                   <div key={c._id}>
-                    <Link href={'/column/' + c.urlId} key={c._id}>
+                    <Link href={'/column/' + c.urlId}>
                       <a className={'me-2'} data-tip={'View column ' + c.name}>
                         {c.name}:
                       </a>
@@ -72,8 +63,6 @@ export default function ItemRow({
                 )
               })}
             </div>
-          ) : (
-            <></>
           )}
         </>
       }

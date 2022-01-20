@@ -11,6 +11,7 @@ import UserCard from './cards/UserCard'
 import UserRow from './rows/UserRow'
 import ListCard from './cards/ListCard'
 import ListRow from './rows/ListRow'
+import { Types } from '../types/Components'
 
 const CardRowView = ({
   cardView = true,
@@ -21,7 +22,7 @@ const CardRowView = ({
   remove = null,
   columns = [],
 }) => {
-  if (type === 'item') {
+  if (type === Types.item) {
     if (cardView) {
       return (
         <ItemCard
@@ -42,14 +43,14 @@ const CardRowView = ({
         remove={remove}
       />
     )
-  } else if (type === 'column') {
+  } else if (type === Types.column) {
     if (cardView) {
       return (
         <ColumnCard column={content} add={add} move={move} remove={remove} />
       )
     }
     return <ColumnRow column={content} add={add} move={move} remove={remove} />
-  } else if (type === 'collection') {
+  } else if (type === Types.collection) {
     if (cardView) {
       return (
         <CollectionCard
@@ -68,7 +69,7 @@ const CardRowView = ({
         remove={remove}
       />
     )
-  } else if (type === 'library') {
+  } else if (type === Types.library) {
     if (cardView) {
       return (
         <LibraryCard library={content} add={add} move={move} remove={remove} />
@@ -77,12 +78,12 @@ const CardRowView = ({
     return (
       <LibraryRow library={content} add={add} move={move} remove={remove} />
     )
-  } else if (type === 'user') {
+  } else if (type === Types.user) {
     if (cardView) {
       return <UserCard user={content} add={add} move={move} remove={remove} />
     }
     return <UserRow user={content} add={add} move={move} remove={remove} />
-  } else if (type === 'list') {
+  } else if (type === Types.list) {
     if (cardView) {
       return <ListCard list={content} add={add} move={move} remove={remove} />
     }

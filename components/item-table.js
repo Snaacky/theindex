@@ -1,7 +1,7 @@
 import FeatureValue from './data/FeatureValue'
 import ArrayValue from './data/ArrayValue'
 
-export default function ItemCollection({ columns, items }) {
+const ItemCollection = ({ columns, items }) => {
   items = items.filter((i) => i.show).map((i) => i.data)
   return (
     <div className={'collection-responsive'}>
@@ -20,18 +20,16 @@ export default function ItemCollection({ columns, items }) {
                 </a>
               </th>
             ))}
-            {items.length === 0 ? <th>No items found</th> : <></>}
+            {(items.length === 0) & <th>No items found</th>}
           </tr>
         </thead>
 
         <tbody>
           {columns.map((c) => collectionRow(c.data, items))}
-          {columns.length === 0 ? (
+          {columns.length === 0 && (
             <tr>
               <th>No columns found</th>
             </tr>
-          ) : (
-            <></>
           )}
         </tbody>
       </collection>
@@ -46,12 +44,14 @@ function collectionRow(column, items) {
       {items.map((i) => (
         <td key={i._id + '-' + column._id} className={'text-center'}>
           {column.type === 'bool' ? (
-            <FeatureValue value={i.data[column._id]} />
+            <FeatureValue data={i.data[column._id]} column={column} />
           ) : (
-            <ArrayValue value={i.data[column._id]} />
+            <ArrayValue data={i.data[column._id]} column={column} />
           )}
         </td>
       ))}
     </tr>
   )
 }
+
+export default ItemCollection

@@ -124,7 +124,7 @@ const Footer: FC<Props> = ({ error }) => {
       <div className='d-flex justify-content-center mt-4 text-muted'>
         <span className={'me-4 mb-2'}>Anime Index Team © 2021</span>
         <Link href={'/api/export'}>
-          <a rel="nofollow">Export all data</a>
+          <a rel='nofollow'>Export all data</a>
         </Link>
       </div>
     </footer>

@@ -4,6 +4,7 @@ import ArrayValue from '../data/ArrayValue'
 import Card from './Card'
 import { splitColumnsIntoTypes } from '../../lib/item'
 import ProAndConValue from '../data/ProAndConValue'
+import { Types } from '../../types/Components'
 
 export default function ItemCard({
   item,
@@ -12,11 +13,11 @@ export default function ItemCard({
   remove = null,
   move = null,
 }) {
-  const column = splitColumnsIntoTypes(columns, item)
+  const column = splitColumnsIntoTypes(columns, item.data)
 
   return (
     <Card
-      type={'item'}
+      type={Types.item}
       content={item}
       add={add}
       remove={remove}
