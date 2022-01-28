@@ -1,7 +1,7 @@
 if (typeof window !== 'undefined') {
   if (window.location.hostname === 'piracy.moe') {
     let script = document.createElement('script')
-    script.src = 'https://stats.piracy.moe/umami.js'
+    script.src = 'https://stats.piracy.moe/imamu.js'
     script.async = true
     script.defer = true
     script.setAttribute(
