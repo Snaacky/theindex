@@ -44,7 +44,7 @@ RUN apt update -y && \
     apt install --no-install-recommends -y curl && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-    npm install --silent
+    npm ci --silent
 
 # build the web app
 COPY . .
