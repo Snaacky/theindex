@@ -1,4 +1,4 @@
-FROM node:16.13.0-slim
+FROM node:16.13.0
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
@@ -44,7 +44,8 @@ RUN apt update -y && \
     apt install --no-install-recommends -y curl && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-    npm ci
+    npm ci && \
+    npm install @next/swc-linux-x64-gnu
 
 # build the web app
 COPY . .
