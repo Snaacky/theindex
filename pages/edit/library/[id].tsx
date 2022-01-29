@@ -1,26 +1,26 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { getItem } from '../../../lib/db/items'
-import { getColumns } from '../../../lib/db/columns'
-import EditItem from '../../../components/edit/EditItem'
-import CollectionBoard from '../../../components/boards/CollectionBoard'
+import {
+  getLibrariesWithCollections,
+  getLibrary,
+} from '../../../lib/db/libraries'
 import { getCollections } from '../../../lib/db/collections'
+import EditLibrary from '../../../components/edit/EditLibrary'
+import Link from 'next/link'
+import CollectionBoard from '../../../components/boards/CollectionBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 
-export default function EditorItem({ _id, collections, columns, item }) {
-  let collectionsWithItem = []
-  if (_id !== '_new') {
-    collectionsWithItem = collections.filter((t) =>
-      t.items.some((i) => i === item._id)
-    )
-  }
-
+export default function EditorLibrary({
+  _id,
+  libraries,
+  collections,
+  library,
+}) {
   return (
     <>
       <Head>
         <title>
-          {(_id === '_new' ? 'Create item' : 'Edit item ' + item.name) +
+          {(_id === '_new' ? 'Create tab' : 'Edit library' + library.name) +
             ' | ' +
             process.env.NEXT_PUBLIC_SITE_NAME}
         </title>
@@ -30,54 +30,53 @@ export default function EditorItem({ _id, collections, columns, item }) {
         <div className={'flex-grow-1'}>
           <h2>
             {_id === '_new' ? (
-              'Create a new item'
+              'Create a new library'
             ) : (
               <>
-                Edit item <Link href={'/item/' + item._id}>{item.name}</Link>
+                Edit library{' '}
+                <Link href={'/library/' + library.urlId}>{library.name}</Link>
               </>
             )}
           </h2>
           {_id !== '_new' && (
             <small className={'text-muted'}>
-              ID: <code>{item._id}</code>
+              ID: <code>{library._id}</code>
             </small>
           )}
         </div>
         <div>
-          <ViewAllButton type={Types.item} />
+          <ViewAllButton type={Types.library} />
         </div>
       </div>
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
           {_id === '_new' ? (
-            <EditItem columns={columns} />
+            <EditLibrary libraries={libraries} />
           ) : (
-            <EditItem
-              _id={item._id}
-              name={item.name}
-              urls={item.urls}
-              nsfw={item.nsfw}
-              sponsor={item.sponsor}
-              blacklist={item.blacklist}
-              description={item.description}
-              data={item.data}
-              columns={columns}
+            <EditLibrary
+              libraries={libraries}
+              _id={library._id}
+              urlId={library.urlId}
+              name={library.name}
+              img={library.img}
+              nsfw={library.nsfw}
+              description={library.description}
+              collections={library.collections}
             />
           )}
         </div>
       </div>
 
-      <h4>Collections with this item</h4>
+      <h4>Collections used in this library</h4>
       {_id !== '_new' ? (
         <CollectionBoard
-          _id={item._id}
-          collections={collectionsWithItem}
+          contentOf={library}
+          collections={library.collections}
           allCollections={collections}
           canMove={false}
           canEdit={true}
           forceEditMode={true}
-          updateURL={'/api/edit/item/collections'}
         />
       ) : (
         <div className={'text-muted'}>
@@ -89,15 +88,15 @@ export default function EditorItem({ _id, collections, columns, item }) {
   )
 }
 
-EditorItem.auth = {
+EditorLibrary.auth = {
   requireEditor: true,
 }
 
 export async function getServerSideProps({ params }) {
-  let item = {}
+  let library = {}
   if (params.id !== '_new') {
-    item = await getItem(params.id)
-    if (!item) {
+    library = await getLibrary(params.id)
+    if (!library) {
       return {
         notFound: true,
       }
@@ -107,9 +106,9 @@ export async function getServerSideProps({ params }) {
   return {
     props: {
       _id: params.id,
+      libraries: await getLibrariesWithCollections(),
       collections: await getCollections(),
-      columns: await getColumns(),
-      item,
+      library,
     },
   }
 }

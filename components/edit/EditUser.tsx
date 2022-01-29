@@ -1,44 +1,44 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import { AccountType } from '../../types/User'
 import Select from '../data/Select'
 
-export default function EditUser({
-  adminEditing,
+type Props = {
+  adminEditing?: boolean
+  uid: string
+  accountType?: AccountType
+  description?: string
+}
+
+const EditUser: FC<Props> = ({
+  adminEditing = false,
   uid,
-  accountType,
-  description,
-}) {
+  accountType = AccountType.user,
+  description = '',
+}) => {
   const [accountTypeState, setAccountType] = useState(
     accountType || AccountType.user
   )
   const [descriptionState, setDescription] = useState(description)
 
   const saveUser = () => {
-    let body = {
+    let body: Record<string, any> = {
       uid,
       description: descriptionState,
     }
 
     if (adminEditing) {
-      if (accountTypeState !== '') {
-        if (
-          accountType === AccountType.admin &&
-          accountTypeState !== AccountType.admin
-        ) {
-          if (!confirm('Do you really want to revoke admin rights?')) {
-            return
-          }
+      if (
+        accountType === AccountType.admin &&
+        accountTypeState !== AccountType.admin
+      ) {
+        if (!confirm('Do you really want to revoke admin rights?')) {
+          return
         }
-
-        body.accountType = accountTypeState
-      } else {
-        return toast.warn(
-          'Wow, wow! Wait a minute bro, you forgot to set the account type'
-        )
       }
+
+      body.accountType = accountTypeState
     }
 
     postData('/api/edit/user', body, () => {
@@ -53,13 +53,17 @@ export default function EditUser({
         saveUser()
       }}
     >
-      {adminEditing ? (
-        <div className='form-floating mb-3'>
+      {adminEditing && (
+        <div className='mb-3'>
+          <label htmlFor='userTypeInput' className={'mb-2'}>
+            Type of user account
+          </label>
           <Select
+            id={'userTypeInput'}
             hover={'Select account type of user'}
-            onChange={(e) => setAccountType(e.target.value)}
+            className={'w-100'}
+            onChange={(e) => setAccountType(e.target.value as AccountType)}
             value={accountTypeState}
-            defaultValue={AccountType.user}
             options={[
               <option key={AccountType.user} value={AccountType.user}>
                 User
@@ -72,12 +76,7 @@ export default function EditUser({
               </option>,
             ]}
           />
-          <label htmlFor='userTypeInput' className={'text-dark'}>
-            Type of user account
-          </label>
         </div>
-      ) : (
-        <></>
       )}
       <div className='mb-3'>
         <label htmlFor='createUserInputDescription' className='form-label'>
@@ -86,7 +85,7 @@ export default function EditUser({
         <textarea
           className='form-control'
           id='createUserInputDescription'
-          rows='3'
+          rows={3}
           placeholder={'Enter a fitting description'}
           value={descriptionState}
           onChange={(input) => {
@@ -104,3 +103,5 @@ export default function EditUser({
     </form>
   )
 }
+
+export default EditUser

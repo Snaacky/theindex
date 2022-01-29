@@ -69,7 +69,7 @@ export default function EditorColumn({ _id, collections, columns, column }) {
       <h4>Collections with this column</h4>
       {_id !== '_new' ? (
         <CollectionBoard
-          _id={column._id}
+          contentOf={column}
           collections={collectionsWithColumn}
           allCollections={collections}
           canMove={false}

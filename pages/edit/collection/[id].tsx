@@ -78,7 +78,6 @@ export default function EditorCollection({
       <h4>Libraries with this collection</h4>
       {_id !== '_new' ? (
         <LibraryBoard
-          _id={collection._id}
           libraries={librariesWithCollection}
           allLibraries={libraries}
           canMove={false}
@@ -86,6 +85,7 @@ export default function EditorCollection({
           updateURL={'/api/edit/collection/libraries'}
           deleteURL={''}
           forceEditMode={true}
+          contentOf={collection}
         />
       ) : (
         <div className={'text-muted'}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from '../rows/Row.module.css'
 import IconDelete from '../icons/IconDelete'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,19 +6,32 @@ import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
-import { ColumnType } from '../../types/Column'
+import { Column, ColumnType } from '../../types/Column'
 import { Types } from '../../types/Components'
+import Input from '../data/Input'
+import ReactTooltip from 'react-tooltip'
 
-export default function EditColumn({
+type Props = {
+  columns: Column[]
+  _id?: string
+  urlId?: string
+  name?: string
+  nsfw?: boolean
+  description?: string
+  type?: ColumnType
+  values?: string[]
+}
+
+const EditColumn: FC<Props> = ({
   columns,
   _id,
-  urlId,
-  name,
-  nsfw,
-  description,
-  type,
-  values,
-}) {
+  urlId = '',
+  name = '',
+  nsfw = false,
+  description = '',
+  type = ColumnType.feature,
+  values = [''],
+}) => {
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
   const [typeState, setType] = useState(type || ColumnType.feature)
@@ -40,6 +53,10 @@ export default function EditColumn({
     setUrlDatalist(columns.map((t) => t.urlId) || [])
   }, [columns])
 
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [valuesState, typeState])
+
   const router = useRouter()
 
   const saveColumn = () => {
@@ -48,7 +65,7 @@ export default function EditColumn({
         return toast.error('Illegal url id: "_new" is forbidden!')
       }
 
-      let body = {
+      let body: Record<string, any> = {
         urlId: urlIdState,
         name: nameState,
         nsfw: nsfwState,
@@ -183,7 +200,7 @@ export default function EditColumn({
         <textarea
           className='form-control'
           id='createColumnInputDescription'
-          rows='3'
+          rows={3}
           placeholder={'Enter a fitting description'}
           value={descriptionState}
           onChange={(input) => {
@@ -197,7 +214,7 @@ export default function EditColumn({
           className='form-select'
           id='columnTypeInput'
           aria-label='Type selection of column'
-          onChange={(e) => setType(e.target.value)}
+          onChange={(e) => setType(e.target.value as ColumnType)}
           value={typeState}
           defaultValue={ColumnType.feature}
         >
@@ -278,12 +295,10 @@ export default function EditColumn({
               <div className={'mb-2'} key={i}>
                 <div className={'row'}>
                   <div className={'col pe-0'}>
-                    <input
-                      type={'text'}
-                      className={'form-control'}
-                      id={'columnValueInput-' + i}
+                    <Input
                       value={v}
-                      placeholder={'Enter a possible value'}
+                      hover={'Enter a possible value'}
+                      className={'w-100'}
                       onChange={(input) => {
                         updateValues(i, input.target.value)
                       }}
@@ -300,7 +315,7 @@ export default function EditColumn({
                             height: '38px',
                           }}
                         >
-                          <IconDelete />
+                          <IconDelete title={'Remove value'} />
                         </a>
                       </div>
                     ) : (
@@ -326,3 +341,5 @@ export default function EditColumn({
     </form>
   )
 }
+
+export default EditColumn

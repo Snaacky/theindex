@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from '../rows/Row.module.css'
 import IconDelete from '../icons/IconDelete'
 import DataCard from '../cards/DataCard'
@@ -11,17 +11,29 @@ import CreateNewButton from '../buttons/CreateNewButton'
 import { ColumnType } from '../../types/Column'
 import { Types } from '../../types/Components'
 
-export default function EditItem({
+type Props = {
+  _id?: string
+  name?: string
+  urls?: string[]
+  nsfw?: boolean
+  description?: string
+  data?: Record<string, any>
+  blacklist?: boolean
+  sponsor?: boolean
+  columns
+}
+
+const EditItem: FC<Props> = ({
   _id,
-  name,
-  urls,
-  nsfw,
-  description,
-  data,
-  blacklist,
-  sponsor,
+  name = '',
+  urls = [],
+  nsfw = false,
+  description = '',
+  data = {},
+  blacklist = false,
+  sponsor = false,
   columns,
-}) {
+}) => {
   const [nameState, setName] = useState(name || '')
 
   const [urlsState, setUrls] = useState(
@@ -44,7 +56,7 @@ export default function EditItem({
 
   const saveItem = () => {
     if (nameState !== '') {
-      let body = {
+      let body: Record<string, any> = {
         name: nameState,
         urls: urlsState.filter((u) => u !== ''),
         nsfw: nsfwState,
@@ -215,7 +227,7 @@ export default function EditItem({
         <textarea
           className='form-control'
           id='createItemInputDescription'
-          rows='3'
+          rows={3}
           placeholder={'Enter a fitting description'}
           value={descriptionState}
           onChange={(input) => {
@@ -261,7 +273,7 @@ export default function EditItem({
                           height: '38px',
                         }}
                       >
-                        <IconDelete />
+                        <IconDelete title={'Remove url'} />
                       </a>
                     </div>
                   ) : (
@@ -313,3 +325,5 @@ export default function EditItem({
     </form>
   )
 }
+
+export default EditItem
