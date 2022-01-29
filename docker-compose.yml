@@ -48,12 +48,6 @@ services:
     image: redis
     container_name: index-cache
     restart: unless-stopped
-  meili:
-    image: getmeili/meilisearch
-    container_name: index-meili
-    restart: unless-stopped
-    environment:
-      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
 
   chrome:
     image: browserless/chrome

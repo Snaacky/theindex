@@ -104,7 +104,6 @@ Here is a collection of the possible ENV-variables with their default values you
 | `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                                             | `"your_discord_oauth_client_secret"`                             |
 | `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                                         | `"your_discord_bot_token"`                                       |
 | `SETUP_WHITELIST_DISCORD_ID` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop)                     | `"your_discord_id"`                                              |
-| `MEILI_MASTER_KEY`           | Set a random secure string, read more about [meili](https://docs.meilisearch.com/reference/features/authentication.html) | `"a_super_secret_long_randomly_generated_string_that_is_secure"` |
 
 And the following env variables are only needed when you are in dev mode and debugging the db
 
@@ -184,7 +183,7 @@ docker-compose up -d
 ### Web service
 
 To start coding on the frontend, you will need to make sure, you have the latest version of
-[node.js](https://nodejs.org/en/https://nodejs.org/en/) correctly installed. To install all the required dependencies
+[node.js](https://nodejs.org/)  correctly installed. To install all the required dependencies
 run once:
 
 ```shell
@@ -275,7 +274,6 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
 - [redis](https://redis.io) as cache
-- [MeiliSearch](https://www.meilisearch.com/) as search engine
 - [puppeteer](https://github.com/puppeteer/puppeteer) to create screenshots of websites
 - [browserless/chrome](https://github.com/browserless/chrome) to run our chrome instance
 - [react-in-viewport](https://github.com/roderickhsiao/react-in-viewport) for checking if components are visible or not
@@ -288,8 +286,7 @@ And most importantly:
 
 ### Technical debts
 
-- We use JS instead of TS (not needed, but type checking is still a wanted security feature)
-- Multi-language support
+- We use JS instead of TS (currently in migration)
 - Unify `Editor`-views
 - Unify db insert and updates to the format of `func(_id, dataObject)` and update only as needed, GraphQL would be
   nice...
