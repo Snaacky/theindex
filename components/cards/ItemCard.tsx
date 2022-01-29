@@ -1,24 +1,34 @@
 import Link from 'next/link'
-import Row from './Row'
-import ArrayValue from '../data/ArrayValue'
 import FeatureValue from '../data/FeatureValue'
+import ArrayValue from '../data/ArrayValue'
+import Card from './Card'
 import { splitColumnsIntoTypes } from '../../lib/item'
 import ProAndConValue from '../data/ProAndConValue'
 import { Types } from '../../types/Components'
-import { ColumnType } from '../../types/Column'
 import LanguageValue from '../data/LanguageValue'
+import { Column, ColumnType } from '../../types/Column'
+import { FC } from 'react'
+import { Item } from '../../types/Item'
 
-export default function ItemRow({
+type Props = {
+  item: Item
+  columns: Column[]
+  move?: (order: number) => void
+  add?: () => void
+  remove?: () => void
+}
+
+const ItemCard: FC<Props> = ({
   item,
   columns = [],
   add = null,
   remove = null,
   move = null,
-}) {
+}) => {
   const column = splitColumnsIntoTypes(columns, item.data)
 
   return (
-    <Row
+    <Card
       type={Types.item}
       content={item}
       add={add}
@@ -61,9 +71,15 @@ export default function ItemRow({
                       </a>
                     </Link>
                     {c.type === ColumnType.array ? (
-                      <ArrayValue data={item.data[c._id]} column={c} />
+                      <ArrayValue
+                        data={item.data[c._id] as string[]}
+                        column={c}
+                      />
                     ) : (
-                      <LanguageValue data={item.data[c._id]} column={c} />
+                      <LanguageValue
+                        data={item.data[c._id] as string[]}
+                        column={c}
+                      />
                     )}
                   </div>
                 )
@@ -75,3 +91,5 @@ export default function ItemRow({
     />
   )
 }
+
+export default ItemCard

@@ -25,21 +25,34 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
     return
   }
 
+  const lang = getLanguages()
+
   if (onChange === null) {
     return (
       <>
-        {data.map((v) => (
-          <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
-            <a className={'me-2'} data-tip={column.name + ' language: ' + v}>
-              <DataBadge name={v} />
-            </a>
-          </Link>
-        ))}
+        {data.map((v) => {
+          const langData = lang.find((l) => l.iso6393 === v)
+          let name = v
+          if (langData) {
+            name = langData.name
+          }
+
+          return (
+            <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
+              <a
+                className={'me-2'}
+                data-tip={column.name + ' language: ' + name}
+              >
+                <DataBadge name={name} />
+              </a>
+            </Link>
+          )
+        })}
       </>
     )
   }
 
-  const filtered = getLanguages().filter((lang) =>
+  const filtered = lang.filter((lang) =>
     lang.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
   )
   const sliced = expand
@@ -50,6 +63,7 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
     <>
       <Input
         value={filter}
+        className={'w-100'}
         hover={'Search language...'}
         onChange={(e) => setFilter(e.target.value)}
       />

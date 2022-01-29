@@ -52,7 +52,10 @@ export default function EditorList({ _id, userLists, list }) {
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
           {_id === '_new' ? (
-            <EditList lists={userLists} owner={session.user.uid} />
+            <EditList
+              lists={userLists}
+              owner={(session.user as { uid: string }).uid}
+            />
           ) : (
             <EditList
               _id={list._id}

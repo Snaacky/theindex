@@ -152,7 +152,7 @@ export function setCache(key: string, data: string | object) {
   }
 
   return client.set(key, data).then(() => {
-    console.info('Created cache for', key)
+    console.debug('Created cache for', key)
   })
 }
 

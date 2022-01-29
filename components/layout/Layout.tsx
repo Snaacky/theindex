@@ -4,7 +4,7 @@ import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 
-export default function Layout({ children, error }) {
+const Layout = ({ children, error }) => {
   return (
     <div
       className={'d-flex'}
@@ -48,11 +48,9 @@ export default function Layout({ children, error }) {
         <meta name='msapplication-TileColor' content='#2b5797' />
         <meta name='theme-color' content='#000000' />
 
-        {error && (
-          <title>
-            Error {error} | {process.env.NEXT_PUBLIC_SITE_NAME}
-          </title>
-        )}
+        <title>
+          {error && 'Error ' + error + ' |'} {process.env.NEXT_PUBLIC_SITE_NAME}
+        </title>
 
         <meta name='robots' content='index, archive, follow' />
 
@@ -90,3 +88,5 @@ export default function Layout({ children, error }) {
     </div>
   )
 }
+
+export default Layout

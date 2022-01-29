@@ -4,8 +4,16 @@ import { canEdit } from '../../lib/session'
 import styles from './Card.module.css'
 import DataItem from '../data/DataItem'
 import IconEdit from '../icons/IconEdit'
+import { FC } from 'react'
+import { Column } from '../../types/Column'
 
-export default function DataCard({ data, column, onChange = null }) {
+type Props = {
+  data: boolean | string | string[]
+  column: Column
+  onChange?: (value: any) => void
+}
+
+const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
   const [session] = useSession()
 
   return (
@@ -34,3 +42,5 @@ export default function DataCard({ data, column, onChange = null }) {
     </div>
   )
 }
+
+export default DataCard

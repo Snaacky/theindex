@@ -7,7 +7,7 @@ import { FC } from 'react'
 import LanguageValue from './LanguageValue'
 
 type Props = {
-  data: boolean | string[] | null
+  data: boolean | string | string[] | null
   column: Column
   onChange?: (data: any) => void
 }
@@ -17,25 +17,29 @@ const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
   if (
     column.type === ColumnType.feature &&
     (typeof data === 'boolean' || isUndefined) &&
-    !Array.isArray(data)
+    !Array.isArray(data) &&
+    typeof data !== 'string'
   ) {
     return <FeatureValue data={data} column={column} onChange={onChange} />
   } else if (
     column.type === ColumnType.proAndCon &&
     (typeof data === 'boolean' || isUndefined) &&
-    !Array.isArray(data)
+    !Array.isArray(data) &&
+    typeof data !== 'string'
   ) {
     return <ProAndConValue data={data} column={column} onChange={onChange} />
   } else if (
     column.type === ColumnType.array &&
     (Array.isArray(data) || isUndefined) &&
-    typeof data !== 'boolean'
+    typeof data !== 'boolean' &&
+    typeof data !== 'string'
   ) {
     return <ArrayValue data={data || []} column={column} onChange={onChange} />
   } else if (
     column.type === ColumnType.language &&
     (Array.isArray(data) || isUndefined) &&
-    typeof data !== 'boolean'
+    typeof data !== 'boolean' &&
+    typeof data !== 'string'
   ) {
     return (
       <LanguageValue data={data || []} column={column} onChange={onChange} />

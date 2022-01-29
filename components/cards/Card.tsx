@@ -16,8 +16,26 @@ import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
 import Title from '../text/Title'
 import classNames from 'classnames'
+import { Types } from '../../types/Components'
+import { User } from '../../types/User'
+import { List } from '../../types/List'
+import { Collection } from '../../types/Collection'
+import { Column } from '../../types/Column'
+import { Library } from '../../types/Library'
+import { Item } from '../../types/Item'
+import { FC } from 'react'
 
-export default function Card({
+type Props = {
+  type: Types
+  content: User | List | Collection | Column | Library | Item
+  imageUrl?: string
+  bodyContent?: any
+  move?: (order: number) => void
+  add?: () => void
+  remove?: () => void
+}
+
+const Card: FC<Props> = ({
   type,
   content,
   imageUrl = '',
@@ -25,10 +43,17 @@ export default function Card({
   add = null,
   remove = null,
   move = null,
-}) {
+}) => {
   const [session] = useSession()
   const hrefString =
-    '/' + type + '/' + (content.urlId ?? content.uid ?? content._id)
+    '/' +
+    type +
+    '/' +
+    ('urlId' in content
+      ? content.urlId
+      : 'uid' in content
+      ? content.uid
+      : content._id)
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -39,7 +64,7 @@ export default function Card({
       className={
         styles.card +
         ' ' +
-        (content.sponsor ? styles.sponsored : '') +
+        ('sponsor' in content && content.sponsor ? styles.sponsored : '') +
         ' card bg-2 mb-2 me-2'
       }
     >
@@ -75,7 +100,7 @@ export default function Card({
         <div className='col h-100'>
           <div className={'card-body d-flex flex-column p-2 h-100'}>
             <h5 className={styles.title + ' card-title'}>
-              {typeof content.urls !== 'undefined' && (
+              {'urls' in content && typeof content.urls !== 'undefined' && (
                 <OnlineStatus url={content.urls[0] ?? ''} />
               )}
 
@@ -84,7 +109,14 @@ export default function Card({
               {canEdit(session, type) && (
                 <>
                   <Link
-                    href={'/edit/' + type + '/' + (content.uid ?? content._id)}
+                    href={
+                      '/edit/' +
+                      type +
+                      '/' +
+                      ('uid' in content && content.uid
+                        ? content.uid
+                        : content._id)
+                    }
                   >
                     <a data-tip={'Edit ' + type} className={'ms-2'}>
                       <IconEdit />
@@ -92,7 +124,7 @@ export default function Card({
                   </Link>
                 </>
               )}
-              {content.sponsor && (
+              {'sponsor' in content && content.sponsor && (
                 <span className={styles.sponsorBadge + ' ms-2 float-end'}>
                   <span className={styles.sponsorIcon}>
                     <IconSponsor size='xs' />
@@ -101,23 +133,23 @@ export default function Card({
                 </span>
               )}
               <span className={styles.action}>
-                {content.nsfw && (
+                {'nsfw' in content && content.nsfw && (
                   <span className={'ms-2'}>
                     <IconNSFW />
                   </span>
                 )}
-                {content.accountType && (
+                {'accountType' in content && content.accountType && (
                   <span className={'ms-2'}>
                     <DataBadge name={content.accountType} style={'primary'} />
                   </span>
                 )}
-                {type === 'item' && (
+                {type === Types.item && (
                   <span className={'float-end'}>
                     <span className={'ms-2'}>
-                      <IconStar item={content} />
+                      <IconStar item={content as Item} />
                     </span>
                     <span className={'ms-2'}>
-                      <IconBookmark item={content} />
+                      <IconBookmark item={content as Item} />
                     </span>
                   </span>
                 )}
@@ -160,3 +192,5 @@ export default function Card({
     </div>
   )
 }
+
+export default Card

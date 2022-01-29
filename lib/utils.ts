@@ -66,7 +66,9 @@ export function singularToPlural(type: Types) {
 }
 
 export function getLanguages() {
-  const whitelist = []
+  const whitelist = [
+    'fil', // Filipino, see https://en.wikipedia.org/wiki/Filipino_language
+  ]
   return iso6393.filter(
     (lang) =>
       lang.type === 'living' &&

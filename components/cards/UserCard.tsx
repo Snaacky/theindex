@@ -1,22 +1,26 @@
 import Card from './Card'
+import { FC } from 'react'
+import { User } from '../../types/User'
+import { Types } from '../../types/Components'
 
-export default function UserCard({
+type Props = {
+  user: User
+  move?: (order: number) => void
+  add?: () => void
+  remove?: () => void
+}
+
+const UserCard: FC<Props> = ({
   user,
   add = null,
   remove = null,
   move = null,
-}) {
-  const content = {
-    _id: user.uid,
-    name: user.name,
-    description: user.description,
-    accountType: user.accountType,
-  }
+}) => {
   const joined = new Date(user.createdAt).toISOString().slice(0, 10)
   return (
     <Card
-      type={'user'}
-      content={content}
+      type={Types.user}
+      content={user}
       imageUrl={user.image}
       add={add}
       remove={remove}
@@ -29,3 +33,5 @@ export default function UserCard({
     />
   )
 }
+
+export default UserCard

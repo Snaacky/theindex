@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { postData } from '../../lib/utils'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
+import { Types } from '../../types/Components'
+import { List } from '../../types/List'
 
-export default function EditList({
+type Props = {
+  _id?: string
+  lists: List[]
+  owner: string
+  name?: string
+  nsfw?: boolean
+  description?: string
+}
+
+const EditList: FC<Props> = ({
   _id,
   lists,
   owner,
-  name,
-  nsfw,
-  description,
-}) {
+  name = '',
+  nsfw = false,
+  description = '',
+}) => {
   const [nameState, setName] = useState(name || '')
   const [descriptionState, setDescription] = useState(description)
   const [nsfwState, setNsfw] = useState(nsfw || false)
@@ -28,7 +39,7 @@ export default function EditList({
 
   const saveList = () => {
     if (nameState !== '') {
-      let body = {
+      let body: Record<string, any> = {
         owner: owner,
         name: nameState,
         nsfw: nsfwState,
@@ -108,7 +119,7 @@ export default function EditList({
         <textarea
           className='form-control'
           id='createListInputDescription'
-          rows='3'
+          rows={3}
           placeholder={'Enter a fitting description'}
           value={descriptionState}
           onChange={(input) => {
@@ -118,7 +129,7 @@ export default function EditList({
       </div>
       <span className={'float-end'}>
         {typeof _id !== 'undefined' && (
-          <CreateNewButton type={'list'} allowEdit={true} />
+          <CreateNewButton type={Types.list} allowEdit={true} />
         )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
           <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
@@ -128,3 +139,5 @@ export default function EditList({
     </form>
   )
 }
+
+export default EditList

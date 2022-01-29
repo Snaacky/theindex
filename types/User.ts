@@ -8,6 +8,7 @@ export interface User {
   favs: string[]
   lists: string[]
   followLists: string[]
+  createdAt: string
 }
 
 export enum AccountType {
