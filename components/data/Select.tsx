@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import styles from './Select.module.css'
+import inputStyles from './Input.module.css'
 import classNames from 'classnames'
 
 type Props = {
@@ -22,7 +23,7 @@ const Select: FC<Props> = ({
   return (
     <select
       id={id}
-      className={classNames(styles.select, className)}
+      className={classNames(inputStyles.input, styles.select, className)}
       data-tip={hover}
       aria-label={hover}
       onChange={onChange}

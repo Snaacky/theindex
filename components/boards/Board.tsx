@@ -20,6 +20,8 @@ import { Collection } from '../../types/Collection'
 import { Library } from '../../types/Library'
 import { Types } from '../../types/Components'
 import { List } from '../../types/List'
+import ReactTooltip from 'react-tooltip'
+import Input from '../data/Input'
 
 type Props = {
   contentOf: User | Item | List | Collection | Column | Library | null
@@ -105,6 +107,9 @@ const Board: FC<Props> = ({
   useEffect(() => {
     setContent(content)
   }, [content])
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [sortOption, compactView, columnFilter, pageSize, startViewIndex])
 
   const randString = Math.random().toString(36).slice(2)
 
@@ -380,23 +385,15 @@ const Board: FC<Props> = ({
           )}
         </div>
         <div className={'col-12 col-sm-6 col-md'}>
-          <div className={'input-group'}>
-            <span className='input-group-text' id='inputSearchStringAddon'>
-              <FontAwesomeIcon icon={['fas', 'search']} />
-            </span>
-            <input
-              value={searchString}
-              type={'text'}
-              className={'form-control'}
-              onChange={(e) => {
-                setSearchString(e.target.value.toLowerCase())
-                setStartViewIndex(0)
-              }}
-              aria-label={'Search input'}
-              placeholder={'Type something to search...'}
-              aria-describedby={'inputSearchStringAddon'}
-            />
-          </div>
+          <Input
+            value={searchString}
+            className={'w-100'}
+            hover={'Type something to search...'}
+            onChange={(e) => {
+              setSearchString(e.target.value.toLowerCase())
+              setStartViewIndex(0)
+            }}
+          />
         </div>
         <div className={'col-12 col-lg-auto'}>
           <CreateNewButton type={type} allowEdit={allowEdit} />
