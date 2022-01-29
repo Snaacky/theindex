@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
 import { Column, ColumnType } from '../../types/Column'
-import ISO6391 from 'iso-639-1'
 import { FC } from 'react'
 
 type Props = {
@@ -11,15 +10,17 @@ type Props = {
 }
 
 const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
+  if (column.type !== ColumnType.array) {
+    console.error('Called ArrayValue but column type is', column.type)
+    return
+  }
+
   if (onChange === null) {
     return (
       <>
         {data.map((v) => (
           <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
-            <a
-              className={'me-2'}
-              data-tip={'View column ' + column.name + ' with value ' + v}
-            >
+            <a className={'me-2'} data-tip={column.name + ': ' + v}>
               <DataBadge name={v} />
             </a>
           </Link>
@@ -28,21 +29,12 @@ const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
     )
   }
 
-  let values = []
-  if (column.type === ColumnType.array) {
-    values = column.values
-  } else if (column.type === ColumnType.language) {
-    values = ISO6391.getAllCodes()
-  }
-
   return (
     <>
-      {values.map((v) => {
+      {column.values.map((v) => {
         return (
           <a
-            data-tip={
-              column.type === ColumnType.language ? ISO6391.getName(v) : v
-            }
+            data-tip={v}
             className={'me-2'}
             key={v}
             onClick={() => {

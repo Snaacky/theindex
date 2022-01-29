@@ -91,19 +91,19 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
-| Parameter                    | Function                                                                                                                 | Default                                                          |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                                    | `"The Anime Index"`                                              |
-| `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                                                 | `"https://piracy.moe"`                                           |
-| `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                                                 | `$NEXT_PUBLIC_DOMAIN`                                            |
-| `DATABASE_URL`               | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)                              | `"mongodb://mongo:27017"`                                        |
-| `CACHE_URL`                  | Connection string for the redis cache database                                                                           | `"redis://redis:6379"`                                           |
-| `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                                               | `"ws://chrome:3300"`                                             |
-| `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                                                | `""`                                                             |
-| `DISCORD_CLIENT_ID`          | Discord OAuth2 client ID                                                                                                 | `"your_discord_oauth_client_id"`                                 |
-| `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                                             | `"your_discord_oauth_client_secret"`                             |
-| `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                                         | `"your_discord_bot_token"`                                       |
-| `SETUP_WHITELIST_DISCORD_ID` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop)                     | `"your_discord_id"`                                              |
+| Parameter                    | Function                                                                                             | Default                              |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Anime Index"`                  |
+| `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://piracy.moe"`               |
+| `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
+| `DATABASE_URL`               | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)          | `"mongodb://mongo:27017"`            |
+| `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
+| `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |
+| `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                            | `""`                                 |
+| `DISCORD_CLIENT_ID`          | Discord OAuth2 client ID                                                                             | `"your_discord_oauth_client_id"`     |
+| `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                         | `"your_discord_oauth_client_secret"` |
+| `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                     | `"your_discord_bot_token"`           |
+| `SETUP_WHITELIST_DISCORD_ID` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop) | `"your_discord_id"`                  |
 
 And the following env variables are only needed when you are in dev mode and debugging the db
 
@@ -183,7 +183,7 @@ docker-compose up -d
 ### Web service
 
 To start coding on the frontend, you will need to make sure, you have the latest version of
-[node.js](https://nodejs.org/)  correctly installed. To install all the required dependencies
+[node.js](https://nodejs.org/) correctly installed. To install all the required dependencies
 run once:
 
 ```shell
@@ -279,6 +279,7 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - [react-in-viewport](https://github.com/roderickhsiao/react-in-viewport) for checking if components are visible or not
 - [react-draggable](https://github.com/react-grid-layout/react-draggable) for dragging components by the end user
 - [react-toastify](https://github.com/fkhadra/react-toastify) for handling notifications
+- [iso-639-3](https://www.npmjs.com/package/iso-639-3) for the languages
 
 And most importantly:
 

@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import Mongo from 'mongodb'
 import Redis from 'ioredis'
-import ISO6391 from 'iso-639-1'
+import { iso6393 } from 'iso-639-3'
 
 console.log('\nStarting cleanup process\n')
 
@@ -138,6 +138,7 @@ await Promise.all(
 console.log('Cleaned up columns\n')
 
 let items = await db.collection('items').find().toArray()
+const livingLang = iso6393.filter((lang) => lang.type === 'living')
 await Promise.all(
   items.map(async (item) => {
     const columnKeys = Object.keys(item.data)
@@ -151,9 +152,21 @@ await Promise.all(
         updateData = true
       } else if (column.type === 'language') {
         item.data[column._id.toString()] = item.data[column._id.toString()].map(
-          (l) => l.toLowerCase()
+          (l) => {
+            if (l !== l.toLowerCase()) {
+              l = l.toLowerCase()
+              updateData = true
+            }
+            if (l.length === 2) {
+              const newL = livingLang.find((lang) => lang.iso6391 === l)
+              if (newL) {
+                l = newL.iso6393
+                updateData = true
+              }
+            }
+            return l
+          }
         )
-        updateData = true
       }
     }
 
@@ -369,7 +382,7 @@ if ('DO_MIGRATE' in process.env && process.env.DO_MIGRATE === 'TRUE') {
 
     console.log('Migrating column', column.name, 'to type Language')
     if (column.type === 'language') {
-      console.log('Already lanugage, nothing to do')
+      console.log('Already language, nothing to do')
       return
     }
 
@@ -405,9 +418,8 @@ if ('DO_MIGRATE' in process.env && process.env.DO_MIGRATE === 'TRUE') {
         console.log('Converting data', data, 'of item', item._id)
 
         if (Array.isArray(data[column._id.toString()])) {
-          const codes = ISO6391.getAllCodes()
           data[column._id.toString()] = data[column._id.toString()].filter(
-            (d) => codes.includes(d.toLowerCase())
+            (d) => livingLang.find((lang) => lang.iso6391 === d.toLowerCase())
           )
         } else if (typeof data[column._id.toString()] === 'boolean') {
           data[column._id.toString()] = []

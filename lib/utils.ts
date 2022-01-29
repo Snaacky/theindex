@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify'
 import { Types } from '../types/Components'
+import { iso6393 } from 'iso-639-3'
 
 export function isValidUrl(url = '') {
   if (typeof url === 'string') {
@@ -62,4 +63,14 @@ export function singularToPlural(type: Types) {
   } else {
     throw 'Unknown type: ' + type
   }
+}
+
+export function getLanguages() {
+  const whitelist = []
+  return iso6393.filter(
+    (lang) =>
+      lang.type === 'living' &&
+      lang.scope === 'individual' &&
+      (typeof lang.iso6391 !== 'undefined' || whitelist.includes(lang.iso6393))
+  )
 }
