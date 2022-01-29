@@ -5,6 +5,8 @@ import FeatureValue from '../data/FeatureValue'
 import { splitColumnsIntoTypes } from '../../lib/item'
 import ProAndConValue from '../data/ProAndConValue'
 import { Types } from '../../types/Components'
+import { ColumnType } from '../../types/Column'
+import LanguageValue from '../data/LanguageValue'
 
 export default function ItemRow({
   item,
@@ -58,7 +60,11 @@ export default function ItemRow({
                         {c.name}:
                       </a>
                     </Link>
-                    <ArrayValue data={item.data[c._id]} column={c} />
+                    {c.type === ColumnType.array ? (
+                      <ArrayValue data={item.data[c._id]} column={c} />
+                    ) : (
+                      <LanguageValue data={item.data[c._id]} column={c} />
+                    )}
                   </div>
                 )
               })}

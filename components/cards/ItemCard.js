@@ -5,6 +5,8 @@ import Card from './Card'
 import { splitColumnsIntoTypes } from '../../lib/item'
 import ProAndConValue from '../data/ProAndConValue'
 import { Types } from '../../types/Components'
+import LanguageValue from '../data/LanguageValue'
+import { ColumnType } from '../../types/Column'
 
 export default function ItemCard({
   item,
@@ -58,7 +60,11 @@ export default function ItemCard({
                         {c.name}:
                       </a>
                     </Link>
-                    <ArrayValue data={item.data[c._id]} column={c} />
+                    {c.type === ColumnType.array ? (
+                      <ArrayValue data={item.data[c._id]} column={c} />
+                    ) : (
+                      <LanguageValue data={item.data[c._id]} column={c} />
+                    )}
                   </div>
                 )
               })}
