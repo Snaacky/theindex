@@ -72,7 +72,6 @@ export function getLanguages() {
   return iso6393.filter(
     (lang) =>
       lang.type === 'living' &&
-      lang.scope === 'individual' &&
       (typeof lang.iso6391 !== 'undefined' || whitelist.includes(lang.iso6393))
   )
 }
