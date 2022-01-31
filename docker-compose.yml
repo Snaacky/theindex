@@ -40,8 +40,6 @@ services:
     image: mongo
     container_name: index-db
     restart: unless-stopped
-    ports:
-      - 27017:27017
     volumes:
       - ./db:/data/db
 
@@ -49,25 +47,21 @@ services:
     image: redis
     container_name: index-cache
     restart: unless-stopped
-    ports:
-      - 6379:6379
 
   chrome:
     image: browserless/chrome
     container_name: index-chrome
-    ports:
-      - 3300:3300
     restart: unless-stopped
 
   # this will not run if not explicitly called via docker-compose --profile dev
   mongo-express:
     image: mongo-express
     container_name: mongo-express
+    profiles:
+      - 'dev'
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
       ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
       ME_CONFIG_SITE_GRIDFS_ENABLED: 'true'
-    ports:
-      - 8081:8081
     depends_on:
       - mongo
