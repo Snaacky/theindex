@@ -10,8 +10,10 @@ import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
 import { ColumnType } from '../../types/Column'
 import { Types } from '../../types/Components'
+import { Item } from '../../types/Item'
 
 type Props = {
+  items: Item[]
   _id?: string
   name?: string
   urls?: string[]
@@ -24,6 +26,7 @@ type Props = {
 }
 
 const EditItem: FC<Props> = ({
+  items,
   _id,
   name = '',
   urls = [],
@@ -35,6 +38,9 @@ const EditItem: FC<Props> = ({
   columns,
 }) => {
   const [nameState, setName] = useState(name || '')
+  const [itemsDatalist, setItemsDatalist] = useState(
+    items.map((t) => t.name) || []
+  )
 
   const [urlsState, setUrls] = useState(
     (urls && urls.length === 0) || !urls ? [''] : urls.concat([''])
@@ -51,6 +57,9 @@ const EditItem: FC<Props> = ({
   useEffect(() => {
     setColumns(columns.sort((a, b) => (a.name < b.name ? -1 : 1)))
   }, [columns])
+  useEffect(() => {
+    setItemsDatalist(items.map((t) => t.name))
+  }, [items])
 
   const router = useRouter()
 
@@ -156,6 +165,7 @@ const EditItem: FC<Props> = ({
             className={'form-control'}
             id={'createItemInputName'}
             value={nameState}
+            list={'createItemInputNameDatalist'}
             aria-describedby={'createItemInputNameHelp'}
             placeholder={'Enter a name'}
             required={true}
@@ -163,6 +173,11 @@ const EditItem: FC<Props> = ({
               setName(input.target.value)
             }}
           />
+          <datalist id={'createItemInputNameDatalist'}>
+            {itemsDatalist.map((t) => (
+              <option value={t} key={t} />
+            ))}
+          </datalist>
           <div id={'createItemInputNameHelp'} className={'form-text'}>
             Shown name of item
           </div>

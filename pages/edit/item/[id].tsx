@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getItem } from '../../../lib/db/items'
+import { getItem, getItems } from '../../../lib/db/items'
 import { getColumns } from '../../../lib/db/columns'
 import EditItem from '../../../components/edit/EditItem'
 import CollectionBoard from '../../../components/boards/CollectionBoard'
@@ -8,7 +8,7 @@ import { getCollections } from '../../../lib/db/collections'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 
-export default function EditorItem({ _id, collections, columns, item }) {
+export default function EditorItem({ items, _id, collections, columns, item }) {
   let collectionsWithItem = []
   if (_id !== '_new') {
     collectionsWithItem = collections.filter((t) =>
@@ -51,9 +51,10 @@ export default function EditorItem({ _id, collections, columns, item }) {
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
           {_id === '_new' ? (
-            <EditItem columns={columns} />
+            <EditItem items={items} columns={columns} />
           ) : (
             <EditItem
+              items={items}
               _id={item._id}
               name={item.name}
               urls={item.urls}
@@ -107,6 +108,7 @@ export async function getServerSideProps({ params }) {
   return {
     props: {
       _id: params.id,
+      items: await getItems(),
       collections: await getCollections(),
       columns: await getColumns(),
       item,
