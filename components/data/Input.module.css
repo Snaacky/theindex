@@ -28,7 +28,6 @@
 }
 
 .input:focus-visible {
-    color: transparent;
     text-shadow: 0 0 0 #212529;
 }
 
