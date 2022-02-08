@@ -71,6 +71,9 @@ const Board: FC<Props> = ({
   const [startViewIndex, setStartViewIndex] = useState(0)
   const pageSizes = [15, 30, 60, 0]
   const [pageSize, setPageSize] = useState(pageSizes[0])
+
+  const [editStartViewIndex, setEditStartViewIndex] = useState(0)
+  const [editPageSize, setEditPageSize] = useState(pageSizes[0])
   const sortOptions = [
     {
       name: 'asc',
@@ -302,11 +305,17 @@ const Board: FC<Props> = ({
   const filteredContent = filterContent(_content).filter(
     (cc) => editMode || !sponsorContent.some((c) => c._id === cc._id)
   )
-  const filteredUnselectedContent = filterContent(unselectedContent)
   const paginatedContent = filteredContent.filter(
-    (content, index) =>
+    (_, index) =>
       pageSize === 0 ||
       (index >= startViewIndex && index < startViewIndex + pageSize)
+  )
+
+  const filteredUnselectedContent = filterContent(unselectedContent)
+  const paginatedUnselectedContent = filteredUnselectedContent.filter(
+    (_, index) =>
+      editPageSize === 0 ||
+      (index >= editStartViewIndex && index < editStartViewIndex + editPageSize)
   )
 
   return (
@@ -470,15 +479,24 @@ const Board: FC<Props> = ({
             className={'d-flex flex-wrap mb-2'}
             style={{ marginRight: '-0.5rem' }}
           >
-            {filteredUnselectedContent.length === 0 && (
+            {paginatedUnselectedContent.length === 0 && (
               <span className={'text-muted'}>
                 There is nothing to be added anymore
               </span>
             )}
-            {filteredUnselectedContent.map((i) =>
+            {paginatedUnselectedContent.map((i) =>
               renderSingleContent(i, true, false)
             )}
           </div>
+
+          <Pagination
+            contentLength={filteredUnselectedContent.length}
+            pageSize={editPageSize}
+            pageSizes={pageSizes}
+            setPageSize={setEditPageSize}
+            startViewIndex={editStartViewIndex}
+            setStartViewIndex={setEditStartViewIndex}
+          />
         </>
       )}
       <CreateNewButton type={type} allowEdit={allowEdit} />
