@@ -47,10 +47,10 @@ try {
     'DATABASE_URL' in process.env
       ? process.env.DATABASE_URL
       : 'mongodb://localhost',
-    { maxPoolSize: 5, useUnifiedTopology: true }
+    { maxPoolSize: 5 }
   )
   await dbClient.connect()
-  db = dbClient.db('index')
+  db = dbClient.db()
   console.log('Connection to mongo db server could be established')
 } catch (e) {
   console.error('Failed to connect to mongo db server:', e)
@@ -561,6 +561,18 @@ Ads/No Ads
 Anti-Adblock/No Anti-Adblock
 Watermark/No Watermark
 */
+
+const accounts = await db.collection('nextauth_accounts').find().toArray()
+await Promise.all(
+  accounts.map(async (account) => {
+    await db.collection('nextauth_accounts').updateOne(
+      { _id: account._id },
+      {
+        $set: { expires_at: 0 },
+      }
+    )
+  })
+)
 
 dbClient.close()
 console.log('\nMongo db connection closed')
