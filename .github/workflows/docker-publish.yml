@@ -6,9 +6,7 @@ env:
   IMAGE_NAME: index-web
 
 jobs:
-  # Push image to GitHub Packages and docker hub.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
+  build-image:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 

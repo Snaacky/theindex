@@ -577,12 +577,37 @@ Watermark/No Watermark
 // TODO: remove it, just for debugging next-auth v4 migration
 if (dbCollections.includes('nextauth_accounts')) {
   const accounts = await db.collection('nextauth_accounts').find().toArray()
+  await db.collection('nextauth_accounts').updateMany(
+    {},
+    {
+      $rename: {
+        providerType: 'type',
+        providerId: 'provider',
+        refreshToken: 'refresh_token',
+        accessToken: 'access_token',
+      },
+    }
+  )
+  await db.collection('nextauth_accounts').updateMany(
+    {},
+    {
+      $unset: {
+        accessTokenExpires: 1,
+        compoundId: 1,
+        createdAt: 1,
+        updatedAt: 1,
+      },
+    }
+  )
   await Promise.all(
     accounts.map(async (account) => {
       await db.collection('nextauth_accounts').updateOne(
         { _id: account._id },
         {
-          $set: { expires_at: 0 },
+          $set: {
+            scope: 'email identify',
+            token_type: 'Bearer',
+          },
         }
       )
     })
