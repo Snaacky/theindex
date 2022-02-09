@@ -591,7 +591,7 @@ if (dbCollections.includes('nextauth_accounts')) {
 }
 
 // TODO: remove it, just for debugging next-auth v4 migration
-if (dbCollections.includes('nextauth_accounts')) {
+if (dbCollections.includes('nextauth_sessions')) {
   await db.collection('nextauth_sessions').drop()
   console.log('Cleared current sessions')
 }
