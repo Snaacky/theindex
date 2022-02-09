@@ -56,25 +56,18 @@ const Admin = ({ columns }: { columns: Column[] }) => {
         className={'btn btn-warning mb-2 me-2'}
         onClick={() => {
           postData('', {
-            username: 'Index Feed',
+            username: 'Index Test',
             avatar_url: 'https://piracy.moe/icons/logo.png',
             embeds: [
               {
-                title: 'Item update',
-                description: 'There has been an update',
-                url: 'https://piracy.moe/',
+                title: 'Hurayy !!! We are online',
+                description: 'This is a ping test',
+                url: process.env.NEXT_PUBLIC_DOMAIN,
                 color: 15548997, // red
                 author: {
                   name: session.user.name,
                   icon_url: session.user.image,
                 },
-                fields: columns.map((column, index) => {
-                  return {
-                    name: column.name,
-                    value: JSON.stringify(column.values),
-                    inline: index % 2 == 1,
-                  }
-                }),
               },
             ],
           })
