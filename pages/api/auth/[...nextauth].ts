@@ -20,7 +20,6 @@ const nextAuth = NextAuth({
   callbacks: {
     // we want to access the user id
     async session({ session, user }) {
-      console.log('Session call of user', user.name, user.id)
       if (user) {
         const id = user.id.toString()
         session.user.uid = id
@@ -51,18 +50,6 @@ const nextAuth = NextAuth({
   },
   events: {
     async signIn({ user, account, profile, isNewUser }) {
-      console.log(
-        'Sign in of user',
-        user.name,
-        user.id,
-        'and',
-        account.provider,
-        'account',
-        account.providerAccountId,
-        'image:',
-        profile.image
-      )
-
       if (isNewUser) {
         console.log('Creating new user', user.name)
         const accountType =
@@ -75,6 +62,17 @@ const nextAuth = NextAuth({
           uid: user.id.toString(),
           accountType,
         })
+      } else if (user.image !== profile.image) {
+        // update new discord image on login
+        const db = (await dbClient).db()
+        await db.collection('nextauth_users').updateOne(
+          { _id: user.id },
+          {
+            $set: {
+              image: profile.image,
+            },
+          }
+        )
       }
     },
   },

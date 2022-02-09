@@ -55,6 +55,13 @@ const Admin = ({ columns }: { columns: Column[] }) => {
       <button
         className={'btn btn-warning mb-2 me-2'}
         onClick={() => {
+          if (
+            !('NEXT_PUBLIC_AUDIT_WEBHOOK' in process.env) ||
+            process.env.NEXT_PUBLIC_AUDIT_WEBHOOK.length === 0
+          ) {
+            return alert("ENV 'NEXT_PUBLIC_AUDIT_WEBHOOK' not provided")
+          }
+
           console.log(
             'Testing post to webhook',
             process.env.NEXT_PUBLIC_AUDIT_WEBHOOK
@@ -76,6 +83,10 @@ const Admin = ({ columns }: { columns: Column[] }) => {
             ],
           })
         }}
+        disabled={
+          !('NEXT_PUBLIC_AUDIT_WEBHOOK' in process.env) ||
+          process.env.NEXT_PUBLIC_AUDIT_WEBHOOK.length === 0
+        }
       >
         Send test webhook
       </button>

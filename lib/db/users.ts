@@ -38,7 +38,6 @@ async function gatherUserInfo(user: User): Promise<User> {
       followLists: [],
     } as User
   }
-  console.log('Getting infos of user', user.uid)
 
   const data = (await findOne('nextauth_users', {
     _id: new ObjectId(user.uid),
@@ -57,29 +56,6 @@ async function gatherUserInfo(user: User): Promise<User> {
   if (typeof data.image !== 'string') {
     console.warn('User has invalid name', data.image)
   }
-
-  /* TODO: move to on login event
-  // if somehow failed to get user data, use discord to get the discord name/image
-  const discordUser = await fetch(
-      'https://discord.com/api/users/' + data.providerAccountId,
-      {
-        headers: {
-          Authorization: 'Bot ' + process.env.DISCORD_BOT_TOKEN,
-        },
-      }
-  ).then((r) => r.json())
-
-  user.name = discordUser.username || 'Failed to connect to discord'
-  if (data.providerAccountId && discordUser.avatar) {
-    user.image =
-        'https://cdn.discordapp.com/avatars/' +
-        data.providerAccountId +
-        '/' +
-        discordUser.avatar +
-        '.png'
-  } else {
-    user.image = process.env.NEXT_PUBLIC_DOMAIN + '/img/puzzled.png'
-  }*/
 
   user.name = data.name
   user.image = data.image
