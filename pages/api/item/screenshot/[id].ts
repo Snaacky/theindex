@@ -6,10 +6,14 @@ import {
 } from '../../../../lib/db/itemScreenshots'
 import createScreenshot from '../../../../lib/crawler/screenshot'
 import { isAdmin } from '../../../../lib/session'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
-  const item = await getItem(req.query.id)
+  const item = await getItem(req.query.id as string)
   if (item) {
     try {
       if (await screenshotExists(item._id)) {

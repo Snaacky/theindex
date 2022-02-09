@@ -2,8 +2,12 @@ import { getSession } from 'next-auth/client'
 import { isLogin } from '../../../lib/session'
 import { findOne } from '../../../lib/db/db'
 import { addView } from '../../../lib/db/views'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req, res) {
+export default async function statsPageView(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.body.url && typeof req.body.url === 'string') {
     const split = req.body.url.split('/')
     if (split.length === 3 && split[1] !== 'admin') {
@@ -27,10 +31,12 @@ export default async function handler(req, res) {
 
       if (exists !== null) {
         const session = await getSession({ req })
+        //@ts-ignore
+        const uid = isLogin(session) ? session.user.uid : 'guest'
         const body = {
           type,
           contentId: type === 'user' ? exists.uid : exists._id,
-          uid: isLogin(session) ? session.user.uid : 'guest',
+          uid,
         }
         await addView(body)
         res.status(200).json(body)

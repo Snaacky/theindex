@@ -163,7 +163,7 @@ mongo:
   container_name: index-db
   restart: unless-stopped
   ports:
-    - 27017:27017
+    - "27017:27017"
   volumes:
     - ./db:/data/db
 ```
@@ -183,8 +183,7 @@ docker-compose up -d
 ### Web service
 
 To start coding on the frontend, you will need to make sure, you have the latest version of
-[node.js](https://nodejs.org/) correctly installed. To install all the required dependencies
-run once:
+[node.js](https://nodejs.org/) correctly installed. To install all the required dependencies run once:
 
 ```shell
 npm install

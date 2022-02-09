@@ -1,7 +1,6 @@
 // docker run --name index-db -d -p 27017:27017 mongo
 import { MongoClient, ObjectId } from 'mongodb'
 import { hasOwnProperty } from '../utils'
-import { Types } from '../../types/Components'
 
 export function getClient() {
   const uri =

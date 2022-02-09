@@ -1,13 +1,17 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
-import { deleteCollection } from '../../../lib/db/collections'
+import { deleteColumn } from '../../../lib/db/columns'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiDeleteCollection(req, res) {
+export default async function apiDeleteColumn(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
     if (d._id !== '') {
-      await deleteCollection(d._id)
+      await deleteColumn(d._id)
 
       res.status(200).send('Deleted')
     } else {

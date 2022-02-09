@@ -1,25 +1,26 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../../lib/session'
-import { updateLibrary } from '../../../../lib/db/libraries'
+import { updateCollectionLibraries } from '../../../../lib/db/collections'
 import { updateAllCache } from '../../../../lib/db/cache'
 import { Types } from '../../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditLibraryOrder(req, res) {
+export default async function apiEditCollectionLibraries(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
-    if (Array.isArray(d.libraries)) {
-      await Promise.all(
-        d.libraries.map(
-          async (t, i) =>
-            await updateLibrary(typeof t === 'string' ? t : t._id, { order: i })
-        )
+    if (typeof d._id !== 'undefined' && Array.isArray(d.libraries)) {
+      const libraries = d.libraries.map((t) =>
+        typeof t === 'string' ? t : t._id
       )
-
+      await updateCollectionLibraries(d._id, libraries)
       await updateAllCache(Types.library)
       res.status(200).send('Ok')
     } else {
-      res.status(400).send('Missing libraries')
+      res.status(400).send('Missing _id or libraries')
     }
   } else {
     // Not Signed in

@@ -3,8 +3,12 @@ import { canEdit } from '../../../lib/session'
 import { addLibrary, updateLibrary } from '../../../lib/db/libraries'
 import { updateAllCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditLibrary(req, res) {
+export default async function apiEditLibrary(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body

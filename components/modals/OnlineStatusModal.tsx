@@ -2,7 +2,7 @@ import Modal from './Modal'
 import styles from '../data/OnlineStatus.module.css'
 
 // import types
-import { Statuses, StatusData } from '../../types/OnlineStatus'
+import { StatusData, Statuses } from '../../types/OnlineStatus'
 import { FC } from 'react'
 
 type Props = {
@@ -28,42 +28,9 @@ const OnlineStatusModal: FC<Props> = ({ style, text, url, data, close }) => {
           'No url provided to check anything'
         )
       }
-      body={
-        <div className={'container-fluid'}>
-          <div className={'mb-2'}>
-            <span className={'me-2'}>Result:</span>
-            <div className={style} />
-            <kbd>{text}</kbd>
-          </div>
-          <div className={'mt-3'}>
-            <h4>Possible states are:</h4>
-            <ul className={'list-unstyled'}>
-              <li>
-                <div className={pingStyle + styles.up} />
-                {Statuses.up}
-              </li>
-              <li>
-                <div className={pingStyle + styles.unknown} />
-                {Statuses.unknown}
-              </li>
-              <li>
-                <div className={pingStyle + styles.down} />
-                {Statuses.down}
-              </li>
-              <li>
-                <div className={pingStyle + styles.error} />
-                {Statuses.error}
-              </li>
-              <li>
-                <div className={pingStyle + styles.ping} />
-                {Statuses.ping}
-              </li>
-            </ul>
-          </div>
-        </div>
-      }
       footer={
-        data && data.time ? (
+        data &&
+        data.time && (
           <span className={'text-muted'}>
             Checked at{' '}
             <kbd>
@@ -72,11 +39,42 @@ const OnlineStatusModal: FC<Props> = ({ style, text, url, data, close }) => {
               </code>
             </kbd>
           </span>
-        ) : (
-          <></>
         )
       }
-    />
+    >
+      <div className={'container-fluid'}>
+        <div className={'mb-2'}>
+          <span className={'me-2'}>Result:</span>
+          <div className={style} />
+          <kbd>{text}</kbd>
+        </div>
+        <div className={'mt-3'}>
+          <h4>Possible states are:</h4>
+          <ul className={'list-unstyled'}>
+            <li>
+              <div className={pingStyle + styles.up} />
+              {Statuses.up}
+            </li>
+            <li>
+              <div className={pingStyle + styles.unknown} />
+              {Statuses.unknown}
+            </li>
+            <li>
+              <div className={pingStyle + styles.down} />
+              {Statuses.down}
+            </li>
+            <li>
+              <div className={pingStyle + styles.error} />
+              {Statuses.error}
+            </li>
+            <li>
+              <div className={pingStyle + styles.ping} />
+              {Statuses.ping}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Modal>
   )
 }
 

@@ -1,14 +1,18 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../lib/session'
-import { deleteLibrary } from '../../../lib/db/libraries'
+import { deleteItem } from '../../../lib/db/items'
+import { User } from '../../../types/User'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiDeleteLibrary(req, res) {
+export default async function apiDeleteItem(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
     if (d._id !== '') {
-      // delete does not reorder!!!
-      await deleteLibrary(d._id)
+      await deleteItem(d._id, session.user as User)
 
       res.status(200).send('Deleted')
     } else {

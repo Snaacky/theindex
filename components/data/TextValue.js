@@ -8,7 +8,7 @@ export default function TextValue({ data, column, onChange = null }) {
       <textarea
         data-tip={'View column ' + column.name}
         className={'form-control'}
-        rows={'3'}
+        rows={3}
         value={data}
         id={'textColumnInput-' + column._id}
         onChange={(e) => onChange(e.target.value)}

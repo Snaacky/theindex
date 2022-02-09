@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { postData } from '../../lib/utils'
 import { AccountType } from '../../types/User'
 import Select from '../data/Select'
+import { useRouter } from 'next/router'
 
 type Props = {
   adminEditing?: boolean
@@ -17,6 +18,7 @@ const EditUser: FC<Props> = ({
   accountType = AccountType.user,
   description = '',
 }) => {
+  const router = useRouter()
   const [accountTypeState, setAccountType] = useState(
     accountType || AccountType.user
   )
@@ -41,8 +43,8 @@ const EditUser: FC<Props> = ({
       body.accountType = accountTypeState
     }
 
-    postData('/api/edit/user', body, () => {
-      window.location.href = escape('/user/' + body.uid)
+    postData('/api/edit/user', body, async () => {
+      await router.push('/user/' + body.uid)
     })
   }
 

@@ -2,14 +2,18 @@ import { getSession } from 'next-auth/client'
 import { isEditor } from '../../../../../lib/session'
 import createScreenshot from '../../../../../lib/crawler/screenshot'
 import { getItem } from '../../../../../lib/db/items'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiAdminScreenshotCreateId(req, res) {
+export default async function apiAdminScreenshotCreateId(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (!isEditor(session)) {
     return res.status(401)
   }
 
-  const item = await getItem(req.query.id)
+  const item = await getItem(req.query.id as string)
   if (item === null) {
     console.warn(
       'Cannot create screenshot for ',

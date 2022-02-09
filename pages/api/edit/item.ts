@@ -4,8 +4,13 @@ import { addItem, updateItem } from '../../../lib/db/items'
 import createScreenshot from '../../../lib/crawler/screenshot'
 import { updateAllCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
+import { User } from '../../../types/User'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditItem(req, res) {
+export default async function apiEditItem(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
@@ -18,15 +23,22 @@ export default async function apiEditItem(req, res) {
         d.description,
         d.blacklist,
         d.sponsor,
-        d.data
+        d.data,
+        session.user as User
       )
-      createScreenshot(id).then(() => console.log('Screenshot', id, 'created'))
+      if (d.urls.length > 0) {
+        createScreenshot(id).then(() =>
+          console.log('Screenshot', id, 'created')
+        )
+      }
     } else {
-      await updateItem(d._id, d)
+      await updateItem(d._id, d, session.user as User)
       await updateAllCache(Types.item)
-      createScreenshot(d._id).then(() =>
-        console.log('Screenshot', d._id, 'created')
-      )
+      if (d.urls.length > 0) {
+        createScreenshot(d._id).then(() =>
+          console.log('Screenshot', d._id, 'created')
+        )
+      }
     }
     res.status(200).send(id)
   } else {

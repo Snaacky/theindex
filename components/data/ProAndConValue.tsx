@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
-import { Column, ColumnType } from '../../types/Column'
+import { Column } from '../../types/Column'
 import { FC } from 'react'
 
 type Props = {

@@ -10,7 +10,7 @@ const description =
   'Check if your own api endpoint for our search engine is valid and can be parsed'
 
 export default function ValidateApi() {
-  // enpoint meta data
+  // endpoint meta data
   const [url, setURL] = useState('')
   const [secret, setSecret] = useState('')
 

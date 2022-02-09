@@ -99,6 +99,16 @@ if ('SETUP_WHITELIST_DISCORD_ID' in process.env) {
     "ENV 'SETUP_WHITELIST_DISCORD_ID' is not provided, no admin account will be created on any login"
   )
 }
+if ('AUDIT_WEBHOOK' in process.env) {
+  console.log(
+    "ENV 'AUDIT_WEBHOOK' provided, on item edits, a post will be send to webhook:",
+    process.env.AUDIT_WEBHOOK
+  )
+} else {
+  console.warn(
+    "ENV 'AUDIT_WEBHOOK' is not provided, no webhook posts will be made"
+  )
+}
 
 const polluteId = (query) => {
   if (typeof query !== 'undefined') {

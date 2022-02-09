@@ -3,9 +3,6 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconName } from '@fortawesome/fontawesome-common-types'
 
-// import styles
-import styles from './FooterLink.module.css'
-
 type Props = {
   name: string
   url: string

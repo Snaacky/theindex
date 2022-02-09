@@ -1,10 +1,14 @@
 import { getSession } from 'next-auth/client'
 import { canEdit } from '../../../../lib/session'
-import { updateColumnCollections } from '../../../../lib/db/columns'
+import { updateItemCollections } from '../../../../lib/db/items'
 import { updateAllCache } from '../../../../lib/db/cache'
 import { Types } from '../../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditColumnCollections(req, res) {
+export default async function apiEditColumnCollections(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
@@ -12,7 +16,7 @@ export default async function apiEditColumnCollections(req, res) {
       const collections = d.collections.map((t) =>
         typeof t === 'string' ? t : t._id
       )
-      await updateColumnCollections(d._id, collections)
+      await updateItemCollections(d._id, collections)
       await updateAllCache(Types.collection)
       res.status(200).send('Ok')
     } else {

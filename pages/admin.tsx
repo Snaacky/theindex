@@ -1,14 +1,12 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import { images } from '../lib/icon'
-import { getCache, setCache } from '../lib/db/cache'
-import useSWR from 'swr'
 import { postData } from '../lib/utils'
+import { useSession } from 'next-auth/client'
+import { getColumns } from '../lib/db/columns'
+import { Column } from '../types/Column'
 
-const Admin = ({ images: staticImages }: { images: string[] }) => {
-  const { data: swrImages } = useSWR('/api/images')
-  staticImages = swrImages || staticImages
+const Admin = ({ columns }: { columns: Column[] }) => {
+  const [session] = useSession()
 
   return (
     <>
@@ -53,20 +51,37 @@ const Admin = ({ images: staticImages }: { images: string[] }) => {
         Recreate every screenshots
       </button>
 
-      <h4>Emoji dump:</h4>
-      <div>
-        {staticImages.map((i) => (
-          <div className={'m-1 d-inline-flex'} key={i}>
-            <Image
-              width={64}
-              height={64}
-              src={'/img/' + i}
-              alt={''}
-              className={'rounded'}
-            />
-          </div>
-        ))}
-      </div>
+      <h4>Discord Webhooks</h4>
+      <button
+        className={'btn btn-warning mb-2 me-2'}
+        onClick={() => {
+          postData('', {
+            username: 'Index Feed',
+            avatar_url: 'https://piracy.moe/icons/logo.png',
+            embeds: [
+              {
+                title: 'Item update',
+                description: 'There has been an update',
+                url: 'https://piracy.moe/',
+                color: 15548997, // red
+                author: {
+                  name: session.user.name,
+                  icon_url: session.user.image,
+                },
+                fields: columns.map((column, index) => {
+                  return {
+                    name: column.name,
+                    value: JSON.stringify(column.values),
+                    inline: index % 2 == 1,
+                  }
+                }),
+              },
+            ],
+          })
+        }}
+      >
+        Send test webhook
+      </button>
     </>
   )
 }
@@ -78,18 +93,9 @@ Admin.auth = {
 export default Admin
 
 export async function getServerSideProps() {
-  const key = 'images'
-  let cache = await getCache(key)
-  if (cache === null) {
-    cache = images()
-    setCache(key, cache).then(() => {
-      console.info('Created cache for', key)
-    })
-  }
-
   return {
     props: {
-      images: cache,
+      columns: await getColumns(),
     },
   }
 }

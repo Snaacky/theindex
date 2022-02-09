@@ -1,8 +1,12 @@
 import { getSession } from 'next-auth/client'
 import { isAdmin } from '../../../../lib/session'
 import { clearAllScreenshots } from '../../../../lib/db/itemScreenshots'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiAdminScreenshotClear(req, res) {
+export default async function apiAdminScreenshotClear(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (!isAdmin(session)) {
     return res.status(401)

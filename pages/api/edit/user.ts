@@ -3,8 +3,12 @@ import { isAdmin, isCurrentUser } from '../../../lib/session'
 import { getUser, updateUser } from '../../../lib/db/users'
 import { updateAllCache, updateSingleCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditUser(req, res) {
+export default async function apiEditUser(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   const d = req.body
   if (d.uid !== '') {
@@ -12,8 +16,10 @@ export default async function apiEditUser(req, res) {
       if (!isAdmin(session) && d.accountType) {
         delete d.accountType
       }
+      // @ts-ignore
       const oldUser = await getUser(d.uid === 'me' ? session.user.uid : d.uid)
 
+      // @ts-ignore
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)
       await updateAllCache(Types.user)
       if (d.favs) {

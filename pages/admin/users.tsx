@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FC } from 'react'
+import React from 'react'
 import DataBadge from '../../components/data/DataBadge'
 import UserBoard from '../../components/boards/UserBoard'
 import { getAllCache } from '../../lib/db/cache'

@@ -34,8 +34,8 @@ function Sidebar({ show, setShow }, ref) {
       }
       ref={ref}
       id={'navbarOffcanvas'}
-      tabIndex='-1'
-      aria-hidden={(!show).toString()}
+      tabIndex={-1}
+      aria-hidden={!show}
       role={'dialog'}
     >
       <div className={styles.header + ' offcanvas-header'}>

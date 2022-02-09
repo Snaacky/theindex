@@ -1,8 +1,14 @@
 import styles from './Modal.module.css'
-import { useEffect, useRef } from 'react'
+import { FC, ReactNode, useEffect, useRef } from 'react'
 
-export default function Modal({ head, body, footer, close }) {
-  const ref = useRef()
+type Props = {
+  head: ReactNode
+  footer: ReactNode
+  close: () => void
+}
+
+const Modal: FC<Props> = ({ head, children, footer, close }) => {
+  const ref = useRef(null)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -21,7 +27,7 @@ export default function Modal({ head, body, footer, close }) {
   return (
     <div
       className={styles.modal + ' modal fade show'}
-      tabIndex={'-1'}
+      tabIndex={-1}
       role={'dialog'}
     >
       <div className={'modal-dialog'}>
@@ -37,7 +43,7 @@ export default function Modal({ head, body, footer, close }) {
               &times;
             </button>
           </div>
-          <div className={'modal-body'}>{body}</div>
+          <div className={'modal-body'}>{children}</div>
           <div className={styles.footer + ' modal-footer'}>
             {footer}
             <button
@@ -53,3 +59,5 @@ export default function Modal({ head, body, footer, close }) {
     </div>
   )
 }
+
+export default Modal

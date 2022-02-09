@@ -19,7 +19,7 @@ export function postData(url, object, onSuccess = null) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(object),
   }).then(async (r) => {
-    if (r.status !== 200) {
+    if (![200, 201, 202, 204].includes(r.status)) {
       toast.update(toastId, {
         render: 'Failed to save changes',
         type: 'error',
@@ -33,6 +33,7 @@ export function postData(url, object, onSuccess = null) {
         isLoading: false,
         autoClose: 1000,
       })
+
       if (typeof onSuccess === 'function') {
         onSuccess(await r.text())
       }

@@ -1,6 +1,10 @@
 import { lookup } from 'geoip-lite'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function ipInfo(req, res) {
+export default async function ipInfo(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   if (Array.isArray(ip)) {
     ip = ip[0]

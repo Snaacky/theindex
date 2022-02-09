@@ -3,8 +3,12 @@ import { isAdmin, isCurrentUser, isLogin } from '../../../lib/session'
 import { addList, getList, updateList } from '../../../lib/db/lists'
 import { updateAllCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditList(req, res) {
+export default async function apiEditList(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   const d = req.body
   if (isLogin(session)) {

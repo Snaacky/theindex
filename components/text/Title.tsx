@@ -1,8 +1,5 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import { canEdit } from '../../lib/session'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSession } from 'next-auth/client'
 import { Types } from '../../types/Components'
 import { isValidUrl } from '../../lib/utils'
 

@@ -9,13 +9,19 @@ import {
 } from './db'
 import { getCollections, updateCollection } from './collections'
 import { updateUser } from './users'
-import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
+import {
+  clearSingleCache,
+  getSingleCache,
+  updateAllCache,
+  updateSingleCache,
+} from './cache'
 import { Types } from '../../types/Components'
 import { Item, ItemUpdate } from '../../types/Item'
 import { User } from '../../types/User'
 import { List } from '../../types/List'
 import { updateList } from './lists'
 import { Collection } from '../../types/Collection'
+import { postItemUpdate } from '../webhook'
 
 export async function getItems(): Promise<Item[]> {
   return await Promise.all(
@@ -41,7 +47,8 @@ export async function addItem(
   description: string = '',
   blacklist: boolean = false,
   sponsor: boolean = false,
-  data: Record<string, boolean | string | string[]>
+  data: Record<string, boolean | string | string[]>,
+  user?: User
 ): Promise<string> {
   if (!name) {
     throw Error('Adding item and no name specified')
@@ -58,12 +65,21 @@ export async function addItem(
   })
   await updateSingleCache(Types.item, newId)
   await updateAllCache(Types.item)
+
+  if (user) {
+    await postItemUpdate(
+      user,
+      null,
+      (await getSingleCache(Types.item, newId)) as Item
+    )
+  }
   return newId
 }
 
 export async function updateItem(
   _id,
-  { name, urls, nsfw, description, blacklist, sponsor, data }: ItemUpdate
+  { name, urls, nsfw, description, blacklist, sponsor, data }: ItemUpdate,
+  user?: User
 ) {
   if (!_id) {
     throw Error('Updating item and no _id specified')
@@ -92,10 +108,17 @@ export async function updateItem(
     _data.data = data
   }
 
-  console.log('Updating item with', _data)
+  const oldItem = (await getSingleCache(Types.item, _id)) as Item
 
   await updateOne('items', { _id }, _data)
   await updateSingleCache(Types.item, _id)
+  if (user) {
+    await postItemUpdate(
+      user,
+      oldItem,
+      (await getSingleCache(Types.item, _id)) as Item
+    )
+  }
 }
 
 export async function updateItemCollections(
@@ -124,7 +147,7 @@ export async function updateItemCollections(
   )
 }
 
-export async function deleteItem(_id: string) {
+export async function deleteItem(_id: string, user?: User) {
   // remove item entry from favs
   const usersWithFav = (
     (await find('users', {
@@ -191,8 +214,13 @@ export async function deleteItem(_id: string) {
   await updateAllCache(Types.collection)
   await updateAllCache(Types.list)
 
+  const oldItem = (await getSingleCache(Types.item, _id)) as Item
   // remove item
   await deleteOne('items', { _id })
   await clearSingleCache(Types.item, _id)
   await updateAllCache(Types.item)
+
+  if (user) {
+    await postItemUpdate(user, oldItem, null)
+  }
 }

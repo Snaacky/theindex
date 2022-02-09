@@ -21,7 +21,7 @@ export default function NavbarDropdown({
         role='button'
         data-bs-toggle={'collapse'}
         data-bs-target={'#' + targetId}
-        aria-expanded={show.toString()}
+        aria-expanded={show}
         onClick={() => setShow(!show)}
       >
         <div className={styles.chevron}>

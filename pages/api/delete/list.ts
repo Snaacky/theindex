@@ -1,10 +1,12 @@
 import { getSession } from 'next-auth/client'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
-import { find } from '../../../lib/db/db'
 import { deleteList, getList } from '../../../lib/db/lists'
-import { updateUser } from '../../../lib/db/users'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiDeleteList(req, res) {
+export default async function apiDeleteList(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   const d = req.body
   const list = await getList(d._id)

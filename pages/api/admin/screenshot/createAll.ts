@@ -3,8 +3,12 @@ import { isAdmin } from '../../../../lib/session'
 import createScreenshot from '../../../../lib/crawler/screenshot'
 import { getItems } from '../../../../lib/db/items'
 import { screenshotExists } from '../../../../lib/db/itemScreenshots'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiAdminScreenshotCreateAll(req, res) {
+export default async function apiAdminScreenshotCreateAll(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (!isAdmin(session)) {
     return res.status(401)

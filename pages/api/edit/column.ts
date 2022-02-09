@@ -3,8 +3,12 @@ import { canEdit } from '../../../lib/session'
 import { addColumn, updateColumn } from '../../../lib/db/columns'
 import { updateAllCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function apiEditColumn(req, res) {
+export default async function apiEditColumn(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const session = await getSession({ req })
   if (canEdit(session)) {
     const d = req.body
