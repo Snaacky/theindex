@@ -136,6 +136,12 @@ const remove = async (collection, query) => {
   await db.collection(collection).deleteOne(polluteId(query))
 }
 
+let dbCollections = await db.listCollections({}, { nameOnly: true }).toArray()
+dbCollections = dbCollections.map((c) => c.name)
+
+if (!dbCollections.includes('columns')) {
+  process.exit(0)
+}
 const columns = await db.collection('columns').find().toArray()
 await Promise.all(
   columns.map(async (column) => {
@@ -147,6 +153,9 @@ await Promise.all(
 )
 console.log('Cleaned up columns\n')
 
+if (!dbCollections.includes('items')) {
+  process.exit(0)
+}
 let items = await db.collection('items').find().toArray()
 const livingLang = iso6393.filter((lang) => lang.type === 'living')
 await Promise.all(
@@ -188,6 +197,9 @@ await Promise.all(
 )
 console.log('Cleaned up items\n')
 
+if (!dbCollections.includes('users')) {
+  process.exit(0)
+}
 let users = await db.collection('users').find().toArray()
 for (let i = 0; i < users.length; i++) {
   const user = users[i]
@@ -563,21 +575,23 @@ Watermark/No Watermark
 */
 
 // TODO: remove it, just for debugging next-auth v4 migration
-const accounts = await db.collection('nextauth_accounts').find().toArray()
-await Promise.all(
-  accounts.map(async (account) => {
-    await db.collection('nextauth_accounts').updateOne(
-      { _id: account._id },
-      {
-        $set: { expires_at: 0 },
-      }
-    )
-  })
-)
-console.log('Reset account tokens')
+if (dbCollections.includes('nextauth_accounts')) {
+  const accounts = await db.collection('nextauth_accounts').find().toArray()
+  await Promise.all(
+    accounts.map(async (account) => {
+      await db.collection('nextauth_accounts').updateOne(
+        { _id: account._id },
+        {
+          $set: { expires_at: 0 },
+        }
+      )
+    })
+  )
+  console.log('Reset account tokens')
+}
 
 // TODO: remove it, just for debugging next-auth v4 migration
-if ((await db.collection('nextauth_accounts').find().toArray()).length > 0) {
+if (dbCollections.includes('nextauth_accounts')) {
   await db.collection('nextauth_sessions').drop()
   console.log('Cleared current sessions')
 }
