@@ -562,6 +562,7 @@ Anti-Adblock/No Anti-Adblock
 Watermark/No Watermark
 */
 
+// TODO: remove it, just for debugging next-auth v4 migration
 const accounts = await db.collection('nextauth_accounts').find().toArray()
 await Promise.all(
   accounts.map(async (account) => {
@@ -575,8 +576,11 @@ await Promise.all(
 )
 console.log('Reset account tokens')
 
-await db.collection('nextauth_sessions').drop()
-console.log('Cleared current sessions')
+// TODO: remove it, just for debugging next-auth v4 migration
+if ((await db.collection('nextauth_accounts').find().toArray()).length > 0) {
+  await db.collection('nextauth_sessions').drop()
+  console.log('Cleared current sessions')
+}
 
 await dbClient.close()
 console.log('\nMongo db connection closed')
