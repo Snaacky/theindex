@@ -181,7 +181,6 @@ export const postItemUpdate = async (
       embeds: [
         {
           title,
-          description: 'There has been an update',
           url: process.env.NEXT_PUBLIC_DOMAIN + '/item/' + newItem._id,
           color,
           author: {
