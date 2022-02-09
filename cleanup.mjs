@@ -573,8 +573,12 @@ await Promise.all(
     )
   })
 )
+console.log('Reset account tokens')
 
-dbClient.close()
+await db.collection('nextauth_sessions').drop()
+console.log('Cleared current sessions')
+
+await dbClient.close()
 console.log('\nMongo db connection closed')
 
 process.exit(0)
