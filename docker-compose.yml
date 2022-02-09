@@ -12,6 +12,7 @@ services:
       # domain url for sessions
       NEXTAUTH_URL: ${NEXTAUTH_URL}
       NEXT_PUBLIC_DOMAIN: ${NEXT_PUBLIC_DOMAIN}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
 
       # provide your own url to your own db setup
       DATABASE_URL: ${DATABASE_URL}
