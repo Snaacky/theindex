@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import styles from './Row.module.css'
 import IconAdd from '../icons/IconAdd'
@@ -43,7 +43,7 @@ const Row: FC<Props> = ({
   add = null,
   remove = null,
 }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const hrefString =
     '/' +
     type +

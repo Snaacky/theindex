@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { isLogin } from '../../../lib/session'
 import { getSingleCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
@@ -12,7 +12,6 @@ export default async function apiUser(
   if (req.query.id === 'me') {
     const session = await getSession({ req })
     if (isLogin(session)) {
-      //@ts-ignore
       result = await getSingleCache(Types.user, session.user.uid, false)
     } else {
       return res.status(401)

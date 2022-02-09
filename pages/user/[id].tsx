@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { isAdmin, isCurrentUser } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DataBadge from '../../components/data/DataBadge'
@@ -26,7 +26,7 @@ type Props = {
 }
 
 const User: FC<Props> = ({ user, lists, items, columns }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   const { data: swrUser } = useSWR('/api/user/' + user.uid)
   user = swrUser || user

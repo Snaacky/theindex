@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { canEdit } from '../../../lib/session'
 import { addItem, updateItem } from '../../../lib/db/items'
 import createScreenshot from '../../../lib/crawler/screenshot'

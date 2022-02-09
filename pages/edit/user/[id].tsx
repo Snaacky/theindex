@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { getUser } from '../../../lib/db/users'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
@@ -9,7 +9,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 
 export default function EditorUser({ uid, user }) {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   if (!isCurrentUser(session, uid) && !isAdmin(session)) {
     return <NotAdmin />

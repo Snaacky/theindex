@@ -13,6 +13,7 @@ export function isValidUrl(url = '') {
 }
 
 export function postData(url, object, onSuccess = null) {
+  console.log('Posting data to', url, process.env)
   const toastId = toast.loading('Saving changes...')
   fetch(url, {
     method: 'post',

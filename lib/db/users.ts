@@ -38,10 +38,19 @@ async function gatherUserInfo(user: User): Promise<User> {
       followLists: [],
     } as User
   }
+  console.log('Getting infos of user', user.uid)
 
   const data = (await findOne('nextauth_users', {
-    _id: ObjectId(user.uid),
+    _id: new ObjectId(user.uid),
   })) as User
+  if (data === null) {
+    console.warn('User does not exists in next-auth db yet')
+    user.favs = user.favs || []
+    user.lists = user.lists || []
+    user.followLists = user.followLists || []
+    return user
+  }
+
   if (typeof data.name !== 'string') {
     console.warn('User has invalid name', data.name)
   }
@@ -72,8 +81,8 @@ async function gatherUserInfo(user: User): Promise<User> {
     user.image = process.env.NEXT_PUBLIC_DOMAIN + '/img/puzzled.png'
   }*/
 
-  user.name = user.name || data.name
-  user.image = user.image || data.image
+  user.name = data.name
+  user.image = data.image
   user.favs = user.favs || []
   user.lists = user.lists || []
   user.followLists = user.followLists || []

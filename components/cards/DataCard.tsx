@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import styles from './Card.module.css'
 import DataItem from '../data/DataItem'
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   return (
     <div className={'card bg-4 mb-2 me-2'}>

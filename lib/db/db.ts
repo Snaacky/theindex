@@ -2,19 +2,12 @@
 import { MongoClient, ObjectId } from 'mongodb'
 import { hasOwnProperty } from '../utils'
 
-export function getClient() {
-  const uri =
-    'DATABASE_URL' in process.env
-      ? process.env.DATABASE_URL
-      : 'mongodb://localhost'
-  return new MongoClient(uri, { maxPoolSize: 5, useUnifiedTopology: true })
-}
+const uri =
+  'DATABASE_URL' in process.env
+    ? process.env.DATABASE_URL
+    : 'mongodb://localhost'
 
-export async function importData(data: Record<string, any>) {
-  for (const [key, value] of Object.entries(data)) {
-    await insertMany(key, value)
-  }
-}
+export const dbClient = new MongoClient(uri, { maxPoolSize: 5 }).connect()
 
 export async function exportData(isAdmin = false) {
   if (isAdmin) {
@@ -57,7 +50,7 @@ export function cleanId(data: Record<string, any>) {
 export function polluteId(query: Record<string, any>) {
   if (typeof query !== 'undefined') {
     if (hasOwnProperty(query, '_id') && typeof query._id === 'string') {
-      query._id = ObjectId(query._id)
+      query._id = new ObjectId(query._id)
     }
     if (
       hasOwnProperty(query, 'lastModified') &&
@@ -70,18 +63,12 @@ export function polluteId(query: Record<string, any>) {
 }
 
 export async function getAll(collection: string): Promise<object[]> {
-  let data = []
-  const client = getClient()
-  try {
-    await client.connect()
-    const db = client.db('index')
-    data = await db.collection(collection).find().toArray()
-    if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
-      data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
-    }
-  } finally {
-    await client.close()
+  const db = (await dbClient).db()
+  let data = await db.collection(collection).find().toArray()
+  if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
+    data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
   }
+
   return cleanId(data)
 }
 
@@ -89,51 +76,26 @@ export async function find(
   collection: string,
   query: Record<string, any>
 ): Promise<object[]> {
-  let data = []
-  const client = getClient()
-  try {
-    query = polluteId(query)
-    await client.connect()
-    const db = client.db('index')
-    data = await db.collection(collection).find(query).toArray()
-  } finally {
-    await client.close()
-  }
-  return cleanId(data)
+  const db = (await dbClient).db()
+  return cleanId(
+    await db.collection(collection).find(polluteId(query)).toArray()
+  )
 }
 
 export async function findOne(
   collection: string,
   query: Record<string, any>
 ): Promise<object | null> {
-  let data = []
-  const client = getClient()
-  try {
-    query = polluteId(query)
-    await client.connect()
-    const db = client.db('index')
-    data = await db.collection(collection).findOne(query)
-  } finally {
-    await client.close()
-  }
-  return cleanId(data)
+  const db = (await dbClient).db()
+  return cleanId(await db.collection(collection).findOne(polluteId(query)))
 }
 
 export async function count(
   collection: string,
   query: Record<string, any> = {}
 ): Promise<number> {
-  const client = getClient()
-  let data
-  try {
-    query = polluteId(query)
-    await client.connect()
-    const db = client.db('index')
-    data = await db.collection(collection).countDocuments(query)
-  } finally {
-    await client.close()
-  }
-  return cleanId(data)
+  const db = (await dbClient).db()
+  return await db.collection(collection).countDocuments(polluteId(query))
 }
 
 export async function getByUrlId(
@@ -147,35 +109,11 @@ export async function insert(
   collection: string,
   data: Record<string, any>
 ): Promise<string> {
-  const client = getClient()
-  try {
-    await client.connect()
-    const db = client.db('index')
-    data.createdAt = new Date()
-    data.lastModified = new Date()
-    const { insertedId } = await db.collection(collection).insertOne(data)
-    return insertedId.toString()
-  } finally {
-    await client.close()
-  }
-}
-
-export async function insertMany(
-  collection: string,
-  data: Record<string, any>
-) {
-  const client = getClient()
-  try {
-    await client.connect()
-    const db = client.db('index')
-    data.forEach((d) => {
-      d.lastModified = new Date()
-      d.createdAt = d.lastModified
-    })
-    await db.collection(collection).insertMany(data)
-  } finally {
-    await client.close()
-  }
+  const db = (await dbClient).db()
+  data.createdAt = new Date()
+  data.lastModified = new Date()
+  const { insertedId } = await db.collection(collection).insertOne(data)
+  return insertedId.toString()
 }
 
 export async function updateOne(
@@ -183,31 +121,17 @@ export async function updateOne(
   query: Record<string, any>,
   data: Record<string, any>
 ) {
-  const client = getClient()
-  try {
-    query = polluteId(query)
-    await client.connect()
-    const db = client.db('index')
-    await db.collection(collection).updateOne(query, {
-      $set: data,
-      $currentDate: { lastModified: true },
-    })
-  } finally {
-    await client.close()
-  }
+  const db = (await dbClient).db()
+  await db.collection(collection).updateOne(polluteId(query), {
+    $set: data,
+    $currentDate: { lastModified: true },
+  })
 }
 
 export async function deleteOne(
   collection: string,
   query: Record<string, any>
 ) {
-  const client = getClient()
-  try {
-    query = polluteId(query)
-    await client.connect()
-    const db = client.db('index')
-    await db.collection(collection).deleteOne(query)
-  } finally {
-    await client.close()
-  }
+  const db = (await dbClient).db()
+  await db.collection(collection).deleteOne(polluteId(query))
 }

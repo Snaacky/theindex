@@ -1,5 +1,5 @@
 import Modal from './Modal'
-import { signIn } from 'next-auth/client'
+import { signIn } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
 

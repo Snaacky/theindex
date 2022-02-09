@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { isEditor } from '../../../../../lib/session'
 import createScreenshot from '../../../../../lib/crawler/screenshot'
 import { getItem } from '../../../../../lib/db/items'

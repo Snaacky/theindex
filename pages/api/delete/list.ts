@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import { deleteList, getList } from '../../../lib/db/lists'
 import { NextApiRequest, NextApiResponse } from 'next'

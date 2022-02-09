@@ -1,10 +1,10 @@
 import { isLogin } from '../../lib/session'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
 
 const LoginOrOutButton: FC = () => {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   return (
     <button

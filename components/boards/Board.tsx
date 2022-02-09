@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { postData } from '../../lib/utils'
 import CreateNewButton from '../buttons/CreateNewButton'
 import CardRowView from '../CardRowView'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import classNames from 'classnames'
 import styles from './Board.module.css'
@@ -61,7 +61,7 @@ const Board: FC<Props> = ({
   )
   const [searchString, setSearchString] = useState('')
 
-  const [session] = useSession()
+  const { data: session } = useSession()
   const [editMode, setEditMode] = useState(forceEditMode)
   const [cardView, setCardView] = useState(true)
   const [compactView, setCompactView] = useState(false)

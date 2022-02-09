@@ -1,11 +1,11 @@
 import {
   cleanId,
   count,
+  dbClient,
   deleteOne,
   find,
   findOne,
   getAll,
-  getClient,
   insert,
 } from './db'
 import { getLibraries } from './libraries'
@@ -16,21 +16,15 @@ export async function getViews() {
 }
 
 export async function getLastViews(type, n) {
-  let data = []
-  const client = getClient()
-  try {
-    await client.connect()
-    const db = client.db('index')
-    data = await db
+  const db = (await dbClient).db()
+  const data = cleanId(
+    await db
       .collection('views')
       .find({ type })
       .sort({ createdAt: -1 })
       .limit(n)
       .toArray()
-  } finally {
-    await client.close()
-  }
-  data = cleanId(data)
+  )
 
   // count what has been popular recently
   let accumulated = {}

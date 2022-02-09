@@ -2,7 +2,7 @@ import { FC } from 'react'
 import Link from 'next/link'
 import { canEdit } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { Types } from '../../types/Components'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 }
 
 const CreateNewButton: FC<Props> = ({ type, allowEdit }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   return (
     allowEdit &&
     canEdit(session, type) && (

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { getList } from '../../../lib/db/lists'
 import EditList from '../../../components/edit/EditList'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
@@ -9,7 +9,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 
 export default function EditorList({ _id, userLists, list }) {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   if (_id !== '_new') {
     if (!isCurrentUser(session, list.owner) && !isAdmin(session)) {

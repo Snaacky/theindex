@@ -1,11 +1,11 @@
 import { isLogin } from '../../lib/session'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import LoginOrOutButton from '../buttons/LoginOrOutButton'
 
 export default function NavbarUser({ className }) {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   if (isLogin(session)) {
     return (

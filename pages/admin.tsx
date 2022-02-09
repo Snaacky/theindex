@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { postData } from '../lib/utils'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { getColumns } from '../lib/db/columns'
 import { Column } from '../types/Column'
 
 const Admin = ({ columns }: { columns: Column[] }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   return (
     <>
@@ -55,12 +55,16 @@ const Admin = ({ columns }: { columns: Column[] }) => {
       <button
         className={'btn btn-warning mb-2 me-2'}
         onClick={() => {
-          postData('', {
+          console.log(
+            'Testing post to webhook',
+            process.env.NEXT_PUBLIC_AUDIT_WEBHOOK
+          )
+          postData(process.env.NEXT_PUBLIC_AUDIT_WEBHOOK, {
             username: 'Index Test',
-            avatar_url: 'https://piracy.moe/icons/logo.png',
+            avatar_url: process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png',
             embeds: [
               {
-                title: 'Hurayy !!! We are online',
+                title: 'Hurray !!! We are online',
                 description: 'This is a ping test',
                 url: process.env.NEXT_PUBLIC_DOMAIN,
                 color: 15548997, // red

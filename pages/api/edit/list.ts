@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { isAdmin, isCurrentUser, isLogin } from '../../../lib/session'
 import { addList, getList, updateList } from '../../../lib/db/lists'
 import { updateAllCache } from '../../../lib/db/cache'

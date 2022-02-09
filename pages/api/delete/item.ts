@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { canEdit } from '../../../lib/session'
 import { deleteItem } from '../../../lib/db/items'
 import { User } from '../../../types/User'

@@ -15,11 +15,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import NavbarToggler from './NavbarToggler'
 import { isAdmin, isLogin } from '../../lib/session'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
 
 function Sidebar({ show, setShow }, ref) {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const { data: swrLibraries } = useSWR('/api/libraries')
   const { data: swrCollections } = useSWR('/api/collections')
   const libraries = swrLibraries || []

@@ -2,7 +2,7 @@ import { getCollections } from '../../lib/db/collections'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
@@ -36,7 +36,7 @@ const Collection: FC<Props> = ({
   allItems,
   columns,
 }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const { data: swrCollection } = useSWR('/api/collection/' + collection._id)

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { FC, useState } from 'react'
 import LoginModal from '../modals/LoginModal'
 import { isLogin } from '../../lib/session'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const IconBookmark: FC<Props> = ({ item, size }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const [show, setShow] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   return (

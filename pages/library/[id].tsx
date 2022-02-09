@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getLibraries } from '../../lib/db/libraries'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit, isEditor } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import CollectionBoard from '../../components/boards/CollectionBoard'
@@ -32,7 +32,7 @@ type Props = {
 }
 
 const Library: FC<Props> = ({ library, collections, items, columns }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
   const [showCollections, setShowCollections] = useState(false)
 

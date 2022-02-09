@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { canEdit } from '../../../lib/session'
 import { addColumn, updateColumn } from '../../../lib/db/columns'
 import { updateAllCache } from '../../../lib/db/cache'

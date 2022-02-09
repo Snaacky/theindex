@@ -1,5 +1,5 @@
 import styles from './NotLogin.module.css'
-import { signIn } from 'next-auth/client'
+import { signIn } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Image from 'next/image'

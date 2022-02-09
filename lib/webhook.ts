@@ -47,8 +47,32 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
     })
   }
 
-  return Object.keys(data)
-    .map((key) => data[key])
+  const result = Object.keys(data).map((key) => data[key])
+  result.unshift({
+    old: oldItem !== null && oldItem.urls.length > 0 ? oldItem.urls : null,
+    updated: newItem !== null && newItem.urls.length > 0 ? newItem.urls : null,
+    column: {
+      type: ColumnType.array,
+      name: 'URLs',
+    } as unknown as Column,
+  })
+
+  result.unshift({
+    old:
+      oldItem !== null && oldItem.description.length > 0
+        ? oldItem.description
+        : null,
+    updated:
+      newItem !== null && newItem.description.length > 0
+        ? newItem.description
+        : null,
+    column: {
+      type: ColumnType.text,
+      name: 'Description',
+    } as unknown as Column,
+  })
+
+  return result
     .filter((result) => {
       if (typeof result.old !== typeof result.updated) {
         return true

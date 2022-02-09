@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { isAdmin } from '../../../../lib/session'
 import { clearCompleteCache } from '../../../../lib/db/cache'
 import { NextApiRequest, NextApiResponse } from 'next'

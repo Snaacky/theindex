@@ -92,11 +92,11 @@ Afterwards, you will need to stop and remove your current running instance and s
 Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
 | Parameter                    | Function                                                                                             | Default                              |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- |--------------------------------------|
 | `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Anime Index"`                  |
 | `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://piracy.moe"`               |
 | `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
-| `DATABASE_URL`               | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)          | `"mongodb://mongo:27017"`            |
+| `DATABASE_URL`               | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)          | `"mongodb://mongo:27017/index"`      |
 | `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
 | `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |
 | `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                            | `""`                                 |

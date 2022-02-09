@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 // custom css
 import '../styles/global.css'
 
-import { Provider, useSession } from 'next-auth/client'
+import { SessionProvider, useSession } from 'next-auth/react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }) {
   })
 
   return (
-    <Provider session={pageProps.session}>
+    <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
       <SWRConfig
         value={{
           fetcher: (resource, init) =>
@@ -94,18 +94,18 @@ export default function App({ Component, pageProps }) {
           </Auth>
         </Layout>
       </SWRConfig>
-    </Provider>
+    </SessionProvider>
   )
 }
 
 // login protected pages
 function Auth({ auth, children }) {
-  const [session, loading] = useSession()
+  const { data: session, status } = useSession()
 
   // no auth required
   if (typeof auth === 'undefined' || auth === null) {
     return children
-  } else if (loading) {
+  } else if (status === 'loading') {
     return <Loader />
   } else if (!isLogin(session)) {
     return <NotLogin />

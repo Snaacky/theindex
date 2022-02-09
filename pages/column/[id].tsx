@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import { getByUrlId } from '../../lib/db/db'
 import { getColumns } from '../../lib/db/columns'
@@ -29,7 +29,7 @@ type Props = {
 }
 
 const Column: FC<Props> = ({ column, columns, items }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
   const [filter, setFilter] = useState(null)
 

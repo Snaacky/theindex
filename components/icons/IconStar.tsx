@@ -1,7 +1,7 @@
 import iconStyles from './Icon.module.css'
 import styles from './IconStar.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { isLogin } from '../../lib/session'
 import LoginModal from '../modals/LoginModal'
 import { FC, useState } from 'react'
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const IconStar: FC<Props> = ({ item, size }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const [show, setShow] = useState(false)
   const [isFav, setIsFav] = useState(false)
   const [userFav, setUserFav] = useState([])

@@ -13,11 +13,11 @@ import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
 import SupportBanner from '../alerts/SupportBanner'
 import { canEdit } from '../../lib/session'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
-  const [session] = useSession()
+  const { data: session } = useSession()
 
   const sidebarRef = useRef(null)
   const navbarToggleRef = useRef(null)

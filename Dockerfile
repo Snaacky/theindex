@@ -11,7 +11,7 @@ ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
 # connection urls
 ENV NEXTAUTH_URL="https://piracy.moe"
 ENV NEXT_PUBLIC_DOMAIN="https://piracy.moe"
-ENV DATABASE_URL="mongodb://mongo:27017"
+ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
 

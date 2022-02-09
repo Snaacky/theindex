@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit, isAdmin, isEditor } from '../../lib/session'
 import { getItem, getItems } from '../../lib/db/items'
 import DataItem from '../../components/data/DataItem'
@@ -35,7 +35,7 @@ type Props = {
 }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const { data: swrItem } = useSWR('/api/item/' + item._id)

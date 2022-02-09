@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
@@ -29,7 +29,7 @@ type Props = {
 }
 
 const List: FC<Props> = ({ list, owner, allItems, columns }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const { data: swrList } = useSWR('/api/list/' + list._id)

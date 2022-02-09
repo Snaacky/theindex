@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { canEdit } from '../../../lib/session'
 import { deleteColumn } from '../../../lib/db/columns'
 import { NextApiRequest, NextApiResponse } from 'next'

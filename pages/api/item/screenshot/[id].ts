@@ -1,5 +1,5 @@
 import { getItem } from '../../../../lib/db/items'
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import {
   getItemScreenshotBuffer,
   screenshotExists,

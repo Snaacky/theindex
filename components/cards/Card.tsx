@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import styles from './Card.module.css'
 import IconEdit from '../icons/IconEdit'
@@ -44,7 +44,7 @@ const Card: FC<Props> = ({
   remove = null,
   move = null,
 }) => {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const hrefString =
     '/' +
     type +
