@@ -39,14 +39,14 @@ if (!('NEXTAUTH_URL' in process.env)) {
 }
 
 if (!('DATABASE_URL' in process.env)) {
-  warnEnv('DATABASE_URL', 'mongodb://localhost')
+  warnEnv('DATABASE_URL', 'mongodb://mongo:27017/index')
 }
 let dbClient, db
 try {
   dbClient = new MongoClient(
     'DATABASE_URL' in process.env
       ? process.env.DATABASE_URL
-      : 'mongodb://localhost',
+      : 'mongodb://mongo:27017/index',
     { maxPoolSize: 5 }
   )
   await dbClient.connect()
