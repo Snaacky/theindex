@@ -1,15 +1,16 @@
 name: Docker
 
-on: [push]
+on: [ push ]
 
 env:
   IMAGE_NAME: index-web
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
+  # Push image to GitHub Packages and docker hub.
+  # See also https://docs.docker.com/docker-hub/builds/
+  push:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
       - name: Checkout
@@ -19,19 +20,6 @@ jobs:
         run: |
           npm install
           npm run lint || exit 1
-
-  # Push image to GitHub Packages and docker hub.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
-    # Ensure test job passes before pushing image.
-    needs: test
-
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
 
       - name: Prepare
         id: prep
