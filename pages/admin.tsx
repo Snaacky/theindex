@@ -4,8 +4,20 @@ import { postData } from '../lib/utils'
 import { useSession } from 'next-auth/react'
 import { getColumns } from '../lib/db/columns'
 import { Column } from '../types/Column'
+import { Item } from '../types/Item'
+import ItemBoard from '../components/boards/ItemBoard'
+import { getItems } from '../lib/db/items'
+import { screenshotExists } from '../lib/db/itemScreenshots'
 
-const Admin = ({ columns }: { columns: Column[] }) => {
+const Admin = ({
+  columns,
+  itemsWithNoScreenshots,
+  itemsWithNoUrl,
+}: {
+  columns: Column[]
+  itemsWithNoScreenshots: Item[]
+  itemsWithNoUrl: Item[]
+}) => {
   const { data: session } = useSession()
 
   return (
@@ -90,6 +102,22 @@ const Admin = ({ columns }: { columns: Column[] }) => {
       >
         Send test webhook
       </button>
+
+      <h4>Items with no screenshots</h4>
+      <ItemBoard
+        contentOf={null}
+        items={itemsWithNoScreenshots}
+        allItems={itemsWithNoScreenshots}
+        columns={columns}
+      />
+
+      <h4>Items with no url</h4>
+      <ItemBoard
+        contentOf={null}
+        items={itemsWithNoUrl}
+        allItems={itemsWithNoUrl}
+        columns={columns}
+      />
     </>
   )
 }
@@ -101,9 +129,14 @@ Admin.auth = {
 export default Admin
 
 export async function getServerSideProps() {
+  const items = await getItems()
   return {
     props: {
       columns: await getColumns(),
+      itemsWithNoScreenshots: items.filter(
+        async (item) => !(await screenshotExists(item._id))
+      ),
+      itemsWithNoUrl: items.filter((item) => item.urls.length === 0),
     },
   }
 }
