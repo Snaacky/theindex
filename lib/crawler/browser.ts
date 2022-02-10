@@ -5,7 +5,7 @@ import AdblockPlugin from 'puppeteer-extra-plugin-adblocker'
 puppeteer.use(StealthPlugin())
 puppeteer.use(AdblockPlugin())
 
-export async function fetchSite(url, itemId = null) {
+export async function fetchSite(url: string, itemId?: string) {
   console.log('Fetching site', url, 'of item', itemId)
   if (!process.env.CHROME_URL) {
     throw Error('No ws url for chromium defined')

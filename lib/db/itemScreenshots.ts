@@ -2,7 +2,7 @@ import { dbClient } from './db'
 import { GridFSBucket } from 'mongodb'
 import { Readable } from 'stream'
 
-export function bufferToStream(buffer) {
+export function bufferToStream(buffer: Buffer) {
   let stream = new Readable()
   stream.push(buffer)
   stream.push(null)
@@ -10,8 +10,8 @@ export function bufferToStream(buffer) {
 }
 
 // note you want usually want to not use this function as you loose all the benefits of streams
-export function streamToBuffer(stream) {
-  return new Promise((resolve, reject) => {
+export function streamToBuffer(stream: Readable) {
+  return new Promise<Buffer>((resolve, reject) => {
     const buffer = []
     stream.on('data', (chunk) => buffer.push(chunk))
     stream.on('end', () => resolve(Buffer.concat(buffer)))
@@ -19,7 +19,7 @@ export function streamToBuffer(stream) {
   })
 }
 
-export async function addItemScreenshot(buffer, itemId) {
+export async function addItemScreenshot(buffer: Buffer, itemId: string) {
   // convert image buffer to stream
   const imgStream = bufferToStream(buffer)
 
@@ -49,7 +49,7 @@ export async function addItemScreenshot(buffer, itemId) {
   })
 }
 
-export async function getItemScreenshotBuffer(itemId) {
+export async function getItemScreenshotBuffer(itemId: string) {
   const db = (await dbClient).db()
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
@@ -59,7 +59,7 @@ export async function getItemScreenshotBuffer(itemId) {
   return await streamToBuffer(stream)
 }
 
-export async function screenshotExists(itemId) {
+export async function screenshotExists(itemId: string) {
   const db = (await dbClient).db()
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
@@ -76,7 +76,7 @@ export async function clearAllScreenshots() {
   return await bucket.drop()
 }
 
-export async function listScreenshotsOfItem(itemId) {
+export async function listScreenshotsOfItem(itemId: string) {
   const db = (await dbClient).db()
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',

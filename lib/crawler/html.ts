@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom'
 import { fetchSite } from './browser'
 
-export default async function gatherPageData(url, itemId = null) {
+export default async function gatherPageData(url: string, itemId?: string) {
   const { status, screenshotStream, content } = await fetchSite(url, itemId)
 
   if (status === 200) {
@@ -21,7 +21,7 @@ export default async function gatherPageData(url, itemId = null) {
   }
 }
 
-function filterLinks(links, domain) {
+function filterLinks(links: string[], domain: URL) {
   return (
     links
       .map((l) => {
@@ -55,7 +55,7 @@ function filterLinks(links, domain) {
   )
 }
 
-function cleanHtmlString(htmlString) {
+function cleanHtmlString(htmlString: string) {
   // remove styles and script tags and while at it, get via jsdom, some meta tags and all a tags
   const { title, description, links, body } = stripScriptStyle(htmlString)
 
@@ -86,7 +86,7 @@ function cleanHtmlString(htmlString) {
   }
 }
 
-function stripScriptStyle(htmlString) {
+function stripScriptStyle(htmlString: string) {
   const { document } = new JSDOM(htmlString).window
 
   // get title meta data

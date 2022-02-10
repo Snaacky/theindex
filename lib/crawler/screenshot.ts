@@ -2,7 +2,7 @@ import { fetchSite } from './browser'
 import { addItemScreenshot } from '../db/itemScreenshots'
 import { getItem } from '../db/items'
 
-export default async function createScreenshot(_id) {
+export default async function createScreenshot(_id: string) {
   const item = await getItem(_id)
   console.log('Taking screenshot of item', _id)
   if (item.urls.length > 0) {

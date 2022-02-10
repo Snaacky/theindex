@@ -33,7 +33,7 @@ export default async function handler(
             console.error('Could not create screenshot of', item._id, e)
           })
         }
-        res.redirect('/no-screenshot.png')
+        res.redirect('/no-screenshot.png').end()
       }
     } catch (e) {
       console.log('Something horribly went wrong :(', e)
