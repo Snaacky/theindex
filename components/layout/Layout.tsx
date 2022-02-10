@@ -76,7 +76,7 @@ const Layout = ({ children, error }) => {
         position={'bottom-right'}
         autoClose={4000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss={false}

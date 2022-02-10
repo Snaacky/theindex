@@ -29,7 +29,9 @@ export default async function handler(
       } else {
         if (isAdmin(session)) {
           console.log('Admin and missing screenshot, creating new')
-          await createScreenshot(item._id)
+          createScreenshot(item._id).catch((e) => {
+            console.error('Could not create screenshot of', item._id, e)
+          })
         }
         res.redirect('/no-screenshot.png')
       }
