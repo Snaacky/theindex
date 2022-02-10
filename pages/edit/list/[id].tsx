@@ -46,7 +46,7 @@ export default function EditorList({ _id, userLists, list }) {
             </small>
           )}
         </div>
-        <div className={'d-flex flex-row'}>
+        <div>
           <DeleteButton type={Types.list} content={list} className={'me-2'} />
           <ViewAllButton type={Types.list} />
         </div>

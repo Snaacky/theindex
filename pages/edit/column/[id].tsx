@@ -44,7 +44,7 @@ export default function EditorColumn({ _id, collections, columns, column }) {
             </small>
           )}
         </div>
-        <div className={'d-flex flex-row'}>
+        <div>
           <DeleteButton
             type={Types.column}
             content={column}

@@ -59,11 +59,11 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
 
   result.unshift({
     old:
-      oldItem !== null && oldItem.description.length > 0
+      oldItem !== null && (oldItem.description || '').length > 0
         ? oldItem.description
         : null,
     updated:
-      newItem !== null && newItem.description.length > 0
+      newItem !== null && (newItem.description || '').length > 0
         ? newItem.description
         : null,
     column: {
@@ -74,6 +74,11 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
 
   return result
     .filter((result) => {
+      if (result.old === null && result.updated === null) {
+        console.error('illegal data packet for webhook post', result)
+        return false
+      }
+
       if (typeof result.old !== typeof result.updated) {
         return true
       }

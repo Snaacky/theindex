@@ -52,9 +52,18 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
     )
   }
 
-  const filtered = lang.filter((lang) =>
-    lang.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-  )
+  const filtered = lang
+    .filter((lang) =>
+      lang.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+    )
+    .sort((a, b) => {
+      if (data.includes(a.iso6393)) {
+        return 1
+      } else if (data.includes(b.iso6393)) {
+        return -1
+      }
+      return 0
+    })
   const sliced = expand
     ? filtered
     : filtered.slice(0, Math.min(16, filtered.length))

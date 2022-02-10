@@ -54,7 +54,7 @@ export default function EditorCollection({
             </small>
           )}
         </div>
-        <div className={'d-flex flex-row'}>
+        <div>
           <DeleteButton
             type={Types.collection}
             content={collection}

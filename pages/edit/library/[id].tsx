@@ -46,7 +46,7 @@ export default function EditorLibrary({
             </small>
           )}
         </div>
-        <div className={'d-flex flex-row'}>
+        <div>
           <DeleteButton
             type={Types.library}
             content={library}

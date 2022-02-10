@@ -45,7 +45,7 @@ export default function EditorItem({ items, _id, collections, columns, item }) {
             </small>
           )}
         </div>
-        <div className={'d-flex flex-row'}>
+        <div>
           <DeleteButton type={Types.item} content={item} className={'me-2'} />
           <ViewAllButton type={Types.item} />
         </div>
