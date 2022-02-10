@@ -7,6 +7,8 @@ import { isAdmin, isCurrentUser } from '../../../lib/session'
 import NotAdmin from '../../../components/layout/NotAdmin'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
+import DeleteButton from '../../../components/buttons/DeleteButton'
+import React from 'react'
 
 export default function EditorList({ _id, userLists, list }) {
   const { data: session } = useSession()
@@ -44,7 +46,8 @@ export default function EditorList({ _id, userLists, list }) {
             </small>
           )}
         </div>
-        <div>
+        <div className={'d-flex flex-row'}>
+          <DeleteButton type={Types.list} content={list} className={'me-2'} />
           <ViewAllButton type={Types.list} />
         </div>
       </div>

@@ -9,6 +9,8 @@ import Link from 'next/link'
 import CollectionBoard from '../../../components/boards/CollectionBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
+import DeleteButton from '../../../components/buttons/DeleteButton'
+import React from 'react'
 
 export default function EditorLibrary({
   _id,
@@ -44,7 +46,12 @@ export default function EditorLibrary({
             </small>
           )}
         </div>
-        <div>
+        <div className={'d-flex flex-row'}>
+          <DeleteButton
+            type={Types.library}
+            content={library}
+            className={'me-2'}
+          />
           <ViewAllButton type={Types.library} />
         </div>
       </div>

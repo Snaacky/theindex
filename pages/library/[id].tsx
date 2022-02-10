@@ -10,19 +10,17 @@ import { getByUrlId } from '../../lib/db/db'
 import IconLibrary from '../../components/icons/IconLibrary'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
-import IconDelete from '../../components/icons/IconDelete'
-import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC, useState } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { useRouter } from 'next/router'
 import ItemBoard from '../../components/boards/ItemBoard'
 import { Collection } from '../../types/Collection'
 import { Library } from '../../types/Library'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
+import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
   library: Library
@@ -33,7 +31,6 @@ type Props = {
 
 const Library: FC<Props> = ({ library, collections, items, columns }) => {
   const { data: session } = useSession()
-  const router = useRouter()
   const [showCollections, setShowCollections] = useState(false)
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
@@ -98,30 +95,10 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
             <div className={'col-12 col-md-auto mb-2'}>
               {library.nsfw && <IconNSFW />}
               {canEdit(session) && (
-                <IconDelete
+                <DeleteButton
+                  type={Types.library}
+                  content={library}
                   className={'ms-2'}
-                  title={'Delete library'}
-                  onClick={() => {
-                    if (
-                      confirm(
-                        'Do you really want to delete the library "' +
-                          library.name +
-                          '"?'
-                      )
-                    ) {
-                      postData(
-                        '/api/delete/library',
-                        { _id: library._id },
-                        () => {
-                          router
-                            .push('/libraries')
-                            .then(() =>
-                              console.log('Deleted library', library._id)
-                            )
-                        }
-                      )
-                    }
-                  }}
                 />
               )}
               <span className={'ms-2'}>

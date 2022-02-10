@@ -7,6 +7,8 @@ import CollectionBoard from '../../../components/boards/CollectionBoard'
 import { getCollections } from '../../../lib/db/collections'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
+import React from 'react'
+import DeleteButton from '../../../components/buttons/DeleteButton'
 
 export default function EditorItem({ items, _id, collections, columns, item }) {
   let collectionsWithItem = []
@@ -43,7 +45,8 @@ export default function EditorItem({ items, _id, collections, columns, item }) {
             </small>
           )}
         </div>
-        <div>
+        <div className={'d-flex flex-row'}>
+          <DeleteButton type={Types.item} content={item} className={'me-2'} />
           <ViewAllButton type={Types.item} />
         </div>
       </div>

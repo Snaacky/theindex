@@ -16,17 +16,16 @@ import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
 import IconSponsor from '../../components/icons/IconSponsor'
 import UrlBadge from '../../components/data/UrlBadge'
-import IconDelete from '../../components/icons/IconDelete'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { useRouter } from 'next/router'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import { Collection } from '../../types/Collection'
+import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
   item: Item
@@ -36,7 +35,6 @@ type Props = {
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
-  const router = useRouter()
 
   const { data: swrItem } = useSWR('/api/item/' + item._id)
   item = swrItem || item
@@ -99,24 +97,10 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
               </Link>
             )}
             {canEdit(session) && (
-              <IconDelete
+              <DeleteButton
+                type={Types.item}
+                content={item}
                 className={'ms-2'}
-                title={'Delete item'}
-                onClick={() => {
-                  if (
-                    confirm(
-                      'Do you really want to delete the item "' +
-                        item.name +
-                        '"?'
-                    )
-                  ) {
-                    postData('/api/delete/item', { _id: item._id }, () => {
-                      router
-                        .push('/items')
-                        .then(() => console.log('Deleted item', item._id))
-                    })
-                  }
-                }}
               />
             )}
           </h2>

@@ -12,15 +12,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
-import IconDelete from '../../components/icons/IconDelete'
-import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import { getAllCache } from '../../lib/db/cache'
 import useSWR from 'swr'
 import { Types } from '../../types/Components'
-import { useRouter } from 'next/router'
 import { Column, ColumnType } from '../../types/Column'
 import { Item } from '../../types/Item'
+import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
   column: Column
@@ -30,7 +28,6 @@ type Props = {
 
 const Column: FC<Props> = ({ column, columns, items }) => {
   const { data: session } = useSession()
-  const router = useRouter()
   const [filter, setFilter] = useState(null)
 
   const { data: swrColumn } = useSWR('/api/column/' + column._id)
@@ -95,24 +92,10 @@ const Column: FC<Props> = ({ column, columns, items }) => {
         <div className={'mb-2 col-auto'}>
           {column.nsfw && <IconNSFW />}
           {canEdit(session) && (
-            <IconDelete
+            <DeleteButton
+              type={Types.column}
+              content={column}
               className={'ms-2'}
-              title={'Delete column'}
-              onClick={() => {
-                if (
-                  confirm(
-                    'Do you really want to delete the column "' +
-                      column.name +
-                      '"?'
-                  )
-                ) {
-                  postData('/api/delete/column', { _id: column._id }, () => {
-                    router
-                      .push('/columns')
-                      .then(() => console.log('Deleted column', column._id))
-                  })
-                }
-              }}
             />
           )}
           <span className={'ms-2'}>

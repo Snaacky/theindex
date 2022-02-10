@@ -10,18 +10,16 @@ import { getByUrlId } from '../../lib/db/db'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconCollection from '../../components/icons/IconCollection'
 import IconNSFW from '../../components/icons/IconNSFW'
-import { postData } from '../../lib/utils'
-import IconDelete from '../../components/icons/IconDelete'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { useRouter } from 'next/router'
 import { Collection } from '../../types/Collection'
 import { Library } from '../../types/Library'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
+import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
   collection: Collection
@@ -37,7 +35,6 @@ const Collection: FC<Props> = ({
   columns,
 }) => {
   const { data: session } = useSession()
-  const router = useRouter()
 
   const { data: swrCollection } = useSWR('/api/collection/' + collection._id)
   collection = swrCollection || collection
@@ -98,30 +95,10 @@ const Collection: FC<Props> = ({
             <div className={'col-12 col-md-auto mb-2'}>
               {collection.nsfw && <IconNSFW />}
               {canEdit(session) && (
-                <IconDelete
+                <DeleteButton
+                  type={Types.collection}
+                  content={collection}
                   className={'ms-2'}
-                  title={'Delete collection'}
-                  onClick={() => {
-                    if (
-                      confirm(
-                        'Do you really want to delete the collection "' +
-                          collection.name +
-                          '"?'
-                      )
-                    ) {
-                      postData(
-                        '/api/delete/collection',
-                        { _id: collection._id },
-                        () => {
-                          router
-                            .push('/collections')
-                            .then(() =>
-                              console.log('Deleted collection', collection._id)
-                            )
-                        }
-                      )
-                    }
-                  }}
                 />
               )}
               <span className={'ms-2'}>

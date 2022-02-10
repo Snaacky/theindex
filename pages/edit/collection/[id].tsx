@@ -6,6 +6,8 @@ import EditCollection from '../../../components/edit/EditCollection'
 import LibraryBoard from '../../../components/boards/LibraryBoard'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
+import React from 'react'
+import DeleteButton from '../../../components/buttons/DeleteButton'
 
 export default function EditorCollection({
   _id,
@@ -52,7 +54,12 @@ export default function EditorCollection({
             </small>
           )}
         </div>
-        <div>
+        <div className={'d-flex flex-row'}>
+          <DeleteButton
+            type={Types.collection}
+            content={collection}
+            className={'me-2'}
+          />
           <ViewAllButton type={Types.collection} />
         </div>
       </div>

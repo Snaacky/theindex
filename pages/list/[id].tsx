@@ -8,18 +8,16 @@ import { getList } from '../../lib/db/lists'
 import IconList from '../../components/icons/IconList'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
-import IconDelete from '../../components/icons/IconDelete'
-import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { useRouter } from 'next/router'
 import { List } from '../../types/List'
 import { User } from '../../types/User'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
+import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
   list: List
@@ -30,7 +28,6 @@ type Props = {
 
 const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   const { data: session } = useSession()
-  const router = useRouter()
 
   const { data: swrList } = useSWR('/api/list/' + list._id)
   list = swrList || list
@@ -70,23 +67,7 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
         <span style={{ fontSize: '1.2rem' }} className={'float-end'}>
           {list.nsfw && <IconNSFW />}
           {canEdit(session) && (
-            <IconDelete
-              className={'ms-2'}
-              title={'Delete list'}
-              onClick={() => {
-                if (
-                  confirm(
-                    'Do you really want to delete the list "' + list.name + '"?'
-                  )
-                ) {
-                  postData('/api/delete/list', { _id: list._id }, () => {
-                    router
-                      .push('/lists')
-                      .then(() => console.log('Deleted list', list._id))
-                  })
-                }
-              }}
-            />
+            <DeleteButton type={Types.list} content={list} className={'ms-2'} />
           )}
           <span className={'ms-2'}>
             <ViewAllButton type={Types.list} />
