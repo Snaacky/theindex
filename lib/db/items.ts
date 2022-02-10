@@ -214,7 +214,7 @@ export async function deleteItem(_id: string, user?: User) {
   await updateAllCache(Types.collection)
   await updateAllCache(Types.list)
 
-  const oldItem = (await getSingleCache(Types.item, _id)) as Item
+  const oldItem = await getItem(_id)
   // remove item
   await deleteOne('items', { _id })
   await clearSingleCache(Types.item, _id)

@@ -20,11 +20,30 @@ export default async function apiAdminScreenshotCreateAll(
       .send('Are you sure you want to take screenshots of all items?')
   }
 
-  const items = await getItems()
-  for (let item of items) {
-    if (!(await screenshotExists(item._id))) {
-      await createScreenshot(item._id)
-    }
+  const items = (
+    await Promise.all(
+      (
+        await getItems()
+      ).map(async (item) => {
+        if (await screenshotExists(item._id)) {
+          return null
+        }
+        return item
+      })
+    )
+  ).filter((item) => item !== null)
+
+  const batchSize = 10
+  let i = 0
+  while (i < items.length) {
+    await Promise.all(
+      items
+        .slice(i, i + Math.min(batchSize, items.length - i))
+        .map(async (item) => {
+          await createScreenshot(item._id)
+        })
+    )
+    i += batchSize
   }
 
   console.log('Created all screenshots')
