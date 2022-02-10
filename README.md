@@ -61,7 +61,7 @@ You can also take a look at our provided [`docker-compose`](docker-compose.yml) 
 ## Cache-DB
 
 To increase performance we use [redis](https://redis.io/) to cache results from the mongoDB. The cache is being
-auto-populated on cache-misses.
+autopopulated on cache-misses.
 
 You can create a new instance with docker by running:
 
@@ -133,16 +133,16 @@ git clone https://github.com/ranimepiracy/index
 
 - Replace `NEXT_PUBLIC_DOMAIN` and `NEXTAUTH_URL` with `http://localhost:3000`
 - Generate a random strong string of at least 32 characters and use it for `NEXTAUTH_SECRET`. You can use generators
-  e.g [1Password](https://1password.com/password-generator/) or create it yourself.
+  e.g. [1Password](https://1password.com/password-generator/) or create it yourself.
 - Change `DATABASE_URL`, `CACHE_URL` and `CHROME_URL` to use localhost instead of `mongo`, `redis` and `chrome` for
   example: `mongodb://mongo:27017` -> becomes `mongodb://localhost:27017`
 - Go to `https://discord.com/developers` -> Create a new Application -> Go into `Auth2` inside your Application panel ->
   Copy the `CLIENT ID` and `CLIENT SECRET` into the `.env` file.
-- In `Redirects` in `Auth2` copy and paste the following URL needed verify your Discord
+- In `Redirects` in `Auth2` copy and paste the following URL needed to verify your Discord
   login `http://localhost:3000/api/auth/callback/discord`.
 - Fill `SETUP_WHITELIST_DISCORD_ID` with your Discord ID to have an admin account when you login.
 - Generate again another random strong string of at least 32 characters and use it for `MEILI_MASTER_KEY`. You can use
-  generators e.g [1Password](https://1password.com/password-generator/) or create it yourself.
+  generators e.g. [1Password](https://1password.com/password-generator/) or create it yourself.
 - Lastly if you want to change the password for mongo-express, you can do so with the last two variables, usually though
   none of us do while developing locally.
 

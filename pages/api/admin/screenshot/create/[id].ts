@@ -24,7 +24,7 @@ export default async function apiAdminScreenshotCreateId(
       .status(404)
       .send('Cannot create screenshot for ' + req.query.id + ': item not found')
   } else {
-    const succeeded = await createScreenshot(req.query.id)
+    const succeeded = await createScreenshot(req.query.id as string)
     if (succeeded) {
       console.log('Created screenshots')
       res.status(200).send('Created screenshots')
