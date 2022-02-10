@@ -14,53 +14,53 @@ export async function fetchSite(url: string, itemId?: string) {
   const browser = await puppeteer.connect({
     browserWSEndpoint: process.env.CHROME_URL,
   })
+
+  // open a new empty tab and set viewport
+  const page = await browser.newPage()
+  await page.setViewport({
+    width: 1280,
+    height: 720,
+    deviceScaleFactor: 1,
+  })
+
+  let response = null
   try {
-    // open a new empty tab and set viewport
-    const page = await browser.newPage()
-    await page.setViewport({
-      width: 1280,
-      height: 720,
-      deviceScaleFactor: 1,
+    // go to page and wait till idle
+    response = await page.goto(url, {
+      waitUntil: 'networkidle2',
+      timeout: 0,
     })
-
-    let response = null
-    try {
-      // go to page and wait till idle
-      response = await page.goto(url, {
-        waitUntil: 'networkidle2',
-        timeout: 0,
-      })
-    } catch (e) {
-      console.error('Could not navigate to page', url, e)
-      return null
-    }
-
-    // solve cf or ddos-guard JS-challenge
-    // captcha is still going to bite us
-    await page.waitForTimeout(8000)
-
-    // collect data from fully rendered site
-    const content = await page.content()
-    const status = response.status()
-    let screenshotStream = null
-    if (itemId) {
-      try {
-        screenshotStream = await page.screenshot()
-      } catch (e) {
-        console.error('Could not create screenshot stream', e)
-      }
-    }
-    page.removeAllListeners('request')
-    await page.close()
-
-    return {
-      status,
-      screenshotStream,
-      content,
-    }
   } catch (e) {
-    console.error('Oh no something went wrong while trying to get page data', e)
-  } finally {
+    console.error('Could not navigate to page', url, e)
+    await page.close()
     await browser.close()
+    return null
+  }
+
+  // solve cf or ddos-guard JS-challenge
+  // captcha is still going to bite us
+  await page.waitForTimeout(8000)
+
+  // collect data from fully rendered site
+  const content = await page.content()
+  const status = response.status()
+  let screenshotStream = null
+  if (itemId) {
+    try {
+      screenshotStream = await page.screenshot()
+    } catch (e) {
+      console.error('Could not create screenshot stream', e)
+    }
+  }
+
+  // cleanup
+  page.removeAllListeners('request')
+  await page.close()
+  await browser.close()
+
+  return {
+    status,
+    screenshotStream,
+    content,
   }
 }
