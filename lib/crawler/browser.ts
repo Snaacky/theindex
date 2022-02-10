@@ -33,7 +33,6 @@ export async function fetchSite(url: string, itemId?: string) {
   } catch (e) {
     console.error('Could not navigate to page', url, e)
     await page.close()
-    await browser.close()
     return null
   }
 
@@ -56,7 +55,6 @@ export async function fetchSite(url: string, itemId?: string) {
   // cleanup
   page.removeAllListeners('request')
   await page.close()
-  await browser.close()
 
   return {
     status,
