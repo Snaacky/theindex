@@ -57,10 +57,17 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
       lang.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
     )
     .sort((a, b) => {
-      if (data.includes(a.iso6393)) {
-        return 1
-      } else if (data.includes(b.iso6393)) {
+      const incA = data.includes(a.iso6393)
+      const incB = data.includes(b.iso6393)
+
+      if ((incA && incB) || (!incA && !incB)) {
+        return a.name > b.name ? -1 : 1
+      }
+
+      if (incA) {
         return -1
+      } else if (incB) {
+        return 1
       }
       return 0
     })

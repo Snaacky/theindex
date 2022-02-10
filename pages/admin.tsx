@@ -62,7 +62,7 @@ const Admin = ({
           postData('/api/admin/screenshot/createAll', { createAll: true })
         }}
       >
-        Recreate every screenshots
+        Create missing screenshots
       </button>
 
       <h4>Discord Webhooks</h4>
