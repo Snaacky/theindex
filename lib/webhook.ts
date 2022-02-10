@@ -12,7 +12,7 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
   if (oldItem !== null) {
     const oldKeys = Object.keys(oldItem.data)
     oldKeys.forEach((key) => {
-      if (key in newItem.data) {
+      if (newItem !== null && key in newItem.data) {
         data[key] = {
           column: columns.find((column) => column._id === key),
           old: oldItem.data[key],
