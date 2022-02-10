@@ -160,7 +160,7 @@ const Collection: FC<Props> = ({
       </div>
 
       <ItemBoard
-        contentOf={null}
+        contentOf={collection}
         items={items}
         allItems={allItems}
         showSponsors={true}
