@@ -8,17 +8,19 @@ import { Item } from '../types/Item'
 import ItemBoard from '../components/boards/ItemBoard'
 import { getItems } from '../lib/db/items'
 import { screenshotExists } from '../lib/db/itemScreenshots'
+import DataBadge from '../components/data/DataBadge'
 
 const Admin = ({
   columns,
   itemsWithNoScreenshots,
-  itemsWithNoUrl,
+  items,
 }: {
   columns: Column[]
   itemsWithNoScreenshots: Item[]
-  itemsWithNoUrl: Item[]
+  items: Item[]
 }) => {
   const { data: session } = useSession()
+  const itemsWithNoUrl = items.filter((item) => item.urls.length === 0)
 
   return (
     <>
@@ -103,7 +105,15 @@ const Admin = ({
         Send test webhook
       </button>
 
-      <h4>Items with no screenshots</h4>
+      <h4>
+        <DataBadge name={'' + items.length} />
+        Items in total
+      </h4>
+
+      <h4>
+        <DataBadge name={'' + itemsWithNoScreenshots.length} />
+        Items with no screenshots
+      </h4>
       <ItemBoard
         contentOf={null}
         items={itemsWithNoScreenshots}
@@ -111,7 +121,10 @@ const Admin = ({
         columns={columns}
       />
 
-      <h4>Items with no url</h4>
+      <h4>
+        <DataBadge name={'' + itemsWithNoUrl.length} />
+        Items with no url
+      </h4>
       <ItemBoard
         contentOf={null}
         items={itemsWithNoUrl}
@@ -130,13 +143,19 @@ export default Admin
 
 export async function getServerSideProps() {
   const items = await getItems()
+  const missingScreenshots = await Promise.all(
+    items.map(async (item) => {
+      if (!(await screenshotExists(item._id))) {
+        return item
+      }
+      return null
+    })
+  )
   return {
     props: {
       columns: await getColumns(),
-      itemsWithNoScreenshots: items.filter(
-        async (item) => !(await screenshotExists(item._id))
-      ),
-      itemsWithNoUrl: items.filter((item) => item.urls.length === 0),
+      itemsWithNoScreenshots: missingScreenshots.filter((s) => s !== null),
+      items: items,
     },
   }
 }

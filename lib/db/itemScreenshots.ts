@@ -30,7 +30,7 @@ export async function addItemScreenshot(buffer: Buffer, itemId: string) {
 
   // remove outdated screenshots
   const oldImages = await bucket.find({ filename: itemId }).toArray()
-  if (oldImages.length !== 0) {
+  if (oldImages.length > 0) {
     console.info(
       'Screenshot for',
       itemId,

@@ -18,8 +18,8 @@ export default async function createScreenshot(_id: string) {
         console.log('Created screenshot of item', _id)
         return true
       }
-    } catch (e) {
-      console.error('Failed to create screenshot of', _id, e)
+    } catch {
+      console.error('Failed to create screenshot of', _id)
     }
   } else {
     console.warn('Item', _id, 'has no url to take a screenshot from')

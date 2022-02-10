@@ -181,7 +181,9 @@ export const postItemUpdate = async (
       embeds: [
         {
           title,
-          url: process.env.NEXT_PUBLIC_DOMAIN + '/item/' + newItem._id,
+          url:
+            process.env.NEXT_PUBLIC_DOMAIN +
+            (newItem !== null ? '/item/' + newItem._id : '/items'),
           color,
           author: {
             name: user.name,
