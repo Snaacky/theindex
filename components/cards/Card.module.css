@@ -10,10 +10,6 @@
   border-right-color: var(--accent-color);
 }
 
-.card.sponsored {
-  border-top: 3px solid gold;
-}
-
 .card a.link {
   color: white;
 }
@@ -78,16 +74,4 @@
   cursor: pointer;
   width: 100%;
   height: 100%;
-}
-
-.sponsorBadge {
-  color: gold;
-  background-color: var(--bg-6);
-  padding: 0.2rem 0.2rem;
-  font-size: 0.8rem;
-  border-radius: 0.25rem;
-}
-
-.sponsorIcon {
-  margin-right: 0.3rem;
 }

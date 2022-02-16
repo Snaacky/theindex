@@ -60,14 +60,7 @@ const Card: FC<Props> = ({
   }
 
   return (
-    <div
-      className={
-        styles.card +
-        ' ' +
-        ('sponsor' in content && content.sponsor ? styles.sponsored : '') +
-        ' card bg-2 mb-2 me-2'
-      }
-    >
+    <div className={styles.card + ' card bg-2 mb-2 me-2'}>
       <div className='row g-0 h-100'>
         {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
@@ -104,6 +97,12 @@ const Card: FC<Props> = ({
                 <OnlineStatus url={content.urls[0] ?? ''} />
               )}
 
+              {'sponsor' in content && content.sponsor && (
+                <span className={'me-2'}>
+                  <IconSponsor size={'sm'} data-tip={'Sponsored'} />
+                </span>
+              )}
+
               <Title type={type} content={content} contentLink={hrefString} />
 
               {canEdit(session, type) && (
@@ -123,14 +122,6 @@ const Card: FC<Props> = ({
                     </a>
                   </Link>
                 </>
-              )}
-              {'sponsor' in content && content.sponsor && (
-                <span className={styles.sponsorBadge + ' ms-2 float-end'}>
-                  <span className={styles.sponsorIcon}>
-                    <IconSponsor size='xs' />
-                  </span>
-                  Sponsored
-                </span>
               )}
               <span className={styles.action}>
                 {'nsfw' in content && content.nsfw && (

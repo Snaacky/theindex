@@ -92,7 +92,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
 | Parameter                    | Function                                                                                             | Default                              |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------- |--------------------------------------|
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Anime Index"`                  |
 | `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://piracy.moe"`               |
 | `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
@@ -163,7 +163,7 @@ mongo:
   container_name: index-db
   restart: unless-stopped
   ports:
-    - "27017:27017"
+    - '27017:27017'
   volumes:
     - ./db:/data/db
 ```

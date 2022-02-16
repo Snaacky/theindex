@@ -5,10 +5,6 @@
   transition: border-right-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
 }
 
-.row.sponsored {
-  border-top: 3px solid gold;
-}
-
 .row:hover {
   box-shadow: 0 0 3px #000;
   border-right-color: var(--accent-color);
@@ -55,16 +51,4 @@
 
 .title {
   margin-bottom: 0.25rem;
-}
-
-.sponsorBadge {
-  color: gold;
-  background-color: var(--bg-6);
-  padding: 0.2rem 0.2rem;
-  font-size: 0.8rem;
-  border-radius: 0.25rem;
-}
-
-.sponsorIcon {
-  margin-right: 0.3rem;
 }

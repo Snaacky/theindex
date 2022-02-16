@@ -9,7 +9,6 @@ import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import classNames from 'classnames'
 import styles from './Board.module.css'
-import ItemCard from '../cards/ItemCard'
 import { Column, ColumnType } from '../../types/Column'
 import Pagination from '../data/Pagination'
 import Select from '../data/Select'
@@ -77,7 +76,12 @@ const Board: FC<Props> = ({
   const sortOptions = [
     {
       name: 'asc',
-      sort: (a, b) => (a.name < b.name ? -1 : 1),
+      sort: (a, b) => {
+        if (type === Types.item && a.sponsor !== b.sponsor) {
+          return a.sponsor ? -1 : 1
+        }
+        return a.name < b.name ? -1 : 1
+      },
     },
     {
       name: 'desc',
@@ -85,10 +89,14 @@ const Board: FC<Props> = ({
     },
     {
       name: 'latest',
-      sort: (a, b) =>
-        new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime()
+      sort: (a, b) => {
+        if (type === Types.item && a.sponsor !== b.sponsor) {
+          return a.sponsor ? -1 : 1
+        }
+        return new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime()
           ? -1
-          : 1,
+          : 1
+      },
     },
     {
       name: 'oldest',
@@ -302,16 +310,16 @@ const Board: FC<Props> = ({
     })
   }
 
-  const filteredContent = filterContent(_content).filter(
-    (cc) => editMode || !sponsorContent.some((c) => c._id === cc._id)
-  )
+  const filteredContent = sortContent(filterContent(_content))
   const paginatedContent = filteredContent.filter(
     (_, index) =>
       pageSize === 0 ||
       (index >= startViewIndex && index < startViewIndex + pageSize)
   )
 
-  const filteredUnselectedContent = filterContent(unselectedContent)
+  const filteredUnselectedContent = sortContent(
+    filterContent(unselectedContent)
+  )
   const paginatedUnselectedContent = filteredUnselectedContent.filter(
     (_, index) =>
       editPageSize === 0 ||
@@ -320,17 +328,6 @@ const Board: FC<Props> = ({
 
   return (
     <>
-      {!editMode && sponsorContent.length > 0 && (
-        <div
-          className={'d-flex flex-wrap mb-2'}
-          style={{ marginRight: '-0.5rem' }}
-        >
-          {sponsorContent.map((c) => (
-            <ItemCard item={c} columns={columns} key={c._id} />
-          ))}
-        </div>
-      )}
-
       <div className={'row g-2'}>
         <div className={'col-12 col-sm-6 col-md-auto'}>
           {columns.length > 0 && (
