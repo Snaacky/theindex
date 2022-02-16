@@ -13,13 +13,7 @@ import { Item } from '../types/Item'
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home({
-  libraries,
-  items,
-  collections,
-  sponsors,
-  columns,
-}) {
+export default function Home({ libraries, items, collections, columns }) {
   return (
     <>
       <Head>
@@ -53,20 +47,6 @@ export default function Home({
           return <LibraryCard library={library} key={library._id} />
         })}
       </div>
-
-      {sponsors.length > 0 && (
-        <>
-          <h2>Sponsored items</h2>
-          <div
-            className={'d-flex flex-wrap mb-4'}
-            style={{ marginRight: '-0.5rem' }}
-          >
-            {sponsors.map((item) => {
-              return <ItemCard item={item} columns={columns} key={item._id} />
-            })}
-          </div>
-        </>
-      )}
 
       <div className={'row'}>
         <div className={'col'}>
@@ -118,16 +98,17 @@ export default function Home({
 }
 
 export async function getStaticProps() {
+  const items = (await getLastViews('item', 1000)).slice(0, 9) as Item[]
+  ;((await getAllCache(Types.item)) as Item[])
+    .filter((item) => item.sponsor && !items.some((i) => i._id === item._id))
+    .forEach((sponsor) => {
+      items.push(sponsor)
+    })
   return {
     props: {
       libraries: (await getLastViews('library', 1000)).slice(0, 6),
-      items: (await getLastViews('item', 1000))
-        .filter((item) => !(item as Item).sponsor)
-        .slice(0, 9),
+      items: (await getLastViews('item', 1000)).slice(0, 9),
       collections: (await getLastViews('collection', 1000)).slice(0, 9),
-      sponsors: ((await getAllCache(Types.item)) as Item[]).filter(
-        (item) => item.sponsor
-      ),
       columns: await getAllCache(Types.column),
     },
     revalidate: 60,
