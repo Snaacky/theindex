@@ -104,10 +104,11 @@ export async function getStaticProps() {
     .forEach((sponsor) => {
       items.push(sponsor)
     })
+  
   return {
     props: {
       libraries: (await getLastViews('library', 1000)).slice(0, 6),
-      items: (await getLastViews('item', 1000)).slice(0, 9),
+      items: items,
       collections: (await getLastViews('collection', 1000)).slice(0, 9),
       columns: await getAllCache(Types.column),
     },
