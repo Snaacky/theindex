@@ -9,9 +9,6 @@ import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import ViewAllButton from '../components/buttons/ViewAllButton'
 import { Item } from '../types/Item'
-import { getByUrlId } from '../lib/db/db'
-import { Library } from '../types/Library'
-import { Collection } from '../types/Collection'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -101,35 +98,8 @@ export default function Home({ libraries, items, collections, columns }) {
 }
 
 export async function getStaticProps() {
-  // hacky wacky custom code....
-  const vpnLibrary = await getByUrlId('libraries', 'vpns')
-  const collections = (await getAllCache(Types.collection)) as Collection[]
-  // all just to remove the vpn items from currently popular
-  let vpnItems: string[] = []
-  if (vpnLibrary !== null) {
-    const vpnCollections = (vpnLibrary as Library).collections.map(
-      (collectionId) =>
-        collections.find((collection) => collection._id === collectionId)
-    )
-    vpnItems = [].concat.apply(
-      [],
-      vpnCollections.map((collection) => collection.items)
-    )
-  }
-
   const allItems = (await getAllCache(Types.item)) as Item[]
-  const sponsors = allItems.filter((item) => {
-    if (!item.sponsor) {
-      return false
-    }
-    if (vpnLibrary === null) {
-      return true
-    }
-
-    // custom remove of vpnItems
-    return !vpnItems.some((i) => item._id === i)
-  })
-
+  const sponsors = allItems.filter((item) => item.sponsor)
   const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
     (item) => !item.sponsor
   )
