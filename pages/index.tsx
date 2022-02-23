@@ -105,15 +105,15 @@ export async function getStaticProps() {
   const vpnLibrary = await getByUrlId('libraries', 'vpns')
   const collections = (await getAllCache(Types.collection)) as Collection[]
   // all just to remove the vpn items from currently popular
-  let vpnItems: Item[] = []
+  let vpnItems: string[] = []
   if (vpnLibrary !== null) {
-    const libraryCollections = (vpnLibrary as Library).collections.map(
+    const vpnCollections = (vpnLibrary as Library).collections.map(
       (collectionId) =>
         collections.find((collection) => collection._id === collectionId)
     )
     vpnItems = [].concat.apply(
       [],
-      libraryCollections.map((collection) => collection.items)
+      vpnCollections.map((collection) => collection.items)
     )
   }
 
@@ -127,7 +127,7 @@ export async function getStaticProps() {
     }
 
     // custom remove of vpnItems
-    return !vpnItems.some((i) => item._id === i._id)
+    return !vpnItems.some((i) => item._id === i)
   })
 
   const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
