@@ -9,14 +9,15 @@ if (!process.env.CHROME_URL) {
   throw Error('No ws url for chromium defined')
 }
 
+const browser = puppeteer.connect({
+  browserWSEndpoint: process.env.CHROME_URL,
+})
+
 export async function fetchSite(url: string, itemId?: string) {
   console.log('Fetching site', url, 'of item', itemId)
 
-  const browser = await puppeteer.connect({
-    browserWSEndpoint: process.env.CHROME_URL,
-  })
   // open a new empty tab and set viewport
-  const page = await browser.newPage()
+  const page = await (await browser).newPage()
   await page.setViewport({
     width: 1280,
     height: 720,
@@ -33,7 +34,6 @@ export async function fetchSite(url: string, itemId?: string) {
   } catch (e) {
     console.error('Could not navigate to page', url, e)
     await page.close()
-    await browser.close()
     return null
   }
 
@@ -56,7 +56,6 @@ export async function fetchSite(url: string, itemId?: string) {
   // cleanup
   page.removeAllListeners('request')
   await page.close()
-  await browser.close()
 
   return {
     status,

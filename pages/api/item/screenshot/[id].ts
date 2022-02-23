@@ -36,7 +36,10 @@ export default async function handler(
         res.redirect('/no-screenshot.png').end()
       }
     } catch (e) {
-      console.log('Something horribly went wrong :(', e)
+      console.log(
+        'Something horribly went wrong while fetching the screenshot :(',
+        e
+      )
       res.status(500).send(e.toString())
     }
   } else {
