@@ -29,7 +29,7 @@ export async function fetchSite(url: string, itemId?: string) {
     // go to page and wait till idle
     response = await page.goto(url, {
       waitUntil: 'networkidle2',
-      timeout: 0,
+      timeout: 60,
     })
   } catch (e) {
     console.error('Could not navigate to page', url, e)
