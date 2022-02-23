@@ -101,7 +101,7 @@ export async function getStaticProps() {
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
   const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
-    (item) => !sponsors.some((sponsorItem) => item._id === sponsorItem._id)
+    (item) => !item.sponsor
   )
   sponsors
     .sort((a, b) => {
@@ -110,7 +110,7 @@ export async function getStaticProps() {
 
       // desc popularity
       if (popularA !== popularB) {
-        return popularA > popularB ? -1 : 1
+        return popularA < popularB ? -1 : 1
       }
 
       // asc name
@@ -124,7 +124,7 @@ export async function getStaticProps() {
   return {
     props: {
       libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
-      items: popular,
+      items: popular.slice(0, 12),
       collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
       columns: await getAllCache(Types.column),
     },
