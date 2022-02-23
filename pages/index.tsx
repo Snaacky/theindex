@@ -9,6 +9,9 @@ import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import ViewAllButton from '../components/buttons/ViewAllButton'
 import { Item } from '../types/Item'
+import { getByUrlId } from '../lib/db/db'
+import { Library } from '../types/Library'
+import { Collection } from '../types/Collection'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -98,11 +101,39 @@ export default function Home({ libraries, items, collections, columns }) {
 }
 
 export async function getStaticProps() {
+  // hacky wacky custom code....
+  const vpnLibrary = await getByUrlId('libraries', 'vpns')
+  const collections = (await getAllCache(Types.collection)) as Collection[]
+  // all just to remove the vpn items from currently popular
+  let vpnItems: Item[] = []
+  if (vpnLibrary !== null) {
+    const libraryCollections = (vpnLibrary as Library).collections.map(
+      (collectionId) =>
+        collections.find((collection) => collection._id === collectionId)
+    )
+    vpnItems = [].concat.apply(
+      [],
+      libraryCollections.map((collection) => collection.items)
+    )
+  }
+
   const allItems = (await getAllCache(Types.item)) as Item[]
-  const sponsors = allItems.filter((item) => item.sponsor)
+  const sponsors = allItems.filter((item) => {
+    if (!item.sponsor) {
+      return false
+    }
+    if (vpnLibrary === null) {
+      return true
+    }
+
+    // custom remove of vpnItems
+    return !vpnItems.some((i) => item._id === i._id)
+  })
+
   const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
     (item) => !item.sponsor
   )
+
   sponsors
     .sort((a, b) => {
       const popularA = popular.findIndex((item) => item._id === a._id)
@@ -124,7 +155,7 @@ export async function getStaticProps() {
   return {
     props: {
       libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
-      items: popular.slice(0, 12),
+      items: popular.slice(0, 9),
       collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
       columns: await getAllCache(Types.column),
     },

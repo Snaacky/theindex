@@ -185,7 +185,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const library = await getByUrlId('libraries', params.id)
+  const library = (await getByUrlId('libraries', params.id)) as Library
   if (!library) {
     return {
       notFound: true,
