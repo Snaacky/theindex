@@ -14,6 +14,7 @@ const nextConfig = {
     ]
   },
   images: {
+    dangerouslyAllowSVG: true,
     domains: ['cdn.discordapp.com', 'localhost'],
   },
   swcMinify: false, // workaround for disabling swc, see https://nextjs.org/docs/messages/failed-loading-swc
