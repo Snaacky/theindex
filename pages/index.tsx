@@ -103,9 +103,23 @@ export async function getStaticProps() {
   const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
     (item) => !sponsors.some((sponsorItem) => item._id === sponsorItem._id)
   )
-  sponsors.forEach((sponsor) => {
-    popular.unshift(sponsor)
-  })
+  sponsors
+    .sort((a, b) => {
+      const popularA = popular.findIndex((item) => item._id === a._id)
+      const popularB = popular.findIndex((item) => item._id === b._id)
+
+      // desc popularity
+      if (popularA !== popularB) {
+        return popularA > popularB ? -1 : 1
+      }
+
+      // asc name
+      return a.name < b.name ? -1 : 1
+    })
+    .reverse()
+    .forEach((sponsor) => {
+      popular.unshift(sponsor)
+    })
 
   return {
     props: {
