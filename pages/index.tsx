@@ -98,18 +98,20 @@ export default function Home({ libraries, items, collections, columns }) {
 }
 
 export async function getStaticProps() {
-  const items = (await getLastViews('item', 1000)).slice(0, 9) as Item[]
-  ;((await getAllCache(Types.item)) as Item[])
-    .filter((item) => item.sponsor && !items.some((i) => i._id === item._id))
-    .forEach((sponsor) => {
-      items.push(sponsor)
-    })
-  
+  const allItems = (await getAllCache(Types.item)) as Item[]
+  const sponsors = allItems.filter((item) => item.sponsor)
+  const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
+    (item) => !sponsors.some((sponsorItem) => item._id === sponsorItem._id)
+  )
+  sponsors.forEach((sponsor) => {
+    popular.unshift(sponsor)
+  })
+
   return {
     props: {
-      libraries: (await getLastViews('library', 1000)).slice(0, 6),
-      items: items,
-      collections: (await getLastViews('collection', 1000)).slice(0, 9),
+      libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
+      items: popular,
+      collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
       columns: await getAllCache(Types.column),
     },
     revalidate: 60,

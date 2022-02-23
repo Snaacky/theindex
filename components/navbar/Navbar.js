@@ -11,7 +11,6 @@ import NavbarToggler from './NavbarToggler'
 import IconItem from '../icons/IconItem'
 import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
-import SupportBanner from '../alerts/SupportBanner'
 import { canEdit } from '../../lib/session'
 import { useSession } from 'next-auth/react'
 
@@ -144,7 +143,6 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-      <SupportBanner />
 
       <Sidebar show={show} setShow={(v) => setShow(v)} ref={sidebarRef} />
     </>

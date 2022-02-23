@@ -10,12 +10,13 @@ import {
 } from './db'
 import { getLibraries } from './libraries'
 import { singularToPlural } from '../utils'
+import { Types } from '../../types/Components'
 
 export async function getViews() {
   return await getAll('views')
 }
 
-export async function getLastViews(type, n) {
+export async function getLastViews(type: Types, n: number) {
   const db = (await dbClient).db()
   const data = cleanId(
     await db
@@ -29,7 +30,7 @@ export async function getLastViews(type, n) {
   // count what has been popular recently
   let accumulated = {}
 
-  if (type === 'library') {
+  if (type === Types.library) {
     const libs = await getLibraries()
     libs.forEach((lib) => {
       accumulated[lib._id] = 0
