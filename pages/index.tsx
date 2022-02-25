@@ -100,18 +100,8 @@ export default function Home({ libraries, items, collections, columns }) {
 export async function getStaticProps() {
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
-  const popular = ((await getLastViews(Types.item, 1000)) as Item[]).filter(
-    (item) => !item.sponsor
-  )
+  let popular = (await getLastViews(Types.item, 1000)) as Item[]
 
-  console.log(
-    'Currently popular and not sponsor:',
-    popular.map((i) => i.name)
-  )
-  console.log(
-    'All sponsors:',
-    sponsors.map((i) => i.name)
-  )
   const sponsorsSortedByPopular = sponsors.sort((a, b) => {
     const popularA = popular.findIndex((item) => item._id === a._id)
     const popularB = popular.findIndex((item) => item._id === b._id)
@@ -125,20 +115,24 @@ export async function getStaticProps() {
 
     // desc popularity
     if (popularA !== popularB) {
+      if (popularA === -1) {
+        return 1
+      } else if (popularB === -1) {
+        return -1
+      }
       return popularA < popularB ? -1 : 1
     }
 
     // asc name
     return a.name < b.name ? -1 : 1
   })
-  console.log(
-    'Sorted by popularity:',
-    sponsorsSortedByPopular.map((i) => i.name)
-  )
+
+  // remove all sponsor from popular
+  popular = popular.filter((item) => !item.sponsor)
+  // and re-add them by sorted sponsor array
   sponsorsSortedByPopular.reverse().forEach((sponsor) => {
     popular.unshift(sponsor)
   })
-  console.log('Results in total currently popular:', popular)
 
   return {
     props: {
