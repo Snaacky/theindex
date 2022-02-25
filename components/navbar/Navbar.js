@@ -144,7 +144,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div className={'d-flex justify-content-center'}>
+      <div className={'d-flex mt-2 justify-content-center'}>
         <a href={'https://privateinternetaccess.com/offer/PiracyMoe_rlhdso1tf'}>
           <Image src={'/pia-banner.png'} height={90} width={970} />
         </a>
