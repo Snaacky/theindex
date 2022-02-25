@@ -1,4 +1,4 @@
-FROM node:17.4.0
+FROM node:17.6.0
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"

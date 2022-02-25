@@ -104,23 +104,41 @@ export async function getStaticProps() {
     (item) => !item.sponsor
   )
 
-  sponsors
-    .sort((a, b) => {
-      const popularA = popular.findIndex((item) => item._id === a._id)
-      const popularB = popular.findIndex((item) => item._id === b._id)
+  console.log(
+    'Currently popular and not sponsor:',
+    popular.map((i) => i.name)
+  )
+  console.log(
+    'All sponsors:',
+    sponsors.map((i) => i.name)
+  )
+  const sponsorsSortedByPopular = sponsors.sort((a, b) => {
+    const popularA = popular.findIndex((item) => item._id === a._id)
+    const popularB = popular.findIndex((item) => item._id === b._id)
+    console.log(
+      'Comparing Items for sorting popularity:',
+      a.name,
+      popularA,
+      b.name,
+      popularB
+    )
 
-      // desc popularity
-      if (popularA !== popularB) {
-        return popularA < popularB ? -1 : 1
-      }
+    // desc popularity
+    if (popularA !== popularB) {
+      return popularA < popularB ? -1 : 1
+    }
 
-      // asc name
-      return a.name < b.name ? -1 : 1
-    })
-    .reverse()
-    .forEach((sponsor) => {
-      popular.unshift(sponsor)
-    })
+    // asc name
+    return a.name < b.name ? -1 : 1
+  })
+  console.log(
+    'Sorted by popularity:',
+    sponsorsSortedByPopular.map((i) => i.name)
+  )
+  sponsorsSortedByPopular.reverse().forEach((sponsor) => {
+    popular.unshift(sponsor)
+  })
+  console.log('Results in total currently popular:', popular)
 
   return {
     props: {
