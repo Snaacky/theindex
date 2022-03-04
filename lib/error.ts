@@ -8,13 +8,15 @@ export type ErrorMessage = {
 
 export const getError = (statusCode: number): ErrorMessage => {
   const errors = readJSON('error.json')
+  let result = {}
   if (statusCode in errors) {
-    return errors[statusCode]
+    result = errors[statusCode]
   }
 
   return {
     text: 'An unknown error occurred',
     img: '/img/puzzled.png',
     imgAlt: 'Puzzled Kanna',
+    ...result,
   }
 }

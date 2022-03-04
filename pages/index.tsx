@@ -14,6 +14,43 @@ const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
 export default function Home({ libraries, items, collections, columns }) {
+  let error = false
+  if (!Array.isArray(libraries)) {
+    console.error('Index static page render failed: libraries is', libraries)
+    error = true
+  }
+  if (!Array.isArray(items)) {
+    console.error('Index static page render failed: items is', items)
+    error = true
+  }
+  if (!Array.isArray(collections)) {
+    console.error(
+      'Index static page render failed: collections is',
+      collections
+    )
+    error = true
+  }
+  if (!Array.isArray(columns)) {
+    console.error('Index static page render failed: columns is', columns)
+    error = true
+  }
+
+  if (error) {
+    return (
+      <>
+        <div className={'alert alert-danger'}>
+          Something seems to have gone really really bad...
+        </div>
+
+        <Link href={'/libraries'}>
+          <a className={'btn btn-primary'}>
+            Better checkout the libraries
+          </a>
+        </Link>
+      </>
+    )
+  }
+
   return (
     <>
       <Head>
