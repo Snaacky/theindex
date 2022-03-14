@@ -8,6 +8,9 @@ import styles from './Footer.module.css'
 import FooterLink from '../links/FooterLink'
 import { faReddit } from '@fortawesome/free-brands-svg-icons/faReddit'
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 type SocialsType = {
   name: string
@@ -31,17 +34,17 @@ const socials: SocialsType[] = [
   {
     name: 'Discord',
     url: 'https://discord.gg/piracy',
-    icon: 'discord',
+    icon: faDiscord,
   },
   {
     name: 'Twitter',
     url: 'https://twitter.com/ranimepiracy',
-    icon: 'twitter',
+    icon: faTwitter,
   },
   {
     name: 'Github',
     url: 'https://github.com/ranimepiracy/index',
-    icon: 'github',
+    icon: faGithub,
   },
 ]
 
