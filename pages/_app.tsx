@@ -5,10 +5,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import '../styles/global.css'
 
 import { SessionProvider, useSession } from 'next-auth/react'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core'
 import Loader from '../components/loading'
 import { SWRConfig } from 'swr'
 import { useEffect } from 'react'
@@ -21,9 +18,13 @@ import NoScriptAlert from '../components/alerts/NoScriptAlert'
 import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 
-library.add(fab, fas, far)
+// disable autoconfig css of fontawesome, see: https://fontawesome.com/docs/web/use-with/react/use-with
+config.autoAddCss = false
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const router = useRouter()
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function App({ Component, pageProps }) {
   })
 
   return (
-    <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
       <SWRConfig
         value={{
           fetcher: (resource, init) =>
@@ -71,7 +72,6 @@ export default function App({ Component, pageProps }) {
                     <div>
                       <code>{res.status}</code> - Error
                     </div>
-                    <code>{key}</code>
                   </div>
                 )
                 throw new Error('Failed to fetch api endpoint :(')

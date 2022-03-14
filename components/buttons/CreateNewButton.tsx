@@ -4,6 +4,7 @@ import { canEdit } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from 'next-auth/react'
 import { Types } from '../../types/Components'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 
 type Props = {
   type: Types
@@ -17,7 +18,7 @@ const CreateNewButton: FC<Props> = ({ type, allowEdit }) => {
     canEdit(session, type) && (
       <Link href={'/edit/' + type + '/_new'}>
         <a className={'btn btn-outline-success mb-2 me-2'}>
-          <FontAwesomeIcon icon={['fas', 'plus']} /> Create a new {type}
+          <FontAwesomeIcon icon={faPlus} /> Create a new {type}
         </a>
       </Link>
     )

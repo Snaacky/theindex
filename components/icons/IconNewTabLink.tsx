@@ -3,6 +3,7 @@ import { isValidUrl } from '../../lib/utils'
 import styles from './IconNewTabLink.module.css'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
 import { FC } from 'react'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt'
 
 type Props = {
   url: string
@@ -20,7 +21,7 @@ const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
         rel='noreferrer'
         data-tip={'Open in new tab'}
       >
-        <FontAwesomeIcon icon={['fas', 'external-link-alt']} size={size} />
+        <FontAwesomeIcon icon={faExternalLinkAlt} size={size} />
       </a>
     )
   }
@@ -28,7 +29,7 @@ const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
   return (
     <span data-tip={url && url !== '' ? 'Invalid url' : 'Missing url'}>
       <FontAwesomeIcon
-        icon={['fas', 'external-link-alt']}
+        icon={faExternalLinkAlt}
         size={size}
         className={'ms-2 text-danger'}
       />

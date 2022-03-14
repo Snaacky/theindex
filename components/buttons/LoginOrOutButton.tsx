@@ -2,6 +2,8 @@ import { isLogin } from '../../lib/session'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt'
 
 const LoginOrOutButton: FC = () => {
   const { data: session } = useSession()
@@ -22,11 +24,11 @@ const LoginOrOutButton: FC = () => {
     >
       {isLogin(session) ? (
         <>
-          Sign out <FontAwesomeIcon icon={['fas', 'sign-out-alt']} />
+          Sign out <FontAwesomeIcon icon={faSignOutAlt} />
         </>
       ) : (
         <>
-          <FontAwesomeIcon icon={['fas', 'sign-in-alt']} /> Sign In
+          <FontAwesomeIcon icon={faSignInAlt} /> Sign In
         </>
       )}
     </button>

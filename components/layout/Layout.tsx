@@ -5,8 +5,13 @@ import Navbar from '../navbar/Navbar'
 import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
+import { FC } from 'react'
 
-const Layout = ({ children, error }) => {
+type LayoutProps = {
+  error?: string
+}
+
+const Layout: FC<LayoutProps> = ({ children, error }) => {
   return (
     <div
       className={'d-flex'}

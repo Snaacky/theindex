@@ -4,6 +4,7 @@ import { postData } from '../../lib/utils'
 import { AccountType } from '../../types/User'
 import Select from '../data/Select'
 import { useRouter } from 'next/router'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
 
 type Props = {
   adminEditing?: boolean
@@ -98,7 +99,7 @@ const EditUser: FC<Props> = ({
 
       <span className={'float-end'}>
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
-          <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
+          <FontAwesomeIcon icon={faSave} className={'me-2'} />
           Save changes
         </button>
       </span>

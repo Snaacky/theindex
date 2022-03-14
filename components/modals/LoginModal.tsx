@@ -2,6 +2,7 @@ import Modal from './Modal'
 import { signIn } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
 
 type Props = {
   text: string
@@ -15,7 +16,7 @@ const LoginModal: FC<Props> = ({ text, close }) => {
       head={'Login required'}
       footer={
         <button className={'btn btn-outline-success'} onClick={() => signIn()}>
-          <FontAwesomeIcon icon={['fas', 'sign-in-alt']} /> Sign In
+          <FontAwesomeIcon icon={faSignInAlt} /> Sign In
         </button>
       }
     >

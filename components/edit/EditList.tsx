@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import CreateNewButton from '../buttons/CreateNewButton'
 import { Types } from '../../types/Components'
 import { List } from '../../types/List'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
 
 type Props = {
   _id?: string
@@ -132,7 +133,7 @@ const EditList: FC<Props> = ({
           <CreateNewButton type={Types.list} allowEdit={true} />
         )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
-          <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
+          <FontAwesomeIcon icon={faSave} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create list' : 'Save changes'}
         </button>
       </span>

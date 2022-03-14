@@ -9,6 +9,8 @@ import useSWR from 'swr'
 import { postData } from '../../lib/utils'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
 import { Item } from '../../types/Item'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons/faStar'
 
 type Props = {
   item: Item
@@ -55,10 +57,7 @@ const IconStar: FC<Props> = ({ item, size }) => {
           }
         }}
       >
-        <FontAwesomeIcon
-          icon={isFav ? ['fas', 'star'] : ['far', 'star']}
-          size={size}
-        />
+        <FontAwesomeIcon icon={isFav ? faStar : farStar} size={size} />
       </span>
       {show && (
         <LoginModal

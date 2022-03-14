@@ -1,4 +1,3 @@
-import { IconName } from '@fortawesome/fontawesome-common-types'
 import { FC } from 'react'
 import Link from 'next/link'
 
@@ -7,11 +6,13 @@ import styles from './Footer.module.css'
 
 // import components
 import FooterLink from '../links/FooterLink'
+import { faReddit } from '@fortawesome/free-brands-svg-icons/faReddit'
+import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 
 type SocialsType = {
   name: string
   url: string
-  icon: IconName
+  icon: string | IconDefinition
 }
 
 type OtherTypes = {
@@ -25,7 +26,7 @@ const socials: SocialsType[] = [
   {
     name: 'Reddit',
     url: 'https://www.reddit.com/r/animepiracy/',
-    icon: 'reddit',
+    icon: faReddit,
   },
   {
     name: 'Discord',
@@ -58,7 +59,7 @@ const otherServices: OtherTypes[] = [
 ]
 
 type Props = {
-  error: string
+  error?: string
 }
 
 const Footer: FC<Props> = ({ error }) => {
@@ -87,8 +88,7 @@ const Footer: FC<Props> = ({ error }) => {
                   key={idx}
                   url={social.url}
                   name={social.name}
-                  customIcon={true}
-                  customIconName={social.icon}
+                  icon={social.icon}
                 />
               ))}
             </div>

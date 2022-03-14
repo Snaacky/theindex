@@ -245,7 +245,7 @@ We serve every api request over the endpoint `/api`, the corresponding code can 
 
 ### Page restrictions
 
-Every page request first has to go through [\_app.js](pages/_app.js), where a basic layout is being applied and if a
+Every page request first has to go through [\_app.ts](pages/_app.ts), where a basic layout is being applied and if a
 page has an `auth` property, it also validates whether the user can access the given page. Valid auth attributes are:
 
 - `auth` itself is `null` or `typeof auth === "undefined"`, no restrictions. This seems to be a public page.

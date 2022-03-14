@@ -7,6 +7,7 @@ import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { User } from '../../types/User'
+import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 
 const Users = ({ users }: { users: User[] }) => {
   const { data: swrUsers } = useSWR('/api/users')
@@ -19,7 +20,7 @@ const Users = ({ users }: { users: User[] }) => {
       </Head>
 
       <h2>
-        <FontAwesomeIcon icon={['fas', 'users']} /> The whole community
+        <FontAwesomeIcon icon={faUsers} /> The whole community
         <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
           <DataBadge
             name={users.length + ' user' + (users.length !== 1 ? 's' : '')}

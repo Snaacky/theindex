@@ -4,6 +4,10 @@ import { isValidUrl } from '../lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import Meta from '../components/layout/Meta'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 const title = 'Validate API Endpoint | ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =
@@ -270,9 +274,7 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
               className={'btn btn-dark'}
               onClick={() => setExpand(!expand)}
             >
-              <FontAwesomeIcon
-                icon={['fas', expand ? 'chevron-down' : 'chevron-right']}
-              />
+              <FontAwesomeIcon icon={expand ? faChevronDown : faChevronRight} />
             </button>
           </div>
         </div>
@@ -396,7 +398,7 @@ const DataRow: FC<DataRowProps> = ({ attribute, body, valid }) => {
       </div>
       <div className={'col'}>{body}</div>
       <div className={'col-auto'}>
-        <FontAwesomeIcon icon={['fas', valid ? 'check' : 'times']} />
+        <FontAwesomeIcon icon={valid ? faCheck : faTimes} />
       </div>
     </div>
   )

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import styles from './NavbarDropdown.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 
 export default function NavbarDropdown({
   targetId,
@@ -25,9 +27,7 @@ export default function NavbarDropdown({
         onClick={() => setShow(!show)}
       >
         <div className={styles.chevron}>
-          <FontAwesomeIcon
-            icon={['fas', show ? 'chevron-down' : 'chevron-right']}
-          />
+          <FontAwesomeIcon icon={show ? faChevronDown : faChevronRight} />
         </div>
         {toggler}
       </a>

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '../loading'
 import { postData } from '../../lib/utils'
 import { Item } from '../../types/Item'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 
 type Props = {
   item: Item
@@ -42,7 +43,7 @@ const ItemToListModal: FC<Props> = ({ item, close }) => {
         <span>
           <Link href={'/edit/list/_new'}>
             <a className={'btn btn-outline-success'}>
-              <FontAwesomeIcon icon={['fas', 'plus']} /> Create a new list
+              <FontAwesomeIcon icon={faPlus} /> Create a new list
             </a>
           </Link>
         </span>

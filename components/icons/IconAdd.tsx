@@ -3,6 +3,7 @@ import iconStyles from './Icon.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 
 type Props = {
   size?: SizeProp
@@ -11,7 +12,7 @@ type Props = {
 const IconAdd: FC<Props> = ({ size }) => {
   return (
     <div className={iconStyles.icon + ' ' + styles.add + ' rounded'}>
-      <FontAwesomeIcon icon={['fas', 'plus']} size={size} />
+      <FontAwesomeIcon icon={faPlus} size={size} />
     </div>
   )
 }

@@ -9,6 +9,7 @@ import CreateNewButton from '../buttons/CreateNewButton'
 import { Library } from '../../types/Library'
 import { Collection } from '../../types/Collection'
 import { Types } from '../../types/Components'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
 
 type Props = {
   libraries: Library[]
@@ -207,7 +208,7 @@ const EditLibrary: FC<Props> = ({
           <CreateNewButton type={Types.library} allowEdit={true} />
         )}
         <button className={'btn btn-primary mb-2 me-2'} type='submit'>
-          <FontAwesomeIcon icon={['fas', 'save']} className={'me-2'} />
+          <FontAwesomeIcon icon={faSave} className={'me-2'} />
           {typeof _id === 'undefined' ? 'Create library' : 'Save changes'}
         </button>
       </span>

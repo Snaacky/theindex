@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC, MouseEventHandler } from 'react'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt'
 
 type Props = {
   className?: string
@@ -17,7 +18,7 @@ const IconDelete: FC<Props> = ({ className, size, onClick, title }) => {
       type={'button'}
       onClick={onClick}
     >
-      <FontAwesomeIcon icon={['fas', 'trash-alt']} size={size} />
+      <FontAwesomeIcon icon={faTrashAlt} size={size} />
     </button>
   )
 }

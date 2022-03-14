@@ -19,6 +19,7 @@ import { Types } from '../../types/Components'
 import { Column, ColumnType } from '../../types/Column'
 import { Item } from '../../types/Item'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter'
 
 type Props = {
   column: Column
@@ -114,7 +115,7 @@ const Column: FC<Props> = ({ column, columns, items }) => {
         <div className='card-body'>
           <div>
             <span className={'me-2'}>
-              <FontAwesomeIcon icon={['fas', 'filter']} /> Filter:
+              <FontAwesomeIcon icon={faFilter} /> Filter:
             </span>
             {column.type !== ColumnType.text && (
               <DataItem data={filter} column={column} onChange={setFilter} />

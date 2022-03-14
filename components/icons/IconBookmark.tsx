@@ -8,6 +8,8 @@ import iconStyles from './Icon.module.css'
 import styles from './IconBookmark.module.css'
 import { Item } from '../../types/Item'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons/faBookmark'
+import { faBookmark as farBookmark } from '@fortawesome/free-regular-svg-icons/faBookmark'
 
 type Props = {
   item: Item
@@ -30,7 +32,7 @@ const IconBookmark: FC<Props> = ({ item, size }) => {
         onMouseOut={() => setIsHovering(false)}
       >
         <FontAwesomeIcon
-          icon={isHovering ? ['fas', 'bookmark'] : ['far', 'bookmark']}
+          icon={isHovering ? faBookmark : farBookmark}
           size={size}
         />
       </span>

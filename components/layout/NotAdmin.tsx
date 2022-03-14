@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Image from 'next/image'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
 
 const title = 'Access denied - ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description = 'You are missing privileges to view the site'
@@ -43,7 +44,7 @@ export default function NotAdmin() {
       <p>You do not seem to have enough rights to access this page</p>
       <Link href={'/'}>
         <a className={'btn btn-outline-success'} data-tip={'Go back'}>
-          <FontAwesomeIcon icon={['fas', 'sign-in-alt']} /> Home
+          <FontAwesomeIcon icon={faSignInAlt} /> Home
         </a>
       </Link>
     </div>

@@ -1,23 +1,15 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconName } from '@fortawesome/fontawesome-common-types'
+import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 
 type Props = {
   name: string
   url: string
-  icon?: IconName
-  customIcon?: boolean
-  customIconName?: string
+  icon?: string | IconDefinition
 }
 
-const FooterLink: FC<Props> = ({
-  name,
-  url,
-  icon,
-  customIcon,
-  customIconName,
-}) => {
+const FooterLink: FC<Props> = ({ name, url, icon }) => {
   return (
     <div className='d-flex icon-link-hover my-2'>
       <a
@@ -27,17 +19,10 @@ const FooterLink: FC<Props> = ({
         aria-label={name}
         className='d-flex align-items-center'
       >
-        {customIcon && (
-          <Image
-            src={`/icons/${customIconName}`}
-            height={18}
-            width={18}
-            alt={name}
-          />
-        )}
-
-        {!customIcon && (
-          <FontAwesomeIcon icon={['fab', `${icon}`]} fixedWidth={true} />
+        {typeof icon === 'string' ? (
+          <Image src={`/icons/${icon}`} height={18} width={18} alt={name} />
+        ) : (
+          <FontAwesomeIcon icon={icon} fixedWidth={true} />
         )}
         <span className='ms-2'>{name}</span>
       </a>

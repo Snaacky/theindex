@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Image from 'next/image'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
 
 const title = 'Login to continue - ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description = 'You need to login to view the site'
@@ -41,7 +42,7 @@ export default function NotLogin() {
       />
       <p>You are currently not logged in</p>
       <button className={'btn btn-outline-success'} onClick={() => signIn}>
-        <FontAwesomeIcon icon={['fas', 'sign-in-alt']} /> Sign In
+        <FontAwesomeIcon icon={faSignInAlt} /> Sign In
       </button>
     </div>
   )

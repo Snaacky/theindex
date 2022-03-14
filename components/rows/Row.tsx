@@ -23,6 +23,8 @@ import { Collection } from '../../types/Collection'
 import { Column } from '../../types/Column'
 import { Library } from '../../types/Library'
 import { Item } from '../../types/Item'
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
 
 type Props = {
   type: Types
@@ -64,10 +66,10 @@ const Row: FC<Props> = ({
         {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
             <a onClick={() => move(-1)}>
-              <FontAwesomeIcon icon={['fas', 'chevron-up']} />
+              <FontAwesomeIcon icon={faChevronUp} />
             </a>
             <a onClick={() => move(1)}>
-              <FontAwesomeIcon icon={['fas', 'chevron-down']} />
+              <FontAwesomeIcon icon={faChevronDown} />
             </a>
           </div>
         )}

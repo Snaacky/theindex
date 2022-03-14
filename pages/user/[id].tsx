@@ -17,6 +17,7 @@ import { User } from '../../types/User'
 import { List } from '../../types/List'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 
 type Props = {
   user: User
@@ -85,7 +86,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
                     {(isAdmin(session) || isCurrentUser(session, user.uid)) && (
                       <Link href={'/edit/user/' + user.uid}>
                         <a title={'Edit user'} className={'ms-2'}>
-                          <FontAwesomeIcon icon={['fas', 'cog']} />
+                          <FontAwesomeIcon icon={faCog} />
                         </a>
                       </Link>
                     )}

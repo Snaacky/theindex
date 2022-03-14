@@ -1,6 +1,7 @@
 import styles from './UrlBadge.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isValidUrl } from '../../lib/utils'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt'
 
 export default function UrlBadge({ url, className = '' }) {
   if (isValidUrl(url)) {
@@ -14,7 +15,7 @@ export default function UrlBadge({ url, className = '' }) {
         <div className={styles.badge + ' badge rounded-pill'}>
           {url}
           <span className={'ms-2'}>
-            <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
+            <FontAwesomeIcon icon={faExternalLinkAlt} />
           </span>
         </div>
       </a>
@@ -29,7 +30,7 @@ export default function UrlBadge({ url, className = '' }) {
     >
       {url}
       <span className={'ms-2'}>
-        <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
+        <FontAwesomeIcon icon={faExternalLinkAlt} />
       </span>
     </div>
   )

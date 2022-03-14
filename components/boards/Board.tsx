@@ -21,6 +21,12 @@ import { Types } from '../../types/Components'
 import { List } from '../../types/List'
 import ReactTooltip from 'react-tooltip'
 import Input from '../data/Input'
+import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter'
+import { faThList } from '@fortawesome/free-solid-svg-icons/faThList'
+import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge'
+import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand'
+import { faCompress } from '@fortawesome/free-solid-svg-icons/faCompress'
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
 
 type Props = {
   contentOf: User | Item | List | Collection | Column | Library | null
@@ -336,7 +342,7 @@ const Board: FC<Props> = ({
               onClick={() => setShowFilter(!showFilter)}
               hover={(showFilter ? 'Hide' : 'Show') + ' filter options'}
             >
-              <FontAwesomeIcon icon={['fas', 'filter']} /> Filter
+              <FontAwesomeIcon icon={faFilter} /> Filter
             </Button>
           )}
 
@@ -370,9 +376,7 @@ const Board: FC<Props> = ({
             )}
             hover={'Switch to ' + (cardView ? 'list' : 'grid') + ' view'}
           >
-            <FontAwesomeIcon
-              icon={['fas', cardView ? 'th-list' : 'th-large']}
-            />{' '}
+            <FontAwesomeIcon icon={cardView ? faThList : faThLarge} />{' '}
             {cardView ? 'List' : 'Grid'}
           </Button>
 
@@ -383,7 +387,7 @@ const Board: FC<Props> = ({
               hover={(compactView ? 'Show more' : 'Hide') + ' details'}
             >
               <FontAwesomeIcon
-                icon={['fas', compactView ? 'expand' : 'compress']}
+                icon={compactView ? faExpand : faCompress}
                 className={'me-2'}
               />
               {compactView ? 'More' : 'Less'}
@@ -418,8 +422,7 @@ const Board: FC<Props> = ({
                 setEditMode(!editMode)
               }}
             >
-              {editMode ? 'Exit' : <FontAwesomeIcon icon={['fas', 'edit']} />}{' '}
-              edit-mode
+              {editMode ? 'Exit' : <FontAwesomeIcon icon={faEdit} />} edit-mode
             </button>
           )}
         </div>

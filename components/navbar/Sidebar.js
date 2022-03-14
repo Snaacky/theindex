@@ -17,6 +17,11 @@ import NavbarToggler from './NavbarToggler'
 import { isAdmin, isLogin } from '../../lib/session'
 import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
+import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
+import { faReddit } from '@fortawesome/free-brands-svg-icons/faReddit'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
@@ -59,7 +64,7 @@ function Sidebar({ show, setShow }, ref) {
                     <li className={'nav-item'}>
                       <Link href={'/admin/users'}>
                         <a className={'nav-link'}>
-                          <FontAwesomeIcon icon={['fas', 'users']} /> Users
+                          <FontAwesomeIcon icon={faUsers} /> Users
                         </a>
                       </Link>
                     </li>
@@ -220,7 +225,7 @@ function Sidebar({ show, setShow }, ref) {
                   target={'_blank'}
                   rel='noreferrer'
                 >
-                  <FontAwesomeIcon icon={['fab', 'reddit']} /> Reddit
+                  <FontAwesomeIcon icon={faReddit} /> Reddit
                 </a>,
                 <a
                   className={'nav-link umami--click--navbar-discord'}
@@ -229,7 +234,7 @@ function Sidebar({ show, setShow }, ref) {
                   target={'_blank'}
                   rel='noreferrer'
                 >
-                  <FontAwesomeIcon icon={['fab', 'discord']} /> Discord
+                  <FontAwesomeIcon icon={faDiscord} /> Discord
                 </a>,
                 <a
                   className={'nav-link umami--click--navbar-twitter'}
@@ -238,7 +243,7 @@ function Sidebar({ show, setShow }, ref) {
                   target={'_blank'}
                   rel='noreferrer'
                 >
-                  <FontAwesomeIcon icon={['fab', 'twitter']} /> Twitter
+                  <FontAwesomeIcon icon={faTwitter} /> Twitter
                 </a>,
                 <a
                   className={'nav-link umami--click--navbar-github'}
@@ -247,7 +252,7 @@ function Sidebar({ show, setShow }, ref) {
                   target={'_blank'}
                   rel='noreferrer'
                 >
-                  <FontAwesomeIcon icon={['fab', 'github']} /> Github
+                  <FontAwesomeIcon icon={faGithub} /> Github
                 </a>,
               ]}
               onClick={() => clickFunc()}

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './NavbarToggler.module.css'
 import navStyles from './Navbar.module.css'
 import classNames from 'classnames'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
 function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
   return (
@@ -23,7 +25,7 @@ function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
         }
       }}
     >
-      <FontAwesomeIcon icon={['fas', show ? 'times' : 'bars']} />
+      <FontAwesomeIcon icon={show ? faTimes : faBars} />
     </button>
   )
 }

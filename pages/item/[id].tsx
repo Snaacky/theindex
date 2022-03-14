@@ -26,6 +26,7 @@ import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 
 type Props = {
   item: Item
@@ -117,7 +118,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
               }
             >
               {item.stars}
-              <FontAwesomeIcon icon={['fas', 'star']} className={'ms-1'} />
+              <FontAwesomeIcon icon={faStar} className={'ms-1'} />
             </small>
           </p>
 
