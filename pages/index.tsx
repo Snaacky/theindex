@@ -37,7 +37,7 @@ export default function Home({ libraries, items, collections, columns }) {
   }
 
   if (error) {
-    console.log('[', new Date(), '] error found in index page')
+    console.error('[', new Date(), '] error found in index page')
     return (
       <>
         <div className={'alert alert-danger'}>
@@ -53,87 +53,102 @@ export default function Home({ libraries, items, collections, columns }) {
 
   console.log('[', new Date(), '] no errors found in index page')
 
-  return (
-    <>
-      <Head>
-        <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
+  try {
+    return (
+      <>
+        <Head>
+          <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
 
-        <Meta
-          title={process.env.NEXT_PUBLIC_SITE_NAME}
-          description={description}
-        />
-      </Head>
+          <Meta
+            title={process.env.NEXT_PUBLIC_SITE_NAME}
+            description={description}
+          />
+        </Head>
 
-      <div className={'row'}>
-        <div className={'col'}>
-          <h2 className={'mb-0'}>
-            Currently popular <Link href={'/libraries'}>libraries</Link>
-          </h2>
-          <div className={'mb-3 text-muted'}>
-            According to recent view counts
+        <div className={'row'}>
+          <div className={'col'}>
+            <h2 className={'mb-0'}>
+              Currently popular <Link href={'/libraries'}>libraries</Link>
+            </h2>
+            <div className={'mb-3 text-muted'}>
+              According to recent view counts
+            </div>
+          </div>
+
+          <div className={'col-auto'}>
+            <ViewAllButton type={Types.library} />
           </div>
         </div>
-
-        <div className={'col-auto'}>
-          <ViewAllButton type={Types.library} />
+        <div
+          className={'d-flex flex-wrap mb-4'}
+          style={{ marginRight: '-0.5rem' }}
+        >
+          {libraries.map((library) => {
+            return <LibraryCard library={library} key={library._id} />
+          })}
         </div>
-      </div>
-      <div
-        className={'d-flex flex-wrap mb-4'}
-        style={{ marginRight: '-0.5rem' }}
-      >
-        {libraries.map((library) => {
-          return <LibraryCard library={library} key={library._id} />
-        })}
-      </div>
 
-      <div className={'row'}>
-        <div className={'col'}>
-          <h2 className={'mb-0'}>
-            Currently popular <Link href={'/items'}>items</Link>
-          </h2>
-          <div className={'mb-3 text-muted'}>
-            According to recent view counts
+        <div className={'row'}>
+          <div className={'col'}>
+            <h2 className={'mb-0'}>
+              Currently popular <Link href={'/items'}>items</Link>
+            </h2>
+            <div className={'mb-3 text-muted'}>
+              According to recent view counts
+            </div>
+          </div>
+
+          <div className={'col-auto'}>
+            <ViewAllButton type={Types.item} />
           </div>
         </div>
-
-        <div className={'col-auto'}>
-          <ViewAllButton type={Types.item} />
+        <div
+          className={'d-flex flex-wrap mb-4'}
+          style={{ marginRight: '-0.5rem' }}
+        >
+          {items.map((item) => {
+            return <ItemCard item={item} columns={columns} key={item._id} />
+          })}
         </div>
-      </div>
-      <div
-        className={'d-flex flex-wrap mb-4'}
-        style={{ marginRight: '-0.5rem' }}
-      >
-        {items.map((item) => {
-          return <ItemCard item={item} columns={columns} key={item._id} />
-        })}
-      </div>
 
-      <div className={'row'}>
-        <div className={'col'}>
-          <h2 className={'mb-0'}>
-            Currently popular <Link href={'/collections'}>collections</Link>
-          </h2>
-          <div className={'mb-3 text-muted'}>
-            According to recent view counts
+        <div className={'row'}>
+          <div className={'col'}>
+            <h2 className={'mb-0'}>
+              Currently popular <Link href={'/collections'}>collections</Link>
+            </h2>
+            <div className={'mb-3 text-muted'}>
+              According to recent view counts
+            </div>
+          </div>
+
+          <div className={'col-auto'}>
+            <ViewAllButton type={Types.collection} />
           </div>
         </div>
-
-        <div className={'col-auto'}>
-          <ViewAllButton type={Types.collection} />
+        <div
+          className={'d-flex flex-wrap mb-4'}
+          style={{ marginRight: '-0.5rem' }}
+        >
+          {collections.map((collection) => {
+            return <CollectionCard collection={collection} key={collection._id} />
+          })}
         </div>
-      </div>
-      <div
-        className={'d-flex flex-wrap mb-4'}
-        style={{ marginRight: '-0.5rem' }}
-      >
-        {collections.map((collection) => {
-          return <CollectionCard collection={collection} key={collection._id} />
-        })}
-      </div>
-    </>
-  )
+      </>
+    )
+  } catch (e) {
+    console.error('[', new Date(), '] errored while rendering index')
+    return (
+      <>
+        <div className={'alert alert-danger'}>
+          Something seems to have gone really really bad...
+        </div>
+
+        <Link href={'/libraries'}>
+          <a className={'btn btn-primary'}>Better checkout the libraries</a>
+        </Link>
+      </>
+    )
+  }
 }
 
 export async function getStaticProps() {
@@ -175,6 +190,6 @@ export async function getStaticProps() {
       collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
       columns: await getAllCache(Types.column),
     },
-    revalidate: 60,
+    revalidate: 600,
   }
 }
