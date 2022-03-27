@@ -130,7 +130,9 @@ export default function Home({ libraries, items, collections, columns }) {
           style={{ marginRight: '-0.5rem' }}
         >
           {collections.map((collection) => {
-            return <CollectionCard collection={collection} key={collection._id} />
+            return (
+              <CollectionCard collection={collection} key={collection._id} />
+            )
           })}
         </div>
       </>

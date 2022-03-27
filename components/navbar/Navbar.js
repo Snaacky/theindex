@@ -13,6 +13,7 @@ import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
 import { canEdit } from '../../lib/session'
 import { useSession } from 'next-auth/react'
+import SupportBanner from '../alerts/SupportBanner'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
@@ -144,11 +145,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div className={'d-flex mt-2 justify-content-center'}>
-        <a href={'https://privateinternetaccess.com/offer/PiracyMoe_rlhdso1tf'}>
-          <Image src={'/pia-banner.png'} height={90} width={970} />
-        </a>
-      </div>
+      <SupportBanner />
 
       <Sidebar show={show} setShow={(v) => setShow(v)} ref={sidebarRef} />
     </>
