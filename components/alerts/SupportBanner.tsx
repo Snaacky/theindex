@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import styles from './SupportBanner.module.css'
+import { faFingerprint } from '@fortawesome/free-solid-svg-icons/faFingerprint'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 
 const SupportBanner: FC = () => {
   let { data: ip } = useSWR('/api/ip-info')
@@ -23,7 +25,7 @@ const SupportBanner: FC = () => {
   return (
     <div className={styles.banner}>
       <span className={'me-3 text-center'}>
-        <FontAwesomeIcon icon={['fas', 'fingerprint']} className={'me-3'} />
+        <FontAwesomeIcon icon={faFingerprint} className={'me-3'} />
         Your IP{' '}
         {ip ? (
           <kbd>
@@ -49,7 +51,7 @@ const SupportBanner: FC = () => {
       <div>
         <Link href={'/library/vpns'}>
           <a className={'me-3'}>
-            Learn more <FontAwesomeIcon icon={['fas', 'chevron-right']} />
+            Learn more <FontAwesomeIcon icon={faChevronRight} />
           </a>
         </Link>
       </div>
