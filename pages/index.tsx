@@ -14,7 +14,6 @@ const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
 export default function Home({ libraries, items, collections, columns }) {
-  console.log('[', new Date(), '] Rendering index page')
   let error = false
   if (!Array.isArray(libraries)) {
     console.error('Index static page render failed: libraries is', libraries)
@@ -50,8 +49,6 @@ export default function Home({ libraries, items, collections, columns }) {
       </>
     )
   }
-
-  console.log('[', new Date(), '] no errors found in index page')
 
   try {
     return (
@@ -154,7 +151,6 @@ export default function Home({ libraries, items, collections, columns }) {
 }
 
 export async function getStaticProps() {
-  console.log('[', new Date(), '] Gathering static props for index')
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
   let popular = (await getLastViews(Types.item, 1000)) as Item[]
@@ -184,7 +180,6 @@ export async function getStaticProps() {
     popular.unshift(sponsor)
   })
 
-  console.log('[', new Date(), '] Gathered static props for index')
   return {
     props: {
       libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
