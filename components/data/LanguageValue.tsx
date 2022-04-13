@@ -61,15 +61,13 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
       const incB = data.includes(b.iso6393)
 
       if ((incA && incB) || (!incA && !incB)) {
-        return a.name > b.name ? -1 : 1
+        return a.name > b.name ? 1 : -1
       }
 
       if (incA) {
         return -1
-      } else if (incB) {
-        return 1
       }
-      return 0
+      return 1
     })
   const sliced = expand
     ? filtered
