@@ -1,13 +1,12 @@
-// noinspection SpellCheckingInspection
-
 import Head from 'next/head'
 import Navbar from '../navbar/Navbar'
 import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 type LayoutProps = {
+  children: ReactNode // TODO: workaround, but what? why? Shouldn't FC already include that?
   error?: string
 }
 

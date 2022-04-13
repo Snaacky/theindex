@@ -4,6 +4,7 @@ import { FC, ReactNode, useEffect, useRef } from 'react'
 type Props = {
   head: ReactNode
   footer: ReactNode
+  children: ReactNode // TODO: workaround, but what? why? Shouldn't FC already include that?
   close: () => void
 }
 
