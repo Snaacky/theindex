@@ -9,6 +9,8 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
   const languages = getLanguages()
   const columns = (await getAllCache(Types.column)) as Column[]
   const data: Record<string, { column: Column; old: any; updated: any }> = {}
+
+  // go through all item.data entries
   if (oldItem !== null) {
     const oldKeys = Object.keys(oldItem.data)
     oldKeys.forEach((key) => {
@@ -70,6 +72,24 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
       type: ColumnType.text,
       name: 'Description',
     } as unknown as Column,
+  })
+
+  result.unshift({
+    column: {
+      name: 'Sponsor',
+      type: ColumnType.feature,
+    } as unknown as Column,
+    old: oldItem !== null ? oldItem.sponsor : null,
+    updated: newItem !== null ? newItem.sponsor : null,
+  })
+
+  result.unshift({
+    column: {
+      name: 'Blacklist',
+      type: ColumnType.feature,
+    } as unknown as Column,
+    old: oldItem !== null ? oldItem.blacklist : null,
+    updated: newItem !== null ? newItem.blacklist : null,
   })
 
   return result
