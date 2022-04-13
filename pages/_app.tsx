@@ -16,7 +16,6 @@ import NotAdmin from '../components/layout/NotAdmin'
 import NotLogin from '../components/layout/NotLogin'
 import NoScriptAlert from '../components/alerts/NoScriptAlert'
 import { toast } from 'react-toastify'
-import ReactTooltip from 'react-tooltip'
 
 // disable autoconfig css of fontawesome, see: https://fontawesome.com/docs/web/use-with/react/use-with
 config.autoAddCss = false
@@ -44,9 +43,6 @@ export default function App({
         .catch((e) => {
           console.warn('Failed to post page stat: Error', e)
         })
-        .finally(() => {
-          ReactTooltip.rebuild()
-        })
     }
 
     // when page is loaded via direct http request, there is no route change via JS, need to manually trigger
@@ -66,7 +62,8 @@ export default function App({
         value={{
           fetcher: (resource, init) =>
             fetch(resource, init).then((res) => {
-              if (res.status !== 200) {
+              // 200 - not ok, 502 - prevent downtime proxy error pollution
+              if (res.status !== 200 && res.status !== 502) {
                 toast.error(
                   <div>
                     <div>

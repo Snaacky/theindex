@@ -69,7 +69,9 @@ export default function EditorLibrary({
               img={library.img}
               nsfw={library.nsfw}
               description={library.description}
-              collections={library.collections}
+              collections={library.collections.map((c) =>
+                collections.find((collection) => collection._id === c)
+              )}
             />
           )}
         </div>
@@ -79,7 +81,9 @@ export default function EditorLibrary({
       {_id !== '_new' ? (
         <CollectionBoard
           contentOf={library}
-          collections={library.collections}
+          collections={library.collections.map((c) =>
+            collections.find((collection) => collection._id === c)
+          )}
           allCollections={collections}
           canMove={false}
           canEdit={true}

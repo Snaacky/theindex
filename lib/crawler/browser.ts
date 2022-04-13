@@ -1,9 +1,4 @@
-import puppeteer from 'puppeteer-extra'
-import StealthPlugin from 'puppeteer-extra-plugin-stealth'
-import AdblockPlugin from 'puppeteer-extra-plugin-adblocker'
-
-puppeteer.use(StealthPlugin())
-puppeteer.use(AdblockPlugin())
+import puppeteer from 'puppeteer-core'
 
 if (!process.env.CHROME_URL) {
   throw Error('No ws url for chromium defined')
