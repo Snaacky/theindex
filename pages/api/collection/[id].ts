@@ -8,5 +8,5 @@ export default async function apiCollection(
 ) {
   res
     .status(200)
-    .json(await getSingleCache(Types.collection, req.query.id as string, false))
+    .json(await getSingleCache(Types.collection, req.query.id as string))
 }

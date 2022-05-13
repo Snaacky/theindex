@@ -57,30 +57,30 @@ export default function App({
   })
 
   return (
-    <SessionProvider session={session} refetchInterval={5 * 60}>
-      <SWRConfig
-        value={{
-          fetcher: (resource, init) =>
-            fetch(resource, init).then((res) => {
-              // 200 - not ok, 502 - prevent downtime proxy error pollution
-              if (res.status !== 200 && res.status !== 502) {
-                toast.error(
+    <SWRConfig
+      value={{
+        fetcher: (resource, init) =>
+          fetch(resource, init).then(async (res) => {
+            // 200 - not ok, 502 - prevent downtime proxy error pollution
+            if (res.status !== 200 && res.status !== 502) {
+              toast.error(
+                <div>
                   <div>
-                    <div>
-                      <code>{res.status}</code> - Error
-                    </div>
+                    <code>{res.status}</code> - Error
                   </div>
-                )
-                throw new Error('Failed to fetch api endpoint :(')
-              }
+                </div>
+              )
+              throw new Error('Failed to fetch api endpoint :(')
+            }
 
-              return res.json()
-            }),
-          onError: (error, key) => {
-            console.error('SWR errored:', error, 'at path', key)
-          },
-        }}
-      >
+            return await res.json()
+          }),
+        onError: (error, key) => {
+          console.error('SWR errored:', error, 'at path', key)
+        },
+      }}
+    >
+      <SessionProvider session={session} refetchInterval={5 * 60}>
         <Layout>
           <Auth auth={Component.auth}>
             <noscript>
@@ -90,8 +90,8 @@ export default function App({
             <Component {...pageProps} />
           </Auth>
         </Layout>
-      </SWRConfig>
-    </SessionProvider>
+      </SessionProvider>
+    </SWRConfig>
   )
 }
 

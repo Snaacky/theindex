@@ -10,7 +10,7 @@ export default async function apiUsers(
 ) {
   const session = await getSession({ req })
   if (isAdmin(session)) {
-    res.status(200).json(await getAllCache(Types.user, false))
+    res.status(200).json(await getAllCache(Types.user))
   } else {
     // Not Signed in
     res.status(401).send('Not logged in or edits are not permitted')
