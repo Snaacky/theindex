@@ -6,7 +6,6 @@ import styles from './Footer.module.css'
 
 // import components
 import FooterLink from '../links/FooterLink'
-import { faReddit } from '@fortawesome/free-brands-svg-icons/faReddit'
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
@@ -27,13 +26,8 @@ type OtherTypes = {
 // this can be a separated JSON or something similar in the project for easy editing
 const socials: SocialsType[] = [
   {
-    name: 'Reddit',
-    url: 'https://www.reddit.com/r/animepiracy/',
-    icon: faReddit,
-  },
-  {
     name: 'Discord',
-    url: 'https://discord.gg/piracy',
+    url: 'https://discord.gg/theindex',
     icon: faDiscord,
   },
   {
@@ -51,13 +45,8 @@ const socials: SocialsType[] = [
 const otherServices: OtherTypes[] = [
   {
     name: 'Wiki',
-    url: 'https://wiki.piracy.moe/',
+    url: 'https://thewiki.moe/',
     icon: 'wikijs.svg',
-  },
-  {
-    name: 'Old Index',
-    url: 'https://old.piracy.moe/',
-    icon: 'logo.png',
   },
 ]
 

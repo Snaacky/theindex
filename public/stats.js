@@ -1,5 +1,5 @@
 if (typeof window !== 'undefined') {
-  if (window.location.hostname === 'piracy.moe') {
+  if (window.location.hostname === 'theindex.moe') {
     let script = document.createElement('script')
     script.src = 'https://stats.piracy.moe/imamu.js'
     script.async = true
@@ -13,7 +13,7 @@ if (typeof window !== 'undefined') {
     document.body.appendChild(script)
   } else {
     console.warn(
-      'You are not viewing the index under the real domain piracy.moe, but',
+      'You are not viewing the index under the real domain theindex.moe, but',
       window.location.hostname
     )
   }

@@ -124,7 +124,7 @@ export default function Navbar() {
                     className={
                       'nav-link d-flex align-items-center umami--click--navbar-wiki'
                     }
-                    href='https://wiki.piracy.moe/'
+                    href='https://thewiki.moe/'
                     style={{ lineHeight: 1 }}
                   >
                     <Image

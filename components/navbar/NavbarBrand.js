@@ -8,7 +8,7 @@ export default function NavbarBrand() {
       <a className={styles.link + ' navbar-brand d-block'}>
         <Image
           src='/icons/logo.png'
-          alt='r/animepiracy Logo'
+          alt='The Anime Index Logo'
           width='30'
           height='30'
           className='d-inline-block rounded align-top'

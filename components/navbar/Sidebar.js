@@ -18,7 +18,6 @@ import { isAdmin, isLogin } from '../../lib/session'
 import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
-import { faReddit } from '@fortawesome/free-brands-svg-icons/faReddit'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
 import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
@@ -185,7 +184,7 @@ function Sidebar({ show, setShow }, ref) {
                   className={
                     'nav-link d-flex align-items-center umami--click--navbar-wiki'
                   }
-                  href='https://wiki.piracy.moe/'
+                  href='https://thewiki.moe/'
                   key={'wiki'}
                 >
                   <Image
@@ -196,21 +195,6 @@ function Sidebar({ show, setShow }, ref) {
                   />
                   <span className={'ms-1'}>Wiki</span>
                 </a>,
-                <a
-                  className={
-                    'nav-link d-flex align-items-center umami--click--navbar-old-index'
-                  }
-                  href='https://piracy.moe/'
-                  key={'old-index'}
-                >
-                  <Image
-                    src={'/icons/logo.png'}
-                    height={16}
-                    width={16}
-                    alt={'AnimePiracy Logo'}
-                  />
-                  <span className={'ms-1'}>Old Index</span>
-                </a>,
               ]}
               onClick={() => clickFunc()}
             />
@@ -219,17 +203,8 @@ function Sidebar({ show, setShow }, ref) {
               targetId={'navbar-menu-social-media'}
               contentList={[
                 <a
-                  className={'nav-link umami--click--navbar-reddit'}
-                  href={'https://www.reddit.com/r/animepiracy/'}
-                  key={'reddit'}
-                  target={'_blank'}
-                  rel='noreferrer'
-                >
-                  <FontAwesomeIcon icon={faReddit} /> Reddit
-                </a>,
-                <a
                   className={'nav-link umami--click--navbar-discord'}
-                  href={'https://discord.gg/piracy'}
+                  href={'https://discord.gg/theindex'}
                   key={'discord'}
                   target={'_blank'}
                   rel='noreferrer'
