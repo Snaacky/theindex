@@ -1,7 +1,7 @@
 if (typeof window !== 'undefined') {
   if (window.location.hostname === 'theindex.moe') {
     let script = document.createElement('script')
-    script.src = 'https://stats.theindex.moe/umami.js'
+    script.src = 'https://stats.theindex.moe/imamu.js'
     script.async = true
     script.defer = true
     script.setAttribute(
