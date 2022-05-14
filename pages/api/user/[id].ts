@@ -12,12 +12,12 @@ export default async function apiUser(
   if (req.query.id === 'me') {
     const session = await getSession({ req })
     if (isLogin(session)) {
-      result = await getSingleCache(Types.user, session.user.uid, false)
+      result = await getSingleCache(Types.user, session.user.uid)
     } else {
-      return res.status(401)
+      return res.status(200).end()
     }
   } else {
-    result = await getSingleCache(Types.user, req.query.id as string, false)
+    result = await getSingleCache(Types.user, req.query.id as string)
   }
 
   res.status(200).json(result)

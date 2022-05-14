@@ -15,6 +15,12 @@ ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
 
+# SOCKS proxy details to use for ping requests
+ENV SOCKS_PROXY=""
+ENV SOCKS_PORT=""
+ENV SOCKS_USER=""
+ENV SOCKS_PASS=""
+
 # ENV for OAuth2
 ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="secret"

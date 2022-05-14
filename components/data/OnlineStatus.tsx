@@ -2,23 +2,17 @@ import useSWR from 'swr'
 import { FC, useState } from 'react'
 import styles from './OnlineStatus.module.css'
 import OnlineStatusModal from '../modals/OnlineStatusModal'
-import axios from 'axios'
 
 // import types
 import { StatusData, Statuses } from '../../types/OnlineStatus'
+import { Item } from '../../types/Item'
 
 type Props = {
-  url: string
+  item: Item
 }
 
-const OnlineStatus: FC<Props> = ({ url }) => {
-  let { data, error } = useSWR<StatusData>(url, (u: string) =>
-    axios
-      .post<StatusData>('https://ping.theindex.moe/ping', {
-        url: u,
-      })
-      .then((res) => res.data)
-  )
+const OnlineStatus: FC<Props> = ({ item }) => {
+  let { data, error } = useSWR<StatusData>('/api/item/ping/' + item._id)
 
   const [show, setShow] = useState(false)
 
@@ -27,9 +21,6 @@ const OnlineStatus: FC<Props> = ({ url }) => {
   if (error) {
     style = styles.error
     text = error.toString()
-  } else if (!url) {
-    style = styles.down
-    text = Statuses.noURL
   } else {
     if (!data) {
       style = styles.ping
@@ -43,6 +34,9 @@ const OnlineStatus: FC<Props> = ({ url }) => {
     } else if (data.status === 'unknown') {
       style = styles.unknown
       text = Statuses.unknown
+    } else if (data.status === 'noURL') {
+      style = styles.down
+      text = Statuses.noURL
     }
   }
 
@@ -54,7 +48,7 @@ const OnlineStatus: FC<Props> = ({ url }) => {
         onClick={() => setShow(true)}
         data-tip={
           text +
-          (data && url
+          (data && item.name
             ? ', last checked ' +
               new Date(parseInt(data.time) * 1000).toLocaleTimeString()
             : '')
@@ -62,7 +56,7 @@ const OnlineStatus: FC<Props> = ({ url }) => {
       />
       {show && (
         <OnlineStatusModal
-          url={url}
+          url={item.urls[0]}
           style={style}
           text={text}
           data={data}

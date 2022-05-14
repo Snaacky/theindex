@@ -108,7 +108,7 @@ const Row: FC<Props> = ({
           <div className={'card-body p-2'}>
             <h5 className={styles.title + ' card-title'}>
               {'urls' in content && typeof content.urls !== 'undefined' && (
-                <OnlineStatus url={content.urls[0] ?? ''} />
+                <OnlineStatus item={content} />
               )}
 
               {'sponsor' in content && content.sponsor && (

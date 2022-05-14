@@ -92,7 +92,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
 
 | Parameter                    | Function                                                                                             | Default                              |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
+|------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------|
 | `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Anime Index"`                  |
 | `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://piracy.moe"`               |
 | `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
@@ -100,6 +100,10 @@ Here is a collection of the possible ENV-variables with their default values you
 | `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
 | `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |
 | `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                            | `""`                                 |
+| `SOCKS_PROXY`                | Address for SOCKS5 proxy to use for pinging                                                          | `""`                                 |
+| `SOCKS_PORT`                 | Port for SOCKS5 connection                                                                           | `""`                                 |
+| `SOCKS_USER`                 | User for SOCKS5 connection                                                                           | `""`                                 |
+| `SOCKS_PASS`                 | Password for SOCKS5 connection                                                                       | `""`                                 |
 | `DISCORD_CLIENT_ID`          | Discord OAuth2 client ID                                                                             | `"your_discord_oauth_client_id"`     |
 | `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                         | `"your_discord_oauth_client_secret"` |
 | `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                     | `"your_discord_bot_token"`           |

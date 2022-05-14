@@ -78,7 +78,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
       <div className={'row'}>
         <div className={'col-12 col-md-4 col-lg-6 col-xl-4'}>
           <h2>
-            <OnlineStatus url={item.urls[0] ?? ''} />
+            <OnlineStatus item={item} />
             {item.blacklist ? (
               <span className={'text-danger'}>
                 Blacklisted: <del>{item.name}</del>
