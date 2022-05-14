@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusData } from '../../../../types/OnlineStatus'
 import { Item } from '../../../../types/Item'
 import { SocksProxyAgent } from 'socks-proxy-agent'
-import https from 'https'
+import fetch from 'node-fetch'
 
 export default async function apiItemPing(
   req: NextApiRequest,
@@ -84,50 +84,47 @@ async function triggerPingUpdate(itemId: string) {
     )
   }
 
-  https
-    .get(
-      item.urls[0],
-      {
-        agent: new SocksProxyAgent({
-          hostname: process.env.SOCKS_PROXY,
-          port: process.env.SOCKS_PORT,
-          userId: process.env.SOCKS_USER,
-          password: process.env.SOCKS_PASS,
-        }),
-        headers: {
-          DNT: 1,
-          Pragma: 'no-cache',
-          'Cache-Control': 'no-cache',
-          Referer: 'https://theindex.moe',
-        },
-      },
-      async (res) => {
-        const code = res.statusCode
-        const up = [200, 300, 301, 302, 307, 308]
-        let status = 'down'
+  fetch(item.urls[0], {
+    method: 'GET',
+    agent: new SocksProxyAgent({
+      hostname: process.env.SOCKS_PROXY,
+      port: process.env.SOCKS_PORT,
+      userId: process.env.SOCKS_USER,
+      password: process.env.SOCKS_PASS,
+    }),
+    headers: {
+      DNT: '1',
+      Pragma: 'no-cache',
+      'Cache-Control': 'no-cache',
+      Referer: 'https://theindex.moe',
+    },
+  })
+    .then(async (res) => {
+      const code = res.status
+      const up = [200, 300, 301, 302, 307, 308]
+      let status = 'down'
 
-        if (up.includes(code)) {
-          status = 'up'
-        } else if ('Server' in res.headers) {
-          const server = res.headers.Server
-          const unknown = [401, 403, 503, 520]
-          const forbidden = 403
-          if (
-            (unknown.includes(code) && server === 'cloudflare') ||
-            (forbidden === code && server === 'ddos-guard')
-          ) {
-            status = 'unknown'
-          }
+      const server = res.headers.get('Server') || res.headers.get('server')
+      if (up.includes(code)) {
+        status = 'up'
+      } else if (server) {
+        const unknown = [401, 403, 503, 520]
+        const forbidden = 403
+        if (
+          (unknown.includes(code) && server === 'cloudflare') ||
+          (forbidden === code && server === 'ddos-guard')
+        ) {
+          status = 'unknown'
         }
-
-        await setCache(Types.item + '_ping-' + itemId, {
-          url: item.urls[0],
-          time: Date.now().toString(),
-          status,
-        })
       }
-    )
-    .on('error', (e) => {
+
+      await setCache(Types.item + '_ping-' + itemId, {
+        url: item.urls[0],
+        time: Date.now().toString(),
+        status,
+      })
+    })
+    .catch((e) => {
       console.error('Failed to ping page', e)
     })
 }
