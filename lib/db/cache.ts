@@ -151,9 +151,7 @@ export function setCache(key: string, data: string | object) {
     data = JSON.stringify(data)
   }
 
-  return client.set(key, data).then(() => {
-    console.debug('Created cache for', key)
-  })
+  return client.set(key, data)
 }
 
 export async function clearSingleCache(type: Types, _id: string) {
