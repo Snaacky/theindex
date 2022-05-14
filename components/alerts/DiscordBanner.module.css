@@ -1,0 +1,24 @@
+.banner {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(114, 137, 218, 0.15);
+  border: 1px solid #7289da;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0.25rem 2rem;
+  color: #7289da;
+  transition-duration: 50ms;
+}
+
+.banner:hover {
+  background-color: #7289da;
+  color: white;
+}
+
+.bannerOutside {
+  margin-top: 1rem;
+}
+
+.svg {
+  padding-right: 4px;
+}

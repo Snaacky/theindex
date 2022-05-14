@@ -14,6 +14,7 @@ import IconCollection from '../icons/IconCollection'
 import { canEdit } from '../../lib/session'
 import { useSession } from 'next-auth/react'
 import SupportBanner from '../alerts/SupportBanner'
+import DiscordBanner from '../alerts/DiscordBanner'
 
 export default function Navbar() {
   const [show, setShow] = useState(false)
@@ -146,6 +147,8 @@ export default function Navbar() {
       </nav>
 
       <SupportBanner />
+
+      <DiscordBanner />
 
       <Sidebar show={show} setShow={(v) => setShow(v)} ref={sidebarRef} />
     </>
