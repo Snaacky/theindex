@@ -1,4 +1,4 @@
-FROM node:17.6.0
+FROM node:18.1.0
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
@@ -9,8 +9,8 @@ ENV CHROME_URL="ws://chrome:3300"
 ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
 
 # connection urls
-ENV NEXTAUTH_URL="https://piracy.moe"
-ENV NEXT_PUBLIC_DOMAIN="https://piracy.moe"
+ENV NEXTAUTH_URL="https://theindex.moe"
+ENV NEXT_PUBLIC_DOMAIN="https://theindex.moe"
 ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
@@ -27,10 +27,10 @@ EXPOSE 3000
 HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
 LABEL org.opencontainers.image.vendor="/r/animepiracy" \
-      org.opencontainers.image.url="https://piracy.moe" \
-      org.opencontainers.image.description="Webserver of piracy.moe Index" \
+      org.opencontainers.image.url="https://theindex.moe" \
+      org.opencontainers.image.description="Webserver of The Index" \
       org.opencontainers.image.title="Index" \
-      maintainer="Community of /r/animepiracy"
+      maintainer="Community of The Index"
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH

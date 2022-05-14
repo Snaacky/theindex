@@ -129,7 +129,7 @@ export default function ValidateApi() {
             If an alphanumeric secret is provided, we will include the following
             http header each request:{' '}
             <kbd>
-              <code>Authorization: piracy.moe ##########...</code>
+              <code>Authorization: theindex.moe ##########...</code>
             </kbd>
             .
           </div>
@@ -450,7 +450,7 @@ const fetchingEndpoint = (
   if (secret !== '') {
     fetchInit = {
       headers: new Headers({
-        Authorization: 'piracy.moe ' + secret,
+        Authorization: 'theindex.moe ' + secret,
       }),
     }
   }

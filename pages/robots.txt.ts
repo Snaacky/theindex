@@ -6,7 +6,7 @@ export const getServerSideProps = async ({ res }) => {
   const uri =
     'NEXT_PUBLIC_DOMAIN' in process.env
       ? process.env.NEXT_PUBLIC_DOMAIN
-      : 'https://piracy.moe'
+      : 'https://theindex.moe'
 
   let robots =
     'User-agent: *\n' +

@@ -5,7 +5,7 @@ import OnlineStatusModal from '../modals/OnlineStatusModal'
 import axios from 'axios'
 
 // import types
-import { Statuses, StatusData } from '../../types/OnlineStatus'
+import { StatusData, Statuses } from '../../types/OnlineStatus'
 
 type Props = {
   url: string
@@ -14,7 +14,7 @@ type Props = {
 const OnlineStatus: FC<Props> = ({ url }) => {
   let { data, error } = useSWR<StatusData>(url, (u: string) =>
     axios
-      .post<StatusData>('https://ping.piracy.moe/ping', {
+      .post<StatusData>('https://ping.theindex.moe/ping', {
         url: u,
       })
       .then((res) => res.data)
