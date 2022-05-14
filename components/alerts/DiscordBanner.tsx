@@ -17,7 +17,7 @@ export default function DiscordBanner() {
 
   return (
     <div className={'container ' + bannerOutside}>
-      <a href='https://discord.gg/theindex' target='_blank'>
+      <a href='https://discord.gg/theindex' target='_blank' rel='noreferrer'>
         <div className={banner}>
           <span className={svg}>{svgElement}</span> Discord
         </div>
