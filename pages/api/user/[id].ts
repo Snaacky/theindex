@@ -27,7 +27,7 @@ export default async function apiUser(
       const userAccount = await findOne('nextauth_users', {
         _id: new ObjectId(uId),
       })
-      const discordAccount = await findOne('nextauth_account', {
+      const discordAccount = await findOne('nextauth_accounts', {
         userId: new ObjectId(uId),
       })
 
