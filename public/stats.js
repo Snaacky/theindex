@@ -1,12 +1,12 @@
 if (typeof window !== 'undefined') {
   if (window.location.hostname === 'theindex.moe') {
     let script = document.createElement('script')
-    script.src = 'https://stats.piracy.moe/imamu.js'
+    script.src = 'https://stats.theindex.moe/umami.js'
     script.async = true
     script.defer = true
     script.setAttribute(
       'data-website-id',
-      '7c408638-1374-450e-a803-a08a7c3f03af'
+      '9a122690-3f95-4e79-b289-72cc0885a619'
     )
 
     console.log('Appending stats script')
