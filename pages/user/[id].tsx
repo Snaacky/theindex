@@ -31,6 +31,15 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
 
   const { data: swrUser } = useSWR('/api/user/' + user.uid)
   user = swrUser || user
+  let adminInfo
+  if (isAdmin(session)) {
+    adminInfo = user
+    if ('user' in user) {
+      // @ts-ignore
+      user = user.user
+    }
+  }
+
   const { data: swrColumn } = useSWR('/api/columns')
   columns = swrColumn || columns
   const { data: swrItem } = useSWR('/api/items')
@@ -44,6 +53,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
   const followLists = (swrLists || lists).filter((list) =>
     user.followLists.includes(list._id)
   )
+
   return (
     <>
       <Head>
@@ -109,6 +119,13 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
           </p>
         </div>
       </div>
+
+      <button
+        className={'mt-3 btn btn-warning'}
+        onClick={() => console.log('User data', adminInfo)}
+      >
+        Print user infos to console
+      </button>
 
       <h3 className={'mt-3'}>
         Starred items

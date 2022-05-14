@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { canEdit, isCurrentUser } from '../../lib/session'
+import { canEdit, isAdmin, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
 import { getList } from '../../lib/db/lists'
@@ -33,6 +33,15 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   list = swrList || list
   const { data: swrOwner } = useSWR('/api/user/' + owner.uid)
   owner = swrOwner || owner
+  let adminInfo
+  if (isAdmin(session)) {
+    adminInfo = owner
+    if ('user' in owner) {
+      // @ts-ignore
+      owner = owner.user
+    }
+  }
+  
   const { data: swrItems } = useSWR('/api/items')
   allItems = swrItems || allItems
   const { data: swrColumns } = useSWR('/api/columns')
