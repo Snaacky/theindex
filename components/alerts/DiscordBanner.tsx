@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './DiscordBanner.module.css'
 const { bannerOutside, banner, svg } = styles
 
-export default function DiscordBanner() {
+const DiscordBanner: FC = () => {
   const svgElement = (
     <svg
       width='24'
@@ -16,13 +16,13 @@ export default function DiscordBanner() {
     </svg>
   )
 
-  const [text, setText] = useState(`Discord`)
+  const [text, setText] = useState('Discord')
 
-  function returnText(bool: boolean): string {
+  const returnText = (bool: boolean): string => {
     if (bool) {
-      return `Did you know TheIndex and TheWiki has a Discord server? discord.gg/theindex`
+      return 'Did you know TheIndex and TheWiki has a Discord server? discord.gg/theindex'
     } else {
-      return `Discord`
+      return 'Discord'
     }
   }
 
@@ -43,3 +43,5 @@ export default function DiscordBanner() {
     </div>
   )
 }
+
+export default DiscordBanner
