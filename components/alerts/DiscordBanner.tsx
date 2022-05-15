@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import styles from './DiscordBanner.module.css'
 const { bannerOutside, banner, svg } = styles
 
@@ -15,11 +16,28 @@ export default function DiscordBanner() {
     </svg>
   )
 
+  const [text, setText] = useState(`Discord`)
+
+  function returnText(bool: boolean): string {
+    if (bool) {
+      return `Did you know TheIndex and TheWiki has a Discord server? discord.gg/theindex`
+    } else {
+      return `Discord`
+    }
+  }
+
+  useEffect(() => {
+    setText(returnText(window.innerWidth > 770)) // for first page load
+    window.addEventListener('resize', () => {
+      setText(returnText(window.innerWidth > 770)) // if the page is resized
+    })
+  }, [])
+
   return (
     <div className={'container ' + bannerOutside}>
       <a href='https://discord.gg/theindex' target='_blank' rel='noreferrer'>
         <div className={banner}>
-          <span className={svg}>{svgElement}</span> Discord
+          <span className={svg}>{svgElement}</span> {text}
         </div>
       </a>
     </div>
