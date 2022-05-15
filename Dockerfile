@@ -32,11 +32,11 @@ ENV SETUP_WHITELIST_DISCORD_ID=00000000000
 EXPOSE 3000
 HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
-LABEL org.opencontainers.image.vendor="/r/animepiracy" \
+LABEL org.opencontainers.image.vendor="TheIndex" \
       org.opencontainers.image.url="https://theindex.moe" \
-      org.opencontainers.image.description="Webserver of The Index" \
-      org.opencontainers.image.title="Index" \
-      maintainer="Community of The Index"
+      org.opencontainers.image.description="Webserver of TheIndex" \
+      org.opencontainers.image.title="TheIndex" \
+      maintainer="Community of TheIndex"
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
