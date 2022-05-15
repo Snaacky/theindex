@@ -20,9 +20,9 @@ const DiscordBanner: FC = () => {
 
   const returnText = (bool: boolean): string => {
     if (bool) {
-      return 'Did you know TheIndex and TheWiki has a Discord server? discord.gg/theindex'
+      return 'Did you know we have a Discord server? discord.gg/theindex'
     } else {
-      return 'Discord'
+      return 'discord.gg/theindex'
     }
   }
 
