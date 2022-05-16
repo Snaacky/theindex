@@ -18,6 +18,7 @@ import { List } from '../../types/List'
 import { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
+import AccountTypeBadge from '../../components/badge/AccountTypeBadge'
 
 type Props = {
   user: User
@@ -91,7 +92,8 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
               <h3>
                 {user.name}
                 <span className={'ms-2'} style={{ fontSize: '1.2rem' }}>
-                  <DataBadge name={user.accountType} style={'primary'} />
+                  <AccountTypeBadge type={user.accountType} />
+
                   <div className={'float-end'}>
                     {(isAdmin(session) || isCurrentUser(session, user.uid)) && (
                       <Link href={'/edit/user/' + user.uid}>
@@ -120,12 +122,14 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
         </div>
       </div>
 
-      <button
-        className={'mt-3 btn btn-warning'}
-        onClick={() => console.log('User data', adminInfo)}
-      >
-        Print user infos to console
-      </button>
+      {isAdmin(session) && (
+        <button
+          className={'mt-3 btn btn-warning'}
+          onClick={() => console.log('User data', adminInfo)}
+        >
+          Print user infos to console
+        </button>
+      )}
 
       <h3 className={'mt-3'}>
         Starred items

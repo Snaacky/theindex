@@ -19,7 +19,7 @@ export default function ValidateApi() {
   const [secret, setSecret] = useState('')
 
   const validUrl = isValidUrl(url)
-  const validSecret = secret.match(/^[a-zA-Z0-9]+$/)
+  const validSecret = secret.match(/^[a-zA-Z\d]+$/)
   const urlClassName =
     url === '' ? '' : ' is-' + (validUrl ? '' : 'in') + 'valid'
   const secretClassName =
@@ -307,7 +307,7 @@ const ApiEntryData: FC<ApiEntryDataProps> = ({ data }) => {
                   <>
                     {data.title.map((t) => (
                       <>
-                        <kbd>{data.title}</kbd>{' '}
+                        <kbd>{t}</kbd>{' '}
                       </>
                     ))}
                   </>

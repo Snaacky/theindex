@@ -44,19 +44,19 @@ type Props = {
 }
 
 const Board: FC<Props> = ({
-  contentOf,
-  content,
-  allContent,
-  sponsorContent = [],
-  type, // item, column, collection or tab
-  updateContentURL = '',
-  updateContentKey = '',
-  deleteContentURL = '',
-  columns = [],
-  forceEditMode = false,
-  canMove = true,
-  canEdit: allowEdit = false,
-}) => {
+                            contentOf,
+                            content,
+                            allContent,
+                            sponsorContent = [],
+                            type, // item, column, collection or tab
+                            updateContentURL = '',
+                            updateContentKey = '',
+                            deleteContentURL = '',
+                            columns = [],
+                            forceEditMode = false,
+                            canMove = true,
+                            canEdit: allowEdit = false,
+                          }) => {
   allContent = allContent || content
   const [_content, setContent] = useState(content)
   const [unselectedContent, setUnselectedContent] = useState(
@@ -194,71 +194,71 @@ const Board: FC<Props> = ({
         add={
           addAllowed
             ? () => {
-                let newContent = (_content as Item[]).concat([renderContent])
-                if (moveAllowed) {
-                  newContent = sortContent(newContent)
-                }
-
-                const newUnselectedContent = unselectedContent.filter(
-                  (i) => i._id !== renderContent._id
-                )
-                updateContent(newContent, newUnselectedContent)
+              let newContent = (_content as Item[]).concat([renderContent])
+              if (moveAllowed) {
+                newContent = sortContent(newContent)
               }
+
+              const newUnselectedContent = unselectedContent.filter(
+                (i) => i._id !== renderContent._id
+              )
+              updateContent(newContent, newUnselectedContent)
+            }
             : null
         }
         move={
           moveAllowed
             ? (move) => {
-                const currentPosition = _content.findIndex(
-                  (c) => c._id === renderContent._id
+              const currentPosition = _content.findIndex(
+                (c) => c._id === renderContent._id
+              )
+              if (
+                !(
+                  (currentPosition === 0 && move < 0) ||
+                  (currentPosition === _content.length && move > 0)
                 )
-                if (
-                  !(
-                    (currentPosition === 0 && move < 0) ||
-                    (currentPosition === _content.length && move > 0)
-                  )
-                ) {
-                  const temp = _content[currentPosition]
-                  const temp2 = _content[currentPosition + move]
+              ) {
+                const temp = _content[currentPosition]
+                const temp2 = _content[currentPosition + move]
 
-                  let copy = _content
-                  copy[currentPosition] = temp2
-                  copy[currentPosition + move] = temp
-                  updateContent(copy, unselectedContent)
-                }
+                let copy = _content
+                copy[currentPosition] = temp2
+                copy[currentPosition + move] = temp
+                updateContent(copy, unselectedContent)
               }
+            }
             : null
         }
         remove={
           removeAllowed
             ? () => {
-                const newContent = (_content as Item[]).filter(
-                  (i) => i._id !== renderContent._id
-                )
-                if (deleteContentURL !== '') {
-                  if (
-                    confirm(
-                      `Do you really want to delete the ${type} "${renderContent.name}"?`
-                    )
-                  ) {
-                    postData(
-                      deleteContentURL,
-                      { _id: renderContent._id },
-                      () => {
-                        setContent(newContent)
-                      }
-                    )
-                  }
-                } else {
-                  let newUnselectedContent = unselectedContent.concat([
-                    renderContent,
-                  ])
-                  if (moveAllowed) {
-                    newUnselectedContent = sortContent(newUnselectedContent)
-                  }
-                  updateContent(newContent, newUnselectedContent)
+              const newContent = (_content as Item[]).filter(
+                (i) => i._id !== renderContent._id
+              )
+              if (deleteContentURL !== '') {
+                if (
+                  confirm(
+                    `Do you really want to delete the ${type} "${renderContent.name}"?`
+                  )
+                ) {
+                  postData(
+                    deleteContentURL,
+                    { _id: renderContent._id },
+                    () => {
+                      setContent(newContent)
+                    }
+                  )
                 }
+              } else {
+                let newUnselectedContent = unselectedContent.concat([
+                  renderContent,
+                ])
+                if (moveAllowed) {
+                  newUnselectedContent = sortContent(newUnselectedContent)
+                }
+                updateContent(newContent, newUnselectedContent)
               }
+            }
             : null
         }
         columns={compactView ? [] : columns}
@@ -415,7 +415,7 @@ const Board: FC<Props> = ({
                 if (
                   editMode &&
                   startViewIndex >=
-                    filteredContent.length - sponsorContent.length
+                  filteredContent.length - sponsorContent.length
                 ) {
                   setStartViewIndex(Math.max(startViewIndex - pageSize, 0))
                 }
@@ -499,6 +499,7 @@ const Board: FC<Props> = ({
           />
         </>
       )}
+
       <CreateNewButton type={type} allowEdit={allowEdit} />
     </>
   )

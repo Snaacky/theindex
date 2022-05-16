@@ -9,17 +9,13 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 const SupportBanner: FC = () => {
   let { data: ip } = useSWR('/api/ip-info')
 
-  let location = 'unknown'
+  let location = false
   if (ip && ip.geo) {
     if (ip.geo.city && ip.geo.city !== '') {
       location = ip.geo.city
     } else if (ip.geo.country && ip.geo.country !== '') {
       location = ip.geo.country
-    } else {
-      location = 'where tf are you?'
     }
-  } else if (ip) {
-    location = 'where tf are you?'
   }
 
   return (
@@ -36,16 +32,20 @@ const SupportBanner: FC = () => {
             <span className='visually-hidden'>Loading...</span>
           </div>
         )}{' '}
-        from{' '}
-        {ip ? (
-          <kbd>
-            <code>{location}</code>
-          </kbd>
-        ) : (
-          <div className='spinner-border spinner-border-sm' role='status'>
-            <span className='visually-hidden'>Loading...</span>
-          </div>
-        )}{' '}
+        {location !== false && (
+          <>
+            {'from '}
+            {ip ? (
+              <kbd>
+                <code>{location}</code>
+              </kbd>
+            ) : (
+              <div className='spinner-border spinner-border-sm' role='status'>
+                <span className='visually-hidden'>Loading...</span>
+              </div>
+            )}{' '}
+          </>
+        )}
         is exposed
       </span>
       <div>

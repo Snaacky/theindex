@@ -13,6 +13,7 @@ type Props = {
 
 const CreateNewButton: FC<Props> = ({ type, allowEdit }) => {
   const { data: session } = useSession()
+
   return (
     allowEdit &&
     canEdit(session, type) && (

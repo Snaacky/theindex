@@ -16,14 +16,12 @@ const client = new Redis(uri)
  * only returns null if requested component does not exist
  * @param type: Types, type of component
  * @param _id: string, unique _id or uid for user
- * @param parse: feature, should the result be parsed to an object
  */
 export async function getSingleCache(
   type: Types,
-  _id: string,
-  parse = true
+  _id: string
 ): Promise<string | object> {
-  let data = await getCache(type + '-' + _id, parse)
+  let data = await getCache(type + '-' + _id)
   if (data === null) {
     if (type === Types.user) {
       data = await getUser(_id)
@@ -38,9 +36,7 @@ export async function getSingleCache(
     }
 
     await updateSingleCache(type, _id, data)
-    if (!parse) {
-      return JSON.stringify(data)
-    }
+    return JSON.stringify(data)
   }
 
   return data
@@ -71,15 +67,11 @@ export async function updateSingleCache(
 /**
  * only returns null if requested components do not exist or are empty
  * @param type: Types, type of component
- * @param parse: feature, should the result be parsed to an object
  */
-export async function getAllCache(
-  type: Types,
-  parse = true
-): Promise<string | object> {
+export async function getAllCache(type: Types): Promise<string | object> {
   const plural = singularToPlural(type)
 
-  let data = await getCache(plural, parse)
+  let data = await getCache(plural)
   if (data === null) {
     if (type === Types.user) {
       data = await getUsers()
@@ -87,13 +79,11 @@ export async function getAllCache(
       data = await getAll(plural)
     }
     if (data === null) {
-      return null
+      return []
     }
 
     await setCache(plural, data)
-    if (!parse) {
-      return JSON.stringify(data)
-    }
+    return JSON.stringify(data)
   }
 
   return data
@@ -119,22 +109,18 @@ export async function updateAllCache(type: Types, data?: string | object) {
 /**
  * only returns null if requested component does not exist
  * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
- * @param parse: feature, should the result be parsed to an object
  */
-export async function getCache(
-  key: string,
-  parse = true
-): Promise<string | object> {
+export async function getCache(key: string): Promise<string | object> {
   let data = await client.get(key)
-
-  if (parse && data !== null) {
-    try {
-      return JSON.parse(data)
-    } catch (e) {
-      console.error('Failed to parse data from cache', data)
-    }
+  if (data === null) {
+    return null
   }
-  return data
+
+  try {
+    return JSON.parse(data)
+  } catch (e) {
+    console.error('Failed to parse data from cache', data)
+  }
 }
 
 /**
@@ -148,7 +134,11 @@ export function setCache(key: string, data: string | object) {
   }
 
   if (typeof data !== 'string') {
-    data = JSON.stringify(data)
+    try {
+      data = JSON.stringify(data)
+    } catch (e) {
+      return console.error('Failed to stringify data to set cache', data)
+    }
   }
 
   return client.set(key, data)
