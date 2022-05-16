@@ -4,7 +4,7 @@ To participate in our search engine project, we will require you to comply with 
 this document.
 
 If an alphanumeric secret is provided, we will include http header in each request
-`Authorization: piracy.moe {your-secret}`
+`Authorization: theindex.moe {your-secret}`
 
 ## Endpoint: list-items
 
