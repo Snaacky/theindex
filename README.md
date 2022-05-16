@@ -2,7 +2,6 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/theindexmoe/index/Docker?logo=github)](https://github.com/theindexmoe/index)
 [![CodeFactor](https://www.codefactor.io/repository/github/theindexmoe/index/badge)](https://www.codefactor.io/repository/github/theindexmoe/index)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/841b254fc40146108ca99d32ce833199)](https://www.codacy.com/gh/theindexmoe/index/dashboard)
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/theindexmoe/index/latest?logo=docker)](https://hub.docker.com/r/theindexmoe/index)
 [![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/theindex)
 
 # TheIndex
