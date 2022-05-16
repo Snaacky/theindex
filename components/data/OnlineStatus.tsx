@@ -41,18 +41,16 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   }
 
   style = styles.status + ' ' + style
+  const time =
+    data.time === '0'
+      ? 'never'
+      : new Date(parseInt(data.time) * 1000).toLocaleTimeString()
   return (
     <>
       <span
         className={style}
         onClick={() => setShow(true)}
-        data-tip={
-          text +
-          (data && item.name
-            ? ', last checked ' +
-              new Date(parseInt(data.time) * 1000).toLocaleTimeString()
-            : '')
-        }
+        data-tip={text + (data && item.name ? ', last checked ' + time : '')}
       />
       {show && (
         <OnlineStatusModal
@@ -67,4 +65,4 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   )
 }
 
-export default OnlineStatus;
+export default OnlineStatus
