@@ -41,10 +41,11 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   }
 
   style = styles.status + ' ' + style
-  const time =
-    data.time === '0'
-      ? 'never'
-      : new Date(parseInt(data.time) * 1000).toLocaleTimeString()
+  let time = 'never'
+  if (data && data.time !== '0') {
+    time = new Date(parseInt(data.time) * 1000).toLocaleTimeString()
+  }
+
   return (
     <>
       <span
