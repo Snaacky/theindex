@@ -31,11 +31,11 @@ if (!('NEXT_PUBLIC_SITE_NAME' in process.env)) {
 }
 
 if (!('NEXT_PUBLIC_DOMAIN' in process.env)) {
-  warnEnv('NEXT_PUBLIC_DOMAIN', 'https://piracy.moe')
+  warnEnv('NEXT_PUBLIC_DOMAIN', 'https://theindex.moe')
 }
 
 if (!('NEXTAUTH_URL' in process.env)) {
-  warnEnv('NEXTAUTH_URL', 'https://piracy.moe')
+  warnEnv('NEXTAUTH_URL', 'https://theindex.moe')
 }
 
 if (!('DATABASE_URL' in process.env)) {
