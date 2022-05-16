@@ -33,7 +33,7 @@ export default async function apiItemPing(
       status = {
         url: item.urls[0],
         time: '0',
-        status: 'unknown',
+        status: 'fetching',
       }
 
       // no await as this should be processed in the background

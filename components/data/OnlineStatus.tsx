@@ -22,7 +22,7 @@ const OnlineStatus: FC<Props> = ({ item }) => {
     style = styles.error
     text = error.toString()
   } else {
-    if (!data) {
+    if (!data || data.status === 'fetching') {
       style = styles.ping
       text = Statuses.fetching
     } else if (data.status === 'down') {
@@ -67,4 +67,4 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   )
 }
 
-export default OnlineStatus
+export default OnlineStatus;
