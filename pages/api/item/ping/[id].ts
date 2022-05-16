@@ -85,7 +85,7 @@ async function triggerPingUpdate(itemId: string) {
   }
 
   fetch(item.urls[0], {
-    method: 'GET',
+    method: 'HEAD',
     agent: new SocksProxyAgent({
       hostname: process.env.SOCKS_PROXY,
       port: process.env.SOCKS_PORT,
@@ -125,6 +125,12 @@ async function triggerPingUpdate(itemId: string) {
       })
     })
     .catch((e) => {
-      console.error('Failed to ping page', e)
+      console.error(
+        'Failed to ping',
+        item.urls[0],
+        'due to the reason:',
+        e.type,
+        e
+      )
     })
 }
