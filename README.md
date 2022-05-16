@@ -85,7 +85,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 
 ## Parameters
 
-Here is a collection of the possible ENV-variables with their default values you should set in your `.env` file:
+Here is a collection of the possible environment variables with their default values you should set in your `.env` file:
 
 | Parameter                    | Function                                                                                             | Default                              |
 |------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------|
