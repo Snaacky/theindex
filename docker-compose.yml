@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   web:
-    image: ranimepiracy/index
+    image: ghcr.io/theindexmoe/index
     container_name: index-web
     restart: unless-stopped
     ports:
