@@ -36,20 +36,28 @@ const Collection: FC<Props> = ({
 }) => {
   const { data: session } = useSession()
 
-  const { data: swrCollection } = useSWR('/api/collection/' + collection._id)
+  const { data: swrCollection } = useSWR('/api/collection/' + collection._id, {
+    fallbackData: collection,
+  })
   collection = swrCollection || collection
 
-  const { data: swrItems } = useSWR('/api/items')
+  const { data: swrItems } = useSWR('/api/items', {
+    fallbackData: allItems,
+  })
   allItems = swrItems || allItems
   const items = collection.items.map((itemId) =>
     allItems.find((item) => item._id === itemId)
   )
 
-  const { data: swrLibraries } = useSWR('/api/libraries')
+  const { data: swrLibraries } = useSWR('/api/libraries', {
+    fallbackData: libraries,
+  })
   libraries = (swrLibraries || libraries).filter((library) =>
     library.collections.some((t) => t === collection._id)
   )
-  const { data: swrColumns } = useSWR('/api/columns')
+  const { data: swrColumns } = useSWR('/api/columns', {
+    fallbackData: columns,
+  })
   columns = swrColumns || columns
 
   return (

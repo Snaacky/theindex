@@ -29,9 +29,13 @@ type Props = {
 const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   const { data: session } = useSession()
 
-  const { data: swrList } = useSWR('/api/list/' + list._id)
+  const { data: swrList } = useSWR('/api/list/' + list._id, {
+    fallbackData: list,
+  })
   list = swrList || list
-  const { data: swrOwner } = useSWR('/api/user/' + owner.uid)
+  const { data: swrOwner } = useSWR('/api/user/' + owner.uid, {
+    fallbackData: owner,
+  })
   owner = swrOwner || owner
   let adminInfo
   if (isAdmin(session)) {
@@ -41,10 +45,14 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
       owner = owner.user
     }
   }
-  
-  const { data: swrItems } = useSWR('/api/items')
+
+  const { data: swrItems } = useSWR('/api/items', {
+    fallbackData: allItems,
+  })
   allItems = swrItems || allItems
-  const { data: swrColumns } = useSWR('/api/columns')
+  const { data: swrColumns } = useSWR('/api/columns', {
+    fallbackData: columns,
+  })
   columns = swrColumns || columns
 
   const items = list.items.map((itemId) =>

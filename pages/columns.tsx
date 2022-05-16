@@ -18,7 +18,9 @@ type Props = {
 }
 
 const Columns: FC<Props> = ({ columns }) => {
-  const { data: swrColumns } = useSWR('/api/columns')
+  const { data: swrColumns } = useSWR('/api/columns', {
+    fallbackData: columns,
+  })
   columns = swrColumns || columns
 
   return (

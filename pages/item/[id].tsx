@@ -37,12 +37,18 @@ type Props = {
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
 
-  const { data: swrItem } = useSWR('/api/item/' + item._id)
+  const { data: swrItem } = useSWR('/api/item/' + item._id, {
+    fallbackData: item,
+  })
   item = swrItem || item
   item.stars = item.stars || 0
-  const { data: swrColumns } = useSWR('/api/columns')
+  const { data: swrColumns } = useSWR('/api/columns', {
+    fallbackData: columns,
+  })
   columns = swrColumns || columns
-  const { data: swrCollections } = useSWR('/api/collections')
+  const { data: swrCollections } = useSWR('/api/collections', {
+    fallbackData: collections,
+  })
   collections = (swrCollections || collections).filter((t) =>
     t.items.includes(item._id)
   )
@@ -368,20 +374,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = await getItem(params.id)
+  const item = await getItem(params.id);
   if (!item) {
     return {
       notFound: true,
-      revalidate: 60,
-    }
+      revalidate: 60
+    };
   }
 
   return {
     props: {
       item,
       columns: await getAllCache(Types.column),
-      collections: await getAllCache(Types.collection),
+      collections: await getAllCache(Types.collection)
     },
-    revalidate: 60,
-  }
+    revalidate: 60
+  };
 }

@@ -30,7 +30,9 @@ type Props = {
 const User: FC<Props> = ({ user, lists, items, columns }) => {
   const { data: session } = useSession()
 
-  const { data: swrUser } = useSWR('/api/user/' + user.uid)
+  const { data: swrUser } = useSWR('/api/user/' + user.uid, {
+    fallbackData: user,
+  })
   user = swrUser || user
   let adminInfo
   if (isAdmin(session)) {
@@ -41,14 +43,20 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
     }
   }
 
-  const { data: swrColumn } = useSWR('/api/columns')
+  const { data: swrColumn } = useSWR('/api/columns', {
+    fallbackData: columns,
+  })
   columns = swrColumn || columns
-  const { data: swrItem } = useSWR('/api/items')
+  const { data: swrItem } = useSWR('/api/items', {
+    fallbackData: items,
+  })
   items = swrItem || items
   const userFav = user.favs.map((itemId) =>
     items.find((item) => item._id === itemId)
   )
-  const { data: swrLists } = useSWR('/api/lists')
+  const { data: swrLists } = useSWR('/api/lists', {
+    fallbackData: lists,
+  })
   lists = swrLists || lists
   const userLists = lists.filter((list) => list.owner === user.uid)
   const followLists = (swrLists || lists).filter((list) =>

@@ -17,7 +17,9 @@ type Props = {
 }
 
 const Collections: FC<Props> = ({ collections }) => {
-  const { data: swrCollections } = useSWR('/api/collections')
+  const { data: swrCollections } = useSWR('/api/collections', {
+    fallbackData: collections,
+  })
   collections = swrCollections || collections
 
   return (

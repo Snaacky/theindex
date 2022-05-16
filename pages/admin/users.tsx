@@ -10,7 +10,9 @@ import { User } from '../../types/User'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 
 const Users = ({ users }: { users: User[] }) => {
-  const { data: swrUsers } = useSWR('/api/users')
+  const { data: swrUsers } = useSWR('/api/users', {
+    fallbackData: users,
+  })
   users = swrUsers || users
 
   return (

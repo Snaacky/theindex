@@ -24,8 +24,12 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
-  const { data: swrLibraries } = useSWR('/api/libraries')
-  const { data: swrCollections } = useSWR('/api/collections')
+  const { data: swrLibraries } = useSWR('/api/libraries', {
+    fallbackData: [],
+  })
+  const { data: swrCollections } = useSWR('/api/collections', {
+    fallbackData: [],
+  })
   const libraries = swrLibraries || []
   const allCollections = swrCollections || []
 
@@ -244,4 +248,4 @@ function Sidebar({ show, setShow }, ref) {
   )
 }
 
-export default React.forwardRef(Sidebar)
+export default React.forwardRef(Sidebar);
