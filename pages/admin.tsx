@@ -6,9 +6,10 @@ import { getColumns } from '../lib/db/columns'
 import { Column } from '../types/Column'
 import { Item } from '../types/Item'
 import ItemBoard from '../components/boards/ItemBoard'
-import { getItems } from '../lib/db/items'
 import { screenshotExists } from '../lib/db/itemScreenshots'
 import DataBadge from '../components/data/DataBadge'
+import { getAllCache } from '../lib/db/cache'
+import { Types } from '../types/Components'
 
 const Admin = ({
   columns,
@@ -142,7 +143,8 @@ Admin.auth = {
 export default Admin
 
 export async function getServerSideProps() {
-  const items = await getItems()
+  const items = (await getAllCache(Types.item)) as Item[]
+
   const missingScreenshots = await Promise.all(
     items.map(async (item) => {
       if (!(await screenshotExists(item._id))) {

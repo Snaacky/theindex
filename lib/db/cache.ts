@@ -68,7 +68,7 @@ export async function updateSingleCache(
  * only returns null if requested components do not exist or are empty
  * @param type: Types, type of component
  */
-export async function getAllCache(type: Types): Promise<string | object> {
+export async function getAllCache(type: Types): Promise<object[]> {
   const plural = singularToPlural(type)
 
   let data = await getCache(plural)
@@ -83,10 +83,9 @@ export async function getAllCache(type: Types): Promise<string | object> {
     }
 
     await setCache(plural, data)
-    return JSON.stringify(data)
   }
 
-  return data
+  return data as object[]
 }
 
 /**
@@ -110,7 +109,7 @@ export async function updateAllCache(type: Types, data?: string | object) {
  * only returns null if requested component does not exist
  * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
  */
-export async function getCache(key: string): Promise<string | object> {
+export async function getCache(key: string): Promise<object | object[]> {
   let data = await client.get(key)
   if (data === null) {
     return null
