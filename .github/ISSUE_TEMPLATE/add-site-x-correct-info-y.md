@@ -7,4 +7,4 @@ assignees: ''
 ---
 
 **This is the wrong place!!!**
-Go over to our [Discord](https://discord.gg/piracy) and post it in `#index-wiki`, we will definitely take a look at your message
+Go over to our [Discord](https://discord.gg/theindex) and post it in `#theindex`, we will definitely take a look at your message
