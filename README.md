@@ -256,7 +256,7 @@ page has an `auth` property, it also validates whether the user can access the g
 
 Pull-requests are always welcome, but may not be always merged as it has to be in align with our idea of the index. If
 you want a certain feature or have an idea, you can always open a feature request
-in [Issues](https://github.com/theindexmoe/index/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
+in [Issues](https://github.com/snaacky/theindexmoe/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
 or report it on our [Discord](https://discord.gg/theindexmoe) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
 
