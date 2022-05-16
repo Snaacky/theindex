@@ -1,7 +1,7 @@
 [![Website](https://img.shields.io/website?down_message=offline&label=theindex.moe&up_message=online&url=https%3A%2F%2Ftheindex.moe)](https://theindex.moe)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Snaacky/theindexmoe/Docker?logo=github)](https://github.com/Snaacky/theindexmoe)
 [![CodeFactor](https://www.codefactor.io/repository/github/snaacky/theindexmoe/badge)](https://www.codefactor.io/repository/github/snaacky/theindexmoe)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/841b254fc40146108ca99d32ce833199)](https://www.codacy.com/gh/Snaacky/theindexmoe/dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a91c8d3ec420474cbac1a524073c83ee)](https://www.codacy.com/gh/Snaacky/theindexmoe/dashboard)
 [![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/theindex)
 
 # TheIndex
