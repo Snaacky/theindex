@@ -1,7 +1,7 @@
 [![Website](https://img.shields.io/website?down_message=offline&label=theindex.moe&up_message=online&url=https%3A%2F%2Ftheindex.moe)](https://theindex.moe)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/theindexmoe/index/Docker?logo=github)](https://github.com/theindexmoe/index)
-[![CodeFactor](https://www.codefactor.io/repository/github/theindexmoe/index/badge)](https://www.codefactor.io/repository/github/theindexmoe/index)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/841b254fc40146108ca99d32ce833199)](https://www.codacy.com/gh/theindexmoe/index/dashboard)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Snaacky/theindexmoe/Docker?logo=github)](https://github.com/Snaacky/theindexmoe)
+[![CodeFactor](https://www.codefactor.io/repository/github/snaacky/theindexmoe/badge)](https://www.codefactor.io/repository/github/snaacky/theindexmoe)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/841b254fc40146108ca99d32ce833199)](https://www.codacy.com/gh/Snaacky/theindexmoe/dashboard)
 [![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/theindex)
 
 # TheIndex
@@ -73,11 +73,10 @@ The redis db is already included in the example [`docker-compose`](docker-compos
 Warning: be aware, that we do not offer any kind of official support and every update may be with breaking changes. Be
 sure to make backups before you update
 
-To get the newest version of the container image
-from [Docker Hub](https://hub.docker.com/repository/docker/theindexmoe/index), you will need to run:
+To get the newest version of the container image, you will need to run:
 
 ```shell
-docker pull theindexmoe/index
+docker pull ghcr.io/snaacky/theindexmoe:latest
 ```
 
 Afterwards, you will need to stop and remove your current running instance and start it again.
@@ -123,7 +122,7 @@ If you want to verify how the docker-compose file fills the envs in, use `docker
 2. Start by cloning the repo via a graphical git client (highly recommended) or use the cli via
 
 ```shell
-git clone https://github.com/theindexmoe/index
+git clone https://github.com/snaacky/theindexmoe
 ```
 
 3. Copy the [`example.env`](example.env) file to `.env`.
