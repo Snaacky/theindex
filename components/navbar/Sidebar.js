@@ -215,24 +215,6 @@ function Sidebar({ show, setShow }, ref) {
                 >
                   <FontAwesomeIcon icon={faDiscord} /> Discord
                 </a>,
-                <a
-                  className={'nav-link umami--click--navbar-twitter'}
-                  href={'https://twitter.com/ranimepiracy'}
-                  key={'twitter'}
-                  target={'_blank'}
-                  rel='noreferrer'
-                >
-                  <FontAwesomeIcon icon={faTwitter} /> Twitter
-                </a>,
-                <a
-                  className={'nav-link umami--click--navbar-github'}
-                  href={'https://github.com/ranimepiracy/index'}
-                  key={'github'}
-                  target={'_blank'}
-                  rel='noreferrer'
-                >
-                  <FontAwesomeIcon icon={faGithub} /> Github
-                </a>,
               ]}
               onClick={() => clickFunc()}
             />
