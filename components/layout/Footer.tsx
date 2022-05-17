@@ -29,17 +29,7 @@ const socials: SocialsType[] = [
     name: 'Discord',
     url: 'https://discord.gg/theindex',
     icon: faDiscord,
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/ranimepiracy',
-    icon: faTwitter,
-  },
-  {
-    name: 'Github',
-    url: 'https://github.com/ranimepiracy/index',
-    icon: faGithub,
-  },
+  }
 ]
 
 const otherServices: OtherTypes[] = [
