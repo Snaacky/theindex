@@ -44,7 +44,7 @@ export default function ValidateApi() {
         <a
           className={'btn btn-primary'}
           href={
-            'https://github.com/ranimepiracy/index/blob/main/docs/search-engine-api.md'
+            'https://github.com/snaacky/theindexmoe/blob/main/docs/search-engine-api.md'
           }
         >
           Read more about the API format
