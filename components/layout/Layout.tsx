@@ -61,12 +61,10 @@ const Layout: FC<LayoutProps> = ({ children, error }) => {
         <meta name='robots' content='index, archive, follow' />
 
         <meta property='og:type' content='website' />
-        <meta name='twitter:site' content='@ranimepiracy' />
         <meta
           property='og:site_name'
           content={process.env.NEXT_PUBLIC_SITE_NAME}
         />
-        <meta name='twitter:card' content='summary' />
       </Head>
       <header>
         <Navbar />
