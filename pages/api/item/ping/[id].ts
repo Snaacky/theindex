@@ -13,17 +13,19 @@ export default async function apiItemPing(
   const data = (await getCache(
     Types.item + '_ping-' + req.query.id
   )) as StatusData | null
+
   if (data === null) {
     const item = (await getSingleCache(
       Types.item,
       req.query.id as string
     )) as Item | null
+
     if (item === null) {
       return res.status(404)
     }
 
     let status: StatusData
-    if (item.urls.length === 0) {
+    if (!Array.isArray(item.urls) || item.urls.length === 0) {
       status = {
         url: '',
         time: '0',
