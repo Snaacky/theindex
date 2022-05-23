@@ -66,6 +66,7 @@ export async function fetchSite(url: string, itemId?: string) {
   // cleanup
   page.removeAllListeners('request')
   await page.close()
+  await browser.close()
 
   return {
     status,
