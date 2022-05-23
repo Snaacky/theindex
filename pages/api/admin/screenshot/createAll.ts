@@ -40,7 +40,12 @@ export default async function apiAdminScreenshotCreateAll(
       items
         .slice(i, i + Math.min(batchSize, items.length - i))
         .map(async (item) => {
-          await createScreenshot(item._id)
+          await createScreenshot(item._id).catch(() => {
+            console.error(
+              'Screenshot creation failed in batch creation for',
+              item._id
+            )
+          })
         })
     )
     i += batchSize

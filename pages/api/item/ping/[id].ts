@@ -58,11 +58,12 @@ async function triggerPingUpdate(itemId: string) {
       itemId,
       'but no item could be found'
     )
-  } else if (item.urls.length === 0) {
+  } else if (!Array.isArray(item.urls) || item.urls.length === 0) {
     return console.error(
       'Called triggerPingUpdate of',
       itemId,
-      'but item has no urls'
+      'but item has no urls',
+      item.urls
     )
   }
 
