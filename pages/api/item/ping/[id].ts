@@ -128,12 +128,14 @@ async function triggerPingUpdate(itemId: string) {
       })
     })
     .catch((e) => {
-      console.error(
-        'Failed to ping',
-        item.urls[0],
-        'due to the reason:',
-        e.type,
-        e
-      )
+      if ('PING_DEBUG' in process.env && process.env.PING_DEBUG === 'true') {
+        console.error(
+          'Failed to ping',
+          item.urls[0],
+          'due to the reason:',
+          e.type,
+          e
+        )
+      }
     })
 }
