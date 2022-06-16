@@ -20,9 +20,9 @@ const DiscordBanner: FC = () => {
 
   const returnText = (bool: boolean): string => {
     if (bool) {
-      return 'Did you know we have a Discord server? discord.gg/theindex'
+      return 'Did you know we have a Discord server? discord.gg/snackbox'
     } else {
-      return 'discord.gg/theindex'
+      return 'discord.gg/snackbox'
     }
   }
 
@@ -35,7 +35,7 @@ const DiscordBanner: FC = () => {
 
   return (
     <div className={'container ' + bannerOutside}>
-      <a href='https://discord.gg/theindex' target='_blank' rel='noreferrer'>
+      <a href='https://discord.gg/snackbox' target='_blank' rel='noreferrer'>
         <div className={banner}>
           <span className={svg}>{svgElement}</span> {text}
         </div>
