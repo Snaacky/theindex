@@ -1,8 +1,8 @@
 [![Website](https://img.shields.io/website?down_message=offline&label=theindex.moe&up_message=online&url=https%3A%2F%2Ftheindex.moe)](https://theindex.moe)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Snaacky/theindexmoe/Docker?logo=github)](https://github.com/Snaacky/theindexmoe)
-[![CodeFactor](https://www.codefactor.io/repository/github/snaacky/theindexmoe/badge)](https://www.codefactor.io/repository/github/snaacky/theindexmoe)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a91c8d3ec420474cbac1a524073c83ee)](https://www.codacy.com/gh/Snaacky/theindexmoe/dashboard)
-[![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/theindex)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Snaacky/theindex/Docker?logo=github)](https://github.com/Snaacky/theindex)
+[![CodeFactor](https://www.codefactor.io/repository/github/snaacky/theindex/badge)](https://www.codefactor.io/repository/github/snaacky/theindex)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a91c8d3ec420474cbac1a524073c83ee)](https://www.codacy.com/gh/Snaacky/theindex/dashboard)
+[![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/snackbox)
 
 # TheIndex
 
@@ -76,7 +76,7 @@ sure to make backups before you update
 To get the newest version of the container image, you will need to run:
 
 ```shell
-docker pull ghcr.io/snaacky/theindexmoe:latest
+docker pull ghcr.io/snaacky/theindex:latest
 ```
 
 Afterwards, you will need to stop and remove your current running instance and start it again.
@@ -122,7 +122,7 @@ If you want to verify how the docker-compose file fills the envs in, use `docker
 2. Start by cloning the repo via a graphical git client (highly recommended) or use the cli via
 
 ```shell
-git clone https://github.com/snaacky/theindexmoe
+git clone https://github.com/snaacky/theindex
 ```
 
 3. Copy the [`example.env`](example.env) file to `.env`.
@@ -255,8 +255,8 @@ page has an `auth` property, it also validates whether the user can access the g
 
 Pull-requests are always welcome, but may not be always merged as it has to be in align with our idea of the index. If
 you want a certain feature or have an idea, you can always open a feature request
-in [Issues](https://github.com/snaacky/theindexmoe/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
-or report it on our [Discord](https://discord.gg/theindexmoe) in `#index` to be discussed. If it is not bad, in align with
+in [Issues](https://github.com/snaacky/theindex/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEAT%5D)
+or report it on our [Discord](https://discord.gg/snackbox) in `#index` to be discussed. If it is not bad, in align with
 our ideas, and we find some time, we will certainly implement your requested feature (sometime...).
 
 ### Things we use
