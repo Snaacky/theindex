@@ -230,4 +230,4 @@ function Sidebar({ show, setShow }, ref) {
   )
 }
 
-export default React.forwardRef(Sidebar);
+export default React.forwardRef(Sidebar)

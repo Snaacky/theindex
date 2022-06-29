@@ -29,7 +29,7 @@ const socials: SocialsType[] = [
     name: 'Discord',
     url: 'https://discord.gg/theindex',
     icon: faDiscord,
-  }
+  },
 ]
 
 const otherServices: OtherTypes[] = [

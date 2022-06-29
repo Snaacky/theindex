@@ -374,20 +374,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = await getItem(params.id);
+  const item = await getItem(params.id)
   if (!item) {
     return {
       notFound: true,
-      revalidate: 60
-    };
+      revalidate: 60,
+    }
   }
 
   return {
     props: {
       item,
       columns: await getAllCache(Types.column),
-      collections: await getAllCache(Types.collection)
+      collections: await getAllCache(Types.collection),
     },
-    revalidate: 60
-  };
+    revalidate: 60,
+  }
 }
