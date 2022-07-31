@@ -208,7 +208,7 @@ function Sidebar({ show, setShow }, ref) {
               contentList={[
                 <a
                   className={'nav-link umami--click--navbar-discord'}
-                  href={'https://discord.gg/theindex'}
+                  href={'https://discord.gg/snackbox'}
                   key={'discord'}
                   target={'_blank'}
                   rel='noreferrer'
