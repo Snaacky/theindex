@@ -27,7 +27,7 @@ type OtherTypes = {
 const socials: SocialsType[] = [
   {
     name: 'Discord',
-    url: 'https://discord.gg/theindex',
+    url: 'https://discord.gg/snackbox',
     icon: faDiscord,
   },
 ]
