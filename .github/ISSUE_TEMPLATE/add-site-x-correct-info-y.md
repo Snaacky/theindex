@@ -7,4 +7,4 @@ assignees: ''
 ---
 
 **This is the wrong place!!!**
-Go over to our [Discord](https://discord.gg/theindex) and post it in `#theindex`, we will definitely take a look at your message
+Go over to our [Discord](https://discord.gg/snackbox) and post it in `#index`, we will definitely take a look at your message
