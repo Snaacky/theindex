@@ -64,7 +64,7 @@ const nextAuth = NextAuth({
         })
       } else if (user.image !== profile.image) {
         // update new discord image on login
-        const db = (await dbClient).db()
+        const db = (await dbClient).db('index')
         await db.collection('nextauth_users').updateOne(
           { _id: user.id },
           {
