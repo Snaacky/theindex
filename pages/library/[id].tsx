@@ -37,9 +37,11 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
   library = swrLibrary || library
   const { data: swrCollections } = useSWR('/api/collections')
   collections = swrCollections || collections
-  const libraryCollections = library.collections.map((collectionId) =>
-    collections.find((collection) => collection._id === collectionId)
-  )
+  const libraryCollections = library.collections
+    .map((collectionId) =>
+      collections.find((collection) => collection._id === collectionId)
+    )
+    .filter((collection) => collection)
   const collectionsItems = [].concat.apply(
     [],
     libraryCollections.map((collection) => collection.items)
