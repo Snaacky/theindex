@@ -23,7 +23,7 @@ export async function addItemScreenshot(buffer: Buffer, itemId: string) {
   // convert image buffer to stream
   const imgStream = bufferToStream(buffer)
 
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -50,7 +50,7 @@ export async function addItemScreenshot(buffer: Buffer, itemId: string) {
 }
 
 export async function getItemScreenshotBuffer(itemId: string) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -60,7 +60,7 @@ export async function getItemScreenshotBuffer(itemId: string) {
 }
 
 export async function screenshotExists(itemId: string) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -69,7 +69,7 @@ export async function screenshotExists(itemId: string) {
 }
 
 export async function clearAllScreenshots() {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -77,7 +77,7 @@ export async function clearAllScreenshots() {
 }
 
 export async function listScreenshotsOfItem(itemId: string) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })

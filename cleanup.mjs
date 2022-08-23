@@ -50,7 +50,7 @@ try {
     { maxPoolSize: 5 }
   )
   await dbClient.connect()
-  db = dbClient.db()
+  db = dbClient.db('index')
   console.log('Connection to mongo db server could be established')
 } catch (e) {
   console.error('Failed to connect to mongo db server:', e)

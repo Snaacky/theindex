@@ -63,7 +63,7 @@ export function polluteId(query: Record<string, any>) {
 }
 
 export async function getAll(collection: string): Promise<object[]> {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   let data = await db.collection(collection).find().toArray()
   if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
     data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
@@ -76,7 +76,7 @@ export async function find(
   collection: string,
   query: Record<string, any>
 ): Promise<object[]> {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   return cleanId(
     await db.collection(collection).find(polluteId(query)).toArray()
   )
@@ -86,7 +86,7 @@ export async function findOne(
   collection: string,
   query: Record<string, any>
 ): Promise<object | null> {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   return cleanId(await db.collection(collection).findOne(polluteId(query)))
 }
 
@@ -94,7 +94,7 @@ export async function count(
   collection: string,
   query: Record<string, any> = {}
 ): Promise<number> {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   return await db.collection(collection).countDocuments(polluteId(query))
 }
 
@@ -109,7 +109,7 @@ export async function insert(
   collection: string,
   data: Record<string, any>
 ): Promise<string> {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   data.createdAt = new Date()
   data.lastModified = new Date()
   const { insertedId } = await db.collection(collection).insertOne(data)
@@ -121,7 +121,7 @@ export async function updateOne(
   query: Record<string, any>,
   data: Record<string, any>
 ) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   await db.collection(collection).updateOne(polluteId(query), {
     $set: data,
     $currentDate: { lastModified: true },
@@ -132,6 +132,6 @@ export async function deleteOne(
   collection: string,
   query: Record<string, any>
 ) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   await db.collection(collection).deleteOne(polluteId(query))
 }

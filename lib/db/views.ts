@@ -17,7 +17,7 @@ export async function getViews() {
 }
 
 export async function getLastViews(type: Types, n: number) {
-  const db = (await dbClient).db()
+  const db = (await dbClient).db('index')
   const data = cleanId(
     await db
       .collection('views')
