@@ -57,7 +57,9 @@ export async function fetchSite(url: string, itemId?: string) {
   let screenshotStream = null
   if (itemId) {
     try {
-      screenshotStream = await page.screenshot()
+      screenshotStream = await page.screenshot({
+        captureBeyondViewport: false
+      })
     } catch (e) {
       console.error('Could not create screenshot stream', e)
     }
