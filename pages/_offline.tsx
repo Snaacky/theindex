@@ -10,8 +10,8 @@ const Offline: FC = () => {
         <div className={'col-auto'}>
           <Image
             src={'/img/confused.png'}
-            width={'128px'}
-            height={'128px'}
+            width={128}
+            height={128}
             alt={'Confused questioning picture'}
           />
         </div>

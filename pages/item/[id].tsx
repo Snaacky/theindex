@@ -171,8 +171,8 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
           </div>
           <Image
             src={'/api/item/screenshot/' + item._id}
-            width={'1280px'}
-            height={'720px'}
+            width={128}
+            height={720}
             layout={'responsive'}
             className={'rounded'}
             alt={'Screenshot of the site ' + item.name}

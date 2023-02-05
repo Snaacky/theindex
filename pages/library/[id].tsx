@@ -74,8 +74,8 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
             <Image
               src={'/img/' + library.img}
               alt={'Image of collection'}
-              width={'148px'}
-              height={'148px'}
+              width={148}
+              height={148}
               className={'rounded-circle bg-6'}
             />
           </div>

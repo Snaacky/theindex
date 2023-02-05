@@ -23,15 +23,15 @@ type Props = {
 }
 
 const EditLibrary: FC<Props> = ({
-  libraries = [],
-  _id,
-  urlId = '',
-  img = 'puzzled.png',
-  name = '',
-  nsfw = false,
-  description = '',
-  collections = [],
-}) => {
+                                  libraries = [],
+                                  _id,
+                                  urlId = '',
+                                  img = 'puzzled.png',
+                                  name = '',
+                                  nsfw = false,
+                                  description = '',
+                                  collections = [],
+                                }) => {
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
   const [imgState, setImg] = useState(img || 'puzzled.png')
@@ -103,8 +103,8 @@ const EditLibrary: FC<Props> = ({
             <Image
               src={'/img/' + imgState}
               alt={'Image for collection'}
-              width={'148px'}
-              height={'148px'}
+              width={148}
+              height={148}
             />
             <div
               className={'ms-2 d-flex flex-row w-100 justify-content-center'}
