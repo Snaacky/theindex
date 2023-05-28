@@ -73,28 +73,11 @@ async function triggerPingUpdate(itemId: string) {
     return console.error(
       'env SOCKS_PROXY missing. Set env to allow ping service to be used'
     )
-  } else if (!('SOCKS_PORT' in process.env) || process.env.SOCKS_PORT === '') {
-    return console.error(
-      'env SOCKS_PORT missing. Set env to allow ping service to be used'
-    )
-  } else if (!('SOCKS_USER' in process.env) || process.env.SOCKS_USER === '') {
-    return console.error(
-      'env SOCKS_USER missing. Set env to allow ping service to be used'
-    )
-  } else if (!('SOCKS_PASS' in process.env) || process.env.SOCKS_PASS === '') {
-    return console.error(
-      'env SOCKS_PASS missing. Set env to allow ping service to be used'
-    )
   }
 
   fetch(item.urls[0], {
     method: 'HEAD',
-    agent: new SocksProxyAgent({
-      hostname: process.env.SOCKS_PROXY,
-      port: process.env.SOCKS_PORT,
-      username: process.env.SOCKS_USER,
-      password: process.env.SOCKS_PASS,
-    }),
+    agent: new SocksProxyAgent(process.env.SOCKS_PROXY),
     headers: {
       DNT: '1',
       Pragma: 'no-cache',

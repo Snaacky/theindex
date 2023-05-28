@@ -1,4 +1,4 @@
-FROM node:18.1.0
+FROM node:20.2
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
@@ -17,9 +17,6 @@ ENV AUDIT_WEBHOOK=""
 
 # SOCKS proxy details to use for ping requests
 ENV SOCKS_PROXY=""
-ENV SOCKS_PORT=""
-ENV SOCKS_USER=""
-ENV SOCKS_PASS=""
 
 # ENV for OAuth2
 ENV DISCORD_CLIENT_ID=00000000000

@@ -27,9 +27,6 @@ services:
       
       # SOCKS5 Proxy for pinging
       SOCKS_PROXY: ${SOCKS_PROXY}
-      SOCKS_PORT: ${SOCKS_PORT}
-      SOCKS_USER: ${SOCKS_USER}
-      SOCKS_PASS: ${SOCKS_PASS}
 
       # OAuth2
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
