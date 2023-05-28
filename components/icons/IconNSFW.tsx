@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 const IconNSFW: FC = () => {
   return (
-    <span className={styles.nsfw} data-tip={'NSFW'}>
+    <span className={styles.nsfw} data-tooltip-content={'NSFW'}>
       18+
     </span>
   )

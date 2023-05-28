@@ -51,7 +51,9 @@ const OnlineStatus: FC<Props> = ({ item }) => {
       <span
         className={style}
         onClick={() => setShow(true)}
-        data-tip={text + (data && item.name ? ', last checked ' + time : '')}
+        data-tooltip-content={
+          text + (data && item.name ? ', last checked ' + time : '')
+        }
       />
       {show && (
         <OnlineStatusModal

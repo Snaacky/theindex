@@ -92,7 +92,7 @@ async function triggerPingUpdate(itemId: string) {
     agent: new SocksProxyAgent({
       hostname: process.env.SOCKS_PROXY,
       port: process.env.SOCKS_PORT,
-      userId: process.env.SOCKS_USER,
+      username: process.env.SOCKS_USER,
       password: process.env.SOCKS_PASS,
     }),
     headers: {

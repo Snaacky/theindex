@@ -14,7 +14,7 @@ const IconDelete: FC<Props> = ({ className, size, onClick, title }) => {
   return (
     <button
       className={className + ' btn btn-outline-danger'}
-      data-tip={title}
+      data-tooltip-content={title}
       type={'button'}
       onClick={onClick}
     >

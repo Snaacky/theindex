@@ -19,7 +19,7 @@ const Input: FC<Props> = ({
     <input
       type={'text'}
       className={classNames(styles.input, className)}
-      data-tip={hover}
+      data-tooltip-content={hover}
       placeholder={hover}
       aria-placeholder={hover}
       onChange={onChange}

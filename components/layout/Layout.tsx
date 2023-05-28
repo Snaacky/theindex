@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Navbar from '../navbar/Navbar'
 import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
-import ReactTooltip from 'react-tooltip'
+import { Tooltip } from 'react-tooltip'
 import { FC, ReactNode } from 'react'
 
 type LayoutProps = {
@@ -86,7 +86,7 @@ const Layout: FC<LayoutProps> = ({ children, error }) => {
         pauseOnHover
         theme={'dark'}
       />
-      <ReactTooltip place='top' type='dark' effect='solid' />
+      <Tooltip place='top' variant='dark' />
       <Footer error={error} />
       <script src={'/stats.js'} async={true} defer={true} />
     </div>

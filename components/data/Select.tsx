@@ -24,7 +24,7 @@ const Select: FC<Props> = ({
     <select
       id={id}
       className={classNames(inputStyles.input, styles.select, className)}
-      data-tip={hover}
+      data-tooltip-content={hover}
       aria-label={hover}
       onChange={onChange}
       value={value}

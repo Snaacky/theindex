@@ -9,7 +9,6 @@ import CreateNewButton from '../buttons/CreateNewButton'
 import { Column, ColumnType } from '../../types/Column'
 import { Types } from '../../types/Components'
 import Input from '../data/Input'
-import ReactTooltip from 'react-tooltip'
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
 
 type Props = {
@@ -53,10 +52,6 @@ const EditColumn: FC<Props> = ({
     setColumnsDatalist(columns.map((t) => t.name) || [])
     setUrlDatalist(columns.map((t) => t.urlId) || [])
   }, [columns])
-
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [valuesState, typeState])
 
   const router = useRouter()
 
@@ -310,7 +305,7 @@ const EditColumn: FC<Props> = ({
                       <div className={'d-flex flex-row'}>
                         <a
                           onClick={() => removeValue(i)}
-                          data-tip={'Remove value'}
+                          data-tooltip-content={'Remove value'}
                           style={{
                             width: '38px',
                             height: '38px',

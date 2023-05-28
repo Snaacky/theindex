@@ -283,7 +283,7 @@ const EditItem: FC<Props> = ({
                       </span>
                       <a
                         onClick={() => removeURL(i)}
-                        data-tip={'Remove url'}
+                        data-tooltip-content={'Remove url'}
                         style={{
                           width: '38px',
                           height: '38px',

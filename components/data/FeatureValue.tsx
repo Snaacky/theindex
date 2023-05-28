@@ -20,7 +20,10 @@ const FeatureValue: FC<Props> = ({
     return (
       <>
         <Link href={'/column/' + column.urlId}>
-          <a data-tip={'View column ' + column.name} className={'me-2'}>
+          <a
+            data-tooltip-content={'View column ' + column.name}
+            className={'me-2'}
+          >
             <DataBadge data={data} name={column.name} sponsor={sponsor} />
           </a>
         </Link>
@@ -31,7 +34,7 @@ const FeatureValue: FC<Props> = ({
   return (
     <>
       <a
-        data-tip={'Filter by column ' + column.name}
+        data-tooltip-content={'Filter by column ' + column.name}
         onClick={() => {
           if (typeof data === 'boolean') {
             onChange(null)

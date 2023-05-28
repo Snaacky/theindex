@@ -6,7 +6,7 @@ export default function TextValue({ data, column, onChange = null }) {
   return (
     <>
       <textarea
-        data-tip={'View column ' + column.name}
+        data-tooltip-content={'View column ' + column.name}
         className={'form-control'}
         rows={3}
         value={data}

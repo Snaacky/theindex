@@ -21,11 +21,13 @@ const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
       <div className={'card-body'}>
         <h5 className={'card-title'}>
           <Link href={'/column/' + column.urlId}>
-            <a data-tip={'View column ' + column.name}>{column.name}</a>
+            <a data-tooltip-content={'View column ' + column.name}>
+              {column.name}
+            </a>
           </Link>
           {canEdit(session) && (
             <Link href={'/edit/column/' + column._id}>
-              <a className={'ms-2'} data-tip={'Edit column'}>
+              <a className={'ms-2'} data-tooltip-content={'Edit column'}>
                 <IconEdit />
               </a>
             </Link>

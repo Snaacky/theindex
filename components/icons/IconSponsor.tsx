@@ -14,7 +14,7 @@ const IconSponsor: FC<Props> = ({ size }) => {
       icon={faStar}
       size={size}
       className={styles.sponsor}
-      data-tip={'Sponsor'}
+      data-tooltip-content={'Sponsor'}
     />
   )
 }

@@ -24,7 +24,7 @@ const IconBookmark: FC<Props> = ({ item, size }) => {
     <>
       <span
         className={iconStyles.icon + ' ' + styles.bookmark}
-        data-tip={'Add item to list'}
+        data-tooltip-content={'Add item to list'}
         onClick={() => {
           setShow(!show)
         }}

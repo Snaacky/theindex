@@ -25,7 +25,7 @@ const Button: FC<Props> = ({
       <Link href={href}>
         <a
           className={classNames('btn', styles.button, className)}
-          data-tip={hover}
+          data-tooltip-content={hover}
           aria-label={hover}
           onClick={onClick}
         >
@@ -39,7 +39,7 @@ const Button: FC<Props> = ({
     <button
       className={classNames('btn', styles.button, className)}
       type={type}
-      data-tip={hover}
+      data-tooltip-content={hover}
       aria-label={hover}
       onClick={onClick}
     >
