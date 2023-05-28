@@ -19,7 +19,6 @@ import { Collection } from '../../types/Collection'
 import { Library } from '../../types/Library'
 import { Types } from '../../types/Components'
 import { List } from '../../types/List'
-import ReactTooltip from 'react-tooltip'
 import Input from '../data/Input'
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter'
 import { faThList } from '@fortawesome/free-solid-svg-icons/faThList'
@@ -132,9 +131,6 @@ const Board: FC<Props> = ({
   useEffect(() => {
     setContent(content)
   }, [content])
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [sortOption, compactView, columnFilter, pageSize, startViewIndex])
 
   const randString = Math.random().toString(36).slice(2)
 

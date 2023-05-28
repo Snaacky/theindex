@@ -20,7 +20,7 @@ const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
       <>
         {data.map((v) => (
           <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
-            <a className={'me-2'} data-tip={column.name + ': ' + v}>
+            <a className={'me-2'} data-tooltip-content={column.name + ': ' + v}>
               <DataBadge name={v} />
             </a>
           </Link>
@@ -34,7 +34,7 @@ const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
       {column.values.map((v) => {
         return (
           <a
-            data-tip={v}
+            data-tooltip-content={v}
             className={'me-2'}
             key={v}
             onClick={() => {

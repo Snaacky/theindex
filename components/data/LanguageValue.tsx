@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import DataBadge from './DataBadge'
 import { Column, ColumnType } from '../../types/Column'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { getLanguages } from '../../lib/utils'
 import Input from './Input'
 import Button from '../buttons/Button'
-import ReactTooltip from 'react-tooltip'
 
 type Props = {
   data: string[]
@@ -16,9 +15,6 @@ type Props = {
 const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
   const [filter, setFilter] = useState('')
   const [expand, setExpand] = useState(false)
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [filter, expand])
 
   if (column.type !== ColumnType.language) {
     console.error('Called LanguageValue but column type is', column.type)
@@ -41,7 +37,7 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
             <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
               <a
                 className={'me-2'}
-                data-tip={column.name + ' language: ' + name}
+                data-tooltip-content={column.name + ' language: ' + name}
               >
                 <DataBadge name={name} />
               </a>
@@ -85,7 +81,7 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
         {sliced.map((lang) => {
           return (
             <a
-              data-tip={'Language: ' + lang.name}
+              data-tooltip-content={'Language: ' + lang.name}
               className={'me-2'}
               key={lang.iso6393}
               onClick={() => {

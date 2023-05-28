@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.min.css'
+import 'react-tooltip/dist/react-tooltip.css'
 // custom css
 import '../styles/global.css'
 

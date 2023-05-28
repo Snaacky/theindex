@@ -19,7 +19,7 @@ const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
         target={'_blank'}
         href={url}
         rel='noreferrer'
-        data-tip={'Open in new tab'}
+        data-tooltip-content={'Open in new tab'}
       >
         <FontAwesomeIcon icon={faExternalLinkAlt} size={size} />
       </a>
@@ -27,7 +27,9 @@ const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
   }
 
   return (
-    <span data-tip={url && url !== '' ? 'Invalid url' : 'Missing url'}>
+    <span
+      data-tooltip-content={url && url !== '' ? 'Invalid url' : 'Missing url'}
+    >
       <FontAwesomeIcon
         icon={faExternalLinkAlt}
         size={size}

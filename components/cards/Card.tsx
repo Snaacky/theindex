@@ -78,7 +78,9 @@ const Card: FC<Props> = ({
           <div className={'col-auto'}>
             <Link href={hrefString}>
               <a
-                data-tip={'View ' + type + ' ' + (content.name ?? '')}
+                data-tooltip-content={
+                  'View ' + type + ' ' + (content.name ?? '')
+                }
                 className={'umami--click--' + type + '-' + content.name}
               >
                 <Image
@@ -101,7 +103,7 @@ const Card: FC<Props> = ({
 
               {'sponsor' in content && content.sponsor && (
                 <span className={'me-2'}>
-                  <IconSponsor size={'sm'} data-tip={'Sponsored'} />
+                  <IconSponsor size={'sm'} data-tooltip-content={'Sponsored'} />
                 </span>
               )}
 
@@ -119,7 +121,7 @@ const Card: FC<Props> = ({
                         : content._id)
                     }
                   >
-                    <a data-tip={'Edit ' + type} className={'ms-2'}>
+                    <a data-tooltip-content={'Edit ' + type} className={'ms-2'}>
                       <IconEdit />
                     </a>
                   </Link>
@@ -148,7 +150,7 @@ const Card: FC<Props> = ({
                 )}
                 {add !== null && (
                   <a
-                    data-tip={'Add ' + type}
+                    data-tooltip-content={'Add ' + type}
                     className={styles.link + ' float-end'}
                     onClick={add}
                   >

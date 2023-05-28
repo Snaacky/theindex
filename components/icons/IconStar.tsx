@@ -38,7 +38,7 @@ const IconStar: FC<Props> = ({ item, size }) => {
     <>
       <span
         className={iconStyles.icon + ' ' + styles.star}
-        data-tip={(isFav ? 'Un-star' : 'Star') + ' item'}
+        data-tooltip-content={(isFav ? 'Un-star' : 'Star') + ' item'}
         onClick={() => {
           if (isLogin(session)) {
             user.favs = isFav

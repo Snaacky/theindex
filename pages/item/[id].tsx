@@ -98,7 +98,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
             />
             {canEdit(session) && (
               <Link href={'/edit/item/' + item._id}>
-                <a data-tip={'Edit item'} className={'ms-2'}>
+                <a data-tooltip-content={'Edit item'} className={'ms-2'}>
                   <IconEdit />
                 </a>
               </Link>
@@ -116,7 +116,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
             User starred this item:{' '}
             <small
               className={'text-warning'}
-              data-tip={
+              data-tooltip-content={
                 item.stars +
                 ' user' +
                 (item.stars === 1 ? '' : 's') +
@@ -225,7 +225,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
                     <Link href={'/collection/' + t.urlId} key={t._id}>
                       <a
                         className={'me-2 mb-2'}
-                        data-tip={'View collection ' + t.name}
+                        data-tooltip-content={'View collection ' + t.name}
                       >
                         <DataBadge name={t.name} style={'primary'} />
                       </a>
@@ -324,7 +324,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
                       <Link href={'/column/' + c.urlId}>
                         <a
                           className={'me-2'}
-                          data-tip={'View column ' + c.name}
+                          data-tooltip-content={'View column ' + c.name}
                         >
                           {c.name}:
                         </a>

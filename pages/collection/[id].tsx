@@ -93,7 +93,10 @@ const Collection: FC<Props> = ({
                 <IconCollection /> {collection.name}
                 {canEdit(session) && (
                   <Link href={'/edit/collection/' + collection._id}>
-                    <a data-tip={'Edit collection'} className={'ms-2'}>
+                    <a
+                      data-tooltip-content={'Edit collection'}
+                      className={'ms-2'}
+                    >
                       <IconEdit />
                     </a>
                   </Link>
@@ -132,7 +135,7 @@ const Collection: FC<Props> = ({
             {libraries.map((t) => {
               return (
                 <Link href={'/library/' + t.urlId} key={t._id}>
-                  <a data-tip={'View library' + t.name}>
+                  <a data-tooltip-content={'View library' + t.name}>
                     <div className={'badge rounded-pill bg-primary mb-2 me-2'}>
                       {t.name}
                     </div>
