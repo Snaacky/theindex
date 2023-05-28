@@ -98,8 +98,8 @@ const EditCollection: FC<Props> = ({
             <Image
               src={'/img/' + imgState}
               alt={'Image for collection'}
-              width={'148px'}
-              height={'148px'}
+              width={148}
+              height={148}
             />
             <div
               className={'ms-2 d-flex flex-row w-100 justify-content-center'}
@@ -213,4 +213,4 @@ const EditCollection: FC<Props> = ({
   )
 }
 
-export default EditCollection
+export default EditCollection;

@@ -80,8 +80,8 @@ const Collection: FC<Props> = ({
             <Image
               src={'/img/' + collection.img}
               alt={'Image of collection'}
-              width={'148px'}
-              height={'148px'}
+              width={148}
+              height={148}
               className={'rounded-circle bg-6'}
             />
           </div>

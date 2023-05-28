@@ -4,6 +4,7 @@ import { addUser, getUser } from '../../../lib/db/users'
 import { AccountType } from '../../../types/User'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { dbClient } from '../../../lib/db/db'
+import { ObjectId } from 'mongodb'
 
 const nextAuth = NextAuth({
   providers: [
@@ -66,7 +67,7 @@ const nextAuth = NextAuth({
         // update new discord image on login
         const db = (await dbClient).db('index')
         await db.collection('nextauth_users').updateOne(
-          { _id: user.id },
+          { _id: new ObjectId(user.id) },
           {
             $set: {
               image: profile.image,
