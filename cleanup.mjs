@@ -113,7 +113,7 @@ if ('AUDIT_WEBHOOK' in process.env) {
 const polluteId = (query) => {
   if (typeof query !== 'undefined') {
     if (query.hasOwnProperty('_id') && typeof query._id === 'string') {
-      query._id = ObjectId(query._id)
+      query._id = new ObjectId(query._id)
     }
     if (
       query.hasOwnProperty('lastModified') &&
@@ -204,7 +204,7 @@ let users = await db.collection('users').find().toArray()
 for (let i = 0; i < users.length; i++) {
   const user = users[i]
   const userData = await db.collection('nextauth_users').findOne({
-    _id: ObjectId(user.uid),
+    _id: new ObjectId(user.uid),
   })
 
   if (!userData) {
