@@ -19,13 +19,12 @@ const FeatureValue: FC<Props> = ({
   if (onChange === null) {
     return (
       <>
-        <Link href={'/column/' + column.urlId}>
-          <a
-            data-tooltip-content={'View column ' + column.name}
-            className={'me-2'}
-          >
-            <DataBadge data={data} name={column.name} sponsor={sponsor} />
-          </a>
+        <Link
+          href={'/column/' + column.urlId}
+          data-tooltip-content={'View column ' + column.name}
+          className={'me-2'}
+        >
+          <DataBadge data={data} name={column.name} sponsor={sponsor} />
         </Link>
       </>
     )
@@ -33,7 +32,7 @@ const FeatureValue: FC<Props> = ({
 
   return (
     <>
-      <a
+      <button
         data-tooltip-content={'Filter by column ' + column.name}
         onClick={() => {
           if (typeof data === 'boolean') {
@@ -44,9 +43,9 @@ const FeatureValue: FC<Props> = ({
         }}
       >
         <DataBadge data={data} name={column.name} sponsor={sponsor} />
-      </a>
+      </button>
     </>
   )
 }
 
-export default FeatureValue
+export default FeatureValue;

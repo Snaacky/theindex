@@ -34,13 +34,13 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
           }
 
           return (
-            <Link href={'/column/' + column.urlId + '?v=' + v} key={v}>
-              <a
-                className={'me-2'}
-                data-tooltip-content={column.name + ' language: ' + name}
-              >
-                <DataBadge name={name} />
-              </a>
+            <Link
+              href={'/column/' + column.urlId + '?v=' + v}
+              key={v}
+              className={'me-2'}
+              data-tooltip-content={column.name + ' language: ' + name}
+            >
+              <DataBadge name={name} />
             </Link>
           )
         })}
@@ -80,7 +80,7 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
       <div className={'mt-2'}>
         {sliced.map((lang) => {
           return (
-            <a
+            <button
               data-tooltip-content={'Language: ' + lang.name}
               className={'me-2'}
               key={lang.iso6393}
@@ -96,7 +96,7 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
                 data={data.includes(lang.iso6393) ? true : null}
                 name={lang.name}
               />
-            </a>
+            </button>
           )
         })}
         {sliced.length < filtered.length && <DataBadge name={'...'} />}

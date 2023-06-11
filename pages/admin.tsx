@@ -28,8 +28,11 @@ const Admin = ({
       <Head>
         <title>Admin | {process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
-      <Link href={'/admin/users'}>
-        <a className={'btn btn-outline-success mb-2 me-2'}>All users</a>
+      <Link
+        href={'/admin/users'}
+        className={'btn btn-outline-success mb-2 me-2'}
+      >
+        All users
       </Link>
       <button
         className={'btn btn-outline-danger mb-2 me-2'}
@@ -39,14 +42,14 @@ const Admin = ({
       >
         Clear cache
       </button>
-      <a
+      <Link
         className={'btn btn-outline-secondary mb-2 me-2'}
         href={'/api/export'}
         target={'_blank'}
         rel='noreferrer'
       >
         Export all data
-      </a>
+      </Link>
 
       <h4>Screenshots</h4>
       <button

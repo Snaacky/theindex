@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react'
+import { authOptions } from '../auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 import { isAdmin, isLogin } from '../../../lib/session'
 import { getSingleCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
@@ -10,7 +11,7 @@ export default async function apiUser(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req })
+  const session = await getServerSession(req, res, authOptions)
 
   let result = {}
   if (req.query.id === 'me') {
@@ -41,5 +42,5 @@ export default async function apiUser(
     }
   }
 
-  res.status(200).json(result)
+  res.json(result)
 }

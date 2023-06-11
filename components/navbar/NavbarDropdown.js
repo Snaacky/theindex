@@ -16,7 +16,7 @@ export default function NavbarDropdown({
 
   return (
     <li className={'nav-item'}>
-      <a
+      <button
         className={
           styles.toggle + ' collapsed nav-link' + (show ? ' show' : '')
         }
@@ -30,7 +30,7 @@ export default function NavbarDropdown({
           <FontAwesomeIcon icon={show ? faChevronDown : faChevronRight} />
         </div>
         {toggler}
-      </a>
+      </button>
 
       <div id={targetId} className={'collapse' + (show ? ' show' : '')}>
         <ul className={'list-unstyled rounded bg-3 ms-4'}>
@@ -43,8 +43,8 @@ export default function NavbarDropdown({
             <>
               <hr className={'dropdown-divider'} />
               <li className={'nav-item'} onClick={onClick}>
-                <Link href={viewAllUrl}>
-                  <a className={'nav-link small text-end'}>View all</a>
+                <Link href={viewAllUrl} className={'nav-link small text-end'}>
+                  View all
                 </Link>
               </li>
             </>

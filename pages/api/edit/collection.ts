@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react'
+import { authOptions } from '../auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 import { canEdit } from '../../../lib/session'
 import { addCollection, updateCollection } from '../../../lib/db/collections'
 import { updateAllCache } from '../../../lib/db/cache'
@@ -9,7 +10,7 @@ export default async function apiEditCollection(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req })
+  const session = await getServerSession(req, res, authOptions)
   if (canEdit(session)) {
     const d = req.body
     if (d.urlId === '_new') {

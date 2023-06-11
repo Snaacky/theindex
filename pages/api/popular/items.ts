@@ -6,5 +6,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.status(200).json(await getLastViews(Types.item, 100))
+  res.json(await getLastViews(Types.item, 100))
 }

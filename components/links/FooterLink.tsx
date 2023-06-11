@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 
@@ -12,7 +13,7 @@ type Props = {
 const FooterLink: FC<Props> = ({ name, url, icon }) => {
   return (
     <div className='d-flex icon-link-hover my-2'>
-      <a
+      <Link
         href={url}
         target='_blank'
         rel='noreferrer'
@@ -25,7 +26,7 @@ const FooterLink: FC<Props> = ({ name, url, icon }) => {
           <FontAwesomeIcon icon={icon} fixedWidth={true} />
         )}
         <span className='ms-2'>{name}</span>
-      </a>
+      </Link>
     </div>
   )
 }

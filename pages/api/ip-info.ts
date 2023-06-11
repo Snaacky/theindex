@@ -18,7 +18,7 @@ export default async function ipInfo(
   ip = ip.split(', ')[0]
 
   const geo = lookup(ip)
-  res.status(200).json({
+  res.json({
     ip,
     geo,
   })

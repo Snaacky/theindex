@@ -42,13 +42,12 @@ export default function NotAdmin() {
         className={'rounded'}
       />
       <p>You do not seem to have enough rights to access this page</p>
-      <Link href={'/'}>
-        <a
-          className={'btn btn-outline-success'}
-          data-tooltip-content={'Go back'}
-        >
-          <FontAwesomeIcon icon={faSignInAlt} /> Home
-        </a>
+      <Link
+        href={'/'}
+        className={'btn btn-outline-success'}
+        data-tooltip-content={'Go back'}
+      >
+        <FontAwesomeIcon icon={faSignInAlt} /> Home
       </Link>
     </div>
   )

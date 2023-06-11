@@ -92,13 +92,12 @@ const Collection: FC<Props> = ({
               <h2>
                 <IconCollection /> {collection.name}
                 {canEdit(session) && (
-                  <Link href={'/edit/collection/' + collection._id}>
-                    <a
-                      data-tooltip-content={'Edit collection'}
-                      className={'ms-2'}
-                    >
-                      <IconEdit />
-                    </a>
+                  <Link
+                    href={'/edit/collection/' + collection._id}
+                    data-tooltip-content={'Edit collection'}
+                    className={'ms-2'}
+                  >
+                    <IconEdit />
                   </Link>
                 )}
               </h2>
@@ -134,12 +133,14 @@ const Collection: FC<Props> = ({
           <div className={'d-flex flex-wrap'}>
             {libraries.map((t) => {
               return (
-                <Link href={'/library/' + t.urlId} key={t._id}>
-                  <a data-tooltip-content={'View library' + t.name}>
-                    <div className={'badge rounded-pill bg-primary mb-2 me-2'}>
-                      {t.name}
-                    </div>
-                  </a>
+                <Link
+                  href={'/library/' + t.urlId}
+                  key={t._id}
+                  data-tooltip-content={'View library' + t.name}
+                >
+                  <div className={'badge rounded-pill bg-primary mb-2 me-2'}>
+                    {t.name}
+                  </div>
                 </Link>
               )
             })}

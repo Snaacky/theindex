@@ -6,5 +6,5 @@ export default async function apiItems(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.status(200).json(await getAllCache(Types.item))
+  res.json(await getAllCache(Types.item))
 }

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { isValidUrl } from '../lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -41,14 +42,14 @@ export default function ValidateApi() {
 
       <p>
         {description}. <br />
-        <a
+        <Link
           className={'btn btn-primary'}
           href={
             'https://github.com/snaacky/theindexmoe/blob/main/docs/search-engine-api.md'
           }
         >
           Read more about the API format
-        </a>
+        </Link>
       </p>
 
       <h4>How the search engine works</h4>

@@ -65,17 +65,17 @@ const Row: FC<Props> = ({
       <div className='row g-0'>
         {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
-            <a onClick={() => move(-1)}>
+            <button onClick={() => move(-1)}>
               <FontAwesomeIcon icon={faChevronUp} />
-            </a>
-            <a onClick={() => move(1)}>
+            </button>
+            <button onClick={() => move(1)}>
               <FontAwesomeIcon icon={faChevronDown} />
-            </a>
+            </button>
           </div>
         )}
         {add !== null && (
           <div className={styles.sorter + ' col-auto'}>
-            <a
+            <button
               onClick={add}
               data-tooltip-content={'Add ' + type}
               style={{
@@ -83,26 +83,23 @@ const Row: FC<Props> = ({
               }}
             >
               <IconAdd />
-            </a>
+            </button>
           </div>
         )}
         {imageUrl !== '' && (
           <div className={styles.column + ' col-auto p-1'}>
-            <Link href={hrefString}>
-              <a
-                data-tooltip-content={
-                  'View ' + type + ' ' + (content.name ?? '')
-                }
-                className={'umami--click--' + type + '-' + content.name}
-              >
-                <Image
-                  src={imageUrl}
-                  className='img-fluid rounded-start'
-                  alt='...'
-                  width={64}
-                  height={64}
-                />
-              </a>
+            <Link
+              href={hrefString}
+              data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
+              className={'umami--click--' + type + '-' + content.name}
+            >
+              <Image
+                src={imageUrl}
+                className='img-fluid rounded-start'
+                alt='...'
+                width={64}
+                height={64}
+              />
             </Link>
           </div>
         )}
@@ -131,10 +128,10 @@ const Row: FC<Props> = ({
                       ? content.uid
                       : content._id)
                   }
+                  data-tooltip-content={'Edit ' + type}
+                  className={'ms-2'}
                 >
-                  <a data-tooltip-content={'Edit ' + type} className={'ms-2'}>
-                    <IconEdit />
-                  </a>
+                  <IconEdit />
                 </Link>
               )}
               <span className={'float-end'} style={{ fontSize: '1.2rem' }}>
@@ -161,18 +158,17 @@ const Row: FC<Props> = ({
               </span>
             </h5>
 
-            <Link href={hrefString}>
-              <a
-                className={
-                  styles.link + ' umami--click--' + type + '-' + content.name
-                }
-              >
-                <span className={styles.description + ' card-text'}>
-                  {content.description}
-                </span>
+            <Link
+              href={hrefString}
+              className={
+                styles.link + ' umami--click--' + type + '-' + content.name
+              }
+            >
+              <span className={styles.description + ' card-text'}>
+                {content.description}
+              </span>
 
-                {bodyContent}
-              </a>
+              {bodyContent}
             </Link>
           </div>
         </div>

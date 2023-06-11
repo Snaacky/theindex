@@ -20,16 +20,19 @@ const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
     <div className={'card bg-4 mb-2 me-2'}>
       <div className={'card-body'}>
         <h5 className={'card-title'}>
-          <Link href={'/column/' + column.urlId}>
-            <a data-tooltip-content={'View column ' + column.name}>
-              {column.name}
-            </a>
+          <Link
+            href={'/column/' + column.urlId}
+            data-tooltip-content={'View column ' + column.name}
+          >
+            {column.name}
           </Link>
           {canEdit(session) && (
-            <Link href={'/edit/column/' + column._id}>
-              <a className={'ms-2'} data-tooltip-content={'Edit column'}>
-                <IconEdit />
-              </a>
+            <Link
+              href={'/edit/column/' + column._id}
+              className={'ms-2'}
+              data-tooltip-content={'Edit column'}
+            >
+              <IconEdit />
             </Link>
           )}
         </h5>
@@ -45,4 +48,4 @@ const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
   )
 }
 
-export default DataCard
+export default DataCard;

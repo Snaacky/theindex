@@ -41,10 +41,8 @@ const ItemToListModal: FC<Props> = ({ item, close }) => {
       }
       footer={
         <span>
-          <Link href={'/edit/list/_new'}>
-            <a className={'btn btn-outline-success'}>
-              <FontAwesomeIcon icon={faPlus} /> Create a new list
-            </a>
+          <Link href={'/edit/list/_new'} className={'btn btn-outline-success'}>
+            <FontAwesomeIcon icon={faPlus} /> Create a new list
           </Link>
         </span>
       }
@@ -81,10 +79,8 @@ const ItemToListModal: FC<Props> = ({ item, close }) => {
             >
               {l.name}
             </label>
-            <Link href={'/edit/list/' + l._id}>
-              <a className={'float-end'}>
-                <IconEdit />
-              </a>
+            <Link href={'/edit/list/' + l._id} className={'float-end'}>
+              <IconEdit />
             </Link>
           </div>
         ))}

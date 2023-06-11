@@ -81,7 +81,7 @@ export default function App({
         },
       }}
     >
-      <SessionProvider session={session} refetchInterval={5 * 60}>
+      <SessionProvider>
         <Layout>
           <Auth auth={Component.auth}>
             <noscript>

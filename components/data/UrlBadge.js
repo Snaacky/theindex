@@ -1,4 +1,5 @@
 import styles from './UrlBadge.module.css'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isValidUrl } from '../../lib/utils'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt'
@@ -6,7 +7,7 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalL
 export default function UrlBadge({ url, className = '' }) {
   if (isValidUrl(url)) {
     return (
-      <a
+      <Link
         href={url}
         target={'_blank'}
         rel={'noreferrer'}
@@ -18,7 +19,7 @@ export default function UrlBadge({ url, className = '' }) {
             <FontAwesomeIcon icon={faExternalLinkAlt} />
           </span>
         </div>
-      </a>
+      </Link>
     )
   }
 

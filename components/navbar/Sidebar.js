@@ -65,20 +65,17 @@ function Sidebar({ show, setShow }, ref) {
                 {isAdmin(session) && (
                   <>
                     <li className={'nav-item'}>
-                      <Link href={'/admin/users'}>
-                        <a className={'nav-link'}>
-                          <FontAwesomeIcon icon={faUsers} /> Users
-                        </a>
+                      <Link href={'/admin/users'} className={'nav-link'}>
+                        <FontAwesomeIcon icon={faUsers} /> Users
                       </Link>
                     </li>
                     <li className={'nav-item'}>
-                      <Link href={'/admin'}>
-                        <a
-                          className={'nav-link'}
-                          data-tooltip-content={'Admin settings'}
-                        >
-                          <IconAdmin /> Admin
-                        </a>
+                      <Link
+                        href={'/admin'}
+                        className={'nav-link'}
+                        data-tooltip-content={'Admin settings'}
+                      >
+                        <IconAdmin /> Admin
                       </Link>
                     </li>
                   </>
@@ -91,9 +88,9 @@ function Sidebar({ show, setShow }, ref) {
           <ul className={'nav nav-pills flex-column'}>
             {libraries.length === 0 && (
               <li className={'nav-item'}>
-                <a href={'#'} className='nav-link text-muted'>
+                <Link href={'#'} className='nav-link text-muted'>
                   No libraries found
-                </a>
+                </Link>
               </li>
             )}
             {libraries.map(({ urlId, name, collections }) => (
@@ -105,13 +102,13 @@ function Sidebar({ show, setShow }, ref) {
                 contentList={
                   collections.length === 0
                     ? [
-                        <a
+                        <Link
                           href={'#'}
                           className={'nav-link text-muted'}
                           key={'noCollectionsFound'}
                         >
                           No collections found
-                        </a>,
+                        </Link>,
                       ]
                     : collections.map((collection) => {
                         collection = allCollections.find(
@@ -122,15 +119,12 @@ function Sidebar({ show, setShow }, ref) {
                             <Link
                               href={'/collection/' + collection.urlId}
                               key={collection.urlId}
+                              className={
+                                'nav-link umami--click--collection-' +
+                                collection.name
+                              }
                             >
-                              <a
-                                className={
-                                  'nav-link umami--click--collection-' +
-                                  collection.name
-                                }
-                              >
-                                {collection.name}
-                              </a>
+                              {collection.name}
                             </Link>
                           )
                         }
@@ -145,38 +139,43 @@ function Sidebar({ show, setShow }, ref) {
           <hr />
           <ul className={'nav nav-pills flex-column'} onClick={clickFunc}>
             <li className={'nav-item'}>
-              <Link href={'/libraries'}>
-                <a className={'nav-link umami--click--navbar-libraries'}>
-                  <IconLibrary /> Libraries
-                </a>
+              <Link
+                href={'/libraries'}
+                className={'nav-link umami--click--navbar-libraries'}
+              >
+                <IconLibrary /> Libraries
               </Link>
             </li>
             <li className={'nav-item'}>
-              <Link href={'/collections'}>
-                <a className={'nav-link umami--click--navbar-collections'}>
-                  <IconCollection /> Collections
-                </a>
+              <Link
+                href={'/collections'}
+                className={'nav-link umami--click--navbar-collections'}
+              >
+                <IconCollection /> Collections
               </Link>
             </li>
             <li className={'nav-item'}>
-              <Link href={'/columns'}>
-                <a className={'nav-link umami--click--navbar-columns'}>
-                  <IconColumn /> Columns
-                </a>
+              <Link
+                href={'/columns'}
+                className={'nav-link umami--click--navbar-columns'}
+              >
+                <IconColumn /> Columns
               </Link>
             </li>
             <li className={'nav-item'}>
-              <Link href={'/items'}>
-                <a className={'nav-link umami--click--navbar-items'}>
-                  <IconItem /> Items
-                </a>
+              <Link
+                href={'/items'}
+                className={'nav-link umami--click--navbar-items'}
+              >
+                <IconItem /> Items
               </Link>
             </li>
             <li className={'nav-item'}>
-              <Link href={'/lists'}>
-                <a className={'nav-link umami--click--navbar-lists'}>
-                  <IconList /> User lists
-                </a>
+              <Link
+                href={'/lists'}
+                className={'nav-link umami--click--navbar-lists'}
+              >
+                <IconList /> User lists
               </Link>
             </li>
           </ul>
@@ -187,7 +186,7 @@ function Sidebar({ show, setShow }, ref) {
               toggler={'Other services'}
               targetId={'navbar-menu-services'}
               contentList={[
-                <a
+                <Link
                   className={
                     'nav-link d-flex align-items-center umami--click--navbar-wiki'
                   }
@@ -201,7 +200,7 @@ function Sidebar({ show, setShow }, ref) {
                     alt={'Wiki.js logo'}
                   />
                   <span className={'ms-1'}>Wiki</span>
-                </a>,
+                </Link>,
               ]}
               onClick={() => clickFunc()}
             />
@@ -209,7 +208,7 @@ function Sidebar({ show, setShow }, ref) {
               toggler={'Social media'}
               targetId={'navbar-menu-social-media'}
               contentList={[
-                <a
+                <Link
                   className={'nav-link umami--click--navbar-discord'}
                   href={'https://discord.gg/snackbox'}
                   key={'discord'}
@@ -217,7 +216,7 @@ function Sidebar({ show, setShow }, ref) {
                   rel='noreferrer'
                 >
                   <FontAwesomeIcon icon={faDiscord} /> Discord
-                </a>,
+                </Link>,
               ]}
               onClick={() => clickFunc()}
             />

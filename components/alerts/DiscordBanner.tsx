@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import styles from './DiscordBanner.module.css'
+import Link from 'next/link'
 const { bannerOutside, banner, svg } = styles
 
 const DiscordBanner: FC = () => {
@@ -35,11 +36,11 @@ const DiscordBanner: FC = () => {
 
   return (
     <div className={'container ' + bannerOutside}>
-      <a href='https://discord.gg/snackbox' target='_blank' rel='noreferrer'>
+      <Link href='https://discord.gg/snackbox' target='_blank' rel='noreferrer'>
         <div className={banner}>
           <span className={svg}>{svgElement}</span> {text}
         </div>
-      </a>
+      </Link>
     </div>
   )
 }

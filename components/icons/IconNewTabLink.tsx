@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isValidUrl } from '../../lib/utils'
 import styles from './IconNewTabLink.module.css'
+import Link from 'next/link'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
 import { FC } from 'react'
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt'
@@ -14,7 +15,7 @@ type Props = {
 const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
   if (isValidUrl(url)) {
     return (
-      <a
+      <Link
         className={styles.link + ' ms-2 ' + className}
         target={'_blank'}
         href={url}
@@ -22,7 +23,7 @@ const IconNewTabLink: FC<Props> = ({ url, size, className = '' }) => {
         data-tooltip-content={'Open in new tab'}
       >
         <FontAwesomeIcon icon={faExternalLinkAlt} size={size} />
-      </a>
+      </Link>
     )
   }
 

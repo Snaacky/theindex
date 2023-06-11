@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react'
+import { authOptions } from '../auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 import { isLogin } from '../../../lib/session'
 import { findOne } from '../../../lib/db/db'
 import { addView } from '../../../lib/db/views'
@@ -30,28 +31,27 @@ export default async function statsPageView(
       }
 
       if (exists !== null) {
-        const session = await getSession({ req })
+        const session = await getServerSession(req, res, authOptions)
         const body = {
           type,
           contentId: type === 'user' ? exists.uid : exists._id,
           uid: isLogin(session) ? session.user.uid : 'guest',
         }
         await addView(body)
-        res.status(200).json(body)
+        res.json(body)
       } else {
-        res.status(404).json({
+        res.json({
           status: 'Content does not exist',
         })
       }
     } else {
-      res.status(200).json({
+      res.json({
         status: 'Page not tracked',
       })
     }
   } else {
-    res.status(400).json({
+    res.json({
       error: 'Missing url',
     })
   }
-  res.end()
 }

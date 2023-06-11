@@ -303,7 +303,7 @@ const EditColumn: FC<Props> = ({
                   <div className={styles.column + ' col-auto px-1'}>
                     {i < valuesState.length - 1 ? (
                       <div className={'d-flex flex-row'}>
-                        <a
+                        <button
                           onClick={() => removeValue(i)}
                           data-tooltip-content={'Remove value'}
                           style={{
@@ -312,7 +312,7 @@ const EditColumn: FC<Props> = ({
                           }}
                         >
                           <IconDelete title={'Remove value'} />
-                        </a>
+                        </button>
                       </div>
                     ) : (
                       <span className={'text-muted ms-2'}>Empty</span>

@@ -86,10 +86,12 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
               <h2>
                 <IconLibrary /> {library.name}
                 {canEdit(session) && (
-                  <Link href={'/edit/library/' + library._id}>
-                    <a data-tooltip-content={'Edit tab'} className={'ms-2'}>
-                      <IconEdit />
-                    </a>
+                  <Link
+                    href={'/edit/library/' + library._id}
+                    data-tooltip-content={'Edit tab'}
+                    className={'ms-2'}
+                  >
+                    <IconEdit />
                   </Link>
                 )}
               </h2>

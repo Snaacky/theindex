@@ -6,5 +6,5 @@ export default async function apiColumns(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.status(200).json(await getAllCache(Types.column))
+  res.json(await getAllCache(Types.column))
 }
