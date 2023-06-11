@@ -11,21 +11,20 @@ export default function NavbarUser({ className }) {
     return (
       <>
         <li className={'nav-item'}>
-          <Link href={'/user/' + session.user.uid}>
-            <a
-              className={
-                'nav-link d-flex align-items-center umami--click--navbar-profile'
-              }
-            >
-              <Image
-                src={session.user.image || '/img/puzzled.png'}
-                width={24}
-                height={24}
-                className={'rounded-circle'}
-                alt={session.user.name + "'s profile picture"}
-              />
-              <span className={className + ' ms-1'}>{session.user.name}</span>
-            </a>
+          <Link
+            href={'/user/' + session.user.uid}
+            className={
+              'nav-link d-flex align-items-center umami--click--navbar-profile'
+            }
+          >
+            <Image
+              src={session.user.image || '/img/puzzled.png'}
+              width={24}
+              height={24}
+              className={'rounded-circle'}
+              alt={session.user.name + "'s profile picture"}
+            />
+            <span className={className + ' ms-1'}>{session.user.name}</span>
           </Link>
         </li>
       </>

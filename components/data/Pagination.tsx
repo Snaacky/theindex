@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import Select from './Select'
+import Link from 'next/link'
 
 type Props = {
   contentLength: number
@@ -52,14 +53,14 @@ const Pagination: FC<Props> = ({
           <ul className='pagination mb-2'>
             {startViewIndex > 0 && (
               <li className='page-item'>
-                <a
+                <Link
                   className={'page-link border-dark bg-dark'}
                   href='#'
                   aria-label='Previous'
                   onClick={() => setStartViewIndex(startViewIndex - pageSize)}
                 >
                   <span aria-hidden='true'>&laquo;</span>
-                </a>
+                </Link>
               </li>
             )}
             {pagination.map((index, i) => (
@@ -70,7 +71,7 @@ const Pagination: FC<Props> = ({
                   (index * pageSize === startViewIndex ? ' active' : '')
                 }
               >
-                <a
+                <Link
                   className={
                     'page-link border-dark bg-' +
                     (index * pageSize === startViewIndex ? 'primary' : 'dark')
@@ -83,19 +84,19 @@ const Pagination: FC<Props> = ({
                   }}
                 >
                   {index === -1 ? '...' : index + 1}
-                </a>
+                </Link>
               </li>
             ))}
             {startViewIndex < (numPaginations - 1) * pageSize && (
               <li className='page-item'>
-                <a
+                <Link
                   className={'page-link border-dark bg-dark'}
                   href='#'
                   aria-label='Previous'
                   onClick={() => setStartViewIndex(startViewIndex + pageSize)}
                 >
                   <span aria-hidden='true'>&raquo;</span>
-                </a>
+                </Link>
               </li>
             )}
           </ul>

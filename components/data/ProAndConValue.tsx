@@ -22,13 +22,12 @@ const ProAndConValue: FC<Props> = ({
   if (onChange === null) {
     return (
       <>
-        <Link href={'/column/' + column.urlId}>
-          <a
-            data-tooltip-content={'View column ' + column.name}
-            className={'me-2'}
-          >
-            <DataBadge data={data} name={displayData} sponsor={sponsor} />
-          </a>
+        <Link
+          href={'/column/' + column.urlId}
+          data-tooltip-content={'View column ' + column.name}
+          className={'me-2'}
+        >
+          <DataBadge data={data} name={displayData} sponsor={sponsor} />
         </Link>
       </>
     )
@@ -36,7 +35,7 @@ const ProAndConValue: FC<Props> = ({
 
   return (
     <>
-      <a
+      <button
         data-tooltip-content={'Filter by column ' + column.name}
         onClick={() => {
           if (typeof data === 'boolean') {
@@ -47,7 +46,7 @@ const ProAndConValue: FC<Props> = ({
         }}
       >
         <DataBadge data={data} name={displayData} sponsor={sponsor} />
-      </a>
+      </button>
     </>
   )
 }

@@ -281,7 +281,7 @@ const EditItem: FC<Props> = ({
                       <span className={'me-2'} style={{ fontSize: '1.5rem' }}>
                         <IconNewTabLink url={v} />
                       </span>
-                      <a
+                      <button
                         onClick={() => removeURL(i)}
                         data-tooltip-content={'Remove url'}
                         style={{
@@ -290,7 +290,7 @@ const EditItem: FC<Props> = ({
                         }}
                       >
                         <IconDelete title={'Remove url'} />
-                      </a>
+                      </button>
                     </div>
                   ) : (
                     <span className={'text-muted ms-2'}>Empty url</span>
@@ -342,4 +342,4 @@ const EditItem: FC<Props> = ({
   )
 }
 
-export default EditItem
+export default EditItem;

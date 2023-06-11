@@ -5,8 +5,9 @@ import { AccountType } from '../../../types/User'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { dbClient } from '../../../lib/db/db'
 import { ObjectId } from 'mongodb'
+import type { AuthOptions } from 'next-auth'
 
-const nextAuth = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
@@ -87,6 +88,5 @@ const nextAuth = NextAuth({
     },
   }),
   secret: process.env.NEXTAUTH_SECRET,
-})
-
-export default nextAuth
+}
+export default NextAuth(authOptions)

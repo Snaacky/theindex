@@ -82,10 +82,12 @@ const Column: FC<Props> = ({ column, columns, items }) => {
           <h2>
             <IconColumn /> {column.name}
             {canEdit(session) && (
-              <Link href={'/edit/column/' + column._id}>
-                <a className={'ms-2'} data-tooltip-content={'Edit column'}>
-                  <IconEdit />
-                </a>
+              <Link
+                href={'/edit/column/' + column._id}
+                className={'ms-2'}
+                data-tooltip-content={'Edit column'}
+              >
+                <IconEdit />
               </Link>
             )}
           </h2>

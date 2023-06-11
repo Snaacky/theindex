@@ -22,15 +22,14 @@ const Button: FC<Props> = ({
 }) => {
   if (typeof href !== 'undefined') {
     return (
-      <Link href={href}>
-        <a
-          className={classNames('btn', styles.button, className)}
-          data-tooltip-content={hover}
-          aria-label={hover}
-          onClick={onClick}
-        >
-          {children}
-        </a>
+      <Link
+        href={href}
+        className={classNames('btn', styles.button, className)}
+        data-tooltip-content={hover}
+        aria-label={hover}
+        onClick={onClick}
+      >
+        {children}
       </Link>
     )
   }
@@ -48,4 +47,4 @@ const Button: FC<Props> = ({
   )
 }
 
-export default Button
+export default Button;

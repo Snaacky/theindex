@@ -104,10 +104,12 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
 
                   <div className={'float-end'}>
                     {(isAdmin(session) || isCurrentUser(session, user.uid)) && (
-                      <Link href={'/edit/user/' + user.uid}>
-                        <a title={'Edit user'} className={'ms-2'}>
-                          <FontAwesomeIcon icon={faCog} />
-                        </a>
+                      <Link
+                        href={'/edit/user/' + user.uid}
+                        title={'Edit user'}
+                        className={'ms-2'}
+                      >
+                        <FontAwesomeIcon icon={faCog} />
                       </Link>
                     )}
                   </div>

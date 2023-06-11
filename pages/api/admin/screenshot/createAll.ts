@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react'
+import { authOptions } from '../../auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 import { isAdmin } from '../../../../lib/session'
 import createScreenshot from '../../../../lib/crawler/screenshot'
 import { getItems } from '../../../../lib/db/items'
@@ -9,7 +10,7 @@ export default async function apiAdminScreenshotCreateAll(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req })
+  const session = await getServerSession(req, res, authOptions)
   if (!isAdmin(session)) {
     return res.status(401)
   }

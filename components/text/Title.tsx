@@ -13,7 +13,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   if (type === Types.item) {
     if (isValidUrl(content.urls[0])) {
       return (
-        <a
+        <Link
           href={content.urls[0]}
           data-tooltip-content={'Open ' + (content.name ?? '') + ' in new tab'}
           target={'_blank'}
@@ -25,7 +25,7 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
           }
         >
           {content.name ?? <code>Unable to get name</code>}
-        </a>
+        </Link>
       )
     }
 
@@ -44,19 +44,18 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   }
 
   return (
-    <Link href={contentLink}>
-      <a
-        data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
-        className={'umami--click--' + type + '-' + content.name}
-      >
-        {content.name ?? (
-          <code>
-            <kbd>Unable to get name</kbd>
-          </code>
-        )}
-      </a>
+    <Link
+      href={contentLink}
+      data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
+      className={'umami--click--' + type + '-' + content.name}
+    >
+      {content.name ?? (
+        <code>
+          <kbd>Unable to get name</kbd>
+        </code>
+      )}
     </Link>
   )
 }
 
-export default Title
+export default Title;

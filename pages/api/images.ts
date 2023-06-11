@@ -12,5 +12,5 @@ export default async function handler(
     await setCache('images', data)
   }
 
-  res.status(200).json((data as string[]).map((i) => i.replace('/img/', '')))
+  res.json((data as string[]).map((i) => i.replace('/img/', '')))
 }

@@ -1,4 +1,5 @@
-import { getSession } from 'next-auth/react'
+import { authOptions } from '../auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import { deleteList, getList } from '../../../lib/db/lists'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -7,7 +8,7 @@ export default async function apiDeleteList(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req })
+  const session = await getServerSession(req, res, authOptions)
   const d = req.body
   const list = await getList(d._id)
   if (isCurrentUser(session, list.owner) || isAdmin(session)) {

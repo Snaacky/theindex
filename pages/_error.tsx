@@ -26,8 +26,8 @@ const Error: FC<Props> = ({ statusCode, error }) => {
       </div>
       <p>{text.toString()}</p>
       <div className={'d-flex justify-content-center'}>
-        <Link href={'/'}>
-          <a className={'btn btn-outline-warning'}>Go back</a>
+        <Link href={'/'} className={'btn btn-outline-warning'}>
+          Go back
         </Link>
       </div>
     </div>

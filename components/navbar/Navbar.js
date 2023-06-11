@@ -85,34 +85,37 @@ export default function Navbar() {
             <div className={'d-flex flex-row'}>
               <ul className={styles.listAll + ' nav nav-pills'}>
                 <li className={'nav-item ms-2'}>
-                  <Link href={'/libraries'}>
-                    <a className={'nav-link umami--click--navbar-libraries'}>
-                      <IconLibrary />
-                      <span className={styles.listAllText + ' ms-1'}>
-                        Libraries
-                      </span>
-                    </a>
+                  <Link
+                    href={'/libraries'}
+                    className={'nav-link umami--click--navbar-libraries'}
+                  >
+                    <IconLibrary />
+                    <span className={styles.listAllText + ' ms-1'}>
+                      Libraries
+                    </span>
                   </Link>
                 </li>
                 <li className={'nav-item ms-1'}>
-                  <Link href={'/collections'}>
-                    <a className={'nav-link umami--click--navbar-collections'}>
-                      <IconCollection />
-                      <span className={styles.listAllText + ' ms-1'}>
-                        Collections
-                      </span>
-                    </a>
+                  <Link
+                    href={'/collections'}
+                    className={'nav-link umami--click--navbar-collections'}
+                  >
+                    <IconCollection />
+                    <span className={styles.listAllText + ' ms-1'}>
+                      Collections
+                    </span>
                   </Link>
                 </li>
                 {canEdit(session) && (
                   <li className={'nav-item ms-1'}>
-                    <Link href={'/items'}>
-                      <a className={'nav-link umami--click--navbar-items'}>
-                        <IconItem />
-                        <span className={styles.listAllText + ' ms-1'}>
-                          Items
-                        </span>
-                      </a>
+                    <Link
+                      href={'/items'}
+                      className={'nav-link umami--click--navbar-items'}
+                    >
+                      <IconItem />
+                      <span className={styles.listAllText + ' ms-1'}>
+                        Items
+                      </span>
                     </Link>
                   </li>
                 )}
@@ -121,7 +124,7 @@ export default function Navbar() {
             <div className={'ms-auto d-flex flex-row'}>
               <ul className={'nav nav-pills'}>
                 <li className={styles.desktop + ' nav-item me-1'}>
-                  <a
+                  <Link
                     className={
                       'nav-link d-flex align-items-center umami--click--navbar-wiki'
                     }
@@ -135,7 +138,7 @@ export default function Navbar() {
                       alt={'Wiki.js logo'}
                     />
                     <span className={styles.services + ' ms-1'}>Wiki</span>
-                  </a>
+                  </Link>
                 </li>
                 <span className={styles.listAll}>
                   <NavbarUser className={styles.username} />

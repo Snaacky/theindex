@@ -6,5 +6,5 @@ export default async function apiCollections(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.status(200).json(await getAllCache(Types.collection))
+  res.json(await getAllCache(Types.collection))
 }

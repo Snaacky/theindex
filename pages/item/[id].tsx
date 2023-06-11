@@ -97,10 +97,12 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
               className={'umami--click--open-' + item.name}
             />
             {canEdit(session) && (
-              <Link href={'/edit/item/' + item._id}>
-                <a data-tooltip-content={'Edit item'} className={'ms-2'}>
-                  <IconEdit />
-                </a>
+              <Link
+                href={'/edit/item/' + item._id}
+                data-tooltip-content={'Edit item'}
+                className={'ms-2'}
+              >
+                <IconEdit />
               </Link>
             )}
             {canEdit(session) && (
@@ -222,13 +224,13 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
               <div className={'d-flex flex-wrap'}>
                 {collections.map((t) => {
                   return (
-                    <Link href={'/collection/' + t.urlId} key={t._id}>
-                      <a
-                        className={'me-2 mb-2'}
-                        data-tooltip-content={'View collection ' + t.name}
-                      >
-                        <DataBadge name={t.name} style={'primary'} />
-                      </a>
+                    <Link
+                      href={'/collection/' + t.urlId}
+                      key={t._id}
+                      className={'me-2 mb-2'}
+                      data-tooltip-content={'View collection ' + t.name}
+                    >
+                      <DataBadge name={t.name} style={'primary'} />
                     </Link>
                   )
                 })}
@@ -321,13 +323,12 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
                 {arrayColumns.map((c) => {
                   return (
                     <div key={c._id}>
-                      <Link href={'/column/' + c.urlId}>
-                        <a
-                          className={'me-2'}
-                          data-tooltip-content={'View column ' + c.name}
-                        >
-                          {c.name}:
-                        </a>
+                      <Link
+                        href={'/column/' + c.urlId}
+                        className={'me-2'}
+                        data-tooltip-content={'View column ' + c.name}
+                      >
+                        {c.name}:
                       </Link>
                       <DataItem
                         data={item.data[c._id] as string[]}

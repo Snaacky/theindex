@@ -55,7 +55,7 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   })
   columns = swrColumns || columns
 
-  const items = list.items.map((itemId) =>
+  const items = (list.items || []).map((itemId) =>
     allItems.find((item) => item._id === itemId)
   )
 
@@ -75,10 +75,12 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
       <h2>
         <IconList /> {list.name}
         {canEdit(session) && (
-          <Link href={'/edit/list/' + list._id}>
-            <a data-tooltip-content={'Edit list'} className={'ms-2'}>
-              <IconEdit />
-            </a>
+          <Link
+            href={'/edit/list/' + list._id}
+            data-tooltip-content={'Edit list'}
+            className={'ms-2'}
+          >
+            <IconEdit />
           </Link>
         )}
         <span style={{ fontSize: '1.2rem' }} className={'float-end'}>
@@ -100,13 +102,12 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
       </p>
       <p>
         Made by
-        <Link href={'/user/' + owner.uid}>
-          <a
-            className={'ms-1'}
-            data-tooltip-content={'View user ' + (owner.name ?? '')}
-          >
-            {owner.name ?? <code>Unable to get name</code>}
-          </a>
+        <Link
+          href={'/user/' + owner.uid}
+          className={'ms-1'}
+          data-tooltip-content={'View user ' + (owner.name ?? '')}
+        >
+          {owner.name ?? <code>Unable to get name</code>}
         </Link>
       </p>
 

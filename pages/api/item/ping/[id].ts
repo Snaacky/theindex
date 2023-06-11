@@ -48,7 +48,7 @@ export default async function apiItemPing(
     triggerPingUpdate(req.query.id as string)
   }
 
-  res.status(200).json(data)
+  res.json(data)
 }
 
 async function triggerPingUpdate(itemId: string) {
@@ -71,7 +71,7 @@ async function triggerPingUpdate(itemId: string) {
 
   if (!('SOCKS_PROXY' in process.env) || process.env.SOCKS_PROXY === '') {
     return console.error(
-      'env SOCKS_PROXY missing. Set env to allow ping service to be used'
+      'env SOCKS_PROXY missing. Set env to enable the ping service'
     )
   }
 

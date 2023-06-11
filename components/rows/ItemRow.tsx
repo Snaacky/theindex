@@ -65,13 +65,12 @@ const ItemRow: FC<Props> = ({
               {column.array.map((c) => {
                 return (
                   <div key={c._id}>
-                    <Link href={'/column/' + c.urlId}>
-                      <a
-                        className={'me-2'}
-                        data-tooltip-content={'View column ' + c.name}
-                      >
-                        {c.name}:
-                      </a>
+                    <Link
+                      href={'/column/' + c.urlId}
+                      className={'me-2'}
+                      data-tooltip-content={'View column ' + c.name}
+                    >
+                      {c.name}:
                     </Link>
                     {c.type === ColumnType.array ? (
                       <ArrayValue
@@ -95,4 +94,4 @@ const ItemRow: FC<Props> = ({
   )
 }
 
-export default ItemRow
+export default ItemRow;

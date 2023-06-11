@@ -8,8 +8,6 @@ import styles from './Footer.module.css'
 import FooterLink from '../links/FooterLink'
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
-import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 type SocialsType = {
   name: string
@@ -105,8 +103,8 @@ const Footer: FC<Props> = ({ error }) => {
       </div>
       <div className='d-flex justify-content-center mt-4 text-muted'>
         <span className={'me-4 mb-2'}>Anime Index Team © 2021</span>
-        <Link href={'/api/export'}>
-          <a rel='nofollow'>Export all data</a>
+        <Link href={'/api/export'} rel='nofollow'>
+          Export all data
         </Link>
       </div>
     </footer>

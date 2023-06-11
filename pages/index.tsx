@@ -43,8 +43,8 @@ export default function Home({ libraries, items, collections, columns }) {
           Something seems to have gone really really bad...
         </div>
 
-        <Link href={'/libraries'}>
-          <a className={'btn btn-primary'}>Better checkout the libraries</a>
+        <Link href={'/libraries'} className={'btn btn-primary'}>
+          Better checkout the libraries
         </Link>
       </>
     )
@@ -142,8 +142,8 @@ export default function Home({ libraries, items, collections, columns }) {
           Something seems to have gone really really bad...
         </div>
 
-        <Link href={'/libraries'}>
-          <a className={'btn btn-primary'}>Better checkout the libraries</a>
+        <Link href={'/libraries'} className={'btn btn-primary'}>
+          Better checkout the libraries
         </Link>
       </>
     )

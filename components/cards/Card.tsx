@@ -66,31 +66,28 @@ const Card: FC<Props> = ({
       <div className='row g-0 h-100'>
         {move !== null && (
           <div className={styles.sorter + ' col-auto'}>
-            <a onClick={() => move(-1)}>
+            <button onClick={() => move(-1)}>
               <FontAwesomeIcon icon={faChevronUp} />
-            </a>
-            <a onClick={() => move(1)}>
+            </button>
+            <button onClick={() => move(1)}>
               <FontAwesomeIcon icon={faChevronDown} />
-            </a>
+            </button>
           </div>
         )}
         {imageUrl !== '' && (
           <div className={'col-auto'}>
-            <Link href={hrefString}>
-              <a
-                data-tooltip-content={
-                  'View ' + type + ' ' + (content.name ?? '')
-                }
-                className={'umami--click--' + type + '-' + content.name}
-              >
-                <Image
-                  src={imageUrl}
-                  className='img-fluid rounded-start'
-                  alt='...'
-                  width={128}
-                  height={128}
-                />
-              </a>
+            <Link
+              href={hrefString}
+              data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
+              className={'umami--click--' + type + '-' + content.name}
+            >
+              <Image
+                src={imageUrl}
+                className='img-fluid rounded-start'
+                alt='...'
+                width={128}
+                height={128}
+              />
             </Link>
           </div>
         )}
@@ -120,10 +117,10 @@ const Card: FC<Props> = ({
                         ? content.uid
                         : content._id)
                     }
+                    data-tooltip-content={'Edit ' + type}
+                    className={'ms-2'}
                   >
-                    <a data-tooltip-content={'Edit ' + type} className={'ms-2'}>
-                      <IconEdit />
-                    </a>
+                    <IconEdit />
                   </Link>
                 </>
               )}
@@ -149,13 +146,13 @@ const Card: FC<Props> = ({
                   </span>
                 )}
                 {add !== null && (
-                  <a
+                  <button
                     data-tooltip-content={'Add ' + type}
                     className={styles.link + ' float-end'}
                     onClick={add}
                   >
                     <IconAdd />
-                  </a>
+                  </button>
                 )}
                 {remove !== null && (
                   <IconDelete
@@ -167,19 +164,18 @@ const Card: FC<Props> = ({
               </span>
             </h5>
 
-            <Link href={hrefString}>
-              <a
-                className={classNames(
-                  styles.link,
-                  'umami--click--' + type + '-' + content.name,
-                  'h-100'
-                )}
-              >
-                <span className={styles.description + ' card-text'}>
-                  {content.description}
-                </span>
-                {bodyContent !== null && bodyContent}
-              </a>
+            <Link
+              href={hrefString}
+              className={classNames(
+                styles.link,
+                'umami--click--' + type + '-' + content.name,
+                'h-100'
+              )}
+            >
+              <span className={styles.description + ' card-text'}>
+                {content.description}
+              </span>
+              {bodyContent !== null && bodyContent}
             </Link>
           </div>
         </div>

@@ -17,10 +17,11 @@ const CreateNewButton: FC<Props> = ({ type, allowEdit }) => {
   return (
     allowEdit &&
     canEdit(session, type) && (
-      <Link href={'/edit/' + type + '/_new'}>
-        <a className={'btn btn-outline-success mb-2 me-2'}>
-          <FontAwesomeIcon icon={faPlus} /> Create a new {type}
-        </a>
+      <Link
+        href={'/edit/' + type + '/_new'}
+        className={'btn btn-outline-success mb-2 me-2'}
+      >
+        <FontAwesomeIcon icon={faPlus} /> Create a new {type}
       </Link>
     )
   )

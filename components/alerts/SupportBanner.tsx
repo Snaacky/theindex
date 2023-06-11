@@ -49,14 +49,12 @@ const SupportBanner: FC = () => {
         is exposed
       </span>
       <div>
-        <Link href={'/library/vpns'}>
-          <a className={'me-3'}>
-            Learn more <FontAwesomeIcon icon={faChevronRight} />
-          </a>
+        <Link href={'/library/vpns'} className={'me-3'}>
+          Learn more <FontAwesomeIcon icon={faChevronRight} />
         </Link>
       </div>
     </div>
   )
 }
 
-export default SupportBanner
+export default SupportBanner;
