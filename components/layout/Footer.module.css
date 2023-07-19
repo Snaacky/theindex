@@ -1,8 +1,3 @@
-.footerContainer {
-  display: flex;
-  flex-direction: row;
-}
-
 .footerLink {
   flex: 1;
 }

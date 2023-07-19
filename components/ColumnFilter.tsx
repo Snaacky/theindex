@@ -54,9 +54,11 @@ export default function ColumnFilter({ columns, filter, setFilter }) {
   const languageColumns = columns.filter(
     (column) => column.type === ColumnType.language
   )
+  /*
   const textColumns = columns.filter(
     (column) => column.type === ColumnType.text
   )
+   */
   return (
     <div className={'d-flex flex-column'}>
       <h5>Features</h5>
