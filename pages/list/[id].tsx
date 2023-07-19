@@ -37,9 +37,9 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
     fallbackData: owner,
   })
   owner = swrOwner || owner
-  let adminInfo
+  //let adminInfo
   if (isAdmin(session)) {
-    adminInfo = owner
+    //adminInfo = owner
     if ('user' in owner) {
       // @ts-ignore
       owner = owner.user

@@ -44,7 +44,7 @@ const Layout: FC<LayoutProps> = ({ children, error }) => {
         />
         <link
           rel='mask-icon'
-          href='/favicon/safari-pinned-library.svg'
+          href='/favicon/safari-pinned-tab.svg'
           color='#484848'
         />
         <meta

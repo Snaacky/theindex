@@ -18,7 +18,7 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
         data[key] = {
           column: columns.find((column) => column._id === key),
           old: oldItem.data[key],
-          updated: newItem !== null ? newItem.data[key] : null,
+          updated: newItem.data[key],
         }
       } else {
         data[key] = {

@@ -19,8 +19,6 @@ import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
-import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()

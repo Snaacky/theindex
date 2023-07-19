@@ -43,23 +43,8 @@ main {
   color: white;
 }
 
-.bg-5 {
-  background-color: var(--bg-5);
-  color: white;
-}
-
 .bg-6 {
   background-color: var(--bg-6);
-  color: white;
-}
-
-.bg-7 {
-  background-color: var(--bg-7);
-  color: white;
-}
-
-.bg-8 {
-  background-color: var(--bg-8);
   color: white;
 }
 
@@ -73,6 +58,3 @@ a:not(.btn):hover {
   color: var(--a-hover-color);
 }
 
-.__react_component_tooltip {
-  background-color: black;
-}
