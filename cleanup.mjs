@@ -140,6 +140,51 @@ const remove = async (collection, query) => {
 let dbCollections = await db.listCollections({}, { nameOnly: true }).toArray()
 dbCollections = dbCollections.map((c) => c.name)
 
+if (!dbCollections.includes('libraries')) {
+  console.error('Database seems empty, skipping libraries...')
+} else {
+  const libraries = await db.collection('libraries').find().toArray()
+  await Promise.all(
+    libraries.map(async (library) => {
+      let foundInvalidCollection = false
+      const collections = library.collections.map((collection) => {
+        if (typeof collection === 'string') {
+          return collection
+        }
+
+        console.warn(
+          'Library',
+          library.name,
+          'has invalid collection id',
+          collection
+        )
+        if ('_id' in collection) {
+          foundInvalidCollection = true
+          return collection._id
+        }
+
+        console.error(
+          'Library',
+          library.name,
+          'could not extract invalid collection id from',
+          collection
+        )
+        return collection
+      })
+
+      if (foundInvalidCollection) {
+        await update(
+          'libraries',
+          { _id: library._id },
+          {
+            collections: collections,
+          }
+        )
+      }
+    })
+  )
+}
+
 if (!dbCollections.includes('columns')) {
   console.error('Database seems empty, skipping columns...')
 } else {
