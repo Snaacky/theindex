@@ -14,8 +14,6 @@ const client = new Redis(uri)
 
 /**
  * only returns null if requested component does not exist
- * @param type: Types, type of component
- * @param _id: string, unique _id or uid for user
  */
 export async function getSingleCache(
   type: Types,
@@ -44,9 +42,6 @@ export async function getSingleCache(
 
 /**
  * wrapper for setCache, ensuring consistent key naming
- * @param type: Types, type of component
- * @param _id: string, unique _id or uid for user
- * @param data: string | object, to be cached
  */
 export async function updateSingleCache(
   type: Types,
@@ -66,7 +61,6 @@ export async function updateSingleCache(
 
 /**
  * only returns null if requested components do not exist or are empty
- * @param type: Types, type of component
  */
 export async function getAllCache(type: Types): Promise<object[]> {
   const plural = singularToPlural(type)
@@ -90,8 +84,6 @@ export async function getAllCache(type: Types): Promise<object[]> {
 
 /**
  * wrapper for setCache, ensuring consistent key naming
- * @param type: Types, type of component
- * @param data: string | object, to be cached
  */
 export async function updateAllCache(type: Types, data?: string | object) {
   if (typeof data === 'undefined') {
@@ -107,25 +99,26 @@ export async function updateAllCache(type: Types, data?: string | object) {
 
 /**
  * only returns null if requested component does not exist
- * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
  */
 export async function getCache(key: string): Promise<object | object[]> {
-  let data = await client.get(key)
-  if (data === null) {
-    return null
-  }
-
   try {
-    return JSON.parse(data)
+    let data = await client.get(key)
+    if (data === null) {
+      return null
+    }
+
+    try {
+      return JSON.parse(data)
+    } catch (e) {
+      console.error('Failed to parse data from cache', data, e)
+    }
   } catch (e) {
-    console.error('Failed to parse data from cache', data)
+    console.error('Failed to get from cache', e)
   }
 }
 
 /**
  * only returns null if requested component does not exist
- * @param key: string, unique key, should not collide with keys from getSingleCache and getAllCache
- * @param data: string | object, data to be stored as JSON formatted string
  */
 export function setCache(key: string, data: string | object) {
   if (typeof data === 'undefined' || data === null) {
@@ -140,7 +133,11 @@ export function setCache(key: string, data: string | object) {
     }
   }
 
-  return client.set(key, data)
+  try {
+    return client.set(key, data)
+  } catch (e) {
+    console.error('Failed to set cache for key', key, data)
+  }
 }
 
 export async function clearSingleCache(type: Types, _id: string) {
@@ -148,11 +145,17 @@ export async function clearSingleCache(type: Types, _id: string) {
 }
 
 export async function clearCache(key: string) {
-  return await client.del(key)
+  try {
+    return await client.del(key)
+  } catch (e) {
+    console.error('Failed te delete cache', key, e)
+  }
 }
 
-export function clearCompleteCache() {
-  return client
-    .flushall()
-    .catch((e) => console.error('Failed to flush cache', e))
+export async function clearCompleteCache() {
+  try {
+    return await client.flushall()
+  } catch (e) {
+    return console.error('Failed to flush cache', e)
+  }
 }

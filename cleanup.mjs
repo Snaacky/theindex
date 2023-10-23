@@ -66,6 +66,7 @@ try {
     'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
   )
   cacheClient.flushall().catch((e) => console.error('Failed to flush cache', e))
+  console.log('Connection to redis cache server could be established')
 } catch (e) {
   console.error('Failed to connect to redis cache server:', e)
   process.exit(1)
@@ -140,38 +141,40 @@ let dbCollections = await db.listCollections({}, { nameOnly: true }).toArray()
 dbCollections = dbCollections.map((c) => c.name)
 
 if (!dbCollections.includes('columns')) {
-  process.exit(0)
+  console.error('Database seems empty, skipping columns...')
+} else {
+  const columns = await db.collection('columns').find().toArray()
+  await Promise.all(
+    columns.map(async (column) => {
+      if (column.type === 'bool' || column.type === 'boolean') {
+        console.log('column', column._id.toString())
+        await update('columns', { _id: column._id }, { type: 'feature' })
+      }
+    })
+  )
+  console.log('Cleaned up columns\n')
 }
-const columns = await db.collection('columns').find().toArray()
-await Promise.all(
-  columns.map(async (column) => {
-    if (column.type === 'bool' || column.type === 'boolean') {
-      console.log('column', column._id.toString())
-      await update('columns', { _id: column._id }, { type: 'feature' })
-    }
-  })
-)
-console.log('Cleaned up columns\n')
 
 if (!dbCollections.includes('items')) {
-  process.exit(0)
-}
-let items = await db.collection('items').find().toArray()
-const livingLang = iso6393.filter((lang) => lang.type === 'living')
-await Promise.all(
-  items.map(async (item) => {
-    const columnKeys = Object.keys(item.data)
-    let updateData = false
-    for (const columnId of columnKeys) {
-      const column = columns.find(
-        (column) => column._id.toString() === columnId
-      )
-      if (!column) {
-        delete item.data[columnId]
-        updateData = true
-      } else if (column.type === 'language') {
-        item.data[column._id.toString()] = item.data[column._id.toString()].map(
-          (l) => {
+  console.error('Database seems empty, skipping items...')
+} else {
+  let items = await db.collection('items').find().toArray()
+  const livingLang = iso6393.filter((lang) => lang.type === 'living')
+  await Promise.all(
+    items.map(async (item) => {
+      const columnKeys = Object.keys(item.data)
+      let updateData = false
+      for (const columnId of columnKeys) {
+        const column = columns.find(
+          (column) => column._id.toString() === columnId
+        )
+        if (!column) {
+          delete item.data[columnId]
+          updateData = true
+        } else if (column.type === 'language') {
+          item.data[column._id.toString()] = item.data[
+            column._id.toString()
+          ].map((l) => {
             if (l !== l.toLowerCase()) {
               l = l.toLowerCase()
               updateData = true
@@ -184,105 +187,106 @@ await Promise.all(
               }
             }
             return l
-          }
-        )
+          })
+        }
       }
-    }
 
-    if (updateData) {
-      await update('items', { _id: item._id }, { data: item.data })
-      console.log('Deleted data of non existing column from item', item._id)
-    }
-  })
-)
-console.log('Cleaned up items\n')
+      if (updateData) {
+        await update('items', { _id: item._id }, { data: item.data })
+        console.log('Deleted data of non existing column from item', item._id)
+      }
+    })
+  )
+  console.log('Cleaned up items\n')
+}
 
 if (!dbCollections.includes('users')) {
-  process.exit(0)
-}
-let users = await db.collection('users').find().toArray()
-for (let i = 0; i < users.length; i++) {
-  const user = users[i]
-  const userData = await db.collection('nextauth_users').findOne({
-    _id: new ObjectId(user.uid),
-  })
+  console.error('Database seems empty, skipping users...')
+} else {
+  let users = await db.collection('users').find().toArray()
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i]
+    const userData = await db.collection('nextauth_users').findOne({
+      _id: new ObjectId(user.uid),
+    })
 
-  if (!userData) {
-    console.warn('User', user.uid, "is not registered in next-auth's user db")
-  }
-
-  let multipleUsers = users.filter((u) => u.uid === user.uid)
-  if (multipleUsers.length > 1) {
-    console.warn(
-      multipleUsers.length,
-      'user account entries found for the same user',
-      user.uid,
-      userData.name
-    )
-    let data = {
-      accountType: 'user',
-      description: '',
-      favs: [],
-      lists: [],
-      followLists: [],
-      createdAt: new Date(),
+    if (!userData) {
+      console.warn('User', user.uid, "is not registered in next-auth's user db")
     }
 
-    for (const user of multipleUsers) {
-      if (user.accountType === 'admin') {
-        data.accountType = 'admin'
-      } else if (
-        user.accountType === 'editor' &&
-        data.accountType !== 'admin'
-      ) {
-        data.accountType = 'editor'
-      }
-
-      if (
-        user.description !== '' &&
-        user.description.length > data.description.length
-      ) {
-        data.description = user.description
-      }
-
-      for (const fav of user.favs) {
-        if (!data.favs.includes(fav)) {
-          data.favs.push(fav)
-        }
-      }
-
-      for (const list of user.lists) {
-        if (!data.lists.includes(list)) {
-          data.lists.push(list)
-        }
-      }
-
-      for (const list of user.followLists) {
-        if (!data.followLists.includes(list)) {
-          data.followLists.push(list)
-        }
-      }
-
-      if (user.createdAt.getTime() < data.createdAt.getTime()) {
-        data.createdAt = user.createdAt
-      }
-    }
-    for (let i = 1; i < multipleUsers.length; i++) {
-      await remove('users', { _id: multipleUsers[i]._id })
-      users = users.filter((u) => u._id !== multipleUsers[i]._id)
-
-      console.log(
-        'Removed duplicate user',
-        multipleUsers[i]._id,
-        'of duplicate user entry of uid',
-        user.uid
+    let multipleUsers = users.filter((u) => u.uid === user.uid)
+    if (multipleUsers.length > 1) {
+      console.warn(
+        multipleUsers.length,
+        'user account entries found for the same user',
+        user.uid,
+        userData.name
       )
-    }
+      let data = {
+        accountType: 'user',
+        description: '',
+        favs: [],
+        lists: [],
+        followLists: [],
+        createdAt: new Date(),
+      }
 
-    await update('users', { _id: multipleUsers[0]._id }, { data })
+      for (const user of multipleUsers) {
+        if (user.accountType === 'admin') {
+          data.accountType = 'admin'
+        } else if (
+          user.accountType === 'editor' &&
+          data.accountType !== 'admin'
+        ) {
+          data.accountType = 'editor'
+        }
+
+        if (
+          user.description !== '' &&
+          user.description.length > data.description.length
+        ) {
+          data.description = user.description
+        }
+
+        for (const fav of user.favs) {
+          if (!data.favs.includes(fav)) {
+            data.favs.push(fav)
+          }
+        }
+
+        for (const list of user.lists) {
+          if (!data.lists.includes(list)) {
+            data.lists.push(list)
+          }
+        }
+
+        for (const list of user.followLists) {
+          if (!data.followLists.includes(list)) {
+            data.followLists.push(list)
+          }
+        }
+
+        if (user.createdAt.getTime() < data.createdAt.getTime()) {
+          data.createdAt = user.createdAt
+        }
+      }
+      for (let i = 1; i < multipleUsers.length; i++) {
+        await remove('users', { _id: multipleUsers[i]._id })
+        users = users.filter((u) => u._id !== multipleUsers[i]._id)
+
+        console.log(
+          'Removed duplicate user',
+          multipleUsers[i]._id,
+          'of duplicate user entry of uid',
+          user.uid
+        )
+      }
+
+      await update('users', { _id: multipleUsers[0]._id }, { data })
+    }
   }
+  console.log('Cleaned up users\n')
 }
-console.log('Cleaned up users\n')
 console.log('Cleanup finished\n')
 
 await dbClient.close()

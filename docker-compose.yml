@@ -24,7 +24,7 @@ services:
       CHROME_URL: ${CHROME_URL}
 
       AUDIT_WEBHOOK: ${AUDIT_WEBHOOK}
-      
+
       # SOCKS5 Proxy for pinging
       SOCKS_PROXY: ${SOCKS_PROXY}
 
