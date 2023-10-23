@@ -185,7 +185,7 @@ if (!dbCollections.includes('libraries')) {
   )
 }
 
-if (!dbCollections.includes('columns')) {
+if (!dbCollections.includes('columns') || !dbCollections.includes('items')) {
   console.error('Database seems empty, skipping columns...')
 } else {
   const columns = await db.collection('columns').find().toArray()
@@ -198,11 +198,7 @@ if (!dbCollections.includes('columns')) {
     })
   )
   console.log('Cleaned up columns\n')
-}
 
-if (!dbCollections.includes('items')) {
-  console.error('Database seems empty, skipping items...')
-} else {
   let items = await db.collection('items').find().toArray()
   const livingLang = iso6393.filter((lang) => lang.type === 'living')
   await Promise.all(
