@@ -10,9 +10,15 @@ type Props = {
   data: string[]
   column: Column
   onChange?: (values: string[]) => void
+  cardView?: boolean
 }
 
-const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
+const LanguageValue: FC<Props> = ({
+  data,
+  column,
+  onChange = null,
+  cardView = false,
+}) => {
   const [filter, setFilter] = useState('')
   const [expand, setExpand] = useState(false)
 
@@ -22,6 +28,10 @@ const LanguageValue: FC<Props> = ({ data, column, onChange = null }) => {
   }
 
   const lang = getLanguages()
+
+  if (cardView && data.length > 3) {
+    return <DataBadge name={'Multi-Language'} />
+  }
 
   if (onChange === null) {
     return (

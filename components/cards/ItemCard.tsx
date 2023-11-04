@@ -81,6 +81,7 @@ const ItemCard: FC<Props> = ({
                       <LanguageValue
                         data={item.data[c._id] as string[]}
                         column={c}
+                        cardView={true}
                       />
                     )}
                   </div>
