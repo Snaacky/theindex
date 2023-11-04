@@ -47,7 +47,7 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   }
 
   return (
-    <>
+    <div style={{ display: 'none' }}>
       <span
         className={style}
         onClick={() => setShow(true)}
@@ -64,7 +64,7 @@ const OnlineStatus: FC<Props> = ({ item }) => {
           close={() => setShow(false)}
         />
       )}
-    </>
+    </div>
   )
 }
 
