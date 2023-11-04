@@ -35,7 +35,7 @@ export async function fetchSite(url: string, itemId?: string) {
   // go to page and wait till idle
   const response = await page
     .goto(url, {
-      waitUntil: 'domcontentloaded',
+      waitUntil: 'networkidle2',
     })
     .catch((e) => {
       console.error('Could not navigate to page', url, e)
@@ -46,7 +46,7 @@ export async function fetchSite(url: string, itemId?: string) {
     return null
   }
 
-  console.log('Waiting for 8s timeout for', url)
+  console.log('Waiting for 10s timeout for', url)
   // solve cf or ddos-guard JS-challenge
   // captcha is still going to bite us
   await new Promise((r) => setTimeout(r, 10000))
