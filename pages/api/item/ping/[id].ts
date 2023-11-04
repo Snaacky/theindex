@@ -104,6 +104,7 @@ async function triggerPingUpdate(itemId: string) {
         }
       }
 
+      console.log('Ping status of', item.urls[0], status)
       await setCache(Types.item + '_ping-' + itemId, {
         url: item.urls[0],
         time: Date.now().toString(),

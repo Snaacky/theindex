@@ -35,7 +35,7 @@ export async function fetchSite(url: string, itemId?: string) {
   // go to page and wait till idle
   const response = await page
     .goto(url, {
-      waitUntil: 'networkidle2',
+      waitUntil: 'domcontentloaded',
     })
     .catch((e) => {
       console.error('Could not navigate to page', url, e)
@@ -49,7 +49,7 @@ export async function fetchSite(url: string, itemId?: string) {
   console.log('Waiting for 8s timeout for', url)
   // solve cf or ddos-guard JS-challenge
   // captcha is still going to bite us
-  await page.waitForTimeout(8000)
+  await new Promise((r) => setTimeout(r, 10000))
 
   // collect data from fully rendered site
   const content = await page.content()
@@ -58,7 +58,7 @@ export async function fetchSite(url: string, itemId?: string) {
   if (itemId) {
     try {
       screenshotStream = await page.screenshot({
-        captureBeyondViewport: false
+        captureBeyondViewport: false,
       })
     } catch (e) {
       console.error('Could not create screenshot stream', e)
