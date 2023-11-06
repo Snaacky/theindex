@@ -7,7 +7,7 @@
     "build": "next build",
     "lint": "next lint",
     "start": "next start",
-    "serve": "node cleanup.mjs && next build && next start -p 3000",
+    "serve": "node cleanup.mjs && next build && next start -p 3033",
     "test": "node cleanup.mjs"
   },
   "dependencies": {
