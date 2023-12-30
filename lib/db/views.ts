@@ -51,8 +51,9 @@ export async function getLastViews(type: Types, n: number) {
     await Promise.all(
       sorted.map(async (s) => {
         const data = await findOneTyped(type, s.contentId)
-
-        data.views = s.count
+        if (data !== null) {
+          data.views = s.count
+        }
         return data
       })
     )
