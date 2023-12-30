@@ -1,10 +1,12 @@
 import { authOptions } from '../auth/[...nextauth]'
 import { getServerSession } from 'next-auth/next'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
-import { getUser, updateUser } from '../../../lib/db/users'
+import { updateUser } from '../../../lib/db/users'
 import { updateAllCache, updateSingleCache } from '../../../lib/db/cache'
 import { Types } from '../../../types/Components'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { findOneTyped } from '../../../lib/db/dbTyped'
+import type { User } from '../../../types/User'
 
 export default async function apiEditUser(
   req: NextApiRequest,
@@ -18,7 +20,7 @@ export default async function apiEditUser(
         delete d.accountType
       }
       // @ts-ignore
-      const oldUser = await getUser(d.uid === 'me' ? session.user.uid : d.uid)
+      const oldUser = await findOneTyped(Types.user, d.uid === 'me' ? session.user.uid : d.uid) as User
 
       // @ts-ignore
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)

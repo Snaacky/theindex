@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { getUser } from '../../../lib/db/users'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import EditUser from '../../../components/edit/EditUser'
 import NotAdmin from '../../../components/layout/NotAdmin'
 import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
+import { findOneTyped } from '../../../lib/db/dbTyped'
+import type { User } from '../../../types/User'
 
 export default function EditorUser({ uid, user }) {
   const { data: session } = useSession()
@@ -56,7 +57,7 @@ export default function EditorUser({ uid, user }) {
 EditorUser.auth = {}
 
 export async function getServerSideProps({ params }) {
-  const user = await getUser(params.id)
+  const user = await findOneTyped(Types.user, params.id) as User
   if (!user) {
     return {
       notFound: true,

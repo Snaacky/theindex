@@ -2,11 +2,8 @@
 import Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
-import { findOne, getAll } from './db'
-
-import { getUser, getUsers } from './users'
-import { getItem } from './items'
 import { singularToPlural } from '../utils'
+import { findOneTyped, getAllTyped } from './dbTyped'
 
 const uri =
   'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
@@ -21,13 +18,7 @@ export async function getSingleCache(
 ): Promise<string | object> {
   let data = await getCache(type + '-' + _id)
   if (data === null) {
-    if (type === Types.user) {
-      data = await getUser(_id)
-    } else if (type === Types.item) {
-      data = await getItem(_id)
-    } else {
-      data = await findOne(singularToPlural(type), { _id: _id })
-    }
+    data = await findOneTyped(type, _id)
 
     if (data === null) {
       return null
@@ -49,11 +40,7 @@ export async function updateSingleCache(
   data?: string | object
 ) {
   if (typeof data === 'undefined') {
-    if (type === Types.user) {
-      data = await getUser(_id)
-    } else {
-      data = await findOne(singularToPlural(type), { _id: _id })
-    }
+    data = await findOneTyped(type, _id)
   }
 
   await setCache(type + '-' + _id, data)
@@ -67,11 +54,8 @@ export async function getAllCache(type: Types): Promise<object[]> {
 
   let data = await getCache(plural)
   if (data === null) {
-    if (type === Types.user) {
-      data = await getUsers()
-    } else {
-      data = await getAll(plural)
-    }
+    data = await getAllTyped(type)
+    
     if (data === null) {
       return []
     }
@@ -87,11 +71,7 @@ export async function getAllCache(type: Types): Promise<object[]> {
  */
 export async function updateAllCache(type: Types, data?: string | object) {
   if (typeof data === 'undefined') {
-    if (type === Types.user) {
-      data = await getUsers()
-    } else {
-      data = await getAll(singularToPlural(type))
-    }
+    data = await getAllTyped(type)
   }
 
   await setCache(singularToPlural(type), data)

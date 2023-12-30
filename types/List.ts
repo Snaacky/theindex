@@ -6,6 +6,7 @@ export interface List {
   description: string
   items: string[]
   columns: string[]
+  views: number
 }
 
 export interface ListUpdate {

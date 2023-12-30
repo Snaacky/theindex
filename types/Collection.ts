@@ -7,6 +7,7 @@ export interface Collection {
   description: string
   columns: string[]
   items: string[]
+  views: number
 }
 
 export interface CollectionUpdate {
