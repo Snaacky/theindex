@@ -10,15 +10,18 @@ import { screenshotExists } from '../lib/db/itemScreenshots'
 import DataBadge from '../components/data/DataBadge'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
+import { getLastViews } from '../lib/db/views'
 
 const Admin = ({
   columns,
   itemsWithNoScreenshots,
   items,
+  popular,
 }: {
   columns: Column[]
   itemsWithNoScreenshots: Item[]
   items: Item[]
+  popular: Item[]
 }) => {
   const { data: session } = useSession()
   const itemsWithNoUrl = items.filter((item) => item.urls.length === 0)
@@ -135,6 +138,15 @@ const Admin = ({
         allItems={itemsWithNoUrl}
         columns={columns}
       />
+
+      <h4>
+        Items with the most current views in the last 10k item views
+      </h4>
+      <div>
+        {popular.map((item, i) => <div>
+          {item.name} <DataBadge name={'#' + i} />
+        </div>)}
+      </div>
     </>
   )
 }
@@ -147,6 +159,7 @@ export default Admin
 
 export async function getServerSideProps() {
   const items = (await getAllCache(Types.item)) as Item[]
+  let popular = (await getLastViews(Types.item, 10000)) as Item[]
 
   const missingScreenshots = await Promise.all(
     items.map(async (item) => {
@@ -161,6 +174,7 @@ export async function getServerSideProps() {
       columns: await getColumns(),
       itemsWithNoScreenshots: missingScreenshots.filter((s) => s !== null),
       items: items,
+      popular: popular,
     },
   }
 }

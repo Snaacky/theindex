@@ -3,7 +3,6 @@ import { Types } from '../../../../types/Components'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusData } from '../../../../types/OnlineStatus'
 import { Item } from '../../../../types/Item'
-import { SocksProxyAgent } from 'socks-proxy-agent'
 import fetch, { Response } from 'node-fetch'
 
 export default async function apiItemPing(
@@ -70,34 +69,15 @@ async function triggerPingUpdate(itemId: string) {
   }
 
   try {
-    let res: Response
-
-    if (!('SOCKS_PROXY' in process.env) || process.env.SOCKS_PROXY === '') {
-      console.warn(
-        'env SOCKS_PROXY missing. Set env to enable proxy for ping service'
-      )
-
-      res = await fetch(item.urls[0], {
-        method: 'HEAD',
-        headers: {
-          DNT: '1',
-          Pragma: 'no-cache',
-          'Cache-Control': 'no-cache',
-          Referer: 'https://theindex.moe',
-        },
-      })
-    } else {
-      res = await fetch(item.urls[0], {
-        method: 'HEAD',
-        agent: new SocksProxyAgent(process.env.SOCKS_PROXY),
-        headers: {
-          DNT: '1',
-          Pragma: 'no-cache',
-          'Cache-Control': 'no-cache',
-          Referer: 'https://theindex.moe',
-        },
-      })
-    }
+    let res: Response = await fetch(item.urls[0], {
+      method: 'HEAD',
+      headers: {
+        DNT: '1',
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+        Referer: 'https://theindex.moe',
+      },
+    })
 
     const code = res.status
     const up = [200, 300, 301, 302, 307, 308]
@@ -117,7 +97,6 @@ async function triggerPingUpdate(itemId: string) {
       }
     }
 
-    console.log('Ping status of', item.urls[0], status)
     await setCache(Types.item + '_ping-' + itemId, {
       url: item.urls[0],
       time: Date.now().toString(),
@@ -133,8 +112,5 @@ async function triggerPingUpdate(itemId: string) {
         e
       )
     }
-  }
-  if (!('SOCKS_PROXY' in process.env) || process.env.SOCKS_PROXY === '') {
-    console.warn('env SOCKS_PROXY missing. Set env to enable the ping service')
   }
 }

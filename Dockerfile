@@ -15,9 +15,6 @@ ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
 
-# SOCKS proxy details to use for ping requests
-ENV SOCKS_PROXY=""
-
 # ENV for OAuth2
 ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="secret"
@@ -25,6 +22,9 @@ ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
 
 # Setup login whitelist
 ENV SETUP_WHITELIST_DISCORD_ID=00000000000
+
+# Set to true if you want debug for the pings
+ENV PING_DEBUG="false"
 
 EXPOSE 3033
 HEALTHCHECK CMD curl --fail http://localhost:3033 || exit 1
