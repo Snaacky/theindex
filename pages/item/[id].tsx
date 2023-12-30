@@ -27,6 +27,7 @@ import { Column } from '../../types/Column'
 import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { findOneTyped, getAllTyped } from '../../lib/db/dbTyped'
 
 type Props = {
   item: Item
@@ -359,7 +360,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
 export default Item
 
 export async function getStaticPaths() {
-  const items = await getItems()
+  const items = await getAllTyped(Types.item)
   const paths = items.map((i) => {
     return {
       params: {
@@ -375,7 +376,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = await getItem(params.id)
+  const item = await findOneTyped(Types.item, params.id) as Item
   if (!item) {
     return {
       notFound: true,
