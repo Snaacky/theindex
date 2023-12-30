@@ -15,6 +15,7 @@ export enum AccountType {
   admin = 'admin',
   editor = 'editor',
   user = 'user',
+  views: number
 }
 
 export interface UserUpdate {

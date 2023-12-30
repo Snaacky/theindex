@@ -145,6 +145,9 @@ const Admin = ({
       <div>
         {popular.map((item, i) => <div key={i + '_' + item.name}>
           {item.name} <DataBadge name={'#' + i} />
+          <div>
+            {item.views} Views
+          </div>
         </div>)}
       </div>
     </>

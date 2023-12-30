@@ -1,5 +1,5 @@
 [![Website](https://img.shields.io/website?down_message=offline&label=theindex.moe&up_message=online&url=https%3A%2F%2Ftheindex.moe)](https://theindex.moe)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Snaacky/theindex/Docker?logo=github)](https://github.com/Snaacky/theindex)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Snaacky/theindex/publish-docker-image.yml?logo=github)](https://github.com/Snaacky/theindex)
 [![CodeFactor](https://www.codefactor.io/repository/github/snaacky/theindex/badge)](https://www.codefactor.io/repository/github/snaacky/theindex)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a91c8d3ec420474cbac1a524073c83ee)](https://www.codacy.com/gh/Snaacky/theindex/dashboard)
 [![Discord](https://img.shields.io/discord/974468300304171038?label=Discord&logo=discord)](https://discord.gg/snackbox)
@@ -94,7 +94,6 @@ Here is a collection of the possible environment variables with their default va
 | `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
 | `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |
 | `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                            | `""`                                 |
-| `SOCKS_PROXY`                | Connection string for SOCKS5 proxy to use for pinging                                                | `""`                                 |
 | `DISCORD_CLIENT_ID`          | Discord OAuth2 client ID                                                                             | `"your_discord_oauth_client_id"`     |
 | `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                         | `"your_discord_oauth_client_secret"` |
 | `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                     | `"your_discord_bot_token"`           |
@@ -265,7 +264,6 @@ our ideas, and we find some time, we will certainly implement your requested fea
 - We bake everything into a [docker image](https://www.docker.com/)
 - Running on [node js](https://nodejs.org/)
 - User-authentication via [NextAuth.js](https://next-auth.js.org/)
-- PWA-support with [next-pwa](https://www.npmjs.com/package/next-pwa)
 - [mongodb](https://www.mongodb.com) as database backend
 - [redis](https://redis.io) as cache
 - [puppeteer](https://github.com/puppeteer/puppeteer) to create screenshots of websites
