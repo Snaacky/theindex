@@ -153,7 +153,7 @@ export default function Home({ libraries, items, collections, columns }) {
 export async function getStaticProps() {
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
-  let popular = (await getLastViews(Types.item, 1000)) as Item[]
+  let popular = (await getLastViews(Types.item, 10000)) as Item[]
 
   const sponsorsSortedByPopular = sponsors.sort((a, b) => {
     const popularA = popular.findIndex((item) => item._id === a._id)
