@@ -112,7 +112,6 @@ export async function insertTyped(
     case Types.list:
       return await insert('lists', data)
     case Types.user:
-      if (instanceof data UserUpdate)
       return await insert('users', data)
   }
 }
