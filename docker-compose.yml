@@ -25,9 +25,6 @@ services:
 
       AUDIT_WEBHOOK: ${AUDIT_WEBHOOK}
 
-      # SOCKS5 Proxy for pinging
-      SOCKS_PROXY: ${SOCKS_PROXY}
-
       # OAuth2
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
       DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
