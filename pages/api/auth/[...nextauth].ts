@@ -1,11 +1,13 @@
 import NextAuth from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
-import { addUser, getUser } from '../../../lib/db/users'
-import { AccountType } from '../../../types/User'
+import { addUser } from '../../../lib/db/users'
+import { AccountType, type User } from '../../../types/User'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { dbClient } from '../../../lib/db/db'
 import { ObjectId } from 'mongodb'
 import type { AuthOptions } from 'next-auth'
+import { findOneTyped } from '../../../lib/db/dbTyped'
+import { Types } from '../../../types/Components'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -26,7 +28,7 @@ export const authOptions: AuthOptions = {
         const id = user.id.toString()
         session.user.uid = id
 
-        const userData = await getUser(id)
+        const userData = await findOneTyped(Types.user, id) as User
         // create user account if not found
         if (userData === null) {
           console.log(

@@ -6,6 +6,7 @@ export interface Column {
   description: string
   type: ColumnType
   values: string[]
+  views: number
 }
 
 export enum ColumnType {

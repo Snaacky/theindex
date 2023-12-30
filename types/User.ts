@@ -9,16 +9,18 @@ export interface User {
   lists: string[]
   followLists: string[]
   createdAt: string
+  views: number
 }
 
 export enum AccountType {
   admin = 'admin',
   editor = 'editor',
   user = 'user',
-  views: number
 }
 
 export interface UserUpdate {
+  name?: string
+  image?: string
   accountType?: AccountType
   description?: string
   favs?: string[]

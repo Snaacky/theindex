@@ -1,9 +1,10 @@
 import { deleteOne, find, findOne, getAll, insert, updateOne } from './db'
 import { clearSingleCache, updateAllCache, updateSingleCache } from './cache'
 import { Types } from '../../types/Components'
-import { getUser, updateUser } from './users'
-import { List, ListUpdate } from '../../types/List'
-import { User } from '../../types/User'
+import { updateUser } from './users'
+import type { List, ListUpdate } from '../../types/List'
+import type { User } from '../../types/User'
+import { findOneTyped } from './dbTyped'
 
 export async function getLists(): Promise<List[]> {
   return (await getAll('lists')) as List[]
@@ -69,7 +70,7 @@ export async function updateList(
 export async function deleteList(_id: string) {
   // remove list entry from owner
   const list = await getList(_id)
-  const owner = await getUser(list.owner)
+  const owner = await findOneTyped(Types.user, list.owner) as User
   owner.lists = owner.lists.filter((userList) => userList !== _id)
 
   await updateUser(owner.uid, {

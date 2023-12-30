@@ -8,6 +8,7 @@ export interface Item {
   description: string
   data: Record<string, boolean | string | string[]>
   stars: number
+  views: number
 }
 
 export interface ItemUpdate {

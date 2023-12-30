@@ -9,6 +9,7 @@ export interface Library {
   description: string
   collections: string[]
   order: number
+  views: number
 }
 
 export interface LibraryWithCollection {
