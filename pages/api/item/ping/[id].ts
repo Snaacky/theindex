@@ -3,8 +3,7 @@ import { Types } from '../../../../types/Components'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusData } from '../../../../types/OnlineStatus'
 import { Item } from '../../../../types/Item'
-import { SocksProxyAgent } from 'socks-proxy-agent'
-import fetch from 'node-fetch'
+import fetch, { Response } from 'node-fetch'
 
 export default async function apiItemPing(
   req: NextApiRequest,
@@ -69,57 +68,49 @@ async function triggerPingUpdate(itemId: string) {
     )
   }
 
-  if (!('SOCKS_PROXY' in process.env) || process.env.SOCKS_PROXY === '') {
-    return console.error(
-      'env SOCKS_PROXY missing. Set env to enable the ping service'
-    )
+  try {
+    let res: Response = await fetch(item.urls[0], {
+      method: 'HEAD',
+      headers: {
+        DNT: '1',
+        Pragma: 'no-cache',
+        'Cache-Control': 'no-cache',
+        Referer: 'https://theindex.moe',
+      },
+    })
+
+    const code = res.status
+    const up = [200, 300, 301, 302, 307, 308]
+    let status = 'down'
+
+    const server = res.headers.get('Server') || res.headers.get('server')
+    if (up.includes(code)) {
+      status = 'up'
+    } else if (server) {
+      const unknown = [401, 403, 503, 520]
+      const forbidden = 403
+      if (
+        (unknown.includes(code) && server === 'cloudflare') ||
+        (forbidden === code && server === 'ddos-guard')
+      ) {
+        status = 'unknown'
+      }
+    }
+
+    await setCache(Types.item + '_ping-' + itemId, {
+      url: item.urls[0],
+      time: Date.now().toString(),
+      status,
+    })
+  } catch (e) {
+    if ('PING_DEBUG' in process.env && process.env.PING_DEBUG === 'true') {
+      console.error(
+        'Failed to ping',
+        item.urls[0],
+        'due to the reason:',
+        e.type,
+        e
+      )
+    }
   }
-
-  fetch(item.urls[0], {
-    method: 'HEAD',
-    agent: new SocksProxyAgent(process.env.SOCKS_PROXY),
-    headers: {
-      DNT: '1',
-      Pragma: 'no-cache',
-      'Cache-Control': 'no-cache',
-      Referer: 'https://theindex.moe',
-    },
-  })
-    .then(async (res) => {
-      const code = res.status
-      const up = [200, 300, 301, 302, 307, 308]
-      let status = 'down'
-
-      const server = res.headers.get('Server') || res.headers.get('server')
-      if (up.includes(code)) {
-        status = 'up'
-      } else if (server) {
-        const unknown = [401, 403, 503, 520]
-        const forbidden = 403
-        if (
-          (unknown.includes(code) && server === 'cloudflare') ||
-          (forbidden === code && server === 'ddos-guard')
-        ) {
-          status = 'unknown'
-        }
-      }
-
-      console.log('Ping status of', item.urls[0], status)
-      await setCache(Types.item + '_ping-' + itemId, {
-        url: item.urls[0],
-        time: Date.now().toString(),
-        status,
-      })
-    })
-    .catch((e) => {
-      if ('PING_DEBUG' in process.env && process.env.PING_DEBUG === 'true') {
-        console.error(
-          'Failed to ping',
-          item.urls[0],
-          'due to the reason:',
-          e.type,
-          e
-        )
-      }
-    })
 }

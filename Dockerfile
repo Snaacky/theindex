@@ -2,8 +2,8 @@ FROM node:21.0
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
-# browserless/chrome runs by our default on port 3300
-ENV CHROME_URL="ws://chrome:3300"
+# browserless/chrome runs by default on port 3300
+ENV CHROME_URL="ws://chrome:3000"
 
 # Site name
 ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
@@ -15,9 +15,6 @@ ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
 
-# SOCKS proxy details to use for ping requests
-ENV SOCKS_PROXY=""
-
 # ENV for OAuth2
 ENV DISCORD_CLIENT_ID=00000000000
 ENV DISCORD_CLIENT_SECRET="secret"
@@ -26,8 +23,11 @@ ENV DISCORD_BOT_TOKEN="your_discord_bot_token"
 # Setup login whitelist
 ENV SETUP_WHITELIST_DISCORD_ID=00000000000
 
-EXPOSE 3000
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+# Set to true if you want debug for the pings
+ENV PING_DEBUG="false"
+
+EXPOSE 3033
+HEALTHCHECK CMD curl --fail http://localhost:3033 || exit 1
 
 LABEL org.opencontainers.image.vendor="TheIndex" \
       org.opencontainers.image.url="https://theindex.moe" \
