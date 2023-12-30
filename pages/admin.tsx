@@ -143,7 +143,7 @@ const Admin = ({
         Items with the most current views in the last 10k item views
       </h4>
       <div>
-        {popular.map((item, i) => <div>
+        {popular.map((item, i) => <div key={i + '_' + item.name}>
           {item.name} <DataBadge name={'#' + i} />
         </div>)}
       </div>
