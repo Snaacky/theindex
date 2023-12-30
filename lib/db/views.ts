@@ -11,6 +11,7 @@ import {
 import { getLibraries } from './libraries'
 import { singularToPlural } from '../utils'
 import { Types } from '../../types/Components'
+import { findOneTyped } from './dbTyped'
 
 export async function getViews() {
   return await getAll('views')
@@ -30,18 +31,11 @@ export async function getLastViews(type: Types, n: number) {
   // count what has been popular recently
   let accumulated = {}
 
-  if (type === Types.library) {
-    const libs = await getLibraries()
-    libs.forEach((lib) => {
-      accumulated[lib._id] = 0
-    })
-  }
-
   data.forEach((d) => {
-    if (accumulated[d.contentId]) {
-      accumulated[d.contentId] += 1
+    if (accumulated[d._id]) {
+      accumulated[d._id] += 1
     } else {
-      accumulated[d.contentId] = 1
+      accumulated[d._id] = 1
     }
   })
 
@@ -56,10 +50,7 @@ export async function getLastViews(type: Types, n: number) {
   return (
     await Promise.all(
       sorted.map(async (s) => {
-        const data = await findOne(
-          singularToPlural(type),
-          type === Types.user ? { uid: s.contentId } : { _id: s.contentId }
-        )
+        const data = await findOneTyped(type, s.contentId)
 
         data.views = s.count
         return data
