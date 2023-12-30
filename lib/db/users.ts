@@ -19,7 +19,7 @@ export async function userExists(uid: string): Promise<boolean> {
   )
 }
 
-async function gatherUserInfo(user: User): Promise<User> {
+export async function gatherUserInfo(user: User): Promise<User> {
   if (user === null || typeof user === 'undefined') {
     console.warn(
       'Well... gathering user data of',

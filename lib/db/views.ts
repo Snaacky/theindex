@@ -55,13 +55,15 @@ export async function getLastViews(type: Types, n: number) {
   // resolve content info
   return (
     await Promise.all(
-      sorted.map(
-        async (s) =>
-          await findOne(
-            singularToPlural(type),
-            type === 'user' ? { uid: s.contentId } : { _id: s.contentId }
-          )
-      )
+      sorted.map(async (s) => {
+        const data = await findOne(
+          singularToPlural(type),
+          type === Types.user ? { uid: s.contentId } : { _id: s.contentId }
+        )
+
+        data.views = s.count
+        return data
+      })
     )
   ).filter((s) => s !== null && typeof s !== 'undefined')
 }
@@ -89,7 +91,7 @@ export async function addView({ uid, type, contentId }) {
   })
 }
 
-export async function deleteView(_id) {
+export async function deleteView(_id: string) {
   return await deleteOne('views', { _id })
 }
 
@@ -97,6 +99,6 @@ export async function countViews() {
   return await count('views')
 }
 
-export async function countViewsOfContent(type, contentId) {
-  return await count('users', { type, contentId })
+export async function countViewsOfContent(type: Types, _id: string) {
+  return await count('views', { type, _id })
 }
