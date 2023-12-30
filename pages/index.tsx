@@ -9,46 +9,13 @@ import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import ViewAllButton from '../components/buttons/ViewAllButton'
 import { Item } from '../types/Item'
+import LibraryBoard from '../components/boards/LibraryBoard'
+import { getAllTyped } from '../lib/db/dbTyped'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home({ libraries, items, collections, columns }) {
-  let error = false
-  if (!Array.isArray(libraries)) {
-    console.error('Index static page render failed: libraries is', libraries)
-    error = true
-  }
-  if (!Array.isArray(items)) {
-    console.error('Index static page render failed: items is', items)
-    error = true
-  }
-  if (!Array.isArray(collections)) {
-    console.error(
-      'Index static page render failed: collections is',
-      collections
-    )
-    error = true
-  }
-  if (!Array.isArray(columns)) {
-    console.error('Index static page render failed: columns is', columns)
-    error = true
-  }
-
-  if (error) {
-    console.error('[', new Date(), '] error found in index page')
-    return (
-      <>
-        <div className={'alert alert-danger'}>
-          Something seems to have gone really really bad...
-        </div>
-
-        <Link href={'/libraries'} className={'btn btn-primary'}>
-          Better checkout the libraries
-        </Link>
-      </>
-    )
-  }
+export default function Home({ libraries }) {
 
   try {
     return (
@@ -62,6 +29,14 @@ export default function Home({ libraries, items, collections, columns }) {
           />
         </Head>
 
+        <LibraryBoard
+          contentOf={null}
+          libraries={libraries}
+          allLibraries={libraries}
+          canEdit={true}
+        />
+        
+        {/*
         <div className={'row'}>
           <div className={'col'}>
             <h2 className={'mb-0'}>
@@ -132,6 +107,7 @@ export default function Home({ libraries, items, collections, columns }) {
             )
           })}
         </div>
+  */}
       </>
     )
   } catch (e) {
@@ -151,6 +127,7 @@ export default function Home({ libraries, items, collections, columns }) {
 }
 
 export async function getStaticProps() {
+  /**
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
   let popular = (await getLastViews(Types.item, 10000)) as Item[]
@@ -179,13 +156,15 @@ export async function getStaticProps() {
   sponsorsSortedByPopular.reverse().forEach((sponsor) => {
     popular.unshift(sponsor)
   })
+  */
 
   return {
     props: {
-      libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
-      items: popular.slice(0, 9),
-      collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
-      columns: await getAllCache(Types.column),
+      libraries: await getAllTyped(Types.library)
+      //libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
+      //items: popular.slice(0, 9),
+      //collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
+      //columns: await getAllCache(Types.column),
     },
     revalidate: 600,
   }

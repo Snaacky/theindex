@@ -8,8 +8,6 @@ import {
   getAll,
   insert,
 } from './db'
-import { getLibraries } from './libraries'
-import { singularToPlural } from '../utils'
 import { Types } from '../../types/Components'
 import { findOneTyped } from './dbTyped'
 
