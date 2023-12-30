@@ -27,6 +27,7 @@ export async function getLastViews(type: Types, n: number) {
       .limit(n)
       .toArray()
   )
+  console.log('Found', data.length, 'entries in views table for', type)
 
   // count what has been popular recently
   let accumulated = {}
