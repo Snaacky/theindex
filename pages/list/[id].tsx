@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react'
 import { canEdit, isAdmin, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
-import { getList } from '../../lib/db/lists'
 import IconList from '../../components/icons/IconList'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -13,10 +12,10 @@ import React, { FC } from 'react'
 import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { List } from '../../types/List'
-import { User } from '../../types/User'
-import { Item } from '../../types/Item'
-import { Column } from '../../types/Column'
+import type { List } from '../../types/List'
+import type { User } from '../../types/User'
+import type { Item } from '../../types/Item'
+import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
@@ -127,7 +126,7 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
 export default List
 
 export async function getServerSideProps({ params }) {
-  const list = await getList(params.id)
+  const list = await getSingleCache(Types.list, params.id) as List
   if (list === null) {
     return {
       notFound: true,

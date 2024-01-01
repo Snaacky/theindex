@@ -6,7 +6,7 @@ import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import useSWR from 'swr'
-import { Library } from '../types/Library'
+import type { Library } from '../types/Library'
 
 const title = 'Libraries on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

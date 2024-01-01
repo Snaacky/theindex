@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
-import { getByUrlId } from '../../lib/db/db'
 import { getColumns } from '../../lib/db/columns'
 import ItemCard from '../../components/cards/ItemCard'
 import IconEdit from '../../components/icons/IconEdit'
@@ -16,10 +15,11 @@ import Meta from '../../components/layout/Meta'
 import { getAllCache } from '../../lib/db/cache'
 import useSWR from 'swr'
 import { Types } from '../../types/Components'
-import { Column, ColumnType } from '../../types/Column'
-import { Item } from '../../types/Item'
+import { type Column, ColumnType } from '../../types/Column'
+import type { Item } from '../../types/Item'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter'
+import { getByUrlIdTyped } from '../../lib/db/dbTyped'
 
 type Props = {
   column: Column
@@ -160,7 +160,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const column = await getByUrlId('columns', params.id)
+  const column = await getByUrlIdTyped(Types.column, params.id) as Column
   if (!column) {
     return {
       notFound: true,

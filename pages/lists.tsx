@@ -6,7 +6,7 @@ import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import useSWR from 'swr'
-import { List } from '../types/List'
+import type { List } from '../types/List'
 
 const title = 'All user lists on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

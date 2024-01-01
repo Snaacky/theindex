@@ -10,7 +10,7 @@ import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import useSWR from 'swr'
-import { getAllCache } from '../../lib/db/cache'
+import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import type { User } from '../../types/User'
 import type { List } from '../../types/List'
@@ -18,7 +18,6 @@ import type { Item } from '../../types/Item'
 import type { Column } from '../../types/Column'
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 import AccountTypeBadge from '../../components/badge/AccountTypeBadge'
-import { findOneTyped } from '../../lib/db/dbTyped'
 
 type Props = {
   user: User
@@ -217,7 +216,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
 export default User
 
 export async function getServerSideProps({ params }) {
-  const user = await findOneTyped(Types.user, params.id) as User
+  const user = await getSingleCache(Types.user, params.id) as User
 
   if (!user) {
     return {

@@ -6,7 +6,7 @@ import UserBoard from '../../components/boards/UserBoard'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { User } from '../../types/User'
+import type { User } from '../../types/User'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 
 const Users = ({ users }: { users: User[] }) => {

@@ -1,4 +1,3 @@
-import { getCollections } from '../../lib/db/collections'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -6,7 +5,6 @@ import { useSession } from 'next-auth/react'
 import { canEdit } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
-import { getByUrlId } from '../../lib/db/db'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconCollection from '../../components/icons/IconCollection'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -15,11 +13,12 @@ import React, { FC } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { Collection } from '../../types/Collection'
-import { Library } from '../../types/Library'
-import { Item } from '../../types/Item'
-import { Column } from '../../types/Column'
+import type { Collection } from '../../types/Collection'
+import type { Library } from '../../types/Library'
+import type { Item } from '../../types/Item'
+import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import { getByUrlIdTyped } from '../../lib/db/dbTyped'
 
 type Props = {
   collection: Collection
@@ -163,7 +162,7 @@ const Collection: FC<Props> = ({
 export default Collection
 
 export async function getStaticPaths() {
-  const collections = await getCollections()
+  const collections = await getAllCache(Types.collection) as Collection[]
   const paths = collections.map((collection) => {
     return {
       params: {
@@ -179,7 +178,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const collection = await getByUrlId('collections', params.id)
+  const collection = await getByUrlIdTyped(Types.collection, params.id) as Collection
   if (!collection) {
     return {
       notFound: true,
