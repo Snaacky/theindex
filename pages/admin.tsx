@@ -2,9 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { postData } from '../lib/utils'
 import { useSession } from 'next-auth/react'
-import { getColumns } from '../lib/db/columns'
-import { Column } from '../types/Column'
-import { Item } from '../types/Item'
+import type { Column } from '../types/Column'
+import type { Item } from '../types/Item'
 import ItemBoard from '../components/boards/ItemBoard'
 import { screenshotExists } from '../lib/db/itemScreenshots'
 import DataBadge from '../components/data/DataBadge'
@@ -174,7 +173,7 @@ export async function getServerSideProps() {
   )
   return {
     props: {
-      columns: await getColumns(),
+      columns: await getAllCache(Types.column),
       itemsWithNoScreenshots: missingScreenshots.filter((s) => s !== null),
       items: items,
       popular: popular,

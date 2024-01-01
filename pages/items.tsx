@@ -7,8 +7,8 @@ import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import useSWR from 'swr'
-import { Item } from '../types/Item'
-import { Column } from '../types/Column'
+import type { Item } from '../types/Item'
+import type { Column } from '../types/Column'
 
 const title = 'Items on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

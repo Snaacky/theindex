@@ -6,7 +6,7 @@ import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import useSWR from 'swr'
-import { Collection } from '../types/Collection'
+import type { Collection } from '../types/Collection'
 
 const title = 'Collections on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

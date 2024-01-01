@@ -7,7 +7,7 @@ import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import useSWR from 'swr'
-import { Column } from '../types/Column'
+import type { Column } from '../types/Column'
 
 const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
 const description =

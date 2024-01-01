@@ -1,12 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getLibraries } from '../../lib/db/libraries'
 import { useSession } from 'next-auth/react'
 import { canEdit, isEditor } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import CollectionBoard from '../../components/boards/CollectionBoard'
-import { getByUrlId } from '../../lib/db/db'
+import { getByUrlIdTyped } from '../../lib/db/dbTyped'
 import IconLibrary from '../../components/icons/IconLibrary'
 import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -173,7 +172,7 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
 export default Library
 
 export async function getStaticPaths() {
-  const libraries = await getLibraries()
+  const libraries = await getAllCache(Types.library) as Library[]
   const paths = libraries.map((library) => {
     return {
       params: {
@@ -189,7 +188,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const library = (await getByUrlId('libraries', params.id)) as Library
+  const library = (await getByUrlIdTyped(Types.library, params.id)) as Library
   if (!library) {
     return {
       notFound: true,

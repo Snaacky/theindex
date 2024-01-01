@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { canEdit, isAdmin, isEditor } from '../../lib/session'
-import { getItem, getItems } from '../../lib/db/items'
 import DataItem from '../../components/data/DataItem'
 import IconEdit from '../../components/icons/IconEdit'
 import DataBadge from '../../components/data/DataBadge'
@@ -19,7 +18,7 @@ import UrlBadge from '../../components/data/UrlBadge'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
-import { getAllCache } from '../../lib/db/cache'
+import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import { Item } from '../../types/Item'
@@ -27,7 +26,6 @@ import { Column } from '../../types/Column'
 import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
-import { findOneTyped, getAllTyped } from '../../lib/db/dbTyped'
 
 type Props = {
   item: Item
@@ -360,7 +358,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
 export default Item
 
 export async function getStaticPaths() {
-  const items = await getAllTyped(Types.item)
+  const items = await getAllCache(Types.item) as Item[]
   const paths = items.map((i) => {
     return {
       params: {
@@ -376,7 +374,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = await findOneTyped(Types.item, params.id) as Item
+  const item = await getSingleCache(Types.item, params.id) as Item
   if (!item) {
     return {
       notFound: true,

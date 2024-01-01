@@ -3,20 +3,17 @@ import Link from 'next/link'
 import { getLastViews } from '../lib/db/views'
 import ItemCard from '../components/cards/ItemCard'
 import CollectionCard from '../components/cards/CollectionCard'
-import LibraryCard from '../components/cards/LibraryCard'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
 import ViewAllButton from '../components/buttons/ViewAllButton'
 import { Item } from '../types/Item'
 import LibraryBoard from '../components/boards/LibraryBoard'
-import { getAllTyped } from '../lib/db/dbTyped'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
 
-export default function Home({ libraries }) {
-
+export default function Home({ libraries, sponsors, columns }) {
   try {
     return (
       <>
@@ -29,45 +26,30 @@ export default function Home({ libraries }) {
           />
         </Head>
 
-        <LibraryBoard
-          contentOf={null}
-          libraries={libraries}
-          allLibraries={libraries}
-          canEdit={true}
-        />
-        
-        {/*
         <div className={'row'}>
           <div className={'col'}>
             <h2 className={'mb-0'}>
-              Currently popular <Link href={'/libraries'}>libraries</Link>
+              Recommended <Link href={'/libraries'}>Libraries</Link>
             </h2>
-            <div className={'mb-3 text-muted'}>
-              According to recent view counts
-            </div>
           </div>
 
           <div className={'col-auto'}>
             <ViewAllButton type={Types.library} />
           </div>
         </div>
-        <div
-          className={'d-flex flex-wrap mb-4'}
-          style={{ marginRight: '-0.5rem' }}
-        >
-          {libraries.map((library) => {
-            return <LibraryCard library={library} key={library._id} />
-          })}
-        </div>
+        <LibraryBoard
+          contentOf={null}
+          libraries={libraries}
+          allLibraries={libraries}
+          canEdit={true}
+        />
+
 
         <div className={'row'}>
           <div className={'col'}>
             <h2 className={'mb-0'}>
-              Currently popular <Link href={'/items'}>items</Link>
+              Recommended <Link href={'/items'}>items</Link>
             </h2>
-            <div className={'mb-3 text-muted'}>
-              According to recent view counts
-            </div>
           </div>
 
           <div className={'col-auto'}>
@@ -75,14 +57,15 @@ export default function Home({ libraries }) {
           </div>
         </div>
         <div
-          className={'d-flex flex-wrap mb-4'}
+          className='d-flex flex-wrap mb-4'
           style={{ marginRight: '-0.5rem' }}
         >
-          {items.map((item) => {
+          {sponsors.map((item) => {
             return <ItemCard item={item} columns={columns} key={item._id} />
           })}
         </div>
 
+        {/*
         <div className={'row'}>
           <div className={'col'}>
             <h2 className={'mb-0'}>
@@ -127,7 +110,6 @@ export default function Home({ libraries }) {
 }
 
 export async function getStaticProps() {
-  /**
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
   let popular = (await getLastViews(Types.item, 10000)) as Item[]
@@ -156,15 +138,15 @@ export async function getStaticProps() {
   sponsorsSortedByPopular.reverse().forEach((sponsor) => {
     popular.unshift(sponsor)
   })
-  */
 
   return {
     props: {
-      libraries: await getAllTyped(Types.library)
+      libraries: await getAllCache(Types.library),
+      sponsors: sponsors,
       //libraries: (await getLastViews(Types.library, 1000)).slice(0, 6),
       //items: popular.slice(0, 9),
       //collections: (await getLastViews(Types.collection, 1000)).slice(0, 9),
-      //columns: await getAllCache(Types.column),
+      columns: await getAllCache(Types.column),
     },
     revalidate: 600,
   }
