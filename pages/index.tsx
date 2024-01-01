@@ -26,6 +26,14 @@ export default function Home({ libraries, sponsors, columns }) {
           />
         </Head>
 
+        <LibraryBoard
+          contentOf={null}
+          libraries={libraries}
+          allLibraries={libraries}
+          canEdit={true}
+        />
+        
+        {/*
         <div className={'row'}>
           <div className={'col'}>
             <h2 className={'mb-0'}>
@@ -110,6 +118,7 @@ export default function Home({ libraries, sponsors, columns }) {
 }
 
 export async function getStaticProps() {
+  /**
   const allItems = (await getAllCache(Types.item)) as Item[]
   const sponsors = allItems.filter((item) => item.sponsor)
   let popular = (await getLastViews(Types.item, 10000)) as Item[]
@@ -138,6 +147,7 @@ export async function getStaticProps() {
   sponsorsSortedByPopular.reverse().forEach((sponsor) => {
     popular.unshift(sponsor)
   })
+  */
 
   return {
     props: {
