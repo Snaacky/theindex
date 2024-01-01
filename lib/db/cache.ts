@@ -15,7 +15,7 @@ const client = new Redis(uri)
 export async function getSingleCache(
   type: Types,
   _id: string
-): Promise<string | object> {
+): Promise<object> {
   let data = await getCache(type + '-' + _id)
   if (data === null) {
     data = await findOneTyped(type, _id)
@@ -25,7 +25,7 @@ export async function getSingleCache(
     }
 
     await updateSingleCache(type, _id, data)
-    return JSON.stringify(data)
+    return data
   }
 
   return data
