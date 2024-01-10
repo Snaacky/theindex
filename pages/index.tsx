@@ -9,6 +9,7 @@ import { Types } from '../types/Components'
 import ViewAllButton from '../components/buttons/ViewAllButton'
 import { Item } from '../types/Item'
 import LibraryBoard from '../components/boards/LibraryBoard'
+import { getSponsors } from '../lib/db/items'
 
 const description =
   'The best places to stream your favorite anime shows online or download them for free and watch in sub or dub. Supports manga, light novels, hentai, and apps.'
@@ -43,7 +44,6 @@ export default function Home({ libraries, sponsors, columns }) {
           allLibraries={libraries}
           canEdit={true}
         />
-
 
         <div className={'row'}>
           <div className={'col'}>
@@ -111,7 +111,14 @@ export default function Home({ libraries, sponsors, columns }) {
 
 export async function getStaticProps() {
   const allItems = (await getAllCache(Types.item)) as Item[]
-  const sponsors = allItems.filter((item) => item.sponsor)
+  const sponsors = allItems
+    .filter((item) => item.sponsor)
+    .sort((a, b) => {
+      // asc name
+      return a.name < b.name ? -1 : 1
+    })
+
+  /*
   let popular = (await getLastViews(Types.item, 10000)) as Item[]
 
   const sponsorsSortedByPopular = sponsors.sort((a, b) => {
@@ -138,6 +145,7 @@ export async function getStaticProps() {
   sponsorsSortedByPopular.reverse().forEach((sponsor) => {
     popular.unshift(sponsor)
   })
+  */
 
   return {
     props: {

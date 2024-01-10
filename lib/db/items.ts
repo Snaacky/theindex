@@ -22,18 +22,23 @@ import { List } from '../../types/List'
 import { updateList } from './lists'
 import { Collection } from '../../types/Collection'
 import { postItemUpdate } from '../webhook'
+import { findOneTyped, getAllTyped } from './dbTyped'
 
 export async function getItems(): Promise<Item[]> {
   return await Promise.all(
-    ((await getAll('items')) as Item[]).map(async (i) => {
+    ((await getAllTyped(Types.item)) as Item[]).map(async (i) => {
       i.stars = await count('users', { favs: [i._id] })
       return i
     })
   )
 }
 
+export async function getSponsors(): Promise<Item[]> {
+  return (await getItems()).filter((item) => item.sponsor)
+}
+
 export async function getItem(_id: string): Promise<Item | null> {
-  const item = (await findOne('items', { _id: _id })) as Item
+  const item = (await findOneTyped(Types.item, _id)) as Item
   if (item !== null) {
     item.stars = await count('users', { favs: [_id] })
   }
