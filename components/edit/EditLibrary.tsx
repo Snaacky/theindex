@@ -23,15 +23,15 @@ type Props = {
 }
 
 const EditLibrary: FC<Props> = ({
-                                  libraries = [],
-                                  _id,
-                                  urlId = '',
-                                  img = 'puzzled.png',
-                                  name = '',
-                                  nsfw = false,
-                                  description = '',
-                                  collections = [],
-                                }) => {
+  libraries = [],
+  _id,
+  urlId = '',
+  img = 'puzzled.png',
+  name = '',
+  nsfw = false,
+  description = '',
+  collections = [],
+}) => {
   const [nameState, setName] = useState(name || '')
   const [urlIdState, setUrlId] = useState(urlId || '')
   const [imgState, setImg] = useState(img || 'puzzled.png')

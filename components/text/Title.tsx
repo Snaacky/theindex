@@ -58,4 +58,4 @@ const Title: FC<Props> = ({ type, content, contentLink }) => {
   )
 }
 
-export default Title;
+export default Title

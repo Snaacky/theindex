@@ -1,5 +1,13 @@
 import { Types } from '../../types/Components'
-import { count, deleteOne, find, findOne, getAll, insert, updateOne } from './db'
+import {
+  count,
+  deleteOne,
+  find,
+  findOne,
+  getAll,
+  insert,
+  updateOne,
+} from './db'
 import type { User, UserUpdate } from '../../types/User'
 import type { List } from '../../types/List'
 import type { Library } from '../../types/Library'
@@ -49,25 +57,46 @@ export async function findTyped(type: Types, query: Record<string, any>) {
   }
 }
 
-export async function findOneTyped(type: Types, _id: string | Record<string, any>) {
+export async function findOneTyped(
+  type: Types,
+  _id: string | Record<string, any>
+) {
   switch (type) {
     case Types.collection:
-      return (await findOne('collections', typeof _id === 'string' ? { _id } : _id)) as Collection | null
+      return (await findOne(
+        'collections',
+        typeof _id === 'string' ? { _id } : _id
+      )) as Collection | null
     case Types.column:
-      return (await findOne('columns', typeof _id === 'string' ? { _id } : _id)) as Column | null
+      return (await findOne(
+        'columns',
+        typeof _id === 'string' ? { _id } : _id
+      )) as Column | null
     case Types.item:
-      const item = (await findOne('items', typeof _id === 'string' ? { _id } : _id)) as Item | null
+      const item = (await findOne(
+        'items',
+        typeof _id === 'string' ? { _id } : _id
+      )) as Item | null
       if (item !== null) {
         item.stars = await countTyped(Types.user, { favs: [_id] })
         item.views = 0 // await count(Types.item, 1000)
       }
       return item
     case Types.library:
-      return (await findOne('libraries', typeof _id === 'string' ? { _id } : _id)) as Library | null
+      return (await findOne(
+        'libraries',
+        typeof _id === 'string' ? { _id } : _id
+      )) as Library | null
     case Types.list:
-      return (await findOne('lists', typeof _id === 'string' ? { _id } : _id)) as List | null
+      return (await findOne(
+        'lists',
+        typeof _id === 'string' ? { _id } : _id
+      )) as List | null
     case Types.user:
-      const user = (await findOne('users', typeof _id === 'string' ? { uid: _id } : _id)) as User | null
+      const user = (await findOne(
+        'users',
+        typeof _id === 'string' ? { uid: _id } : _id
+      )) as User | null
       return await gatherUserInfo(user)
   }
 }
@@ -89,11 +118,8 @@ export async function countTyped(type: Types, query?: Record<string, any>) {
   }
 }
 
-export async function getByUrlIdTyped(
-  type: Types,
-  urlId: string
-) {
-  return findOneTyped(type, {urlId})
+export async function getByUrlIdTyped(type: Types, urlId: string) {
+  return findOneTyped(type, { urlId })
 }
 
 export async function insertTyped(
@@ -116,27 +142,52 @@ export async function insertTyped(
   }
 }
 
-export async function updateOneTyped(type: Types, _id: string | Record<string, any>, data) {
+export async function updateOneTyped(
+  type: Types,
+  _id: string | Record<string, any>,
+  data
+) {
   switch (type) {
     case Types.collection:
-      return await updateOne('collections', typeof _id === 'string' ? { _id } : _id, data)
+      return await updateOne(
+        'collections',
+        typeof _id === 'string' ? { _id } : _id,
+        data
+      )
     case Types.column:
-      return await updateOne('columns', typeof _id === 'string' ? { _id } : _id, data)
+      return await updateOne(
+        'columns',
+        typeof _id === 'string' ? { _id } : _id,
+        data
+      )
     case Types.item:
-      return await updateOne('items', typeof _id === 'string' ? { _id } : _id, data)
+      return await updateOne(
+        'items',
+        typeof _id === 'string' ? { _id } : _id,
+        data
+      )
     case Types.library:
-      return await updateOne('libraries', typeof _id === 'string' ? { _id } : _id, data)
+      return await updateOne(
+        'libraries',
+        typeof _id === 'string' ? { _id } : _id,
+        data
+      )
     case Types.list:
-      return await updateOne('lists', typeof _id === 'string' ? { _id } : _id, data)
+      return await updateOne(
+        'lists',
+        typeof _id === 'string' ? { _id } : _id,
+        data
+      )
     case Types.user:
-      return await updateOne('users', typeof _id === 'string' ? { uid: _id } : _id, data)
+      return await updateOne(
+        'users',
+        typeof _id === 'string' ? { uid: _id } : _id,
+        data
+      )
   }
 }
 
-export async function deleteOneTyped(
-  type: Types,
-  query: Record<string, any>
-) {
+export async function deleteOneTyped(type: Types, query: Record<string, any>) {
   switch (type) {
     case Types.collection:
       return await deleteOne('collections', query)

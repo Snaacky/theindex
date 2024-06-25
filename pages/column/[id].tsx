@@ -160,7 +160,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const column = await getByUrlIdTyped(Types.column, params.id) as Column
+  const column = (await getByUrlIdTyped(Types.column, params.id)) as Column
   if (!column) {
     return {
       notFound: true,

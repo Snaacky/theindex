@@ -213,4 +213,4 @@ const EditCollection: FC<Props> = ({
   )
 }
 
-export default EditCollection;
+export default EditCollection

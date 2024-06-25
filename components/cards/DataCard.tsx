@@ -48,4 +48,4 @@ const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
   )
 }
 
-export default DataCard;
+export default DataCard

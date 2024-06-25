@@ -126,7 +126,7 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
 export default List
 
 export async function getServerSideProps({ params }) {
-  const list = await getSingleCache(Types.list, params.id) as List
+  const list = (await getSingleCache(Types.list, params.id)) as List
   if (list === null) {
     return {
       notFound: true,

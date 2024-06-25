@@ -28,7 +28,7 @@ export const authOptions: AuthOptions = {
         const id = user.id.toString()
         session.user.uid = id
 
-        const userData = await findOneTyped(Types.user, id) as User
+        const userData = (await findOneTyped(Types.user, id)) as User
         // create user account if not found
         if (userData === null) {
           console.log(

@@ -15,10 +15,10 @@ import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
 import ItemBoard from '../../components/boards/ItemBoard'
-import { Collection } from '../../types/Collection'
-import { Library } from '../../types/Library'
-import { Item } from '../../types/Item'
-import { Column } from '../../types/Column'
+import type { Collection } from '../../types/Collection'
+import type { Library } from '../../types/Library'
+import type { Item } from '../../types/Item'
+import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
 
 type Props = {
@@ -172,7 +172,7 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
 export default Library
 
 export async function getStaticPaths() {
-  const libraries = await getAllCache(Types.library) as Library[]
+  const libraries = (await getAllCache(Types.library)) as Library[]
   const paths = libraries.map((library) => {
     return {
       params: {

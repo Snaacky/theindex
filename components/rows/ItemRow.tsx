@@ -94,4 +94,4 @@ const ItemRow: FC<Props> = ({
   )
 }
 
-export default ItemRow;
+export default ItemRow

@@ -57,4 +57,3 @@ a:not(.btn) {
 a:not(.btn):hover {
   color: var(--a-hover-color);
 }
-

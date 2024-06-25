@@ -57,4 +57,4 @@ const SupportBanner: FC = () => {
   )
 }
 
-export default SupportBanner;
+export default SupportBanner
