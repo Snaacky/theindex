@@ -1,7 +1,9 @@
 .card {
   width: 100%;
   border-right: 3px solid var(--bg-2);
-  transition: border-right-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
+  transition:
+    border-right-color ease-in-out 0.1s,
+    box-shadow ease-in-out 0.1s;
   min-height: 69px;
 }
 

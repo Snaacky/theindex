@@ -86,7 +86,7 @@ Afterwards, you will need to stop and remove your current running instance and s
 Here is a collection of the possible environment variables with their default values you should set in your `.env` file:
 
 | Parameter                    | Function                                                                                             | Default                              |
-| ---------------------------- |------------------------------------------------------------------------------------------------------| ------------------------------------ |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Index"`                        |
 | `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://theindex.moe"`             |
 | `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
@@ -180,7 +180,7 @@ To start coding on the frontend, you will need to make sure, you have the latest
 [node.js](https://nodejs.org/) correctly installed. To install all the required dependencies run once:
 
 ```shell
-npm install
+bun install
 ```
 
 > Note: We decided to stick with npm instead of yarn to manage dependencies.
@@ -190,7 +190,7 @@ You should now have a folder called `node_modules`, which contains all the depen
 will have to run a db server in the background and start the frontend via:
 
 ```shell
-npm run dev
+bun run dev
 ```
 
 After compiling you can open [http://localhost:3000](http://localhost:3000) in your browser of choice and see the
@@ -215,7 +215,7 @@ We use [prettier](https://prettier.io) to ensure a consistent code style across 
 auto-format everything with e.g. running the command
 
 ```shell
-npx prettier --write .
+bunx prettier --write .
 ```
 
 ## Design of the web app

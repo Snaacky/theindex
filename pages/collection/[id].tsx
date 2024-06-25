@@ -162,7 +162,7 @@ const Collection: FC<Props> = ({
 export default Collection
 
 export async function getStaticPaths() {
-  const collections = await getAllCache(Types.collection) as Collection[]
+  const collections = (await getAllCache(Types.collection)) as Collection[]
   const paths = collections.map((collection) => {
     return {
       params: {
@@ -178,7 +178,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const collection = await getByUrlIdTyped(Types.collection, params.id) as Collection
+  const collection = (await getByUrlIdTyped(
+    Types.collection,
+    params.id
+  )) as Collection
   if (!collection) {
     return {
       notFound: true,

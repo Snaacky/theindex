@@ -57,7 +57,7 @@ export default function EditorUser({ uid, user }) {
 EditorUser.auth = {}
 
 export async function getServerSideProps({ params }) {
-  const user = await findOneTyped(Types.user, params.id) as User
+  const user = (await findOneTyped(Types.user, params.id)) as User
   if (!user) {
     return {
       notFound: true,

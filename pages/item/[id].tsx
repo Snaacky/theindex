@@ -21,7 +21,7 @@ import React, { FC } from 'react'
 import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import useSWR from 'swr'
-import { Item } from '../../types/Item'
+import type { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
@@ -358,7 +358,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
 export default Item
 
 export async function getStaticPaths() {
-  const items = await getAllCache(Types.item) as Item[]
+  const items = (await getAllCache(Types.item)) as Item[]
   const paths = items.map((i) => {
     return {
       params: {
@@ -374,7 +374,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = await getSingleCache(Types.item, params.id) as Item
+  const item = (await getSingleCache(Types.item, params.id)) as Item
   if (!item) {
     return {
       notFound: true,

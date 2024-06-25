@@ -1,7 +1,9 @@
 .toggle {
   color: grey;
   background-color: var(--bg-8);
-  transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+  transition:
+    color 0.1s ease-in-out,
+    background-color 0.1s ease-in-out;
   width: 40px;
   height: 40px;
 }

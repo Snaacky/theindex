@@ -55,7 +55,7 @@ export async function getAllCache(type: Types): Promise<object[]> {
   let data = await getCache(plural)
   if (data === null) {
     data = await getAllTyped(type)
-    
+
     if (data === null) {
       return []
     }

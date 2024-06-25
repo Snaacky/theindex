@@ -1,4 +1,3 @@
-version: '3.3'
 services:
   web:
     image: ghcr.io/theindexmoe/index
@@ -43,16 +42,22 @@ services:
     restart: unless-stopped
     volumes:
       - ./db:/data/db
+    ports:
+      - '27017:27017'
 
   redis:
     image: redis
     container_name: index-cache
     restart: unless-stopped
+    ports:
+      - '6379:6379'
 
   chrome:
     image: browserless/chrome
     container_name: index-chrome
     restart: unless-stopped
+    ports:
+      - '3300:3300'
 
   # this will not run if not explicitly called via docker-compose --profile dev
   mongo-express:

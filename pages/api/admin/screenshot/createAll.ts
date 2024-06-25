@@ -23,9 +23,7 @@ export default async function apiAdminScreenshotCreateAll(
 
   const items = (
     await Promise.all(
-      (
-        await getItems()
-      ).map(async (item) => {
+      (await getItems()).map(async (item) => {
         if (await screenshotExists(item._id)) {
           return null
         }

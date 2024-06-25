@@ -54,8 +54,8 @@ const Card: FC<Props> = ({
     ('urlId' in content
       ? content.urlId
       : 'uid' in content
-      ? content.uid
-      : content._id)
+        ? content.uid
+        : content._id)
 
   if (typeof content === 'undefined') {
     return <Loader />

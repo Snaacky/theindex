@@ -216,7 +216,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
 export default User
 
 export async function getServerSideProps({ params }) {
-  const user = await getSingleCache(Types.user, params.id) as User
+  const user = (await getSingleCache(Types.user, params.id)) as User
 
   if (!user) {
     return {

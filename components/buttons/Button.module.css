@@ -6,7 +6,9 @@
   background-color: var(--bg-4);
   border-radius: 0.25rem;
   color: var(--bs-secondary);
-  transition: background-color ease-in-out 0.15s, color ease-in-out 0.15s;
+  transition:
+    background-color ease-in-out 0.15s,
+    color ease-in-out 0.15s;
 }
 
 .button:hover,

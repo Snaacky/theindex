@@ -1,4 +1,16 @@
-FROM node:21.0
+# Install dependencies only when needed
+FROM oven/bun:1.1.17-alpine AS deps
+WORKDIR /app
+
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
+
+# Rebuild the source code only when needed
+FROM node:22.3-alpine AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+ENV PATH /app/node_modules/.bin:$PATH
 
 # We use the image browserless/chrome instead of having our own chrome instance here
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
@@ -30,24 +42,17 @@ EXPOSE 3033
 HEALTHCHECK CMD curl --fail http://localhost:3033 || exit 1
 
 LABEL org.opencontainers.image.vendor="TheIndex" \
-      org.opencontainers.image.url="https://theindex.moe" \
-      org.opencontainers.image.description="Webserver of TheIndex" \
-      org.opencontainers.image.title="TheIndex" \
-      maintainer="Community of TheIndex"
+    org.opencontainers.image.url="https://theindex.moe" \
+    org.opencontainers.image.description="Webserver of TheIndex" \
+    org.opencontainers.image.title="TheIndex" \
+    maintainer="Community of TheIndex"
 
-WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install the dependencies
-COPY package.json .
-COPY package-lock.json .
 
 # we want curl for the healthcheck
 RUN apt update -y && \
     apt install --no-install-recommends -y curl && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-    npm ci && \
     npm install @next/swc-linux-x64-gnu
 
 # build the web app

@@ -48,4 +48,4 @@ const FeatureValue: FC<Props> = ({
   )
 }
 
-export default FeatureValue;
+export default FeatureValue

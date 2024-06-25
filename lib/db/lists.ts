@@ -70,7 +70,7 @@ export async function updateList(
 export async function deleteList(_id: string) {
   // remove list entry from owner
   const list = await getList(_id)
-  const owner = await findOneTyped(Types.user, list.owner) as User
+  const owner = (await findOneTyped(Types.user, list.owner)) as User
   owner.lists = owner.lists.filter((userList) => userList !== _id)
 
   await updateUser(owner.uid, {

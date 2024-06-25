@@ -20,7 +20,10 @@ export default async function apiEditUser(
         delete d.accountType
       }
       // @ts-ignore
-      const oldUser = await findOneTyped(Types.user, d.uid === 'me' ? session.user.uid : d.uid) as User
+      const oldUser = (await findOneTyped(
+        Types.user,
+        d.uid === 'me' ? session.user.uid : d.uid
+      )) as User
 
       // @ts-ignore
       await updateUser(d.uid === 'me' ? session.user.uid : d.uid, d)

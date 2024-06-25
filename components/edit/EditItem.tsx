@@ -342,4 +342,4 @@ const EditItem: FC<Props> = ({
   )
 }
 
-export default EditItem;
+export default EditItem
