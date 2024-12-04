@@ -116,11 +116,25 @@ export async function insert(
   collection: string,
   data: Record<string, any>
 ): Promise<string> {
-  const db = (await dbClient).db('index')
-  data.createdAt = new Date()
-  data.lastModified = new Date()
-  const { insertedId } = await db.collection(collection).insertOne(data)
-  return insertedId.toString()
+  let tries = 1
+  while (tries < 3) {
+    try {
+      const db = (await dbClient).db('index')
+      data.createdAt = new Date()
+      data.lastModified = new Date()
+      const { insertedId } = await db.collection(collection).insertOne(data)
+      return insertedId.toString()
+    } catch (error) {
+      console.error(
+        '#' +
+          tries.toString() +
+          ': Failed to insert into collection ' +
+          collection
+      )
+      tries++
+    }
+  }
+  throw Error('Unable to insert entry into ' + collection + ' after 3 retires')
 }
 
 export async function updateOne(
@@ -128,17 +142,42 @@ export async function updateOne(
   query: Record<string, any>,
   data: Record<string, any>
 ) {
-  const db = (await dbClient).db('index')
-  await db.collection(collection).updateOne(polluteId(query), {
-    $set: data,
-    $currentDate: { lastModified: true },
-  })
+  let tries = 1
+  while (tries < 3) {
+    try {
+      const db = (await dbClient).db('index')
+      await db.collection(collection).updateOne(polluteId(query), {
+        $set: data,
+        $currentDate: { lastModified: true },
+      })
+    } catch (error) {
+      console.error(
+        '#' + tries.toString() + ': Failed to update collection ' + collection
+      )
+      tries++
+    }
+  }
+  throw Error('Unable to update entry of ' + collection + ' after 3 retires')
 }
 
 export async function deleteOne(
   collection: string,
   query: Record<string, any>
 ) {
-  const db = (await dbClient).db('index')
-  await db.collection(collection).deleteOne(polluteId(query))
+  let tries = 1
+  while (tries < 3) {
+    try {
+      const db = (await dbClient).db('index')
+      await db.collection(collection).deleteOne(polluteId(query))
+    } catch (error) {
+      console.error(
+        '#' +
+          tries.toString() +
+          ': Failed to delete from collection ' +
+          collection
+      )
+      tries++
+    }
+  }
+  throw Error('Unable to delete entry from ' + collection + ' after 3 retires')
 }
