@@ -9,6 +9,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 import DeleteButton from '../../../components/buttons/DeleteButton'
 import React from 'react'
+import { List } from '../../../types/List'
 
 export default function EditorList({ _id, userLists, list }) {
   const { data: session } = useSession()
@@ -54,11 +55,8 @@ export default function EditorList({ _id, userLists, list }) {
 
       <div className={'card bg-2 mb-3'}>
         <div className='card-body'>
-          {_id === '_new' ? (
-            <EditList
-              lists={userLists}
-              owner={(session.user as { uid: string }).uid}
-            />
+          {_id === '_new' && session !== null ? (
+            <EditList lists={userLists} owner={session.user.uid} />
           ) : (
             <EditList
               _id={list._id}
@@ -80,10 +78,10 @@ EditorList.auth = {
 }
 
 export async function getServerSideProps({ params }) {
-  let list = {}
+  let list: List | null = null
   if (params.id !== '_new') {
     list = await getList(params.id)
-    if (!list) {
+    if (list === null) {
       return {
         notFound: true,
       }

@@ -1,5 +1,4 @@
-import { authOptions } from '../../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../../auth'
 import { canEdit } from '../../../../lib/session'
 import { updateLibrary } from '../../../../lib/db/libraries'
 import { updateAllCache } from '../../../../lib/db/cache'
@@ -10,7 +9,7 @@ export default async function apiEditLibraryOrder(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (canEdit(session)) {
     const d = req.body
     if (Array.isArray(d.libraries)) {

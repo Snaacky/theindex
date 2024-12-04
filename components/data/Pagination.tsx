@@ -20,7 +20,7 @@ const Pagination: FC<Props> = ({
   setStartViewIndex,
 }) => {
   const currentPage = Math.floor(startViewIndex / pageSize)
-  const pagination = []
+  const pagination: number[] = []
   const numPaginations = Math.ceil(contentLength / pageSize)
   if (pageSize !== 0) {
     if (currentPage > 4) {

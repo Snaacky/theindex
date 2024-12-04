@@ -12,16 +12,25 @@ export function bufferToStream(buffer: Buffer) {
 // note you want usually want to not use this function as you loose all the benefits of streams
 export function streamToBuffer(stream: Readable) {
   return new Promise<Buffer>((resolve, reject) => {
-    const buffer = []
+    const buffer: any[] = []
     stream.on('data', (chunk) => buffer.push(chunk))
     stream.on('end', () => resolve(Buffer.concat(buffer)))
     stream.on('error', (err) => reject(err))
   })
 }
 
-export async function addItemScreenshot(buffer: Buffer, itemId: string) {
-  // convert image buffer to stream
-  const imgStream = bufferToStream(buffer)
+export function imgToStream(img: Uint8Array) {
+  let stream = new Readable()
+  stream.push(img)
+  stream.push(null)
+  return stream
+}
+
+export async function addItemScreenshot(img: Uint8Array, itemId: string) {
+  // convert uint8array image to stream
+  const imgStream = new Readable()
+  imgStream.push(img)
+  imgStream.push(null)
 
   const db = (await dbClient).db('index')
   const bucket = new GridFSBucket(db, {

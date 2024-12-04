@@ -18,13 +18,7 @@ type Props = {
   remove?: () => void
 }
 
-const ItemRow: FC<Props> = ({
-  item,
-  columns = [],
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const ItemRow: FC<Props> = ({ item, columns = [], add, remove, move }) => {
   const column = splitColumnsIntoTypes(columns, item.data)
 
   return (
@@ -51,12 +45,7 @@ const ItemRow: FC<Props> = ({
           {column.features.length > 0 && (
             <div className={'d-flex flex-wrap mb-1'}>
               {column.features.map((c) => (
-                <FeatureValue
-                  column={c}
-                  sponsor={item.sponsor}
-                  key={c._id}
-                  data={null}
-                />
+                <FeatureValue column={c} sponsor={item.sponsor} key={c._id} />
               ))}
             </div>
           )}

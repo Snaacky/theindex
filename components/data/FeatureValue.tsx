@@ -4,7 +4,7 @@ import { Column } from '../../types/Column'
 import { FC } from 'react'
 
 type Props = {
-  data: boolean | null
+  data?: boolean
   column: Column
   sponsor?: boolean
   onChange?: (data: boolean | null) => void
@@ -14,9 +14,9 @@ const FeatureValue: FC<Props> = ({
   data,
   column,
   sponsor = false,
-  onChange = null,
+  onChange,
 }) => {
-  if (onChange === null) {
+  if (typeof onChange === 'undefined') {
     return (
       <>
         <Link

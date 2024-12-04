@@ -13,7 +13,7 @@ type Props = {
   onChange?: (value: any) => void
 }
 
-const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
+const DataCard: FC<Props> = ({ data, column, onChange }) => {
   const { data: session } = useSession()
 
   return (
@@ -37,7 +37,7 @@ const DataCard: FC<Props> = ({ data, column, onChange = null }) => {
           )}
         </h5>
 
-        {onChange === null && (
+        {typeof onChange === 'undefined' && (
           <p className={styles.description + ' card-text'}>
             {column.description}
           </p>

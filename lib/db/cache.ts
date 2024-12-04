@@ -7,6 +7,9 @@ import { findOneTyped, getAllTyped } from './dbTyped'
 
 const uri =
   'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
+if (typeof uri !== 'string') {
+  throw Error('Unable to connect to DB due to missing DATABASE_URL')
+}
 const client = new Redis(uri)
 
 /**
@@ -15,10 +18,10 @@ const client = new Redis(uri)
 export async function getSingleCache(
   type: Types,
   _id: string
-): Promise<object> {
+): Promise<object | null> {
   let data = await getCache(type + '-' + _id)
   if (data === null) {
-    data = await findOneTyped(type, _id)
+    data = (await findOneTyped(type, _id)) as object
 
     if (data === null) {
       return null
@@ -40,7 +43,7 @@ export async function updateSingleCache(
   data?: string | object
 ) {
   if (typeof data === 'undefined') {
-    data = await findOneTyped(type, _id)
+    data = (await findOneTyped(type, _id)) as object
   }
 
   await setCache(type + '-' + _id, data)
@@ -80,7 +83,7 @@ export async function updateAllCache(type: Types, data?: string | object) {
 /**
  * only returns null if requested component does not exist
  */
-export async function getCache(key: string): Promise<object | object[]> {
+export async function getCache(key: string): Promise<object | object[] | null> {
   try {
     let data = await client.get(key)
     if (data === null) {
@@ -95,6 +98,7 @@ export async function getCache(key: string): Promise<object | object[]> {
   } catch (e) {
     console.error('Failed to get from cache', e)
   }
+  return null
 }
 
 /**

@@ -1,5 +1,4 @@
-import { authOptions } from '../../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../../auth'
 import { isAdmin } from '../../../../lib/session'
 import { clearCompleteCache } from '../../../../lib/db/cache'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -8,7 +7,7 @@ export default async function apiAdminCacheClear(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (!isAdmin(session)) {
     return res.status(401)
   }

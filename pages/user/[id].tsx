@@ -32,7 +32,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
   const { data: swrUser } = useSWR('/api/user/' + user.uid, {
     fallbackData: user,
   })
-  user = swrUser || user
+  user = (swrUser as User) || user
   let adminInfo
   if (isAdmin(session)) {
     adminInfo = user
@@ -45,20 +45,20 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
   const { data: swrColumn } = useSWR('/api/columns', {
     fallbackData: columns,
   })
-  columns = swrColumn || columns
+  columns = (swrColumn as Column[]) || columns
   const { data: swrItem } = useSWR('/api/items', {
     fallbackData: items,
   })
-  items = swrItem || items
-  const userFav = user.favs.map((itemId) =>
-    items.find((item) => item._id === itemId)
-  )
+  items = (swrItem as Item[]) || items
+  const userFav = user.favs
+    .map((itemId) => items.find((item) => item._id === itemId))
+    .filter((item) => typeof item !== 'undefined')
   const { data: swrLists } = useSWR('/api/lists', {
     fallbackData: lists,
   })
-  lists = swrLists || lists
+  lists = (swrLists as List[]) || lists
   const userLists = lists.filter((list) => list.owner === user.uid)
-  const followLists = (swrLists || lists).filter((list) =>
+  const followLists = ((swrLists as List[]) || lists).filter((list) =>
     user.followLists.includes(list._id)
   )
 

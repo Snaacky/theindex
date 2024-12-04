@@ -77,7 +77,7 @@ const Admin = ({
         onClick={() => {
           if (
             !('NEXT_PUBLIC_AUDIT_WEBHOOK' in process.env) ||
-            process.env.NEXT_PUBLIC_AUDIT_WEBHOOK.length === 0
+            process.env.NEXT_PUBLIC_AUDIT_WEBHOOK?.length === 0
           ) {
             return alert("ENV 'NEXT_PUBLIC_AUDIT_WEBHOOK' not provided")
           }
@@ -96,8 +96,8 @@ const Admin = ({
                 url: process.env.NEXT_PUBLIC_DOMAIN,
                 color: 15548997, // red
                 author: {
-                  name: session.user.name,
-                  icon_url: session.user.image,
+                  name: session?.user.name,
+                  icon_url: session?.user.image,
                 },
               },
             ],
@@ -105,7 +105,7 @@ const Admin = ({
         }}
         disabled={
           !('NEXT_PUBLIC_AUDIT_WEBHOOK' in process.env) ||
-          process.env.NEXT_PUBLIC_AUDIT_WEBHOOK.length === 0
+          process.env.NEXT_PUBLIC_AUDIT_WEBHOOK?.length === 0
         }
       >
         Send test webhook

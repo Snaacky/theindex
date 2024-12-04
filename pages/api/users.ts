@@ -1,5 +1,4 @@
-import { authOptions } from './auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../auth'
 import { isAdmin } from '../../lib/session'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
@@ -9,7 +8,7 @@ export default async function apiUsers(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (isAdmin(session)) {
     res.json(await getAllCache(Types.user))
   } else {

@@ -103,7 +103,7 @@ const LanguageValue: FC<Props> = ({
               }}
             >
               <DataBadge
-                data={data.includes(lang.iso6393) ? true : null}
+                data={data.includes(lang.iso6393) ? true : undefined}
                 name={lang.name}
               />
             </button>

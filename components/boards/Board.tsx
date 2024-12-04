@@ -208,7 +208,7 @@ const Board: FC<Props> = ({
                 )
                 updateContent(newContent, newUnselectedContent)
               }
-            : null
+            : undefined
         }
         move={
           moveAllowed
@@ -231,7 +231,7 @@ const Board: FC<Props> = ({
                   updateContent(copy, unselectedContent)
                 }
               }
-            : null
+            : undefined
         }
         remove={
           removeAllowed
@@ -263,7 +263,7 @@ const Board: FC<Props> = ({
                   updateContent(newContent, newUnselectedContent)
                 }
               }
-            : null
+            : undefined
         }
         columns={compactView ? [] : columns}
       />
@@ -365,8 +365,10 @@ const Board: FC<Props> = ({
                   (option) => option.name === event.target.value
                 )
                 console.log('Changed sorting to', newSortOption)
-                setSortOption(newSortOption)
-                setContent(content.sort(newSortOption.sort))
+                if (typeof newSortOption !== 'undefined') {
+                  setSortOption(newSortOption)
+                  setContent(content.sort(newSortOption.sort))
+                }
               }}
             />
           )}

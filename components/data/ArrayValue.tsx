@@ -9,13 +9,13 @@ type Props = {
   onChange?: (values: string[]) => void
 }
 
-const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
+const ArrayValue: FC<Props> = ({ data, column, onChange }) => {
   if (column.type !== ColumnType.array) {
     console.error('Called ArrayValue but column type is', column.type)
     return
   }
 
-  if (onChange === null) {
+  if (typeof onChange === 'undefined') {
     return (
       <>
         {data.map((v) => (
@@ -48,7 +48,7 @@ const ArrayValue: FC<Props> = ({ data, column, onChange = null }) => {
               }
             }}
           >
-            <DataBadge data={data.includes(v) ? true : null} name={v} />
+            <DataBadge data={data.includes(v) ? true : undefined} name={v} />
           </button>
         )
       })}

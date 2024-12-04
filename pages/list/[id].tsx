@@ -31,11 +31,11 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   const { data: swrList } = useSWR('/api/list/' + list._id, {
     fallbackData: list,
   })
-  list = swrList || list
+  list = (swrList as List) || list
   const { data: swrOwner } = useSWR('/api/user/' + owner.uid, {
     fallbackData: owner,
   })
-  owner = swrOwner || owner
+  owner = (swrOwner as User) || owner
   //let adminInfo
   if (isAdmin(session)) {
     //adminInfo = owner
@@ -48,15 +48,15 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   const { data: swrItems } = useSWR('/api/items', {
     fallbackData: allItems,
   })
-  allItems = swrItems || allItems
+  allItems = (swrItems as Item[]) || allItems
   const { data: swrColumns } = useSWR('/api/columns', {
     fallbackData: columns,
   })
-  columns = swrColumns || columns
+  columns = (swrColumns as Column[]) || columns
 
-  const items = (list.items || []).map((itemId) =>
-    allItems.find((item) => item._id === itemId)
-  )
+  const items = (list.items || [])
+    .map((itemId) => allItems.find((item) => item._id === itemId))
+    .filter((item) => typeof item !== 'undefined')
 
   const title = owner.name + "'s list " + list.name
   return (

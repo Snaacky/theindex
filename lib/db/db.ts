@@ -6,6 +6,9 @@ const uri =
   'DATABASE_URL' in process.env
     ? process.env.DATABASE_URL
     : 'mongodb://localhost'
+if (typeof uri !== 'string') {
+  throw Error('Unable to connect to DB due to missing DATABASE_URL')
+}
 
 export const dbClient = new MongoClient(uri, { maxPoolSize: 5 }).connect()
 
@@ -35,13 +38,13 @@ export function cleanId(data: Record<string, any>) {
       return data.map((d) => cleanId(d))
     }
     if (hasOwnProperty(data, '_id')) {
-      data._id = data._id.toString()
+      data._id = (data._id as number).toString()
     }
     if (hasOwnProperty(data, 'lastModified')) {
-      data.lastModified = data.lastModified.toString()
+      data.lastModified = (data.lastModified as Date).toString()
     }
     if (hasOwnProperty(data, 'createdAt')) {
-      data.createdAt = data.createdAt.toString()
+      data.createdAt = (data.createdAt as Date).toString()
     }
   }
   return data
@@ -87,7 +90,11 @@ export async function findOne(
   query: Record<string, any>
 ): Promise<object | null> {
   const db = (await dbClient).db('index')
-  return cleanId(await db.collection(collection).findOne(polluteId(query)))
+  const found = await db.collection(collection).findOne(polluteId(query))
+  if (found === null) {
+    return null
+  }
+  return cleanId(found)
 }
 
 export async function count(

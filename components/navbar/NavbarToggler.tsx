@@ -6,11 +6,19 @@ import classNames from 'classnames'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
-function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
+function NavbarToggler(
+  {
+    show,
+    className,
+    ...props
+  }: {
+    show: boolean
+  } & Omit<React.HTMLAttributes<HTMLButtonElement>, 'children'>,
+  ref
+) {
   return (
     <button
       type={'button'}
-      onClick={onClick}
       ref={ref}
       aria-label={(show ? 'Close' : 'Open') + ' navigation'}
       className={classNames(
@@ -19,11 +27,7 @@ function NavbarToggler({ show, onClick, className, onTouchStart }, ref) {
         'btn shadow',
         className
       )}
-      onTouchStart={() => {
-        if (typeof onTouchStart === 'function') {
-          onTouchStart()
-        }
-      }}
+      {...props}
     >
       <FontAwesomeIcon icon={show ? faTimes : faBars} />
     </button>

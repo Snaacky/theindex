@@ -12,9 +12,9 @@ type Props = {
 
 const ColumnCard: FC<Props> = ({
   column,
-  add = null,
-  remove = null,
-  move = null,
+  add,
+  remove,
+  move,
 }) => {
   return (
     <Card

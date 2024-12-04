@@ -19,7 +19,7 @@ export async function userExists(uid: string): Promise<boolean> {
   )
 }
 
-export async function gatherUserInfo(user: User): Promise<User> {
+export async function gatherUserInfo(user: User | null): Promise<User> {
   if (user === null || typeof user === 'undefined') {
     console.warn(
       'Well... gathering user data of',
@@ -36,12 +36,14 @@ export async function gatherUserInfo(user: User): Promise<User> {
       favs: [],
       lists: [],
       followLists: [],
+      createdAt: '',
+      views: 0,
     } as User
   }
 
   const data = (await findOne('nextauth_users', {
     _id: new ObjectId(user.uid),
-  })) as User
+  })) as User | null
   if (data === null) {
     console.warn('User does not exists in next-auth db yet')
     user.favs = user.favs || []

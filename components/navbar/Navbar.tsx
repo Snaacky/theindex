@@ -20,9 +20,9 @@ export default function Navbar() {
   const [show, setShow] = useState(false)
   const { data: session } = useSession()
 
-  const sidebarRef = useRef(null)
-  const navbarToggleRef = useRef(null)
-  const outsideToggleRef = useRef(null)
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const navbarToggleRef = useRef<HTMLButtonElement>(null)
+  const outsideToggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {

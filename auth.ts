@@ -1,15 +1,15 @@
 import NextAuth from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
-import { addUser } from '../../../lib/db/users'
-import { AccountType, type User } from '../../../types/User'
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import { dbClient } from '../../../lib/db/db'
+import { addUser } from './lib/db/users'
+import { AccountType, type User } from './types/User'
+import { MongoDBAdapter } from '@auth/mongodb-adapter'
+import { dbClient } from './lib/db/db'
 import { ObjectId } from 'mongodb'
-import type { AuthOptions } from 'next-auth'
-import { findOneTyped } from '../../../lib/db/dbTyped'
-import { Types } from '../../../types/Components'
+import type { NextAuthConfig } from 'next-auth'
+import { findOneTyped } from './lib/db/dbTyped'
+import { Types } from './types/Components'
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthConfig = {
   providers: [
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
@@ -57,26 +57,39 @@ export const authOptions: AuthOptions = {
       if (isNewUser) {
         console.log('Creating new user', user.name)
         const accountType =
+          account !== null &&
           typeof process.env.SETUP_WHITELIST_DISCORD_ID !== 'undefined' &&
           process.env.SETUP_WHITELIST_DISCORD_ID !== '' &&
           account.providerAccountId === process.env.SETUP_WHITELIST_DISCORD_ID
             ? AccountType.admin
             : AccountType.user
-        await addUser({
-          uid: user.id.toString(),
-          accountType,
-        })
-      } else if (user.image !== profile.image) {
-        // update new discord image on login
-        const db = (await dbClient).db('index')
-        await db.collection('nextauth_users').updateOne(
-          { _id: new ObjectId(user.id) },
-          {
-            $set: {
-              image: profile.image,
-            },
-          }
-        )
+        if (typeof user.id !== 'undefined') {
+          await addUser({
+            uid: user.id.toString(),
+            accountType,
+          })
+        } else {
+          console.log('Unable to create new user', user, 'due to missing id')
+        }
+      } else if (profile && user.image !== profile.image) {
+        if (typeof user.id !== 'undefined') {
+          // update new discord image on login
+          const db = (await dbClient).db('index')
+          await db.collection('nextauth_users').updateOne(
+            { _id: new ObjectId(user.id) },
+            {
+              $set: {
+                image: profile.image,
+              },
+            }
+          )
+        } else {
+          console.log(
+            'Unable to update user profile picutre',
+            user,
+            'due to missing id'
+          )
+        }
       }
     },
   },
@@ -91,4 +104,5 @@ export const authOptions: AuthOptions = {
   }),
   secret: process.env.NEXTAUTH_SECRET,
 }
-export default NextAuth(authOptions)
+
+export const { auth, handlers, signIn, signOut } = NextAuth(authOptions)

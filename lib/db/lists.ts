@@ -6,7 +6,7 @@ import type { List, ListUpdate } from '../../types/List'
 import type { User } from '../../types/User'
 import { findOneTyped } from './dbTyped'
 
-export async function getLists(): Promise<List[]> {
+export async function getLists() {
   return (await getAll('lists')) as List[]
 }
 
@@ -70,6 +70,11 @@ export async function updateList(
 export async function deleteList(_id: string) {
   // remove list entry from owner
   const list = await getList(_id)
+  if (list === null) {
+    console.log('Unable to delete list', _id, 'as it was not found')
+    return
+  }
+
   const owner = (await findOneTyped(Types.user, list.owner)) as User
   owner.lists = owner.lists.filter((userList) => userList !== _id)
 

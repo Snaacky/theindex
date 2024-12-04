@@ -44,9 +44,9 @@ const Collection: FC<Props> = ({
     fallbackData: allItems,
   })
   allItems = swrItems || allItems
-  const items = collection.items.map((itemId) =>
-    allItems.find((item) => item._id === itemId)
-  )
+  const items = collection.items
+    .map((itemId) => allItems.find((item) => item._id === itemId))
+    .filter((item) => typeof item !== 'undefined')
 
   const { data: swrLibraries } = useSWR('/api/libraries', {
     fallbackData: libraries,

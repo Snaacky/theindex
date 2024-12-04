@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Modal: FC<Props> = ({ head, children, footer, close }) => {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {

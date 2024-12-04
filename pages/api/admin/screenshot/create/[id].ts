@@ -1,5 +1,4 @@
-import { authOptions } from '../../../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../../../auth'
 import { isEditor } from '../../../../../lib/session'
 import createScreenshot from '../../../../../lib/crawler/screenshot'
 import { getItem } from '../../../../../lib/db/items'
@@ -9,7 +8,7 @@ export default async function apiAdminScreenshotCreateId(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (!isEditor(session)) {
     return res.status(401)
   }

@@ -1,5 +1,4 @@
-import { authOptions } from '../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../auth'
 import { canEdit } from '../../../lib/session'
 import { deleteColumn } from '../../../lib/db/columns'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -8,7 +7,7 @@ export default async function apiDeleteColumn(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (canEdit(session)) {
     const d = req.body
     if (d._id !== '') {

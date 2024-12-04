@@ -4,7 +4,7 @@ import { Column } from '../../types/Column'
 import { FC } from 'react'
 
 type Props = {
-  data: boolean | null
+  data?: boolean
   column: Column
   sponsor?: boolean
   onChange?: (data: boolean | null) => void
@@ -14,12 +14,12 @@ const ProAndConValue: FC<Props> = ({
   data,
   column,
   sponsor = false,
-  onChange = null,
+  onChange,
 }) => {
   const displayData =
     typeof data === 'boolean' ? column.values[data ? 0 : 1] : column.name
 
-  if (onChange === null) {
+  if (typeof onChange === 'undefined') {
     return (
       <>
         <Link

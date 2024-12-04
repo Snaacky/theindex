@@ -15,7 +15,15 @@ const nextConfig = {
   },
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['cdn.discordapp.com', 'localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+    ],
   },
 }
 

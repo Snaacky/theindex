@@ -10,12 +10,7 @@ type Props = {
   remove?: () => void
 }
 
-const ListRow: FC<Props> = ({
-  list,
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const ListRow: FC<Props> = ({ list, add, remove, move }) => {
   return (
     <Row
       type={Types.list}

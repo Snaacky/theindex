@@ -33,25 +33,25 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
   const [showCollections, setShowCollections] = useState(false)
 
   const { data: swrLibrary } = useSWR('/api/library/' + library._id)
-  library = swrLibrary || library
+  library = (swrLibrary as Library) || library
   const { data: swrCollections } = useSWR('/api/collections')
-  collections = swrCollections || collections
+  collections = (swrCollections as Collection[]) || collections
   const libraryCollections = library.collections
     .map((collectionId) =>
       collections.find((collection) => collection._id === collectionId)
     )
-    .filter((collection) => collection)
+    .filter((collection) => typeof collection !== 'undefined')
   const collectionsItems = [].concat.apply(
     [],
     libraryCollections.map((collection) => collection.items)
   )
   const { data: swrItems } = useSWR('/api/items')
-  items = swrItems || items
+  items = (swrItems as Item[]) || items
   const hotFixLibraryItems = items.filter((i) =>
     collectionsItems.some((item) => i._id === item)
   )
   const { data: swrColumns } = useSWR('/api/columns')
-  columns = swrColumns || columns
+  columns = (swrColumns as Column[]) || columns
 
   return (
     <>
