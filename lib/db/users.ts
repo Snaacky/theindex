@@ -91,18 +91,22 @@ export async function addUser({
   uid,
   accountType = AccountType.user,
   description = '',
+}: {
+  uid: string
+  accountType?: AccountType
+  description?: string
 }) {
-  if (!uid) {
+  if (typeof uid === 'undefined' || uid === null) {
     throw Error('Adding user and no uid specified')
   }
 
   if (typeof uid !== 'string') {
-    uid = uid.toString()
+    uid = (uid as number).toString()
   }
   await insert('users', {
     uid,
-    accountType: accountType || AccountType.user,
-    description: description || '',
+    accountType,
+    description,
     favs: [],
     lists: [],
     followLists: [],

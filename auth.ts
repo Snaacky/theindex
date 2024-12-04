@@ -35,6 +35,13 @@ export const authOptions: NextAuthConfig = {
           await addUser({
             uid: id,
             accountType: AccountType.user,
+          }).catch((error) => {
+            console.error(
+              'Failed to add new user in session callback',
+              user,
+              'due to',
+              error
+            )
           })
 
           session.user.accountType = AccountType.user
@@ -49,9 +56,15 @@ export const authOptions: NextAuthConfig = {
   },
   events: {
     async signIn({ user, account, profile, isNewUser }) {
+      if (typeof user === 'undefined' || user === null) {
+        console.error('Sign In event with no user provided:', user)
+        return
+      }
+
       if (isNewUser) {
         console.log('Creating new user', user.name)
         const accountType =
+          typeof account !== 'undefined' &&
           account !== null &&
           typeof process.env.SETUP_WHITELIST_DISCORD_ID !== 'undefined' &&
           process.env.SETUP_WHITELIST_DISCORD_ID !== '' &&
@@ -62,22 +75,37 @@ export const authOptions: NextAuthConfig = {
           await addUser({
             uid: user.id.toString(),
             accountType,
+          }).catch((error) => {
+            console.error('Failed to add new user', user, 'due to', error)
           })
         } else {
-          console.log('Unable to create new user', user, 'due to missing id')
+          console.error('Unable to create new user', user, 'due to missing id')
         }
-      } else if (profile && user.image !== profile.image) {
+      } else if (
+        typeof profile !== 'undefined' &&
+        user.image !== profile.image
+      ) {
         if (typeof user.id !== 'undefined') {
           // update new discord image on login
           const db = (await dbClient).db('index')
-          await db.collection('nextauth_users').updateOne(
-            { _id: new ObjectId(user.id) },
-            {
-              $set: {
-                image: profile.image,
-              },
-            }
-          )
+          await db
+            .collection('nextauth_users')
+            .updateOne(
+              { _id: new ObjectId(user.id) },
+              {
+                $set: {
+                  image: profile.image,
+                },
+              }
+            )
+            .catch((error) => {
+              console.error(
+                'Unable to update profile image of user',
+                user,
+                'due to',
+                error
+              )
+            })
         } else {
           console.log(
             'Unable to update user profile picutre',
