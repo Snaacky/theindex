@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
-import DiscordProvider from 'next-auth/providers/discord'
+import Discord from 'next-auth/providers/discord'
 import { addUser } from './lib/db/users'
 import { AccountType, type User } from './types/User'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
@@ -10,12 +10,7 @@ import { findOneTyped } from './lib/db/dbTyped'
 import { Types } from './types/Components'
 
 export const authOptions: NextAuthConfig = {
-  providers: [
-    DiscordProvider({
-      clientId: process.env.DISCORD_CLIENT_ID,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    }),
-  ],
+  providers: [Discord],
   theme: {
     colorScheme: 'dark',
     brandColor: '#0d6efd',
