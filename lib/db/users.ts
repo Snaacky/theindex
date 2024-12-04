@@ -56,7 +56,7 @@ export async function gatherUserInfo(user: User | null): Promise<User> {
     console.warn('User has invalid name', data.name)
   }
   if (typeof data.image !== 'string') {
-    console.warn('User has invalid name', data.image)
+    console.warn('User has invalid image', data.image)
   }
 
   user.name = data.name
