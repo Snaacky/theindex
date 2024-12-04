@@ -1,6 +1,5 @@
 import { getItem } from '../../../../lib/db/items'
-import { authOptions } from '../../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../../auth'
 import {
   getItemScreenshotBuffer,
   screenshotExists,
@@ -13,7 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   const item = await getItem(req.query.id as string)
   if (item) {
     try {

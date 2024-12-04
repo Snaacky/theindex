@@ -87,6 +87,7 @@ const Card: FC<Props> = ({
                 alt='...'
                 width={128}
                 height={128}
+                unoptimized
               />
             </Link>
           </div>

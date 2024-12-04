@@ -12,7 +12,11 @@ export function isValidUrl(url = '') {
   return false
 }
 
-export function postData(url, object, onSuccess = null) {
+export function postData(
+  url,
+  object,
+  onSuccess: null | ((result: string) => void) = null
+) {
   console.log('Posting data to', url, process.env)
   const toastId = toast.loading('Saving changes...')
   fetch(url, {

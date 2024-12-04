@@ -1,5 +1,4 @@
-import { authOptions } from '../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../auth'
 import { isAdmin, isCurrentUser, isLogin } from '../../../lib/session'
 import { addList, getList, updateList } from '../../../lib/db/lists'
 import { updateAllCache } from '../../../lib/db/cache'
@@ -10,7 +9,7 @@ export default async function apiEditList(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   const d = req.body
   if (isLogin(session)) {
     if (
@@ -31,7 +30,10 @@ export default async function apiEditList(
       }
     } else {
       const list = await getList(d._id)
-      if (isCurrentUser(session, list.owner) || isAdmin(session)) {
+      if (
+        (list !== null && isCurrentUser(session, list.owner)) ||
+        isAdmin(session)
+      ) {
         await updateList(d._id, d)
         await updateAllCache(Types.list)
         res.status(200).send(d._id)

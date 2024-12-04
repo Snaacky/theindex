@@ -19,7 +19,7 @@ export async function userExists(uid: string): Promise<boolean> {
   )
 }
 
-export async function gatherUserInfo(user: User): Promise<User> {
+export async function gatherUserInfo(user: User | null): Promise<User> {
   if (user === null || typeof user === 'undefined') {
     console.warn(
       'Well... gathering user data of',
@@ -36,12 +36,14 @@ export async function gatherUserInfo(user: User): Promise<User> {
       favs: [],
       lists: [],
       followLists: [],
+      createdAt: '',
+      views: 0,
     } as User
   }
 
   const data = (await findOne('nextauth_users', {
     _id: new ObjectId(user.uid),
-  })) as User
+  })) as User | null
   if (data === null) {
     console.warn('User does not exists in next-auth db yet')
     user.favs = user.favs || []
@@ -54,7 +56,7 @@ export async function gatherUserInfo(user: User): Promise<User> {
     console.warn('User has invalid name', data.name)
   }
   if (typeof data.image !== 'string') {
-    console.warn('User has invalid name', data.image)
+    console.warn('User has invalid image', data.image)
   }
 
   user.name = data.name
@@ -89,18 +91,22 @@ export async function addUser({
   uid,
   accountType = AccountType.user,
   description = '',
+}: {
+  uid: string
+  accountType?: AccountType
+  description?: string
 }) {
-  if (!uid) {
+  if (typeof uid === 'undefined' || uid === null) {
     throw Error('Adding user and no uid specified')
   }
 
   if (typeof uid !== 'string') {
-    uid = uid.toString()
+    uid = (uid as number).toString()
   }
   await insert('users', {
     uid,
-    accountType: accountType || AccountType.user,
-    description: description || '',
+    accountType,
+    description,
     favs: [],
     lists: [],
     followLists: [],

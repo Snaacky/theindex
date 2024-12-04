@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 import Link from 'next/link'
 import styles from './NavbarDropdown.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +11,12 @@ export default function NavbarDropdown({
   contentList,
   viewAllUrl,
   onClick,
+}: {
+  targetId: string
+  toggler: ReactNode
+  contentList: ReactNode[]
+  viewAllUrl?: string
+  onClick: () => void
 }) {
   const [show, setShow] = useState(false)
 

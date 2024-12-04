@@ -12,9 +12,9 @@ type Props = {
 
 const CollectionCard: FC<Props> = ({
   collection,
-  add = null,
-  remove = null,
-  move = null,
+  add,
+  remove,
+  move,
 }) => {
   return (
     <Card

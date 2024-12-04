@@ -9,7 +9,7 @@ type Props = {
   style: string
   text: string
   url: string
-  data: StatusData
+  data?: StatusData
   close: () => void
 }
 

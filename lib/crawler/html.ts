@@ -2,8 +2,12 @@ import { JSDOM } from 'jsdom'
 import { fetchSite } from './browser'
 
 export default async function gatherPageData(url: string, itemId?: string) {
-  const { status, screenshotStream, content } = await fetchSite(url, itemId)
+  const result = await fetchSite(url, itemId)
+  if (result === null) {
+    return
+  }
 
+  const { status, screenshotStream, content } = result
   if (status === 200) {
     const { title, description, links, body } = cleanHtmlString(content)
     return {
@@ -108,8 +112,9 @@ function stripScriptStyle(htmlString: string) {
   }
 
   // get all links on the page
-  let links = []
-  for (let a of document.body.getElementsByTagName('a')) {
+  let links: string[] = []
+  for (const _a of document.body.getElementsByTagName('a')) {
+    const a = _a as HTMLAnchorElement
     if (a.href) {
       links.push(a.href)
     }

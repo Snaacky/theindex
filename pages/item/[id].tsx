@@ -39,16 +39,16 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: swrItem } = useSWR('/api/item/' + item._id, {
     fallbackData: item,
   })
-  item = swrItem || item
+  item = (swrItem as Item) || item
   item.stars = item.stars || 0
   const { data: swrColumns } = useSWR('/api/columns', {
     fallbackData: columns,
   })
-  columns = swrColumns || columns
+  columns = (swrColumns as Column[]) || columns
   const { data: swrCollections } = useSWR('/api/collections', {
     fallbackData: collections,
   })
-  collections = (swrCollections || collections).filter((t) =>
+  collections = ((swrCollections as Collection[]) || collections).filter((t) =>
     t.items.includes(item._id)
   )
   const {
@@ -58,7 +58,9 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
     array: arrayColumns,
     text: textColumns,
   } = splitColumnsIntoTypes(
-    Object.keys(item.data).map((k) => columns.find((c) => c._id === k)),
+    Object.keys(item.data)
+      .map((k) => columns.find((c) => c._id === k))
+      .filter((column) => typeof column !== 'undefined'),
     item.data
   )
 

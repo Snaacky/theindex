@@ -18,13 +18,7 @@ type Props = {
   remove?: () => void
 }
 
-const ItemCard: FC<Props> = ({
-  item,
-  columns = [],
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const ItemCard: FC<Props> = ({ item, columns = [], add, remove, move }) => {
   const column = splitColumnsIntoTypes(columns, item.data)
 
   return (
@@ -55,7 +49,6 @@ const ItemCard: FC<Props> = ({
                   column={c}
                   sponsor={item.sponsor}
                   key={c._id}
-                  data={null}
                 />
               ))}
             </div>

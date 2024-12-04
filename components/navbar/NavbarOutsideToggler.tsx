@@ -7,8 +7,17 @@ import NavbarToggler from './NavbarToggler'
 const toggleButtonDragPadding = 30
 const toggleButtonSize = 40
 
-export const NavbarOutsideToggler = React.forwardRef(
-  function NavbarOutsideTogglerFunction({ show, inViewport, onClick }, ref) {
+type Props = {
+  show: boolean
+  inViewport: boolean
+  onClick: () => void
+}
+
+export const NavbarOutsideToggler = React.forwardRef<HTMLButtonElement, Props>(
+  function NavbarOutsideTogglerFunction(
+    { show, inViewport, onClick }: Props,
+    ref
+  ) {
     const [togglePosition, setTogglePosition] = useState({
       x: toggleButtonDragPadding,
       y: toggleButtonDragPadding,
@@ -17,10 +26,9 @@ export const NavbarOutsideToggler = React.forwardRef(
     const [dragging, setDragging] = useState(false)
 
     if (typeof localStorage !== 'undefined' && !dragLocalStorageInit) {
-      if (localStorage.getItem('togglePosition') !== null) {
-        setTogglePosition(
-          adjustDragPosition(JSON.parse(localStorage.getItem('togglePosition')))
-        )
+      const position = localStorage.getItem('togglePosition')
+      if (position !== null) {
+        setTogglePosition(adjustDragPosition(JSON.parse(position)))
       }
       setDragLocalStorageInit(true)
     }

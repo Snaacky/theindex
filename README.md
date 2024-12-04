@@ -94,8 +94,8 @@ Here is a collection of the possible environment variables with their default va
 | `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
 | `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |
 | `AUDIT_WEBHOOK`              | WebHook-URL for audit-log, leave empty to disable support                                            | `""`                                 |
-| `DISCORD_CLIENT_ID`          | Discord OAuth2 client ID                                                                             | `"your_discord_oauth_client_id"`     |
-| `DISCORD_CLIENT_SECRET`      | Discord OAuth2 client secret                                                                         | `"your_discord_oauth_client_secret"` |
+| `AUTH_DISCORD_ID`            | Discord OAuth2 client ID                                                                             | `"your_discord_oauth_client_id"`     |
+| `AUTH_DISCORD_SECRET`        | Discord OAuth2 client secret                                                                         | `"your_discord_oauth_client_secret"` |
 | `DISCORD_BOT_TOKEN`          | Required to access BOT resources                                                                     | `"your_discord_bot_token"`           |
 | `SETUP_WHITELIST_DISCORD_ID` | If you need help getting your id, check out this [guide](https://wiki.discord.id/obtain-ids/desktop) | `"your_discord_id"`                  |
 

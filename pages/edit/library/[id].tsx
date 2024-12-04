@@ -11,6 +11,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 import DeleteButton from '../../../components/buttons/DeleteButton'
 import React from 'react'
+import { Library } from '../../../types/Library'
 
 export default function EditorLibrary({
   _id,
@@ -104,10 +105,10 @@ EditorLibrary.auth = {
 }
 
 export async function getServerSideProps({ params }) {
-  let library = {}
+  let library: Library | null = null
   if (params.id !== '_new') {
     library = await getLibrary(params.id)
-    if (!library) {
+    if (library === null) {
       return {
         notFound: true,
       }

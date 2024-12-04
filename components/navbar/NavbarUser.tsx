@@ -4,10 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import LoginOrOutButton from '../buttons/LoginOrOutButton'
 
-export default function NavbarUser({ className }) {
+export default function NavbarUser({ className }: { className?: string }) {
   const { data: session } = useSession()
 
-  if (isLogin(session)) {
+  if (isLogin(session) && session !== null) {
     return (
       <>
         <li className={'nav-item'}>

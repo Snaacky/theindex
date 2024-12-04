@@ -1,9 +1,9 @@
-import { authOptions } from '../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../auth'
 import { isLogin } from '../../../lib/session'
 import { findOne } from '../../../lib/db/db'
 import { addView } from '../../../lib/db/views'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { User } from '../../../types/User'
 
 export default async function statsPageView(
   req: NextApiRequest,
@@ -15,7 +15,7 @@ export default async function statsPageView(
       const type = split[1]
       const contentId = split[2]
 
-      let exists = null
+      let exists: object | null = null
       if (type === 'item') {
         exists = await findOne('items', { _id: contentId })
       } else if (type === 'collection') {
@@ -31,11 +31,13 @@ export default async function statsPageView(
       }
 
       if (exists !== null) {
-        const session = await getServerSession(req, res, authOptions)
+        const session = await auth(req, res)
         const body = {
           type,
-          contentId: type === 'user' ? exists.uid : exists._id,
-          uid: isLogin(session) ? session.user.uid : 'guest',
+          contentId:
+            type === 'user' ? (exists as User).uid : (exists as User)._id,
+          uid:
+            isLogin(session) && session !== null ? session.user.uid : 'guest',
         }
         await addView(body)
         res.json(body)

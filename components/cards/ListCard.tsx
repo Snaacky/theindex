@@ -10,12 +10,7 @@ type Props = {
   remove?: () => void
 }
 
-const ListCard: FC<Props> = ({
-  list,
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const ListCard: FC<Props> = ({ list, add, remove, move }) => {
   return (
     <Card
       type={Types.list}

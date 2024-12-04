@@ -17,7 +17,7 @@ type Props = {
 const ItemToListModal: FC<Props> = ({ item, close }) => {
   const { data: user } = useSWR('/api/user/me')
   const { data: swrLists } = useSWR('/api/lists')
-  const [checked, setChecked] = useState([])
+  const [checked, setChecked] = useState<boolean[]>([])
   const [init, setInit] = useState(false)
 
   if (!user || !swrLists) {

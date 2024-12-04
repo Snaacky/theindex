@@ -29,7 +29,7 @@ type Props = {
 
 const Column: FC<Props> = ({ column, columns, items }) => {
   const { data: session } = useSession()
-  const [filter, setFilter] = useState(null)
+  const [filter, setFilter] = useState<string | string[]>('')
 
   const { data: swrColumn } = useSWR('/api/column/' + column._id)
   column = swrColumn || column
@@ -39,7 +39,7 @@ const Column: FC<Props> = ({ column, columns, items }) => {
   items = swrItems || items
 
   const filteredItems = items.filter((i) => {
-    if (filter === null) {
+    if (filter === '') {
       return true
     } else if (typeof i.data[column._id] === 'undefined') {
       // item does not have data about the column
@@ -52,7 +52,8 @@ const Column: FC<Props> = ({ column, columns, items }) => {
     ) {
       return (
         filter.length === 0 ||
-        filter.every((ii) => (i.data[column._id] as string[]).includes(ii))
+        (Array.isArray(filter) &&
+          filter.every((ii) => (i.data[column._id] as string[]).includes(ii)))
       )
     } else if (
       column.type === ColumnType.feature ||
@@ -63,9 +64,10 @@ const Column: FC<Props> = ({ column, columns, items }) => {
 
     return (
       filter === '' ||
-      (i.data[column._id] as string)
-        .toLowerCase()
-        .includes(filter.toLowerCase())
+      (typeof filter === 'string' &&
+        (i.data[column._id] as string)
+          .toLowerCase()
+          .includes(filter.toLowerCase()))
     )
   })
 

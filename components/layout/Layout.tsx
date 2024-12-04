@@ -6,7 +6,7 @@ import { Tooltip } from 'react-tooltip'
 import { FC, ReactNode } from 'react'
 
 type LayoutProps = {
-  children: ReactNode // TODO: workaround, but what? why? Shouldn't FC already include that?
+  children: ReactNode
   error?: string
 }
 

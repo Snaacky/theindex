@@ -1,5 +1,13 @@
-export default function TextValue({ data, column, onChange = null }) {
-  if (onChange === null) {
+import { Column } from '../../types/Column'
+
+type Props = {
+  data: string
+  column: Column
+  onChange?: (values: string) => void
+}
+
+export default function TextValue({ data, column, onChange }: Props) {
+  if (typeof onChange === 'undefined') {
     return <div>{data}</div>
   }
 

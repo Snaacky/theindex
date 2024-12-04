@@ -1,9 +1,16 @@
-export const isLogin = (session) => {
-  return session && session.user && session.user.uid
+import { Session } from 'next-auth'
+
+export const isLogin = (session: Session | null) => {
+  return (
+    typeof session !== 'undefined' &&
+    session !== null &&
+    session.user &&
+    session.user.uid
+  )
 }
 
-export const canEdit = (session, type = 'item') => {
-  if (isLogin(session)) {
+export const canEdit = (session: Session | null, type = 'item') => {
+  if (isLogin(session) && session !== null) {
     if (session.user.accountType === 'admin') {
       return true
     }
@@ -12,22 +19,22 @@ export const canEdit = (session, type = 'item') => {
   return false
 }
 
-export const isAdmin = (session) => {
-  if (isLogin(session)) {
+export const isAdmin = (session: Session | null) => {
+  if (isLogin(session) && session !== null) {
     return session.user.accountType === 'admin'
   }
   return false
 }
 
-export const isEditor = (session) => {
-  if (isLogin(session)) {
+export const isEditor = (session: Session | null) => {
+  if (isLogin(session) && session !== null) {
     return session.user.accountType === 'editor' || isAdmin(session)
   }
   return false
 }
 
-export const isCurrentUser = (session, uid) => {
-  if (isLogin(session)) {
+export const isCurrentUser = (session: Session | null, uid) => {
+  if (isLogin(session) && session !== null) {
     return session.user.uid === uid || uid === 'me'
   }
   return false

@@ -1,5 +1,4 @@
-import { authOptions } from '../../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../../auth'
 import { canEdit } from '../../../../lib/session'
 import { updateItemCollections } from '../../../../lib/db/items'
 import { updateAllCache } from '../../../../lib/db/cache'
@@ -10,7 +9,7 @@ export default async function apiEditColumnCollections(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   if (canEdit(session)) {
     const d = req.body
     if (typeof d._id !== 'undefined' && Array.isArray(d.collections)) {

@@ -8,6 +8,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 import DeleteButton from '../../../components/buttons/DeleteButton'
 import React from 'react'
+import { Column } from '../../../types/Column'
 
 export default function EditorColumn({ _id, collections, columns, column }) {
   let collectionsWithColumn = []
@@ -99,10 +100,10 @@ EditorColumn.auth = {
 }
 
 export async function getServerSideProps({ params }) {
-  let column = {}
+  let column: Column | null = null
   if (params.id !== '_new') {
     column = await getColumn(params.id)
-    if (!column) {
+    if (column === null) {
       return {
         notFound: true,
       }

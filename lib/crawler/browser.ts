@@ -54,7 +54,7 @@ export async function fetchSite(url: string, itemId?: string) {
   // collect data from fully rendered site
   const content = await page.content()
   const status = response.status()
-  let screenshotStream = null
+  let screenshotStream: Uint8Array | null = null
   if (itemId) {
     try {
       screenshotStream = await page.screenshot({

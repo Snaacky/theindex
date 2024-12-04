@@ -1,4 +1,4 @@
-FROM node:22.3
+FROM node:23.3
 WORKDIR /app
 
 # We use the image browserless/chrome instead of having our own chrome instance here
@@ -12,6 +12,7 @@ ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
 # connection urls
 ENV NEXTAUTH_URL="https://theindex.moe"
 ENV NEXT_PUBLIC_DOMAIN="https://theindex.moe"
+ENV AUTH_TRUST_HOST="true"
 ENV DATABASE_URL="mongodb://mongo:27017/index"
 ENV CACHE_URL="redis://redis:6379"
 ENV AUDIT_WEBHOOK=""
@@ -39,6 +40,13 @@ LABEL org.opencontainers.image.vendor="TheIndex" \
 COPY package.json package-lock.json ./
 RUN npm ci
 ENV PATH /app/node_modules/.bin:$PATH
+
+# manully add .js to import as something is messed up...
+RUN sed -i 's/next\/server/next\/server.js/' /app/node_modules/next-auth/lib/env.js \
+    && sed -i 's/next\/server/next\/server.js/' /app/node_modules/next-auth/lib/index.js \
+    && sed -i 's/next\/headers/next\/headers.js/' /app/node_modules/next-auth/lib/index.js \
+    && sed -i 's/next\/headers/next\/headers.js/' /app/node_modules/next-auth/lib/actions.js \
+    && sed -i 's/next\/navigation/next\/navigation.js/' /app/node_modules/next-auth/lib/actions.js
 
 # build the web app
 COPY . .

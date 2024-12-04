@@ -7,7 +7,7 @@ import { IconDefinition } from '@fortawesome/free-brands-svg-icons'
 type Props = {
   name: string
   url: string
-  icon?: string | IconDefinition
+  icon: string | IconDefinition
 }
 
 const FooterLink: FC<Props> = ({ name, url, icon }) => {

@@ -7,12 +7,12 @@ import { FC } from 'react'
 import LanguageValue from './LanguageValue'
 
 type Props = {
-  data: boolean | string | string[] | null
+  data?: boolean | string | string[]
   column: Column
   onChange?: (data: any) => void
 }
 
-const DataItem: FC<Props> = ({ data, column, onChange = null }) => {
+const DataItem: FC<Props> = ({ data, column, onChange }) => {
   const isUndefined = typeof data === 'undefined' || data === null
   if (
     column.type === ColumnType.feature &&

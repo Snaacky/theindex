@@ -10,12 +10,7 @@ type Props = {
   remove?: () => void
 }
 
-const UserCard: FC<Props> = ({
-  user,
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const UserCard: FC<Props> = ({ user, add, remove, move }) => {
   const joined = new Date(user.createdAt).toISOString().slice(0, 10)
   return (
     <Card

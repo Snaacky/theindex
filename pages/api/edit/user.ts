@@ -1,5 +1,4 @@
-import { authOptions } from '../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../auth'
 import { isAdmin, isCurrentUser } from '../../../lib/session'
 import { updateUser } from '../../../lib/db/users'
 import { updateAllCache, updateSingleCache } from '../../../lib/db/cache'
@@ -12,10 +11,13 @@ export default async function apiEditUser(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await auth(req, res)
   const d = req.body
   if (d.uid !== '') {
-    if (isAdmin(session) || isCurrentUser(session, d.uid)) {
+    if (
+      session !== null &&
+      (isAdmin(session) || isCurrentUser(session, d.uid))
+    ) {
       if (!isAdmin(session) && d.accountType) {
         delete d.accountType
       }

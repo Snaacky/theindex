@@ -9,6 +9,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 import React from 'react'
 import DeleteButton from '../../../components/buttons/DeleteButton'
+import { Item } from '../../../types/Item'
 
 export default function EditorItem({ items, _id, collections, columns, item }) {
   let collectionsWithItem = []
@@ -98,10 +99,10 @@ EditorItem.auth = {
 }
 
 export async function getServerSideProps({ params }) {
-  let item = {}
+  let item: Item | null = null
   if (params.id !== '_new') {
     item = await getItem(params.id)
-    if (!item) {
+    if (item === null) {
       return {
         notFound: true,
       }

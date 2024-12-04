@@ -27,7 +27,7 @@ export default function ValidateApi() {
     secret === '' ? '' : ' is-' + (validSecret ? '' : 'in') + 'valid'
 
   // requested data
-  const [data, setData] = useState([])
+  const [data, setData] = useState<ApiEntryRowProps[]>([])
 
   return (
     <>

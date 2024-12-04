@@ -1,5 +1,4 @@
-import { authOptions } from '../auth/[...nextauth]'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '../../../auth'
 import { canEdit } from '../../../lib/session'
 import { addItem, updateItem } from '../../../lib/db/items'
 import createScreenshot from '../../../lib/crawler/screenshot'
@@ -12,8 +11,8 @@ export default async function apiEditItem(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession(req, res, authOptions)
-  if (canEdit(session)) {
+  const session = await auth(req, res)
+  if (canEdit(session) && session !== null) {
     const d = req.body
     let id = d._id
     if (typeof d._id === 'undefined') {

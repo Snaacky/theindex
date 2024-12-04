@@ -10,12 +10,7 @@ type Props = {
   remove?: () => void
 }
 
-const ColumnRow: FC<Props> = ({
-  column,
-  add = null,
-  remove = null,
-  move = null,
-}) => {
+const ColumnRow: FC<Props> = ({ column, add, remove, move }) => {
   return (
     <Row
       type={Types.column}

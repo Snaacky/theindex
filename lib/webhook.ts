@@ -5,7 +5,10 @@ import { Column, ColumnType } from '../types/Column'
 import { User } from '../types/User'
 import { getLanguages } from './utils'
 
-const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
+const extractFieldsFromItemDataDiff = async (
+  oldItem: Item | null,
+  newItem: Item | null
+) => {
   const languages = getLanguages()
   const columns = (await getAllCache(Types.column)) as Column[]
   const data: Record<string, { column: Column; old: any; updated: any }> = {}
@@ -14,15 +17,20 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
   if (oldItem !== null) {
     const oldKeys = Object.keys(oldItem.data)
     oldKeys.forEach((key) => {
+      const foundColumn = columns.find((column) => column._id === key)
+      if (typeof foundColumn === 'undefined') {
+        return
+      }
+
       if (newItem !== null && key in newItem.data) {
         data[key] = {
-          column: columns.find((column) => column._id === key),
+          column: foundColumn,
           old: oldItem.data[key],
           updated: newItem.data[key],
         }
       } else {
         data[key] = {
-          column: columns.find((column) => column._id === key),
+          column: foundColumn,
           old: oldItem.data[key],
           updated: null,
         }
@@ -32,17 +40,25 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
       Object.keys(newItem.data)
         .filter((key) => !oldKeys.includes(key))
         .forEach((key) => {
+          const foundColumn = columns.find((column) => column._id === key)
+          if (typeof foundColumn === 'undefined') {
+            return
+          }
           data[key] = {
-            column: columns.find((column) => column._id === key),
+            column: foundColumn,
             old: null,
             updated: newItem.data[key],
           }
         })
     }
-  } else {
+  } else if (newItem !== null) {
     Object.keys(newItem.data).forEach((key) => {
+      const foundColumn = columns.find((column) => column._id === key)
+      if (typeof foundColumn === 'undefined') {
+        return
+      }
       data[key] = {
-        column: columns.find((column) => column._id === key),
+        column: foundColumn,
         old: null,
         updated: newItem.data[key],
       }
@@ -131,14 +147,14 @@ const extractFieldsFromItemDataDiff = async (oldItem: Item, newItem: Item) => {
             old !== null && old.length > 0
               ? old.map(
                   (langKey) =>
-                    languages.find((lang) => lang.iso6393 === langKey).name
+                    languages.find((lang) => lang.iso6393 === langKey)?.name
                 )
               : null
           newValue =
             updated !== null && updated.length > 0
               ? updated.map(
                   (langKey) =>
-                    languages.find((lang) => lang.iso6393 === langKey).name
+                    languages.find((lang) => lang.iso6393 === langKey)?.name
                 )
               : null
           break
@@ -175,6 +191,10 @@ export const postItemUpdate = async (
   }
 
   const url = process.env.AUDIT_WEBHOOK
+  if (typeof url !== 'string') {
+    console.error('Unable to post to webhook, due to missing env AUDIT_WEBHOOK')
+    return
+  }
 
   let title = '',
     color
@@ -272,7 +292,9 @@ export const postItemSubmission = async (
         {
           title,
           description: 'This is a submission for correction/entry of data',
-          url: process.env.NEXT_PUBLIC_DOMAIN + '/item/' + newItem._id,
+          url:
+            process.env.NEXT_PUBLIC_DOMAIN +
+            (newItem === null ? '/items' : '/item/' + newItem._id),
           color,
           author: {
             name: user.name,
@@ -286,7 +308,10 @@ export const postItemSubmission = async (
           type: 2,
           style: 5,
           label: 'Moderate',
-          url: process.env.NEXT_PUBLIC_DOMAIN + '/edit/item/' + newItem._id,
+          url:
+            process.env.NEXT_PUBLIC_DOMAIN +
+            '/edit/item' +
+            (newItem === null ? 's' : '/' + newItem._id),
         },
       ],
     }),

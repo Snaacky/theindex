@@ -11,6 +11,7 @@ import { SizeProp } from '@fortawesome/fontawesome-svg-core'
 import { Item } from '../../types/Item'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons/faStar'
+import { User } from '../../types/User'
 
 type Props = {
   item: Item
@@ -21,8 +22,9 @@ const IconStar: FC<Props> = ({ item, size }) => {
   const { data: session } = useSession()
   const [show, setShow] = useState(false)
   const [isFav, setIsFav] = useState(false)
-  const [userFav, setUserFav] = useState([])
-  const { data: user } = useSWR('/api/user/me')
+  const [userFav, setUserFav] = useState<string[]>([])
+  const { data: _user } = useSWR('/api/user/me')
+  const user: User = _user as User
 
   if (user && user.favs) {
     const diff = userFav

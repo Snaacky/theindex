@@ -8,6 +8,7 @@ import ViewAllButton from '../../../components/buttons/ViewAllButton'
 import { Types } from '../../../types/Components'
 import React from 'react'
 import DeleteButton from '../../../components/buttons/DeleteButton'
+import { Collection } from '../../../types/Collection'
 
 export default function EditorCollection({
   _id,
@@ -109,10 +110,10 @@ EditorCollection.auth = {
 }
 
 export async function getServerSideProps({ params }) {
-  let collection = {}
+  let collection: Collection | null = null
   if (params.id !== '_new') {
     collection = await getCollection(params.id)
-    if (!collection) {
+    if (collection === null) {
       return {
         notFound: true,
       }
