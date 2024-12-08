@@ -55,7 +55,7 @@ export const authOptions: NextAuthConfig = {
     },
   },
   events: {
-    async signIn({ user, account, profile, isNewUser }) {
+    async signIn({ user, account, isNewUser }) {
       if (typeof user === 'undefined' || user === null) {
         console.error('Sign In event with no user provided:', user)
         return
@@ -80,38 +80,6 @@ export const authOptions: NextAuthConfig = {
           })
         } else {
           console.error('Unable to create new user', user, 'due to missing id')
-        }
-      } else if (
-        typeof profile !== 'undefined' &&
-        user.image !== profile.image
-      ) {
-        if (typeof user.id !== 'undefined') {
-          // update new discord image on login
-          const db = (await dbClient).db('index')
-          await db
-            .collection('nextauth_users')
-            .updateOne(
-              { _id: new ObjectId(user.id) },
-              {
-                $set: {
-                  image: profile.image,
-                },
-              }
-            )
-            .catch((error) => {
-              console.error(
-                'Unable to update profile image of user',
-                user,
-                'due to',
-                error
-              )
-            })
-        } else {
-          console.log(
-            'Unable to update user profile picutre',
-            user,
-            'due to missing id'
-          )
         }
       }
     },
