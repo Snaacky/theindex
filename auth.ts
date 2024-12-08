@@ -15,6 +15,7 @@ export const authOptions: NextAuthConfig = {
     brandColor: '#0d6efd',
     logo: process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png',
   },
+  session: { strategy: "jwt" },
   callbacks: {
     // we want to access the user id
     async session({ session, user }) {
