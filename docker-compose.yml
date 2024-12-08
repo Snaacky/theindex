@@ -9,7 +9,6 @@ services:
       NEXT_PUBLIC_SITE_NAME: ${NEXT_PUBLIC_SITE_NAME}
 
       # domain url for sessions
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
       NEXT_PUBLIC_DOMAIN: ${NEXT_PUBLIC_DOMAIN}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
 

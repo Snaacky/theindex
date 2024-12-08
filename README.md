@@ -89,7 +89,6 @@ Here is a collection of the possible environment variables with their default va
 | ---------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `NEXT_PUBLIC_SITE_NAME`      | The name of your site                                                                                | `"The Index"`                        |
 | `NEXT_PUBLIC_DOMAIN`         | Your domain or IP, remove trailing slash                                                             | `"https://theindex.moe"`             |
-| `NEXTAUTH_URL`               | Your domain or IP, remove trailing slash                                                             | `$NEXT_PUBLIC_DOMAIN`                |
 | `DATABASE_URL`               | Take a look at [mongodb docs](https://docs.mongodb.com/manual/reference/connection-string/)          | `"mongodb://mongo:27017/index"`      |
 | `CACHE_URL`                  | Connection string for the redis cache database                                                       | `"redis://redis:6379"`               |
 | `CHROME_URL`                 | WebSocket URL to a running chrome instance                                                           | `"ws://chrome:3300"`                 |

@@ -10,7 +10,6 @@ ENV CHROME_URL="ws://chrome:3000"
 ENV NEXT_PUBLIC_SITE_NAME="The Anime Index"
 
 # connection urls
-ENV NEXTAUTH_URL="https://theindex.moe"
 ENV NEXT_PUBLIC_DOMAIN="https://theindex.moe"
 ENV AUTH_TRUST_HOST="true"
 ENV DATABASE_URL="mongodb://mongo:27017/index"
