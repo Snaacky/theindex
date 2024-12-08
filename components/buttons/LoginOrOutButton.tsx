@@ -9,12 +9,9 @@ const LoginOrOutButton: FC = () => {
   const { data: session } = useSession()
 
   return (
-    <button
-      role={'button'}
-      className={
-        'btn w-100 btn-outline-' + (isLogin(session) ? 'danger' : 'success')
-      }
-      onClick={async () => {
+    <form
+      action={async () => {
+        'use server'
         if (isLogin(session)) {
           await signOut()
         } else {
@@ -22,16 +19,23 @@ const LoginOrOutButton: FC = () => {
         }
       }}
     >
-      {isLogin(session) ? (
-        <>
-          Sign out <FontAwesomeIcon icon={faSignOutAlt} />
-        </>
-      ) : (
-        <>
-          <FontAwesomeIcon icon={faSignInAlt} /> Sign In
-        </>
-      )}
-    </button>
+      <button
+        type='submit'
+        className={
+          'btn w-100 btn-outline-' + (isLogin(session) ? 'danger' : 'success')
+        }
+      >
+        {isLogin(session) ? (
+          <>
+            Sign out <FontAwesomeIcon icon={faSignOutAlt} />
+          </>
+        ) : (
+          <>
+            <FontAwesomeIcon icon={faSignInAlt} /> Sign In
+          </>
+        )}
+      </button>
+    </form>
   )
 }
 
