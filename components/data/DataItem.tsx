@@ -52,7 +52,7 @@ const DataItem: FC<Props> = ({ data, column, onChange }) => {
     return <TextValue data={data || ''} column={column} onChange={onChange} />
   }
 
-  console.error('Unknown type of column or data:', column, typeof data)
+  console.error('Unknown type of column or data:', column, typeof data, data)
   return <div className={'alert alert-danger'}>Error: Unknown column type</div>
 }
 

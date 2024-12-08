@@ -34,10 +34,6 @@ if (!('NEXT_PUBLIC_DOMAIN' in process.env)) {
   warnEnv('NEXT_PUBLIC_DOMAIN', 'https://theindex.moe')
 }
 
-if (!('NEXTAUTH_URL' in process.env)) {
-  warnEnv('NEXTAUTH_URL', 'https://theindex.moe')
-}
-
 if (!('DATABASE_URL' in process.env)) {
   warnEnv('DATABASE_URL', 'mongodb://mongo:27017/index')
 }
