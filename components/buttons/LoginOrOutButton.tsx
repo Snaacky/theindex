@@ -8,32 +8,30 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt'
 const LoginOrOutButton: FC = () => {
   const { data: session } = useSession()
 
+  if (isLogin(session)) {
+    return (
+      <form
+        action={async () => {
+          'use server'
+          await signOut()
+        }}
+      >
+        <button type='submit' className={'btn w-100 btn-outline-danger'}>
+          Sign out <FontAwesomeIcon icon={faSignOutAlt} />
+        </button>
+      </form>
+    )
+  }
+
   return (
     <form
       action={async () => {
         'use server'
-        if (isLogin(session)) {
-          await signOut()
-        } else {
-          await signIn('discord')
-        }
+        await signIn('discord')
       }}
     >
-      <button
-        type='submit'
-        className={
-          'btn w-100 btn-outline-' + (isLogin(session) ? 'danger' : 'success')
-        }
-      >
-        {isLogin(session) ? (
-          <>
-            Sign out <FontAwesomeIcon icon={faSignOutAlt} />
-          </>
-        ) : (
-          <>
-            <FontAwesomeIcon icon={faSignInAlt} /> Sign In
-          </>
-        )}
+      <button type='submit' className={'btn w-100 btn-outline-success'}>
+        <FontAwesomeIcon icon={faSignInAlt} /> Sign In
       </button>
     </form>
   )
