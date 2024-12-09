@@ -15,7 +15,6 @@ export const authOptions: NextAuthConfig = {
     brandColor: '#0d6efd',
     logo: process.env.NEXT_PUBLIC_DOMAIN + '/icons/logo.png',
   },
-  session: { strategy: "jwt" },
   callbacks: {
     // we want to access the user id
     async session({ session, user }) {
@@ -23,7 +22,7 @@ export const authOptions: NextAuthConfig = {
         const id = user.id.toString()
         session.user.uid = id
 
-        const userData = (await findOneTyped(Types.user, id)) as User
+        const userData = (await findOneTyped(Types.user, id)) as User | null
         // create user account if not found
         if (userData === null) {
           console.log(
@@ -46,7 +45,7 @@ export const authOptions: NextAuthConfig = {
 
           session.user.accountType = AccountType.user
         } else {
-          session.user.accountType = userData.accountType
+          session.user.accountType = userData.accountType ?? AccountType.user
         }
       } else {
         console.warn('session call with no user provided')
