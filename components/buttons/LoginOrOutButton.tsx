@@ -1,5 +1,6 @@
 import { isLogin } from '../../lib/session'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import { signIn, signOut } from '../../auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
