@@ -104,7 +104,7 @@ export async function getCache(key: string): Promise<object | object[] | null> {
 /**
  * only returns null if requested component does not exist
  */
-export function setCache(key: string, data: string | object) {
+export async function setCache(key: string, data: string | object) {
   if (typeof data === 'undefined' || data === null) {
     console.error('Updating cache', key, 'with invalid value', data)
   }

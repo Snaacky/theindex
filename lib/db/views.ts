@@ -1,13 +1,5 @@
-import {
-  cleanId,
-  count,
-  dbClient,
-  deleteOne,
-  find,
-  findOne,
-  getAll,
-  insert,
-} from './db'
+import { count, dbClient, deleteOne, find, findOne, getAll, insert } from './db'
+import { cleanId } from './utils'
 import { Types } from '../../types/Components'
 import { findOneTyped } from './dbTyped'
 
