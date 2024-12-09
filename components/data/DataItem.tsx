@@ -12,44 +12,90 @@ type Props = {
   onChange?: (data: any) => void
 }
 
+function parseDataToBooleanOrUndefined(
+  input: boolean | string | string[] | undefined | null
+) {
+  if (typeof input === 'boolean' || typeof input === 'undefined') {
+    return input
+  }
+  if (input === null) {
+    return undefined
+  }
+  if (input.length === 0) {
+    return undefined
+  }
+  return true
+}
+
+function parseDataToArray(
+  input: boolean | string | string[] | undefined | null
+) {
+  if (input === null || typeof input === 'undefined') {
+    return []
+  }
+  if (typeof input === 'boolean') {
+    return []
+  }
+  if (Array.isArray(input)) {
+    return input
+  }
+  if (input.length > 0) {
+    return [input]
+  }
+  return []
+}
+
+function parseDataToString(
+  input: boolean | string | string[] | undefined | null
+) {
+  if (typeof input !== 'string') {
+    return ''
+  }
+  return input
+}
+
 const DataItem: FC<Props> = ({ data, column, onChange }) => {
   const isUndefined = typeof data === 'undefined' || data === null
-  if (
-    column.type === ColumnType.feature &&
-    (typeof data === 'boolean' || isUndefined) &&
-    !Array.isArray(data) &&
-    typeof data !== 'string'
-  ) {
-    return <FeatureValue data={data} column={column} onChange={onChange} />
-  } else if (
-    column.type === ColumnType.proAndCon &&
-    (typeof data === 'boolean' || isUndefined) &&
-    !Array.isArray(data) &&
-    typeof data !== 'string'
-  ) {
-    return <ProAndConValue data={data} column={column} onChange={onChange} />
-  } else if (
-    column.type === ColumnType.array &&
-    (Array.isArray(data) || isUndefined) &&
-    typeof data !== 'boolean' &&
-    typeof data !== 'string'
-  ) {
-    return <ArrayValue data={data || []} column={column} onChange={onChange} />
-  } else if (
-    column.type === ColumnType.language &&
-    (Array.isArray(data) || isUndefined) &&
-    typeof data !== 'boolean' &&
-    typeof data !== 'string'
-  ) {
+  if (column.type === ColumnType.feature) {
     return (
-      <LanguageValue data={data || []} column={column} onChange={onChange} />
+      <FeatureValue
+        data={parseDataToBooleanOrUndefined(data)}
+        column={column}
+        onChange={onChange}
+      />
     )
-  } else if (
-    column.type === ColumnType.text &&
-    (typeof data === 'string' || isUndefined) &&
-    !Array.isArray(data)
-  ) {
-    return <TextValue data={data || ''} column={column} onChange={onChange} />
+  } else if (column.type === ColumnType.proAndCon) {
+    return (
+      <ProAndConValue
+        data={parseDataToBooleanOrUndefined(data)}
+        column={column}
+        onChange={onChange}
+      />
+    )
+  } else if (column.type === ColumnType.array) {
+    return (
+      <ArrayValue
+        data={parseDataToArray(data)}
+        column={column}
+        onChange={onChange}
+      />
+    )
+  } else if (column.type === ColumnType.language) {
+    return (
+      <LanguageValue
+        data={parseDataToArray(data)}
+        column={column}
+        onChange={onChange}
+      />
+    )
+  } else if (column.type === ColumnType.text) {
+    return (
+      <TextValue
+        data={parseDataToString(data)}
+        column={column}
+        onChange={onChange}
+      />
+    )
   }
 
   console.error('Unknown type of column or data:', column, typeof data, data)
