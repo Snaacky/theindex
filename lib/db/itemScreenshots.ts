@@ -1,6 +1,6 @@
-import { dbClient } from './db'
 import { GridFSBucket } from 'mongodb'
 import { Readable } from 'stream'
+import clientPromise from './mongoDB'
 
 export function bufferToStream(buffer: Buffer) {
   let stream = new Readable()
@@ -32,8 +32,7 @@ export async function addItemScreenshot(img: Uint8Array, itemId: string) {
   imgStream.push(img)
   imgStream.push(null)
 
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -57,51 +56,38 @@ export async function addItemScreenshot(img: Uint8Array, itemId: string) {
     stream.on('finish', resolve)
     imgStream.on('error', reject)
   })
-  client.close()
 }
 
 export async function getItemScreenshotBuffer(itemId: string) {
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
 
-  const data = await streamToBuffer(bucket.openDownloadStreamByName(itemId))
-  client.close()
-  return data
+  return await streamToBuffer(bucket.openDownloadStreamByName(itemId))
 }
 
 export async function screenshotExists(itemId: string) {
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
   const cursor = await bucket.find({ filename: itemId })
-  const data = await cursor.hasNext()
-  client.close()
-  return data
+  return await cursor.hasNext()
 }
 
 export async function clearAllScreenshots() {
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
-  const data = await bucket.drop()
-  client.close()
-  return data
+  return await bucket.drop()
 }
 
 export async function listScreenshotsOfItem(itemId: string) {
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
-  const data = bucket.find({ filename: itemId })
-  client.close()
-  return data
+  return bucket.find({ filename: itemId })
 }
