@@ -85,7 +85,7 @@ export const authOptions: NextAuthConfig = {
   },
 
   // A database is optional, but required to persist accounts in a database
-  adapter: MongoDBAdapter(dbClient, {
+  adapter: MongoDBAdapter(dbClient(), {
     collections: {
       Users: 'nextauth_users',
       Sessions: 'nextauth_sessions',

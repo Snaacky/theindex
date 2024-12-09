@@ -11,7 +11,7 @@ if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }
 
-export const dbClient = new MongoClient(uri, { maxPoolSize: 5 }).connect()
+export const dbClient = () => new MongoClient(uri, { maxPoolSize: 5 })
 
 export async function exportData(isAdmin = false) {
   if (isAdmin) {
@@ -34,8 +34,10 @@ export async function exportData(isAdmin = false) {
 }
 
 export async function getAll(collection: string): Promise<object[]> {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   let data = await db.collection(collection).find().toArray()
+  client.close()
   if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
     data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
   }
@@ -47,18 +49,21 @@ export async function find(
   collection: string,
   query: Record<string, any>
 ): Promise<object[]> {
-  const db = (await dbClient).db('index')
-  return cleanId(
-    await db.collection(collection).find(polluteId(query)).toArray()
-  )
+  const client = await dbClient().connect()
+  const db = client.db('index')
+  const data = await db.collection(collection).find(polluteId(query)).toArray()
+  client.close()
+  return cleanId(data)
 }
 
 export async function findOne(
   collection: string,
   query: Record<string, any>
 ): Promise<object | null> {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const found = await db.collection(collection).findOne(polluteId(query))
+  client.close()
   if (found === null) {
     return null
   }
@@ -69,8 +74,11 @@ export async function count(
   collection: string,
   query: Record<string, any> = {}
 ): Promise<number> {
-  const db = (await dbClient).db('index')
-  return await db.collection(collection).countDocuments(polluteId(query))
+  const client = await dbClient().connect()
+  const db = client.db('index')
+  const data = await db.collection(collection).countDocuments(polluteId(query))
+  client.close()
+  return data
 }
 
 export async function getByUrlId(
@@ -84,13 +92,15 @@ export async function insert(
   collection: string,
   data: Record<string, any>
 ): Promise<string> {
+  const client = await dbClient().connect()
   let tries = 1
   while (tries < 3) {
     try {
-      const db = (await dbClient).db('index')
+      const db = client.db('index')
       data.createdAt = new Date()
       data.lastModified = new Date()
       const { insertedId } = await db.collection(collection).insertOne(data)
+      client.close()
       return insertedId.toString()
     } catch (error) {
       console.error(
@@ -102,6 +112,7 @@ export async function insert(
       tries++
     }
   }
+  client.close()
   throw Error('Unable to insert entry into ' + collection + ' after 3 retires')
 }
 
@@ -110,14 +121,17 @@ export async function updateOne(
   query: Record<string, any>,
   data: Record<string, any>
 ) {
+  const client = await dbClient().connect()
   let tries = 1
   while (tries < 3) {
     try {
-      const db = (await dbClient).db('index')
+      const db = client.db('index')
       await db.collection(collection).updateOne(polluteId(query), {
         $set: data,
         $currentDate: { lastModified: true },
       })
+      client.close()
+      return
     } catch (error) {
       console.error(
         '#' + tries.toString() + ': Failed to update collection ' + collection
@@ -125,6 +139,7 @@ export async function updateOne(
       tries++
     }
   }
+  client.close()
   throw Error('Unable to update entry of ' + collection + ' after 3 retires')
 }
 
@@ -132,11 +147,14 @@ export async function deleteOne(
   collection: string,
   query: Record<string, any>
 ) {
+  const client = await dbClient().connect()
   let tries = 1
   while (tries < 3) {
     try {
-      const db = (await dbClient).db('index')
+      const db = client.db('index')
       await db.collection(collection).deleteOne(polluteId(query))
+      client.close()
+      return
     } catch (error) {
       console.error(
         '#' +
@@ -147,5 +165,6 @@ export async function deleteOne(
       tries++
     }
   }
+  client.close()
   throw Error('Unable to delete entry from ' + collection + ' after 3 retires')
 }
