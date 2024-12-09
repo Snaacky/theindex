@@ -1,15 +1,15 @@
-import { count, dbClient, deleteOne, find, findOne, getAll, insert } from './db'
+import { count, deleteOne, find, findOne, getAll, insert } from './db'
 import { cleanId } from './utils'
 import { Types } from '../../types/Components'
 import { findOneTyped } from './dbTyped'
+import clientPromise from './mongoDB'
 
 export async function getViews() {
   return await getAll('views')
 }
 
 export async function getLastViews(type: Types, n: number) {
-  const client = await dbClient().connect()
-  const db = client.db('index')
+  const db = (await clientPromise).db('index')
   const data = cleanId(
     await db
       .collection('views')
@@ -18,7 +18,6 @@ export async function getLastViews(type: Types, n: number) {
       .limit(n)
       .toArray()
   )
-  client.close()
   console.log('Found', data.length, 'entries in views table for', type)
 
   // count what has been popular recently

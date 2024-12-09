@@ -3,10 +3,10 @@ import Discord from 'next-auth/providers/discord'
 import { addUser } from './lib/db/users'
 import { AccountType, type User } from './types/User'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
-import { dbClient } from './lib/db/db'
 import type { NextAuthConfig } from 'next-auth'
 import { findOneTyped } from './lib/db/dbTyped'
 import { Types } from './types/Components'
+import clientPromise from './lib/db/mongoDB'
 
 export const authOptions: NextAuthConfig = {
   providers: [Discord],
@@ -85,7 +85,7 @@ export const authOptions: NextAuthConfig = {
   },
 
   // A database is optional, but required to persist accounts in a database
-  adapter: MongoDBAdapter(dbClient(), {
+  adapter: MongoDBAdapter(clientPromise, {
     collections: {
       Users: 'nextauth_users',
       Sessions: 'nextauth_sessions',
