@@ -32,7 +32,8 @@ export async function addItemScreenshot(img: Uint8Array, itemId: string) {
   imgStream.push(img)
   imgStream.push(null)
 
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
@@ -56,39 +57,51 @@ export async function addItemScreenshot(img: Uint8Array, itemId: string) {
     stream.on('finish', resolve)
     imgStream.on('error', reject)
   })
+  client.close()
 }
 
 export async function getItemScreenshotBuffer(itemId: string) {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
 
-  const stream = bucket.openDownloadStreamByName(itemId)
-  return await streamToBuffer(stream)
+  const data = await streamToBuffer(bucket.openDownloadStreamByName(itemId))
+  client.close()
+  return data
 }
 
 export async function screenshotExists(itemId: string) {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
   const cursor = await bucket.find({ filename: itemId })
-  return await cursor.hasNext()
+  const data = await cursor.hasNext()
+  client.close()
+  return data
 }
 
 export async function clearAllScreenshots() {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
-  return await bucket.drop()
+  const data = await bucket.drop()
+  client.close()
+  return data
 }
 
 export async function listScreenshotsOfItem(itemId: string) {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const bucket = new GridFSBucket(db, {
     bucketName: 'itemScreenshots',
   })
-  return bucket.find({ filename: itemId })
+  const data = bucket.find({ filename: itemId })
+  client.close()
+  return data
 }

@@ -8,7 +8,8 @@ export async function getViews() {
 }
 
 export async function getLastViews(type: Types, n: number) {
-  const db = (await dbClient).db('index')
+  const client = await dbClient().connect()
+  const db = client.db('index')
   const data = cleanId(
     await db
       .collection('views')
@@ -17,6 +18,7 @@ export async function getLastViews(type: Types, n: number) {
       .limit(n)
       .toArray()
   )
+  client.close()
   console.log('Found', data.length, 'entries in views table for', type)
 
   // count what has been popular recently
