@@ -1,6 +1,5 @@
 import { isLogin } from '../../lib/session'
-import { useSession } from 'next-auth/react'
-import { signIn, signOut } from '../../auth'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC } from 'react'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt'
@@ -11,30 +10,28 @@ const LoginOrOutButton: FC = () => {
 
   if (isLogin(session)) {
     return (
-      <form
-        action={async () => {
-          'use server'
+      <button
+        type='button'
+        className={'btn w-100 btn-outline-danger'}
+        onClick={async () => {
           await signOut()
         }}
       >
-        <button type='submit' className={'btn w-100 btn-outline-danger'}>
-          Sign out <FontAwesomeIcon icon={faSignOutAlt} />
-        </button>
-      </form>
+        Sign out <FontAwesomeIcon icon={faSignOutAlt} />
+      </button>
     )
   }
 
   return (
-    <form
-      action={async () => {
-        'use server'
+    <button
+      type='button'
+      className={'btn w-100 btn-outline-success'}
+      onClick={async () => {
         await signIn('discord')
       }}
     >
-      <button type='submit' className={'btn w-100 btn-outline-success'}>
-        <FontAwesomeIcon icon={faSignInAlt} /> Sign In
-      </button>
-    </form>
+      <FontAwesomeIcon icon={faSignInAlt} /> Sign In
+    </button>
   )
 }
 
