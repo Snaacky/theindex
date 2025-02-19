@@ -17,7 +17,7 @@ export default async function apiUser(
     if (isLogin(session) && session !== null) {
       result = await getSingleCache(Types.user, session.user.uid)
     } else {
-      return res.status(200).end()
+      return res.json(null)
     }
   } else {
     const uId = req.query.id as string
