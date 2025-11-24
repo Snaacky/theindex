@@ -1,4 +1,4 @@
-FROM node:23.3
+FROM node:24.11
 WORKDIR /app
 
 # We use the image browserless/chrome instead of having our own chrome instance here

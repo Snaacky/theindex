@@ -19,6 +19,7 @@ export function streamToBuffer(stream: Readable) {
   })
 }
 
+// convert uint8array image to stream
 export function imgToStream(img: Uint8Array) {
   let stream = new Readable()
   stream.push(img)
@@ -27,10 +28,7 @@ export function imgToStream(img: Uint8Array) {
 }
 
 export async function addItemScreenshot(img: Uint8Array, itemId: string) {
-  // convert uint8array image to stream
-  const imgStream = new Readable()
-  imgStream.push(img)
-  imgStream.push(null)
+  const imgStream = imgToStream(img)
 
   const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {

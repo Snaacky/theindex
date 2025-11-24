@@ -22,9 +22,7 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
-  const { data: swrLibraries } = useSWR('/api/libraries', {
-    fallbackData: [],
-  })
+  const { data: swrLibraries } = useSWR('/api/libraries', { fallbackData: [] })
   const { data: swrCollections } = useSWR('/api/collections', {
     fallbackData: [],
   })
@@ -86,7 +84,7 @@ function Sidebar({ show, setShow }, ref) {
           <ul className={'nav nav-pills flex-column'}>
             {libraries.length === 0 && (
               <li className={'nav-item'}>
-                <Link href={'#'} className='nav-link text-muted'>
+                <Link href={'#'} className='nav-link'>
                   No libraries found
                 </Link>
               </li>
@@ -102,7 +100,7 @@ function Sidebar({ show, setShow }, ref) {
                     ? [
                         <Link
                           href={'#'}
-                          className={'nav-link text-muted'}
+                          className={'nav-link'}
                           key={'noCollectionsFound'}
                         >
                           No collections found
