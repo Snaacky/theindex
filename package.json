@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
-    "lint": "next lint",
+    "lint": "eslint .",
     "start": "next start",
     "serve": "node cleanup.mjs && next build && next start -p 3033",
     "test": "node cleanup.mjs"
