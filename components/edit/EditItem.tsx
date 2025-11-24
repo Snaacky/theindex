@@ -281,16 +281,11 @@ const EditItem: FC<Props> = ({
                       <span className={'me-2'} style={{ fontSize: '1.5rem' }}>
                         <IconNewTabLink url={v} />
                       </span>
-                      <button
+                      <IconDelete
                         onClick={() => removeURL(i)}
                         data-tooltip-content={'Remove url'}
-                        style={{
-                          width: '38px',
-                          height: '38px',
-                        }}
-                      >
-                        <IconDelete title={'Remove url'} />
-                      </button>
+                        title={'Remove url'}
+                      />
                     </div>
                   ) : (
                     <span className={'text-muted ms-2'}>Empty url</span>
