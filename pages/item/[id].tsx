@@ -27,11 +27,7 @@ import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 
-type Props = {
-  item: Item
-  columns: Column[]
-  collections: Collection[]
-}
+type Props = { item: Item; columns: Column[]; collections: Collection[] }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
@@ -41,9 +37,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
   })
   item = (swrItem as Item) || item
   item.stars = item.stars || 0
-  const { data: swrColumns } = useSWR('/api/columns', {
-    fallbackData: columns,
-  })
+  const { data: swrColumns } = useSWR('/api/columns', { fallbackData: columns })
   columns = (swrColumns as Column[]) || columns
   const { data: swrCollections } = useSWR('/api/collections', {
     fallbackData: collections,
@@ -131,22 +125,13 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
             </small>
           </p>
 
-          <p
-            style={{
-              whiteSpace: 'pre-line',
-            }}
-          >
-            {item.description}
-          </p>
+          <p style={{ whiteSpace: 'pre-line' }}>{item.description}</p>
         </div>
 
         <div className={'col-12 col-md-8 col-lg-6 col-xl-8 position-relative'}>
           <div
             className={'position-absolute'}
-            style={{
-              top: 0,
-              right: '0.75rem',
-            }}
+            style={{ top: 0, right: '0.75rem' }}
           >
             <div
               className={'position-relative px-1 pt-1'}
@@ -189,14 +174,38 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
           >
             Captured screenshot of the site <code>{item.urls[0]}</code>
             {isEditor(session) && (
-              <button
-                className={'ms-2 btn btn-sm btn-outline-warning'}
-                onClick={() => {
-                  postData('/api/admin/screenshot/create/' + item._id, {})
-                }}
-              >
-                Retake
-              </button>
+              <>
+                <button
+                  className={'ms-2 btn btn-sm btn-outline-warning'}
+                  onClick={() => {
+                    postData('/api/admin/screenshot/create/' + item._id, {})
+                  }}
+                >
+                  Retake
+                </button>
+                <input
+                  type='file'
+                  name='screenshot'
+                  className='form-control'
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                      console.log('Uploading screenshot', file)
+                      const screenshotBase64 = btoa(
+                        String.fromCharCode(
+                          ...new Uint8Array(await file.arrayBuffer())
+                        )
+                      )
+                      postData('/api/admin/screenshot/upload/' + item._id, {
+                        screenshot: screenshotBase64,
+                      })
+                    }
+                  }}
+                  placeholder='Upload screenshot'
+                  multiple={false}
+                  accept='image/png, image/jpeg'
+                />
+              </>
             )}
           </div>
         </div>
@@ -362,26 +371,16 @@ export default Item
 export async function getStaticPaths() {
   const items = (await getAllCache(Types.item)) as Item[]
   const paths = items.map((i) => {
-    return {
-      params: {
-        id: i._id,
-      },
-    }
+    return { params: { id: i._id } }
   })
 
-  return {
-    paths,
-    fallback: 'blocking',
-  }
+  return { paths, fallback: 'blocking' }
 }
 
 export async function getStaticProps({ params }) {
   const item = (await getSingleCache(Types.item, params.id)) as Item
   if (!item) {
-    return {
-      notFound: true,
-      revalidate: 60,
-    }
+    return { notFound: true, revalidate: 60 }
   }
 
   return {
