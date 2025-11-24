@@ -9,7 +9,12 @@ import { Types } from './types/Components'
 import client from './lib/db/authDbClient'
 
 export const authOptions: NextAuthConfig = {
-  providers: [Discord],
+  providers: [
+    Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    }),
+  ],
   theme: {
     colorScheme: 'dark',
     brandColor: '#0d6efd',
