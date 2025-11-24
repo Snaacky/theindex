@@ -4,7 +4,10 @@ import styles from './NavbarBrand.module.css'
 
 export default function NavbarBrand() {
   return (
-    <Link href={'/'} className={styles.link + ' navbar-brand d-block'}>
+    <Link
+      href={'/'}
+      className={styles.link + ' navbar-brand d-flex align-items-center'}
+    >
       <Image
         src='/icons/logo.png'
         alt='The Anime Index Logo'
@@ -16,9 +19,7 @@ export default function NavbarBrand() {
         {process.env.NEXT_PUBLIC_SITE_NAME}
         <span
           className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary'
-          style={{
-            fontSize: '0.7rem',
-          }}
+          style={{ fontSize: '0.7rem' }}
         >
           Beta
         </span>
