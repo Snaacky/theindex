@@ -88,7 +88,11 @@ const Layout: FC<LayoutProps> = ({ children, error }) => {
       />
       <Tooltip place='top' variant='dark' />
       <Footer error={error} />
-      <script src={'/stats.js'} async={true} defer={true} />
+      <script
+        defer={true}
+        src='https://um.theindex.moe/script.js'
+        data-website-id='e3cabb38-83b7-445a-8896-538994eacb04'
+      />
     </div>
   )
 }

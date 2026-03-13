@@ -44,14 +44,6 @@ const Admin = ({
       >
         Clear cache
       </button>
-      <Link
-        className={'btn btn-outline-secondary mb-2 me-2'}
-        href={'/api/export'}
-        target={'_blank'}
-        rel='noreferrer'
-      >
-        Export all data
-      </Link>
 
       <h4>Screenshots</h4>
       <button

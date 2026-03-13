@@ -36,26 +36,6 @@ async function runFind(
   return await cursor.toArray()
 }
 
-export async function exportData(isAdmin = false) {
-  if (isAdmin) {
-    return {
-      collections: await getAll('collections'),
-      columns: await getAll('columns'),
-      items: await getAll('items'),
-      libraries: await getAll('libraries'),
-      lists: await getAll('lists'),
-      users: await getAll('users'),
-    }
-  }
-
-  return {
-    collections: await getAll('collections'),
-    columns: await getAll('columns'),
-    items: await getAll('items'),
-    libraries: await getAll('libraries'),
-  }
-}
-
 export async function getAll(
   collection: string,
   options: DbQueryOptions = {}
