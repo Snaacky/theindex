@@ -48,7 +48,12 @@ export default function App({
         },
       }}
     >
-      <SessionProvider session={session}>
+      <SessionProvider
+        session={session}
+        refetchOnWindowFocus={false}
+        refetchWhenOffline={false}
+        refetchInterval={0}
+      >
         <Layout>
           <Auth auth={Component.auth}>
             <noscript>

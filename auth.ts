@@ -4,9 +4,9 @@ import { addUser } from './lib/db/users'
 import { AccountType, type User } from './types/User'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import type { NextAuthConfig } from 'next-auth'
-import { findOneTyped } from './lib/db/dbTyped'
 import { Types } from './types/Components'
 import client from './lib/db/authDbClient'
+import { getSingleCache } from './lib/db/cache'
 
 export const authOptions: NextAuthConfig = {
   providers: [
@@ -27,7 +27,7 @@ export const authOptions: NextAuthConfig = {
         const id = user.id.toString()
         session.user.uid = id
 
-        const userData = (await findOneTyped(Types.user, id)) as User | null
+        const userData = (await getSingleCache(Types.user, id)) as User | null
         // create user account if not found
         if (userData === null) {
           console.log(

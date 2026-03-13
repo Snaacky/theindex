@@ -1,25 +1,30 @@
-import { getItem } from '../../../../lib/db/items'
-import { auth } from '../../../../auth'
+import { getSingleCache } from '../../../../lib/db/cache'
 import {
   getItemScreenshotBuffer,
   screenshotExists,
 } from '../../../../lib/db/itemScreenshots'
-import createScreenshot from '../../../../lib/crawler/screenshot'
-import { isAdmin } from '../../../../lib/session'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { Types } from '../../../../types/Components'
+import type { Item } from '../../../../types/Item'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await auth(req, res)
-  const item = await getItem(req.query.id as string)
+  const item = (await getSingleCache(
+    Types.item,
+    req.query.id as string
+  )) as Item | null
   if (item) {
     try {
       if (await screenshotExists(item._id)) {
         const screenshotBuffer = await getItemScreenshotBuffer(item._id)
         if (screenshotBuffer !== null) {
           res.setHeader('Content-Type', 'image/png')
+          res.setHeader(
+            'Cache-Control',
+            'public, s-maxage=86400, stale-while-revalidate=604800'
+          )
           res.send(screenshotBuffer)
         } else {
           res
@@ -27,12 +32,10 @@ export default async function handler(
             .send('Something went wrong here.. no image stream found')
         }
       } else {
-        if (isAdmin(session)) {
-          console.log('Admin and missing screenshot, creating new')
-          createScreenshot(item._id).catch((e) => {
-            console.error('Could not create screenshot of', item._id, e)
-          })
-        }
+        res.setHeader(
+          'Cache-Control',
+          'public, s-maxage=3600, stale-while-revalidate=86400'
+        )
         res.redirect('/no-screenshot.png').end()
       }
     } catch (e) {
