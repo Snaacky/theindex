@@ -4,40 +4,19 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { isAdmin, isCurrentUser } from '../../lib/session'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import DataBadge from '../../components/data/DataBadge'
-import ListBoard from '../../components/boards/ListBoard'
-import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import type { User } from '../../types/User'
-import type { List } from '../../types/List'
-import type { Item } from '../../types/Item'
-import type { Column } from '../../types/Column'
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 import AccountTypeBadge from '../../components/badge/AccountTypeBadge'
-import {
-  getAllUserIds,
-  getColumnsForItems,
-  getFollowedListsForUser,
-  getItemsByIds,
-  getListsForUser,
-  getUserByUid,
-} from '../../lib/db/publicData'
+import { getAllUserIds, getUserByUid } from '../../lib/db/publicData'
 
 type Props = {
   user: User
-  lists: List[]
-  followLists: List[]
-  items: Item[]
-  columns: Column[]
 }
 
-const User: FC<Props> = ({ user, lists, followLists, items, columns }) => {
+const User: FC<Props> = ({ user }) => {
   const { data: session } = useSession()
-
-  const userFav = user.favs
-    .map((itemId) => items.find((item) => item._id === itemId))
-    .filter((item): item is Item => typeof item !== 'undefined')
 
   return (
     <>
@@ -121,76 +100,6 @@ const User: FC<Props> = ({ user, lists, followLists, items, columns }) => {
           Print user infos to console
         </button>
       )}
-
-      <h3 className={'mt-3'}>
-        Starred items
-        <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
-          <DataBadge
-            name={
-              user.favs.length + ' item' + (user.favs.length !== 1 ? 's' : '')
-            }
-            style={'primary'}
-          />
-        </div>
-      </h3>
-      {user.favs.length > 0 ? (
-        <ItemBoard
-          contentOf={user}
-          items={userFav}
-          allItems={items}
-          canEdit={false}
-          updateURL={'/api/edit/user'}
-          updateKey={'favs'}
-          columns={columns}
-        />
-      ) : (
-        <p className={'text-muted'}>No starred items found</p>
-      )}
-
-      <h3 className={'mt-3'}>
-        Lists
-        <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
-          <DataBadge
-            name={lists.length + ' list' + (lists.length !== 1 ? 's' : '')}
-            style={'primary'}
-          />
-        </div>
-      </h3>
-      {lists.length > 0 || isCurrentUser(session, user.uid) ? (
-        <ListBoard
-          contentOf={user}
-          lists={lists}
-          allLists={lists}
-          canEdit={isCurrentUser(session, user.uid) || isAdmin(session)}
-          updateURL={'/api/edit/user'}
-        />
-      ) : (
-        <p className={'text-muted'}>No user lists found</p>
-      )}
-
-      <h3 className={'mt-3'}>
-        Followed lists
-        <div className={'float-end'} style={{ fontSize: '1.2rem' }}>
-          <DataBadge
-            name={
-              followLists.length +
-              ' list' +
-              (followLists.length !== 1 ? 's' : '')
-            }
-            style={'primary'}
-          />
-        </div>
-      </h3>
-      {followLists.length > 0 ? (
-        <ListBoard
-          contentOf={user}
-          lists={followLists}
-          allLists={followLists}
-          updateURL={'/api/edit/user'}
-        />
-      ) : (
-        <p className={'text-muted'}>User follows no other lists</p>
-      )}
     </>
   )
 }
@@ -219,19 +128,9 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const [lists, followLists, items] = await Promise.all([
-    getListsForUser(user.uid),
-    getFollowedListsForUser(user),
-    getItemsByIds(user.favs || []),
-  ])
-
   return {
     props: {
       user,
-      lists,
-      followLists,
-      items,
-      columns: await getColumnsForItems(items),
     },
     revalidate: 60,
   }

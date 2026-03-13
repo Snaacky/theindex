@@ -4,12 +4,9 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { canEdit, isAdmin, isEditor } from '../../lib/session'
 import DataItem from '../../components/data/DataItem'
-import IconEdit from '../../components/icons/IconEdit'
 import DataBadge from '../../components/data/DataBadge'
+import IconEdit from '../../components/icons/IconEdit'
 import { splitColumnsIntoTypes } from '../../lib/item'
-import IconStar from '../../components/icons/IconStar'
-import IconBookmark from '../../components/icons/IconBookmark'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IconNewTabLink from '../../components/icons/IconNewTabLink'
 import OnlineStatus from '../../components/data/OnlineStatus'
 import IconNSFW from '../../components/icons/IconNSFW'
@@ -23,7 +20,6 @@ import { Types } from '../../types/Components'
 import type { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
-import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import {
   getCollectionsForItem,
   getColumnsForItems,
@@ -36,7 +32,6 @@ type Props = { item: Item; columns: Column[]; collections: ItemCollection[] }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
-  item.stars = item.stars || 0
   const {
     features: featuresColumns,
     pro: proColumns,
@@ -100,23 +95,6 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
               />
             )}
           </h2>
-
-          <p>
-            User starred this item:{' '}
-            <small
-              className={'text-warning'}
-              data-tooltip-content={
-                item.stars +
-                ' user' +
-                (item.stars === 1 ? '' : 's') +
-                ' have starred this item'
-              }
-            >
-              {item.stars}
-              <FontAwesomeIcon icon={faStar} className={'ms-1'} />
-            </small>
-          </p>
-
           <p style={{ whiteSpace: 'pre-line' }}>{item.description}</p>
         </div>
 
@@ -143,10 +121,6 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
                   <IconNSFW />
                 </span>
               )}
-              <IconStar item={item} />
-              <span className={'ms-2'}>
-                <IconBookmark item={item} />
-              </span>
             </div>
           </div>
           <Image

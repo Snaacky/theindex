@@ -16,7 +16,6 @@ import type { Column } from '../../types/Column'
 import type { Collection } from '../../types/Collection'
 import { gatherUserInfo } from './users'
 import { getSingleCache } from './cache'
-import { getLastViews } from './views'
 
 export async function getAllTyped(type: Types) {
   switch (type) {
@@ -78,7 +77,6 @@ export async function findOneTyped(
         typeof _id === 'string' ? { _id } : _id
       )) as Item | null
       if (item !== null) {
-        item.stars = await countTyped(Types.user, { favs: [_id] })
         item.views = 0 // await count(Types.item, 1000)
       }
       return item

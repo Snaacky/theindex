@@ -1,51 +1,51 @@
-import { getSingleCache } from '../../../../lib/db/cache'
 import {
-  getItemScreenshotBuffer,
-  screenshotExists,
+  openItemScreenshotStream,
 } from '../../../../lib/db/itemScreenshots'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Types } from '../../../../types/Components'
-import type { Item } from '../../../../types/Item'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const item = (await getSingleCache(
-    Types.item,
-    req.query.id as string
-  )) as Item | null
-  if (item) {
-    try {
-      if (await screenshotExists(item._id)) {
-        const screenshotBuffer = await getItemScreenshotBuffer(item._id)
-        if (screenshotBuffer !== null) {
-          res.setHeader('Content-Type', 'image/png')
-          res.setHeader(
-            'Cache-Control',
-            'public, s-maxage=86400, stale-while-revalidate=604800'
-          )
-          res.send(screenshotBuffer)
-        } else {
-          res
-            .status(500)
-            .send('Something went wrong here.. no image stream found')
-        }
-      } else {
+  try {
+    const stream = await openItemScreenshotStream(req.query.id as string)
+    let started = false
+
+    stream.once('file', () => {
+      started = true
+      res.setHeader('Content-Type', 'image/png')
+      res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=86400, stale-while-revalidate=604800'
+      )
+      stream.pipe(res)
+    })
+
+    stream.once('error', (error) => {
+      if (!started) {
         res.setHeader(
           'Cache-Control',
           'public, s-maxage=3600, stale-while-revalidate=86400'
         )
-        res.redirect('/no-screenshot.png').end()
+        res.redirect('/no-screenshot.png')
+        return
       }
-    } catch (e) {
+
       console.log(
         'Something horribly went wrong while fetching the screenshot :(',
-        e
+        error
       )
-      res.status(500).send(e.toString())
-    }
-  } else {
-    res.status(404).end()
+      if (!res.headersSent) {
+        res.status(500).send(error.toString())
+      } else {
+        res.destroy(error as Error)
+      }
+    })
+  } catch (e) {
+    console.log(
+      'Something horribly went wrong while opening the screenshot stream :(',
+      e
+    )
+    res.status(500).send(e.toString())
   }
 }

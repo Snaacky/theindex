@@ -9,8 +9,6 @@ import IconDelete from '../icons/IconDelete'
 import IconEdit from '../icons/IconEdit'
 import DataBadge from '../data/DataBadge'
 import Loader from '../loading'
-import IconBookmark from '../icons/IconBookmark'
-import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
@@ -144,16 +142,6 @@ const Row: FC<Props> = ({
                   <span className={'ms-2'}>
                     <DataBadge name={content.accountType} style={'primary'} />
                   </span>
-                )}
-                {type === Types.item && (
-                  <>
-                    <span className={'ms-2'}>
-                      <IconStar item={content as Item} />
-                    </span>
-                    <span className={'ms-2'}>
-                      <IconBookmark item={content as Item} />
-                    </span>
-                  </>
                 )}
               </span>
             </h5>

@@ -9,8 +9,6 @@ import IconAdd from '../icons/IconAdd'
 import DataBadge from '../data/DataBadge'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '../loading'
-import IconBookmark from '../icons/IconBookmark'
-import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
@@ -134,16 +132,6 @@ const Card: FC<Props> = ({
                 {'accountType' in content && content.accountType && (
                   <span className={'ms-2'}>
                     <DataBadge name={content.accountType} style={'primary'} />
-                  </span>
-                )}
-                {type === Types.item && (
-                  <span className={'float-end'}>
-                    <span className={'ms-2'}>
-                      <IconStar item={content as Item} />
-                    </span>
-                    <span className={'ms-2'}>
-                      <IconBookmark item={content as Item} />
-                    </span>
                   </span>
                 )}
                 {add !== null && (

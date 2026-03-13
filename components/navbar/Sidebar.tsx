@@ -9,7 +9,6 @@ import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
 import IconColumn from '../icons/IconColumn'
 import IconItem from '../icons/IconItem'
-import IconList from '../icons/IconList'
 import LoginOrOutButton from '../buttons/LoginOrOutButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
@@ -175,14 +174,6 @@ function Sidebar({ show, setShow }, ref) {
                 className={'nav-link umami--click--navbar-items'}
               >
                 <IconItem /> Items
-              </Link>
-            </li>
-            <li className={'nav-item'}>
-              <Link
-                href={'/lists'}
-                className={'nav-link umami--click--navbar-lists'}
-              >
-                <IconList /> User lists
               </Link>
             </li>
           </ul>

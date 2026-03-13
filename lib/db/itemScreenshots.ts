@@ -65,6 +65,15 @@ export async function getItemScreenshotBuffer(itemId: string) {
   return await streamToBuffer(bucket.openDownloadStreamByName(itemId))
 }
 
+export async function openItemScreenshotStream(itemId: string) {
+  const db = (await clientPromise).db('index')
+  const bucket = new GridFSBucket(db, {
+    bucketName: 'itemScreenshots',
+  })
+
+  return bucket.openDownloadStreamByName(itemId)
+}
+
 export async function screenshotExists(itemId: string) {
   const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {

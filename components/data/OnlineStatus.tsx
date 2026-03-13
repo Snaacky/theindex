@@ -1,7 +1,7 @@
-import useSWR from 'swr'
 import { FC, useState } from 'react'
 import styles from './OnlineStatus.module.css'
 import OnlineStatusModal from '../modals/OnlineStatusModal'
+import { useItemStatus } from '../../lib/itemStatusClient'
 
 // import types
 import { StatusData, Statuses } from '../../types/OnlineStatus'
@@ -9,39 +9,30 @@ import { Item } from '../../types/Item'
 
 type Props = {
   item: Item
+  initialStatus?: StatusData | null
 }
 
-const OnlineStatus: FC<Props> = ({ item }) => {
-  let { data, error } = useSWR<StatusData>('/api/item/ping/' + item._id, {
-    revalidateOnFocus: false,
-    revalidateIfStale: false,
-    dedupingInterval: 60 * 1000,
-  })
-
+const OnlineStatus: FC<Props> = ({ item, initialStatus = null }) => {
+  const data = useItemStatus(item._id, initialStatus)
   const [show, setShow] = useState(false)
 
   let style = '',
     text = ''
-  if (error) {
-    style = styles.error
-    text = error.toString()
-  } else {
-    if (!data || data.status === 'fetching') {
-      style = styles.ping
-      text = Statuses.fetching
-    } else if (data.status === 'down') {
-      style = styles.down
-      text = Statuses.down
-    } else if (data.status === 'up') {
-      style = styles.up
-      text = Statuses.up
-    } else if (data.status === 'unknown') {
-      style = styles.unknown
-      text = Statuses.unknown
-    } else if (data.status === 'noURL') {
-      style = styles.down
-      text = Statuses.noURL
-    }
+  if (!data || data.status === 'fetching') {
+    style = styles.ping
+    text = Statuses.fetching
+  } else if (data.status === 'down') {
+    style = styles.down
+    text = Statuses.down
+  } else if (data.status === 'up') {
+    style = styles.up
+    text = Statuses.up
+  } else if (data.status === 'unknown') {
+    style = styles.unknown
+    text = Statuses.unknown
+  } else if (data.status === 'noURL') {
+    style = styles.down
+    text = Statuses.noURL
   }
 
   style = styles.status + ' ' + style

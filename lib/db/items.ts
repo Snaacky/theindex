@@ -1,14 +1,10 @@
 import {
-  count,
   deleteOne,
   find,
-  findOne,
-  getAll,
   insert,
   updateOne,
 } from './db'
 import { getCollections, updateCollection } from './collections'
-import { updateUser } from './users'
 import {
   clearSingleCache,
   getSingleCache,
@@ -18,19 +14,12 @@ import {
 import { Types } from '../../types/Components'
 import { Item, ItemUpdate } from '../../types/Item'
 import { User } from '../../types/User'
-import { List } from '../../types/List'
-import { updateList } from './lists'
 import { Collection } from '../../types/Collection'
 import { postItemUpdate } from '../webhook'
 import { findOneTyped, getAllTyped } from './dbTyped'
 
 export async function getItems(): Promise<Item[]> {
-  return await Promise.all(
-    ((await getAllTyped(Types.item)) as Item[]).map(async (i) => {
-      i.stars = await count('users', { favs: [i._id] })
-      return i
-    })
-  )
+  return (await getAllTyped(Types.item)) as Item[]
 }
 
 export async function getSponsors(): Promise<Item[]> {
@@ -38,11 +27,7 @@ export async function getSponsors(): Promise<Item[]> {
 }
 
 export async function getItem(_id: string): Promise<Item | null> {
-  const item = (await findOneTyped(Types.item, _id)) as Item
-  if (item !== null) {
-    item.stars = await count('users', { favs: [_id] })
-  }
-  return item
+  return (await findOneTyped(Types.item, _id)) as Item | null
 }
 
 export async function addItem(
@@ -153,41 +138,6 @@ export async function updateItemCollections(
 }
 
 export async function deleteItem(_id: string, user?: User) {
-  // remove item entry from favs
-  const usersWithFav = (
-    (await find('users', {
-      favs: [_id],
-    })) as User[]
-  ).map((user) => {
-    user.favs = user.favs.filter((t) => t !== _id)
-    return user
-  })
-
-  await Promise.all(
-    usersWithFav.map(async (user) => {
-      await updateUser(user.uid, {
-        favs: user.favs,
-      })
-    })
-  )
-
-  // remove item entry from user lists
-  const listsWithItem = (
-    (await find('lists', {
-      items: [_id],
-    })) as List[]
-  ).map((list) => {
-    list.items = list.items.filter((t) => t !== _id)
-    return list
-  })
-  await Promise.all(
-    listsWithItem.map(async (list) => {
-      await updateList(list._id, {
-        items: list.items,
-      })
-    })
-  )
-
   // remove item entry from collections
   const collectionsWithItem = (
     (await find('collections', {
@@ -206,18 +156,10 @@ export async function deleteItem(_id: string, user?: User) {
   )
 
   // update cache
-  usersWithFav.map(async (user) => {
-    await updateSingleCache(Types.user, user.uid)
-  })
-  listsWithItem.map(async (list) => {
-    await updateSingleCache(Types.list, list._id)
-  })
   collectionsWithItem.map(async (collection) => {
     await updateSingleCache(Types.collection, collection._id)
   })
-  await updateAllCache(Types.user)
   await updateAllCache(Types.collection)
-  await updateAllCache(Types.list)
 
   const oldItem = await getItem(_id)
   // remove item
