@@ -10,7 +10,40 @@ const uri =
 if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }
-const client = new Redis(uri)
+const client = new Redis(uri, {
+  lazyConnect: true,
+  maxRetriesPerRequest: 1,
+})
+let cacheAvailable = true
+let cacheConnectAttempted = false
+client.on('error', (error) => {
+  if (cacheAvailable) {
+    console.warn('Redis unavailable, continuing without cache', error.message)
+  }
+  cacheAvailable = false
+})
+
+async function ensureCacheConnection() {
+  if (!cacheAvailable) {
+    return false
+  }
+
+  if (client.status === 'ready') {
+    return true
+  }
+
+  if (client.status === 'wait' && !cacheConnectAttempted) {
+    cacheConnectAttempted = true
+    try {
+      await client.connect()
+    } catch (error) {
+      cacheAvailable = false
+      return false
+    }
+  }
+
+  return client.status === 'ready'
+}
 
 /**
  * only returns null if requested component does not exist
@@ -85,6 +118,9 @@ export async function updateAllCache(type: Types, data?: string | object) {
  */
 export async function getCache(key: string): Promise<object | object[] | null> {
   try {
+    if (!(await ensureCacheConnection())) {
+      return null
+    }
     let data = await client.get(key)
     if (data === null) {
       return null
@@ -118,6 +154,9 @@ export async function setCache(key: string, data: string | object) {
   }
 
   try {
+    if (!(await ensureCacheConnection())) {
+      return
+    }
     return client.set(key, data)
   } catch (e) {
     console.error('Failed to set cache for key', key, data)
@@ -130,6 +169,9 @@ export async function clearSingleCache(type: Types, _id: string) {
 
 export async function clearCache(key: string) {
   try {
+    if (!(await ensureCacheConnection())) {
+      return
+    }
     return await client.del(key)
   } catch (e) {
     console.error('Failed te delete cache', key, e)
@@ -138,6 +180,9 @@ export async function clearCache(key: string) {
 
 export async function clearCompleteCache() {
   try {
+    if (!(await ensureCacheConnection())) {
+      return
+    }
     return await client.flushall()
   } catch (e) {
     return console.error('Failed to flush cache', e)
