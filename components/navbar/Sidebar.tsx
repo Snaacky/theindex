@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Navbar.module.css'
@@ -23,12 +23,23 @@ import type { MenuLibrary } from '../../lib/db/publicData'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
-  const { data: swrLibraries } = useSWR<MenuLibrary[]>(show ? '/api/menu' : null, {
-    fallbackData: [],
+  const [shouldLoadMenu, setShouldLoadMenu] = useState(show)
+
+  useEffect(() => {
+    if (show) {
+      setShouldLoadMenu(true)
+    }
+  }, [show])
+
+  const { data: swrLibraries } = useSWR<MenuLibrary[]>(
+    shouldLoadMenu ? '/api/menu' : null,
+    {
     revalidateOnFocus: false,
     revalidateIfStale: false,
-  })
+    }
+  )
   const libraries = swrLibraries || []
+  const menuLoaded = shouldLoadMenu && typeof swrLibraries !== 'undefined'
 
   const clickFunc = () => setShow(!show)
 
@@ -83,7 +94,12 @@ function Sidebar({ show, setShow }, ref) {
           )}
 
           <ul className={'nav nav-pills flex-column'}>
-            {libraries.length === 0 && (
+            {show && shouldLoadMenu && !menuLoaded && (
+              <li className={'nav-item'}>
+                <span className='nav-link text-muted'>Loading libraries...</span>
+              </li>
+            )}
+            {menuLoaded && libraries.length === 0 && (
               <li className={'nav-item'}>
                 <Link href={'#'} className='nav-link'>
                   No libraries found
