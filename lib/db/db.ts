@@ -1,12 +1,10 @@
 // docker run --name index-db -d -p 27017:27017 mongo
 import { hasOwnProperty } from '../utils'
+import { normalizeEnvValue } from '../env'
 import { cleanId, polluteId } from './utils'
 import clientPromise from './mongoDB'
 
-const uri =
-  'DATABASE_URL' in process.env
-    ? process.env.DATABASE_URL
-    : 'mongodb://localhost'
+const uri = normalizeEnvValue(process.env.DATABASE_URL, 'mongodb://localhost')
 if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }

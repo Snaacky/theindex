@@ -1,10 +1,7 @@
 import { MongoClient } from 'mongodb'
+import { normalizeEnvValue } from '../env'
 
-const uri = (
-  'DATABASE_URL' in process.env
-    ? process.env.DATABASE_URL
-    : 'mongodb://localhost'
-) as string
+const uri = normalizeEnvValue(process.env.DATABASE_URL, 'mongodb://localhost') as string
 if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }

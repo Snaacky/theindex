@@ -2,11 +2,11 @@
 import Redis from 'ioredis'
 import * as process from 'process'
 import { Types } from '../../types/Components'
+import { normalizeEnvValue } from '../env'
 import { singularToPlural } from '../utils'
 import { findOneTyped, getAllTyped } from './dbTyped'
 
-const uri =
-  'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
+const uri = normalizeEnvValue(process.env.CACHE_URL, 'redis://localhost')
 if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }
@@ -28,21 +28,24 @@ async function ensureCacheConnection() {
     return false
   }
 
-  if (client.status === 'ready') {
+  let status = String(client.status)
+
+  if (status === 'connect' || status === 'ready') {
     return true
   }
 
-  if (client.status === 'wait' && !cacheConnectAttempted) {
+  if (String(client.status) === 'wait' && !cacheConnectAttempted) {
     cacheConnectAttempted = true
     try {
       await client.connect()
+      status = String(client.status)
     } catch (error) {
       cacheAvailable = false
       return false
     }
   }
 
-  return client.status === 'ready'
+  return status === 'connect' || status === 'ready'
 }
 
 /**
