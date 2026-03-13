@@ -18,33 +18,25 @@ import UrlBadge from '../../components/data/UrlBadge'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
-import { getAllCache, getSingleCache } from '../../lib/db/cache'
+import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
-import useSWR from 'swr'
 import type { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
-import { Collection } from '../../types/Collection'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import {
+  getCollectionsForItem,
+  getColumnsForItems,
+  getItemById,
+} from '../../lib/db/publicData'
 
-type Props = { item: Item; columns: Column[]; collections: Collection[] }
+type ItemCollection = Awaited<ReturnType<typeof getCollectionsForItem>>[number]
+
+type Props = { item: Item; columns: Column[]; collections: ItemCollection[] }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
-
-  const { data: swrItem } = useSWR('/api/item/' + item._id, {
-    fallbackData: item,
-  })
-  item = (swrItem as Item) || item
   item.stars = item.stars || 0
-  const { data: swrColumns } = useSWR('/api/columns', { fallbackData: columns })
-  columns = (swrColumns as Column[]) || columns
-  const { data: swrCollections } = useSWR('/api/collections', {
-    fallbackData: collections,
-  })
-  collections = ((swrCollections as Collection[]) || collections).filter((t) =>
-    t.items.includes(item._id)
-  )
   const {
     features: featuresColumns,
     pro: proColumns,
@@ -54,7 +46,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
   } = splitColumnsIntoTypes(
     Object.keys(item.data)
       .map((k) => columns.find((c) => c._id === k))
-      .filter((column) => typeof column !== 'undefined'),
+      .filter((column): column is Column => typeof column !== 'undefined'),
     item.data
   )
 
@@ -378,7 +370,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const item = (await getSingleCache(Types.item, params.id)) as Item
+  const item = await getItemById(params.id)
   if (!item) {
     return { notFound: true, revalidate: 60 }
   }
@@ -386,8 +378,8 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       item,
-      columns: await getAllCache(Types.column),
-      collections: await getAllCache(Types.collection),
+      columns: await getColumnsForItems([item]),
+      collections: await getCollectionsForItem(item._id),
     },
     revalidate: 60,
   }

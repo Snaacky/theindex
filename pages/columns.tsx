@@ -6,7 +6,6 @@ import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import useSWR from 'swr'
 import type { Column } from '../types/Column'
 
 const title = 'All columns on ' + process.env.NEXT_PUBLIC_SITE_NAME
@@ -18,11 +17,6 @@ type Props = {
 }
 
 const Columns: FC<Props> = ({ columns }) => {
-  const { data: swrColumns } = useSWR('/api/columns', {
-    fallbackData: columns,
-  })
-  columns = swrColumns || columns
-
   return (
     <>
       <Head>

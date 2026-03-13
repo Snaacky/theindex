@@ -5,7 +5,6 @@ import LibraryBoard from '../components/boards/LibraryBoard'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import useSWR from 'swr'
 import type { Library } from '../types/Library'
 
 const title = 'Libraries on ' + process.env.NEXT_PUBLIC_SITE_NAME
@@ -17,11 +16,6 @@ type Props = {
 }
 
 const Libraries: FC<Props> = ({ libraries }) => {
-  const { data: swrLibraries } = useSWR('/api/libraries', {
-    fallbackData: libraries,
-  })
-  libraries = swrLibraries || libraries
-
   return (
     <>
       <Head>

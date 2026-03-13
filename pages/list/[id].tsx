@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-import { canEdit, isAdmin, isCurrentUser } from '../../lib/session'
+import { canEdit, isCurrentUser } from '../../lib/session'
 import IconEdit from '../../components/icons/IconEdit'
 import ItemBoard from '../../components/boards/ItemBoard'
 import IconList from '../../components/icons/IconList'
@@ -9,14 +9,19 @@ import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconNSFW from '../../components/icons/IconNSFW'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
-import { getAllCache, getSingleCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
-import useSWR from 'swr'
 import type { List } from '../../types/List'
 import type { User } from '../../types/User'
 import type { Item } from '../../types/Item'
 import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import {
+  getAllListIds,
+  getColumnsForItems,
+  getItemsByIds,
+  getListById,
+  getUserByUid,
+} from '../../lib/db/publicData'
 
 type Props = {
   list: List
@@ -28,35 +33,9 @@ type Props = {
 const List: FC<Props> = ({ list, owner, allItems, columns }) => {
   const { data: session } = useSession()
 
-  const { data: swrList } = useSWR('/api/list/' + list._id, {
-    fallbackData: list,
-  })
-  list = (swrList as List) || list
-  const { data: swrOwner } = useSWR('/api/user/' + owner.uid, {
-    fallbackData: owner,
-  })
-  owner = (swrOwner as User) || owner
-  //let adminInfo
-  if (isAdmin(session)) {
-    //adminInfo = owner
-    if ('user' in owner) {
-      // @ts-ignore
-      owner = owner.user
-    }
-  }
-
-  const { data: swrItems } = useSWR('/api/items', {
-    fallbackData: allItems,
-  })
-  allItems = (swrItems as Item[]) || allItems
-  const { data: swrColumns } = useSWR('/api/columns', {
-    fallbackData: columns,
-  })
-  columns = (swrColumns as Column[]) || columns
-
   const items = (list.items || [])
     .map((itemId) => allItems.find((item) => item._id === itemId))
-    .filter((item) => typeof item !== 'undefined')
+    .filter((item): item is Item => typeof item !== 'undefined')
 
   const title = owner.name + "'s list " + list.name
   return (
@@ -118,6 +97,8 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
         canMove={true}
         updateURL={'/api/edit/list'}
         canEdit={isCurrentUser(session, list.owner)}
+        loadAllContentUrl={'/api/items'}
+        deferAllContentLoad={true}
       />
     </>
   )
@@ -125,20 +106,46 @@ const List: FC<Props> = ({ list, owner, allItems, columns }) => {
 
 export default List
 
-export async function getServerSideProps({ params }) {
-  const list = (await getSingleCache(Types.list, params.id)) as List
+export async function getStaticPaths() {
+  const lists = await getAllListIds()
+
+  return {
+    paths: lists.map((list) => ({
+      params: {
+        id: list._id,
+      },
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const list = await getListById(params.id)
   if (list === null) {
     return {
       notFound: true,
     }
   }
 
+  const [owner, allItems] = await Promise.all([
+    getUserByUid(list.owner),
+    getItemsByIds(list.items || []),
+  ])
+
+  if (owner === null) {
+    return {
+      notFound: true,
+      revalidate: 60,
+    }
+  }
+
   return {
     props: {
       list,
-      owner: await getSingleCache(Types.user, list.owner),
-      allItems: await getAllCache(Types.item),
-      columns: await getAllCache(Types.column),
+      owner,
+      allItems,
+      columns: await getColumnsForItems(allItems),
     },
+    revalidate: 60,
   }
 }

@@ -20,6 +20,8 @@ type Props = {
   canMove?: boolean
   canEdit?: boolean
   showSponsors?: boolean
+  loadAllContentUrl?: string
+  deferAllContentLoad?: boolean
 }
 
 const ItemBoard: FC<Props> = ({
@@ -34,6 +36,8 @@ const ItemBoard: FC<Props> = ({
   canMove = false,
   canEdit = false,
   showSponsors = false,
+  loadAllContentUrl = '',
+  deferAllContentLoad = false,
 }) => {
   items = items.filter((i) => typeof i !== 'undefined' && i !== null)
   const sponsoredItems = showSponsors ? items.filter((i) => i.sponsor) : []
@@ -52,6 +56,8 @@ const ItemBoard: FC<Props> = ({
       forceEditMode={forceEditMode}
       canMove={canMove}
       canEdit={canEdit}
+      loadAllContentUrl={loadAllContentUrl}
+      deferAllContentLoad={deferAllContentLoad}
     />
   )
 }

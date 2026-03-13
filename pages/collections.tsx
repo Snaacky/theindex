@@ -5,7 +5,6 @@ import CollectionBoard from '../components/boards/CollectionBoard'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import useSWR from 'swr'
 import type { Collection } from '../types/Collection'
 
 const title = 'Collections on ' + process.env.NEXT_PUBLIC_SITE_NAME
@@ -17,11 +16,6 @@ type Props = {
 }
 
 const Collections: FC<Props> = ({ collections }) => {
-  const { data: swrCollections } = useSWR('/api/collections', {
-    fallbackData: collections,
-  })
-  collections = swrCollections || collections
-
   return (
     <>
       <Head>

@@ -12,7 +12,11 @@ type Props = {
 }
 
 const OnlineStatus: FC<Props> = ({ item }) => {
-  let { data, error } = useSWR<StatusData>('/api/item/ping/' + item._id)
+  let { data, error } = useSWR<StatusData>('/api/item/ping/' + item._id, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    dedupingInterval: 60 * 1000,
+  })
 
   const [show, setShow] = useState(false)
 
@@ -43,7 +47,7 @@ const OnlineStatus: FC<Props> = ({ item }) => {
   style = styles.status + ' ' + style
   let time = 'never'
   if (data && data.time !== '0') {
-    time = new Date(parseInt(data.time) * 1000).toLocaleTimeString()
+    time = new Date(parseInt(data.time)).toLocaleTimeString()
   }
 
   return (

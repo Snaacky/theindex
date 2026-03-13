@@ -1,12 +1,11 @@
-import { getAllCache } from '../../lib/db/cache'
-import { Types } from '../../types/Components'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { setPublicApiCache } from '../../lib/api'
+import { getMenuData } from '../../lib/db/publicData'
 
-export default async function apiColumns(
+export default async function apiMenu(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   setPublicApiCache(res)
-  res.json(await getAllCache(Types.column))
+  res.json(await getMenuData())
 }

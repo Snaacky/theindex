@@ -12,17 +12,24 @@ import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
-import useSWR from 'swr'
 import type { Collection } from '../../types/Collection'
-import type { Library } from '../../types/Library'
 import type { Item } from '../../types/Item'
 import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { getByUrlIdTyped } from '../../lib/db/dbTyped'
+import {
+  getColumnsForItems,
+  getItemsByIds,
+  getLibrariesForCollection,
+} from '../../lib/db/publicData'
+
+type CollectionLibrary = Awaited<
+  ReturnType<typeof getLibrariesForCollection>
+>[number]
 
 type Props = {
   collection: Collection
-  libraries: Library[]
+  libraries: CollectionLibrary[]
   allItems: Item[]
   columns: Column[]
 }
@@ -34,30 +41,9 @@ const Collection: FC<Props> = ({
   columns,
 }) => {
   const { data: session } = useSession()
-
-  const { data: swrCollection } = useSWR('/api/collection/' + collection._id, {
-    fallbackData: collection,
-  })
-  collection = swrCollection || collection
-
-  const { data: swrItems } = useSWR('/api/items', {
-    fallbackData: allItems,
-  })
-  allItems = swrItems || allItems
   const items = collection.items
     .map((itemId) => allItems.find((item) => item._id === itemId))
-    .filter((item) => typeof item !== 'undefined')
-
-  const { data: swrLibraries } = useSWR('/api/libraries', {
-    fallbackData: libraries,
-  })
-  libraries = (swrLibraries || libraries).filter((library) =>
-    library.collections.some((t) => t === collection._id)
-  )
-  const { data: swrColumns } = useSWR('/api/columns', {
-    fallbackData: columns,
-  })
-  columns = swrColumns || columns
+    .filter((item): item is Item => typeof item !== 'undefined')
 
   return (
     <>
@@ -154,6 +140,8 @@ const Collection: FC<Props> = ({
         showSponsors={true}
         columns={columns}
         canEdit={canEdit(session)}
+        loadAllContentUrl={'/api/items'}
+        deferAllContentLoad={true}
       />
     </>
   )
@@ -189,12 +177,15 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const allItems = await getItemsByIds(collection.items)
+  const columns = await getColumnsForItems(allItems)
+
   return {
     props: {
       collection,
-      libraries: await getAllCache(Types.library),
-      allItems: await getAllCache(Types.item),
-      columns: await getAllCache(Types.column),
+      libraries: await getLibrariesForCollection(collection._id),
+      allItems,
+      columns,
     },
     revalidate: 60,
   }

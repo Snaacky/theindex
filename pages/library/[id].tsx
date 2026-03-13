@@ -13,13 +13,17 @@ import Meta from '../../components/layout/Meta'
 import React, { FC, useState } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
-import useSWR from 'swr'
 import ItemBoard from '../../components/boards/ItemBoard'
 import type { Collection } from '../../types/Collection'
 import type { Library } from '../../types/Library'
 import type { Item } from '../../types/Item'
 import type { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import {
+  getCollectionsByIds,
+  getColumnsForItems,
+  getItemsByIds,
+} from '../../lib/db/publicData'
 
 type Props = {
   library: Library
@@ -31,27 +35,7 @@ type Props = {
 const Library: FC<Props> = ({ library, collections, items, columns }) => {
   const { data: session } = useSession()
   const [showCollections, setShowCollections] = useState(false)
-
-  const { data: swrLibrary } = useSWR('/api/library/' + library._id)
-  library = (swrLibrary as Library) || library
-  const { data: swrCollections } = useSWR('/api/collections')
-  collections = (swrCollections as Collection[]) || collections
-  const libraryCollections = library.collections
-    .map((collectionId) =>
-      collections.find((collection) => collection._id === collectionId)
-    )
-    .filter((collection) => typeof collection !== 'undefined')
-  const collectionsItems = [].concat.apply(
-    [],
-    libraryCollections.map((collection) => collection.items)
-  )
-  const { data: swrItems } = useSWR('/api/items')
-  items = (swrItems as Item[]) || items
-  const hotFixLibraryItems = items.filter((i) =>
-    collectionsItems.some((item) => i._id === item)
-  )
-  const { data: swrColumns } = useSWR('/api/columns')
-  columns = (swrColumns as Column[]) || columns
+  const libraryCollections = collections
 
   return (
     <>
@@ -154,15 +138,19 @@ const Library: FC<Props> = ({ library, collections, items, columns }) => {
           collections={libraryCollections}
           allCollections={collections}
           canEdit={isEditor(session)}
+          loadAllContentUrl={'/api/collections'}
+          deferAllContentLoad={true}
         />
       ) : (
         <ItemBoard
           contentOf={library}
-          items={hotFixLibraryItems}
+          items={items}
           allItems={items}
           columns={columns}
           showSponsors={true}
           canEdit={isEditor(session)}
+          loadAllContentUrl={'/api/items'}
+          deferAllContentLoad={true}
         />
       )}
     </>
@@ -196,12 +184,16 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const collections = await getCollectionsByIds(library.collections)
+  const items = await getItemsByIds(collections.flatMap((collection) => collection.items))
+  const columns = await getColumnsForItems(items)
+
   return {
     props: {
       library,
-      collections: await getAllCache(Types.collection),
-      items: await getAllCache(Types.item),
-      columns: await getAllCache(Types.column),
+      collections,
+      items,
+      columns,
     },
     revalidate: 60,
   }

@@ -9,58 +9,35 @@ import ListBoard from '../../components/boards/ListBoard'
 import ItemBoard from '../../components/boards/ItemBoard'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
-import useSWR from 'swr'
-import { getAllCache, getSingleCache } from '../../lib/db/cache'
-import { Types } from '../../types/Components'
 import type { User } from '../../types/User'
 import type { List } from '../../types/List'
 import type { Item } from '../../types/Item'
 import type { Column } from '../../types/Column'
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 import AccountTypeBadge from '../../components/badge/AccountTypeBadge'
+import {
+  getAllUserIds,
+  getColumnsForItems,
+  getFollowedListsForUser,
+  getItemsByIds,
+  getListsForUser,
+  getUserByUid,
+} from '../../lib/db/publicData'
 
 type Props = {
   user: User
   lists: List[]
+  followLists: List[]
   items: Item[]
   columns: Column[]
 }
 
-const User: FC<Props> = ({ user, lists, items, columns }) => {
+const User: FC<Props> = ({ user, lists, followLists, items, columns }) => {
   const { data: session } = useSession()
 
-  const { data: swrUser } = useSWR('/api/user/' + user.uid, {
-    fallbackData: user,
-  })
-  user = (swrUser as User) || user
-  let adminInfo
-  if (isAdmin(session)) {
-    adminInfo = user
-    if ('user' in user) {
-      // @ts-ignore
-      user = user.user
-    }
-  }
-
-  const { data: swrColumn } = useSWR('/api/columns', {
-    fallbackData: columns,
-  })
-  columns = (swrColumn as Column[]) || columns
-  const { data: swrItem } = useSWR('/api/items', {
-    fallbackData: items,
-  })
-  items = (swrItem as Item[]) || items
   const userFav = user.favs
     .map((itemId) => items.find((item) => item._id === itemId))
-    .filter((item) => typeof item !== 'undefined')
-  const { data: swrLists } = useSWR('/api/lists', {
-    fallbackData: lists,
-  })
-  lists = (swrLists as List[]) || lists
-  const userLists = lists.filter((list) => list.owner === user.uid)
-  const followLists = ((swrLists as List[]) || lists).filter((list) =>
-    user.followLists.includes(list._id)
-  )
+    .filter((item): item is Item => typeof item !== 'undefined')
 
   return (
     <>
@@ -134,7 +111,12 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
       {isAdmin(session) && (
         <button
           className={'mt-3 btn btn-warning'}
-          onClick={() => console.log('User data', adminInfo)}
+          onClick={async () => {
+            console.log(
+              'User data',
+              await fetch('/api/user/' + user.uid).then((res) => res.json())
+            )
+          }}
         >
           Print user infos to console
         </button>
@@ -177,8 +159,8 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
       {lists.length > 0 || isCurrentUser(session, user.uid) ? (
         <ListBoard
           contentOf={user}
-          lists={userLists}
-          allLists={userLists}
+          lists={lists}
+          allLists={lists}
           canEdit={isCurrentUser(session, user.uid) || isAdmin(session)}
           updateURL={'/api/edit/user'}
         />
@@ -203,7 +185,7 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
         <ListBoard
           contentOf={user}
           lists={followLists}
-          allLists={lists}
+          allLists={followLists}
           updateURL={'/api/edit/user'}
         />
       ) : (
@@ -215,8 +197,21 @@ const User: FC<Props> = ({ user, lists, items, columns }) => {
 
 export default User
 
-export async function getServerSideProps({ params }) {
-  const user = (await getSingleCache(Types.user, params.id)) as User
+export async function getStaticPaths() {
+  const users = await getAllUserIds()
+
+  return {
+    paths: users.map((user) => ({
+      params: {
+        id: user.uid,
+      },
+    })),
+    fallback: 'blocking',
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const user = await getUserByUid(params.id)
 
   if (!user) {
     return {
@@ -224,12 +219,20 @@ export async function getServerSideProps({ params }) {
     }
   }
 
+  const [lists, followLists, items] = await Promise.all([
+    getListsForUser(user.uid),
+    getFollowedListsForUser(user),
+    getItemsByIds(user.favs || []),
+  ])
+
   return {
     props: {
       user,
-      lists: await getAllCache(Types.list),
-      items: await getAllCache(Types.item),
-      columns: await getAllCache(Types.column),
+      lists,
+      followLists,
+      items,
+      columns: await getColumnsForItems(items),
     },
+    revalidate: 60,
   }
 }

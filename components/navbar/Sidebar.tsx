@@ -19,15 +19,16 @@ import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
+import type { MenuLibrary } from '../../lib/db/publicData'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
-  const { data: swrLibraries } = useSWR('/api/libraries', { fallbackData: [] })
-  const { data: swrCollections } = useSWR('/api/collections', {
+  const { data: swrLibraries } = useSWR<MenuLibrary[]>(show ? '/api/menu' : null, {
     fallbackData: [],
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
   })
   const libraries = swrLibraries || []
-  const allCollections = swrCollections || []
 
   const clickFunc = () => setShow(!show)
 
@@ -107,24 +108,18 @@ function Sidebar({ show, setShow }, ref) {
                         </Link>,
                       ]
                     : collections.map((collection) => {
-                        collection = allCollections.find(
-                          (c) => c._id === collection
+                        return (
+                          <Link
+                            href={'/collection/' + collection.urlId}
+                            key={collection.urlId}
+                            className={
+                              'nav-link umami--click--collection-' +
+                              collection.name
+                            }
+                          >
+                            {collection.name}
+                          </Link>
                         )
-                        if (collection) {
-                          return (
-                            <Link
-                              href={'/collection/' + collection.urlId}
-                              key={collection.urlId}
-                              className={
-                                'nav-link umami--click--collection-' +
-                                collection.name
-                              }
-                            >
-                              {collection.name}
-                            </Link>
-                          )
-                        }
-                        return <></>
                       })
                 }
                 onClick={() => clickFunc()}

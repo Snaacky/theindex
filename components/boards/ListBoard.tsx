@@ -18,6 +18,8 @@ type Props = {
   forceEditMode?: boolean
   canMove?: boolean
   canEdit?: boolean
+  loadAllContentUrl?: string
+  deferAllContentLoad?: boolean
 }
 
 const ListBoard: FC<Props> = ({
@@ -30,6 +32,8 @@ const ListBoard: FC<Props> = ({
   forceEditMode = false,
   canMove = false,
   canEdit = false,
+  loadAllContentUrl = '',
+  deferAllContentLoad = false,
 }) => {
   return (
     <Board
@@ -43,6 +47,8 @@ const ListBoard: FC<Props> = ({
       forceEditMode={forceEditMode}
       canMove={canMove}
       canEdit={canEdit}
+      loadAllContentUrl={loadAllContentUrl}
+      deferAllContentLoad={deferAllContentLoad}
     />
   )
 }

@@ -40,6 +40,8 @@ type Props = {
   forceEditMode?: boolean
   canMove?: boolean
   canEdit?: boolean
+  loadAllContentUrl?: string
+  deferAllContentLoad?: boolean
 }
 
 const Board: FC<Props> = ({
@@ -55,6 +57,8 @@ const Board: FC<Props> = ({
   forceEditMode = false,
   canMove = true,
   canEdit: allowEdit = false,
+  loadAllContentUrl = '',
+  deferAllContentLoad = false,
 }) => {
   if (!allContent && !content) {
     console.warn(
@@ -64,10 +68,15 @@ const Board: FC<Props> = ({
       allContent
     )
   }
-  allContent = allContent || content || []
+  const initialAllContent =
+    deferAllContentLoad && loadAllContentUrl !== ''
+      ? content || []
+      : allContent || content || []
   const [_content, setContent] = useState(content)
+  const [loadedAllContent, setLoadedAllContent] = useState(initialAllContent)
+  const [loadingAllContent, setLoadingAllContent] = useState(false)
   const [unselectedContent, setUnselectedContent] = useState(
-    (allContent as Item[]).filter(
+    (initialAllContent as Item[]).filter(
       (i) => !content.some((ii) => i._id === ii._id)
     )
   )
@@ -123,19 +132,68 @@ const Board: FC<Props> = ({
 
   useEffect(() => {
     setUnselectedContent(
-      (allContent as Item[]).filter(
+      (loadedAllContent as Item[]).filter(
         (c) => !_content.some((cc) => cc._id === c._id)
       )
     )
-  }, [_content, allContent])
+  }, [_content, loadedAllContent])
   useEffect(() => {
     setContent(content)
   }, [content])
+  useEffect(() => {
+    if (deferAllContentLoad && loadAllContentUrl !== '') {
+      return
+    }
+
+    setLoadedAllContent(allContent || content || [])
+  }, [allContent, content, deferAllContentLoad, loadAllContentUrl])
 
   const randString = Math.random().toString(36).slice(2)
 
   const sortContent = (newContent) => {
     return newContent.sort(sortOption.sort)
+  }
+
+  const ensureAllContentLoaded = async () => {
+    if (
+      !deferAllContentLoad ||
+      loadAllContentUrl === '' ||
+      loadingAllContent ||
+      loadedAllContent.length > _content.length
+    ) {
+      return true
+    }
+
+    setLoadingAllContent(true)
+    const toastId = toast.loading('Loading edit data...')
+
+    try {
+      const response = await fetch(loadAllContentUrl)
+      if (response.status !== 200) {
+        throw new Error('Failed to load edit data')
+      }
+
+      const fullContent = await response.json()
+      setLoadedAllContent(fullContent)
+      toast.update(toastId, {
+        render: 'Edit data loaded',
+        type: 'success',
+        isLoading: false,
+        autoClose: 1000,
+      })
+      return true
+    } catch (error) {
+      console.error('Failed to load full board content', error)
+      toast.update(toastId, {
+        render: 'Failed to load edit data',
+        type: 'error',
+        isLoading: false,
+        autoClose: 1500,
+      })
+      return false
+    } finally {
+      setLoadingAllContent(false)
+    }
   }
 
   const updateContent = (newContent, newUnselectedContent) => {
@@ -417,7 +475,14 @@ const Board: FC<Props> = ({
             <button
               className={'btn btn-outline-warning mb-2'}
               type={'button'}
-              onClick={() => {
+              onClick={async () => {
+                if (!editMode) {
+                  const ready = await ensureAllContentLoaded()
+                  if (!ready) {
+                    return
+                  }
+                }
+
                 if (
                   editMode &&
                   startViewIndex >=

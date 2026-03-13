@@ -12,14 +12,16 @@ import ViewAllButton from '../../components/buttons/ViewAllButton'
 import IconColumn from '../../components/icons/IconColumn'
 import IconNSFW from '../../components/icons/IconNSFW'
 import Meta from '../../components/layout/Meta'
-import { getAllCache } from '../../lib/db/cache'
-import useSWR from 'swr'
 import { Types } from '../../types/Components'
 import { type Column, ColumnType } from '../../types/Column'
 import type { Item } from '../../types/Item'
 import DeleteButton from '../../components/buttons/DeleteButton'
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter'
 import { getByUrlIdTyped } from '../../lib/db/dbTyped'
+import {
+  getColumnsForItems,
+  getItemsForColumn,
+} from '../../lib/db/publicData'
 
 type Props = {
   column: Column
@@ -30,13 +32,6 @@ type Props = {
 const Column: FC<Props> = ({ column, columns, items }) => {
   const { data: session } = useSession()
   const [filter, setFilter] = useState<string | string[]>('')
-
-  const { data: swrColumn } = useSWR('/api/column/' + column._id)
-  column = swrColumn || column
-  const { data: swrColumns } = useSWR('/api/columns')
-  columns = swrColumns || columns
-  const { data: swrItems } = useSWR('/api/items')
-  items = swrItems || items
 
   const filteredItems = items.filter((i) => {
     if (filter === '') {
@@ -170,11 +165,13 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  const items = await getItemsForColumn(column._id)
+
   return {
     props: {
       column,
-      columns: await getAllCache(Types.column),
-      items: await getAllCache(Types.item),
+      items,
+      columns: await getColumnsForItems(items),
     },
     revalidate: 60,
   }

@@ -5,7 +5,6 @@ import IconList from '../components/icons/IconList'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import useSWR from 'swr'
 import type { List } from '../types/List'
 
 const title = 'All user lists on ' + process.env.NEXT_PUBLIC_SITE_NAME
@@ -17,11 +16,6 @@ type Props = {
 }
 
 const Lists: FC<Props> = ({ lists }) => {
-  const { data: swrLists } = useSWR('/api/lists', {
-    fallbackData: lists,
-  })
-  lists = swrLists || lists
-
   return (
     <>
       <Head>

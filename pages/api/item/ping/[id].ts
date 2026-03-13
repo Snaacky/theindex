@@ -4,11 +4,16 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusData } from '../../../../types/OnlineStatus'
 import { Item } from '../../../../types/Item'
 import fetch, { Response } from 'node-fetch'
+import { setPublicApiCache } from '../../../../lib/api'
+
+const PING_TTL_MS = 10 * 60 * 1000
+const inFlightUpdates = new Set<string>()
 
 export default async function apiItemPing(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  setPublicApiCache(res, 60, 600)
   const data = (await getCache(
     Types.item + '_ping-' + req.query.id
   )) as StatusData | null
@@ -38,28 +43,35 @@ export default async function apiItemPing(
       }
 
       // no await as this should be processed in the background
-      triggerPingUpdate(req.query.id as string)
+      void triggerPingUpdate(req.query.id as string)
     }
 
     return res.status(200).json(status)
-  } else if (Date.now() - parseInt(data.time) > 300) {
+  } else if (Date.now() - parseInt(data.time) > PING_TTL_MS) {
     // no await as this should be processed in the background
-    triggerPingUpdate(req.query.id as string)
+    void triggerPingUpdate(req.query.id as string)
   }
 
   res.json(data)
 }
 
 async function triggerPingUpdate(itemId: string) {
+  if (inFlightUpdates.has(itemId)) {
+    return
+  }
+
+  inFlightUpdates.add(itemId)
   const item = (await getSingleCache(Types.item, itemId)) as Item | null
 
   if (item === null) {
+    inFlightUpdates.delete(itemId)
     return console.error(
       'Called triggerPingUpdate of',
       itemId,
       'but no item could be found'
     )
   } else if (!Array.isArray(item.urls) || item.urls.length === 0) {
+    inFlightUpdates.delete(itemId)
     return console.error(
       'Called triggerPingUpdate of',
       itemId,
@@ -112,5 +124,7 @@ async function triggerPingUpdate(itemId: string) {
         e
       )
     }
+  } finally {
+    inFlightUpdates.delete(itemId)
   }
 }
