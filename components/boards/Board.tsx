@@ -26,6 +26,54 @@ import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge'
 import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand'
 import { faCompress } from '@fortawesome/free-solid-svg-icons/faCompress'
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
+import { useRouter } from 'next/router'
+
+type PersistedBoardState = {
+  startViewIndex: number
+  pageSize: number
+  editStartViewIndex: number
+  editPageSize: number
+}
+
+const boardStateCache = new Map<string, PersistedBoardState>()
+
+const defaultBoardState: PersistedBoardState = {
+  startViewIndex: 0,
+  pageSize: 15,
+  editStartViewIndex: 0,
+  editPageSize: 15,
+}
+
+function getBoardContentKey(
+  contentOf: User | Item | List | Collection | Column | Library | null
+) {
+  if (contentOf === null) {
+    return 'root'
+  }
+
+  if ('uid' in contentOf && typeof contentOf.uid === 'string') {
+    return contentOf.uid
+  }
+
+  if ('_id' in contentOf && typeof contentOf._id === 'string') {
+    return contentOf._id
+  }
+
+  return 'root'
+}
+
+function clampPageStart(
+  startIndex: number,
+  pageSize: number,
+  contentLength: number
+) {
+  if (pageSize === 0 || contentLength <= 0) {
+    return 0
+  }
+
+  const maxStartIndex = Math.floor((contentLength - 1) / pageSize) * pageSize
+  return Math.max(0, Math.min(startIndex, maxStartIndex))
+}
 
 type Props = {
   contentOf: User | Item | List | Collection | Column | Library | null
@@ -60,6 +108,16 @@ const Board: FC<Props> = ({
   loadAllContentUrl = '',
   deferAllContentLoad = false,
 }) => {
+  const router = useRouter()
+  const boardStateKey =
+    router.asPath +
+    '::' +
+    type +
+    '::' +
+    getBoardContentKey(contentOf)
+  const persistedState =
+    boardStateCache.get(boardStateKey) ?? defaultBoardState
+
   if (!allContent && !content) {
     console.warn(
       'Board has nothing to use as allContent... content',
@@ -89,12 +147,16 @@ const Board: FC<Props> = ({
   const [showFilter, setShowFilter] = useState(false)
   const [columnFilter, setColumnFilter] = useState({})
 
-  const [startViewIndex, setStartViewIndex] = useState(0)
+  const [startViewIndex, setStartViewIndex] = useState(
+    persistedState.startViewIndex
+  )
   const pageSizes = [15, 30, 60, 0]
-  const [pageSize, setPageSize] = useState(pageSizes[0])
+  const [pageSize, setPageSize] = useState(persistedState.pageSize)
 
-  const [editStartViewIndex, setEditStartViewIndex] = useState(0)
-  const [editPageSize, setEditPageSize] = useState(pageSizes[0])
+  const [editStartViewIndex, setEditStartViewIndex] = useState(
+    persistedState.editStartViewIndex
+  )
+  const [editPageSize, setEditPageSize] = useState(persistedState.editPageSize)
   const sortOptions = [
     {
       name: 'asc',
@@ -147,6 +209,13 @@ const Board: FC<Props> = ({
 
     setLoadedAllContent(allContent || content || [])
   }, [allContent, content, deferAllContentLoad, loadAllContentUrl])
+  useEffect(() => {
+    const cachedState = boardStateCache.get(boardStateKey) ?? defaultBoardState
+    setStartViewIndex(cachedState.startViewIndex)
+    setPageSize(cachedState.pageSize)
+    setEditStartViewIndex(cachedState.editStartViewIndex)
+    setEditPageSize(cachedState.editPageSize)
+  }, [boardStateKey])
 
   const randString = Math.random().toString(36).slice(2)
 
@@ -393,6 +462,47 @@ const Board: FC<Props> = ({
       editPageSize === 0 ||
       (index >= editStartViewIndex && index < editStartViewIndex + editPageSize)
   )
+
+  useEffect(() => {
+    const nextStartViewIndex = clampPageStart(
+      startViewIndex,
+      pageSize,
+      filteredContent.length
+    )
+    if (nextStartViewIndex !== startViewIndex) {
+      setStartViewIndex(nextStartViewIndex)
+    }
+  }, [filteredContent.length, pageSize, startViewIndex])
+
+  useEffect(() => {
+    const nextEditStartViewIndex = clampPageStart(
+      editStartViewIndex,
+      editPageSize,
+      filteredUnselectedContent.length
+    )
+    if (nextEditStartViewIndex !== editStartViewIndex) {
+      setEditStartViewIndex(nextEditStartViewIndex)
+    }
+  }, [
+    editPageSize,
+    editStartViewIndex,
+    filteredUnselectedContent.length,
+  ])
+
+  useEffect(() => {
+    boardStateCache.set(boardStateKey, {
+      startViewIndex,
+      pageSize,
+      editStartViewIndex,
+      editPageSize,
+    })
+  }, [
+    boardStateKey,
+    editPageSize,
+    editStartViewIndex,
+    pageSize,
+    startViewIndex,
+  ])
 
   return (
     <>

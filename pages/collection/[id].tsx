@@ -173,7 +173,7 @@ export async function getStaticProps({ params }) {
   if (!collection) {
     return {
       notFound: true,
-      revalidate: 60,
+      revalidate: 600,
     }
   }
 
@@ -187,6 +187,6 @@ export async function getStaticProps({ params }) {
       allItems,
       columns,
     },
-    revalidate: 60,
+    revalidate: 600,
   }
 }

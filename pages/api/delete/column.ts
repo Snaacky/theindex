@@ -13,13 +13,12 @@ export default async function apiDeleteColumn(
     if (d._id !== '') {
       await deleteColumn(d._id)
 
-      res.status(200).send('Deleted')
+      return res.status(200).send('Deleted')
     } else {
-      res.status(400).send('Missing _id')
+      return res.status(400).send('Missing _id')
     }
   } else {
     // Not Signed in
-    res.status(401).send('Not logged in or edits are not permitted')
+    return res.status(401).send('Not logged in or edits are not permitted')
   }
-  res.end()
 }

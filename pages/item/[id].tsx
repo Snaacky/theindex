@@ -346,7 +346,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const item = await getItemById(params.id)
   if (!item) {
-    return { notFound: true, revalidate: 60 }
+    return { notFound: true, revalidate: 600 }
   }
 
   return {
@@ -355,6 +355,6 @@ export async function getStaticProps({ params }) {
       columns: await getColumnsForItems([item]),
       collections: await getCollectionsForItem(item._id),
     },
-    revalidate: 60,
+    revalidate: 600,
   }
 }

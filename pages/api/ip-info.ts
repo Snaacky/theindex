@@ -22,5 +22,4 @@ export default async function ipInfo(
     ip,
     geo,
   })
-  res.end()
 }

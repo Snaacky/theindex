@@ -57,6 +57,6 @@ export async function getStaticProps() {
     props: {
       columns: await getAllCache(Types.column),
     },
-    revalidate: 60,
+    revalidate: 600,
   }
 }

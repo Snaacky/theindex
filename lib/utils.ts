@@ -19,19 +19,24 @@ export function postData(
 ) {
   console.log('Posting data to', url, process.env)
   const toastId = toast.loading('Saving changes...')
-  fetch(url, {
+  void fetch(url, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(object),
-  }).then(async (r) => {
-    if (![200, 201, 202, 204].includes(r.status)) {
-      toast.update(toastId, {
-        render: 'Failed to save changes',
-        type: 'error',
-        isLoading: false,
-        autoClose: 1000,
-      })
-    } else {
+  })
+    .then(async (r) => {
+      if (![200, 201, 202, 204].includes(r.status)) {
+        const errorText = await r.text().catch(() => '')
+        console.error('Failed POST request', url, r.status, errorText)
+        toast.update(toastId, {
+          render: 'Failed to save changes',
+          type: 'error',
+          isLoading: false,
+          autoClose: 1000,
+        })
+        return
+      }
+
       toast.update(toastId, {
         render: 'Saved changes',
         type: 'success',
@@ -42,8 +47,16 @@ export function postData(
       if (typeof onSuccess === 'function') {
         onSuccess(await r.text())
       }
-    }
-  })
+    })
+    .catch((error) => {
+      console.error('POST request failed', url, error)
+      toast.update(toastId, {
+        render: 'Failed to save changes',
+        type: 'error',
+        isLoading: false,
+        autoClose: 1000,
+      })
+    })
 }
 
 export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
