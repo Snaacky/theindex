@@ -12,6 +12,7 @@ import { ColumnType } from '../../types/Column'
 import { Types } from '../../types/Components'
 import { Item } from '../../types/Item'
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
+import { isHiddenItemColumn } from '../../lib/item'
 
 type Props = {
   items: Item[]
@@ -53,10 +54,16 @@ const EditItem: FC<Props> = ({
   const [sponsorState, setSponsor] = useState(sponsor || false)
 
   const [columnsState, setColumns] = useState(
-    columns.sort((a, b) => (a.name < b.name ? -1 : 1))
+    columns
+      .filter((column) => !isHiddenItemColumn(column))
+      .sort((a, b) => (a.name < b.name ? -1 : 1))
   )
   useEffect(() => {
-    setColumns(columns.sort((a, b) => (a.name < b.name ? -1 : 1)))
+    setColumns(
+      columns
+        .filter((column) => !isHiddenItemColumn(column))
+        .sort((a, b) => (a.name < b.name ? -1 : 1))
+    )
   }, [columns])
   useEffect(() => {
     setItemsDatalist(items.map((t) => t.name))
