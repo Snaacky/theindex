@@ -6,6 +6,11 @@ import { getLanguages } from '../../lib/utils'
 import Input from './Input'
 import Button from '../buttons/Button'
 
+const badgeButtonStyle = {
+  backgroundColor: 'transparent',
+  borderStyle: 'none',
+}
+
 type Props = {
   data: string[]
   column: Column
@@ -93,6 +98,7 @@ const LanguageValue: FC<Props> = ({
             <button
               data-tooltip-content={'Language: ' + lang.name}
               className={'me-2'}
+              style={badgeButtonStyle}
               key={lang.iso6393}
               onClick={() => {
                 if (data.includes(lang.iso6393)) {

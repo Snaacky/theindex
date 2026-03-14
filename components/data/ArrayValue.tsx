@@ -3,6 +3,11 @@ import DataBadge from './DataBadge'
 import { Column, ColumnType } from '../../types/Column'
 import { FC } from 'react'
 
+const badgeButtonStyle = {
+  backgroundColor: 'transparent',
+  borderStyle: 'none',
+}
+
 type Props = {
   data: string[]
   column: Column
@@ -39,6 +44,7 @@ const ArrayValue: FC<Props> = ({ data, column, onChange }) => {
           <button
             data-tooltip-content={v}
             className={'me-2'}
+            style={badgeButtonStyle}
             key={v}
             onClick={() => {
               if (data.includes(v)) {
