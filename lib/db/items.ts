@@ -57,11 +57,13 @@ export async function addItem(
   await updateAllCache(Types.item)
 
   if (user) {
-    await postItemUpdate(
+    void postItemUpdate(
       user,
       null,
       (await getSingleCache(Types.item, newId)) as Item
-    )
+    ).catch((error) => {
+      console.error('Failed to post item creation audit event', error)
+    })
   }
   return newId
 }
@@ -103,11 +105,13 @@ export async function updateItem(
   await updateOne('items', { _id }, _data)
   await updateSingleCache(Types.item, _id)
   if (user) {
-    await postItemUpdate(
+    void postItemUpdate(
       user,
       oldItem,
       (await getSingleCache(Types.item, _id)) as Item
-    )
+    ).catch((error) => {
+      console.error('Failed to post item update audit event', error)
+    })
   }
 }
 
@@ -168,6 +172,8 @@ export async function deleteItem(_id: string, user?: User) {
   await updateAllCache(Types.item)
 
   if (user) {
-    await postItemUpdate(user, oldItem, null)
+    void postItemUpdate(user, oldItem, null).catch((error) => {
+      console.error('Failed to post item deletion audit event', error)
+    })
   }
 }
