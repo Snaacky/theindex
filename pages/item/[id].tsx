@@ -14,13 +14,13 @@ import IconSponsor from '../../components/icons/IconSponsor'
 import UrlBadge from '../../components/data/UrlBadge'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
-import React, { FC } from 'react'
-import { useRouter } from 'next/router'
+import React, { FC, useEffect, useState } from 'react'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import type { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
+import { getItemReturnPath } from '../../lib/itemNavigation'
 import {
   getCollectionsForItem,
   getColumnsForItems,
@@ -33,11 +33,14 @@ type Props = { item: Item; columns: Column[]; collections: ItemCollection[] }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
-  const router = useRouter()
-  const returnPath =
-    typeof router.query.from === 'string' && router.query.from.startsWith('/')
-      ? router.query.from
-      : '/items'
+  const [returnPath, setReturnPath] = useState('/items')
+
+  useEffect(() => {
+    const storedReturnPath = getItemReturnPath(item._id)
+    if (typeof storedReturnPath === 'string' && storedReturnPath.startsWith('/')) {
+      setReturnPath(storedReturnPath)
+    }
+  }, [item._id])
   const {
     features: featuresColumns,
     pro: proColumns,

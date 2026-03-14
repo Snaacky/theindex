@@ -25,6 +25,7 @@ import { FC } from 'react'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
 import { useRouter } from 'next/router'
+import { setItemReturnPath } from '../../lib/itemNavigation'
 
 type Props = {
   type: Types
@@ -57,12 +58,12 @@ const Card: FC<Props> = ({
         ? content.uid
         : content._id)
   const href =
-    type === Types.item
-      ? {
-          pathname: hrefString,
-          query: { from: router.asPath },
-        }
-      : hrefString
+    type === Types.item ? hrefString : hrefString
+  const rememberItemOrigin = () => {
+    if (type === Types.item) {
+      setItemReturnPath((content as Item)._id, router.asPath)
+    }
+  }
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -85,6 +86,7 @@ const Card: FC<Props> = ({
           <div className={'col-auto'}>
             <Link
               href={href}
+              onClick={rememberItemOrigin}
               data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
               className={'umami--click--' + type + '-' + content.name}
             >
@@ -164,6 +166,7 @@ const Card: FC<Props> = ({
 
             <Link
               href={href}
+              onClick={rememberItemOrigin}
               className={classNames(
                 styles.link,
                 'umami--click--' + type + '-' + content.name,
