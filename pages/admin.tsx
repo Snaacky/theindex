@@ -4,23 +4,24 @@ import { postData } from '../lib/utils'
 import { useSession } from 'next-auth/react'
 import type { Column } from '../types/Column'
 import type { Item } from '../types/Item'
+import type { Collection } from '../types/Collection'
+import type { Library } from '../types/Library'
 import ItemBoard from '../components/boards/ItemBoard'
-import { screenshotExists } from '../lib/db/itemScreenshots'
+import { listAllScreenshotFilenames } from '../lib/db/itemScreenshots'
 import DataBadge from '../components/data/DataBadge'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import { getLastViews } from '../lib/db/views'
 
 const Admin = ({
   columns,
   itemsWithNoScreenshots,
+  orphanedItems,
   items,
-  popular,
 }: {
   columns: Column[]
   itemsWithNoScreenshots: Item[]
+  orphanedItems: Item[]
   items: Item[]
-  popular: Item[]
 }) => {
   const { data: session } = useSession()
   const itemsWithNoUrl = items.filter((item) => item.urls.length === 0)
@@ -130,15 +131,20 @@ const Admin = ({
         columns={columns}
       />
 
-      <h4>Items with the most current views in the last 10k item views</h4>
-      <div>
-        {popular.map((item, i) => (
-          <div key={i + '_' + item.name}>
-            {item.name} <DataBadge name={'#' + i} />
-            <div>{item.views} Views</div>
-          </div>
-        ))}
-      </div>
+      <h4>
+        <DataBadge name={'' + orphanedItems.length} />
+        Items not in a collection or library
+      </h4>
+      <p className={'text-muted'}>
+        Includes items with no collection at all, or items that are only in
+        collections that are not attached to any library.
+      </p>
+      <ItemBoard
+        contentOf={null}
+        items={orphanedItems}
+        allItems={orphanedItems}
+        columns={columns}
+      />
     </>
   )
 }
@@ -151,22 +157,35 @@ export default Admin
 
 export async function getServerSideProps() {
   const items = (await getAllCache(Types.item)) as Item[]
-  let popular = (await getLastViews(Types.item, 10000)) as Item[]
+  const collections = (await getAllCache(Types.collection)) as Collection[]
+  const libraries = (await getAllCache(Types.library)) as Library[]
+  const screenshotFilenames = new Set(await listAllScreenshotFilenames())
+  const libraryCollectionIds = new Set(
+    libraries.flatMap((library) => library.collections || [])
+  )
+  const orphanedItems = items.filter((item) => {
+    const itemCollections = collections.filter((collection) =>
+      (collection.items || []).includes(item._id)
+    )
 
-  const missingScreenshots = await Promise.all(
-    items.map(async (item) => {
-      if (!(await screenshotExists(item._id))) {
-        return item
-      }
-      return null
-    })
+    if (itemCollections.length === 0) {
+      return true
+    }
+
+    return !itemCollections.some((collection) =>
+      libraryCollectionIds.has(collection._id)
+    )
+  })
+
+  const missingScreenshots = items.filter(
+    (item) => !screenshotFilenames.has(item._id)
   )
   return {
     props: {
       columns: await getAllCache(Types.column),
-      itemsWithNoScreenshots: missingScreenshots.filter((s) => s !== null),
+      itemsWithNoScreenshots: missingScreenshots,
+      orphanedItems,
       items: items,
-      popular: popular,
     },
   }
 }

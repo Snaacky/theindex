@@ -98,3 +98,18 @@ export async function listScreenshotsOfItem(itemId: string) {
   })
   return bucket.find({ filename: itemId })
 }
+
+export async function listAllScreenshotFilenames() {
+  const db = (await clientPromise).db('index')
+  const bucket = new GridFSBucket(db, {
+    bucketName: 'itemScreenshots',
+  })
+  const files = await bucket.find({}, { projection: { filename: 1 } }).toArray()
+  return Array.from(
+    new Set(
+      files
+        .map((file) => file.filename)
+        .filter((filename): filename is string => typeof filename === 'string')
+    )
+  )
+}
