@@ -20,7 +20,7 @@ import { Types } from '../../types/Components'
 import type { Item } from '../../types/Item'
 import { Column } from '../../types/Column'
 import DeleteButton from '../../components/buttons/DeleteButton'
-import { getItemReturnPath } from '../../lib/itemNavigation'
+import { getItemReturnPath, getLastInternalPath } from '../../lib/itemNavigation'
 import {
   getCollectionsForItem,
   getColumnsForItems,
@@ -36,7 +36,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
   const [returnPath, setReturnPath] = useState('/items')
 
   useEffect(() => {
-    const storedReturnPath = getItemReturnPath(item._id)
+    const storedReturnPath = getItemReturnPath(item._id) || getLastInternalPath()
     if (typeof storedReturnPath === 'string' && storedReturnPath.startsWith('/')) {
       setReturnPath(storedReturnPath)
     }

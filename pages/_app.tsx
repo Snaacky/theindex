@@ -14,6 +14,9 @@ import NotAdmin from '../components/layout/NotAdmin'
 import NotLogin from '../components/layout/NotLogin'
 import NoScriptAlert from '../components/alerts/NoScriptAlert'
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { setLastInternalPath } from '../lib/itemNavigation'
 
 // disable autoconfig css of fontawesome, see: https://fontawesome.com/docs/web/use-with/react/use-with
 config.autoAddCss = false
@@ -22,6 +25,21 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChangeStart = (nextUrl: string) => {
+      if (typeof nextUrl === 'string' && nextUrl.startsWith('/')) {
+        setLastInternalPath(router.asPath)
+      }
+    }
+
+    router.events.on('routeChangeStart', handleRouteChangeStart)
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart)
+    }
+  }, [router])
+
   return (
     <SWRConfig
       value={{

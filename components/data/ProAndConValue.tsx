@@ -30,7 +30,7 @@ const ProAndConValue: FC<Props> = ({
         <Link
           href={'/column/' + column.urlId}
           data-tooltip-content={'View column ' + column.name}
-          className={'me-2'}
+          className={'me-1'}
         >
           <DataBadge data={data} name={displayData} sponsor={sponsor} />
         </Link>

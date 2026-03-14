@@ -52,7 +52,7 @@ const LanguageValue: FC<Props> = ({
             <Link
               href={'/column/' + column.urlId + '?v=' + v}
               key={v}
-              className={'me-2'}
+              className={'me-1'}
               data-tooltip-content={column.name + ' language: ' + name}
             >
               <DataBadge name={name} />
@@ -97,7 +97,7 @@ const LanguageValue: FC<Props> = ({
           return (
             <button
               data-tooltip-content={'Language: ' + lang.name}
-              className={'me-2'}
+              className={'me-1'}
               style={badgeButtonStyle}
               key={lang.iso6393}
               onClick={() => {
