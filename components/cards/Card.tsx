@@ -24,6 +24,7 @@ import { Item } from '../../types/Item'
 import { FC } from 'react'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { useRouter } from 'next/router'
 
 type Props = {
   type: Types
@@ -45,6 +46,7 @@ const Card: FC<Props> = ({
   move = null,
 }) => {
   const { data: session } = useSession()
+  const router = useRouter()
   const hrefString =
     '/' +
     type +
@@ -54,6 +56,13 @@ const Card: FC<Props> = ({
       : 'uid' in content
         ? content.uid
         : content._id)
+  const href =
+    type === Types.item
+      ? {
+          pathname: hrefString,
+          query: { from: router.asPath },
+        }
+      : hrefString
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -75,7 +84,7 @@ const Card: FC<Props> = ({
         {imageUrl !== '' && (
           <div className={'col-auto'}>
             <Link
-              href={hrefString}
+              href={href}
               data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
               className={'umami--click--' + type + '-' + content.name}
             >
@@ -154,7 +163,7 @@ const Card: FC<Props> = ({
             </h5>
 
             <Link
-              href={hrefString}
+              href={href}
               className={classNames(
                 styles.link,
                 'umami--click--' + type + '-' + content.name,

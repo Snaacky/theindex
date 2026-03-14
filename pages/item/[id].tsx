@@ -15,6 +15,7 @@ import UrlBadge from '../../components/data/UrlBadge'
 import { postData } from '../../lib/utils'
 import Meta from '../../components/layout/Meta'
 import React, { FC } from 'react'
+import { useRouter } from 'next/router'
 import { getAllCache } from '../../lib/db/cache'
 import { Types } from '../../types/Components'
 import type { Item } from '../../types/Item'
@@ -32,6 +33,11 @@ type Props = { item: Item; columns: Column[]; collections: ItemCollection[] }
 
 const Item: FC<Props> = ({ item, columns, collections }) => {
   const { data: session } = useSession()
+  const router = useRouter()
+  const returnPath =
+    typeof router.query.from === 'string' && router.query.from.startsWith('/')
+      ? router.query.from
+      : '/items'
   const {
     features: featuresColumns,
     pro: proColumns,
@@ -92,6 +98,7 @@ const Item: FC<Props> = ({ item, columns, collections }) => {
                 type={Types.item}
                 content={item}
                 className={'ms-2'}
+                redirectPath={returnPath}
               />
             )}
           </h2>

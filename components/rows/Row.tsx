@@ -23,6 +23,7 @@ import { Library } from '../../types/Library'
 import { Item } from '../../types/Item'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { useRouter } from 'next/router'
 
 type Props = {
   type: Types
@@ -44,6 +45,7 @@ const Row: FC<Props> = ({
   remove = null,
 }) => {
   const { data: session } = useSession()
+  const router = useRouter()
   const hrefString =
     '/' +
     type +
@@ -53,6 +55,13 @@ const Row: FC<Props> = ({
       : 'uid' in content
         ? content.uid
         : content._id)
+  const href =
+    type === Types.item
+      ? {
+          pathname: hrefString,
+          query: { from: router.asPath },
+        }
+      : hrefString
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -87,7 +96,7 @@ const Row: FC<Props> = ({
         {imageUrl !== '' && (
           <div className={styles.column + ' col-auto p-1'}>
             <Link
-              href={hrefString}
+              href={href}
               data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
               className={'umami--click--' + type + '-' + content.name}
             >
@@ -147,7 +156,7 @@ const Row: FC<Props> = ({
             </h5>
 
             <Link
-              href={hrefString}
+              href={href}
               className={
                 styles.link + ' umami--click--' + type + '-' + content.name
               }
