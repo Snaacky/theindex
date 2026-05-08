@@ -20,7 +20,7 @@
     "bootstrap": "^5.3.8",
     "classnames": "^2.5.1",
     "dotenv": "^17.2.3",
-    "geoip-lite": "^1.4.10",
+    "geoip-lite": "^2.0.2",
     "ioredis": "^5.8.2",
     "iso-639-3": "^3.0.1",
     "jsdom": "^27.2.0",
