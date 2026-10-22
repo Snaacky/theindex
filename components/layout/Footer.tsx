@@ -101,12 +101,6 @@ const Footer: FC<Props> = ({ error }) => {
           </div>
         </div>
       </div>
-      <div className='d-flex justify-content-center mt-4 text-muted'>
-        <span className={'me-4 mb-2'}>Anime Index Team © 2021</span>
-        <Link href={'/api/export'} rel='nofollow'>
-          Export all data
-        </Link>
-      </div>
     </footer>
   )
 }

@@ -3,6 +3,7 @@ import fs from 'fs'
 import Mongo from 'mongodb'
 import Redis from 'ioredis'
 import { iso6393 } from 'iso-639-3'
+import { normalizeEnvValue } from './lib/env.js'
 
 console.log('\nStarting cleanup process\n')
 
@@ -19,11 +20,10 @@ const errorEnv = (env) => {
 }
 
 const warnEnv = (env, defaultValue) => {
-  console.error(
+  console.warn(
     "ENV '" + env + "' is not provided, using default:",
     defaultValue
   )
-  process.exit(1)
 }
 
 if (!('NEXT_PUBLIC_SITE_NAME' in process.env)) {
@@ -37,18 +37,18 @@ if (!('NEXT_PUBLIC_DOMAIN' in process.env)) {
 if (!('DATABASE_URL' in process.env)) {
   warnEnv('DATABASE_URL', 'mongodb://mongo:27017/index')
 }
+const databaseUrl = normalizeEnvValue(
+  process.env.DATABASE_URL,
+  'mongodb://mongo:27017/index'
+)
 let dbClient, db
 try {
-  dbClient = new MongoClient(
-    'DATABASE_URL' in process.env
-      ? process.env.DATABASE_URL
-      : 'mongodb://mongo:27017/index',
-    { maxPoolSize: 5 }
-  )
+  dbClient = new MongoClient(databaseUrl, { maxPoolSize: 5 })
   await dbClient.connect()
   db = dbClient.db('index')
   console.log('Connection to mongo db server could be established')
 } catch (e) {
+  console.error('Resolved DATABASE_URL:', databaseUrl)
   console.error('Failed to connect to mongo db server:', e)
   process.exit(1)
 }
@@ -56,14 +56,17 @@ try {
 if (!('CACHE_URL' in process.env)) {
   warnEnv('CACHE_URL', 'redis://redis:6379')
 }
+const cacheUrl = normalizeEnvValue(
+  process.env.CACHE_URL,
+  'redis://localhost'
+)
 let cacheClient
 try {
-  cacheClient = new Redis(
-    'CACHE_URL' in process.env ? process.env.CACHE_URL : 'redis://localhost'
-  )
+  cacheClient = new Redis(cacheUrl)
   cacheClient.flushall().catch((e) => console.error('Failed to flush cache', e))
   console.log('Connection to redis cache server could be established')
 } catch (e) {
+  console.error('Resolved CACHE_URL:', cacheUrl)
   console.error('Failed to connect to redis cache server:', e)
   process.exit(1)
 }

@@ -26,6 +26,54 @@ import { faThLarge } from '@fortawesome/free-solid-svg-icons/faThLarge'
 import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand'
 import { faCompress } from '@fortawesome/free-solid-svg-icons/faCompress'
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit'
+import { useRouter } from 'next/router'
+
+type PersistedBoardState = {
+  startViewIndex: number
+  pageSize: number
+  editStartViewIndex: number
+  editPageSize: number
+}
+
+const boardStateCache = new Map<string, PersistedBoardState>()
+
+const defaultBoardState: PersistedBoardState = {
+  startViewIndex: 0,
+  pageSize: 15,
+  editStartViewIndex: 0,
+  editPageSize: 15,
+}
+
+function getBoardContentKey(
+  contentOf: User | Item | List | Collection | Column | Library | null
+) {
+  if (contentOf === null) {
+    return 'root'
+  }
+
+  if ('uid' in contentOf && typeof contentOf.uid === 'string') {
+    return contentOf.uid
+  }
+
+  if ('_id' in contentOf && typeof contentOf._id === 'string') {
+    return contentOf._id
+  }
+
+  return 'root'
+}
+
+function clampPageStart(
+  startIndex: number,
+  pageSize: number,
+  contentLength: number
+) {
+  if (pageSize === 0 || contentLength <= 0) {
+    return 0
+  }
+
+  const maxStartIndex = Math.floor((contentLength - 1) / pageSize) * pageSize
+  return Math.max(0, Math.min(startIndex, maxStartIndex))
+}
 
 type Props = {
   contentOf: User | Item | List | Collection | Column | Library | null
@@ -40,6 +88,8 @@ type Props = {
   forceEditMode?: boolean
   canMove?: boolean
   canEdit?: boolean
+  loadAllContentUrl?: string
+  deferAllContentLoad?: boolean
 }
 
 const Board: FC<Props> = ({
@@ -55,7 +105,19 @@ const Board: FC<Props> = ({
   forceEditMode = false,
   canMove = true,
   canEdit: allowEdit = false,
+  loadAllContentUrl = '',
+  deferAllContentLoad = false,
 }) => {
+  const router = useRouter()
+  const boardStateKey =
+    router.asPath +
+    '::' +
+    type +
+    '::' +
+    getBoardContentKey(contentOf)
+  const persistedState =
+    boardStateCache.get(boardStateKey) ?? defaultBoardState
+
   if (!allContent && !content) {
     console.warn(
       'Board has nothing to use as allContent... content',
@@ -64,10 +126,15 @@ const Board: FC<Props> = ({
       allContent
     )
   }
-  allContent = allContent || content || []
+  const initialAllContent =
+    deferAllContentLoad && loadAllContentUrl !== ''
+      ? content || []
+      : allContent || content || []
   const [_content, setContent] = useState(content)
+  const [loadedAllContent, setLoadedAllContent] = useState(initialAllContent)
+  const [loadingAllContent, setLoadingAllContent] = useState(false)
   const [unselectedContent, setUnselectedContent] = useState(
-    (allContent as Item[]).filter(
+    (initialAllContent as Item[]).filter(
       (i) => !content.some((ii) => i._id === ii._id)
     )
   )
@@ -80,12 +147,16 @@ const Board: FC<Props> = ({
   const [showFilter, setShowFilter] = useState(false)
   const [columnFilter, setColumnFilter] = useState({})
 
-  const [startViewIndex, setStartViewIndex] = useState(0)
+  const [startViewIndex, setStartViewIndex] = useState(
+    persistedState.startViewIndex
+  )
   const pageSizes = [15, 30, 60, 0]
-  const [pageSize, setPageSize] = useState(pageSizes[0])
+  const [pageSize, setPageSize] = useState(persistedState.pageSize)
 
-  const [editStartViewIndex, setEditStartViewIndex] = useState(0)
-  const [editPageSize, setEditPageSize] = useState(pageSizes[0])
+  const [editStartViewIndex, setEditStartViewIndex] = useState(
+    persistedState.editStartViewIndex
+  )
+  const [editPageSize, setEditPageSize] = useState(persistedState.editPageSize)
   const sortOptions = [
     {
       name: 'asc',
@@ -123,19 +194,75 @@ const Board: FC<Props> = ({
 
   useEffect(() => {
     setUnselectedContent(
-      (allContent as Item[]).filter(
+      (loadedAllContent as Item[]).filter(
         (c) => !_content.some((cc) => cc._id === c._id)
       )
     )
-  }, [_content, allContent])
+  }, [_content, loadedAllContent])
   useEffect(() => {
     setContent(content)
   }, [content])
+  useEffect(() => {
+    if (deferAllContentLoad && loadAllContentUrl !== '') {
+      return
+    }
+
+    setLoadedAllContent(allContent || content || [])
+  }, [allContent, content, deferAllContentLoad, loadAllContentUrl])
+  useEffect(() => {
+    const cachedState = boardStateCache.get(boardStateKey) ?? defaultBoardState
+    setStartViewIndex(cachedState.startViewIndex)
+    setPageSize(cachedState.pageSize)
+    setEditStartViewIndex(cachedState.editStartViewIndex)
+    setEditPageSize(cachedState.editPageSize)
+  }, [boardStateKey])
 
   const randString = Math.random().toString(36).slice(2)
 
   const sortContent = (newContent) => {
     return newContent.sort(sortOption.sort)
+  }
+
+  const ensureAllContentLoaded = async () => {
+    if (
+      !deferAllContentLoad ||
+      loadAllContentUrl === '' ||
+      loadingAllContent ||
+      loadedAllContent.length > _content.length
+    ) {
+      return true
+    }
+
+    setLoadingAllContent(true)
+    const toastId = toast.loading('Loading edit data...')
+
+    try {
+      const response = await fetch(loadAllContentUrl)
+      if (response.status !== 200) {
+        throw new Error('Failed to load edit data')
+      }
+
+      const fullContent = await response.json()
+      setLoadedAllContent(fullContent)
+      toast.update(toastId, {
+        render: 'Edit data loaded',
+        type: 'success',
+        isLoading: false,
+        autoClose: 1000,
+      })
+      return true
+    } catch (error) {
+      console.error('Failed to load full board content', error)
+      toast.update(toastId, {
+        render: 'Failed to load edit data',
+        type: 'error',
+        isLoading: false,
+        autoClose: 1500,
+      })
+      return false
+    } finally {
+      setLoadingAllContent(false)
+    }
   }
 
   const updateContent = (newContent, newUnselectedContent) => {
@@ -336,6 +463,47 @@ const Board: FC<Props> = ({
       (index >= editStartViewIndex && index < editStartViewIndex + editPageSize)
   )
 
+  useEffect(() => {
+    const nextStartViewIndex = clampPageStart(
+      startViewIndex,
+      pageSize,
+      filteredContent.length
+    )
+    if (nextStartViewIndex !== startViewIndex) {
+      setStartViewIndex(nextStartViewIndex)
+    }
+  }, [filteredContent.length, pageSize, startViewIndex])
+
+  useEffect(() => {
+    const nextEditStartViewIndex = clampPageStart(
+      editStartViewIndex,
+      editPageSize,
+      filteredUnselectedContent.length
+    )
+    if (nextEditStartViewIndex !== editStartViewIndex) {
+      setEditStartViewIndex(nextEditStartViewIndex)
+    }
+  }, [
+    editPageSize,
+    editStartViewIndex,
+    filteredUnselectedContent.length,
+  ])
+
+  useEffect(() => {
+    boardStateCache.set(boardStateKey, {
+      startViewIndex,
+      pageSize,
+      editStartViewIndex,
+      editPageSize,
+    })
+  }, [
+    boardStateKey,
+    editPageSize,
+    editStartViewIndex,
+    pageSize,
+    startViewIndex,
+  ])
+
   return (
     <>
       <div className={'row g-2'}>
@@ -417,7 +585,14 @@ const Board: FC<Props> = ({
             <button
               className={'btn btn-outline-warning mb-2'}
               type={'button'}
-              onClick={() => {
+              onClick={async () => {
+                if (!editMode) {
+                  const ready = await ensureAllContentLoaded()
+                  if (!ready) {
+                    return
+                  }
+                }
+
                 if (
                   editMode &&
                   startViewIndex >=

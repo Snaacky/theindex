@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Navbar.module.css'
@@ -9,7 +9,6 @@ import IconLibrary from '../icons/IconLibrary'
 import IconCollection from '../icons/IconCollection'
 import IconColumn from '../icons/IconColumn'
 import IconItem from '../icons/IconItem'
-import IconList from '../icons/IconList'
 import LoginOrOutButton from '../buttons/LoginOrOutButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
@@ -19,15 +18,27 @@ import { useSession } from 'next-auth/react'
 import IconAdmin from '../icons/IconAdmin'
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord'
+import type { MenuLibrary } from '../../lib/db/publicData'
 
 function Sidebar({ show, setShow }, ref) {
   const { data: session } = useSession()
-  const { data: swrLibraries } = useSWR('/api/libraries', { fallbackData: [] })
-  const { data: swrCollections } = useSWR('/api/collections', {
-    fallbackData: [],
-  })
+  const [shouldLoadMenu, setShouldLoadMenu] = useState(show)
+
+  useEffect(() => {
+    if (show) {
+      setShouldLoadMenu(true)
+    }
+  }, [show])
+
+  const { data: swrLibraries } = useSWR<MenuLibrary[]>(
+    shouldLoadMenu ? '/api/menu' : null,
+    {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    }
+  )
   const libraries = swrLibraries || []
-  const allCollections = swrCollections || []
+  const menuLoaded = shouldLoadMenu && typeof swrLibraries !== 'undefined'
 
   const clickFunc = () => setShow(!show)
 
@@ -82,7 +93,12 @@ function Sidebar({ show, setShow }, ref) {
           )}
 
           <ul className={'nav nav-pills flex-column'}>
-            {libraries.length === 0 && (
+            {show && shouldLoadMenu && !menuLoaded && (
+              <li className={'nav-item'}>
+                <span className='nav-link text-muted'>Loading libraries...</span>
+              </li>
+            )}
+            {menuLoaded && libraries.length === 0 && (
               <li className={'nav-item'}>
                 <Link href={'#'} className='nav-link'>
                   No libraries found
@@ -107,24 +123,18 @@ function Sidebar({ show, setShow }, ref) {
                         </Link>,
                       ]
                     : collections.map((collection) => {
-                        collection = allCollections.find(
-                          (c) => c._id === collection
+                        return (
+                          <Link
+                            href={'/collection/' + collection.urlId}
+                            key={collection.urlId}
+                            className={
+                              'nav-link umami--click--collection-' +
+                              collection.name
+                            }
+                          >
+                            {collection.name}
+                          </Link>
                         )
-                        if (collection) {
-                          return (
-                            <Link
-                              href={'/collection/' + collection.urlId}
-                              key={collection.urlId}
-                              className={
-                                'nav-link umami--click--collection-' +
-                                collection.name
-                              }
-                            >
-                              {collection.name}
-                            </Link>
-                          )
-                        }
-                        return <></>
                       })
                 }
                 onClick={() => clickFunc()}
@@ -164,14 +174,6 @@ function Sidebar({ show, setShow }, ref) {
                 className={'nav-link umami--click--navbar-items'}
               >
                 <IconItem /> Items
-              </Link>
-            </li>
-            <li className={'nav-item'}>
-              <Link
-                href={'/lists'}
-                className={'nav-link umami--click--navbar-lists'}
-              >
-                <IconList /> User lists
               </Link>
             </li>
           </ul>

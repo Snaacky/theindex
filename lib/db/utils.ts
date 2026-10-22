@@ -22,6 +22,19 @@ export function polluteId(query: Record<string, any>) {
   if (typeof query !== 'undefined') {
     if (hasOwnProperty(query, '_id') && typeof query._id === 'string') {
       query._id = new ObjectId(query._id)
+    } else if (
+      hasOwnProperty(query, '_id') &&
+      typeof query._id === 'object' &&
+      query._id !== null &&
+      hasOwnProperty(query._id, '$in') &&
+      Array.isArray(query._id.$in)
+    ) {
+      query._id = {
+        ...query._id,
+        $in: query._id.$in.map((id) =>
+          typeof id === 'string' ? new ObjectId(id) : id
+        ),
+      }
     }
     if (
       hasOwnProperty(query, 'lastModified') &&

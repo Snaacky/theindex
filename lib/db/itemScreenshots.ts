@@ -65,6 +65,15 @@ export async function getItemScreenshotBuffer(itemId: string) {
   return await streamToBuffer(bucket.openDownloadStreamByName(itemId))
 }
 
+export async function openItemScreenshotStream(itemId: string) {
+  const db = (await clientPromise).db('index')
+  const bucket = new GridFSBucket(db, {
+    bucketName: 'itemScreenshots',
+  })
+
+  return bucket.openDownloadStreamByName(itemId)
+}
+
 export async function screenshotExists(itemId: string) {
   const db = (await clientPromise).db('index')
   const bucket = new GridFSBucket(db, {
@@ -88,4 +97,19 @@ export async function listScreenshotsOfItem(itemId: string) {
     bucketName: 'itemScreenshots',
   })
   return bucket.find({ filename: itemId })
+}
+
+export async function listAllScreenshotFilenames() {
+  const db = (await clientPromise).db('index')
+  const bucket = new GridFSBucket(db, {
+    bucketName: 'itemScreenshots',
+  })
+  const files = await bucket.find({}, { projection: { filename: 1 } }).toArray()
+  return Array.from(
+    new Set(
+      files
+        .map((file) => file.filename)
+        .filter((filename): filename is string => typeof filename === 'string')
+    )
+  )
 }

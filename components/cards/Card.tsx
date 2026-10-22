@@ -9,8 +9,6 @@ import IconAdd from '../icons/IconAdd'
 import DataBadge from '../data/DataBadge'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '../loading'
-import IconBookmark from '../icons/IconBookmark'
-import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
@@ -26,6 +24,8 @@ import { Item } from '../../types/Item'
 import { FC } from 'react'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { useRouter } from 'next/router'
+import { setItemReturnPath } from '../../lib/itemNavigation'
 
 type Props = {
   type: Types
@@ -47,6 +47,7 @@ const Card: FC<Props> = ({
   move = null,
 }) => {
   const { data: session } = useSession()
+  const router = useRouter()
   const hrefString =
     '/' +
     type +
@@ -56,6 +57,13 @@ const Card: FC<Props> = ({
       : 'uid' in content
         ? content.uid
         : content._id)
+  const href =
+    type === Types.item ? hrefString : hrefString
+  const rememberItemOrigin = () => {
+    if (type === Types.item) {
+      setItemReturnPath((content as Item)._id, router.asPath)
+    }
+  }
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -77,7 +85,8 @@ const Card: FC<Props> = ({
         {imageUrl !== '' && (
           <div className={'col-auto'}>
             <Link
-              href={hrefString}
+              href={href}
+              onClick={rememberItemOrigin}
               data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
               className={'umami--click--' + type + '-' + content.name}
             >
@@ -136,16 +145,6 @@ const Card: FC<Props> = ({
                     <DataBadge name={content.accountType} style={'primary'} />
                   </span>
                 )}
-                {type === Types.item && (
-                  <span className={'float-end'}>
-                    <span className={'ms-2'}>
-                      <IconStar item={content as Item} />
-                    </span>
-                    <span className={'ms-2'}>
-                      <IconBookmark item={content as Item} />
-                    </span>
-                  </span>
-                )}
                 {add !== null && (
                   <button
                     data-tooltip-content={'Add ' + type}
@@ -166,7 +165,8 @@ const Card: FC<Props> = ({
             </h5>
 
             <Link
-              href={hrefString}
+              href={href}
+              onClick={rememberItemOrigin}
               className={classNames(
                 styles.link,
                 'umami--click--' + type + '-' + content.name,

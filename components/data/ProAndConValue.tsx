@@ -3,6 +3,11 @@ import DataBadge from './DataBadge'
 import { Column } from '../../types/Column'
 import { FC } from 'react'
 
+const badgeButtonStyle = {
+  backgroundColor: 'transparent',
+  borderStyle: 'none',
+}
+
 type Props = {
   data?: boolean
   column: Column
@@ -25,7 +30,7 @@ const ProAndConValue: FC<Props> = ({
         <Link
           href={'/column/' + column.urlId}
           data-tooltip-content={'View column ' + column.name}
-          className={'me-2'}
+          className={'me-1'}
         >
           <DataBadge data={data} name={displayData} sponsor={sponsor} />
         </Link>
@@ -37,6 +42,7 @@ const ProAndConValue: FC<Props> = ({
     <>
       <button
         data-tooltip-content={'Filter by column ' + column.name}
+        style={badgeButtonStyle}
         onClick={() => {
           if (typeof data === 'boolean') {
             onChange(data ? false : null)

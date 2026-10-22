@@ -8,14 +8,15 @@ import { SessionProvider, useSession } from 'next-auth/react'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import Loader from '../components/loading'
 import { SWRConfig } from 'swr'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Layout from '../components/layout/Layout'
 import { isAdmin, isEditor, isLogin } from '../lib/session'
 import NotAdmin from '../components/layout/NotAdmin'
 import NotLogin from '../components/layout/NotLogin'
 import NoScriptAlert from '../components/alerts/NoScriptAlert'
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { setLastInternalPath } from '../lib/itemNavigation'
 
 // disable autoconfig css of fontawesome, see: https://fontawesome.com/docs/web/use-with/react/use-with
 config.autoAddCss = false
@@ -27,34 +28,17 @@ export default function App({
   const router = useRouter()
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      console.log('changing to ' + url)
-
-      fetch('/api/stats/pageview', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
-      })
-        .then(async (r) => {
-          if (r.status !== 200) {
-            console.warn('Failed to post page stat: Error', r.status)
-          }
-        })
-        .catch((e) => {
-          console.warn('Failed to post page stat: Error', e)
-        })
+    const handleRouteChangeStart = (nextUrl: string) => {
+      if (typeof nextUrl === 'string' && nextUrl.startsWith('/')) {
+        setLastInternalPath(router.asPath)
+      }
     }
 
-    // when page is loaded via direct http request, there is no route change via JS, need to manually trigger
-    handleRouteChange(router.asPath)
-
-    router.events.on('routeChangeComplete', handleRouteChange)
-
-    // If the component is unmounted, unsubscribe from the event with the `off` method:
+    router.events.on('routeChangeStart', handleRouteChangeStart)
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeStart', handleRouteChangeStart)
     }
-  })
+  }, [router])
 
   return (
     <SWRConfig
@@ -75,12 +59,19 @@ export default function App({
 
             return await res.json()
           }),
+        revalidateOnFocus: false,
+        revalidateIfStale: false,
         onError: (error, key) => {
           console.error('SWR errored:', error, 'at path', key)
         },
       }}
     >
-      <SessionProvider>
+      <SessionProvider
+        session={session}
+        refetchOnWindowFocus={false}
+        refetchWhenOffline={false}
+        refetchInterval={0}
+      >
         <Layout>
           <Auth auth={Component.auth}>
             <noscript>

@@ -6,7 +6,6 @@ import DataBadge from '../components/data/DataBadge'
 import Meta from '../components/layout/Meta'
 import { getAllCache } from '../lib/db/cache'
 import { Types } from '../types/Components'
-import useSWR from 'swr'
 import type { Item } from '../types/Item'
 import type { Column } from '../types/Column'
 
@@ -20,11 +19,6 @@ type Props = {
 }
 
 const Items: FC<Props> = ({ items, columns }) => {
-  const { data: swrItems } = useSWR('/api/items')
-  items = swrItems || items
-  const { data: swrColumns } = useSWR('/api/columns')
-  columns = swrColumns || columns
-
   return (
     <>
       <Head>
@@ -65,6 +59,6 @@ export async function getStaticProps() {
       items: await getAllCache(Types.item),
       columns: await getAllCache(Types.column),
     },
-    revalidate: 60,
+    revalidate: 600,
   }
 }

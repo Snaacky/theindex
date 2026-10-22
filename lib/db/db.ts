@@ -1,40 +1,51 @@
 // docker run --name index-db -d -p 27017:27017 mongo
 import { hasOwnProperty } from '../utils'
+import { normalizeEnvValue } from '../env'
 import { cleanId, polluteId } from './utils'
 import clientPromise from './mongoDB'
 
-const uri =
-  'DATABASE_URL' in process.env
-    ? process.env.DATABASE_URL
-    : 'mongodb://localhost'
+const uri = normalizeEnvValue(process.env.DATABASE_URL, 'mongodb://localhost')
 if (typeof uri !== 'string') {
   throw Error('Unable to connect to DB due to missing DATABASE_URL')
 }
 
-export async function exportData(isAdmin = false) {
-  if (isAdmin) {
-    return {
-      collections: await getAll('collections'),
-      columns: await getAll('columns'),
-      items: await getAll('items'),
-      libraries: await getAll('libraries'),
-      lists: await getAll('lists'),
-      users: await getAll('users'),
-    }
-  }
-
-  return {
-    collections: await getAll('collections'),
-    columns: await getAll('columns'),
-    items: await getAll('items'),
-    libraries: await getAll('libraries'),
-  }
+type DbQueryOptions = {
+  projection?: Record<string, 0 | 1>
+  sort?: Record<string, 1 | -1>
+  limit?: number
 }
 
-export async function getAll(collection: string): Promise<object[]> {
+async function runFind(
+  collection: string,
+  query: Record<string, any>,
+  options: DbQueryOptions = {}
+) {
   const db = (await clientPromise).db('index')
-  let data = await db.collection(collection).find().toArray()
-  if (data.length > 0 && hasOwnProperty(data[0], 'name')) {
+  let cursor = db
+    .collection(collection)
+    .find(query, options.projection ? { projection: options.projection } : {})
+
+  if (typeof options.sort !== 'undefined') {
+    cursor = cursor.sort(options.sort)
+  }
+
+  if (typeof options.limit === 'number') {
+    cursor = cursor.limit(options.limit)
+  }
+
+  return await cursor.toArray()
+}
+
+export async function getAll(
+  collection: string,
+  options: DbQueryOptions = {}
+): Promise<object[]> {
+  let data = await runFind(collection, {}, options)
+  if (
+    typeof options.sort === 'undefined' &&
+    data.length > 0 &&
+    hasOwnProperty(data[0], 'name')
+  ) {
     data = data.sort((a, b) => (a.name < b.name ? -1 : 1))
   }
 
@@ -43,20 +54,22 @@ export async function getAll(collection: string): Promise<object[]> {
 
 export async function find(
   collection: string,
-  query: Record<string, any>
+  query: Record<string, any>,
+  options: DbQueryOptions = {}
 ): Promise<object[]> {
-  const db = (await clientPromise).db('index')
-  return cleanId(
-    await db.collection(collection).find(polluteId(query)).toArray()
-  )
+  return cleanId(await runFind(collection, polluteId(query), options))
 }
 
 export async function findOne(
   collection: string,
-  query: Record<string, any>
+  query: Record<string, any>,
+  options: DbQueryOptions = {}
 ): Promise<object | null> {
   const db = (await clientPromise).db('index')
-  const found = await db.collection(collection).findOne(polluteId(query))
+  const found = await db.collection(collection).findOne(polluteId(query), {
+    projection: options.projection,
+    sort: options.sort,
+  })
   if (found === null) {
     return null
   }

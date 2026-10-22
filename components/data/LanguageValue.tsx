@@ -6,6 +6,11 @@ import { getLanguages } from '../../lib/utils'
 import Input from './Input'
 import Button from '../buttons/Button'
 
+const badgeButtonStyle = {
+  backgroundColor: 'transparent',
+  borderStyle: 'none',
+}
+
 type Props = {
   data: string[]
   column: Column
@@ -47,7 +52,7 @@ const LanguageValue: FC<Props> = ({
             <Link
               href={'/column/' + column.urlId + '?v=' + v}
               key={v}
-              className={'me-2'}
+              className={'me-1'}
               data-tooltip-content={column.name + ' language: ' + name}
             >
               <DataBadge name={name} />
@@ -92,7 +97,8 @@ const LanguageValue: FC<Props> = ({
           return (
             <button
               data-tooltip-content={'Language: ' + lang.name}
-              className={'me-2'}
+              className={'me-1'}
+              style={badgeButtonStyle}
               key={lang.iso6393}
               onClick={() => {
                 if (data.includes(lang.iso6393)) {

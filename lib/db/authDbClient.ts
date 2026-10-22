@@ -1,11 +1,8 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 import { MongoClient, ServerApiVersion } from 'mongodb'
+import { normalizeEnvValue } from '../env'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('Invalid/Missing environment variable: "DATABASE_URL"')
-}
-
-const uri = process.env.DATABASE_URL
+const uri = normalizeEnvValue(process.env.DATABASE_URL, 'mongodb://localhost')
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,

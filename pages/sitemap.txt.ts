@@ -4,7 +4,6 @@ import { Library } from '../types/Library'
 import { Item } from '../types/Item'
 import process from 'process'
 import { Collection } from '../types/Collection'
-import { List } from '../types/List'
 
 const Sitemap = () => {}
 
@@ -21,9 +20,7 @@ export const getServerSideProps = async ({ res }) => {
     uri +
     '/collections\n' +
     uri +
-    '/items\n' +
-    uri +
-    '/lists\n'
+    '/items\n'
 
   const libraries = (await getAllCache(Types.library)) as Library[]
   sitemap += libraries
@@ -37,10 +34,6 @@ export const getServerSideProps = async ({ res }) => {
 
   const items = (await getAllCache(Types.item)) as Item[]
   sitemap += items.map((item) => uri + '/item/' + item._id + '\n').join('')
-
-  const lists = (await getAllCache(Types.list)) as List[]
-  sitemap += lists.map((list) => uri + '/list/' + list._id + '\n').join('')
-
   res.setHeader('Content-Type', 'text/plain')
   res.write(sitemap)
   res.end()

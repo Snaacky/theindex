@@ -9,8 +9,6 @@ import IconDelete from '../icons/IconDelete'
 import IconEdit from '../icons/IconEdit'
 import DataBadge from '../data/DataBadge'
 import Loader from '../loading'
-import IconBookmark from '../icons/IconBookmark'
-import IconStar from '../icons/IconStar'
 import OnlineStatus from '../data/OnlineStatus'
 import IconNSFW from '../icons/IconNSFW'
 import IconSponsor from '../icons/IconSponsor'
@@ -25,6 +23,8 @@ import { Library } from '../../types/Library'
 import { Item } from '../../types/Item'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+import { useRouter } from 'next/router'
+import { setItemReturnPath } from '../../lib/itemNavigation'
 
 type Props = {
   type: Types
@@ -46,6 +46,7 @@ const Row: FC<Props> = ({
   remove = null,
 }) => {
   const { data: session } = useSession()
+  const router = useRouter()
   const hrefString =
     '/' +
     type +
@@ -55,6 +56,13 @@ const Row: FC<Props> = ({
       : 'uid' in content
         ? content.uid
         : content._id)
+  const href =
+    type === Types.item ? hrefString : hrefString
+  const rememberItemOrigin = () => {
+    if (type === Types.item) {
+      setItemReturnPath((content as Item)._id, router.asPath)
+    }
+  }
 
   if (typeof content === 'undefined') {
     return <Loader />
@@ -89,7 +97,8 @@ const Row: FC<Props> = ({
         {imageUrl !== '' && (
           <div className={styles.column + ' col-auto p-1'}>
             <Link
-              href={hrefString}
+              href={href}
+              onClick={rememberItemOrigin}
               data-tooltip-content={'View ' + type + ' ' + (content.name ?? '')}
               className={'umami--click--' + type + '-' + content.name}
             >
@@ -145,21 +154,12 @@ const Row: FC<Props> = ({
                     <DataBadge name={content.accountType} style={'primary'} />
                   </span>
                 )}
-                {type === Types.item && (
-                  <>
-                    <span className={'ms-2'}>
-                      <IconStar item={content as Item} />
-                    </span>
-                    <span className={'ms-2'}>
-                      <IconBookmark item={content as Item} />
-                    </span>
-                  </>
-                )}
               </span>
             </h5>
 
             <Link
-              href={hrefString}
+              href={href}
+              onClick={rememberItemOrigin}
               className={
                 styles.link + ' umami--click--' + type + '-' + content.name
               }

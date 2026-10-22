@@ -1,5 +1,15 @@
 import { Column, ColumnType } from '../types/Column'
 
+const hiddenItemColumnNames = new Set([
+  'anti-adblock',
+  'disqus',
+  'mobile responsiveness',
+])
+
+export const isHiddenItemColumn = (column: Column) => {
+  return hiddenItemColumnNames.has(column.name.trim().toLowerCase())
+}
+
 export type SplitColumns = {
   features: Column[]
   pro: Column[]
@@ -20,6 +30,10 @@ export const splitColumnsIntoTypes = (
   columns.forEach((c) => {
     if (typeof c === 'undefined' || c === null) {
       console.warn('Impossible column data', c, 'skipping...')
+      return
+    }
+
+    if (isHiddenItemColumn(c)) {
       return
     }
 

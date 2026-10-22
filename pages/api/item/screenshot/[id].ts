@@ -1,48 +1,50 @@
-import { getItem } from '../../../../lib/db/items'
-import { auth } from '../../../../auth'
 import {
-  getItemScreenshotBuffer,
+  openItemScreenshotStream,
   screenshotExists,
 } from '../../../../lib/db/itemScreenshots'
-import createScreenshot from '../../../../lib/crawler/screenshot'
-import { isAdmin } from '../../../../lib/session'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await auth(req, res)
-  const item = await getItem(req.query.id as string)
-  if (item) {
-    try {
-      if (await screenshotExists(item._id)) {
-        const screenshotBuffer = await getItemScreenshotBuffer(item._id)
-        if (screenshotBuffer !== null) {
-          res.setHeader('Content-Type', 'image/png')
-          res.send(screenshotBuffer)
-        } else {
-          res
-            .status(500)
-            .send('Something went wrong here.. no image stream found')
-        }
-      } else {
-        if (isAdmin(session)) {
-          console.log('Admin and missing screenshot, creating new')
-          createScreenshot(item._id).catch((e) => {
-            console.error('Could not create screenshot of', item._id, e)
-          })
-        }
-        res.redirect('/no-screenshot.png').end()
-      }
-    } catch (e) {
+  try {
+    const itemId = req.query.id as string
+    if (!(await screenshotExists(itemId))) {
+      res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=3600, stale-while-revalidate=86400'
+      )
+      return res.redirect('/no-screenshot.png')
+    }
+
+    const stream = await openItemScreenshotStream(itemId)
+    res.setHeader('Content-Type', 'image/png')
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=86400, stale-while-revalidate=604800'
+    )
+
+    stream.once('error', (error) => {
       console.log(
         'Something horribly went wrong while fetching the screenshot :(',
-        e
+        error
       )
-      res.status(500).send(e.toString())
-    }
-  } else {
-    res.status(404).end()
+      if (!res.headersSent) {
+        res.status(500).send(error.toString())
+      } else {
+        res.destroy(error as Error)
+      }
+    })
+    res.once('close', () => {
+      stream.destroy()
+    })
+    stream.pipe(res)
+  } catch (e) {
+    console.log(
+      'Something horribly went wrong while opening the screenshot stream :(',
+      e
+    )
+    res.status(500).send(e.toString())
   }
 }

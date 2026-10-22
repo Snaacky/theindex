@@ -13,9 +13,10 @@ type Props = {
   type: Types
   content: Collection | Item | List | Column | Library
   className?: string
+  redirectPath?: string
 }
 
-const DeleteButton: FC<Props> = ({ type, content, className }) => {
+const DeleteButton: FC<Props> = ({ type, content, className, redirectPath }) => {
   const router = useRouter()
   return (
     <IconDelete
@@ -32,8 +33,12 @@ const DeleteButton: FC<Props> = ({ type, content, className }) => {
           )
         ) {
           postData('/api/delete/' + type, { _id: content._id }, () => {
+            const targetPath =
+              typeof redirectPath === 'string' && redirectPath.startsWith('/')
+                ? redirectPath
+                : '/' + singularToPlural(type)
             router
-              .push('/' + singularToPlural(type))
+              .push(targetPath)
               .then(() => console.log('Deleted ' + type, content._id))
           })
         }

@@ -111,8 +111,11 @@ const extractFieldsFromItemDataDiff = async (
   return result
     .filter((result) => {
       if (result.old === null && result.updated === null) {
-        console.error('illegal data packet for webhook post', result)
         return false
+      }
+
+      if (result.old === null || result.updated === null) {
+        return result.old !== result.updated
       }
 
       if (typeof result.old !== typeof result.updated) {
@@ -121,6 +124,10 @@ const extractFieldsFromItemDataDiff = async (
 
       if (!Array.isArray(result.old)) {
         return result.old !== result.updated
+      }
+
+      if (!Array.isArray(result.updated)) {
+        return true
       }
 
       if (result.old.length !== result.updated.length) {

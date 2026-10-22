@@ -49,7 +49,7 @@ export default function Navbar() {
       // Cleanup
       document.removeEventListener('mousedown', checkIfClickedOutside)
     }
-  })
+  }, [show])
 
   const { inViewport } = useInViewport(
     navbarToggleRef,
@@ -58,7 +58,7 @@ export default function Navbar() {
       disconnectOnLeave: false,
     },
     {
-      onEnterViewport: () => console.log('Entered viewport'),
+      onEnterViewport: () => {},
     }
   )
   return (
